@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{18B2269A-22C9-40C1-9F0C-8F22CA373A18}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Fisen_Unit_Generator.My.MyApplication</StartupObject>
+    <RootNamespace>Fisen_Unit_Generator</RootNamespace>
+    <AssemblyName>Fisen Unit Generator</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>E:\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Fisen Unit Generator.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Fisen Unit Generator.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>46D918041FA2B75A9D87A64357087AA67ED69367</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Fisen Unit Generator_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="basFUGFunctions.vb" />
+    <Compile Include="basImportChillers.vb" />
+    <Compile Include="BasPsychrometrics.vb" />
+    <Compile Include="basTabValidation.vb" />
+    <Compile Include="clsChillerMainPerf.vb" />
+    <Compile Include="clsCoolPerf.vb" />
+    <Compile Include="ClsCustomCoil.vb" />
+    <Compile Include="clsDSUnitClass.vb" />
+    <Compile Include="clsElecData.vb" />
+    <Compile Include="ClsERW.vb" />
+    <Compile Include="clsFilters.vb" />
+    <Compile Include="clsHeatPerf.vb" />
+    <Compile Include="ClsHydronicsData.vb" />
+    <Compile Include="clsImportUPG.vb" />
+    <Compile Include="clsModPaddock.vb" />
+    <Compile Include="clsPhysicalData.vb" />
+    <Compile Include="ClsPsychrometrics.vb" />
+    <Compile Include="ClsRefrigData.vb" />
+    <Compile Include="clsReheatPerf.vb" />
+    <Compile Include="clsRXPerf.vb" />
+    <Compile Include="ClsSpecialPerf.vb" />
+    <Compile Include="clsSupplyPerf.vb" />
+    <Compile Include="clsUnitClass.vb" />
+    <Compile Include="clsWarrTest.vb" />
+    <Compile Include="ClsYPALMainPerf.vb" />
+    <Compile Include="frmAcoustic.Designer.vb">
+      <DependentUpon>frmAcoustic.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAcoustic.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddHydroValve.Designer.vb">
+      <DependentUpon>frmAddHydroValve.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddHydroValve.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAFlowMod.Designer.vb">
+      <DependentUpon>frmAFlowMod.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAFlowMod.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCHWCoil.Designer.vb">
+      <DependentUpon>frmCHWCoil.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCHWCoil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCondInt.Designer.vb">
+      <DependentUpon>frmCondInt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCondInt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCPCtrl.Designer.vb">
+      <DependentUpon>frmCPCtrl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCPCtrl.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmAirside.Designer.vb">
+      <DependentUpon>frmCstmAirside.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmAirside.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmCtrl.Designer.vb">
+      <DependentUpon>frmCstmCtrl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmCtrl.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmEnclosure.Designer.vb">
+      <DependentUpon>frmCstmEnclosure.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmEnclosure.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmHV.Designer.vb">
+      <DependentUpon>frmCstmHV.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmHV.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmMech.Designer.vb">
+      <DependentUpon>frmCstmMech.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmMech.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmRef.Designer.vb">
+      <DependentUpon>frmCstmRef.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmRef.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCstmSM.Designer.vb">
+      <DependentUpon>frmCstmSM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCstmSM.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomCoil.Designer.vb">
+      <DependentUpon>frmCustomCoil.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomCoil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDigScroll.Designer.vb">
+      <DependentUpon>frmDigScroll.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDigScroll.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDPP.Designer.vb">
+      <DependentUpon>frmDPP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDPP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDSUnitBase.Designer.vb">
+      <DependentUpon>frmDSUnitBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDSUnitBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmERW.Designer.vb">
+      <DependentUpon>frmERW.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmERW.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExtend.Designer.vb">
+      <DependentUpon>frmExtend.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmExtend.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFanVFD.Designer.vb">
+      <DependentUpon>frmFanVFD.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFanVFD.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFiltration.Designer.vb">
+      <DependentUpon>frmFiltration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFiltration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHGRH.Designer.vb">
+      <DependentUpon>frmHGRH.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHGRH.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHumid.Designer.vb">
+      <DependentUpon>frmHumid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHumid.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHWCoil.Designer.vb">
+      <DependentUpon>frmHWCoil.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHWCoil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLCVAV.Designer.vb">
+      <DependentUpon>frmLCVAV.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLCVAV.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLowAF.Designer.vb">
+      <DependentUpon>frmLowAF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLowAF.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLowAmbient.Designer.vb">
+      <DependentUpon>frmLowAmbient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLowAmbient.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMEHeat_R.Designer.vb">
+      <DependentUpon>frmMEHeat_R.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMEHeat_R.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMGH_H.Designer.vb">
+      <DependentUpon>frmMGH_H.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMGH_H.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMGH_R.Designer.vb">
+      <DependentUpon>frmMGH_R.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMGH_R.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNewFan.Designer.vb">
+      <DependentUpon>frmNewFan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNewFan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOAFMS.Designer.vb">
+      <DependentUpon>frmOAFMS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOAFMS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPipePkg.Designer.vb">
+      <DependentUpon>frmPipePkg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPipePkg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSCCR.Designer.vb">
+      <DependentUpon>frmSCCR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSCCR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectBaseUnitSelection.Designer.vb">
+      <DependentUpon>frmSelectBaseUnitSelection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectBaseUnitSelection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSteamCoil.Designer.vb">
+      <DependentUpon>frmSteamCoil.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSteamCoil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMHGRH_Conv.Designer.vb">
+      <DependentUpon>frmMHGRH_Conv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMHGRH_Conv.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDWall.Designer.vb">
+      <DependentUpon>frmDWall.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDWall.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHGBP.Designer.vb">
+      <DependentUpon>frmHGBP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHGBP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="frm100OA.Designer.vb">
+      <DependentUpon>frm100OA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frm100OA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmAcoustic.resx">
+      <DependentUpon>frmAcoustic.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddHydroValve.resx">
+      <DependentUpon>frmAddHydroValve.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAFlowMod.resx">
+      <DependentUpon>frmAFlowMod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCHWCoil.resx">
+      <DependentUpon>frmCHWCoil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCondInt.resx">
+      <DependentUpon>frmCondInt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCPCtrl.resx">
+      <DependentUpon>frmCPCtrl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmAirside.resx">
+      <DependentUpon>frmCstmAirside.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmCtrl.resx">
+      <DependentUpon>frmCstmCtrl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmEnclosure.resx">
+      <DependentUpon>frmCstmEnclosure.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmHV.resx">
+      <DependentUpon>frmCstmHV.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmMech.resx">
+      <DependentUpon>frmCstmMech.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmRef.resx">
+      <DependentUpon>frmCstmRef.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCstmSM.resx">
+      <DependentUpon>frmCstmSM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomCoil.resx">
+      <DependentUpon>frmCustomCoil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDigScroll.resx">
+      <DependentUpon>frmDigScroll.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDPP.resx">
+      <DependentUpon>frmDPP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDSUnitBase.resx">
+      <DependentUpon>frmDSUnitBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmERW.resx">
+      <DependentUpon>frmERW.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmExtend.resx">
+      <DependentUpon>frmExtend.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFanVFD.resx">
+      <DependentUpon>frmFanVFD.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFiltration.resx">
+      <DependentUpon>frmFiltration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHGRH.resx">
+      <DependentUpon>frmHGRH.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHumid.resx">
+      <DependentUpon>frmHumid.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHWCoil.resx">
+      <DependentUpon>frmHWCoil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLCVAV.resx">
+      <DependentUpon>frmLCVAV.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLowAF.resx">
+      <DependentUpon>frmLowAF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLowAmbient.resx">
+      <DependentUpon>frmLowAmbient.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMEHeat_R.resx">
+      <DependentUpon>frmMEHeat_R.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMGH_H.resx">
+      <DependentUpon>frmMGH_H.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMGH_R.resx">
+      <DependentUpon>frmMGH_R.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNewFan.resx">
+      <DependentUpon>frmNewFan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOAFMS.resx">
+      <DependentUpon>frmOAFMS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPipePkg.resx">
+      <DependentUpon>frmPipePkg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSCCR.resx">
+      <DependentUpon>frmSCCR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectBaseUnitSelection.resx">
+      <DependentUpon>frmSelectBaseUnitSelection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSteamCoil.resx">
+      <DependentUpon>frmSteamCoil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMHGRH_Conv.resx">
+      <DependentUpon>frmMHGRH_Conv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDWall.resx">
+      <DependentUpon>frmDWall.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHGBP.resx">
+      <DependentUpon>frmHGBP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm100OA.resx">
+      <DependentUpon>frm100OA.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fisen Unit Generator_TemporaryKey.pfx" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{B691E011-1797-432E-907A-4D8C69339129}</Guid>
+      <VersionMajor>6</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MSXML2">
+      <Guid>{F5078F18-C551-11D3-89B9-0000F81FE221}</Guid>
+      <VersionMajor>6</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
