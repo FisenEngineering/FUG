@@ -793,6 +793,7 @@ Partial Class frmMain
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.cmbJumpDest = New System.Windows.Forms.ComboBox()
         Me.cmdDebug = New System.Windows.Forms.Button()
+        Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -9723,10 +9724,24 @@ Partial Class frmMain
         Me.cmdDebug.UseVisualStyleBackColor = True
         Me.cmdDebug.Visible = False
         '
+        'chkAutoLaunchTemplate
+        '
+        Me.chkAutoLaunchTemplate.AutoSize = True
+        Me.chkAutoLaunchTemplate.Checked = True
+        Me.chkAutoLaunchTemplate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkAutoLaunchTemplate.Location = New System.Drawing.Point(961, 560)
+        Me.chkAutoLaunchTemplate.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAutoLaunchTemplate.Name = "chkAutoLaunchTemplate"
+        Me.chkAutoLaunchTemplate.Size = New System.Drawing.Size(134, 17)
+        Me.chkAutoLaunchTemplate.TabIndex = 22
+        Me.chkAutoLaunchTemplate.Text = "Auto Launch Template"
+        Me.chkAutoLaunchTemplate.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
+        Me.Controls.Add(Me.chkAutoLaunchTemplate)
         Me.Controls.Add(Me.cmdDebug)
         Me.Controls.Add(Me.cmbJumpDest)
         Me.Controls.Add(Me.chkSaveinProjDB)
@@ -10669,4 +10684,5 @@ Partial Class frmMain
     Friend WithEvents cmbJumpDest As ComboBox
     Friend WithEvents cmdDebug As Button
     Friend WithEvents cmdPasteProjectDir As Button
+    Friend WithEvents chkAutoLaunchTemplate As CheckBox
 End Class

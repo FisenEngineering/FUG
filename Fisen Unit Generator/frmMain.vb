@@ -929,11 +929,35 @@ Public Class frmMain
         End If
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim locFamily As String
+
+        locFamily = Me.ThisUnit.Family
 
         Call SaveTheXMLData()
         Call HandleFlaggedFileMoves()
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
 
+        If chkAutoLaunchTemplate.Checked Then
+            Select Case locFamily
+                Case Is = "Series5"
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                Case Is = "Series10"
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                Case Is = "Series12"
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                Case Is = "Series20"
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                Case Is = "Series40"
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                Case Is = "Series100"
+
+                Case Else
+
+            End Select
+
+
+
+        End If
         End
     End Sub
     Private Sub WriteUnitHistory()
