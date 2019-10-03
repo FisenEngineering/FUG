@@ -940,17 +940,17 @@ Public Class frmMain
         If chkAutoLaunchTemplate.Checked Then
             Select Case locFamily
                 Case Is = "Series5"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series10"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series12"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series20"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series40"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_00.dotm")
+                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series100"
-
+                    Process.Start("S:\FUG\Resources\WordTemplates\YPAL Submittal Template 2_00.dotm")
                 Case Else
 
             End Select
