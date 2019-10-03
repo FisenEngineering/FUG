@@ -32,6 +32,11 @@ Partial Class frmMGH_H
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtEAT = New System.Windows.Forms.TextBox()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.nudHE750 = New System.Windows.Forms.NumericUpDown()
+        Me.chkHE750Burner = New System.Windows.Forms.CheckBox()
+        Me.chkGasTrainRoofRaise = New System.Windows.Forms.CheckBox()
+        Me.nudHMG500 = New System.Windows.Forms.NumericUpDown()
+        Me.chkHMG500Burner = New System.Windows.Forms.CheckBox()
         Me.chkGasTrainBumpout = New System.Windows.Forms.CheckBox()
         Me.chkSupplyFanRelocate = New System.Windows.Forms.CheckBox()
         Me.nudHMB300 = New System.Windows.Forms.NumericUpDown()
@@ -69,12 +74,11 @@ Partial Class frmMGH_H
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.nudHMG500 = New System.Windows.Forms.NumericUpDown()
-        Me.chkHMG500Burner = New System.Windows.Forms.CheckBox()
-        Me.chkGasTrainRoofRaise = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        CType(Me.nudHE750, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudHMG500, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHMB300, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHMB400, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHMB500, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,7 +86,6 @@ Partial Class frmMGH_H
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        CType(Me.nudHMG500, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -96,7 +99,7 @@ Partial Class frmMGH_H
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(591, 225)
+        Me.TabControl1.Size = New System.Drawing.Size(591, 327)
         Me.TabControl1.TabIndex = 9
         '
         'tpgConditions
@@ -112,14 +115,14 @@ Partial Class frmMGH_H
         Me.tpgConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgConditions.Size = New System.Drawing.Size(583, 199)
+        Me.tpgConditions.Size = New System.Drawing.Size(583, 301)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(520, 265)
         Me.btnDoneConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(55, 28)
@@ -186,6 +189,8 @@ Partial Class frmMGH_H
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.nudHE750)
+        Me.tpgOptions.Controls.Add(Me.chkHE750Burner)
         Me.tpgOptions.Controls.Add(Me.chkGasTrainRoofRaise)
         Me.tpgOptions.Controls.Add(Me.nudHMG500)
         Me.tpgOptions.Controls.Add(Me.chkHMG500Burner)
@@ -205,15 +210,64 @@ Partial Class frmMGH_H
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgOptions.Name = "tpgOptions"
-        Me.tpgOptions.Size = New System.Drawing.Size(583, 199)
+        Me.tpgOptions.Size = New System.Drawing.Size(583, 301)
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'nudHE750
+        '
+        Me.nudHE750.Location = New System.Drawing.Point(440, 64)
+        Me.nudHE750.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudHE750.Name = "nudHE750"
+        Me.nudHE750.Size = New System.Drawing.Size(35, 20)
+        Me.nudHE750.TabIndex = 27
+        '
+        'chkHE750Burner
+        '
+        Me.chkHE750Burner.AutoSize = True
+        Me.chkHE750Burner.Location = New System.Drawing.Point(329, 64)
+        Me.chkHE750Burner.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkHE750Burner.Name = "chkHE750Burner"
+        Me.chkHE750Burner.Size = New System.Drawing.Size(104, 17)
+        Me.chkHE750Burner.TabIndex = 26
+        Me.chkHE750Burner.Text = "HE750 Burner(s)"
+        Me.chkHE750Burner.UseVisualStyleBackColor = True
+        '
+        'chkGasTrainRoofRaise
+        '
+        Me.chkGasTrainRoofRaise.AutoSize = True
+        Me.chkGasTrainRoofRaise.Location = New System.Drawing.Point(204, 272)
+        Me.chkGasTrainRoofRaise.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkGasTrainRoofRaise.Name = "chkGasTrainRoofRaise"
+        Me.chkGasTrainRoofRaise.Size = New System.Drawing.Size(145, 17)
+        Me.chkGasTrainRoofRaise.TabIndex = 25
+        Me.chkGasTrainRoofRaise.Text = "Gas Train Roof Elevation"
+        Me.chkGasTrainRoofRaise.UseVisualStyleBackColor = True
+        '
+        'nudHMG500
+        '
+        Me.nudHMG500.Location = New System.Drawing.Point(282, 108)
+        Me.nudHMG500.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudHMG500.Name = "nudHMG500"
+        Me.nudHMG500.Size = New System.Drawing.Size(35, 20)
+        Me.nudHMG500.TabIndex = 24
+        '
+        'chkHMG500Burner
+        '
+        Me.chkHMG500Burner.AutoSize = True
+        Me.chkHMG500Burner.Location = New System.Drawing.Point(168, 109)
+        Me.chkHMG500Burner.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkHMG500Burner.Name = "chkHMG500Burner"
+        Me.chkHMG500Burner.Size = New System.Drawing.Size(117, 17)
+        Me.chkHMG500Burner.TabIndex = 23
+        Me.chkHMG500Burner.Text = "HMG 500 Burner(s)"
+        Me.chkHMG500Burner.UseVisualStyleBackColor = True
+        '
         'chkGasTrainBumpout
         '
         Me.chkGasTrainBumpout.AutoSize = True
-        Me.chkGasTrainBumpout.Location = New System.Drawing.Point(419, 48)
+        Me.chkGasTrainBumpout.Location = New System.Drawing.Point(204, 247)
         Me.chkGasTrainBumpout.Margin = New System.Windows.Forms.Padding(4)
         Me.chkGasTrainBumpout.Name = "chkGasTrainBumpout"
         Me.chkGasTrainBumpout.Size = New System.Drawing.Size(117, 17)
@@ -224,7 +278,7 @@ Partial Class frmMGH_H
         'chkSupplyFanRelocate
         '
         Me.chkSupplyFanRelocate.AutoSize = True
-        Me.chkSupplyFanRelocate.Location = New System.Drawing.Point(419, 25)
+        Me.chkSupplyFanRelocate.Location = New System.Drawing.Point(204, 222)
         Me.chkSupplyFanRelocate.Margin = New System.Windows.Forms.Padding(4)
         Me.chkSupplyFanRelocate.Name = "chkSupplyFanRelocate"
         Me.chkSupplyFanRelocate.Size = New System.Drawing.Size(133, 17)
@@ -234,7 +288,7 @@ Partial Class frmMGH_H
         '
         'nudHMB300
         '
-        Me.nudHMB300.Location = New System.Drawing.Point(127, 99)
+        Me.nudHMB300.Location = New System.Drawing.Point(126, 160)
         Me.nudHMB300.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB300.Name = "nudHMB300"
         Me.nudHMB300.Size = New System.Drawing.Size(35, 20)
@@ -243,7 +297,7 @@ Partial Class frmMGH_H
         'chkHMB300Burner
         '
         Me.chkHMB300Burner.AutoSize = True
-        Me.chkHMB300Burner.Location = New System.Drawing.Point(13, 100)
+        Me.chkHMB300Burner.Location = New System.Drawing.Point(12, 161)
         Me.chkHMB300Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB300Burner.Name = "chkHMB300Burner"
         Me.chkHMB300Burner.Size = New System.Drawing.Size(116, 17)
@@ -253,7 +307,7 @@ Partial Class frmMGH_H
         '
         'nudHMB400
         '
-        Me.nudHMB400.Location = New System.Drawing.Point(127, 74)
+        Me.nudHMB400.Location = New System.Drawing.Point(126, 135)
         Me.nudHMB400.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB400.Name = "nudHMB400"
         Me.nudHMB400.Size = New System.Drawing.Size(35, 20)
@@ -262,7 +316,7 @@ Partial Class frmMGH_H
         'chkHMB400Burner
         '
         Me.chkHMB400Burner.AutoSize = True
-        Me.chkHMB400Burner.Location = New System.Drawing.Point(13, 75)
+        Me.chkHMB400Burner.Location = New System.Drawing.Point(12, 136)
         Me.chkHMB400Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB400Burner.Name = "chkHMB400Burner"
         Me.chkHMB400Burner.Size = New System.Drawing.Size(116, 17)
@@ -272,7 +326,7 @@ Partial Class frmMGH_H
         '
         'nudHMB500
         '
-        Me.nudHMB500.Location = New System.Drawing.Point(127, 48)
+        Me.nudHMB500.Location = New System.Drawing.Point(126, 109)
         Me.nudHMB500.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB500.Name = "nudHMB500"
         Me.nudHMB500.Size = New System.Drawing.Size(35, 20)
@@ -281,7 +335,7 @@ Partial Class frmMGH_H
         'chkHMB500Burner
         '
         Me.chkHMB500Burner.AutoSize = True
-        Me.chkHMB500Burner.Location = New System.Drawing.Point(13, 49)
+        Me.chkHMB500Burner.Location = New System.Drawing.Point(12, 110)
         Me.chkHMB500Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB500Burner.Name = "chkHMB500Burner"
         Me.chkHMB500Burner.Size = New System.Drawing.Size(116, 17)
@@ -291,7 +345,7 @@ Partial Class frmMGH_H
         '
         'nudHMB600
         '
-        Me.nudHMB600.Location = New System.Drawing.Point(127, 22)
+        Me.nudHMB600.Location = New System.Drawing.Point(126, 83)
         Me.nudHMB600.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB600.Name = "nudHMB600"
         Me.nudHMB600.Size = New System.Drawing.Size(35, 20)
@@ -300,7 +354,7 @@ Partial Class frmMGH_H
         'chkHMB600Burner
         '
         Me.chkHMB600Burner.AutoSize = True
-        Me.chkHMB600Burner.Location = New System.Drawing.Point(13, 23)
+        Me.chkHMB600Burner.Location = New System.Drawing.Point(12, 84)
         Me.chkHMB600Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB600Burner.Name = "chkHMB600Burner"
         Me.chkHMB600Burner.Size = New System.Drawing.Size(116, 17)
@@ -312,7 +366,7 @@ Partial Class frmMGH_H
         '
         Me.chkMountEquipmentTouch.AutoSize = True
         Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(32, 164)
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(31, 272)
         Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
         Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
         Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
@@ -323,7 +377,7 @@ Partial Class frmMGH_H
         'chkIncludeEquipmentTouch
         '
         Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(13, 141)
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(12, 249)
         Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
         Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
         Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
@@ -333,7 +387,7 @@ Partial Class frmMGH_H
         '
         'cmdDoneOptions
         '
-        Me.cmdDoneOptions.Location = New System.Drawing.Point(513, 153)
+        Me.cmdDoneOptions.Location = New System.Drawing.Point(520, 265)
         Me.cmdDoneOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdDoneOptions.Name = "cmdDoneOptions"
         Me.cmdDoneOptions.Size = New System.Drawing.Size(55, 28)
@@ -355,7 +409,7 @@ Partial Class frmMGH_H
         Me.tpgControls.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgControls.Size = New System.Drawing.Size(583, 199)
+        Me.tpgControls.Size = New System.Drawing.Size(583, 301)
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -396,7 +450,7 @@ Partial Class frmMGH_H
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneControls.Location = New System.Drawing.Point(520, 265)
         Me.btnDoneControls.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(55, 28)
@@ -494,14 +548,14 @@ Partial Class frmMGH_H
         Me.tpgPerformance.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgPerformance.Name = "tpgPerformance"
         Me.tpgPerformance.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgPerformance.Size = New System.Drawing.Size(583, 199)
+        Me.tpgPerformance.Size = New System.Drawing.Size(583, 301)
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
         'btnDonePerf
         '
-        Me.btnDonePerf.Location = New System.Drawing.Point(513, 153)
+        Me.btnDonePerf.Location = New System.Drawing.Point(520, 265)
         Me.btnDonePerf.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDonePerf.Name = "btnDonePerf"
         Me.btnDonePerf.Size = New System.Drawing.Size(55, 28)
@@ -591,14 +645,14 @@ Partial Class frmMGH_H
         Me.DebugPage.Margin = New System.Windows.Forms.Padding(4)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(4)
-        Me.DebugPage.Size = New System.Drawing.Size(583, 199)
+        Me.DebugPage.Size = New System.Drawing.Size(583, 301)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(124, 241)
+        Me.Cancel.Location = New System.Drawing.Point(112, 343)
         Me.Cancel.Margin = New System.Windows.Forms.Padding(4)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(96, 36)
@@ -609,7 +663,7 @@ Partial Class frmMGH_H
         'btnOK
         '
         Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(20, 241)
+        Me.btnOK.Location = New System.Drawing.Point(8, 343)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(4)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(96, 36)
@@ -617,40 +671,10 @@ Partial Class frmMGH_H
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'nudHMG500
-        '
-        Me.nudHMG500.Location = New System.Drawing.Point(283, 47)
-        Me.nudHMG500.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.nudHMG500.Name = "nudHMG500"
-        Me.nudHMG500.Size = New System.Drawing.Size(35, 20)
-        Me.nudHMG500.TabIndex = 24
-        '
-        'chkHMG500Burner
-        '
-        Me.chkHMG500Burner.AutoSize = True
-        Me.chkHMG500Burner.Location = New System.Drawing.Point(169, 48)
-        Me.chkHMG500Burner.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkHMG500Burner.Name = "chkHMG500Burner"
-        Me.chkHMG500Burner.Size = New System.Drawing.Size(117, 17)
-        Me.chkHMG500Burner.TabIndex = 23
-        Me.chkHMG500Burner.Text = "HMG 500 Burner(s)"
-        Me.chkHMG500Burner.UseVisualStyleBackColor = True
-        '
-        'chkGasTrainRoofRaise
-        '
-        Me.chkGasTrainRoofRaise.AutoSize = True
-        Me.chkGasTrainRoofRaise.Location = New System.Drawing.Point(419, 73)
-        Me.chkGasTrainRoofRaise.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkGasTrainRoofRaise.Name = "chkGasTrainRoofRaise"
-        Me.chkGasTrainRoofRaise.Size = New System.Drawing.Size(145, 17)
-        Me.chkGasTrainRoofRaise.TabIndex = 25
-        Me.chkGasTrainRoofRaise.Text = "Gas Train Roof Elevation"
-        Me.chkGasTrainRoofRaise.UseVisualStyleBackColor = True
-        '
         'frmMGH_H
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(612, 290)
+        Me.ClientSize = New System.Drawing.Size(612, 392)
         Me.ControlBox = False
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
@@ -664,6 +688,8 @@ Partial Class frmMGH_H
         Me.tpgConditions.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        CType(Me.nudHE750, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudHMG500, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHMB300, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHMB400, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHMB500, System.ComponentModel.ISupportInitialize).EndInit()
@@ -674,7 +700,6 @@ Partial Class frmMGH_H
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
-        CType(Me.nudHMG500, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -729,4 +754,6 @@ Partial Class frmMGH_H
     Friend WithEvents chkGasTrainRoofRaise As CheckBox
     Friend WithEvents nudHMG500 As NumericUpDown
     Friend WithEvents chkHMG500Burner As CheckBox
+    Friend WithEvents nudHE750 As NumericUpDown
+    Friend WithEvents chkHE750Burner As CheckBox
 End Class

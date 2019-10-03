@@ -13,13 +13,20 @@
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()
 
+
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("MGH_H") 'Mod Code goes here!
 
-        frmMain.ThisUnit.GenCodesPresent = True
-        frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+        If chkIncludeEquipmentTouch.Checked Then
+            frmMain.ThisUnit.GenCodesPresent = True
+            If chkMountEquipmentTouch.Checked Then
+                frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+            Else
+                frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+            End If
+        End If
 
-        If frmMain.ThisUnit.Family = "Series10" Then
+            If frmMain.ThisUnit.Family = "Series10" Then
             frmMain.ThisUnitGenCodes.Add("960005") 'Adds a panel if it's a series 10
         End If
         frmMain.ThisUnit.CommNodes = "2"
@@ -133,6 +140,14 @@
                 pmodweight = pmodweight + 170 * 1
             End If
         End If
+
+        If chkHE750Burner.Checked Then
+            If nudHE750.Value = 1 Then
+                frmMain.ThisUnitCodes.Add("520601")
+                pmodweight = pmodweight + 1237 * 1.15 * 1
+            End If
+        End If
+
         'Handle the gas train
         frmMain.ThisUnitCodes.Add("520030")
         frmMain.ThisUnitCodes.Add("520031")
@@ -231,7 +246,17 @@
         txtSSE.Text = frmMain.ThisUnitHeatPerf.SSE
         txtLAT.Text = frmMain.ThisUnitHeatPerf.LeavingAirTemp
         txtDeltaT.Text = frmMain.ThisUnitHeatPerf.DeltaT
-        If frmMain.ThisUnit.Family = "Series100" Then optIPU.Enabled = True
+        If frmMain.ThisUnit.Family = "Series100" Then
+            optIPU.Enabled = True
+            optIPU.Checked = True
+            optSE.Enabled = False
+
+            chkIncludeEquipmentTouch.Checked = True
+            chkMountEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+            chkMountEquipmentTouch.Enabled = False
+
+        End If
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
@@ -270,14 +295,26 @@
     Private Sub btnDoneControls_Click(sender As Object, e As EventArgs) Handles btnDoneControls.Click
         Dim deltat As Double
 
-        txtSSE.Text = "80.0"
-        txtOutCap.Text = Format(Val(txtInputCap.Text) * 0.8, "0.0")
+        txtSSE.Text = DetermineEfficiency()
+        txtOutCap.Text = Format(Val(txtInputCap.Text) * Val(txtSSE.Text) / 100, "0.0")
         deltat = Val(txtOutCap.Text) * 1000 / Val(txtHeatAF.Text) / 1.085
         txtDeltaT.Text = Format(deltat, "0.0")
         txtLAT.Text = Format(Val(txtEAT.Text) + deltat, "0.0")
         TabControl1.SelectTab("tpgPerformance")
 
     End Sub
+
+    Private Function DetermineEfficiency() As String
+        Dim sse As String
+        If chkHE750Burner.Checked Then sse = "80.0"
+        If chkHMB300Burner.Checked Then sse = "80.0"
+        If chkHMB400Burner.Checked Then sse = "80.0"
+        If chkHMB500Burner.Checked Then sse = "80.0"
+        If chkHMB600Burner.Checked Then sse = "80.0"
+        If chkHMG500Burner.Checked Then sse = "80.0"
+
+        Return sse
+    End Function
 
     Private Sub cmdDoneOptions_Click(sender As Object, e As EventArgs) Handles cmdDoneOptions.Click
         TabControl1.SelectTab("tpgControls")
@@ -338,6 +375,38 @@
         Else
             chkTempering.Enabled = False
             chkTempering.Checked = False
+        End If
+    End Sub
+
+    Private Sub ChkHE750Burner_CheckedChanged(sender As Object, e As EventArgs) Handles chkHE750Burner.CheckedChanged
+        If chkHE750Burner.Checked Then
+            nudHE750.Value = 1
+        Else
+            nudHE750.Value = 0
+        End If
+    End Sub
+
+    Private Sub OptSE_CheckedChanged(sender As Object, e As EventArgs) Handles optSE.CheckedChanged
+        If optIPU.Checked Then
+            optSATCtrl.Enabled = True
+            optSATCtrl.Checked = True
+            chkTempering.Checked = False
+            chkTempering.Enabled = True
+            opt100OACtrls.Enabled = True
+            optGBAS.Enabled = True
+            optCustomCtrl.Enabled = True
+        End If
+    End Sub
+
+    Private Sub OptIPU_CheckedChanged(sender As Object, e As EventArgs) Handles optIPU.CheckedChanged
+        If optIPU.Checked Then
+            optSATCtrl.Enabled = True
+            optSATCtrl.Checked = True
+            chkTempering.Checked = False
+            chkTempering.Enabled = False
+            opt100OACtrls.Enabled = False
+            optGBAS.Enabled = False
+            optCustomCtrl.Enabled = False
         End If
     End Sub
 End Class
