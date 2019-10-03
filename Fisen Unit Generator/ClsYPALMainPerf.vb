@@ -287,4 +287,32 @@ Public Class ClsYPALMainPerf
 
         xdoc = Nothing
     End Sub
+    Public Sub ImportFSTYPALSoundData()
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim i As Integer
+        xDoc.Load(frmMain.txtBaseUnitFile.Text)
+
+        'Grab all the Ducted Discahrge Data and store in the array
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//BaseUnit/SoundData/DuctedDischarge/v63")
+        For i = 0 To 8
+            pDuctedDischargePWL(i) = xNodeRoot.InnerText
+            If i <> 8 Then xNodeRoot = xNodeRoot.NextSibling
+        Next i
+
+        'Grab all the Ducted Inlet and store in the array
+        xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/SoundData/DuctedInlet/v63")
+        For i = 0 To 8
+            pDuctedInletPWL(i) = xNodeRoot.InnerText
+            If i <> 8 Then xNodeRoot = xNodeRoot.NextSibling
+        Next i
+
+        'Grab all the Radiated and store in the array
+        xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/SoundData/Radiated/v63")
+        For i = 0 To 8
+            pRadiatedPWL(i) = xNodeRoot.InnerText
+            If i <> 8 Then xNodeRoot = xNodeRoot.NextSibling
+        Next i
+
+        xDoc = Nothing
+    End Sub
 End Class

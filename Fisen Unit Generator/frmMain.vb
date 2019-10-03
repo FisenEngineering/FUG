@@ -7763,6 +7763,8 @@ Public Class frmMain
                     ThisUnitElecData.ImportFSTYPALData
                     ThisUnitPhysicalData.ImportFSTYPALData()
                     ThisYPALPerf.ImportFSTYPALData()
+                    ThisYPALPerf.ImportFSTYPALSoundData()  'This grabs all the sound data from the FST XML File
+
                 End If
             Case Is = "Chiller"
                 Select Case ThisUnit.Family
