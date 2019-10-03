@@ -7996,6 +7996,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Low Ambient Chiller")
                 Case Is = "MEHeat(R)"
                     myindex = lstAvailableMods.FindString("Modulating Electric Heat Retrofit")
+                Case Is = "MGH(H)"
+                    myindex = lstAvailableMods.FindString("Modulating Gas Heat Heatco")
                 Case Is = "MGH(R)"
                     myindex = lstAvailableMods.FindString("Modulating Gas Heat Retrofit")
                 Case Is = "MHGRH"
