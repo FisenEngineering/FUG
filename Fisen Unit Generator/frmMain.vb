@@ -4896,6 +4896,8 @@ Public Class frmMain
             ThisUnitSFanPerf.MotorText = txtYPALSFanMotor.Text
         End If
 
+        'Start the Preload for the RXFan Page.
+
         cmbFanStyle.Text = ThisUnitRXPerf.FanStyle
         txtRXAirflow.Text = ThisUnitRXPerf.Airflow
         txtRXESP.Text = ThisUnitRXPerf.ESP
@@ -4906,6 +4908,8 @@ Public Class frmMain
         txtRXFanPower.Text = ThisUnitRXPerf.kWPower
         txtRXDriveType.Text = ThisUnitRXPerf.DriveType
         txtRXDuctLoc.Text = ThisUnitRXPerf.DuctLoc
+        txtYPALRXFanModel.Text = ThisUnitRXPerf.FanSelected
+        txtYPALRXFanMotor.Text = ThisUnitRXPerf.MotorText
 
         If ThisUnit.Family = "Series100" Then
             grpYPALRXFanOnly.Visible = True
