@@ -5629,7 +5629,7 @@ Public Class frmMain
             ThisUnitFactOpts.Add(lstFactOpts.Items.Item(i))
         Next i
 
-        Call PopulateModGenFieldInstalleds
+        Call PopulateModGenFieldInstalleds()
 
         If ThisUnitFieldInst.Count > 0 Then
             lstFieldInst.ClearSelected()
@@ -7764,7 +7764,7 @@ Public Class frmMain
                     ThisUnitHeatPerf.ImportFSTYPALData()
                     ThisUnitSFanPerf.ImportFSTYPALData()
                     ThisUnitRXPerf.ImportFSTYPALData()
-                    ThisUnitElecData.ImportFSTYPALData
+                    ThisUnitElecData.ImportFSTYPALData()
                     ThisUnitPhysicalData.ImportFSTYPALData()
                     ThisYPALPerf.ImportFSTYPALData()
                     ThisYPALPerf.ImportFSTYPALSoundData()  'This grabs all the sound data from the FST XML File
@@ -8006,6 +8006,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Modulating Gas Heat Heatco")
                 Case Is = "MGH(R)"
                     myindex = lstAvailableMods.FindString("Modulating Gas Heat Retrofit")
+                Case Is = "HGRH"
+                    myindex = lstAvailableMods.FindString("Hot Gas Reheat")
                 Case Is = "MHGRH"
                     If ThisUnit.Family = "Series40" Then
                         myindex = lstAvailableMods.FindString("Hot Gas Reheat")
