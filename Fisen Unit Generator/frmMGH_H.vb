@@ -148,6 +148,14 @@
             End If
         End If
 
+        If chkHMB300Burner.Checked Or chkHMB400Burner.Checked Or chkHMB500Burner.Checked Or chkHMB600Burner.Checked Or chkHMG500Burner.Checked Then
+            frmMain.ThisUnitCodes.Add("520500")
+        End If
+
+        If chkHE750Burner.Checked Then
+            frmMain.ThisUnitCodes.Add("520600")
+        End If
+
         'Handle the gas train
         frmMain.ThisUnitCodes.Add("520030")
         frmMain.ThisUnitCodes.Add("520031")
@@ -187,6 +195,14 @@
             frmMain.ThisUnitCodes.Add("520911")
         End If
 
+        If chkBypassTunnel.Checked Then
+            frmMain.ThisUnitCodes.Add("520920")
+        End If
+
+        If chkManualBalanceDamper.Checked Then
+            frmMain.ThisUnitCodes.Add("520921")
+        End If
+
         frmMain.ThisUnitCodes.Add("520199")
     End Sub
     Private Sub UpdateBaseUnitRequiredItems()
@@ -212,13 +228,21 @@
         'Now it's logic to assign the values.
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series40"
+                If chkManualBalanceDamper.Checked Then
+                    pmodweight = pmodweight + 25
+                End If
                 tempWeight = pmodweight + 115
             Case Is = "Series100"
+                If chkManualBalanceDamper.Checked Then
+                    pmodweight = pmodweight + 40
+                End If
                 tempWeight = pmodweight + 275
         End Select
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub UpdatePerformance()
+        Dim tempAPD As String
+        Dim i As Integer
 
         frmMain.ThisUnitHeatPerf.OutputCapacity = txtOutCap.Text
         frmMain.ThisUnitHeatPerf.SSE = txtSSE.Text
@@ -229,6 +253,20 @@
         frmMain.ThisUnitHeatPerf.InputCapacity = txtInputCap.Text
         frmMain.ThisUnitHeatPerf.ControlStyle = "Modulating"
         frmMain.ThisUnitHeatPerf.HeatType = "Gas"
+        tempAPD = Format(Val(txtBurnerAPD.Text) * 1.1, "0.00")
+        If frmMain.ThisUnit.Family = "Series100" Then
+            frmMain.ThisUnitSFanPerf.StaticNameYpal.Add("Gas Heat Exchanger")
+            frmMain.ThisUnitSFanPerf.StaticDataYpal.Add(tempAPD)
+        End If
+        frmMain.ThisUnitSFanPerf.ESP = frmMain.ThisUnitSFanPerf.ESP - (Val(tempAPD))
+
+        For i = 0 To frmMain.ThisUnitSFanPerf.StaticNameYpal.Count - 1
+            If frmMain.ThisUnitSFanPerf.StaticNameYpal(i) = "External Static Pressure" Then
+                frmMain.ThisUnitSFanPerf.StaticDataYpal(i) = frmMain.ThisUnitSFanPerf.StaticDataYpal(i) - (Val(tempAPD))
+                Exit For
+            End If
+        Next
+
 
     End Sub
     Private Sub frmMGH_H_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -280,6 +318,10 @@
             PerfGood = False
         End If
 
+        txtSFanAirflow.Text = frmMain.ThisUnitSFanPerf.Airflow
+        txtBurnerAirflow.Text = frmMain.ThisUnitSFanPerf.Airflow
+        txtBypassAirflow.Text = "0"
+
         If PerfGood Then
             TabControl1.SelectedIndex = 1
         Else
@@ -300,6 +342,7 @@
         deltat = Val(txtOutCap.Text) * 1000 / Val(txtHeatAF.Text) / 1.085
         txtDeltaT.Text = Format(deltat, "0.0")
         txtLAT.Text = Format(Val(txtEAT.Text) + deltat, "0.0")
+        cmdBurnerAPDCalc.PerformClick()
         TabControl1.SelectTab("tpgPerformance")
 
     End Sub
@@ -408,5 +451,31 @@
             optGBAS.Enabled = False
             optCustomCtrl.Enabled = False
         End If
+    End Sub
+
+    Private Sub ChkBypassTunnel_CheckedChanged(sender As Object, e As EventArgs) Handles chkBypassTunnel.CheckedChanged
+        If chkBypassTunnel.Checked Then
+            chkManualBalanceDamper.Enabled = True
+        Else
+            chkManualBalanceDamper.Enabled = False
+            chkManualBalanceDamper.Checked = False
+        End If
+    End Sub
+
+    Private Sub CmdBurnerAPDCalc_Click(sender As Object, e As EventArgs) Handles cmdBurnerAPDCalc.Click
+        Dim BurnerAPD As Double
+        Dim FirstAPD As Double
+        Dim airflow As Double
+
+        airflow = Val(txtBurnerAirflow.Text)
+        BurnerAPD = "0.0"
+        If chkHE750Burner.Checked Then
+            FirstAPD = 0.000000002752976 * Airflow ^ 2 - 0.000005919642857 * airflow + 0.009409077380961
+            cmdBurnerAPDCalc.Enabled = True
+        End If
+
+        BurnerAPD = FirstAPD
+        txtBurnerAPD.Text = Format(BurnerAPD, "0.00")
+        txtBypassAirflow.Text = Str(Val(txtSFanAirflow.Text) - Val(txtBurnerAirflow.Text))
     End Sub
 End Class
