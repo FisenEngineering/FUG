@@ -930,16 +930,38 @@ Public Class frmMain
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim locFamily As String
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
 
+        Dim MySQL As String
+        Dim Ver As String
+        Dim UPGFile As String = "S:\FUG\Resources\WordTemplates\UPG Submittal Template "
+        Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
+        '"S:\FUG\Resources\WordTemplates\YPAL Submittal Template 2_00.dotm"
         locFamily = Me.ThisUnit.Family
 
         Call SaveTheXMLData()
         Call HandleFlaggedFileMoves()
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
 
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+                .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT TemplateVer FROM tblWordTemplateVersion WHERE Family='" & locFamily & "'"
+        rs.Open(MySQL, con)
+        Ver = rs.Fields("TemplateVer").Value
+
         If chkAutoLaunchTemplate.Checked Then
             Select Case locFamily
                 Case Is = "Series5"
+                    UPGFile = UPGFile & Ver & ".dotm"
                     Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series10"
                     Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
@@ -950,6 +972,8 @@ Public Class frmMain
                 Case Is = "Series40"
                     Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
                 Case Is = "Series100"
+                    YPALFile = YPALFile & Ver & ".dotm"
+                    'Process.Start("YPALFile")
                     Process.Start("S:\FUG\Resources\WordTemplates\YPAL Submittal Template 2_00.dotm")
                 Case Else
 
