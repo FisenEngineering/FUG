@@ -32,6 +32,8 @@ Partial Class frmMGH_H
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtEAT = New System.Windows.Forms.TextBox()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chkManualBalanceDamper = New System.Windows.Forms.CheckBox()
+        Me.chkBypassTunnel = New System.Windows.Forms.CheckBox()
         Me.nudHE750 = New System.Windows.Forms.NumericUpDown()
         Me.chkHE750Burner = New System.Windows.Forms.CheckBox()
         Me.chkGasTrainRoofRaise = New System.Windows.Forms.CheckBox()
@@ -62,6 +64,16 @@ Partial Class frmMGH_H
         Me.optSATCtrl = New System.Windows.Forms.RadioButton()
         Me.optGBAS = New System.Windows.Forms.RadioButton()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtSFanAirflow = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtBypassAirflow = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.cmdBurnerAPDCalc = New System.Windows.Forms.Button()
+        Me.txtBurnerAPD = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtBurnerAirflow = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtDeltaT = New System.Windows.Forms.TextBox()
@@ -189,6 +201,8 @@ Partial Class frmMGH_H
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chkManualBalanceDamper)
+        Me.tpgOptions.Controls.Add(Me.chkBypassTunnel)
         Me.tpgOptions.Controls.Add(Me.nudHE750)
         Me.tpgOptions.Controls.Add(Me.chkHE750Burner)
         Me.tpgOptions.Controls.Add(Me.chkGasTrainRoofRaise)
@@ -215,9 +229,32 @@ Partial Class frmMGH_H
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chkManualBalanceDamper
+        '
+        Me.chkManualBalanceDamper.AutoSize = True
+        Me.chkManualBalanceDamper.Enabled = False
+        Me.chkManualBalanceDamper.Location = New System.Drawing.Point(365, 247)
+        Me.chkManualBalanceDamper.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkManualBalanceDamper.Name = "chkManualBalanceDamper"
+        Me.chkManualBalanceDamper.Size = New System.Drawing.Size(143, 17)
+        Me.chkManualBalanceDamper.TabIndex = 29
+        Me.chkManualBalanceDamper.Text = "Manual Balance Damper"
+        Me.chkManualBalanceDamper.UseVisualStyleBackColor = True
+        '
+        'chkBypassTunnel
+        '
+        Me.chkBypassTunnel.AutoSize = True
+        Me.chkBypassTunnel.Location = New System.Drawing.Point(345, 222)
+        Me.chkBypassTunnel.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBypassTunnel.Name = "chkBypassTunnel"
+        Me.chkBypassTunnel.Size = New System.Drawing.Size(198, 17)
+        Me.chkBypassTunnel.TabIndex = 28
+        Me.chkBypassTunnel.Text = "Gas Heat Exchanger Bypass Tunnel"
+        Me.chkBypassTunnel.UseVisualStyleBackColor = True
+        '
         'nudHE750
         '
-        Me.nudHE750.Location = New System.Drawing.Point(440, 64)
+        Me.nudHE750.Location = New System.Drawing.Point(470, 63)
         Me.nudHE750.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHE750.Name = "nudHE750"
         Me.nudHE750.Size = New System.Drawing.Size(35, 20)
@@ -229,9 +266,9 @@ Partial Class frmMGH_H
         Me.chkHE750Burner.Location = New System.Drawing.Point(329, 64)
         Me.chkHE750Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHE750Burner.Name = "chkHE750Burner"
-        Me.chkHE750Burner.Size = New System.Drawing.Size(104, 17)
+        Me.chkHE750Burner.Size = New System.Drawing.Size(134, 17)
         Me.chkHE750Burner.TabIndex = 26
-        Me.chkHE750Burner.Text = "HE750 Burner(s)"
+        Me.chkHE750Burner.Text = "HE750 Burner(s) (10:1)"
         Me.chkHE750Burner.UseVisualStyleBackColor = True
         '
         'chkGasTrainRoofRaise
@@ -535,6 +572,16 @@ Partial Class frmMGH_H
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.Label12)
+        Me.tpgPerformance.Controls.Add(Me.txtSFanAirflow)
+        Me.tpgPerformance.Controls.Add(Me.Label11)
+        Me.tpgPerformance.Controls.Add(Me.txtBypassAirflow)
+        Me.tpgPerformance.Controls.Add(Me.Label10)
+        Me.tpgPerformance.Controls.Add(Me.cmdBurnerAPDCalc)
+        Me.tpgPerformance.Controls.Add(Me.txtBurnerAPD)
+        Me.tpgPerformance.Controls.Add(Me.Label9)
+        Me.tpgPerformance.Controls.Add(Me.txtBurnerAirflow)
+        Me.tpgPerformance.Controls.Add(Me.Label8)
         Me.tpgPerformance.Controls.Add(Me.btnDonePerf)
         Me.tpgPerformance.Controls.Add(Me.Label7)
         Me.tpgPerformance.Controls.Add(Me.txtDeltaT)
@@ -552,6 +599,102 @@ Partial Class frmMGH_H
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(287, 273)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(224, 13)
+        Me.Label12.TabIndex = 24
+        Me.Label12.Text = "*Burner APD * 1.1 will be subtracted from ESP"
+        '
+        'txtSFanAirflow
+        '
+        Me.txtSFanAirflow.Location = New System.Drawing.Point(356, 11)
+        Me.txtSFanAirflow.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtSFanAirflow.Name = "txtSFanAirflow"
+        Me.txtSFanAirflow.Size = New System.Drawing.Size(52, 20)
+        Me.txtSFanAirflow.TabIndex = 22
+        Me.txtSFanAirflow.Text = "88888"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(417, 15)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(94, 13)
+        Me.Label11.TabIndex = 23
+        Me.Label11.Text = "Supply Fan Airflow"
+        '
+        'txtBypassAirflow
+        '
+        Me.txtBypassAirflow.Location = New System.Drawing.Point(356, 95)
+        Me.txtBypassAirflow.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBypassAirflow.Name = "txtBypassAirflow"
+        Me.txtBypassAirflow.Size = New System.Drawing.Size(52, 20)
+        Me.txtBypassAirflow.TabIndex = 20
+        Me.txtBypassAirflow.Text = "88888"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(417, 99)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(75, 13)
+        Me.Label10.TabIndex = 21
+        Me.Label10.Text = "Bypass Airflow"
+        '
+        'cmdBurnerAPDCalc
+        '
+        Me.cmdBurnerAPDCalc.Location = New System.Drawing.Point(311, 65)
+        Me.cmdBurnerAPDCalc.Name = "cmdBurnerAPDCalc"
+        Me.cmdBurnerAPDCalc.Size = New System.Drawing.Size(38, 22)
+        Me.cmdBurnerAPDCalc.TabIndex = 19
+        Me.cmdBurnerAPDCalc.Text = "Calc"
+        Me.cmdBurnerAPDCalc.UseVisualStyleBackColor = True
+        '
+        'txtBurnerAPD
+        '
+        Me.txtBurnerAPD.Enabled = False
+        Me.txtBurnerAPD.Location = New System.Drawing.Point(356, 67)
+        Me.txtBurnerAPD.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBurnerAPD.Name = "txtBurnerAPD"
+        Me.txtBurnerAPD.Size = New System.Drawing.Size(52, 20)
+        Me.txtBurnerAPD.TabIndex = 17
+        Me.txtBurnerAPD.Text = "88888"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(417, 71)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(67, 13)
+        Me.Label9.TabIndex = 18
+        Me.Label9.Text = "Burner APD*"
+        '
+        'txtBurnerAirflow
+        '
+        Me.txtBurnerAirflow.Location = New System.Drawing.Point(356, 39)
+        Me.txtBurnerAirflow.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBurnerAirflow.Name = "txtBurnerAirflow"
+        Me.txtBurnerAirflow.Size = New System.Drawing.Size(52, 20)
+        Me.txtBurnerAirflow.TabIndex = 15
+        Me.txtBurnerAirflow.Text = "88888"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(417, 43)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(72, 13)
+        Me.Label8.TabIndex = 16
+        Me.Label8.Text = "Burner Airflow"
         '
         'btnDonePerf
         '
@@ -756,4 +899,16 @@ Partial Class frmMGH_H
     Friend WithEvents chkHMG500Burner As CheckBox
     Friend WithEvents nudHE750 As NumericUpDown
     Friend WithEvents chkHE750Burner As CheckBox
+    Friend WithEvents chkManualBalanceDamper As CheckBox
+    Friend WithEvents chkBypassTunnel As CheckBox
+    Friend WithEvents txtBypassAirflow As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents cmdBurnerAPDCalc As Button
+    Friend WithEvents txtBurnerAPD As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents txtBurnerAirflow As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txtSFanAirflow As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label12 As Label
 End Class
