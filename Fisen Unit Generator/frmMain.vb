@@ -49,6 +49,7 @@ Public Class frmMain
     Private DwgDesc(75) As String
     Private HydroDesc(50) As String
     Private ReferDesc(50) As String
+    Private AirflowDesc(50) As String
     Private PipePkgDefined As Boolean
     Private ERWDefined As Boolean
     Private ProgramGTG As Boolean
@@ -396,6 +397,43 @@ Public Class frmMain
             rs.MoveNext()
         Loop
 
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+    End Sub
+    Private Sub LoadApplicableAirflow()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim i As Integer
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        lstAvailAirflow.Items.Clear()
+
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "Select * FROM tblAirflowDiagrams WHERE " & ThisUnit.Family & "=True"
+        rs.Open(MySQL, con)
+        '       If rs.RecordCount > 0 Then
+        rs.MoveFirst()
+        i = 0
+        Do While Not (rs.EOF)
+            lstAvailAirflow.Items.Add(rs.Fields("PlainName").Value)
+            AirflowDesc(i) = rs.Fields("DrawingDescription").Value
+            i = i + 1
+            rs.MoveNext()
+        Loop
+        'End If
         con.Close()
         rs = Nothing
         con = Nothing
@@ -6193,13 +6231,28 @@ Public Class frmMain
 
         tabMain.SelectTab("pgSequence")
     End Sub
+
     Private Sub DoneAirflowTab()
         Dim i As Integer
         ThisUnitAirflow.Clear()
-
         For i = 0 To lstUsingAirflow.Items.Count - 1
             ThisUnitAirflow.Add(lstUsingAirflow.Items.Item(i))
         Next i
+        If optReferCopyNow.Checked = True Then
+            Call CopyAirflowDrawings()
+        Else
+            For i = 0 To lstUsingAirflow.Items.Count - 1
+                If optAirflowInsertOnly.Checked = True Then
+                    ThisUnitAirflow.Add(lstUsingAirflow.Items.Item(i))
+                End If
+
+                If optAirflowFlagforCopy.Checked = True Then
+                    ThisUnitAirflow.Add(lstUsingAirflow.Items.Item(i))
+                    Call CopyAirflowDrawings()
+                End If
+
+            Next i
+        End If
 
     End Sub
     Private Sub btnDoneSequence_Click(sender As Object, e As EventArgs) Handles btnDoneSequence.Click
@@ -6498,8 +6551,11 @@ Public Class frmMain
 
     Private Sub btnDoneRefrigeration_Click(sender As Object, e As EventArgs) Handles btnDoneRefrigeration.Click
         Call DoneRefrigerationTab()
+        Call LoadApplicableAirflow()
         tabMain.SelectTab("pgAirflow")
     End Sub
+
+
 
     Private Sub DoneRefrigerationTab()
         ThisUnitRefer.Clear()
@@ -6519,6 +6575,53 @@ Public Class frmMain
 
             Next i
         End If
+
+    End Sub
+
+    Private Sub CopyAirflowDrawings()
+        Dim i As Integer
+        Dim FileBase As String
+        Dim FileName As String
+        Dim SourcePath As String
+        Dim ProjectPath As String
+        Dim TargetPath As String
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT * FROM tblAirflowDiagrams"
+        rs.Open(MySQL, con)
+
+        FileBase = ThisUnit.ResourcePath
+
+        ProjectPath = txtProjectDirectory.Text
+        'If the following errors out make a test to see if the final \ is there.
+        'TargetPath = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
+        TargetPath = ProjectPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
+        For i = 0 To ThisUnitRefer.Count - 1
+            rs.Find("PlainName='" & ThisUnitAirflow.Item(i) & "'")
+            FileName = rs.Fields("DrawingPath").Value
+            FileName = FileName & rs.Fields("DrawingName").Value
+            SourcePath = FileBase & "\AirflowDiagrams" & FileName
+            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Airflow Diagram" & Trim(Str(i)) & ".dwg"
+            FileCopy(SourcePath, TargetPath)
+        Next
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
 
     End Sub
     Private Sub CopyReferDrawings()
@@ -8119,4 +8222,31 @@ Public Class frmMain
         txtProjectDirectory.Text = clip
     End Sub
 
+    Private Sub BtnAirflowAdd_Click(sender As Object, e As EventArgs) Handles btnAirflowAdd.Click
+        Dim i As Integer
+        Dim dontdoit As Boolean
+
+        dontdoit = False
+
+        If lstUsingAirflow.Items.Count > 0 Then
+            For i = 0 To lstUsingAirflow.Items.Count - 1
+                If lstUsingAirflow.Items.Item(i) = lstAvailAirflow.Text Then
+                    dontdoit = True
+                End If
+            Next
+        End If
+        If Not (dontdoit) Then
+            lstUsingAirflow.Items.Add(lstAvailAirflow.Text)
+        End If
+        lstAvailAirflow.ClearSelected()
+        txtAirflowDesc.Text = ""
+    End Sub
+
+    Private Sub BtnAirflowDel_Click(sender As Object, e As EventArgs) Handles btnAirflowDel.Click
+        lstUsingAirflow.Items.Remove(lstUsingAirflow.SelectedItem)
+    End Sub
+
+    Private Sub BtnAirflowDelAll_Click(sender As Object, e As EventArgs) Handles btnAirflowDelAll.Click
+        lstUsingAirflow.Items.Clear()
+    End Sub
 End Class

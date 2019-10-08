@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.btnDoneBU = New System.Windows.Forms.Button()
@@ -291,8 +291,8 @@ Partial Class frmMain
         Me.pgAirflow = New System.Windows.Forms.TabPage()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
         Me.optAirflowInsertOnly = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.optAirflowCopyNow = New System.Windows.Forms.RadioButton()
+        Me.optAirflowFlagforCopy = New System.Windows.Forms.RadioButton()
         Me.txtAirflowDesc = New System.Windows.Forms.TextBox()
         Me.btnAirflowDelAll = New System.Windows.Forms.Button()
         Me.btnAirflowDel = New System.Windows.Forms.Button()
@@ -3873,8 +3873,8 @@ Partial Class frmMain
         'GroupBox12
         '
         Me.GroupBox12.Controls.Add(Me.optAirflowInsertOnly)
-        Me.GroupBox12.Controls.Add(Me.RadioButton2)
-        Me.GroupBox12.Controls.Add(Me.RadioButton3)
+        Me.GroupBox12.Controls.Add(Me.optAirflowCopyNow)
+        Me.GroupBox12.Controls.Add(Me.optAirflowFlagforCopy)
         Me.GroupBox12.Location = New System.Drawing.Point(532, 154)
         Me.GroupBox12.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox12.Name = "GroupBox12"
@@ -3897,27 +3897,27 @@ Partial Class frmMain
         Me.optAirflowInsertOnly.Text = "Insert Only"
         Me.optAirflowInsertOnly.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'optAirflowCopyNow
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(21, 46)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(4)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(74, 17)
-        Me.RadioButton2.TabIndex = 5
-        Me.RadioButton2.Text = "Copy Now"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.optAirflowCopyNow.AutoSize = True
+        Me.optAirflowCopyNow.Location = New System.Drawing.Point(21, 46)
+        Me.optAirflowCopyNow.Margin = New System.Windows.Forms.Padding(4)
+        Me.optAirflowCopyNow.Name = "optAirflowCopyNow"
+        Me.optAirflowCopyNow.Size = New System.Drawing.Size(74, 17)
+        Me.optAirflowCopyNow.TabIndex = 5
+        Me.optAirflowCopyNow.Text = "Copy Now"
+        Me.optAirflowCopyNow.UseVisualStyleBackColor = True
         '
-        'RadioButton3
+        'optAirflowFlagforCopy
         '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(21, 21)
-        Me.RadioButton3.Margin = New System.Windows.Forms.Padding(4)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(151, 17)
-        Me.RadioButton3.TabIndex = 4
-        Me.RadioButton3.Text = "Flag for Copying and Insert"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.optAirflowFlagforCopy.AutoSize = True
+        Me.optAirflowFlagforCopy.Location = New System.Drawing.Point(21, 21)
+        Me.optAirflowFlagforCopy.Margin = New System.Windows.Forms.Padding(4)
+        Me.optAirflowFlagforCopy.Name = "optAirflowFlagforCopy"
+        Me.optAirflowFlagforCopy.Size = New System.Drawing.Size(151, 17)
+        Me.optAirflowFlagforCopy.TabIndex = 4
+        Me.optAirflowFlagforCopy.Text = "Flag for Copying and Insert"
+        Me.optAirflowFlagforCopy.UseVisualStyleBackColor = True
         '
         'txtAirflowDesc
         '
@@ -6961,8 +6961,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7013,8 +7013,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.Name = "ElecLoadHP"
         Me.ElecLoadHP.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
@@ -7023,8 +7023,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
         Me.ElecLoadFLA.Width = 50
@@ -10663,8 +10663,8 @@ Partial Class frmMain
     Friend WithEvents optLSeries As RadioButton
     Friend WithEvents GroupBox12 As GroupBox
     Friend WithEvents optAirflowInsertOnly As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents optAirflowCopyNow As RadioButton
+    Friend WithEvents optAirflowFlagforCopy As RadioButton
     Friend WithEvents txtAirflowDesc As TextBox
     Friend WithEvents btnAirflowDelAll As Button
     Friend WithEvents btnAirflowDel As Button
