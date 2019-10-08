@@ -930,6 +930,14 @@ Public Class frmMain
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim locFamily As String
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+        Dim Ver As String
+        Dim UPGFile As String = "S:\FUG\Resources\WordTemplates\UPG Submittal Template "
+        Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
 
         locFamily = Me.ThisUnit.Family
 
@@ -937,20 +945,39 @@ Public Class frmMain
         Call HandleFlaggedFileMoves()
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
 
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+                .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT TemplateVer FROM tblWordTemplateVersion WHERE Family='" & locFamily & "'"
+        rs.Open(MySQL, con)
+        Ver = rs.Fields("TemplateVer").Value
+
         If chkAutoLaunchTemplate.Checked Then
             Select Case locFamily
                 Case Is = "Series5"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series10"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series12"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series20"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series40"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series100"
-                    Process.Start("S:\FUG\Resources\WordTemplates\YPAL Submittal Template 2_00.dotm")
+                    YPALFile = YPALFile & Ver & ".dotm"
+                    Process.Start(YPALFile)
                 Case Else
 
             End Select
@@ -958,6 +985,23 @@ Public Class frmMain
 
 
         End If
+
+        My.Settings.LastJobNumber = txtJobNumber.Text
+        My.Settings.LastUnitNumber = txtUnitNumber.Text
+        My.Settings.LastProjDir = txtProjectDirectory.Text
+
+        If IsNumeric(Mid(txtJobNumber.Text, 1, 4)) Then
+            nudJobNumberAdj.Value = Val(Mid(txtJobNumber.Text, 1, 4))
+        Else
+            nudJobNumberAdj.Value = 3300
+        End If
+        My.Settings.Save()
+
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
         End
     End Sub
     Private Sub WriteUnitHistory()
