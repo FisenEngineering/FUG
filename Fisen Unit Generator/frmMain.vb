@@ -938,7 +938,7 @@ Public Class frmMain
         Dim Ver As String
         Dim UPGFile As String = "S:\FUG\Resources\WordTemplates\UPG Submittal Template "
         Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
-        '"S:\FUG\Resources\WordTemplates\YPAL Submittal Template 2_00.dotm"
+
         locFamily = Me.ThisUnit.Family
 
         Call SaveTheXMLData()
@@ -962,19 +962,22 @@ Public Class frmMain
             Select Case locFamily
                 Case Is = "Series5"
                     UPGFile = UPGFile & Ver & ".dotm"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    Process.Start(UPGFile)
                 Case Is = "Series10"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series12"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series20"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series40"
-                    Process.Start("S:\FUG\Resources\WordTemplates\UPG Submittal Template 2_01.dotm")
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series100"
                     YPALFile = YPALFile & Ver & ".dotm"
-                    'Process.Start("YPALFile")
-                    Process.Start("S:\FUG\Resources\WordTemplates\YPAL Submittal Template 2_00.dotm")
+                    Process.Start(YPALFile)
                 Case Else
 
             End Select
@@ -982,6 +985,23 @@ Public Class frmMain
 
 
         End If
+
+        My.Settings.LastJobNumber = txtJobNumber.Text
+        My.Settings.LastUnitNumber = txtUnitNumber.Text
+        My.Settings.LastProjDir = txtProjectDirectory.Text
+
+        If IsNumeric(Mid(txtJobNumber.Text, 1, 4)) Then
+            nudJobNumberAdj.Value = Val(Mid(txtJobNumber.Text, 1, 4))
+        Else
+            nudJobNumberAdj.Value = 3300
+        End If
+        My.Settings.Save()
+
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
         End
     End Sub
     Private Sub WriteUnitHistory()
