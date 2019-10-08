@@ -37,6 +37,14 @@
         Me.Hide()
     End Sub
     Private Sub UpdateCodeList()
+        Dim ModCount As Integer
+        Dim OnOffCount As Integer
+        Dim OffLoHiCount As Integer
+
+        ModCount = nudModCount.Value
+        OnOffCount = nudOnOffCount.Value
+        OffLoHiCount = nudOffLowHighCount.Value
+
         frmMain.ThisUnitCodes.Add("520000")
         frmMain.ThisUnitCodes.Add("520010")
         'Handle the Burner Counts
@@ -173,11 +181,14 @@
             If optIPU.Checked Then
                 frmMain.ThisUnitCodes.Add("520110")
                 frmMain.ThisUnitCodes.Add("520112")
+                If ((ModCount = 1) And (OnOffCount = 0) And (OffLoHiCount = 0)) Then
+                    frmMain.ThisUnitCodes.Add("520305")
+                End If
             End If
             If chkTempering.Checked Then frmMain.ThisUnitCodes.Add("520115")
 
         End If
-            If opt100OACtrls.Checked Then
+        If opt100OACtrls.Checked Then
             frmMain.ThisUnitCodes.Add("520120")
         End If
         If optCustomCtrl.Checked Then
@@ -360,6 +371,23 @@
     End Function
 
     Private Sub cmdDoneOptions_Click(sender As Object, e As EventArgs) Handles cmdDoneOptions.Click
+        Dim ModCount As Integer
+        Dim OnOffCount As Integer
+        Dim OffLoHiCount As Integer
+        Dim BurnerCount As Integer
+
+        BurnerCount = nudHMB300.Value + nudHMB400.Value + nudHMB500.Value + nudHMB600.Value + nudHMG500.Value + nudHE750.Value
+
+        'guess the counts and populate
+        ModCount = 1
+        OnOffCount = BurnerCount - 1
+        OffLoHiCount = 0
+
+        nudModCount.Value = ModCount
+        nudOnOffCount.Value = OnOffCount
+        nudOffLowHighCount.Value = OffLoHiCount
+
+
         TabControl1.SelectTab("tpgControls")
     End Sub
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
@@ -477,5 +505,9 @@
         BurnerAPD = FirstAPD
         txtBurnerAPD.Text = Format(BurnerAPD, "0.00")
         txtBypassAirflow.Text = Str(Val(txtSFanAirflow.Text) - Val(txtBurnerAirflow.Text))
+    End Sub
+
+    Private Sub TpgControls_Click(sender As Object, e As EventArgs) Handles tpgControls.Click
+
     End Sub
 End Class
