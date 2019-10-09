@@ -266,6 +266,7 @@
             txtUSPSafetyFactor.Text = Format(Val(txtUSP.Text) * 0.1, "0.00")
             txtTSP.Text = Format(Val(txtESP.Text) + Val(txtUSP.Text) + Val(txtUSPSafetyFactor.Text), "0.00")
             txtElevation.Text = frmMain.ThisUnitCoolPerf.Elevation
+
             grpRFanCtrlOptions.Visible = False
             grpXFans.Visible = False
             grpSFanCtrlOptions.Visible = True
@@ -310,39 +311,7 @@
         CabinetStatic = Format(CabStatic, "0.00")
 
     End Function
-    Private Function ElevationCorrection(Elev As String) As Double
-        Dim locElev As Integer
-        Dim k As Double
 
-        locElev = Val(Elev)
-        k = 99.9
-        Select Case locElev
-            Case Is < 1000
-                k = 1
-            Case 1000 To 1999
-                k = 1.04 + 0.04 * (locElev - 1000) / 1000
-            Case 2000 To 2999
-                k = 1.08 + 0.04 * (locElev - 2000) / 1000
-            Case 3000 To 3999
-                k = 1.12 + 0.04 * (locElev - 3000) / 1000
-            Case 4000 To 4999
-                k = 1.16 + 0.06 * (locElev - 4000) / 1000
-            Case 5000 To 5999
-                k = 1.22 + 0.03 * (locElev - 5000) / 1000
-            Case 6000 To 6999
-                k = 1.25 + 0.05 * (locElev - 6000) / 1000
-            Case 7000 To 7999
-                k = 1.3 + 0.05 * (locElev - 7000) / 1000
-            Case 8000 To 8999
-                k = 1.35 + 0.05 * (locElev - 8000) / 1000
-            Case 9000 To 9999
-                k = 1.4 + 0.05 * (locElev - 9000) / 1000
-            Case Is >= 10000
-                k = 999
-        End Select
-        ElevationCorrection = k
-
-    End Function
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()
         Call UpdateWeightTable()
@@ -1235,6 +1204,7 @@
         tslblAirflow.Text = "Airflow:" & txtAirflow.Text
         tslblTSP.Text = "TSP: " & txtTSP.Text
         tslblESP.Text = "ESP: " & txtESP.Text
+        tslblElevation.Text = "Elevation: " & txtElevation.Text
 
         If cmbFanType.Text = "Return Fan" Then
             grpXFans.Visible = False
@@ -1400,26 +1370,45 @@
 
     Private Sub btnReturn_Click(sender As Object, e As EventArgs) Handles btnReturn.Click
         Dim i As Integer
+        Dim rawtsp As Double
         Dim tsp As Double
+        Dim atsp As Double
+        Dim sfactor As Double
+        Dim asfactor As Double
         Dim NewRow As String()
 
         tsp = 0.0
+        atsp = 0.0
+
 
         For i = 0 To dgvStaticSummary.RowCount - 1
             If dgvStaticSummary.Rows(i).Cells.Item(0).Value <> "External Static Pressure" Then
                 tsp = tsp + Val(dgvStaticSummary.Rows(i).Cells.Item(1).Value)
+                atsp = atsp + Val(dgvStaticSummary.Rows(i).Cells.Item(2).Value)
             End If
         Next
-        txtUSP.Text = Format(tsp, "0.00")
+        rawtsp = tsp
+        sfactor = tsp * 0.1
+        asfactor = atsp * 0.1
+        'tsp = tsp + sfactor
+        'atsp = atsp + asfactor
 
-        tsp = tsp * 0.1
-        txtUSPSafetyFactor.Text = Format(tsp, "0.00")
+        If chkESPatElev.Checked Then
+            txtUSP.Text = Format(atsp, "0.00")
+            chkUSPatElev.Checked = True
+            txtUSPSafetyFactor.Text = Format(asfactor, "0.00")
+            chkSFatElev.Checked = True
+            atsp = atsp + Val(txtESP.Text) + asfactor
+            txtTSP.Text = Format(atsp, "0.00")
+            chkTSPatElev.Checked = True
+        Else
+            txtUSP.Text = Format(tsp, "0.00")
+            txtUSPSafetyFactor.Text = Format(sfactor, "0.00")
+            tsp = tsp + Val(txtESP.Text) + sfactor
+            txtTSP.Text = Format(tsp, "0.00")
+        End If
 
-        tsp = tsp + Val(txtUSP.Text) + Val(txtESP.Text)
-
-        txtTSP.Text = Format(tsp, "0.00")
-
-        NewRow = {"Cabinet Effects", txtUSPSafetyFactor.Text, "0.00"}
+        NewRow = {"Cabinet Effects", Format(sfactor, "0.00"), Format(asfactor, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
 
         TabControl1.SelectTab("tpgConditions")
@@ -1518,13 +1507,13 @@
         'finally the hood
         Hood = 0.00000000031 * airflow ^ 2 + 0.00000152434 * airflow + 0.01543379027
 
-        NewRow = {"Return Air Opening", Format(RAOpening, "0.00"), Format(Val(lblKFactor.Text) * RAOpening, "0.00")}
+        NewRow = {"Return Air Opening", Format(RAOpening, "0.00"), Format(Val(lblKFactor.Text) ^ -1 * RAOpening, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
-        NewRow = {"Cabinet Transitions", Format(NinetyBend, "0.00"), Format(Val(lblKFactor.Text) * NinetyBend, "0.00")}
+        NewRow = {"Cabinet Transitions", Format(NinetyBend, "0.00"), Format(Val(lblKFactor.Text) ^ -1 * NinetyBend, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
-        NewRow = {"Exhaust Air Dampers", Format(Damper, "0.00"), Format(Val(lblKFactor.Text) * Damper, "0.00")}
+        NewRow = {"Exhaust Air Dampers", Format(Damper, "0.00"), Format(Val(lblKFactor.Text) ^ -1 * Damper, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
-        NewRow = {"Exhaust Air Hoods", Format(Hood, "0.00"), Format(Val(lblKFactor.Text) * Hood, "0.00")}
+        NewRow = {"Exhaust Air Hoods", Format(Hood, "0.00"), Format(Val(lblKFactor.Text) ^ -1 * Hood, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         frmMain.ThisUnitRXPerf.DuctLoc = "Side"
     End Sub
@@ -2662,5 +2651,11 @@
             txtFanbhpeach.Text = Format((Val(txtFanbhp.Text) / nudFanCount.Value), "0.0")
         End If
 
+    End Sub
+
+    Private Sub txtESP_Leave(sender As Object, e As EventArgs) Handles txtESP.Leave
+        If Val(txtElevation.Text) > 0 Then
+            chkESPatElev.Checked = True
+        End If
     End Sub
 End Class

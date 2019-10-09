@@ -124,4 +124,38 @@
     Public Function psySpecificVolume(db As Double, wb As Double, atm As Double)
         psySpecificVolume = (0.754 * (db + 459.7) * (1 + (7000 * psyHumRatio_db_wb(db, wb, atm) / 4360))) / atm
     End Function
+
+    Public Function ElevationCorrection(Elev As String) As Double
+        Dim locElev As Integer
+        Dim k As Double
+
+        locElev = Val(Elev)
+        k = 99.9
+        Select Case locElev
+            Case Is < 1000
+                k = 1
+            Case 1000 To 1999
+                k = 1.04 + 0.04 * (locElev - 1000) / 1000
+            Case 2000 To 2999
+                k = 1.08 + 0.04 * (locElev - 2000) / 1000
+            Case 3000 To 3999
+                k = 1.12 + 0.04 * (locElev - 3000) / 1000
+            Case 4000 To 4999
+                k = 1.16 + 0.06 * (locElev - 4000) / 1000
+            Case 5000 To 5999
+                k = 1.22 + 0.03 * (locElev - 5000) / 1000
+            Case 6000 To 6999
+                k = 1.25 + 0.05 * (locElev - 6000) / 1000
+            Case 7000 To 7999
+                k = 1.3 + 0.05 * (locElev - 7000) / 1000
+            Case 8000 To 8999
+                k = 1.35 + 0.05 * (locElev - 8000) / 1000
+            Case 9000 To 9999
+                k = 1.4 + 0.05 * (locElev - 9000) / 1000
+            Case Is >= 10000
+                k = 999
+        End Select
+        ElevationCorrection = k
+
+    End Function
 End Module

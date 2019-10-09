@@ -23,9 +23,9 @@ Partial Class frmNewFan
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNewFan))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -37,7 +37,7 @@ Partial Class frmNewFan
         Me.cmdStaticSummary = New System.Windows.Forms.Button()
         Me.lblKFactor = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.chkTSPatElev = New System.Windows.Forms.CheckBox()
         Me.chkSFatElev = New System.Windows.Forms.CheckBox()
         Me.chkUSPatElev = New System.Windows.Forms.CheckBox()
         Me.chkESPatElev = New System.Windows.Forms.CheckBox()
@@ -231,6 +231,7 @@ Partial Class frmNewFan
         Me.tslblTSP = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tslblESP = New System.Windows.Forms.ToolStripStatusLabel()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.tslblElevation = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpFlowConfig.SuspendLayout()
@@ -301,7 +302,7 @@ Partial Class frmNewFan
         Me.tpgConditions.Controls.Add(Me.cmdStaticSummary)
         Me.tpgConditions.Controls.Add(Me.lblKFactor)
         Me.tpgConditions.Controls.Add(Me.Label32)
-        Me.tpgConditions.Controls.Add(Me.CheckBox5)
+        Me.tpgConditions.Controls.Add(Me.chkTSPatElev)
         Me.tpgConditions.Controls.Add(Me.chkSFatElev)
         Me.tpgConditions.Controls.Add(Me.chkUSPatElev)
         Me.tpgConditions.Controls.Add(Me.chkESPatElev)
@@ -411,15 +412,14 @@ Partial Class frmNewFan
         Me.Label32.TabIndex = 71
         Me.Label32.Text = "Elev"
         '
-        'CheckBox5
+        'chkTSPatElev
         '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Enabled = False
-        Me.CheckBox5.Location = New System.Drawing.Point(616, 197)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(15, 14)
-        Me.CheckBox5.TabIndex = 70
-        Me.CheckBox5.UseVisualStyleBackColor = True
+        Me.chkTSPatElev.AutoSize = True
+        Me.chkTSPatElev.Location = New System.Drawing.Point(616, 197)
+        Me.chkTSPatElev.Name = "chkTSPatElev"
+        Me.chkTSPatElev.Size = New System.Drawing.Size(15, 14)
+        Me.chkTSPatElev.TabIndex = 70
+        Me.chkTSPatElev.UseVisualStyleBackColor = True
         '
         'chkSFatElev
         '
@@ -2452,8 +2452,8 @@ Partial Class frmNewFan
         'colItem
         '
         Me.colItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colItem.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colItem.DefaultCellStyle = DataGridViewCellStyle4
         Me.colItem.HeaderText = "Item"
         Me.colItem.Name = "colItem"
         Me.colItem.Width = 52
@@ -2461,8 +2461,8 @@ Partial Class frmNewFan
         'colSTPStatic
         '
         Me.colSTPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle5
         Me.colSTPStatic.HeaderText = "Static(std)"
         Me.colSTPStatic.Name = "colSTPStatic"
         Me.colSTPStatic.Width = 79
@@ -2470,8 +2470,8 @@ Partial Class frmNewFan
         'colATPStatic
         '
         Me.colATPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle6
         Me.colATPStatic.HeaderText = "Static(elev)"
         Me.colATPStatic.Name = "colATPStatic"
         Me.colATPStatic.Width = 85
@@ -2487,7 +2487,7 @@ Partial Class frmNewFan
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tslblAirflow, Me.tslblTSP, Me.tslblESP})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tslblAirflow, Me.tslblTSP, Me.tslblESP, Me.tslblElevation})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 501)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(678, 22)
@@ -2523,6 +2523,12 @@ Partial Class frmNewFan
         Me.chkWriteHistory.TabIndex = 11
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
+        'tslblElevation
+        '
+        Me.tslblElevation.Name = "tslblElevation"
+        Me.tslblElevation.Size = New System.Drawing.Size(81, 17)
+        Me.tslblElevation.Text = "Elevation: xxxx"
         '
         'frmNewFan
         '
@@ -2699,7 +2705,7 @@ Partial Class frmNewFan
     Friend WithEvents cmbFanSelected As ComboBox
     Friend WithEvents lblKFactor As Label
     Friend WithEvents Label32 As Label
-    Friend WithEvents CheckBox5 As CheckBox
+    Friend WithEvents chkTSPatElev As CheckBox
     Friend WithEvents chkSFatElev As CheckBox
     Friend WithEvents chkUSPatElev As CheckBox
     Friend WithEvents chkESPatElev As CheckBox
@@ -2797,4 +2803,5 @@ Partial Class frmNewFan
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
+    Friend WithEvents tslblElevation As ToolStripStatusLabel
 End Class
