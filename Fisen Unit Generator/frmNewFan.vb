@@ -1460,9 +1460,7 @@
         Dim NinetyBend As Double
         Dim Damper As Double
         Dim Hood As Double
-
         Dim airflow As Double
-
         Dim NewRow As String()
 
         airflow = Val(txtAirflow.Text)
@@ -1484,6 +1482,7 @@
         NewRow = {"Exhaust Air Hoods", Format(Hood, "0.00"), Format(Hood / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         frmMain.ThisUnitRXPerf.DuctLoc = "Bottom"
+        chkReliefHoodsShipLoose.Checked = True
         cmdS20BottomReturn.Enabled = False
     End Sub
 
@@ -2658,4 +2657,5 @@
             chkESPatElev.Checked = True
         End If
     End Sub
+
 End Class
