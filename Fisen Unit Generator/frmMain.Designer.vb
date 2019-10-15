@@ -794,6 +794,8 @@ Partial Class frmMain
         Me.cmbJumpDest = New System.Windows.Forms.ComboBox()
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
+        Me.optRTUChoice = New System.Windows.Forms.RadioButton()
+        Me.optRTUPremier = New System.Windows.Forms.RadioButton()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -1191,7 +1193,7 @@ Partial Class frmMain
         Me.fraAHU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraAHU.Name = "fraAHU"
         Me.fraAHU.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraAHU.Size = New System.Drawing.Size(143, 263)
+        Me.fraAHU.Size = New System.Drawing.Size(143, 306)
         Me.fraAHU.TabIndex = 1
         Me.fraAHU.TabStop = False
         Me.fraAHU.Text = "Air Handling Unit"
@@ -1234,6 +1236,8 @@ Partial Class frmMain
         '
         'fraRTU
         '
+        Me.fraRTU.Controls.Add(Me.optRTUPremier)
+        Me.fraRTU.Controls.Add(Me.optRTUChoice)
         Me.fraRTU.Controls.Add(Me.chkS100CCabinet)
         Me.fraRTU.Controls.Add(Me.chkS100BCabinet)
         Me.fraRTU.Controls.Add(Me.chkS100ACabinet)
@@ -1247,7 +1251,7 @@ Partial Class frmMain
         Me.fraRTU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraRTU.Name = "fraRTU"
         Me.fraRTU.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraRTU.Size = New System.Drawing.Size(143, 263)
+        Me.fraRTU.Size = New System.Drawing.Size(143, 306)
         Me.fraRTU.TabIndex = 0
         Me.fraRTU.TabStop = False
         Me.fraRTU.Text = "Rooftop Unit"
@@ -1327,7 +1331,6 @@ Partial Class frmMain
         Me.optRTUSeries20.Name = "optRTUSeries20"
         Me.optRTUSeries20.Size = New System.Drawing.Size(69, 17)
         Me.optRTUSeries20.TabIndex = 2
-        Me.optRTUSeries20.TabStop = True
         Me.optRTUSeries20.Text = "Series 20"
         Me.optRTUSeries20.UseVisualStyleBackColor = True
         '
@@ -9737,6 +9740,28 @@ Partial Class frmMain
         Me.chkAutoLaunchTemplate.Text = "Auto Word Launch Template"
         Me.chkAutoLaunchTemplate.UseVisualStyleBackColor = True
         '
+        'optRTUChoice
+        '
+        Me.optRTUChoice.AutoSize = True
+        Me.optRTUChoice.Location = New System.Drawing.Point(8, 259)
+        Me.optRTUChoice.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUChoice.Name = "optRTUChoice"
+        Me.optRTUChoice.Size = New System.Drawing.Size(58, 17)
+        Me.optRTUChoice.TabIndex = 11
+        Me.optRTUChoice.Text = "Choice"
+        Me.optRTUChoice.UseVisualStyleBackColor = True
+        '
+        'optRTUPremier
+        '
+        Me.optRTUPremier.AutoSize = True
+        Me.optRTUPremier.Location = New System.Drawing.Point(8, 284)
+        Me.optRTUPremier.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUPremier.Name = "optRTUPremier"
+        Me.optRTUPremier.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUPremier.TabIndex = 12
+        Me.optRTUPremier.Text = "Series 20"
+        Me.optRTUPremier.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -10685,4 +10710,6 @@ Partial Class frmMain
     Friend WithEvents cmdDebug As Button
     Friend WithEvents cmdPasteProjectDir As Button
     Friend WithEvents chkAutoLaunchTemplate As CheckBox
+    Friend WithEvents optRTUPremier As RadioButton
+    Friend WithEvents optRTUChoice As RadioButton
 End Class

@@ -161,6 +161,15 @@ Public Class frmMain
                 If chkS100BCabinet.Checked Then ThisUnit.Cabinet = "S100B"
                 If chkS100CCabinet.Checked Then ThisUnit.Cabinet = "S100C"
             End If
+            If optRTUChoice.Checked Then
+                ThisUnit.Family = "Choice"
+                My.Settings.LastFamily = "Choice"
+
+            End If
+            If optRTUPremier.Checked Then
+                ThisUnit.Family = "Premier"
+                My.Settings.LastFamily = "Premier"
+            End If
         End If
 
         If optAHU.Checked Then
@@ -976,6 +985,7 @@ Public Class frmMain
         Dim Ver As String
         Dim UPGFile As String = "S:\FUG\Resources\WordTemplates\UPG Submittal Template "
         Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
+        Dim YLAAFile As String = "S:\FUG\Resources\WordTemplates\YLAA Submittal Template "
 
         locFamily = Me.ThisUnit.Family
 
@@ -1016,6 +1026,8 @@ Public Class frmMain
                 Case Is = "Series100"
                     YPALFile = YPALFile & Ver & ".dotm"
                     Process.Start(YPALFile)
+                Case Is = "YLAA"
+                    Process.Start(YLAAFile)
                 Case Else
 
             End Select
