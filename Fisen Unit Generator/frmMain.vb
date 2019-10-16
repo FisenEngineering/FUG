@@ -2334,6 +2334,11 @@ Public Class frmMain
             lUnitWriter.WriteStartElement("TotalWithHydroKitkW")
             lUnitWriter.WriteString(ThisUnitElecData.TotalkWWithHydroKit)
             lUnitWriter.WriteEndElement()
+
+            lUnitWriter.WriteStartElement("StarterType")
+            lUnitWriter.WriteString("Across the Line")
+            lUnitWriter.WriteEndElement()
+
         End If
 
         lUnitWriter.WriteStartElement("MOP")
