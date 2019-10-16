@@ -1073,6 +1073,22 @@ Public Class clsChillerMainPerf
         xDoc = Nothing
     End Sub
 
+    Public Sub ImportYLAAPhysicalData()
+        Dim xDoc As XmlDocument = New XmlDocument
+
+        xDoc.Load(frmMain.txtBaseUnitFile.Text)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//BaseUnit/PhysicalData")
+        pRigMass = xNodeRoot.SelectSingleNode("RigWeight").InnerText
+        pOpMass = xNodeRoot.SelectSingleNode("OpWeight").InnerText
+        pRefChg = xNodeRoot.SelectSingleNode("RefCharge").InnerText
+
+        pNotes = xNodeRoot.SelectSingleNode("Notes").InnerText
+
+
+        xDoc = Nothing
+    End Sub
+
     Public Sub ImportYLAALoadTable()
         Dim xdoc As XmlDocument = New XmlDocument
         Dim CompStr As String

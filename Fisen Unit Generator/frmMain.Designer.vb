@@ -55,6 +55,8 @@ Partial Class frmMain
         Me.optAHUXTI = New System.Windows.Forms.RadioButton()
         Me.optAHUXTO = New System.Windows.Forms.RadioButton()
         Me.fraRTU = New System.Windows.Forms.GroupBox()
+        Me.optRTUPremier = New System.Windows.Forms.RadioButton()
+        Me.optRTUChoice = New System.Windows.Forms.RadioButton()
         Me.chkS100CCabinet = New System.Windows.Forms.CheckBox()
         Me.chkS100BCabinet = New System.Windows.Forms.CheckBox()
         Me.chkS100ACabinet = New System.Windows.Forms.CheckBox()
@@ -794,8 +796,6 @@ Partial Class frmMain
         Me.cmbJumpDest = New System.Windows.Forms.ComboBox()
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
-        Me.optRTUChoice = New System.Windows.Forms.RadioButton()
-        Me.optRTUPremier = New System.Windows.Forms.RadioButton()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -1256,6 +1256,28 @@ Partial Class frmMain
         Me.fraRTU.TabStop = False
         Me.fraRTU.Text = "Rooftop Unit"
         '
+        'optRTUPremier
+        '
+        Me.optRTUPremier.AutoSize = True
+        Me.optRTUPremier.Location = New System.Drawing.Point(8, 284)
+        Me.optRTUPremier.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUPremier.Name = "optRTUPremier"
+        Me.optRTUPremier.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUPremier.TabIndex = 12
+        Me.optRTUPremier.Text = "Series 20"
+        Me.optRTUPremier.UseVisualStyleBackColor = True
+        '
+        'optRTUChoice
+        '
+        Me.optRTUChoice.AutoSize = True
+        Me.optRTUChoice.Location = New System.Drawing.Point(8, 259)
+        Me.optRTUChoice.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUChoice.Name = "optRTUChoice"
+        Me.optRTUChoice.Size = New System.Drawing.Size(58, 17)
+        Me.optRTUChoice.TabIndex = 11
+        Me.optRTUChoice.Text = "Choice"
+        Me.optRTUChoice.UseVisualStyleBackColor = True
+        '
         'chkS100CCabinet
         '
         Me.chkS100CCabinet.AutoSize = True
@@ -1331,6 +1353,7 @@ Partial Class frmMain
         Me.optRTUSeries20.Name = "optRTUSeries20"
         Me.optRTUSeries20.Size = New System.Drawing.Size(69, 17)
         Me.optRTUSeries20.TabIndex = 2
+        Me.optRTUSeries20.TabStop = True
         Me.optRTUSeries20.Text = "Series 20"
         Me.optRTUSeries20.UseVisualStyleBackColor = True
         '
@@ -1414,7 +1437,7 @@ Partial Class frmMain
         Me.cmdPasteProjectDir.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdPasteProjectDir.Name = "cmdPasteProjectDir"
         Me.cmdPasteProjectDir.Size = New System.Drawing.Size(26, 20)
-        Me.cmdPasteProjectDir.TabIndex = 47
+        Me.cmdPasteProjectDir.TabIndex = 5
         Me.cmdPasteProjectDir.UseVisualStyleBackColor = True
         '
         'cmdFSTImport
@@ -1423,7 +1446,7 @@ Partial Class frmMain
         Me.cmdFSTImport.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdFSTImport.Name = "cmdFSTImport"
         Me.cmdFSTImport.Size = New System.Drawing.Size(99, 36)
-        Me.cmdFSTImport.TabIndex = 46
+        Me.cmdFSTImport.TabIndex = 2
         Me.cmdFSTImport.TabStop = False
         Me.cmdFSTImport.Text = "FST Import"
         Me.cmdFSTImport.UseVisualStyleBackColor = True
@@ -1452,7 +1475,7 @@ Partial Class frmMain
         Me.cmdChooseProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdChooseProjectDirectory.Name = "cmdChooseProjectDirectory"
         Me.cmdChooseProjectDirectory.Size = New System.Drawing.Size(26, 20)
-        Me.cmdChooseProjectDirectory.TabIndex = 40
+        Me.cmdChooseProjectDirectory.TabIndex = 4
         Me.cmdChooseProjectDirectory.Text = "..."
         Me.cmdChooseProjectDirectory.UseVisualStyleBackColor = True
         '
@@ -1473,7 +1496,7 @@ Partial Class frmMain
         Me.txtYPALUnitSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALUnitSize.Name = "txtYPALUnitSize"
         Me.txtYPALUnitSize.Size = New System.Drawing.Size(176, 20)
-        Me.txtYPALUnitSize.TabIndex = 38
+        Me.txtYPALUnitSize.TabIndex = 11
         Me.txtYPALUnitSize.Text = "n/a"
         Me.txtYPALUnitSize.Visible = False
         '
@@ -1483,7 +1506,7 @@ Partial Class frmMain
         Me.txtSelectionTag.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSelectionTag.Name = "txtSelectionTag"
         Me.txtSelectionTag.Size = New System.Drawing.Size(448, 20)
-        Me.txtSelectionTag.TabIndex = 13
+        Me.txtSelectionTag.TabIndex = 20
         '
         'Label101
         '
@@ -1501,7 +1524,7 @@ Partial Class frmMain
         Me.txtBaseUnitFile.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseUnitFile.Name = "txtBaseUnitFile"
         Me.txtBaseUnitFile.Size = New System.Drawing.Size(448, 20)
-        Me.txtBaseUnitFile.TabIndex = 12
+        Me.txtBaseUnitFile.TabIndex = 19
         '
         'Label100
         '
@@ -1519,7 +1542,7 @@ Partial Class frmMain
         Me.txtProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectDirectory.Name = "txtProjectDirectory"
         Me.txtProjectDirectory.Size = New System.Drawing.Size(448, 20)
-        Me.txtProjectDirectory.TabIndex = 11
+        Me.txtProjectDirectory.TabIndex = 18
         Me.ToolTip1.SetToolTip(Me.txtProjectDirectory, "Job Folder not Unit Folder.  Ends in \")
         '
         'Label99
@@ -1538,7 +1561,7 @@ Partial Class frmMain
         Me.btnTranslate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnTranslate.Name = "btnTranslate"
         Me.btnTranslate.Size = New System.Drawing.Size(80, 25)
-        Me.btnTranslate.TabIndex = 30
+        Me.btnTranslate.TabIndex = 14
         Me.btnTranslate.Text = "Translate"
         Me.btnTranslate.UseVisualStyleBackColor = True
         '
@@ -1550,7 +1573,7 @@ Partial Class frmMain
         Me.dtpPrintedDate.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpPrintedDate.Name = "dtpPrintedDate"
         Me.dtpPrintedDate.Size = New System.Drawing.Size(108, 20)
-        Me.dtpPrintedDate.TabIndex = 12
+        Me.dtpPrintedDate.TabIndex = 16
         '
         'dtpUnitDate
         '
@@ -1560,7 +1583,7 @@ Partial Class frmMain
         Me.dtpUnitDate.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpUnitDate.Name = "dtpUnitDate"
         Me.dtpUnitDate.Size = New System.Drawing.Size(108, 20)
-        Me.dtpUnitDate.TabIndex = 11
+        Me.dtpUnitDate.TabIndex = 12
         '
         'Label3
         '
@@ -1581,7 +1604,7 @@ Partial Class frmMain
         Me.cmbBrand.MaxDropDownItems = 10
         Me.cmbBrand.Name = "cmbBrand"
         Me.cmbBrand.Size = New System.Drawing.Size(55, 21)
-        Me.cmbBrand.TabIndex = 9
+        Me.cmbBrand.TabIndex = 15
         '
         'Label14
         '
@@ -1599,7 +1622,7 @@ Partial Class frmMain
         Me.txtNominalTons.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNominalTons.Name = "txtNominalTons"
         Me.txtNominalTons.Size = New System.Drawing.Size(55, 20)
-        Me.txtNominalTons.TabIndex = 7
+        Me.txtNominalTons.TabIndex = 8
         '
         'txtBrandModelNumber
         '
@@ -1607,7 +1630,7 @@ Partial Class frmMain
         Me.txtBrandModelNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBrandModelNumber.Name = "txtBrandModelNumber"
         Me.txtBrandModelNumber.Size = New System.Drawing.Size(448, 20)
-        Me.txtBrandModelNumber.TabIndex = 8
+        Me.txtBrandModelNumber.TabIndex = 13
         '
         'Label13
         '
@@ -1645,7 +1668,7 @@ Partial Class frmMain
         Me.txtQty.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty.Name = "txtQty"
         Me.txtQty.Size = New System.Drawing.Size(68, 20)
-        Me.txtQty.TabIndex = 5
+        Me.txtQty.TabIndex = 9
         Me.txtQty.Text = "1"
         '
         'Label11
@@ -1664,7 +1687,7 @@ Partial Class frmMain
         Me.txtModelNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.txtModelNumber.Name = "txtModelNumber"
         Me.txtModelNumber.Size = New System.Drawing.Size(448, 20)
-        Me.txtModelNumber.TabIndex = 10
+        Me.txtModelNumber.TabIndex = 17
         '
         'Label10
         '
@@ -1702,7 +1725,7 @@ Partial Class frmMain
         Me.txtUnitVersion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtUnitVersion.Name = "txtUnitVersion"
         Me.txtUnitVersion.Size = New System.Drawing.Size(159, 20)
-        Me.txtUnitVersion.TabIndex = 6
+        Me.txtUnitVersion.TabIndex = 10
         Me.txtUnitVersion.Text = "1.0"
         '
         'Label7
@@ -1721,7 +1744,7 @@ Partial Class frmMain
         Me.txtUnitTag.Margin = New System.Windows.Forms.Padding(4)
         Me.txtUnitTag.Name = "txtUnitTag"
         Me.txtUnitTag.Size = New System.Drawing.Size(159, 20)
-        Me.txtUnitTag.TabIndex = 4
+        Me.txtUnitTag.TabIndex = 7
         '
         'Label6
         '
@@ -1758,7 +1781,7 @@ Partial Class frmMain
         Me.txtProjectName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectName.Name = "txtProjectName"
         Me.txtProjectName.Size = New System.Drawing.Size(292, 20)
-        Me.txtProjectName.TabIndex = 3
+        Me.txtProjectName.TabIndex = 6
         '
         'Label4
         '
@@ -1776,7 +1799,7 @@ Partial Class frmMain
         Me.btnDonePD.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDonePD.Name = "btnDonePD"
         Me.btnDonePD.Size = New System.Drawing.Size(77, 34)
-        Me.btnDonePD.TabIndex = 14
+        Me.btnDonePD.TabIndex = 3
         Me.btnDonePD.Text = ">"
         Me.btnDonePD.UseVisualStyleBackColor = True
         '
@@ -9739,28 +9762,6 @@ Partial Class frmMain
         Me.chkAutoLaunchTemplate.TabIndex = 22
         Me.chkAutoLaunchTemplate.Text = "Auto Word Launch Template"
         Me.chkAutoLaunchTemplate.UseVisualStyleBackColor = True
-        '
-        'optRTUChoice
-        '
-        Me.optRTUChoice.AutoSize = True
-        Me.optRTUChoice.Location = New System.Drawing.Point(8, 259)
-        Me.optRTUChoice.Margin = New System.Windows.Forms.Padding(4)
-        Me.optRTUChoice.Name = "optRTUChoice"
-        Me.optRTUChoice.Size = New System.Drawing.Size(58, 17)
-        Me.optRTUChoice.TabIndex = 11
-        Me.optRTUChoice.Text = "Choice"
-        Me.optRTUChoice.UseVisualStyleBackColor = True
-        '
-        'optRTUPremier
-        '
-        Me.optRTUPremier.AutoSize = True
-        Me.optRTUPremier.Location = New System.Drawing.Point(8, 284)
-        Me.optRTUPremier.Margin = New System.Windows.Forms.Padding(4)
-        Me.optRTUPremier.Name = "optRTUPremier"
-        Me.optRTUPremier.Size = New System.Drawing.Size(69, 17)
-        Me.optRTUPremier.TabIndex = 12
-        Me.optRTUPremier.Text = "Series 20"
-        Me.optRTUPremier.UseVisualStyleBackColor = True
         '
         'frmMain
         '

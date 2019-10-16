@@ -314,243 +314,39 @@
         Dim tempfeet As String
         Dim dummy As MsgBoxResult
 
-        tempfeet = "9999"
-        Select Case ChillFam
-            Case Is = "YCAL"
-                Select Case ChillSize
-                    Case Is = "0019"
-                        tempfeet = "150"
-                    Case Is = "0022"
-                        tempfeet = "150"
-                    Case Is = "0028"
-                        tempfeet = "150"
-                    Case Is = "0033"
-                        tempfeet = "150"
-                    Case Is = "0043"
-                        tempfeet = "160"
-                    Case Is = "0046"
-                        tempfeet = "170"
-                    Case Is = "0052"
-                        tempfeet = "175"
-                    Case Is = "0056"
-                        tempfeet = "195"
-                    Case Is = "0066"
-                        tempfeet = "200"
-                    Case Else
-                        tempfeet = "-9999"
-                End Select
-            Case Is = "YLAA"
-                Select Case ChillSize
-                    Case Is = "0041"
-                        tempfeet = "175"
-                    Case Is = "0048"
-                        tempfeet = "175"
-                    Case Is = "0058"
-                        tempfeet = "175"
-                    Case Is = "0065"
-                        tempfeet = "175"
-                    Case Is = "0070"
-                        tempfeet = "210"
-                    Case Is = "0080"
-                        tempfeet = "210"
-                    Case Is = "0081"
-                        tempfeet = "175"
-                    Case Is = "0082"
-                        tempfeet = "175"
-                    Case Is = "0089"
-                        tempfeet = "300"
-                    Case Is = "0092"
-                        tempfeet = "260"
-                    Case Is = "100"
-                        tempfeet = "240"
-                    Case Is = "101"
-                        tempfeet = "260"
-                    Case Is = "115"
-                        tempfeet = "260"
-                    Case Is = "120"
-                        tempfeet = "230"
-                    Case Is = "125"
-                        tempfeet = "270"
-                    Case Is = "136"
-                        tempfeet = "270"
-                    Case Is = "139"
-                        tempfeet = "270"
-                    Case Is = "142"
-                        tempfeet = "270"
-                    Case Is = "150"
-                        tempfeet = "270"
-                    Case Is = "155"
-                        tempfeet = "270"
-                    Case Is = "156"
-                        tempfeet = "300"
-                    Case Is = "170"
-                        tempfeet = "300"
-                    Case Is = "175"
-                        tempfeet = "300"
-                    Case Is = "200"
-                        tempfeet = "350"
-                    Case Is = "230"
-                        tempfeet = "350"
-                    Case Else
-                        tempfeet = "-9999"
-                End Select
-            Case Is = "YVAA"
-                Select Case ChillSize
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
 
-                    Case Is = "015"
-                        tempfeet = "220"
-                    Case Is = "016"
-                        tempfeet = "240"
-                    Case Is = "017"
-                        tempfeet = "250"
-                    Case Is = "018"
-                        tempfeet = "260"
-                    Case Is = "019"
-                        tempfeet = "270"
-                    Case Is = "020"
-                        tempfeet = "280"
-                    Case Is = "021"
-                        tempfeet = "300"
-                    Case Is = "023"
-                        tempfeet = "315"
-                    Case Is = "024"
-                        tempfeet = "350"
-                    Case Is = "026"
-                        tempfeet = "370"
-                    Case Is = "027"
-                        tempfeet = "380"
-                    Case Is = "029"
-                        tempfeet = "390"
-                    Case Is = "030"
-                        tempfeet = "400"
-                    Case Is = "031"
-                        tempfeet = "420"
-                    Case Is = "032"
-                        tempfeet = "440"
-                    Case Is = "033"
-                        tempfeet = "460"
-                    Case Is = "034"
-                        tempfeet = "480"
-                    Case Is = "036"
-                        tempfeet = "490"
-                    Case Is = "037"
-                        tempfeet = "500"
-                    Case Is = "039"
-                        tempfeet = "510"
-                    Case Is = "041"
-                        tempfeet = "520"
-                    Case Is = "042"
-                        tempfeet = "530"
-                    Case Is = "044"
-                        tempfeet = "540"
-                    Case Is = "047"
-                        tempfeet = "550"
-                    Case Is = "048"
-                        tempfeet = "560"
-                    Case Is = "049"
-                        tempfeet = "570"
-                    Case Is = "050"
-                        tempfeet = "580"
-                    Case Is = "052"
-                        tempfeet = "600"
-                    Case Else
-                        tempfeet = "-9999"
-                End Select
-            Case Is = "YCIV"
-                Select Case ChillSize
-                    Case Is = "0157"
-                        tempfeet = "150"
-                    Case Is = "0177"
-                        tempfeet = "310"
-                    Case Is = "0187"
-                        tempfeet = "150"
-                    Case Is = "0197"
-                        tempfeet = "155"
-                    Case Is = "0207"
-                        tempfeet = "190"
-                    Case Is = "0227"
-                        tempfeet = "145"
-                    Case Is = "0247"
-                        tempfeet = "145"
-                    Case Is = "0267"
-                        tempfeet = "145"
-                    Case Is = "0287"
-                        tempfeet = "155"
-                    Case Is = "0307"
-                        tempfeet = "275"
-                    Case Is = "0327"
-                        tempfeet = "180"
-                    Case Is = "0357"
-                        tempfeet = "190"
-                    Case Is = "0397"
-                        tempfeet = "200"
-                    Case Is = "0457"
-                        tempfeet = "200"
-                    Case Else
-                        tempfeet = "-9999"
-                End Select
-            Case Is = "YCAV"
-                Select Case ChillSize
 
-                    Case Is = "0157"
-                        tempfeet = "160"
-                    Case Is = "0177"
-                        tempfeet = "170"
-                    Case Is = "0187"
-                        tempfeet = "180"
-                    Case Is = "0197"
-                        tempfeet = "190"
-                    Case Is = "0207"
-                        tempfeet = "200"
-                    Case Is = "0227"
-                        tempfeet = "210"
-                    Case Is = "0247"
-                        tempfeet = "220"
-                    Case Is = "0267"
-                        tempfeet = "230"
-                    Case Is = "0287"
-                        tempfeet = "240"
-                    Case Is = "0307"
-                        tempfeet = "250"
-                    Case Is = "0327"
-                        tempfeet = "260"
-                    Case Is = "0357"
-                        tempfeet = "270"
-                    Case Is = "0397"
-                        tempfeet = "280"
-                    Case Is = "0417"
-                        tempfeet = "290"
-                    Case Is = "0457"
-                        tempfeet = "380"
-                    Case Is = "0477"
-                        tempfeet = "310"
-                    Case Is = "0507"
-                        tempfeet = "320"
-                    Case Is = "0527"
-                        tempfeet = "330"
+        Dim MySQL As String
 
-                    Case Else
-                        tempfeet = "-9999"
-                End Select
-            Case Is = "YVFA"
-                Select Case ChillSize
-                    Case Is = "015"
-                        tempfeet = "150"
-                    Case Is = "020"
-                        tempfeet = "180"
-                    Case Is = "025"
-                        tempfeet = "210"
-                    Case Is = "028"
-                        tempfeet = "240"
-                    Case Is = "030"
-                        tempfeet = "270"
-                    Case Is = "035"
-                        tempfeet = "300"
-                    Case Else
-                        tempfeet = "-9999"
-                End Select
-        End Select
-        If tempfeet = "9999" Then dummy = MsgBox("Invalid Family in Feet Assignment.", vbOKOnly)
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+
+        MySQL = "SELECT * FROM tblLowAmbientHT WHERE ModelStub='" & ChillFam & ChillSize & "'"
+
+        tempfeet = "-9999"
+
+        rs.Open(MySQL, con)
+
+        rs.MoveFirst()
+        Do While Not (rs.EOF)
+            tempfeet = rs.Fields("HT_Feet").Value
+            rs.MoveNext()
+        Loop
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
         If tempfeet = "-9999" Then dummy = MsgBox("Invalid Chiller Size in Feet Assignment.", vbOKOnly)
 
         FeetTraceNeeded = tempfeet

@@ -991,6 +991,18 @@ Public Class frmMain
 
         Call SaveTheXMLData()
         Call HandleFlaggedFileMoves()
+
+        My.Settings.LastJobNumber = txtJobNumber.Text
+        My.Settings.LastUnitNumber = txtUnitNumber.Text
+        My.Settings.LastProjDir = txtProjectDirectory.Text
+
+        If IsNumeric(Mid(txtJobNumber.Text, 1, 4)) Then
+            nudJobNumberAdj.Value = Val(Mid(txtJobNumber.Text, 1, 4))
+        Else
+            nudJobNumberAdj.Value = 3300
+        End If
+        My.Settings.Save()
+
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
 
         con = New ADODB.Connection
@@ -1036,16 +1048,7 @@ Public Class frmMain
 
         End If
 
-        My.Settings.LastJobNumber = txtJobNumber.Text
-        My.Settings.LastUnitNumber = txtUnitNumber.Text
-        My.Settings.LastProjDir = txtProjectDirectory.Text
 
-        If IsNumeric(Mid(txtJobNumber.Text, 1, 4)) Then
-            nudJobNumberAdj.Value = Val(Mid(txtJobNumber.Text, 1, 4))
-        Else
-            nudJobNumberAdj.Value = 3300
-        End If
-        My.Settings.Save()
 
 
         con.Close()
@@ -7055,30 +7058,42 @@ Public Class frmMain
     Private Sub LoadYLAAChillerLoads()
         Dim ElecChar As String
         Dim i As Integer
+        Dim FLA As Double
+        Dim BigLoad As Double
+
         Dim NewRow As String()
         ElecChar = txtCommVolts.Text & "-" & txtCommPhase.Text & "-" & txtCommFreq.Text
 
-        For i = 0 To ThisChillerMainPerf.Ckt1CompRLA.Count - 1
-            NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisChillerMainPerf.Ckt1CompRLA(i), False}
-            dgvElecLoads.Rows.Add(NewRow)
-        Next i
 
-        For i = 0 To ThisChillerMainPerf.Ckt2CompRLA.Count - 1
-            NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisChillerMainPerf.Ckt2CompRLA(i), False}
-            dgvElecLoads.Rows.Add(NewRow)
+        FLA = 0
+        BigLoad = -1
+
+        For i = 0 To ThisUnitElecData.CompRLA.Count - 1
+            If IsNumeric(ThisUnitElecData.CompRLA(i)) Then
+                FLA = FLA + Val(ThisUnitElecData.CompRLA(i))
+                If Val(ThisUnitElecData.CompRLA(i)) > BigLoad Then BigLoad = Val(ThisUnitElecData.CompRLA(i))
+                NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisUnitElecData.CompRLA(i), False}
+                dgvElecLoads.Rows.Add(NewRow)
+            End If
         Next
 
-        For i = 1 To ThisChillerMainPerf.Ckt1FansQty
-            NewRow = {True, False, "Cool", True, "CONDENSER FAN", ElecChar, "-", ThisChillerMainPerf.Ckt1FansFLA, False}
-            dgvElecLoads.Rows.Add(NewRow)
+        For i = 0 To ThisUnitElecData.FanFLAeach.Count - 1
+            If IsNumeric(ThisUnitElecData.FanFLAeach(i)) Then
+
+                For j = 1 To Val(ThisUnitElecData.FanQty(i))
+                    FLA = FLA + Val(ThisUnitElecData.FanFLAeach(i))
+                    If Val(ThisUnitElecData.FanFLAeach(i)) > BigLoad Then BigLoad = Val(ThisUnitElecData.FanFLAeach(i))
+                    NewRow = {True, False, "Cool", True, "CONDENSER FAN", ElecChar, "-", ThisUnitElecData.FanFLAeach(i), False}
+                    dgvElecLoads.Rows.Add(NewRow)
+                Next j
+            End If
         Next
 
-        For i = 1 To ThisChillerMainPerf.Ckt2FansQty
-            NewRow = {True, False, "Cool", True, "CONDENSER FAN", ElecChar, "-", ThisChillerMainPerf.Ckt2FansFLA, False}
+        FLA = FLA + (0.25 * BigLoad)
+        If ThisUnitElecData.CommMCA - FLA > 0.1 Then
+            NewRow = {True, False, "Cool", True, "CONTROL TRANSFORMER", ElecChar, "-", ThisUnitElecData.CommMCA - FLA, False}
             dgvElecLoads.Rows.Add(NewRow)
-        Next
-
-
+        End If
     End Sub
     Private Sub LoadYVAAChillerLoads()
         Dim ElecChar As String
@@ -7945,6 +7960,7 @@ Public Class frmMain
                         ThisChillerMainPerf.ImportYLAASoundData()
                         ThisUnitElecData.ImportFSTYLAAData()
                         ThisUnitPhysicalData.ImportFSTYLAAData()
+                        ThisChillerMainPerf.ImportYLAAPhysicalData()
                     Case Is = "YCIV"
                         ThisChillerMainPerf.ImportChillerEvaporatorData()
                         ThisChillerMainPerf.ImportChillerCondenserData()
@@ -8039,7 +8055,8 @@ Public Class frmMain
             xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/CoolingData")
             ThisChillerMainPerf.NominalTons = xNodeRoot.SelectSingleNode("NominalTons").InnerText
             ThisChillerMainPerf.NetCapacity = xNodeRoot.SelectSingleNode("NominalTons").InnerText
-
+            ThisChillerMainPerf.Refrigerant = xNodeRoot.SelectSingleNode("Refrigerant").InnerText
+            ThisUnitCoolPerf.Refrigerant = xNodeRoot.SelectSingleNode("Refrigerant").InnerText
         End If
 
         xDoc = Nothing
