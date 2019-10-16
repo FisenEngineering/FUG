@@ -1262,9 +1262,9 @@ Partial Class frmMain
         Me.optRTUPremier.Location = New System.Drawing.Point(8, 284)
         Me.optRTUPremier.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUPremier.Name = "optRTUPremier"
-        Me.optRTUPremier.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUPremier.Size = New System.Drawing.Size(60, 17)
         Me.optRTUPremier.TabIndex = 12
-        Me.optRTUPremier.Text = "Series 20"
+        Me.optRTUPremier.Text = "Premier"
         Me.optRTUPremier.UseVisualStyleBackColor = True
         '
         'optRTUChoice
