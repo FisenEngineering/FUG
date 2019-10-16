@@ -6383,7 +6383,7 @@ Public Class frmMain
                         Case Is = "180"
                             btu = "15"
                         Case Is = "210"
-                            btu = "17.5"
+                            btu = "18"
                         Case Is = "240"
                             btu = "20"
                         Case Is = "300"
@@ -8278,4 +8278,6 @@ Public Class frmMain
     Private Sub BtnAirflowDelAll_Click(sender As Object, e As EventArgs) Handles btnAirflowDelAll.Click
         lstUsingAirflow.Items.Clear()
     End Sub
+
+
 End Class
