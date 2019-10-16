@@ -5040,6 +5040,7 @@ Public Class frmMain
 
         'Initialize the Disconnect Info
         Call PreLoadElec()
+        Call UpdateTheMCA()
         tabMain.SelectTab("pgElec")
     End Sub
     Public Sub PreLoadElec()
@@ -6526,6 +6527,7 @@ Public Class frmMain
 
     Private Sub btnDoneCHW_Click(sender As Object, e As EventArgs) Handles btnDoneCHW.Click
         Call PreLoadElec()
+        Call UpdateTheMCA()
         tabMain.SelectTab("pgElec")
     End Sub
 
@@ -7509,6 +7511,10 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdUpdateMCA_Click(sender As Object, e As EventArgs) Handles cmdUpdateMCA.Click
+        Call UpdateTheMCA()
+    End Sub
+
+    Public Sub UpdateTheMCA()
         txtCommMCA.Text = Format(CalculateMCAComm(), "0.0")
         txtCommMOP.Text = Format(CalculateMOPComm(), "0")
         If optEmerNA.Checked = False Then
@@ -7516,6 +7522,7 @@ Public Class frmMain
             txtEmerMOP.Text = Format(CalculateMOPEmer(), "0")
         End If
     End Sub
+
 
     Private Sub cmdAddELoad_Click(sender As Object, e As EventArgs) Handles cmdAddELoad.Click
         Dim NewRow As String()

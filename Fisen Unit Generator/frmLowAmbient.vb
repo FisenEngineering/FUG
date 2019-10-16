@@ -85,6 +85,7 @@
 
                 If frmMain.ThisUnitElecData.FisenLoad01 = " " Then
                     frmMain.ThisUnitElecData.FisenLoad01 = "Low Ambient Power " & LowAmbientSize
+                    frmMain.ThisUnitElecData.FisenLoadFLA01 = Format(Val(PrimaryAmps), "0.0")
                 Else
                     dummy = MsgBox("Fisen Load 01 already assigned.", vbOKOnly)
                 End If
@@ -265,6 +266,8 @@
             If ((varqd < (750 * 0.8))) Then optXFrmrdot75.Checked = True
             If varqd < (500 * 0.8) Then optXFrmrDot5.Checked = True
         End If
+
+        Call CalculateTransformer()
 
         TabControl1.SelectTab("tpgPerformance")
     End Sub
@@ -566,7 +569,7 @@
         YVAAHTReqd = ftofht
     End Function
 
-    Private Sub cmdSelectXFmr_Click(sender As Object, e As EventArgs) Handles cmdSelectXFmr.Click
+    Private Sub CalculateTransformer()
         Dim Watts As Double
         Dim volts As Double
         Dim cap As Double
@@ -603,5 +606,20 @@
         End Select
 
         lblWatts.Text = Format(Watts, "0.0") & "Watts"
+    End Sub
+    Private Sub cmdSelectXFmr_Click(sender As Object, e As EventArgs) Handles cmdSelectXFmr.Click
+        Call CalculateTransformer()
+    End Sub
+
+    Private Sub nudFtOfHT_Leave(sender As Object, e As EventArgs) Handles nudFtOfHT.Leave
+        Dim length As Double
+        Dim div1 As Double
+        Dim div2 As Double
+        length = nudFtOfHT.Value
+        div1 = length \ 25
+        div2 = length / 25
+        If div1 <> div2 Then
+            nudFtOfHT.Value = Trim(Str(25 * (div1 + 1)))
+        End If
     End Sub
 End Class

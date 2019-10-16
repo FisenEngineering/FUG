@@ -48,6 +48,13 @@ Partial Class frmLowAmbient
         Me.optElectroMechanical = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.lblWatts = New System.Windows.Forms.Label()
+        Me.lblAdditionalHT = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cmbWattsPerFoot = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cmbHTVolts = New System.Windows.Forms.ComboBox()
+        Me.cmdSelectXFmr = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtFtofHeatTrace = New System.Windows.Forms.TextBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -65,13 +72,6 @@ Partial Class frmLowAmbient
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.cmdSelectXFmr = New System.Windows.Forms.Button()
-        Me.cmbHTVolts = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.cmbWattsPerFoot = New System.Windows.Forms.ComboBox()
-        Me.lblAdditionalHT = New System.Windows.Forms.Label()
-        Me.lblWatts = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -375,6 +375,73 @@ Partial Class frmLowAmbient
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'lblWatts
+        '
+        Me.lblWatts.AutoSize = True
+        Me.lblWatts.Location = New System.Drawing.Point(211, 74)
+        Me.lblWatts.Name = "lblWatts"
+        Me.lblWatts.Size = New System.Drawing.Size(50, 13)
+        Me.lblWatts.TabIndex = 36
+        Me.lblWatts.Text = "xxx watts"
+        '
+        'lblAdditionalHT
+        '
+        Me.lblAdditionalHT.AutoSize = True
+        Me.lblAdditionalHT.Location = New System.Drawing.Point(211, 14)
+        Me.lblAdditionalHT.Name = "lblAdditionalHT"
+        Me.lblAdditionalHT.Size = New System.Drawing.Size(71, 13)
+        Me.lblAdditionalHT.TabIndex = 35
+        Me.lblAdditionalHT.Text = "+ 0 Additional"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(6, 74)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(92, 13)
+        Me.Label4.TabIndex = 34
+        Me.Label4.Text = "Heat Trace W/Ft."
+        '
+        'cmbWattsPerFoot
+        '
+        Me.cmbWattsPerFoot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbWattsPerFoot.Enabled = False
+        Me.cmbWattsPerFoot.FormattingEnabled = True
+        Me.cmbWattsPerFoot.Items.AddRange(New Object() {"3", "5", "8"})
+        Me.cmbWattsPerFoot.Location = New System.Drawing.Point(105, 71)
+        Me.cmbWattsPerFoot.Name = "cmbWattsPerFoot"
+        Me.cmbWattsPerFoot.Size = New System.Drawing.Size(100, 21)
+        Me.cmbWattsPerFoot.TabIndex = 33
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(11, 44)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(87, 13)
+        Me.Label3.TabIndex = 32
+        Me.Label3.Text = "Heat Trace Volts"
+        '
+        'cmbHTVolts
+        '
+        Me.cmbHTVolts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbHTVolts.Enabled = False
+        Me.cmbHTVolts.FormattingEnabled = True
+        Me.cmbHTVolts.Items.AddRange(New Object() {"120", "240"})
+        Me.cmbHTVolts.Location = New System.Drawing.Point(105, 41)
+        Me.cmbHTVolts.Name = "cmbHTVolts"
+        Me.cmbHTVolts.Size = New System.Drawing.Size(100, 21)
+        Me.cmbHTVolts.TabIndex = 31
+        '
+        'cmdSelectXFmr
+        '
+        Me.cmdSelectXFmr.Image = CType(resources.GetObject("cmdSelectXFmr.Image"), System.Drawing.Image)
+        Me.cmdSelectXFmr.Location = New System.Drawing.Point(336, 9)
+        Me.cmdSelectXFmr.Name = "cmdSelectXFmr"
+        Me.cmdSelectXFmr.Size = New System.Drawing.Size(22, 22)
+        Me.cmdSelectXFmr.TabIndex = 30
+        Me.cmdSelectXFmr.UseVisualStyleBackColor = True
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -551,73 +618,6 @@ Partial Class frmLowAmbient
         Me.btnOK.TabIndex = 3
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
-        '
-        'cmdSelectXFmr
-        '
-        Me.cmdSelectXFmr.Image = CType(resources.GetObject("cmdSelectXFmr.Image"), System.Drawing.Image)
-        Me.cmdSelectXFmr.Location = New System.Drawing.Point(336, 9)
-        Me.cmdSelectXFmr.Name = "cmdSelectXFmr"
-        Me.cmdSelectXFmr.Size = New System.Drawing.Size(22, 22)
-        Me.cmdSelectXFmr.TabIndex = 30
-        Me.cmdSelectXFmr.UseVisualStyleBackColor = True
-        '
-        'cmbHTVolts
-        '
-        Me.cmbHTVolts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbHTVolts.Enabled = False
-        Me.cmbHTVolts.FormattingEnabled = True
-        Me.cmbHTVolts.Items.AddRange(New Object() {"120", "240"})
-        Me.cmbHTVolts.Location = New System.Drawing.Point(105, 41)
-        Me.cmbHTVolts.Name = "cmbHTVolts"
-        Me.cmbHTVolts.Size = New System.Drawing.Size(100, 21)
-        Me.cmbHTVolts.TabIndex = 31
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(11, 44)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(87, 13)
-        Me.Label3.TabIndex = 32
-        Me.Label3.Text = "Heat Trace Volts"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 74)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(92, 13)
-        Me.Label4.TabIndex = 34
-        Me.Label4.Text = "Heat Trace W/Ft."
-        '
-        'cmbWattsPerFoot
-        '
-        Me.cmbWattsPerFoot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbWattsPerFoot.Enabled = False
-        Me.cmbWattsPerFoot.FormattingEnabled = True
-        Me.cmbWattsPerFoot.Items.AddRange(New Object() {"3", "5", "8"})
-        Me.cmbWattsPerFoot.Location = New System.Drawing.Point(105, 71)
-        Me.cmbWattsPerFoot.Name = "cmbWattsPerFoot"
-        Me.cmbWattsPerFoot.Size = New System.Drawing.Size(100, 21)
-        Me.cmbWattsPerFoot.TabIndex = 33
-        '
-        'lblAdditionalHT
-        '
-        Me.lblAdditionalHT.AutoSize = True
-        Me.lblAdditionalHT.Location = New System.Drawing.Point(211, 14)
-        Me.lblAdditionalHT.Name = "lblAdditionalHT"
-        Me.lblAdditionalHT.Size = New System.Drawing.Size(71, 13)
-        Me.lblAdditionalHT.TabIndex = 35
-        Me.lblAdditionalHT.Text = "+ 0 Additional"
-        '
-        'lblWatts
-        '
-        Me.lblWatts.AutoSize = True
-        Me.lblWatts.Location = New System.Drawing.Point(211, 74)
-        Me.lblWatts.Name = "lblWatts"
-        Me.lblWatts.Size = New System.Drawing.Size(50, 13)
-        Me.lblWatts.TabIndex = 36
-        Me.lblWatts.Text = "xxx watts"
         '
         'frmLowAmbient
         '
