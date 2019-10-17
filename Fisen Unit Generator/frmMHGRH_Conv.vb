@@ -193,11 +193,7 @@ Public Class frmMHGRH_Conv
 
         temp = Val(frmMain.ThisUnit.NominalTons) / 2 * 12 * 1.25
 
-        If Val(frmMain.ThisUnitRHPerf.RHCapacity) > 0 Then
-            txtHGRHCap.Text = frmMain.ThisUnitRHPerf.RHCapacity
-        Else
-            txtHGRHCap.Text = Format(temp, "0.0")
-        End If
+        txtHGRHCap.Text = Format(temp, "0.0")
 
         If Val(frmMain.ThisUnitRHPerf.RHAirflow) > 0 Then
             txtHGRHAFlow.Text = frmMain.ThisUnitRHPerf.RHAirflow
@@ -205,12 +201,7 @@ Public Class frmMHGRH_Conv
             txtHGRHAFlow.Text = frmMain.ThisUnitSFanPerf.Airflow
         End If
 
-        If Val(frmMain.ThisUnitRHPerf.EAT) > 1 Then
-            txtEATDB.Text = frmMain.ThisUnitRHPerf.EAT
-        Else
-            txtEATDB.Text = frmMain.ThisUnitCoolPerf.LeavingDB
-        End If
-
+        txtEATDB.Text = frmMain.ThisUnitCoolPerf.LeavingDB
 
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
@@ -228,14 +219,12 @@ Public Class frmMHGRH_Conv
     End Sub
 
     Private Sub btnDoneControls_Click(sender As Object, e As EventArgs) Handles btnDoneControls.Click
-        If IsNumeric(frmMain.ThisUnitRHPerf.LAT) Then
-            txtLAT.Text = frmMain.ThisUnitRHPerf.LAT
-            txtDeltaT.Text = frmMain.ThisUnitRHPerf.DeltaT
-            txtDehumCap.Text = frmMain.ThisUnitRHPerf.DHCapacity
-        Else
-            txtLAT.Text = Format(Val(txtHGRHCap.Text) * 1000 / 1.085 / Val(txtHGRHAFlow.Text) + Val(txtEATDB.Text), "0.0")
+
+        txtDehumCap.Text = frmMain.ThisUnitRHPerf.DHCapacity
+
+        txtLAT.Text = Format(Val(txtHGRHCap.Text) * 1000 / 1.085 / Val(txtHGRHAFlow.Text) + Val(txtEATDB.Text), "0.0")
             txtDeltaT.Text = Format(Val(txtHGRHCap.Text) * 1000 / 1.085 / Val(txtHGRHAFlow.Text), "0.0")
-        End If
+
         If Val(txtLAT.Text) > 80 Then txtLAT.Text = "80.0"
 
         TabControl1.SelectTab("tpgPerformance")

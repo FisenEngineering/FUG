@@ -992,16 +992,7 @@ Public Class frmMain
         Call SaveTheXMLData()
         Call HandleFlaggedFileMoves()
 
-        My.Settings.LastJobNumber = txtJobNumber.Text
-        My.Settings.LastUnitNumber = txtUnitNumber.Text
-        My.Settings.LastProjDir = txtProjectDirectory.Text
 
-        If IsNumeric(Mid(txtJobNumber.Text, 1, 4)) Then
-            nudJobNumberAdj.Value = Val(Mid(txtJobNumber.Text, 1, 4))
-        Else
-            nudJobNumberAdj.Value = 3300
-        End If
-        My.Settings.Save()
 
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
 
@@ -4819,7 +4810,17 @@ Public Class frmMain
             tabMain.SelectTab("pgModifications")
         End If
 
+        My.Settings.LastJobNumber = txtJobNumber.Text
+        My.Settings.LastUnitNumber = txtUnitNumber.Text
+        My.Settings.LastProjDir = txtProjectDirectory.Text
+
+        If IsNumeric(Mid(txtJobNumber.Text, 1, 4)) Then
+            nudJobNumberAdj.Value = Val(Mid(txtJobNumber.Text, 1, 4))
+        Else
+            nudJobNumberAdj.Value = 3300
+        End If
         My.Settings.Save()
+
     End Sub
     Private Sub cmbHeatType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbHeatType.SelectedIndexChanged
         Dim gas As Boolean
@@ -5040,6 +5041,7 @@ Public Class frmMain
 
         'Initialize the Disconnect Info
         Call PreLoadElec()
+        Call UpdateTheMCA()
         tabMain.SelectTab("pgElec")
     End Sub
     Public Sub PreLoadElec()
@@ -6526,6 +6528,7 @@ Public Class frmMain
 
     Private Sub btnDoneCHW_Click(sender As Object, e As EventArgs) Handles btnDoneCHW.Click
         Call PreLoadElec()
+        Call UpdateTheMCA()
         tabMain.SelectTab("pgElec")
     End Sub
 
@@ -7509,13 +7512,20 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdUpdateMCA_Click(sender As Object, e As EventArgs) Handles cmdUpdateMCA.Click
-        txtCommMCA.Text = Format(CalculateMCAComm(), "0.0")
-        txtCommMOP.Text = Format(CalculateMOPComm(), "0")
-        If optEmerNA.Checked = False Then
-            txtEmerMCA.Text = Format(CalculateMCAEmer(), "0.0")
-            txtEmerMOP.Text = Format(CalculateMOPEmer(), "0")
+        Call UpdateTheMCA()
+    End Sub
+
+    Public Sub UpdateTheMCA()
+        If chkUseCustomMCA.Checked Then
+            txtCommMCA.Text = Format(CalculateMCAComm(), "0.0")
+            txtCommMOP.Text = Format(CalculateMOPComm(), "0")
+            If optEmerNA.Checked = False Then
+                txtEmerMCA.Text = Format(CalculateMCAEmer(), "0.0")
+                txtEmerMOP.Text = Format(CalculateMOPEmer(), "0")
+            End If
         End If
     End Sub
+
 
     Private Sub cmdAddELoad_Click(sender As Object, e As EventArgs) Handles cmdAddELoad.Click
         Dim NewRow As String()
@@ -7912,6 +7922,7 @@ Public Class frmMain
 
         If txtBaseUnitFile.Text = "" Then
             OpenFileDialog1.InitialDirectory = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\"
+            OpenFileDialog1.FileName = "BaseUnitFile.xml"
             OpenFileDialog1.ShowDialog()
             txtBaseUnitFile.Text = OpenFileDialog1.FileName
         End If
