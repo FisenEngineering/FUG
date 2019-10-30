@@ -62,6 +62,7 @@ Partial Class frmMGH_R
         Me.txtSSE = New System.Windows.Forms.TextBox()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmbCustomControls = New System.Windows.Forms.ComboBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -235,6 +236,7 @@ Partial Class frmMGH_R
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.cmbCustomControls)
         Me.tpgControls.Controls.Add(Me.chkSATReset)
         Me.tpgControls.Controls.Add(Me.optCustomCtrl)
         Me.tpgControls.Controls.Add(Me.opt100OACtrls)
@@ -466,6 +468,17 @@ Partial Class frmMGH_R
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
+        'cmbCustomControls
+        '
+        Me.cmbCustomControls.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCustomControls.Enabled = False
+        Me.cmbCustomControls.FormattingEnabled = True
+        Me.cmbCustomControls.Items.AddRange(New Object() {"IPU Enabled/Fisen Controlled Modulation"})
+        Me.cmbCustomControls.Location = New System.Drawing.Point(113, 126)
+        Me.cmbCustomControls.Name = "cmbCustomControls"
+        Me.cmbCustomControls.Size = New System.Drawing.Size(266, 21)
+        Me.cmbCustomControls.TabIndex = 11
+        '
         'frmMGH_R
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -532,4 +545,5 @@ Partial Class frmMGH_R
     Friend WithEvents chkSATReset As CheckBox
     Friend WithEvents TTfrmMGH_R As ToolTip
     Friend WithEvents chkPropane As CheckBox
+    Friend WithEvents cmbCustomControls As ComboBox
 End Class

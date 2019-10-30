@@ -292,7 +292,8 @@ Public Class clsHeatPerf
             pGasHeatContent = xNodeRoot.SelectSingleNode("GasHeatContent").InnerText
             pSSE = "80.0"
             pDeltaT = Val(pLAT) - Val(pEAT)
-            pControlStyle = xNodeRoot.SelectSingleNode("ControlStyle").InnerText
+            'Commented out control style...is this being writtten in the FST???
+            'pControlStyle = xNodeRoot.SelectSingleNode("ControlStyle").InnerText
         End If
 
         xDoc = Nothing

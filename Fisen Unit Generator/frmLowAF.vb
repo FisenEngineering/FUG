@@ -71,7 +71,7 @@ Public Class frmLowAF
             frmMain.ThisUnitCodes.Add("398805")
         End If
         If optResheave.Checked Then
-            frmMain.ThisUnitCodes.Add("3988810")
+            frmMain.ThisUnitCodes.Add("398810")
         End If
         If optFanWallBypassExisting.Checked Then
             frmMain.ThisUnitCodes.Add("398815")
@@ -82,15 +82,30 @@ Public Class frmLowAF
         If optReplaceFan.Checked Then
             frmMain.ThisUnitCodes.Add("398825")
         End If
+
+        'controls
+
         frmMain.ThisUnitCodes.Add("398835")
-        If chkAntiFrostProtection.Checked Then
-            frmMain.ThisUnitCodes.Add("398840")
-        End If
-        If chkElecHeatProtection.Checked Then
-            frmMain.ThisUnitCodes.Add("398850")
-        End If
-        If chkGasHeatProtection.Checked Then
-            frmMain.ThisUnitCodes.Add("398845")
+        If optSE.Checked Then
+            If chkAntiFrostProtection.Checked Then
+                frmMain.ThisUnitCodes.Add("398840")
+            End If
+            If chkElecHeatProtection.Checked Then
+                frmMain.ThisUnitCodes.Add("398850")
+            End If
+            If chkGasHeatProtection.Checked Then
+                frmMain.ThisUnitCodes.Add("398845")
+            End If
+        Else
+            If chkAntiFrostProtection.Checked Then
+                frmMain.ThisUnitCodes.Add("398855")
+            End If
+            If chkElecHeatProtection.Checked Then
+                frmMain.ThisUnitCodes.Add("398865")
+            End If
+            If chkGasHeatProtection.Checked Then
+                frmMain.ThisUnitCodes.Add("398860")
+            End If
         End If
         If chkSeriesConversion.Checked Then
             frmMain.ThisUnitCodes.Add("398830")
@@ -170,13 +185,18 @@ Public Class frmLowAF
         frmMain.ThisUnitCoolPerf.Power = txtPower.Text
         frmMain.ThisUnitCoolPerf.LeavingDB = txtLADB.Text
         frmMain.ThisUnitCoolPerf.LeavingWB = txtLAWB.Text
+        frmMain.ThisUnitCoolPerf.LeavingDBUnit = txtUnitLATdb.Text
+        frmMain.ThisUnitCoolPerf.LeavingDBUnit = txtUnitLATwb.Text
 
         frmMain.ThisUnitHeatPerf.EnteringAirTemp = txtHeatEAT.Text
         frmMain.ThisUnitHeatPerf.LeavingAirTemp = txtHeatingLAT.Text
+        frmMain.ThisUnitCoolPerf.FaceVelocity = txtFaceVelocity.Text
 
     End Sub
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim i As Integer
+        Dim sqft As Double
+
         pCancelled = False
 
         txtFanBHP.Text = frmMain.ThisUnitSFanPerf.BrakeHP
@@ -188,6 +208,12 @@ Public Class frmLowAF
         txtEWB.Text = frmMain.ThisUnitCoolPerf.EnteringWB
         txtHeatEAT.Text = frmMain.ThisUnitHeatPerf.EnteringAirTemp
 
+        If frmMain.ThisUnit.Family = "Series100" Then
+            sqft = frmMain.ThisUnitSFanPerf.Airflow / frmMain.ThisUnitCoolPerf.FaceVelocity
+            lblsqftevap.Text = Format(sqft, "0.0")
+        End If
+
+
         For i = 0 To frmMain.lstSelectedMods.Items.Count - 1
             If frmMain.lstSelectedMods.Items(i) = "100% Outdoor Air" Then
                 chk100OA.Checked = True
@@ -198,6 +224,8 @@ Public Class frmLowAF
                 chkSeriesConversion.Checked = False
             End If
         Next
+
+        If frmMain.ThisUnit.Family = "Series100" Then optIPU.Checked = True
 
 
     End Sub
@@ -373,6 +401,7 @@ Public Class frmLowAF
         Dim heatlat As Double
         Dim aflow As Double
         Dim btuout As Double
+        Dim sqft As Double
 
         btuout = Val(frmMain.ThisUnitHeatPerf.OutputCapacity) * 1000
         aflow = Val(txtAirflow.Text)
@@ -382,6 +411,12 @@ Public Class frmLowAF
         txtPower.Text = Format(Val(lblkW3MyAmbMyAF.Text), "0.0")
         txtFinalEnth.Text = lblFinalEnthalpy.Text
 
+        If frmMain.ThisUnit.Family = "Series100" Then
+            sqft = lblsqftevap.Text
+            txtFaceVelocity.Text = Format(Val(txtAirflow.Text) / sqft, "0.0")
+        Else
+            txtFaceVelocity.Text = "-"
+        End If
         TabControl1.SelectTab("tpgPerformance")
     End Sub
 
@@ -612,5 +647,12 @@ Public Class frmLowAF
         If chkSeriesConversion.Checked = False Then
             optRefDwgNone.Checked = True
         End If
+    End Sub
+
+    Private Sub cmdFanHeatCalc_Click(sender As Object, e As EventArgs) Handles cmdFanHeatCalc.Click
+        Dim temp As Double
+        temp = 2545 * Val(txtFanBHP.Text) / 0.92
+        lblFanHeat.Text = Format(temp, "0.0")
+
     End Sub
 End Class

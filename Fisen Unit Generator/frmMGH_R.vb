@@ -78,9 +78,14 @@
 
         If optCustomCtrl.Checked Then
             frmMain.ThisUnitCodes.Add("523105")
+            Select Case cmbCustomControls.Text
+                Case Is = "IPU Enabled/Fisen Controlled Modulation"
+                    frmMain.ThisUnitCodes.Add("523161")
+            End Select
+
         End If
 
-        Select Case frmMain.ThisUnit.Family
+            Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
                 frmMain.ThisUnitCodes.Add("523150")
             Case Is = "Series10"
@@ -133,7 +138,7 @@
                 tempWeight = "25"
             Case Is = "Series40"
                 tempWeight = "35"
-            Case Is = "Series 100"
+            Case Is = "Series100"
                 tempWeight = "65"
             Case Else
                 tempWeight = "9999"
@@ -249,4 +254,13 @@
         TabControl1.Enabled = False
     End Sub
 
+    Private Sub optCustomCtrl_CheckedChanged(sender As Object, e As EventArgs) Handles optCustomCtrl.CheckedChanged
+        If optCustomCtrl.Checked Then
+            cmbCustomControls.Enabled = True
+            cmbCustomControls.SelectedItem = 0
+        Else
+            cmbCustomControls.Enabled = False
+        End If
+
+    End Sub
 End Class
