@@ -2488,8 +2488,11 @@
         Dim datstop As Integer
         Dim datstart As Integer
         Dim dat(11) As String
+        Dim Fan As String
 
-        If optComefri.Checked = True Then
+        Fan = cmbFanSelected.Text
+
+        If optComefri.Checked = True And Fan.StartsWith("Comefri") Then
             If My.Computer.Clipboard.ContainsText Then
                 SoundClip = " " & My.Computer.Clipboard.GetText
             Else
@@ -2512,19 +2515,26 @@
                 Next
 
             End If
+        ElseIf optComefri.Checked = True And Fan.StartsWith("AFK") Then
+            MessageBox.Show("Are you sure you have a Comefri fan?")
         Else
-            If My.Computer.Clipboard.ContainsText Then
-                SoundClip = My.Computer.Clipboard.GetText
+            If optContinental.Checked = True And Fan.StartsWith("AFK") Then
+                If My.Computer.Clipboard.ContainsText Then
+                    SoundClip = My.Computer.Clipboard.GetText
+                Else
+                    SoundClip = "XX"
+                    Exit Sub
+                End If
+                For i = 1 To 9
+                    datstop = InStr(SoundClip, " ") - 1
+                    dat(i) = Trim(Mid(SoundClip, 1, datstop))
+                    SoundClip = Mid(SoundClip, datstop + 2)
+                Next
+            ElseIf optContinental.Checked = True And Fan.StartsWith("Comefri") Then
+                MessageBox.Show("Are you sure you have a Continental fan?")
             Else
-                SoundClip = "XX"
-                Exit Sub
+                MessageBox.Show("Something isn't adding up. Verify your information is correct.")
             End If
-            For i = 1 To 9
-                datstop = InStr(SoundClip, " ") - 1
-                dat(i) = Trim(Mid(SoundClip, 1, datstop))
-                SoundClip = Mid(SoundClip, datstop + 2)
-
-            Next
         End If
         txtOutPWL63.Text = dat(1)
         txtOutPWL125.Text = dat(2)
@@ -2549,9 +2559,11 @@
         Dim datstop As Integer
         Dim datstart As Integer
         Dim dat(11) As String
+        Dim Fan As String
 
+        Fan = cmbFanSelected.Text
 
-        If optComefri.Checked = True Then
+        If optComefri.Checked = True And Fan.StartsWith("Comefri") Then
             If My.Computer.Clipboard.ContainsText Then
                 SoundClip = " " & My.Computer.Clipboard.GetText
             Else
@@ -2573,19 +2585,27 @@
                 Next
 
             End If
+        ElseIf optComefri.Checked = True And Fan.StartsWith("AFK") Then
+            MessageBox.Show("Are you sure you have a Comefri fan?")
         Else
-            If My.Computer.Clipboard.ContainsText Then
-                SoundClip = My.Computer.Clipboard.GetText
-            Else
-                SoundClip = "XX"
-                Exit Sub
-            End If
-            For i = 1 To 9
-                datstop = InStr(SoundClip, " ") - 1
-                dat(i) = Trim(Mid(SoundClip, 1, datstop))
-                SoundClip = Mid(SoundClip, datstop + 2)
+            If optContinental.Checked = True And Fan.StartsWith("AFK") Then
+                If My.Computer.Clipboard.ContainsText Then
+                    SoundClip = My.Computer.Clipboard.GetText
+                Else
+                    SoundClip = "XX"
+                    Exit Sub
+                End If
+                For i = 1 To 9
+                    datstop = InStr(SoundClip, " ") - 1
+                    dat(i) = Trim(Mid(SoundClip, 1, datstop))
+                    SoundClip = Mid(SoundClip, datstop + 2)
 
-            Next
+                Next
+            ElseIf optContinental.Checked = True And Fan.StartsWith("Comefri") Then
+                MessageBox.Show("Are you sure you have a Continental fan?")
+            Else
+                MessageBox.Show("Something isn't adding up. Verify your information is correct.")
+            End If
         End If
         txtInPWL63.Text = dat(1)
         txtInPWL125.Text = dat(2)
