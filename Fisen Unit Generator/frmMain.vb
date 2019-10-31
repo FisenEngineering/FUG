@@ -1347,6 +1347,10 @@ Public Class frmMain
         End If
         lUnitWriter.WriteEndElement() 'Contains ERW
 
+        lUnitWriter.WriteStartElement("Notes")
+        lUnitWriter.WriteString(ThisUnit.Notes)
+        lUnitWriter.WriteEndElement()
+
         If ThisUnit.Kingdom = "Chiller" Then
             lUnitWriter.WriteStartElement("PIN")
 
@@ -4974,7 +4978,7 @@ Public Class frmMain
         txtHeatAppliedEHeat.Text = ThisUnitHeatPerf.AppliedEHeat
         txtHeatNominalEHeat.Text = ThisUnitHeatPerf.NominalEHeat
 
-        If ((ThisUnit.Family = "Series100") And (ThisUnitHeatPerf.HeatType = "Gas")) Then
+        If ((ThisUnit.Family = "Series100") And (ThisUnitHeatPerf.HeatType = "Gas Heat")) Then
             grpYPALGasHeat.Visible = True
             txtYPALGasHeatContent.Text = ThisUnitHeatPerf.GasHeatContent
             txtYPALGasConsumption.Text = Format(Val(ThisUnitHeatPerf.InputCapacity / ThisUnitHeatPerf.GasHeatContent * 1000.0), "0.0")
@@ -7939,6 +7943,7 @@ Public Class frmMain
         Select Case ThisUnit.Kingdom
             Case Is = "RTU"
                 If ThisUnit.Family <> "Series100" Then
+                    ThisUnit.Notes = "Sound performance does not reflect finial finisher options." & vbCrLf & "Clearances designated as -1 require verifying clearance in the #Brand# Engineering Guide." & vbCrLf & "Weight is estimated to +/- 10%"
                     ThisUnitCoolPerf.ImportFSTUPGData()
                     ThisUnitRHPerf.ImportFSTUPGData()
                     ThisUnitHeatPerf.ImportFSTUPGData()
@@ -8010,6 +8015,8 @@ Public Class frmMain
             dummy = MsgBox("Incorrect File Selection.")
             End
         End If
+
+        ThisUnit.Notes = xNodeRoot.SelectSingleNode("Notes").InnerText
 
         txtJobNumber.Text = xNodeRoot.SelectSingleNode("JobNumber").InnerText
         txtUnitNumber.Text = xNodeRoot.SelectSingleNode("UnitNumber").InnerText

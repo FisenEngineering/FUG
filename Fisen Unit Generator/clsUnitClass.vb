@@ -27,6 +27,25 @@ Public Class clsUnitClass
     Private pResourcePath As String
     Private pUPGCertifications As ArrayList = New ArrayList
     Private pCabinet As String
+    Private pNotes As String
+
+    Public Property Notes As String
+        Get
+            Return pNotes
+        End Get
+        Set(value As String)
+            If value = "" Then
+                pNotes = "-"
+            Else
+                If pNotes = "-" Then
+                    pNotes = value
+                Else
+
+                    pNotes = pNotes & vbCrLf & value
+                End If
+            End If
+        End Set
+    End Property
 
     Public Property Cabinet As String
         Get
@@ -462,6 +481,7 @@ Public Class clsUnitClass
         pBaseDwgOK = True
         pResourcePath = My.Settings.ResourceDir
         pCabinet = "Not Applicable"
+        pNotes = "-"
     End Sub
 
 
