@@ -5599,7 +5599,7 @@ Public Class frmMain
         ThisUnitCoolPerf.ImportYPALData()
         ThisUnitSFanPerf.ImportYPALData()
         ThisUnitRXPerf.ImportYPALData()
-        ThisUnitSFanPerf.ImportYPALStatic()
+        'ThisUnitSFanPerf.ImportYPALStatic()
 
     End Sub
     Private Sub GuessNominalTonsUPG()

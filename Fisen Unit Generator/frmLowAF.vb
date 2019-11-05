@@ -206,6 +206,7 @@ Public Class frmLowAF
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim i As Integer
         Dim sqft As Double
+        Dim NewRow As String()
 
         pCancelled = False
 
@@ -222,6 +223,12 @@ Public Class frmLowAF
             sqft = frmMain.ThisUnitSFanPerf.Airflow / frmMain.ThisUnitCoolPerf.FaceVelocity
             lblsqftevap.Text = Format(sqft, "0.0")
             lblsqftevap.Visible = True
+
+            For i = 0 To frmMain.ThisUnitSFanPerf.StaticNameYpal.Count - 1
+                NewRow = {frmMain.ThisUnitSFanPerf.StaticNameYpal(i), frmMain.ThisUnitSFanPerf.StaticDataYpal(i), "x.x"}
+                dgvStaticSummary.Rows.Add(NewRow)
+
+            Next
         End If
 
 
@@ -256,157 +263,12 @@ Public Class frmLowAF
         If frmMain.ThisUnit.Family <> "Series100" Then
             txtNominalAirflow.Text = Trim(Str(400 * Val(frmMain.ThisUnit.NominalTons)))
             txtMinCatAirflow.Text = MinCatalogedAirFlow()
-            txtMinCatHeatAF.Text = MinCatalogedHeatAF
+            txtMinCatHeatAF.Text = MinCatalogedHeatAF()
 
-            lblInitialEnthalpy.Text = Format(psyEnthalpy_db_wb(Val(txtEDB.Text), Val(txtEWB.Text), psyAtmosphericPressure(0)), "0.0")
-
-
-            lblHiAmb.Text = GetUPGUpperAmbient(Val(txtAmbient.Text))
-            lblLowAmb.Text = GetUPGLowerAmbient(Val(txtAmbient.Text))
-
-            tempaf = GetUPGUpperAirflow(Val(txtAirflow.Text))
-
-            lblHighAFLowTemp.Text = tempaf
-            lblHighAFHiTemp.Text = tempaf
-            lblHighAFMyTemp.Text = tempaf
-
-            tempaf = GetUPGLowerAirflow(Val(txtAirflow.Text))
-
-            lblLowAFLowTemp.Text = tempaf
-            lblLowAFHiTemp.Text = tempaf
-            lblLowAFMyTemp.Text = tempaf
-            Call SetTheWBHeader()
-            Call CompleteDataTable()
-
-
-            delta_h = Val(lblMBH3MyAmbMyAF.Text) * 1000 / 4.5 / Val(txtAirflow.Text)
-            lblFinalEnthalpy.Text = Format(Val(lblInitialEnthalpy.Text) - delta_h, "0.0")
         End If
         TabControl1.SelectTab("tpgOptions")
     End Sub
-    Private Sub SetTheWBHeader()
-        Dim MyWB As Double
-        Dim wb1 As Double
-        Dim wb2 As Double
 
-        MyWB = Val(txtEWB.Text)
-        If MyWB <= 67 Then
-            wb1 = 67
-            wb2 = 62
-        End If
-
-        If ((MyWB <= 72) And (MyWB > 67)) Then
-            wb1 = 72
-            wb2 = 67
-        End If
-
-        If (MyWB > 72) Then
-            wb1 = 77
-            wb2 = 72
-        End If
-
-        lblWB1.Text = Format(wb1, "0.0")
-        lblWB2.Text = Format(wb2, "0.0")
-        lblMyWB.Text = Format(MyWB, "0.0")
-
-    End Sub
-    Private Function SlopeIntercept(x1 As Double, y1 As Double, x2 As Double, y2 As Double, newx As Double) As Double
-        Dim m As Double
-        Dim b As Double
-        m = (y2 - y1) / (x2 - x1)
-        b = y1 - m * x1
-        SlopeIntercept = m * newx + b
-    End Function
-    Private Sub CompleteDataTable()
-
-        Dim WB1Name As String
-        Dim WB2Name As String
-
-        Dim con As ADODB.Connection
-        Dim rs As ADODB.Recordset
-        Dim dbProvider As String
-
-        Dim MySQL As String
-
-        con = New ADODB.Connection
-        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
-        con.ConnectionString = dbProvider
-        con.Open()
-        WB1Name = "XX"
-        WB2Name = "XX"
-        If lblWB1.Text = "77.0" Then WB1Name = "WB77"
-        If lblWB1.Text = "72.0" Then WB1Name = "WB72"
-        If lblWB1.Text = "67.0" Then WB1Name = "WB67"
-        If lblWB2.Text = "72.0" Then WB2Name = "WB72"
-        If lblWB2.Text = "67.0" Then WB2Name = "WB67"
-        If lblWB2.Text = "62.0" Then WB2Name = "WB62"
-
-        lblMyAmb.Text = txtAmbient.Text
-        lblMyAF.Text = txtAirflow.Text
-
-
-        rs = New ADODB.Recordset With {
-            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
-        }
-        Dim Snip As String
-        Snip = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
-        If Mid(Snip, 1, 1) = "V" Then
-            Snip = Mid(Snip, 1, 2) & "XXX"
-        End If
-        MySQL = "SELECT * FROM tblUPGCoolPerformance WHERE ModelSnip='" & snip & "' AND Ambient=" & Val(lblHiAmb.Text) & " ORDER BY CatAirflow"
-        rs.Open(MySQL, con)
-
-        rs.MoveFirst()
-        lblMBH1HiAmbLoAF.Text = rs.Fields(WB1Name & "TCap").Value
-        lblkW1HiAmbLoAF.Text = rs.Fields(WB1Name & "kW").Value
-        lblMBH2HiAmbLoAF.Text = rs.Fields(WB2Name & "TCap").Value
-        lblkW2HiAmbLoAF.Text = rs.Fields(WB2Name & "kW").Value
-
-        rs.MoveNext()
-        lblMBH1HiAmbHiAF.Text = rs.Fields(WB1Name & "TCap").Value
-        lblkW1HiAmbHiAF.Text = rs.Fields(WB1Name & "kW").Value
-        lblMBH2HiAmbHiAF.Text = rs.Fields(WB2Name & "TCap").Value
-        lblkW2HiAmbHiAF.Text = rs.Fields(WB2Name & "kW").Value
-        rs.Close()
-
-        MySQL = "SELECT * FROM tblUPGCoolPerformance WHERE ModelSnip='" & Snip & "' AND Ambient=" & Val(lblLowAmb.Text) & " ORDER BY CatAirflow"
-        rs.Open(MySQL, con)
-
-        rs.MoveFirst()
-        lblMBH1LoAmbLoAF.Text = rs.Fields(WB1Name & "TCap").Value
-        lblkW1LoAmbLoAF.Text = rs.Fields(WB1Name & "kW").Value
-        lblMBH2LoAmbLoAF.Text = rs.Fields(WB2Name & "TCap").Value
-        lblkW2LoAmbLoAF.Text = rs.Fields(WB2Name & "kW").Value
-
-        rs.MoveNext()
-        lblMBH1LoAmbHiAF.Text = rs.Fields(WB1Name & "TCap").Value
-        lblkW1LoAmbHiAF.Text = rs.Fields(WB1Name & "kW").Value
-        lblMBH2LoAmbHiAF.Text = rs.Fields(WB2Name & "TCap").Value
-        lblkW2LoAmbHiAF.Text = rs.Fields(WB2Name & "kW").Value
-
-        con.Close()
-        rs = Nothing
-        con = Nothing
-
-        lblMBH1MyAmbLoAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblMBH1LoAmbLoAF.Text, lblHiAmb.Text, lblMBH1HiAmbLoAF.Text, lblMyAmb.Text), "0.0")
-        lblMBH1MyAmbHiAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblMBH1LoAmbHiAF.Text, lblHiAmb.Text, lblMBH1HiAmbHiAF.Text, lblMyAmb.Text), "0.0")
-        lblkW1MyAmbLoAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblkW1LoAmbLoAF.Text, lblHiAmb.Text, lblkW1HiAmbLoAF.Text, lblMyAmb.Text), "0.0")
-        lblkW1MyAmbHiAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblkW1LoAmbHiAF.Text, lblHiAmb.Text, lblkW1HiAmbHiAF.Text, lblMyAmb.Text), "0.0")
-        lblMBH2MyAmbLoAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblMBH2LoAmbLoAF.Text, lblHiAmb.Text, lblMBH2LoAmbHiAF.Text, lblMyAmb.Text), "0.0")
-        lblMBH2MyAmbHiAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblMBH2LoAmbHiAF.Text, lblHiAmb.Text, lblMBH2HiAmbHiAF.Text, lblMyAmb.Text), "0.0")
-        lblkW2MyAmbLoAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblkW2LoAmbLoAF.Text, lblHiAmb.Text, lblkW2HiAmbLoAF.Text, lblMyAmb.Text), "0.0")
-        lblkW2MyAmbHiAF.Text = Format(SlopeIntercept(lblLowAmb.Text, lblkW2LoAmbHiAF.Text, lblHiAmb.Text, lblkW2HiAmbHiAF.Text, lblMyAmb.Text), "0.0")
-
-        lblMBH1MyAmbMyAF.Text = Format(SlopeIntercept(lblLowAFMyTemp.Text, lblMBH1MyAmbLoAF.Text, lblHighAFMyTemp.Text, lblMBH1MyAmbHiAF.Text, lblMyAF.Text), "0.0")
-        lblkW1MyAmbMyAF.Text = Format(SlopeIntercept(lblLowAFMyTemp.Text, lblkW1MyAmbLoAF.Text, lblHighAFMyTemp.Text, lblkW1MyAmbHiAF.Text, lblMyAF.Text), "0.0")
-        lblMBH2MyAmbMyAF.Text = Format(SlopeIntercept(lblLowAFMyTemp.Text, lblMBH2MyAmbLoAF.Text, lblHighAFMyTemp.Text, lblMBH2MyAmbHiAF.Text, lblMyAF.Text), "0.0")
-        lblkW2MyAmbMyAF.Text = Format(SlopeIntercept(lblLowAFMyTemp.Text, lblkW2MyAmbLoAF.Text, lblHighAFMyTemp.Text, lblkW2MyAmbHiAF.Text, lblMyAF.Text), "0.0")
-
-
-        lblMBH3MyAmbMyAF.Text = Format(SlopeIntercept(lblWB1.Text, lblMBH1MyAmbMyAF.Text, lblWB2.Text, lblMBH2MyAmbMyAF.Text, lblMyWB.Text), "0.0")
-        lblkW3MyAmbMyAF.Text = Format(SlopeIntercept(lblWB1.Text, lblkW1MyAmbMyAF.Text, lblWB2.Text, lblkW2MyAmbMyAF.Text, lblMyWB.Text), "0.0")
-
-    End Sub
 
     Private Sub btnDoneOptions_Click(sender As Object, e As EventArgs) Handles btnDoneOptions.Click
         TabControl1.SelectTab("tpgControls")
@@ -422,9 +284,6 @@ Public Class frmLowAF
         aflow = Val(txtAirflow.Text)
         heatlat = btuout / (aflow * 1.085) + Val(txtHeatEAT.Text)
         txtHeatingLAT.Text = Format(heatlat, "0.0")
-        txtTCap.Text = Format(Val(lblMBH3MyAmbMyAF.Text), "0.0")
-        txtPower.Text = Format(Val(lblkW3MyAmbMyAF.Text), "0.0")
-        txtFinalEnth.Text = lblFinalEnthalpy.Text
 
         If frmMain.ThisUnit.Family = "Series100" Then
             sqft = lblsqftevap.Text
@@ -792,7 +651,8 @@ Public Class frmLowAF
         If Mid(Snip, 1, 1) = "V" Then
             Snip = Mid(Snip, 1, 2) & "XXX"
         End If
-        MySQL = "SELECT * FROM tblUPGCoolPerformance WHERE ModelSnip='" & Snip & "' AND Ambient=" & Val(lblLowAmb.Text) & " ORDER BY CatAirflow"
+        '0.0 is a placeholder
+        MySQL = "SELECT * FROM tblUPGCoolPerformance WHERE ModelSnip='" & Snip & "' AND Ambient=" & Val("0.0") & " ORDER BY CatAirflow"
         rs.Open(MySQL, con)
 
         rs.MoveFirst()
@@ -827,7 +687,8 @@ Public Class frmLowAF
         If Mid(Snip, 1, 1) = "V" Then
             Snip = Mid(Snip, 1, 2) & "XXX"
         End If
-        MySQL = "SELECT * FROM tblUPGCoolPerformance WHERE ModelSnip='" & Snip & "' AND Ambient=" & Val(lblLowAmb.Text) & " ORDER BY CatAirflow DESC"
+        '0.0 in next line is a placeholder.
+        MySQL = "SELECT * FROM tblUPGCoolPerformance WHERE ModelSnip='" & Snip & "' AND Ambient=" & Val("0.0") & " ORDER BY CatAirflow DESC"
         rs.Open(MySQL, con)
 
         rs.MoveFirst()

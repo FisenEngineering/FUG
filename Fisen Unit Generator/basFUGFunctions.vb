@@ -35,4 +35,13 @@
         ToFracSize = FracSize
 
     End Function
+
+    Public Function SlopeIntercept(x1 As Double, y1 As Double, x2 As Double, y2 As Double, newx As Double) As Double
+        Dim m As Double
+        Dim b As Double
+        m = (y2 - y1) / (x2 - x1)
+        b = y1 - m * x1
+        SlopeIntercept = m * newx + b
+    End Function
+
 End Module

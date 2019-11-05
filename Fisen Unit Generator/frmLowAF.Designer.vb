@@ -121,56 +121,17 @@ Partial Class frmLowAF
         Me.Label9 = New System.Windows.Forms.Label()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.lblFinalEnthalpy = New System.Windows.Forms.Label()
-        Me.lblInitialEnthalpy = New System.Windows.Forms.Label()
-        Me.lblMyAmb = New System.Windows.Forms.Label()
-        Me.lblLowAmb = New System.Windows.Forms.Label()
-        Me.lblHiAmb = New System.Windows.Forms.Label()
-        Me.lblkW2HiAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblkW2HiAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblMBH2HiAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblMBH2HiAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblkW1HiAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblkW1HiAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblMBH1HiAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblMBH1HiAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblHighAFHiTemp = New System.Windows.Forms.Label()
-        Me.lblLowAFHiTemp = New System.Windows.Forms.Label()
-        Me.lblkW2LoAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblkW2LoAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblMBH2LoAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblMBH2LoAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblkW1LoAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblkW1LoAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblMBH1LoAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblMBH1LoAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblHighAFLowTemp = New System.Windows.Forms.Label()
-        Me.lblLowAFLowTemp = New System.Windows.Forms.Label()
-        Me.lblkW3MyAmbMyAF = New System.Windows.Forms.Label()
-        Me.lblMBH3MyAmbMyAF = New System.Windows.Forms.Label()
-        Me.lblMyWB = New System.Windows.Forms.Label()
-        Me.lblkW2MyAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblkW2MyAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblkW2MyAmbMyAF = New System.Windows.Forms.Label()
-        Me.lblMBH2MyAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblMBH2MyAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblMBH2MyAmbMyAF = New System.Windows.Forms.Label()
-        Me.lblkW1MyAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblkW1MyAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblkW1MyAmbMyAF = New System.Windows.Forms.Label()
-        Me.lblMBH1MyAmbHiAF = New System.Windows.Forms.Label()
-        Me.lblMBH1MyAmbLoAF = New System.Windows.Forms.Label()
-        Me.lblMBH1MyAmbMyAF = New System.Windows.Forms.Label()
-        Me.lblHighAFMyTemp = New System.Windows.Forms.Label()
-        Me.lblLowAFMyTemp = New System.Windows.Forms.Label()
-        Me.lblMyAF = New System.Windows.Forms.Label()
-        Me.lblWB2 = New System.Windows.Forms.Label()
-        Me.lblWB1 = New System.Windows.Forms.Label()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.txtDehumCap = New System.Windows.Forms.TextBox()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
+        Me.tpgCoolCalc = New System.Windows.Forms.TabPage()
+        Me.tpgStaticSummary = New System.Windows.Forms.TabPage()
+        Me.dgvStaticSummary = New System.Windows.Forms.DataGridView()
+        Me.ColItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colOrigSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colAdjSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -180,7 +141,8 @@ Partial Class frmLowAF
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        Me.DebugPage.SuspendLayout()
+        Me.tpgStaticSummary.SuspendLayout()
+        CType(Me.dgvStaticSummary, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOK
@@ -210,6 +172,8 @@ Partial Class frmLowAF
         Me.TabControl1.Controls.Add(Me.tpgControls)
         Me.TabControl1.Controls.Add(Me.tpgPerformance)
         Me.TabControl1.Controls.Add(Me.DebugPage)
+        Me.TabControl1.Controls.Add(Me.tpgCoolCalc)
+        Me.TabControl1.Controls.Add(Me.tpgStaticSummary)
         Me.TabControl1.Location = New System.Drawing.Point(7, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -624,9 +588,9 @@ Partial Class frmLowAF
         Me.Label36.AutoSize = True
         Me.Label36.Location = New System.Drawing.Point(3, 104)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(133, 13)
+        Me.Label36.Size = New System.Drawing.Size(138, 13)
         Me.Label36.TabIndex = 51
-        Me.Label36.Text = "Minimum Cataloged Airflow"
+        Me.Label36.Text = "Min. Heat Cataloged Airflow"
         Me.Label36.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'txtMinCatHeatAF
@@ -1175,491 +1139,13 @@ Partial Class frmLowAF
         '
         'DebugPage
         '
-        Me.DebugPage.Controls.Add(Me.lblFinalEnthalpy)
-        Me.DebugPage.Controls.Add(Me.lblInitialEnthalpy)
-        Me.DebugPage.Controls.Add(Me.lblMyAmb)
-        Me.DebugPage.Controls.Add(Me.lblLowAmb)
-        Me.DebugPage.Controls.Add(Me.lblHiAmb)
-        Me.DebugPage.Controls.Add(Me.lblkW2HiAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblkW2HiAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2HiAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2HiAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1HiAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1HiAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1HiAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1HiAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblHighAFHiTemp)
-        Me.DebugPage.Controls.Add(Me.lblLowAFHiTemp)
-        Me.DebugPage.Controls.Add(Me.lblkW2LoAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblkW2LoAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2LoAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2LoAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1LoAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1LoAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1LoAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1LoAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblHighAFLowTemp)
-        Me.DebugPage.Controls.Add(Me.lblLowAFLowTemp)
-        Me.DebugPage.Controls.Add(Me.lblkW3MyAmbMyAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH3MyAmbMyAF)
-        Me.DebugPage.Controls.Add(Me.lblMyWB)
-        Me.DebugPage.Controls.Add(Me.lblkW2MyAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblkW2MyAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblkW2MyAmbMyAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2MyAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2MyAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH2MyAmbMyAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1MyAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1MyAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblkW1MyAmbMyAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1MyAmbHiAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1MyAmbLoAF)
-        Me.DebugPage.Controls.Add(Me.lblMBH1MyAmbMyAF)
-        Me.DebugPage.Controls.Add(Me.lblHighAFMyTemp)
-        Me.DebugPage.Controls.Add(Me.lblLowAFMyTemp)
-        Me.DebugPage.Controls.Add(Me.lblMyAF)
-        Me.DebugPage.Controls.Add(Me.lblWB2)
-        Me.DebugPage.Controls.Add(Me.lblWB1)
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
         Me.DebugPage.Size = New System.Drawing.Size(591, 242)
         Me.DebugPage.TabIndex = 3
-        Me.DebugPage.Text = "Calculations"
+        Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
-        '
-        'lblFinalEnthalpy
-        '
-        Me.lblFinalEnthalpy.AutoSize = True
-        Me.lblFinalEnthalpy.Location = New System.Drawing.Point(526, 208)
-        Me.lblFinalEnthalpy.Name = "lblFinalEnthalpy"
-        Me.lblFinalEnthalpy.Size = New System.Drawing.Size(45, 13)
-        Me.lblFinalEnthalpy.TabIndex = 44
-        Me.lblFinalEnthalpy.Text = "Label38"
-        '
-        'lblInitialEnthalpy
-        '
-        Me.lblInitialEnthalpy.AutoSize = True
-        Me.lblInitialEnthalpy.Location = New System.Drawing.Point(526, 180)
-        Me.lblInitialEnthalpy.Name = "lblInitialEnthalpy"
-        Me.lblInitialEnthalpy.Size = New System.Drawing.Size(45, 13)
-        Me.lblInitialEnthalpy.TabIndex = 43
-        Me.lblInitialEnthalpy.Text = "Label38"
-        '
-        'lblMyAmb
-        '
-        Me.lblMyAmb.AutoSize = True
-        Me.lblMyAmb.Location = New System.Drawing.Point(384, 63)
-        Me.lblMyAmb.Name = "lblMyAmb"
-        Me.lblMyAmb.Size = New System.Drawing.Size(59, 13)
-        Me.lblMyAmb.TabIndex = 42
-        Me.lblMyAmb.Text = "MyAmbient"
-        '
-        'lblLowAmb
-        '
-        Me.lblLowAmb.AutoSize = True
-        Me.lblLowAmb.ForeColor = System.Drawing.Color.Blue
-        Me.lblLowAmb.Location = New System.Drawing.Point(384, 121)
-        Me.lblLowAmb.Name = "lblLowAmb"
-        Me.lblLowAmb.Size = New System.Drawing.Size(65, 13)
-        Me.lblLowAmb.TabIndex = 41
-        Me.lblLowAmb.Text = "LowAmbient"
-        '
-        'lblHiAmb
-        '
-        Me.lblHiAmb.AutoSize = True
-        Me.lblHiAmb.ForeColor = System.Drawing.Color.Red
-        Me.lblHiAmb.Location = New System.Drawing.Point(384, 180)
-        Me.lblHiAmb.Name = "lblHiAmb"
-        Me.lblHiAmb.Size = New System.Drawing.Size(67, 13)
-        Me.lblHiAmb.TabIndex = 40
-        Me.lblHiAmb.Text = "HighAmbient"
-        '
-        'lblkW2HiAmbHiAF
-        '
-        Me.lblkW2HiAmbHiAF.AutoSize = True
-        Me.lblkW2HiAmbHiAF.ForeColor = System.Drawing.Color.Red
-        Me.lblkW2HiAmbHiAF.Location = New System.Drawing.Point(315, 208)
-        Me.lblkW2HiAmbHiAF.Name = "lblkW2HiAmbHiAF"
-        Me.lblkW2HiAmbHiAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2HiAmbHiAF.TabIndex = 39
-        Me.lblkW2HiAmbHiAF.Text = "Label57"
-        '
-        'lblkW2HiAmbLoAF
-        '
-        Me.lblkW2HiAmbLoAF.AutoSize = True
-        Me.lblkW2HiAmbLoAF.ForeColor = System.Drawing.Color.Red
-        Me.lblkW2HiAmbLoAF.Location = New System.Drawing.Point(315, 179)
-        Me.lblkW2HiAmbLoAF.Name = "lblkW2HiAmbLoAF"
-        Me.lblkW2HiAmbLoAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2HiAmbLoAF.TabIndex = 38
-        Me.lblkW2HiAmbLoAF.Text = "Label58"
-        '
-        'lblMBH2HiAmbHiAF
-        '
-        Me.lblMBH2HiAmbHiAF.AutoSize = True
-        Me.lblMBH2HiAmbHiAF.ForeColor = System.Drawing.Color.Red
-        Me.lblMBH2HiAmbHiAF.Location = New System.Drawing.Point(236, 208)
-        Me.lblMBH2HiAmbHiAF.Name = "lblMBH2HiAmbHiAF"
-        Me.lblMBH2HiAmbHiAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH2HiAmbHiAF.TabIndex = 37
-        Me.lblMBH2HiAmbHiAF.Text = "444.4"
-        '
-        'lblMBH2HiAmbLoAF
-        '
-        Me.lblMBH2HiAmbLoAF.AutoSize = True
-        Me.lblMBH2HiAmbLoAF.ForeColor = System.Drawing.Color.Red
-        Me.lblMBH2HiAmbLoAF.Location = New System.Drawing.Point(236, 179)
-        Me.lblMBH2HiAmbLoAF.Name = "lblMBH2HiAmbLoAF"
-        Me.lblMBH2HiAmbLoAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH2HiAmbLoAF.TabIndex = 36
-        Me.lblMBH2HiAmbLoAF.Text = "555.5"
-        '
-        'lblkW1HiAmbHiAF
-        '
-        Me.lblkW1HiAmbHiAF.AutoSize = True
-        Me.lblkW1HiAmbHiAF.ForeColor = System.Drawing.Color.Red
-        Me.lblkW1HiAmbHiAF.Location = New System.Drawing.Point(150, 208)
-        Me.lblkW1HiAmbHiAF.Name = "lblkW1HiAmbHiAF"
-        Me.lblkW1HiAmbHiAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1HiAmbHiAF.TabIndex = 35
-        Me.lblkW1HiAmbHiAF.Text = "Label61"
-        '
-        'lblkW1HiAmbLoAF
-        '
-        Me.lblkW1HiAmbLoAF.AutoSize = True
-        Me.lblkW1HiAmbLoAF.ForeColor = System.Drawing.Color.Red
-        Me.lblkW1HiAmbLoAF.Location = New System.Drawing.Point(150, 179)
-        Me.lblkW1HiAmbLoAF.Name = "lblkW1HiAmbLoAF"
-        Me.lblkW1HiAmbLoAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1HiAmbLoAF.TabIndex = 34
-        Me.lblkW1HiAmbLoAF.Text = "Label62"
-        '
-        'lblMBH1HiAmbHiAF
-        '
-        Me.lblMBH1HiAmbHiAF.AutoSize = True
-        Me.lblMBH1HiAmbHiAF.ForeColor = System.Drawing.Color.Red
-        Me.lblMBH1HiAmbHiAF.Location = New System.Drawing.Point(71, 208)
-        Me.lblMBH1HiAmbHiAF.Name = "lblMBH1HiAmbHiAF"
-        Me.lblMBH1HiAmbHiAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH1HiAmbHiAF.TabIndex = 33
-        Me.lblMBH1HiAmbHiAF.Text = "333.3"
-        '
-        'lblMBH1HiAmbLoAF
-        '
-        Me.lblMBH1HiAmbLoAF.AutoSize = True
-        Me.lblMBH1HiAmbLoAF.ForeColor = System.Drawing.Color.Red
-        Me.lblMBH1HiAmbLoAF.Location = New System.Drawing.Point(71, 179)
-        Me.lblMBH1HiAmbLoAF.Name = "lblMBH1HiAmbLoAF"
-        Me.lblMBH1HiAmbLoAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH1HiAmbLoAF.TabIndex = 32
-        Me.lblMBH1HiAmbLoAF.Text = "222.2"
-        '
-        'lblHighAFHiTemp
-        '
-        Me.lblHighAFHiTemp.AutoSize = True
-        Me.lblHighAFHiTemp.ForeColor = System.Drawing.Color.Red
-        Me.lblHighAFHiTemp.Location = New System.Drawing.Point(6, 208)
-        Me.lblHighAFHiTemp.Name = "lblHighAFHiTemp"
-        Me.lblHighAFHiTemp.Size = New System.Drawing.Size(31, 13)
-        Me.lblHighAFHiTemp.TabIndex = 31
-        Me.lblHighAFHiTemp.Text = "3000"
-        '
-        'lblLowAFHiTemp
-        '
-        Me.lblLowAFHiTemp.AutoSize = True
-        Me.lblLowAFHiTemp.ForeColor = System.Drawing.Color.Red
-        Me.lblLowAFHiTemp.Location = New System.Drawing.Point(6, 179)
-        Me.lblLowAFHiTemp.Name = "lblLowAFHiTemp"
-        Me.lblLowAFHiTemp.Size = New System.Drawing.Size(31, 13)
-        Me.lblLowAFHiTemp.TabIndex = 30
-        Me.lblLowAFHiTemp.Text = "2500"
-        '
-        'lblkW2LoAmbHiAF
-        '
-        Me.lblkW2LoAmbHiAF.AutoSize = True
-        Me.lblkW2LoAmbHiAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblkW2LoAmbHiAF.Location = New System.Drawing.Point(315, 150)
-        Me.lblkW2LoAmbHiAF.Name = "lblkW2LoAmbHiAF"
-        Me.lblkW2LoAmbHiAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2LoAmbHiAF.TabIndex = 29
-        Me.lblkW2LoAmbHiAF.Text = "Label47"
-        '
-        'lblkW2LoAmbLoAF
-        '
-        Me.lblkW2LoAmbLoAF.AutoSize = True
-        Me.lblkW2LoAmbLoAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblkW2LoAmbLoAF.Location = New System.Drawing.Point(315, 121)
-        Me.lblkW2LoAmbLoAF.Name = "lblkW2LoAmbLoAF"
-        Me.lblkW2LoAmbLoAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2LoAmbLoAF.TabIndex = 28
-        Me.lblkW2LoAmbLoAF.Text = "Label48"
-        '
-        'lblMBH2LoAmbHiAF
-        '
-        Me.lblMBH2LoAmbHiAF.AutoSize = True
-        Me.lblMBH2LoAmbHiAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblMBH2LoAmbHiAF.Location = New System.Drawing.Point(236, 150)
-        Me.lblMBH2LoAmbHiAF.Name = "lblMBH2LoAmbHiAF"
-        Me.lblMBH2LoAmbHiAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH2LoAmbHiAF.TabIndex = 27
-        Me.lblMBH2LoAmbHiAF.Text = "444.4"
-        '
-        'lblMBH2LoAmbLoAF
-        '
-        Me.lblMBH2LoAmbLoAF.AutoSize = True
-        Me.lblMBH2LoAmbLoAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblMBH2LoAmbLoAF.Location = New System.Drawing.Point(236, 121)
-        Me.lblMBH2LoAmbLoAF.Name = "lblMBH2LoAmbLoAF"
-        Me.lblMBH2LoAmbLoAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH2LoAmbLoAF.TabIndex = 26
-        Me.lblMBH2LoAmbLoAF.Text = "555.5"
-        '
-        'lblkW1LoAmbHiAF
-        '
-        Me.lblkW1LoAmbHiAF.AutoSize = True
-        Me.lblkW1LoAmbHiAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblkW1LoAmbHiAF.Location = New System.Drawing.Point(150, 150)
-        Me.lblkW1LoAmbHiAF.Name = "lblkW1LoAmbHiAF"
-        Me.lblkW1LoAmbHiAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1LoAmbHiAF.TabIndex = 25
-        Me.lblkW1LoAmbHiAF.Text = "Label51"
-        '
-        'lblkW1LoAmbLoAF
-        '
-        Me.lblkW1LoAmbLoAF.AutoSize = True
-        Me.lblkW1LoAmbLoAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblkW1LoAmbLoAF.Location = New System.Drawing.Point(150, 121)
-        Me.lblkW1LoAmbLoAF.Name = "lblkW1LoAmbLoAF"
-        Me.lblkW1LoAmbLoAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1LoAmbLoAF.TabIndex = 24
-        Me.lblkW1LoAmbLoAF.Text = "Label52"
-        '
-        'lblMBH1LoAmbHiAF
-        '
-        Me.lblMBH1LoAmbHiAF.AutoSize = True
-        Me.lblMBH1LoAmbHiAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblMBH1LoAmbHiAF.Location = New System.Drawing.Point(71, 150)
-        Me.lblMBH1LoAmbHiAF.Name = "lblMBH1LoAmbHiAF"
-        Me.lblMBH1LoAmbHiAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH1LoAmbHiAF.TabIndex = 23
-        Me.lblMBH1LoAmbHiAF.Text = "333.3"
-        '
-        'lblMBH1LoAmbLoAF
-        '
-        Me.lblMBH1LoAmbLoAF.AutoSize = True
-        Me.lblMBH1LoAmbLoAF.ForeColor = System.Drawing.Color.Blue
-        Me.lblMBH1LoAmbLoAF.Location = New System.Drawing.Point(71, 121)
-        Me.lblMBH1LoAmbLoAF.Name = "lblMBH1LoAmbLoAF"
-        Me.lblMBH1LoAmbLoAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH1LoAmbLoAF.TabIndex = 22
-        Me.lblMBH1LoAmbLoAF.Text = "222.2"
-        '
-        'lblHighAFLowTemp
-        '
-        Me.lblHighAFLowTemp.AutoSize = True
-        Me.lblHighAFLowTemp.ForeColor = System.Drawing.Color.Blue
-        Me.lblHighAFLowTemp.Location = New System.Drawing.Point(6, 150)
-        Me.lblHighAFLowTemp.Name = "lblHighAFLowTemp"
-        Me.lblHighAFLowTemp.Size = New System.Drawing.Size(31, 13)
-        Me.lblHighAFLowTemp.TabIndex = 21
-        Me.lblHighAFLowTemp.Text = "3000"
-        '
-        'lblLowAFLowTemp
-        '
-        Me.lblLowAFLowTemp.AutoSize = True
-        Me.lblLowAFLowTemp.ForeColor = System.Drawing.Color.Blue
-        Me.lblLowAFLowTemp.Location = New System.Drawing.Point(6, 121)
-        Me.lblLowAFLowTemp.Name = "lblLowAFLowTemp"
-        Me.lblLowAFLowTemp.Size = New System.Drawing.Size(31, 13)
-        Me.lblLowAFLowTemp.TabIndex = 20
-        Me.lblLowAFLowTemp.Text = "2500"
-        '
-        'lblkW3MyAmbMyAF
-        '
-        Me.lblkW3MyAmbMyAF.AutoSize = True
-        Me.lblkW3MyAmbMyAF.ForeColor = System.Drawing.Color.Green
-        Me.lblkW3MyAmbMyAF.Location = New System.Drawing.Point(463, 35)
-        Me.lblkW3MyAmbMyAF.Name = "lblkW3MyAmbMyAF"
-        Me.lblkW3MyAmbMyAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW3MyAmbMyAF.TabIndex = 19
-        Me.lblkW3MyAmbMyAF.Text = "Label44"
-        '
-        'lblMBH3MyAmbMyAF
-        '
-        Me.lblMBH3MyAmbMyAF.AutoSize = True
-        Me.lblMBH3MyAmbMyAF.ForeColor = System.Drawing.Color.Green
-        Me.lblMBH3MyAmbMyAF.Location = New System.Drawing.Point(384, 35)
-        Me.lblMBH3MyAmbMyAF.Name = "lblMBH3MyAmbMyAF"
-        Me.lblMBH3MyAmbMyAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblMBH3MyAmbMyAF.TabIndex = 18
-        Me.lblMBH3MyAmbMyAF.Text = "Label45"
-        '
-        'lblMyWB
-        '
-        Me.lblMyWB.AutoSize = True
-        Me.lblMyWB.Location = New System.Drawing.Point(422, 13)
-        Me.lblMyWB.Name = "lblMyWB"
-        Me.lblMyWB.Size = New System.Drawing.Size(50, 13)
-        Me.lblMyWB.TabIndex = 17
-        Me.lblMyWB.Text = "New WB"
-        '
-        'lblkW2MyAmbHiAF
-        '
-        Me.lblkW2MyAmbHiAF.AutoSize = True
-        Me.lblkW2MyAmbHiAF.Location = New System.Drawing.Point(315, 92)
-        Me.lblkW2MyAmbHiAF.Name = "lblkW2MyAmbHiAF"
-        Me.lblkW2MyAmbHiAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2MyAmbHiAF.TabIndex = 16
-        Me.lblkW2MyAmbHiAF.Text = "Label38"
-        '
-        'lblkW2MyAmbLoAF
-        '
-        Me.lblkW2MyAmbLoAF.AutoSize = True
-        Me.lblkW2MyAmbLoAF.Location = New System.Drawing.Point(315, 63)
-        Me.lblkW2MyAmbLoAF.Name = "lblkW2MyAmbLoAF"
-        Me.lblkW2MyAmbLoAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2MyAmbLoAF.TabIndex = 15
-        Me.lblkW2MyAmbLoAF.Text = "Label39"
-        '
-        'lblkW2MyAmbMyAF
-        '
-        Me.lblkW2MyAmbMyAF.AutoSize = True
-        Me.lblkW2MyAmbMyAF.ForeColor = System.Drawing.Color.Green
-        Me.lblkW2MyAmbMyAF.Location = New System.Drawing.Point(315, 35)
-        Me.lblkW2MyAmbMyAF.Name = "lblkW2MyAmbMyAF"
-        Me.lblkW2MyAmbMyAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW2MyAmbMyAF.TabIndex = 14
-        Me.lblkW2MyAmbMyAF.Text = "Label40"
-        '
-        'lblMBH2MyAmbHiAF
-        '
-        Me.lblMBH2MyAmbHiAF.AutoSize = True
-        Me.lblMBH2MyAmbHiAF.Location = New System.Drawing.Point(236, 92)
-        Me.lblMBH2MyAmbHiAF.Name = "lblMBH2MyAmbHiAF"
-        Me.lblMBH2MyAmbHiAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH2MyAmbHiAF.TabIndex = 13
-        Me.lblMBH2MyAmbHiAF.Text = "444.4"
-        '
-        'lblMBH2MyAmbLoAF
-        '
-        Me.lblMBH2MyAmbLoAF.AutoSize = True
-        Me.lblMBH2MyAmbLoAF.Location = New System.Drawing.Point(236, 63)
-        Me.lblMBH2MyAmbLoAF.Name = "lblMBH2MyAmbLoAF"
-        Me.lblMBH2MyAmbLoAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH2MyAmbLoAF.TabIndex = 12
-        Me.lblMBH2MyAmbLoAF.Text = "555.5"
-        '
-        'lblMBH2MyAmbMyAF
-        '
-        Me.lblMBH2MyAmbMyAF.AutoSize = True
-        Me.lblMBH2MyAmbMyAF.ForeColor = System.Drawing.Color.Green
-        Me.lblMBH2MyAmbMyAF.Location = New System.Drawing.Point(236, 35)
-        Me.lblMBH2MyAmbMyAF.Name = "lblMBH2MyAmbMyAF"
-        Me.lblMBH2MyAmbMyAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblMBH2MyAmbMyAF.TabIndex = 11
-        Me.lblMBH2MyAmbMyAF.Text = "Label43"
-        '
-        'lblkW1MyAmbHiAF
-        '
-        Me.lblkW1MyAmbHiAF.AutoSize = True
-        Me.lblkW1MyAmbHiAF.Location = New System.Drawing.Point(150, 92)
-        Me.lblkW1MyAmbHiAF.Name = "lblkW1MyAmbHiAF"
-        Me.lblkW1MyAmbHiAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1MyAmbHiAF.TabIndex = 10
-        Me.lblkW1MyAmbHiAF.Text = "Label35"
-        '
-        'lblkW1MyAmbLoAF
-        '
-        Me.lblkW1MyAmbLoAF.AutoSize = True
-        Me.lblkW1MyAmbLoAF.Location = New System.Drawing.Point(150, 63)
-        Me.lblkW1MyAmbLoAF.Name = "lblkW1MyAmbLoAF"
-        Me.lblkW1MyAmbLoAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1MyAmbLoAF.TabIndex = 9
-        Me.lblkW1MyAmbLoAF.Text = "Label36"
-        '
-        'lblkW1MyAmbMyAF
-        '
-        Me.lblkW1MyAmbMyAF.AutoSize = True
-        Me.lblkW1MyAmbMyAF.ForeColor = System.Drawing.Color.Green
-        Me.lblkW1MyAmbMyAF.Location = New System.Drawing.Point(150, 35)
-        Me.lblkW1MyAmbMyAF.Name = "lblkW1MyAmbMyAF"
-        Me.lblkW1MyAmbMyAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblkW1MyAmbMyAF.TabIndex = 8
-        Me.lblkW1MyAmbMyAF.Text = "Label37"
-        '
-        'lblMBH1MyAmbHiAF
-        '
-        Me.lblMBH1MyAmbHiAF.AutoSize = True
-        Me.lblMBH1MyAmbHiAF.Location = New System.Drawing.Point(71, 92)
-        Me.lblMBH1MyAmbHiAF.Name = "lblMBH1MyAmbHiAF"
-        Me.lblMBH1MyAmbHiAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH1MyAmbHiAF.TabIndex = 7
-        Me.lblMBH1MyAmbHiAF.Text = "333.3"
-        '
-        'lblMBH1MyAmbLoAF
-        '
-        Me.lblMBH1MyAmbLoAF.AutoSize = True
-        Me.lblMBH1MyAmbLoAF.Location = New System.Drawing.Point(71, 63)
-        Me.lblMBH1MyAmbLoAF.Name = "lblMBH1MyAmbLoAF"
-        Me.lblMBH1MyAmbLoAF.Size = New System.Drawing.Size(34, 13)
-        Me.lblMBH1MyAmbLoAF.TabIndex = 6
-        Me.lblMBH1MyAmbLoAF.Text = "222.2"
-        '
-        'lblMBH1MyAmbMyAF
-        '
-        Me.lblMBH1MyAmbMyAF.AutoSize = True
-        Me.lblMBH1MyAmbMyAF.ForeColor = System.Drawing.Color.Green
-        Me.lblMBH1MyAmbMyAF.Location = New System.Drawing.Point(71, 35)
-        Me.lblMBH1MyAmbMyAF.Name = "lblMBH1MyAmbMyAF"
-        Me.lblMBH1MyAmbMyAF.Size = New System.Drawing.Size(45, 13)
-        Me.lblMBH1MyAmbMyAF.TabIndex = 5
-        Me.lblMBH1MyAmbMyAF.Text = "Label34"
-        '
-        'lblHighAFMyTemp
-        '
-        Me.lblHighAFMyTemp.AutoSize = True
-        Me.lblHighAFMyTemp.Location = New System.Drawing.Point(6, 92)
-        Me.lblHighAFMyTemp.Name = "lblHighAFMyTemp"
-        Me.lblHighAFMyTemp.Size = New System.Drawing.Size(31, 13)
-        Me.lblHighAFMyTemp.TabIndex = 4
-        Me.lblHighAFMyTemp.Text = "3000"
-        '
-        'lblLowAFMyTemp
-        '
-        Me.lblLowAFMyTemp.AutoSize = True
-        Me.lblLowAFMyTemp.Location = New System.Drawing.Point(6, 63)
-        Me.lblLowAFMyTemp.Name = "lblLowAFMyTemp"
-        Me.lblLowAFMyTemp.Size = New System.Drawing.Size(31, 13)
-        Me.lblLowAFMyTemp.TabIndex = 3
-        Me.lblLowAFMyTemp.Text = "2500"
-        '
-        'lblMyAF
-        '
-        Me.lblMyAF.AutoSize = True
-        Me.lblMyAF.Location = New System.Drawing.Point(6, 35)
-        Me.lblMyAF.Name = "lblMyAF"
-        Me.lblMyAF.Size = New System.Drawing.Size(42, 13)
-        Me.lblMyAF.TabIndex = 2
-        Me.lblMyAF.Text = "NewAF"
-        '
-        'lblWB2
-        '
-        Me.lblWB2.AutoSize = True
-        Me.lblWB2.Location = New System.Drawing.Point(274, 13)
-        Me.lblWB2.Name = "lblWB2"
-        Me.lblWB2.Size = New System.Drawing.Size(40, 13)
-        Me.lblWB2.TabIndex = 1
-        Me.lblWB2.Text = "72 WB"
-        '
-        'lblWB1
-        '
-        Me.lblWB1.AutoSize = True
-        Me.lblWB1.Location = New System.Drawing.Point(106, 13)
-        Me.lblWB1.Name = "lblWB1"
-        Me.lblWB1.Size = New System.Drawing.Size(49, 13)
-        Me.lblWB1.TabIndex = 0
-        Me.lblWB1.Text = "77.0 WB"
         '
         'chkWriteHistory
         '
@@ -1708,6 +1194,49 @@ Partial Class frmLowAF
         Me.cmdCalcDehumCap.TabIndex = 92
         Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
         '
+        'tpgCoolCalc
+        '
+        Me.tpgCoolCalc.Location = New System.Drawing.Point(4, 22)
+        Me.tpgCoolCalc.Name = "tpgCoolCalc"
+        Me.tpgCoolCalc.Size = New System.Drawing.Size(591, 242)
+        Me.tpgCoolCalc.TabIndex = 5
+        Me.tpgCoolCalc.Text = "Cool Perf"
+        Me.tpgCoolCalc.UseVisualStyleBackColor = True
+        '
+        'tpgStaticSummary
+        '
+        Me.tpgStaticSummary.Controls.Add(Me.dgvStaticSummary)
+        Me.tpgStaticSummary.Location = New System.Drawing.Point(4, 22)
+        Me.tpgStaticSummary.Name = "tpgStaticSummary"
+        Me.tpgStaticSummary.Size = New System.Drawing.Size(591, 242)
+        Me.tpgStaticSummary.TabIndex = 6
+        Me.tpgStaticSummary.Text = "Static Summary"
+        Me.tpgStaticSummary.UseVisualStyleBackColor = True
+        '
+        'dgvStaticSummary
+        '
+        Me.dgvStaticSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvStaticSummary.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ColItem, Me.colOrigSP, Me.colAdjSP})
+        Me.dgvStaticSummary.Location = New System.Drawing.Point(5, 3)
+        Me.dgvStaticSummary.Name = "dgvStaticSummary"
+        Me.dgvStaticSummary.Size = New System.Drawing.Size(411, 150)
+        Me.dgvStaticSummary.TabIndex = 0
+        '
+        'ColItem
+        '
+        Me.ColItem.HeaderText = "Item"
+        Me.ColItem.Name = "ColItem"
+        '
+        'colOrigSP
+        '
+        Me.colOrigSP.HeaderText = "Orig. SP"
+        Me.colOrigSP.Name = "colOrigSP"
+        '
+        'colAdjSP
+        '
+        Me.colAdjSP.HeaderText = "Adj. SP"
+        Me.colAdjSP.Name = "colAdjSP"
+        '
         'frmLowAF
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1739,8 +1268,8 @@ Partial Class frmLowAF
         Me.GroupBox2.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
-        Me.DebugPage.ResumeLayout(False)
-        Me.DebugPage.PerformLayout()
+        Me.tpgStaticSummary.ResumeLayout(False)
+        CType(Me.dgvStaticSummary, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1819,51 +1348,6 @@ Partial Class frmLowAF
     Friend WithEvents lblFanbhp2 As Label
     Friend WithEvents txtFanBHP As TextBox
     Friend WithEvents lblFanHP As Label
-    Friend WithEvents lblkW3MyAmbMyAF As Label
-    Friend WithEvents lblMBH3MyAmbMyAF As Label
-    Friend WithEvents lblMyWB As Label
-    Friend WithEvents lblkW2MyAmbHiAF As Label
-    Friend WithEvents lblkW2MyAmbLoAF As Label
-    Friend WithEvents lblkW2MyAmbMyAF As Label
-    Friend WithEvents lblMBH2MyAmbHiAF As Label
-    Friend WithEvents lblMBH2MyAmbLoAF As Label
-    Friend WithEvents lblMBH2MyAmbMyAF As Label
-    Friend WithEvents lblkW1MyAmbHiAF As Label
-    Friend WithEvents lblkW1MyAmbLoAF As Label
-    Friend WithEvents lblkW1MyAmbMyAF As Label
-    Friend WithEvents lblMBH1MyAmbHiAF As Label
-    Friend WithEvents lblMBH1MyAmbLoAF As Label
-    Friend WithEvents lblMBH1MyAmbMyAF As Label
-    Friend WithEvents lblHighAFMyTemp As Label
-    Friend WithEvents lblLowAFMyTemp As Label
-    Friend WithEvents lblMyAF As Label
-    Friend WithEvents lblWB2 As Label
-    Friend WithEvents lblWB1 As Label
-    Friend WithEvents lblMyAmb As Label
-    Friend WithEvents lblLowAmb As Label
-    Friend WithEvents lblHiAmb As Label
-    Friend WithEvents lblkW2HiAmbHiAF As Label
-    Friend WithEvents lblkW2HiAmbLoAF As Label
-    Friend WithEvents lblMBH2HiAmbHiAF As Label
-    Friend WithEvents lblMBH2HiAmbLoAF As Label
-    Friend WithEvents lblkW1HiAmbHiAF As Label
-    Friend WithEvents lblkW1HiAmbLoAF As Label
-    Friend WithEvents lblMBH1HiAmbHiAF As Label
-    Friend WithEvents lblMBH1HiAmbLoAF As Label
-    Friend WithEvents lblHighAFHiTemp As Label
-    Friend WithEvents lblLowAFHiTemp As Label
-    Friend WithEvents lblkW2LoAmbHiAF As Label
-    Friend WithEvents lblkW2LoAmbLoAF As Label
-    Friend WithEvents lblMBH2LoAmbHiAF As Label
-    Friend WithEvents lblMBH2LoAmbLoAF As Label
-    Friend WithEvents lblkW1LoAmbHiAF As Label
-    Friend WithEvents lblkW1LoAmbLoAF As Label
-    Friend WithEvents lblMBH1LoAmbHiAF As Label
-    Friend WithEvents lblMBH1LoAmbLoAF As Label
-    Friend WithEvents lblHighAFLowTemp As Label
-    Friend WithEvents lblLowAFLowTemp As Label
-    Friend WithEvents lblFinalEnthalpy As Label
-    Friend WithEvents lblInitialEnthalpy As Label
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents optRefDwg2Ckt As RadioButton
@@ -1894,4 +1378,10 @@ Partial Class frmLowAF
     Friend WithEvents Label37 As Label
     Friend WithEvents txtDehumCap As TextBox
     Friend WithEvents Label38 As Label
+    Friend WithEvents tpgCoolCalc As TabPage
+    Friend WithEvents tpgStaticSummary As TabPage
+    Friend WithEvents dgvStaticSummary As DataGridView
+    Friend WithEvents ColItem As DataGridViewTextBoxColumn
+    Friend WithEvents colOrigSP As DataGridViewTextBoxColumn
+    Friend WithEvents colAdjSP As DataGridViewTextBoxColumn
 End Class

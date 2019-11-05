@@ -2,8 +2,6 @@
 Imports System.Xml.Serialization
 
 Public Class ClsYPALMainPerf
-    Private pStaticSummaryItem As New ArrayList
-    Private pStaticSummaryData As New ArrayList
 
     Private pUnitSize As String
     Private pIEER As String
@@ -139,23 +137,6 @@ Public Class ClsYPALMainPerf
         End Get
         Set(value As String)
             pCFanTotalFLA = value
-        End Set
-    End Property
-
-    Public Property StaticSummaryItem As ArrayList
-        Get
-            Return pStaticSummaryItem
-        End Get
-        Set(value As ArrayList)
-            pStaticSummaryItem = value
-        End Set
-    End Property
-    Public Property StaticSummaryData As ArrayList
-        Get
-            Return pStaticSummaryData
-        End Get
-        Set(value As ArrayList)
-            pStaticSummaryData = value
         End Set
     End Property
 
