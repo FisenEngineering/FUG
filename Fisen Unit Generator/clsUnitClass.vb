@@ -116,7 +116,7 @@ Public Class clsUnitClass
     End Property
     Public Property NominalTons As String
         Get
-            NominalTons = Format(Val(pNomTons), "0.0")
+            NominalTons = Trim(Format(Val(pNomTons), "0.0"))
         End Get
         Set(value As String)
             pNomTons = value

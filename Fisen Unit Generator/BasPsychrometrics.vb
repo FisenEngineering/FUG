@@ -42,6 +42,7 @@
         vp = psyVaporPressure1_db_wb(dryBulb, wetBulb, atmPressure)
 
         psyHumRatio_db_wb = 0.622 * vp / (atmPressure - vp)
+        'pounds/pound dry air.
     End Function
     Public Function psyVaporPressure1_db_wb(dryBulb As Double, wetBulb As Double, atmPressure As Double) As Double
         'Calculate Vapor Pressure given dry bulb temp, wet bulb temp, and atm pressure
@@ -157,5 +158,23 @@
         End Select
         ElevationCorrection = k
 
+    End Function
+
+    Public Function psyDehumCapacity(db_in As Double, wb_in As Double, db_out As Double, wb_out As Double, airflow As Double) As Double
+        Dim temp As Double
+        Dim HumRatIn, HumRatOut, HumRatDelta As Double
+        Dim SpecVolIn, SpecVolOut, SpecVolAvg As Double
+
+        HumRatIn = psyHumRatio_db_wb(db_in, wb_in, psyAtmosphericPressure(frmMain.ThisUnitCoolPerf.Elevation))
+        HumRatOut = psyHumRatio_db_wb(db_out, wb_out, psyAtmosphericPressure(frmMain.ThisUnitCoolPerf.Elevation))
+        HumRatDelta = HumRatIn - HumRatOut
+
+        SpecVolIn = psySpecificVolume(db_in, wb_in, psyAtmosphericPressure(frmMain.ThisUnitCoolPerf.Elevation))
+        SpecVolOut = psySpecificVolume(db_out, wb_out, psyAtmosphericPressure(frmMain.ThisUnitCoolPerf.Elevation))
+        SpecVolAvg = (SpecVolIn + SpecVolOut) / 2
+
+        temp = HumRatDelta / SpecVolAvg * airflow * 60
+        temp = temp * 0.97
+        psyDehumCapacity = temp
     End Function
 End Module

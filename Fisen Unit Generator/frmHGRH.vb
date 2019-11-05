@@ -14,6 +14,7 @@
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
         Call LoadConditions()
+        txtDehumCap.Text = Format(psyDehumCapacity(frmMain.ThisUnitCoolPerf.EnteringDB, frmMain.ThisUnitCoolPerf.EnteringWB, frmMain.ThisUnitCoolPerf.LeavingDB, frmMain.ThisUnitCoolPerf.LeavingWB, frmMain.ThisUnitSFanPerf.Airflow), "0.0")
 
     End Sub
     Private Sub LoadConditions()
@@ -123,6 +124,8 @@
         esp = esp - coilapd
         frmMain.ThisUnitSFanPerf.ESP = Format(esp, "0.00")
         frmMain.ThisUnitRHPerf.CoilAPD = Format(coilapd, "0.00")
+        frmMain.ThisUnitRHPerf.DHCapacity = txtDehumCap.Text
+
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As String
@@ -535,5 +538,10 @@
             opt100OARH.Enabled = True
             optTempPriority.Checked = True
         End If
+    End Sub
+
+    Private Sub cmdCalcDehumCap_Click(sender As Object, e As EventArgs) Handles cmdCalcDehumCap.Click
+        txtDehumCap.Text = Format(psyDehumCapacity(frmMain.ThisUnitCoolPerf.EnteringDB, frmMain.ThisUnitCoolPerf.EnteringWB, frmMain.ThisUnitCoolPerf.LeavingDB, frmMain.ThisUnitCoolPerf.LeavingWB, frmMain.ThisUnitSFanPerf.Airflow), "0.0")
+
     End Sub
 End Class

@@ -5564,7 +5564,7 @@ Public Class frmMain
     End Sub
 
     Private Sub GuessNominalTonsODSplit()
-        txtNominalTons.Text = Mid(txtModelNumber.Text, 2, 2)
+        txtNominalTons.Text = Trim(Mid(txtModelNumber.Text, 2, 2))
     End Sub
 
 
@@ -5611,7 +5611,7 @@ Public Class frmMain
                 If S40Digit2 = "2" Then
                     txtNominalTons.Text = "25"
                 Else
-                    txtNominalTons.Text = Str(Val(S40Digit2) * 10)
+                    txtNominalTons.Text = Trim(Str(Val(S40Digit2) * 10))
                 End If
 
             Case Is = "Series20"
@@ -8042,7 +8042,7 @@ Public Class frmMain
         Next
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/CoolingData")
-        txtNominalTons.Text = xNodeRoot.SelectSingleNode("NominalTons").InnerText
+        txtNominalTons.Text = Trim(xNodeRoot.SelectSingleNode("NominalTons").InnerText)
 
 
         If ThisUnit.Kingdom = "Chiller" Then
@@ -8254,7 +8254,9 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdDebug_Click(sender As Object, e As EventArgs) Handles cmdDebug.Click
-        Debug.Print(ModBarn.Test)
+
+
+        Debug.Print(psyDehumCapacity(78, 65, 50.5, 49.5, 5000))
     End Sub
 
     Private Sub txtJobNumber_ModifiedChanged(sender As Object, e As EventArgs) Handles txtJobNumber.ModifiedChanged

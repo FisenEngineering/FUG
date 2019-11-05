@@ -184,13 +184,23 @@ Public Class frmLowAF
         frmMain.ThisUnitCoolPerf.SensibleCapacity = txtSCap.Text
         frmMain.ThisUnitCoolPerf.Power = txtPower.Text
         frmMain.ThisUnitCoolPerf.LeavingDB = txtLADB.Text
-        frmMain.ThisUnitCoolPerf.LeavingWB = txtLAWB.Text
+        If Val(txtLADB.Text) < 48 Then
+            If frmMain.ThisUnit.Kingdom = "RTU" And frmMain.ThisUnit.Family <> "Series100" Then
+                frmMain.ThisUnit.Notes = "LAT is theoretical.  SE Controller my inhibit operation at temperatures this low."
+            End If
+
+            If frmMain.ThisUnit.Kingdom = "RTU" And frmMain.ThisUnit.Family = "Series100" Then
+                frmMain.ThisUnit.Notes = "LAT is theoretical.  IPU Controller my inhibit operation at temperatures this low."
+            End If
+        End If
+            frmMain.ThisUnitCoolPerf.LeavingWB = txtLAWB.Text
         frmMain.ThisUnitCoolPerf.LeavingDBUnit = txtUnitLATdb.Text
         frmMain.ThisUnitCoolPerf.LeavingDBUnit = txtUnitLATwb.Text
 
         frmMain.ThisUnitHeatPerf.EnteringAirTemp = txtHeatEAT.Text
         frmMain.ThisUnitHeatPerf.LeavingAirTemp = txtHeatingLAT.Text
         frmMain.ThisUnitCoolPerf.FaceVelocity = txtFaceVelocity.Text
+        frmMain.ThisUnitRHPerf.DHCapacity = txtDehumCap.Text
 
     End Sub
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -211,6 +221,7 @@ Public Class frmLowAF
         If frmMain.ThisUnit.Family = "Series100" Then
             sqft = frmMain.ThisUnitSFanPerf.Airflow / frmMain.ThisUnitCoolPerf.FaceVelocity
             lblsqftevap.Text = Format(sqft, "0.0")
+            lblsqftevap.Visible = True
         End If
 
 
@@ -227,6 +238,9 @@ Public Class frmLowAF
 
         If frmMain.ThisUnit.Family = "Series100" Then optIPU.Checked = True
 
+        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then chkGasHeatProtection.Checked = True
+        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then chkElecHeatProtection.Checked = True
+
 
     End Sub
 
@@ -242,6 +256,7 @@ Public Class frmLowAF
         If frmMain.ThisUnit.Family <> "Series100" Then
             txtNominalAirflow.Text = Trim(Str(400 * Val(frmMain.ThisUnit.NominalTons)))
             txtMinCatAirflow.Text = MinCatalogedAirFlow()
+            txtMinCatHeatAF.Text = MinCatalogedHeatAF
 
             lblInitialEnthalpy.Text = Format(psyEnthalpy_db_wb(Val(txtEDB.Text), Val(txtEWB.Text), psyAtmosphericPressure(0)), "0.0")
 
@@ -430,13 +445,26 @@ Public Class frmLowAF
         pCancelled = True
         Hide()
     End Sub
-    Private Function MinCatalogedAirFlow() As String
+
+    Private Function MinCatalogedHeatAF() As String
         Dim tempflow As String
         Dim lowflow As Double
         lowflow = 0
         Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "3.0"
+                        lowflow = 800
+                    Case Is = "4.0"
+                        lowflow = 1000
+                    Case Is = "5.0"
+                        lowflow = 1200
+                    Case Is = "6.0"
+                        lowflow = 1600
+                    Case Else
+                        lowflow = -9999
+                End Select
             Case Is = "Series10"
-
                 Select Case frmMain.ThisUnit.NominalTons
                     Case Is = "3.0"
                         lowflow = 900
@@ -454,6 +482,178 @@ Public Class frmLowAF
                         lowflow = 2600
                     Case Is = "12.5"
                         lowflow = 3200
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series20"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        lowflow = 4000
+                    Case Is = "17.5"
+                        lowflow = 4400
+                    Case Is = "20.0"
+                        lowflow = 5200
+                    Case Is = "25.0"
+                        lowflow = 6600
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series40"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "25.0"
+                        lowflow = 7500
+                    Case Is = "30.0"
+                        lowflow = 7500
+                    Case Is = "40.0"
+                        lowflow = 10000
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series100"
+
+
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "50.0"
+                        lowflow = 12000
+                    Case Is = "55.0"
+                        lowflow = 12000
+                    Case Is = "60.0"
+                        lowflow = 12000
+                    Case Is = "65.0"
+                        lowflow = 12000
+                    Case Is = "70.0"
+                        lowflow = 14000
+                    Case Is = "75.0"
+                        lowflow = 15500
+                    Case Is = "80.0"
+                        lowflow = 15000
+                    Case Is = "90.0"
+                        lowflow = 17500
+                    Case Is = "105.0"
+                        lowflow = 21000
+                    Case Is = "120.0"
+                        lowflow = -9999
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            lowflow = 19350
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            lowflow = 15000
+                        End If
+                    Case Is = "130.0"
+                        lowflow = -9999
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            lowflow = 19350
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            lowflow = 15000
+                        End If
+                    Case Is = "150.0"
+                        lowflow = -9999
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            lowflow = 19350
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            lowflow = 15000
+                        End If
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Else
+                lowflow = -9999
+        End Select
+
+        tempflow = Val(lowflow)
+        MinCatalogedHeatAF = tempflow
+    End Function
+    Private Function MinCatalogedAirFlow() As String
+        Dim tempflow As String
+        Dim lowflow As Double
+        lowflow = 0
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "3.0"
+                        lowflow = 800
+                    Case Is = "4.0"
+                        lowflow = 1000
+                    Case Is = "5.0"
+                        lowflow = 1200
+                    Case Is = "6.0"
+                        lowflow = 1600
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series10"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "3.0"
+                        lowflow = 900
+                    Case Is = "4.0"
+                        lowflow = 1200
+                    Case Is = "5.0"
+                        lowflow = 1500
+                    Case Is = "6.5"
+                        lowflow = 1800
+                    Case Is = "7.5"
+                        lowflow = 2000
+                    Case Is = "8.5"
+                        lowflow = 2200
+                    Case Is = "10.0"
+                        lowflow = 2600
+                    Case Is = "12.5"
+                        lowflow = 3200
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series20"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        lowflow = 4000
+                    Case Is = "17.5"
+                        lowflow = 4400
+                    Case Is = "20.0"
+                        lowflow = 5200
+                    Case Is = "25.0"
+                        lowflow = 6600
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series40"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "25.0"
+                        lowflow = 7500
+                    Case Is = "30.0"
+                        lowflow = 7500
+                    Case Is = "40.0"
+                        lowflow = 10000
+                    Case Else
+                        lowflow = -9999
+                End Select
+            Case Is = "Series100"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "50.0"
+                        lowflow = 12000
+                    Case Is = "55.0"
+                        lowflow = 12000
+                    Case Is = "60.0"
+                        lowflow = 12000
+                    Case Is = "65.0"
+                        lowflow = 12000
+                    Case Is = "70.0"
+                        lowflow = 14000
+                    Case Is = "75.0"
+                        lowflow = 15500
+                    Case Is = "80.0"
+                        lowflow = 15000
+                    Case Is = "90.0"
+                        lowflow = 17500
+                    Case Is = "105.0"
+                        lowflow = 21000
+                    Case Is = "120.0"
+                        lowflow = 32000
+                    Case Is = "130.0"
+                        lowflow = 32000
+                    Case Is = "150.0"
+                        lowflow = 32000
                     Case Else
                         lowflow = -9999
                 End Select
@@ -654,5 +854,42 @@ Public Class frmLowAF
         temp = 2545 * Val(txtFanBHP.Text) / 0.92
         lblFanHeat.Text = Format(temp, "0.0")
 
+    End Sub
+
+    Private Sub cmdMethodSuggest_Click(sender As Object, e As EventArgs) Handles cmdMethodSuggest.Click
+        Dim nomAF, MinCatAF, SubAF As Double
+        Dim dummy As MsgBoxResult
+
+        If IsNumeric(txtNominalAirflow.Text) Then
+            nomAF = Val(txtNominalAirflow.Text)
+        Else
+            nomAF = -9999
+        End If
+
+        If IsNumeric(txtMinCatAirflow.Text) Then
+            MinCatAF = Val(txtMinCatAirflow.Text)
+        Else
+            MinCatAF = -9999
+        End If
+
+        SubAF = Val(txtAirflow.Text)
+
+        If ((MinCatAF < 0) Or (nomAF < 0)) Then
+            dummy = MsgBox("Enter valid Nominal and Minimum Cataloged Airflows first.", vbOKOnly, "Reduced Air Flow Error")
+            Exit Sub
+        End If
+
+        If SubAF >= MinCatAF Then optExistingSheaves.Checked = True
+        If ((SubAF < MinCatAF) And (SubAF >= (MinCatAF * 0.9))) Then optResheave.Checked = True
+        If ((SubAF < (MinCatAF * 0.9) And (SubAF >= (MinCatAF * 0.66)))) Then optFanWallBypassExisting.Checked = True
+        If ((SubAF < (MinCatAF * 0.66))) Then optFanWallBypassNew.Checked = True
+        If SubAF < (MinCatAF * 0.5) Then optReplaceFan.Checked = True
+
+
+
+    End Sub
+
+    Private Sub cmdCalcDehumCap_Click(sender As Object, e As EventArgs) Handles cmdCalcDehumCap.Click
+        txtDehumCap.Text = Format(psyDehumCapacity(txtEDB.Text, txtEWB.Text, txtLADB.Text, txtLAWB.Text, txtAirflow.Text), "0.0")
     End Sub
 End Class

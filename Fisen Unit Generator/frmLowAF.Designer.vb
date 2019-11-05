@@ -22,10 +22,12 @@ Partial Class frmLowAF
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLowAF))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.lblsqftevap = New System.Windows.Forms.Label()
         Me.chk100OA = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -54,6 +56,7 @@ Partial Class frmLowAF
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtNominalAirflow = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmdMethodSuggest = New System.Windows.Forms.Button()
         Me.optReplaceFan = New System.Windows.Forms.RadioButton()
         Me.optFanWallBypassNew = New System.Windows.Forms.RadioButton()
         Me.optFanWallBypassExisting = New System.Windows.Forms.RadioButton()
@@ -61,6 +64,8 @@ Partial Class frmLowAF
         Me.optExistingSheaves = New System.Windows.Forms.RadioButton()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtMinCatHeatAF = New System.Windows.Forms.TextBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.optIPU = New System.Windows.Forms.RadioButton()
         Me.optSE = New System.Windows.Forms.RadioButton()
@@ -70,6 +75,9 @@ Partial Class frmLowAF
         Me.chkGasHeatProtection = New System.Windows.Forms.CheckBox()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtFaceVelocity = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.lblFanHeat = New System.Windows.Forms.Label()
         Me.cmdFanHeatCalc = New System.Windows.Forms.Button()
@@ -159,10 +167,10 @@ Partial Class frmLowAF
         Me.lblWB2 = New System.Windows.Forms.Label()
         Me.lblWB1 = New System.Windows.Forms.Label()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.txtFaceVelocity = New System.Windows.Forms.TextBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.lblsqftevap = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtDehumCap = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -235,40 +243,51 @@ Partial Class frmLowAF
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
+        'lblsqftevap
+        '
+        Me.lblsqftevap.AutoSize = True
+        Me.lblsqftevap.Location = New System.Drawing.Point(12, 218)
+        Me.lblsqftevap.Name = "lblsqftevap"
+        Me.lblsqftevap.Size = New System.Drawing.Size(24, 13)
+        Me.lblsqftevap.TabIndex = 54
+        Me.lblsqftevap.Text = "sqft"
+        Me.lblsqftevap.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.lblsqftevap.Visible = False
+        '
         'chk100OA
         '
         Me.chk100OA.AutoSize = True
         Me.chk100OA.Location = New System.Drawing.Point(6, 6)
         Me.chk100OA.Name = "chk100OA"
         Me.chk100OA.Size = New System.Drawing.Size(136, 17)
-        Me.chk100OA.TabIndex = 53
+        Me.chk100OA.TabIndex = 7
         Me.chk100OA.Text = "100% Outdoor Air Unit?"
         Me.chk100OA.UseVisualStyleBackColor = True
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(296, 81)
+        Me.Label8.Location = New System.Drawing.Point(287, 111)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(44, 13)
         Me.Label8.TabIndex = 52
         Me.Label8.Text = "Heating"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(105, 83)
+        Me.Label7.Location = New System.Drawing.Point(112, 111)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(42, 13)
         Me.Label7.TabIndex = 51
         Me.Label7.Text = "Cooling"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 132)
+        Me.Label4.Location = New System.Drawing.Point(32, 160)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(64, 13)
         Me.Label4.TabIndex = 50
@@ -278,7 +297,7 @@ Partial Class frmLowAF
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(200, 106)
+        Me.Label6.Location = New System.Drawing.Point(208, 136)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(64, 13)
         Me.Label6.TabIndex = 49
@@ -288,7 +307,7 @@ Partial Class frmLowAF
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(9, 158)
+        Me.Label5.Location = New System.Drawing.Point(29, 186)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(67, 13)
         Me.Label5.TabIndex = 48
@@ -298,7 +317,7 @@ Partial Class frmLowAF
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(37, 106)
+        Me.Label3.Location = New System.Drawing.Point(51, 136)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(45, 13)
         Me.Label3.TabIndex = 47
@@ -308,7 +327,7 @@ Partial Class frmLowAF
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(249, 30)
+        Me.Label2.Location = New System.Drawing.Point(68, 56)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(28, 13)
         Me.Label2.TabIndex = 46
@@ -318,7 +337,7 @@ Partial Class frmLowAF
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(47, 31)
+        Me.Label1.Location = New System.Drawing.Point(58, 30)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(38, 13)
         Me.Label1.TabIndex = 45
@@ -327,42 +346,42 @@ Partial Class frmLowAF
         '
         'txtHeatEAT
         '
-        Me.txtHeatEAT.Location = New System.Drawing.Point(290, 101)
+        Me.txtHeatEAT.Location = New System.Drawing.Point(278, 131)
         Me.txtHeatEAT.Name = "txtHeatEAT"
         Me.txtHeatEAT.Size = New System.Drawing.Size(63, 20)
-        Me.txtHeatEAT.TabIndex = 4
+        Me.txtHeatEAT.TabIndex = 5
         Me.txtHeatEAT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtEWB
         '
-        Me.txtEWB.Location = New System.Drawing.Point(102, 155)
+        Me.txtEWB.Location = New System.Drawing.Point(102, 183)
         Me.txtEWB.Name = "txtEWB"
         Me.txtEWB.Size = New System.Drawing.Size(63, 20)
-        Me.txtEWB.TabIndex = 6
+        Me.txtEWB.TabIndex = 4
         Me.txtEWB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtEDB
         '
-        Me.txtEDB.Location = New System.Drawing.Point(102, 129)
+        Me.txtEDB.Location = New System.Drawing.Point(102, 157)
         Me.txtEDB.Name = "txtEDB"
         Me.txtEDB.Size = New System.Drawing.Size(63, 20)
-        Me.txtEDB.TabIndex = 5
+        Me.txtEDB.TabIndex = 3
         Me.txtEDB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtAmbient
         '
-        Me.txtAmbient.Location = New System.Drawing.Point(102, 103)
+        Me.txtAmbient.Location = New System.Drawing.Point(102, 131)
         Me.txtAmbient.Name = "txtAmbient"
         Me.txtAmbient.Size = New System.Drawing.Size(63, 20)
-        Me.txtAmbient.TabIndex = 3
+        Me.txtAmbient.TabIndex = 2
         Me.txtAmbient.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtESP
         '
-        Me.txtESP.Location = New System.Drawing.Point(290, 28)
+        Me.txtESP.Location = New System.Drawing.Point(102, 53)
         Me.txtESP.Name = "txtESP"
         Me.txtESP.Size = New System.Drawing.Size(63, 20)
-        Me.txtESP.TabIndex = 2
+        Me.txtESP.TabIndex = 1
         Me.txtESP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtAirflow
@@ -370,7 +389,7 @@ Partial Class frmLowAF
         Me.txtAirflow.Location = New System.Drawing.Point(102, 27)
         Me.txtAirflow.Name = "txtAirflow"
         Me.txtAirflow.Size = New System.Drawing.Size(63, 20)
-        Me.txtAirflow.TabIndex = 1
+        Me.txtAirflow.TabIndex = 0
         Me.txtAirflow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'btnDoneConditions
@@ -378,7 +397,7 @@ Partial Class frmLowAF
         Me.btnDoneConditions.Location = New System.Drawing.Point(544, 210)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(41, 23)
-        Me.btnDoneConditions.TabIndex = 23
+        Me.btnDoneConditions.TabIndex = 6
         Me.btnDoneConditions.Text = ">"
         Me.btnDoneConditions.UseVisualStyleBackColor = True
         '
@@ -469,7 +488,7 @@ Partial Class frmLowAF
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(340, 49)
+        Me.Label24.Location = New System.Drawing.Point(383, 49)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(133, 13)
         Me.Label24.TabIndex = 49
@@ -486,7 +505,7 @@ Partial Class frmLowAF
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(383, 23)
+        Me.Label23.Location = New System.Drawing.Point(415, 23)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(101, 13)
         Me.Label23.TabIndex = 47
@@ -502,6 +521,7 @@ Partial Class frmLowAF
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmdMethodSuggest)
         Me.GroupBox1.Controls.Add(Me.optReplaceFan)
         Me.GroupBox1.Controls.Add(Me.optFanWallBypassNew)
         Me.GroupBox1.Controls.Add(Me.optFanWallBypassExisting)
@@ -513,6 +533,15 @@ Partial Class frmLowAF
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Airflow Reduction Method"
+        '
+        'cmdMethodSuggest
+        '
+        Me.cmdMethodSuggest.Image = CType(resources.GetObject("cmdMethodSuggest.Image"), System.Drawing.Image)
+        Me.cmdMethodSuggest.Location = New System.Drawing.Point(240, 113)
+        Me.cmdMethodSuggest.Name = "cmdMethodSuggest"
+        Me.cmdMethodSuggest.Size = New System.Drawing.Size(22, 22)
+        Me.cmdMethodSuggest.TabIndex = 31
+        Me.cmdMethodSuggest.UseVisualStyleBackColor = True
         '
         'optReplaceFan
         '
@@ -577,6 +606,8 @@ Partial Class frmLowAF
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.Label36)
+        Me.tpgControls.Controls.Add(Me.txtMinCatHeatAF)
         Me.tpgControls.Controls.Add(Me.GroupBox3)
         Me.tpgControls.Controls.Add(Me.GroupBox2)
         Me.tpgControls.Controls.Add(Me.btnDoneControls)
@@ -587,6 +618,23 @@ Partial Class frmLowAF
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(3, 104)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(133, 13)
+        Me.Label36.TabIndex = 51
+        Me.Label36.Text = "Minimum Cataloged Airflow"
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtMinCatHeatAF
+        '
+        Me.txtMinCatHeatAF.Location = New System.Drawing.Point(142, 101)
+        Me.txtMinCatHeatAF.Name = "txtMinCatHeatAF"
+        Me.txtMinCatHeatAF.Size = New System.Drawing.Size(63, 20)
+        Me.txtMinCatHeatAF.TabIndex = 50
         '
         'GroupBox3
         '
@@ -677,6 +725,10 @@ Partial Class frmLowAF
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.cmdCalcDehumCap)
+        Me.tpgPerformance.Controls.Add(Me.Label37)
+        Me.tpgPerformance.Controls.Add(Me.txtDehumCap)
+        Me.tpgPerformance.Controls.Add(Me.Label38)
         Me.tpgPerformance.Controls.Add(Me.Label34)
         Me.tpgPerformance.Controls.Add(Me.txtFaceVelocity)
         Me.tpgPerformance.Controls.Add(Me.Label35)
@@ -729,10 +781,36 @@ Partial Class frmLowAF
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(406, 91)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(24, 13)
+        Me.Label34.TabIndex = 88
+        Me.Label34.Tag = ""
+        Me.Label34.Text = "fpm"
+        '
+        'txtFaceVelocity
+        '
+        Me.txtFaceVelocity.Location = New System.Drawing.Point(346, 88)
+        Me.txtFaceVelocity.Name = "txtFaceVelocity"
+        Me.txtFaceVelocity.Size = New System.Drawing.Size(54, 20)
+        Me.txtFaceVelocity.TabIndex = 86
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(269, 90)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(71, 13)
+        Me.Label35.TabIndex = 87
+        Me.Label35.Text = "Face Velocity"
+        '
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(558, 90)
+        Me.Label33.Location = New System.Drawing.Point(557, 90)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(27, 13)
         Me.Label33.TabIndex = 85
@@ -742,7 +820,7 @@ Partial Class frmLowAF
         'lblFanHeat
         '
         Me.lblFanHeat.AutoSize = True
-        Me.lblFanHeat.Location = New System.Drawing.Point(509, 91)
+        Me.lblFanHeat.Location = New System.Drawing.Point(508, 91)
         Me.lblFanHeat.Name = "lblFanHeat"
         Me.lblFanHeat.Size = New System.Drawing.Size(43, 13)
         Me.lblFanHeat.TabIndex = 84
@@ -751,7 +829,7 @@ Partial Class frmLowAF
         '
         'cmdFanHeatCalc
         '
-        Me.cmdFanHeatCalc.Location = New System.Drawing.Point(462, 85)
+        Me.cmdFanHeatCalc.Location = New System.Drawing.Point(461, 85)
         Me.cmdFanHeatCalc.Name = "cmdFanHeatCalc"
         Me.cmdFanHeatCalc.Size = New System.Drawing.Size(41, 23)
         Me.cmdFanHeatCalc.TabIndex = 83
@@ -761,7 +839,7 @@ Partial Class frmLowAF
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(479, 20)
+        Me.Label32.Location = New System.Drawing.Point(478, 20)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(26, 13)
         Me.Label32.TabIndex = 82
@@ -770,7 +848,7 @@ Partial Class frmLowAF
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(371, 20)
+        Me.Label31.Location = New System.Drawing.Point(361, 20)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(24, 13)
         Me.Label31.TabIndex = 81
@@ -779,7 +857,7 @@ Partial Class frmLowAF
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(522, 64)
+        Me.Label29.Location = New System.Drawing.Point(521, 64)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(17, 13)
         Me.Label29.TabIndex = 80
@@ -789,7 +867,7 @@ Partial Class frmLowAF
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(522, 39)
+        Me.Label30.Location = New System.Drawing.Point(521, 39)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(17, 13)
         Me.Label30.TabIndex = 79
@@ -798,14 +876,14 @@ Partial Class frmLowAF
         '
         'txtUnitLATwb
         '
-        Me.txtUnitLATwb.Location = New System.Drawing.Point(462, 61)
+        Me.txtUnitLATwb.Location = New System.Drawing.Point(461, 61)
         Me.txtUnitLATwb.Name = "txtUnitLATwb"
         Me.txtUnitLATwb.Size = New System.Drawing.Size(54, 20)
         Me.txtUnitLATwb.TabIndex = 78
         '
         'txtUnitLATdb
         '
-        Me.txtUnitLATdb.Location = New System.Drawing.Point(462, 36)
+        Me.txtUnitLATdb.Location = New System.Drawing.Point(461, 36)
         Me.txtUnitLATdb.Name = "txtUnitLATdb"
         Me.txtUnitLATdb.Size = New System.Drawing.Size(54, 20)
         Me.txtUnitLATdb.TabIndex = 77
@@ -855,7 +933,7 @@ Partial Class frmLowAF
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(415, 118)
+        Me.Label27.Location = New System.Drawing.Point(405, 118)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(17, 13)
         Me.Label27.TabIndex = 71
@@ -864,7 +942,7 @@ Partial Class frmLowAF
         '
         'txtHeatingLAT
         '
-        Me.txtHeatingLAT.Location = New System.Drawing.Point(356, 115)
+        Me.txtHeatingLAT.Location = New System.Drawing.Point(346, 115)
         Me.txtHeatingLAT.Name = "txtHeatingLAT"
         Me.txtHeatingLAT.Size = New System.Drawing.Size(54, 20)
         Me.txtHeatingLAT.TabIndex = 18
@@ -872,7 +950,7 @@ Partial Class frmLowAF
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(232, 118)
+        Me.Label28.Location = New System.Drawing.Point(222, 118)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(118, 13)
         Me.Label28.TabIndex = 70
@@ -881,7 +959,7 @@ Partial Class frmLowAF
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(415, 178)
+        Me.Label26.Location = New System.Drawing.Point(404, 207)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(24, 13)
         Me.Label26.TabIndex = 68
@@ -891,7 +969,7 @@ Partial Class frmLowAF
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(262, 178)
+        Me.Label25.Location = New System.Drawing.Point(251, 207)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(87, 13)
         Me.Label25.TabIndex = 67
@@ -900,7 +978,7 @@ Partial Class frmLowAF
         '
         'txtBypassAF
         '
-        Me.txtBypassAF.Location = New System.Drawing.Point(355, 173)
+        Me.txtBypassAF.Location = New System.Drawing.Point(344, 202)
         Me.txtBypassAF.Name = "txtBypassAF"
         Me.txtBypassAF.Size = New System.Drawing.Size(55, 20)
         Me.txtBypassAF.TabIndex = 21
@@ -908,7 +986,7 @@ Partial Class frmLowAF
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(415, 64)
+        Me.Label22.Location = New System.Drawing.Point(405, 64)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(17, 13)
         Me.Label22.TabIndex = 65
@@ -918,7 +996,7 @@ Partial Class frmLowAF
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(415, 39)
+        Me.Label21.Location = New System.Drawing.Point(405, 39)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(17, 13)
         Me.Label21.TabIndex = 64
@@ -927,14 +1005,14 @@ Partial Class frmLowAF
         '
         'txtLAWB
         '
-        Me.txtLAWB.Location = New System.Drawing.Point(355, 61)
+        Me.txtLAWB.Location = New System.Drawing.Point(345, 61)
         Me.txtLAWB.Name = "txtLAWB"
         Me.txtLAWB.Size = New System.Drawing.Size(54, 20)
         Me.txtLAWB.TabIndex = 17
         '
         'txtLADB
         '
-        Me.txtLADB.Location = New System.Drawing.Point(355, 36)
+        Me.txtLADB.Location = New System.Drawing.Point(345, 36)
         Me.txtLADB.Name = "txtLADB"
         Me.txtLADB.Size = New System.Drawing.Size(54, 20)
         Me.txtLADB.TabIndex = 16
@@ -942,7 +1020,7 @@ Partial Class frmLowAF
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(271, 40)
+        Me.Label15.Location = New System.Drawing.Point(261, 40)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(78, 13)
         Me.Label15.TabIndex = 61
@@ -951,7 +1029,7 @@ Partial Class frmLowAF
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(268, 65)
+        Me.Label10.Location = New System.Drawing.Point(258, 65)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(81, 13)
         Me.Label10.TabIndex = 60
@@ -1032,7 +1110,7 @@ Partial Class frmLowAF
         Me.txtTCap.Location = New System.Drawing.Point(133, 37)
         Me.txtTCap.Name = "txtTCap"
         Me.txtTCap.Size = New System.Drawing.Size(54, 20)
-        Me.txtTCap.TabIndex = 11
+        Me.txtTCap.TabIndex = 0
         '
         'txtDBfromPsych
         '
@@ -1595,41 +1673,40 @@ Partial Class frmLowAF
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'Label34
+        'Label37
         '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(416, 91)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(24, 13)
-        Me.Label34.TabIndex = 88
-        Me.Label34.Tag = ""
-        Me.Label34.Text = "fpm"
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(405, 143)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(29, 13)
+        Me.Label37.TabIndex = 91
+        Me.Label37.Tag = ""
+        Me.Label37.Text = "lb/hr"
         '
-        'txtFaceVelocity
+        'txtDehumCap
         '
-        Me.txtFaceVelocity.Location = New System.Drawing.Point(356, 88)
-        Me.txtFaceVelocity.Name = "txtFaceVelocity"
-        Me.txtFaceVelocity.Size = New System.Drawing.Size(54, 20)
-        Me.txtFaceVelocity.TabIndex = 86
+        Me.txtDehumCap.Location = New System.Drawing.Point(346, 140)
+        Me.txtDehumCap.Name = "txtDehumCap"
+        Me.txtDehumCap.Size = New System.Drawing.Size(54, 20)
+        Me.txtDehumCap.TabIndex = 89
         '
-        'Label35
+        'Label38
         '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(279, 90)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(71, 13)
-        Me.Label35.TabIndex = 87
-        Me.Label35.Text = "Face Velocity"
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(210, 143)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(129, 13)
+        Me.Label38.TabIndex = 90
+        Me.Label38.Text = "Dehumidification Capacity"
         '
-        'lblsqftevap
+        'cmdCalcDehumCap
         '
-        Me.lblsqftevap.AutoSize = True
-        Me.lblsqftevap.Location = New System.Drawing.Point(12, 188)
-        Me.lblsqftevap.Name = "lblsqftevap"
-        Me.lblsqftevap.Size = New System.Drawing.Size(24, 13)
-        Me.lblsqftevap.TabIndex = 54
-        Me.lblsqftevap.Text = "sqft"
-        Me.lblsqftevap.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.cmdCalcDehumCap.Image = CType(resources.GetObject("cmdCalcDehumCap.Image"), System.Drawing.Image)
+        Me.cmdCalcDehumCap.Location = New System.Drawing.Point(440, 140)
+        Me.cmdCalcDehumCap.Name = "cmdCalcDehumCap"
+        Me.cmdCalcDehumCap.Size = New System.Drawing.Size(22, 22)
+        Me.cmdCalcDehumCap.TabIndex = 92
+        Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
         '
         'frmLowAF
         '
@@ -1655,6 +1732,7 @@ Partial Class frmLowAF
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
+        Me.tpgControls.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -1809,4 +1887,11 @@ Partial Class frmLowAF
     Friend WithEvents txtFaceVelocity As TextBox
     Friend WithEvents Label35 As Label
     Friend WithEvents lblsqftevap As Label
+    Friend WithEvents Label36 As Label
+    Friend WithEvents txtMinCatHeatAF As TextBox
+    Friend WithEvents cmdMethodSuggest As Button
+    Friend WithEvents cmdCalcDehumCap As Button
+    Friend WithEvents Label37 As Label
+    Friend WithEvents txtDehumCap As TextBox
+    Friend WithEvents Label38 As Label
 End Class

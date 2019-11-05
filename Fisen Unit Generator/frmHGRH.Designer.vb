@@ -22,6 +22,7 @@ Partial Class frmHGRH
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHGRH))
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -42,6 +43,7 @@ Partial Class frmHGRH
         Me.txtHGRHCap = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chkECoat = New System.Windows.Forms.CheckBox()
         Me.optFieldStat = New System.Windows.Forms.RadioButton()
         Me.optFisenRASensor = New System.Windows.Forms.RadioButton()
         Me.optFisenZoneSensor = New System.Windows.Forms.RadioButton()
@@ -84,7 +86,7 @@ Partial Class frmHGRH
         Me.txtLAT = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.chkECoat = New System.Windows.Forms.CheckBox()
+        Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -147,7 +149,7 @@ Partial Class frmHGRH
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
-        Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgConditions.Size = New System.Drawing.Size(432, 191)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
@@ -299,6 +301,16 @@ Partial Class frmHGRH
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chkECoat
+        '
+        Me.chkECoat.AutoSize = True
+        Me.chkECoat.Location = New System.Drawing.Point(5, 170)
+        Me.chkECoat.Name = "chkECoat"
+        Me.chkECoat.Size = New System.Drawing.Size(124, 17)
+        Me.chkECoat.TabIndex = 38
+        Me.chkECoat.Text = "E-Coat Epoy Coating"
+        Me.chkECoat.UseVisualStyleBackColor = True
+        '
         'optFieldStat
         '
         Me.optFieldStat.AutoSize = True
@@ -390,7 +402,7 @@ Partial Class frmHGRH
         Me.tpgControls.Controls.Add(Me.GroupBox1)
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
-        Me.tpgControls.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgControls.Size = New System.Drawing.Size(432, 191)
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
@@ -607,6 +619,7 @@ Partial Class frmHGRH
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.cmdCalcDehumCap)
         Me.tpgPerformance.Controls.Add(Me.optParallelPiping)
         Me.tpgPerformance.Controls.Add(Me.optSeriesPiping)
         Me.tpgPerformance.Controls.Add(Me.Label11)
@@ -621,7 +634,7 @@ Partial Class frmHGRH
         Me.tpgPerformance.Controls.Add(Me.btnDonePerf)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgPerformance.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgPerformance.Size = New System.Drawing.Size(432, 191)
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
@@ -737,21 +750,20 @@ Partial Class frmHGRH
         '
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
-        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
         Me.DebugPage.Size = New System.Drawing.Size(432, 191)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'chkECoat
+        'cmdCalcDehumCap
         '
-        Me.chkECoat.AutoSize = True
-        Me.chkECoat.Location = New System.Drawing.Point(5, 170)
-        Me.chkECoat.Name = "chkECoat"
-        Me.chkECoat.Size = New System.Drawing.Size(124, 17)
-        Me.chkECoat.TabIndex = 38
-        Me.chkECoat.Text = "E-Coat Epoy Coating"
-        Me.chkECoat.UseVisualStyleBackColor = True
+        Me.cmdCalcDehumCap.Image = CType(resources.GetObject("cmdCalcDehumCap.Image"), System.Drawing.Image)
+        Me.cmdCalcDehumCap.Location = New System.Drawing.Point(206, 55)
+        Me.cmdCalcDehumCap.Name = "cmdCalcDehumCap"
+        Me.cmdCalcDehumCap.Size = New System.Drawing.Size(22, 22)
+        Me.cmdCalcDehumCap.TabIndex = 93
+        Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
         '
         'frmHGRH
         '
@@ -848,4 +860,5 @@ Partial Class frmHGRH
     Friend WithEvents optMODBUSDH As RadioButton
     Friend WithEvents chkModbusPoints As CheckBox
     Friend WithEvents chkECoat As CheckBox
+    Friend WithEvents cmdCalcDehumCap As Button
 End Class
