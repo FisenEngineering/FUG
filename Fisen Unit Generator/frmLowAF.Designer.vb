@@ -75,6 +75,10 @@ Partial Class frmLowAF
         Me.chkGasHeatProtection = New System.Windows.Forms.CheckBox()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtDehumCap = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.txtFaceVelocity = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
@@ -121,17 +125,13 @@ Partial Class frmLowAF
         Me.Label9 = New System.Windows.Forms.Label()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.txtDehumCap = New System.Windows.Forms.TextBox()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
         Me.tpgCoolCalc = New System.Windows.Forms.TabPage()
         Me.tpgStaticSummary = New System.Windows.Forms.TabPage()
         Me.dgvStaticSummary = New System.Windows.Forms.DataGridView()
         Me.ColItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colOrigSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colAdjSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -745,6 +745,41 @@ Partial Class frmLowAF
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'cmdCalcDehumCap
+        '
+        Me.cmdCalcDehumCap.Image = CType(resources.GetObject("cmdCalcDehumCap.Image"), System.Drawing.Image)
+        Me.cmdCalcDehumCap.Location = New System.Drawing.Point(440, 140)
+        Me.cmdCalcDehumCap.Name = "cmdCalcDehumCap"
+        Me.cmdCalcDehumCap.Size = New System.Drawing.Size(22, 22)
+        Me.cmdCalcDehumCap.TabIndex = 92
+        Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(405, 143)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(29, 13)
+        Me.Label37.TabIndex = 91
+        Me.Label37.Tag = ""
+        Me.Label37.Text = "lb/hr"
+        '
+        'txtDehumCap
+        '
+        Me.txtDehumCap.Location = New System.Drawing.Point(346, 140)
+        Me.txtDehumCap.Name = "txtDehumCap"
+        Me.txtDehumCap.Size = New System.Drawing.Size(54, 20)
+        Me.txtDehumCap.TabIndex = 89
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(210, 143)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(129, 13)
+        Me.Label38.TabIndex = 90
+        Me.Label38.Text = "Dehumidification Capacity"
+        '
         'Label34
         '
         Me.Label34.AutoSize = True
@@ -1147,53 +1182,6 @@ Partial Class frmLowAF
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'chkWriteHistory
-        '
-        Me.chkWriteHistory.AutoSize = True
-        Me.chkWriteHistory.Checked = True
-        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkWriteHistory.Location = New System.Drawing.Point(222, 303)
-        Me.chkWriteHistory.Name = "chkWriteHistory"
-        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
-        Me.chkWriteHistory.TabIndex = 3
-        Me.chkWriteHistory.Text = "Write History"
-        Me.chkWriteHistory.UseVisualStyleBackColor = True
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(405, 143)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(29, 13)
-        Me.Label37.TabIndex = 91
-        Me.Label37.Tag = ""
-        Me.Label37.Text = "lb/hr"
-        '
-        'txtDehumCap
-        '
-        Me.txtDehumCap.Location = New System.Drawing.Point(346, 140)
-        Me.txtDehumCap.Name = "txtDehumCap"
-        Me.txtDehumCap.Size = New System.Drawing.Size(54, 20)
-        Me.txtDehumCap.TabIndex = 89
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(210, 143)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(129, 13)
-        Me.Label38.TabIndex = 90
-        Me.Label38.Text = "Dehumidification Capacity"
-        '
-        'cmdCalcDehumCap
-        '
-        Me.cmdCalcDehumCap.Image = CType(resources.GetObject("cmdCalcDehumCap.Image"), System.Drawing.Image)
-        Me.cmdCalcDehumCap.Location = New System.Drawing.Point(440, 140)
-        Me.cmdCalcDehumCap.Name = "cmdCalcDehumCap"
-        Me.cmdCalcDehumCap.Size = New System.Drawing.Size(22, 22)
-        Me.cmdCalcDehumCap.TabIndex = 92
-        Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
-        '
         'tpgCoolCalc
         '
         Me.tpgCoolCalc.Location = New System.Drawing.Point(4, 22)
@@ -1215,6 +1203,8 @@ Partial Class frmLowAF
         '
         'dgvStaticSummary
         '
+        Me.dgvStaticSummary.AllowUserToAddRows = False
+        Me.dgvStaticSummary.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvStaticSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvStaticSummary.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ColItem, Me.colOrigSP, Me.colAdjSP})
         Me.dgvStaticSummary.Location = New System.Drawing.Point(5, 3)
@@ -1226,16 +1216,31 @@ Partial Class frmLowAF
         '
         Me.ColItem.HeaderText = "Item"
         Me.ColItem.Name = "ColItem"
+        Me.ColItem.Width = 52
         '
         'colOrigSP
         '
         Me.colOrigSP.HeaderText = "Orig. SP"
         Me.colOrigSP.Name = "colOrigSP"
+        Me.colOrigSP.Width = 71
         '
         'colAdjSP
         '
         Me.colAdjSP.HeaderText = "Adj. SP"
         Me.colAdjSP.Name = "colAdjSP"
+        Me.colAdjSP.Width = 67
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(222, 303)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 3
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frmLowAF
         '

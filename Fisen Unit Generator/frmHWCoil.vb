@@ -854,4 +854,11 @@ Public Class frmHWCoil
 
     End Sub
 
+    Private Sub optUseAux_CheckedChanged_1(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
+        Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub optNoAux_CheckedChanged_1(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
+        Call PopulateAuxPanelList()
+    End Sub
 End Class

@@ -169,6 +169,9 @@ Public Class frmLowAF
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub UpdatePerformance()
+        Dim i As Integer
+        Dim tsp As Double
+
         'items here will look like frmmain.thiunitheatperf.deltat = txtDeltat.text
         frmMain.ThisUnitSFanPerf.Airflow = txtAirflow.Text
         frmMain.ThisUnitSFanPerf.ESP = txtESP.Text
@@ -193,7 +196,7 @@ Public Class frmLowAF
                 frmMain.ThisUnit.Notes = "LAT is theoretical.  IPU Controller my inhibit operation at temperatures this low."
             End If
         End If
-            frmMain.ThisUnitCoolPerf.LeavingWB = txtLAWB.Text
+        frmMain.ThisUnitCoolPerf.LeavingWB = txtLAWB.Text
         frmMain.ThisUnitCoolPerf.LeavingDBUnit = txtUnitLATdb.Text
         frmMain.ThisUnitCoolPerf.LeavingDBUnit = txtUnitLATwb.Text
 
@@ -202,6 +205,14 @@ Public Class frmLowAF
         frmMain.ThisUnitCoolPerf.FaceVelocity = txtFaceVelocity.Text
         frmMain.ThisUnitRHPerf.DHCapacity = txtDehumCap.Text
 
+        If frmMain.ThisUnit.Family = "Series100" Then
+            tsp = 0
+            For i = 0 To dgvStaticSummary.RowCount - 1
+                frmMain.ThisUnitSFanPerf.StaticDataYpal.Item(i) = dgvStaticSummary.Rows(i).Cells.Item(2).Value
+                tsp = tsp + Val(dgvStaticSummary.Rows(i).Cells.Item(2).Value)
+            Next
+            frmMain.ThisUnitSFanPerf.TSP = tsp
+        End If
     End Sub
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim i As Integer
@@ -266,7 +277,61 @@ Public Class frmLowAF
             txtMinCatHeatAF.Text = MinCatalogedHeatAF()
 
         End If
+
+        If frmMain.ThisUnit.Family = "Series100" Then
+            Call UpdateStaticSummaryValues
+
+        End If
         TabControl1.SelectTab("tpgOptions")
+    End Sub
+
+    Private Sub UpdateStaticSummaryValues()
+        Dim ItemCount As Integer
+        Dim i As Integer
+        Dim oldValue As Double
+        Dim newvalue As Double
+        Dim airflow As Double
+
+
+        ItemCount = dgvStaticSummary.RowCount
+        airflow = Val(txtAirflow.Text)
+        For i = 0 To ItemCount - 1
+            oldValue = Val(dgvStaticSummary.Rows(i).Cells.Item(1).Value)
+            Select Case dgvStaticSummary.Rows(i).Cells.Item(0).Value
+                Case Is = "External Static Pressure"
+                    newvalue = oldValue
+                Case Is = "Filter(12"" MERV14 Prefilter MERV8)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000618352 * airflow * airflow + 0.000024458977069 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000036409551174 * airflow * airflow + 0.000018923495424159 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000302511 * airflow * airflow + 0.000017021977167 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000157892 * airflow * airflow + 0.000012283714967 * airflow + 0
+                    End Select
+                Case Is = "Evaporator Coil"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 55
+                            newvalue = 0.000000000081589 * airflow * airflow + 0.000021037964258 * airflow + 0
+                        Case 60 To 65
+                            newvalue = 0.00000000012907 * airflow * airflow + 0.000027653702656 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000456962 * airflow * airflow + 0.000008227113347 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000444713 * airflow * airflow + 0.000008505720156 * airflow + 0
+                        Case 120
+                            newvalue = 0.000000000016934 * airflow * airflow + 0.000019129051071 * airflow + 0
+                        Case 130 To 150
+                            newvalue = 0.000000000026434 * airflow * airflow + 0.000022679880017 * airflow + 0
+                    End Select
+                Case Else
+                    newvalue = "-99.9"
+            End Select
+            dgvStaticSummary.Rows(i).Cells.Item(2).Value = Format(newvalue, "0.00")
+        Next
+
     End Sub
 
 

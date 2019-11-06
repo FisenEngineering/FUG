@@ -86,6 +86,8 @@ Partial Class frmHWCoil
         Me.optBU_SE_Fisen_FisenWires = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtActualAPD = New System.Windows.Forms.TextBox()
         Me.optCoilOnly = New System.Windows.Forms.RadioButton()
         Me.optAPDAllowance = New System.Windows.Forms.RadioButton()
         Me.txtOutletSize = New System.Windows.Forms.TextBox()
@@ -118,8 +120,6 @@ Partial Class frmHWCoil
         Me.txtValveTag = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.btnDoneValve = New System.Windows.Forms.Button()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.txtActualAPD = New System.Windows.Forms.TextBox()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -851,6 +851,23 @@ Partial Class frmHWCoil
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(49, 87)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(193, 13)
+        Me.Label21.TabIndex = 3
+        Me.Label21.Text = "Actual Coil APD (iwc) at Heating Airflow"
+        '
+        'txtActualAPD
+        '
+        Me.txtActualAPD.Location = New System.Drawing.Point(3, 84)
+        Me.txtActualAPD.Name = "txtActualAPD"
+        Me.txtActualAPD.Size = New System.Drawing.Size(40, 20)
+        Me.txtActualAPD.TabIndex = 3
+        Me.txtActualAPD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'optCoilOnly
         '
         Me.optCoilOnly.AutoSize = True
@@ -1151,23 +1168,6 @@ Partial Class frmHWCoil
         Me.btnDoneValve.TabIndex = 10
         Me.btnDoneValve.Text = ">"
         Me.btnDoneValve.UseVisualStyleBackColor = True
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(49, 87)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(193, 13)
-        Me.Label21.TabIndex = 3
-        Me.Label21.Text = "Actual Coil APD (iwc) at Heating Airflow"
-        '
-        'txtActualAPD
-        '
-        Me.txtActualAPD.Location = New System.Drawing.Point(3, 84)
-        Me.txtActualAPD.Name = "txtActualAPD"
-        Me.txtActualAPD.Size = New System.Drawing.Size(40, 20)
-        Me.txtActualAPD.TabIndex = 3
-        Me.txtActualAPD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'chkWriteHistory
         '

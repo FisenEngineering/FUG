@@ -1639,6 +1639,8 @@
                     temp = 0.000000094891 * localAirflow ^ 2 + 0.000278041791 * localAirflow
                 Case Is = "J07ZR"
                     temp = 0.00000017797 * localAirflow ^ 2 + 0.00011516589 * localAirflow
+                Case Is = "J07ZT"
+                    temp = 0.00000017797 * localAirflow ^ 2 + 0.00011516589 * localAirflow
                 Case Is = "J08ZJ"
                     temp = 0.000000110419 * localAirflow ^ 2 + 0.000023117324 * localAirflow
                 Case Is = "J10ZF"
@@ -1668,6 +1670,8 @@
                 Case Is = "J06ZR"
                     temp = 0.000000139404 * localAirflow ^ 2 + 0.000016428148 * localAirflow
                 Case Is = "J07ZR"
+                    temp = 0.00000014609 * localAirflow ^ 2 + 0.000001211291 * localAirflow
+                Case Is = "J07ZT"
                     temp = 0.00000014609 * localAirflow ^ 2 + 0.000001211291 * localAirflow
                 Case Is = "J08ZJ"
                     temp = 0.000000047632 * localAirflow ^ 2 + 0.000094404159 * localAirflow
@@ -2678,4 +2682,11 @@
         End If
     End Sub
 
+    Private Sub optNoAux_CheckedChanged(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
+        Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub optUseAux_CheckedChanged(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
+        Call PopulateAuxPanelList()
+    End Sub
 End Class
