@@ -300,17 +300,6 @@ Public Class frmLowAF
             Select Case dgvStaticSummary.Rows(i).Cells.Item(0).Value
                 Case Is = "External Static Pressure"
                     newvalue = oldValue
-                Case Is = "Filter(12"" MERV14 Prefilter MERV8)"
-                    Select Case Val(frmMain.ThisUnit.NominalTons)
-                        Case 50 To 65
-                            newvalue = 0.000000000618352 * airflow * airflow + 0.000024458977069 * airflow + 0
-                        Case 70 To 80
-                            newvalue = 0.00000000036409551174 * airflow * airflow + 0.000018923495424159 * airflow + 0
-                        Case 90 To 105
-                            newvalue = 0.000000000302511 * airflow * airflow + 0.000017021977167 * airflow + 0
-                        Case 120 To 150
-                            newvalue = 0.000000000157892 * airflow * airflow + 0.000012283714967 * airflow + 0
-                    End Select
                 Case Is = "Evaporator Coil"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 55
@@ -325,6 +314,304 @@ Public Class frmLowAF
                             newvalue = 0.000000000016934 * airflow * airflow + 0.000019129051071 * airflow + 0
                         Case 130 To 150
                             newvalue = 0.000000000026434 * airflow * airflow + 0.000022679880017 * airflow + 0
+                    End Select
+                Case Is = "HGRH Coil"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case Is = "HGRH Coil"
+                            newvalue = 0.000000000538114 * airflow * airflow + 0.000002362657399 * airflow + 0
+                    End Select
+                Case Is = "Bottom Return Air"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000448587 * airflow * airflow + 0.000000268247849 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000252543 * airflow * airflow + 0.000000637498659 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.00000000022138 * airflow * airflow + 0.000000854062796 * airflow + 0
+                        Case 120 To 150
+                            newvalue = -0.000000000004672 * airflow * airflow + 0.000000853469563 * airflow + 0
+                    End Select
+                Case Is = "Side Return Air"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.00000000092955253575 * airflow * airflow - 0.0000002578786255074 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000302842 * airflow * airflow + 0.000000494210936 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000213492 * airflow * airflow + 0.000001235321111 * airflow + 0
+                    End Select
+                Case Is = "Rear Return Air"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000363896 * airflow * airflow + 0.000000419172149 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000010570088419 * airflow * airflow + 0.0000002371110833065 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000110219 * airflow * airflow + 0.000000724188021 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000061358 * airflow * airflow - 0.000001811095697 * airflow + 0
+                    End Select
+                Case Is = "Filter(2"" Throwaway)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000208048 * airflow * airflow + 0.000004072711081 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000114221 * airflow * airflow + 0.000002555501436 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000089367 * airflow * airflow + 0.000001765334955 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000047338 * airflow * airflow + 0.000002041842647 * airflow + 0
+                    End Select
+                Case Is = "Filter(2"" Cleanable)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000166701396124193 * airflow * airflow - 0.000000314648885184433 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000094127 * airflow * airflow - 0.000000518814273 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000062676 * airflow * airflow - 0.000000389067632 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000039728 * airflow * airflow - 0.000000131354035 * airflow + 0
+                    End Select
+                Case Is = "Filter(2"" Pleated, MERV 8)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000180959 * airflow * airflow + 0.000004498841525 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000083539 * airflow * airflow + 0.000003265782332 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000052173 * airflow * airflow + 0.000002931027755 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000036491 * airflow * airflow + 0.000002541965238 * airflow + 0
+                    End Select
+                Case Is = "Filter(2"" Carbon, MERV 8)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000149405 * airflow * airflow + 0.000010736971492 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000074942 * airflow * airflow + 0.000007561453604 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000045249 * airflow * airflow + 0.000006520638241 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000025472 * airflow * airflow + 0.000005807810438 * airflow + 0
+                    End Select
+                Case Is = "Filter(Rigid Filter Track Throwaway (only))"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.00000000031275737009 * airflow * airflow + 0.00000540632224967498 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000190411 * airflow * airflow + 0.000003960338243 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000152138 * airflow * airflow + 0.000003675337385 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000076922 * airflow * airflow + 0.000002750916113 * airflow + 0
+                    End Select
+                Case Is = "Filter(12"" MERV11 Prefilter MERV8)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000516055 * airflow * airflow + 0.000014780410601 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.000000000314759 * airflow * airflow + 0.000011177274366 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.00000000024603 * airflow * airflow + 0.00001054443845 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000134952 * airflow * airflow + 0.000007288530648 * airflow + 0
+                    End Select
+                Case Is = "Filter(12"" MERV14 Prefilter MERV8)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000618352 * airflow * airflow + 0.000024458977069 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000036409551174 * airflow * airflow + 0.000018923495424159 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000302511 * airflow * airflow + 0.000017021977167 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000157892 * airflow * airflow + 0.000012283714967 * airflow + 0
+                    End Select
+                Case Is = "Filter(Final Filter 12"" MERV14)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000404933 * airflow * airflow + 0.000021425420971 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.0000000002207374075 * airflow * airflow + 0.0000149887346727201 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000165831 * airflow * airflow + 0.000013993123534 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.00000000008607 * airflow * airflow + 0.000010791418312 * airflow + 0
+                    End Select
+                Case Is = "Damper(Standard OAD & Hoods Cleanable Filter)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.00000000138579838062 * airflow * airflow - 0.0000012261855148395 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000079680517821 * airflow * airflow - 0.0000010000960747865 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000608385 * airflow * airflow - 0.000000896166905 * airflow + 0
+                        Case 120 To 130
+                            newvalue = 0.00000000031866 * airflow * airflow - 0.000000298017102 * airflow + 0
+                        Case 150
+                            newvalue = 0.000000000249967 * airflow * airflow - 0.000000498617279 * airflow + 0
+                    End Select
+                Case Is = "Damper(Low Leak OAD & Hoods Cleanable Filter)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.00000000136034664959962 * airflow * airflow - 0.00000134778822969089 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000081383145503 * airflow * airflow - 0.00000100708458454003 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000620525 * airflow * airflow - 0.000000909677388 * airflow + 0
+                        Case 120 To 130
+                            newvalue = 0.000000000308788 * airflow * airflow - 0.000000483036263 * airflow + 0
+                        Case 150
+                            newvalue = 0.000000000242061 * airflow * airflow - 0.000000410986033 * airflow + 0
+                    End Select
+                Case Is = "Damper(Bottom & Rear Return)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000484060419333394 * airflow * airflow + 0.0000000673627442224342 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.0000000003952092196 * airflow * airflow + 0.00000001280788617595 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000290247 * airflow * airflow - 0.000000009763077 * airflow + 0
+                        Case 120 To 130
+                            newvalue = 0.000000000215053 * airflow * airflow + 0.00000008764771 * airflow + 0
+                        Case 150
+                            newvalue = 0.000000000149117 * airflow * airflow - 0.000000082277482 * airflow + 0
+                    End Select
+                Case Is = "Damper(Powered Exhaust)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000212203187171931 * airflow * airflow - 0.000000120399587215617 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000009166707629 * airflow * airflow - 0.00000002711610302793 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000058029 * airflow * airflow - 0.000000008157381 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000031745 * airflow * airflow - 0.000000001932412 * airflow + 0
+                    End Select
+                Case Is = "Side Discharge"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000438558628285654 * airflow * airflow - 0.000000126886553746382 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000036158751296 * airflow * airflow - 0.00000009745558216857 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000302967 * airflow * airflow + 0.00000011601987 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000187847 * airflow * airflow + 0.00000005366468 * airflow + 0
+                    End Select
+                Case Is = "Bottom Discharge"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000448586759146251 * airflow * airflow + 0.000000268247849254268 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000038865416354 * airflow * airflow - 0.00000023437853763754 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000296302 * airflow * airflow + 0.000000194743877 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.00000000013429 * airflow * airflow + 0.000000089644275 * airflow + 0
+                    End Select
+                Case Is = "Gas Heat(375MBH)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000343300687643258 * airflow * airflow - 0.000000304230047926688 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000028990939179 * airflow * airflow - 0.00000025525134355752 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000226384 * airflow * airflow - 0.000000093220554 * airflow + 0
+                    End Select
+                Case Is = "Gas Heat(750MBH)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000501797249426965 * airflow * airflow - 0.000000033079808293442 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000041886744956 * airflow * airflow + 0.00000002469494393399 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000332235 * airflow * airflow - 0.000000043901639 * airflow + 0
+                    End Select
+                Case Is = "Gas Heat(1125MBH)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000540855485765884 * airflow * airflow - 0.00000044832008652603 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000043967620563 * airflow * airflow - 0.0000001400055410575 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000346027 * airflow * airflow - 0.000000025950275 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000351755 * airflow * airflow - 0.000000234192263 * airflow + 0
+                    End Select
+                Case Is = "Electric Heat(40kW)"
+                    newvalue = 0.0000000000596540449895316 * airflow * airflow + 0.000000308161918653681 * airflow + 0
+                Case Is = "Electric Heat(80kW)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000139612419254011 * airflow * airflow + 0.000000111481558658048 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000011685375183 * airflow * airflow + 0.00000006079076252098 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000072948 * airflow * airflow + 0.000000103790079 * airflow + 0
+                    End Select
+                Case Is = "Electric Heat(100kW)"
+                    newvalue = 0.000000000129385 * airflow * airflow + 0.000000056461729 * airflow + 0
+                Case Is = "Electric Heat(108kW)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000212203187171931 * airflow * airflow - 0.000000120399587215617 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000016280580083 * airflow * airflow + 0.00000015735411527781 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000163006 * airflow * airflow + 0.000000212383301 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000152071 * airflow * airflow - 0.00000002558461 * airflow + 0
+                    End Select
+                Case Is = "Electric Heat(150kW)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 50 To 65
+                            newvalue = 0.000000000248352831443059 * airflow * airflow + 0.000000399537602079763 * airflow + 0
+                        Case 70 To 80
+                            newvalue = 0.00000000022766559122 * airflow * airflow - 0.00000008256547980793 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000224666 * airflow * airflow - 0.000000006088085 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000185223 * airflow * airflow - 0.000000070372707 * airflow + 0
+                    End Select
+                Case Is = "Electric Heat(200kW)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 70 To 80
+                            newvalue = 0.00000000028205211275 * airflow * airflow - 0.00000014939629285385 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.00000000027821 * airflow * airflow - 0.00000003629644 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000239357 * airflow * airflow + 0.000000102226652 * airflow + 0
+                    End Select
+                Case Is = "Electric Heat(250kW)"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 90 To 105
+                            newvalue = 0.000000000387733 * airflow * airflow - 0.000000126191812 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000307523 * airflow * airflow - 0.000000029015264 * airflow + 0
+                    End Select
+                Case Is = "Hot Water Heat"
+                    newvalue = 0.000000000588199178400262 * airflow * airflow + 0.00000537972940791229 * airflow + 0
+                Case Is = "Steam Coil Heat"
+                    newvalue = 0.000000000555398446104846 * airflow * airflow + 0.00000487579257583417 * airflow + 0
+                Case Is = "Safety Grate"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 70 To 80
+                            newvalue = 0.00000000011022105393 * airflow * airflow + 0.00000069424750354507 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000000087647 * airflow * airflow + 0.000000668490705 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000000042433 * airflow * airflow + 0.000000540770487 * airflow + 0
+                    End Select
+                Case Is = "Inlet Screen"
+                    Select Case Val(frmMain.ThisUnit.NominalTons)
+                        Case 70 To 80
+                            newvalue = 0.00000000266801152748 * airflow * airflow - 0.0000365073994715144 * airflow + 0
+                        Case 90 To 105
+                            newvalue = 0.000000002253369 * airflow * airflow - 0.000026986397298 * airflow + 0
+                        Case 120 To 150
+                            newvalue = 0.000000001065055 * airflow * airflow - 0.000013049952678 * airflow + 0
                     End Select
                 Case Else
                     newvalue = "-99.9"
