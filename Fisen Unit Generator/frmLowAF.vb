@@ -300,7 +300,7 @@ Public Class frmLowAF
             Select Case dgvStaticSummary.Rows(i).Cells.Item(0).Value
                 Case Is = "External Static Pressure"
                     newvalue = oldValue
-                Case Is = "Evaporator Coil"
+                Case Is = "Evaporator Coil (Wet)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 55
                             newvalue = 0.000000000081589 * airflow * airflow + 0.000021037964258 * airflow + 0
@@ -316,11 +316,8 @@ Public Class frmLowAF
                             newvalue = 0.000000000026434 * airflow * airflow + 0.000022679880017 * airflow + 0
                     End Select
                 Case Is = "HGRH Coil"
-                    Select Case Val(frmMain.ThisUnit.NominalTons)
-                        Case Is = "HGRH Coil"
-                            newvalue = 0.000000000538114 * airflow * airflow + 0.000002362657399 * airflow + 0
-                    End Select
-                Case Is = "Bottom Return Air"
+                    newvalue = 0.000000000538114 * airflow * airflow + 0.000002362657399 * airflow + 0
+                Case Is = "Return Air Opening (Bottom)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 65
                             newvalue = 0.000000000448587 * airflow * airflow + 0.000000268247849 * airflow + 0
@@ -331,7 +328,7 @@ Public Class frmLowAF
                         Case 120 To 150
                             newvalue = -0.000000000004672 * airflow * airflow + 0.000000853469563 * airflow + 0
                     End Select
-                Case Is = "Side Return Air"
+                Case Is = "Return Air Opening (Side)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 65
                             newvalue = 0.00000000092955253575 * airflow * airflow - 0.0000002578786255074 * airflow + 0
@@ -340,7 +337,7 @@ Public Class frmLowAF
                         Case 90 To 105
                             newvalue = 0.000000000213492 * airflow * airflow + 0.000001235321111 * airflow + 0
                     End Select
-                Case Is = "Rear Return Air"
+                Case Is = "Return Air Opening (Rear)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 65
                             newvalue = 0.000000000363896 * airflow * airflow + 0.000000419172149 * airflow + 0
@@ -465,7 +462,7 @@ Public Class frmLowAF
                         Case 150
                             newvalue = 0.000000000242061 * airflow * airflow - 0.000000410986033 * airflow + 0
                     End Select
-                Case Is = "Damper(Bottom & Rear Return)"
+                Case Is = "Return Air Damper (Bottom/Rear Return)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 65
                             newvalue = 0.000000000484060419333394 * airflow * airflow + 0.0000000673627442224342 * airflow + 0
@@ -489,7 +486,7 @@ Public Class frmLowAF
                         Case 120 To 150
                             newvalue = 0.000000000031745 * airflow * airflow - 0.000000001932412 * airflow + 0
                     End Select
-                Case Is = "Side Discharge"
+                Case Is = "Discharge Air Opening (Side)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 65
                             newvalue = 0.000000000438558628285654 * airflow * airflow - 0.000000126886553746382 * airflow + 0
@@ -500,7 +497,7 @@ Public Class frmLowAF
                         Case 120 To 150
                             newvalue = 0.000000000187847 * airflow * airflow + 0.00000005366468 * airflow + 0
                     End Select
-                Case Is = "Bottom Discharge"
+                Case Is = "Discharge Air Opening (Bottom)"
                     Select Case Val(frmMain.ThisUnit.NominalTons)
                         Case 50 To 65
                             newvalue = 0.000000000448586759146251 * airflow * airflow + 0.000000268247849254268 * airflow + 0

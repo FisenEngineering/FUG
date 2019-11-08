@@ -1,5 +1,7 @@
 ﻿Public Class frmLCVAV
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -24,37 +26,40 @@
         'There is no performance to update for this modification
     End Sub
     Private Sub UpdateCodeList()
+        Dim i As Integer
+
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("315000")
+        ModuleCodeList.Add("315000")
         If chkECMotorStaging.Checked Then
-            frmMain.ThisUnitCodes.Add("315310") 'EC Motor Staging
+            ModuleCodeList.Add("315310") 'EC Motor Staging
         End If
         If optSEVAV.Checked Then
-            frmMain.ThisUnitCodes.Add("315100") 'SE Controller LCVAV
-            frmMain.ThisUnitCodes.Add("315105") 'Utilize Existing SE Controller
+            ModuleCodeList.Add("315100") 'SE Controller LCVAV
+            ModuleCodeList.Add("315105") 'Utilize Existing SE Controller
             If chkIntellispeed.Checked = True Then
-                frmMain.ThisUnitCodes.Add("315130")
+                ModuleCodeList.Add("315130")
             Else
-                frmMain.ThisUnitCodes.Add("315110") 'Supply Air Temperature Controls by SE Controller 
-                frmMain.ThisUnitCodes.Add("315115") 'MWU/DWU Controls by SE Controller
-                frmMain.ThisUnitCodes.Add("315120") 'Duct Static Pressure Controls by SE Controller
-                frmMain.ThisUnitCodes.Add("315121") 'Fisen Provided and Installed Duct Static Pressure Sensor
+                ModuleCodeList.Add("315110") 'Supply Air Temperature Controls by SE Controller 
+                ModuleCodeList.Add("315115") 'MWU/DWU Controls by SE Controller
+                ModuleCodeList.Add("315120") 'Duct Static Pressure Controls by SE Controller
+                ModuleCodeList.Add("315121") 'Fisen Provided and Installed Duct Static Pressure Sensor
             End If
-            If chkUnitisHeatPump.Checked Then frmMain.ThisUnitCodes.Add("315122") 'High Speed Fan in Heat Relay
-            If chkHSFaninRH.Checked Then frmMain.ThisUnitCodes.Add("315123") 'High Speed Fan in Reheat Mode
+            If chkUnitisHeatPump.Checked Then ModuleCodeList.Add("315122") 'High Speed Fan in Heat Relay
+            If chkHSFaninRH.Checked Then ModuleCodeList.Add("315123") 'High Speed Fan in Reheat Mode
 
         Else
-            frmMain.ThisUnitCodes.Add("315200") 'Fisen Controller LCVAV
+            ModuleCodeList.Add("315200") 'Fisen Controller LCVAV
 
             If chkFisenSATCtrl.Checked Then
-                frmMain.ThisUnitCodes.Add("315210")
+                ModuleCodeList.Add("315210")
             End If
             If chkFisenDSPCtrl.Checked Then
-                frmMain.ThisUnitCodes.Add("315220")
-                frmMain.ThisUnitCodes.Add("315221")
+                ModuleCodeList.Add("315220")
+                ModuleCodeList.Add("315221")
             End If
             If chkFisenMWUCtrl.Checked Then
-                frmMain.ThisUnitCodes.Add("315215")
+                ModuleCodeList.Add("315215")
             End If
             frmMain.ThisUnit.CommNodes = "2"
         End If
@@ -114,6 +119,13 @@
                     frmMain.ThisUnitGenCodes.Add("960023")
             End Select
         End If
+
+        Call PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
+
     End Sub
 
     Private Sub UpdateWarrantyItems()
@@ -126,7 +138,7 @@
         frmMain.ThisUnitPhysicalData.ModLoadMod.Add("LCVAV")
         'Next Line is the line item description i.e. Hot Water Description
         frmMain.ThisUnitPhysicalData.ModLoadItem.Add("Light Commercial VAV Conversion")
-        tempWeight = "9999"
+
         'Now it's logic to assign the values.
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
@@ -137,6 +149,8 @@
                 tempWeight = "13"
             Case Is = "Series40"
                 tempWeight = "14"
+            Case Is = "Series100"
+                tempWeight = "65"
             Case Else
                 tempWeight = "9999"
         End Select
@@ -193,8 +207,17 @@
 
         If frmMain.ThisUnit.Family = "Series10" Then
             optUseAux.Checked = True
-
         End If
+
+        If frmMain.ThisUnitSFanPerf.VFDPresent Then
+            optDrivebyJCI.Checked = True
+        End If
+
+        If InStr(frmMain.ThisUnit.ModelNumber, "ZR") > 0 Then
+            chkHSFaninRH.Checked = True
+        End If
+
+        ModuleCodeList.Add("315000")
     End Sub
     Private Sub PopulateAuxPanelList()
         If optNoAux.Checked = True Then
@@ -284,4 +307,85 @@
 
         End Select
     End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
+    End Sub
+
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+        Dim TCode As String
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '315%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '315%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
 End Class

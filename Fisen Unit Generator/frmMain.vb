@@ -8033,6 +8033,9 @@ Public Class frmMain
             ThisUnitFactOpts.Add(xNodeRoot.ChildNodes.Item(i).InnerText)
             If InStr(xNodeRoot.ChildNodes.Item(i).InnerText, "Disconnect") > 0 Then ThisUnitElecData.CommDisconnect = True
             If xNodeRoot.ChildNodes.Item(i).InnerText = "Powered Convenience Outlet" Then ThisUnitElecData.ConvOutlet = True
+            'Flag as VFD present if it's a FIOP
+            If xNodeRoot.ChildNodes.Item(i).InnerText = "VAV Controller with VFD" Then ThisUnitSFanPerf.VFDPresent = True
+            If xNodeRoot.ChildNodes.Item(i).InnerText = "Intellispeed VFD" Then ThisUnitSFanPerf.VFDPresent = True
         Next
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/FieldInstalled")

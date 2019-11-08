@@ -27,11 +27,16 @@ Partial Class frmLCVAV
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.optDrivebyField = New System.Windows.Forms.RadioButton()
         Me.optDrivebyFisen = New System.Windows.Forms.RadioButton()
         Me.optDrivebyJCI = New System.Windows.Forms.RadioButton()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.grpSinglePhaseSFan = New System.Windows.Forms.GroupBox()
+        Me.optJustECMotor = New System.Windows.Forms.RadioButton()
+        Me.optReplaceFanAndMotor = New System.Windows.Forms.RadioButton()
+        Me.optNot1Phase = New System.Windows.Forms.RadioButton()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
@@ -41,6 +46,7 @@ Partial Class frmLCVAV
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkECMotorStaging = New System.Windows.Forms.CheckBox()
         Me.chkIntellispeed = New System.Windows.Forms.CheckBox()
         Me.chkHSFaninRH = New System.Windows.Forms.CheckBox()
         Me.chkUnitisHeatPump = New System.Windows.Forms.CheckBox()
@@ -54,21 +60,16 @@ Partial Class frmLCVAV
         Me.chkNoPerformance = New System.Windows.Forms.CheckBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.grpSinglePhaseSFan = New System.Windows.Forms.GroupBox()
-        Me.optNot1Phase = New System.Windows.Forms.RadioButton()
-        Me.optReplaceFanAndMotor = New System.Windows.Forms.RadioButton()
-        Me.optJustECMotor = New System.Windows.Forms.RadioButton()
-        Me.chkECMotorStaging = New System.Windows.Forms.CheckBox()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.grpSinglePhaseSFan.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        Me.grpSinglePhaseSFan.SuspendLayout()
         Me.SuspendLayout()
         '
         'Cancel
@@ -128,6 +129,16 @@ Partial Class frmLCVAV
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
         '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(6, 88)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(87, 17)
+        Me.RadioButton1.TabIndex = 11
+        Me.RadioButton1.Text = "JCI EC Motor"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        '
         'optDrivebyField
         '
         Me.optDrivebyField.AutoSize = True
@@ -182,6 +193,50 @@ Partial Class frmLCVAV
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'grpSinglePhaseSFan
+        '
+        Me.grpSinglePhaseSFan.Controls.Add(Me.optJustECMotor)
+        Me.grpSinglePhaseSFan.Controls.Add(Me.optReplaceFanAndMotor)
+        Me.grpSinglePhaseSFan.Controls.Add(Me.optNot1Phase)
+        Me.grpSinglePhaseSFan.Location = New System.Drawing.Point(225, 42)
+        Me.grpSinglePhaseSFan.Name = "grpSinglePhaseSFan"
+        Me.grpSinglePhaseSFan.Size = New System.Drawing.Size(158, 105)
+        Me.grpSinglePhaseSFan.TabIndex = 30
+        Me.grpSinglePhaseSFan.TabStop = False
+        Me.grpSinglePhaseSFan.Text = "Single Phase Supply Fan"
+        '
+        'optJustECMotor
+        '
+        Me.optJustECMotor.AutoSize = True
+        Me.optJustECMotor.Location = New System.Drawing.Point(6, 65)
+        Me.optJustECMotor.Name = "optJustECMotor"
+        Me.optJustECMotor.Size = New System.Drawing.Size(109, 17)
+        Me.optJustECMotor.TabIndex = 2
+        Me.optJustECMotor.Text = "Use JCI EC Motor"
+        Me.optJustECMotor.UseVisualStyleBackColor = True
+        '
+        'optReplaceFanAndMotor
+        '
+        Me.optReplaceFanAndMotor.AutoSize = True
+        Me.optReplaceFanAndMotor.Location = New System.Drawing.Point(6, 42)
+        Me.optReplaceFanAndMotor.Name = "optReplaceFanAndMotor"
+        Me.optReplaceFanAndMotor.Size = New System.Drawing.Size(137, 17)
+        Me.optReplaceFanAndMotor.TabIndex = 1
+        Me.optReplaceFanAndMotor.Text = "Replace Fan and Motor"
+        Me.optReplaceFanAndMotor.UseVisualStyleBackColor = True
+        '
+        'optNot1Phase
+        '
+        Me.optNot1Phase.AutoSize = True
+        Me.optNot1Phase.Checked = True
+        Me.optNot1Phase.Location = New System.Drawing.Point(6, 19)
+        Me.optNot1Phase.Name = "optNot1Phase"
+        Me.optNot1Phase.Size = New System.Drawing.Size(144, 17)
+        Me.optNot1Phase.TabIndex = 0
+        Me.optNot1Phase.TabStop = True
+        Me.optNot1Phase.Text = "Not a Single Phase SFan"
+        Me.optNot1Phase.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -288,6 +343,17 @@ Partial Class frmLCVAV
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "LCVAV Style"
+        '
+        'chkECMotorStaging
+        '
+        Me.chkECMotorStaging.AutoSize = True
+        Me.chkECMotorStaging.Location = New System.Drawing.Point(219, 80)
+        Me.chkECMotorStaging.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkECMotorStaging.Name = "chkECMotorStaging"
+        Me.chkECMotorStaging.Size = New System.Drawing.Size(128, 17)
+        Me.chkECMotorStaging.TabIndex = 15
+        Me.chkECMotorStaging.Text = "ECM Staged not VFD"
+        Me.chkECMotorStaging.UseVisualStyleBackColor = True
         '
         'chkIntellispeed
         '
@@ -435,70 +501,14 @@ Partial Class frmLCVAV
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'grpSinglePhaseSFan
+        'cmdDesignCautions
         '
-        Me.grpSinglePhaseSFan.Controls.Add(Me.optJustECMotor)
-        Me.grpSinglePhaseSFan.Controls.Add(Me.optReplaceFanAndMotor)
-        Me.grpSinglePhaseSFan.Controls.Add(Me.optNot1Phase)
-        Me.grpSinglePhaseSFan.Location = New System.Drawing.Point(225, 42)
-        Me.grpSinglePhaseSFan.Name = "grpSinglePhaseSFan"
-        Me.grpSinglePhaseSFan.Size = New System.Drawing.Size(158, 105)
-        Me.grpSinglePhaseSFan.TabIndex = 30
-        Me.grpSinglePhaseSFan.TabStop = False
-        Me.grpSinglePhaseSFan.Text = "Single Phase Supply Fan"
-        '
-        'optNot1Phase
-        '
-        Me.optNot1Phase.AutoSize = True
-        Me.optNot1Phase.Checked = True
-        Me.optNot1Phase.Location = New System.Drawing.Point(6, 19)
-        Me.optNot1Phase.Name = "optNot1Phase"
-        Me.optNot1Phase.Size = New System.Drawing.Size(144, 17)
-        Me.optNot1Phase.TabIndex = 0
-        Me.optNot1Phase.TabStop = True
-        Me.optNot1Phase.Text = "Not a Single Phase SFan"
-        Me.optNot1Phase.UseVisualStyleBackColor = True
-        '
-        'optReplaceFanAndMotor
-        '
-        Me.optReplaceFanAndMotor.AutoSize = True
-        Me.optReplaceFanAndMotor.Location = New System.Drawing.Point(6, 42)
-        Me.optReplaceFanAndMotor.Name = "optReplaceFanAndMotor"
-        Me.optReplaceFanAndMotor.Size = New System.Drawing.Size(137, 17)
-        Me.optReplaceFanAndMotor.TabIndex = 1
-        Me.optReplaceFanAndMotor.Text = "Replace Fan and Motor"
-        Me.optReplaceFanAndMotor.UseVisualStyleBackColor = True
-        '
-        'optJustECMotor
-        '
-        Me.optJustECMotor.AutoSize = True
-        Me.optJustECMotor.Location = New System.Drawing.Point(6, 65)
-        Me.optJustECMotor.Name = "optJustECMotor"
-        Me.optJustECMotor.Size = New System.Drawing.Size(109, 17)
-        Me.optJustECMotor.TabIndex = 2
-        Me.optJustECMotor.Text = "Use JCI EC Motor"
-        Me.optJustECMotor.UseVisualStyleBackColor = True
-        '
-        'chkECMotorStaging
-        '
-        Me.chkECMotorStaging.AutoSize = True
-        Me.chkECMotorStaging.Location = New System.Drawing.Point(219, 80)
-        Me.chkECMotorStaging.Margin = New System.Windows.Forms.Padding(2)
-        Me.chkECMotorStaging.Name = "chkECMotorStaging"
-        Me.chkECMotorStaging.Size = New System.Drawing.Size(128, 17)
-        Me.chkECMotorStaging.TabIndex = 15
-        Me.chkECMotorStaging.Text = "ECM Staged not VFD"
-        Me.chkECMotorStaging.UseVisualStyleBackColor = True
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(6, 88)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(87, 17)
-        Me.RadioButton1.TabIndex = 11
-        Me.RadioButton1.Text = "JCI EC Motor"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(349, 196)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(96, 29)
+        Me.cmdDesignCautions.TabIndex = 8
+        Me.cmdDesignCautions.Text = "Design Cautions"
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
         'frmLCVAV
         '
@@ -506,11 +516,15 @@ Partial Class frmLCVAV
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 236)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.HelpButton = True
         Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmLCVAV"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "LCVAV"
@@ -520,6 +534,8 @@ Partial Class frmLCVAV
         Me.GroupBox1.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.grpSinglePhaseSFan.ResumeLayout(False)
+        Me.grpSinglePhaseSFan.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
@@ -527,8 +543,6 @@ Partial Class frmLCVAV
         Me.GroupBox2.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
-        Me.grpSinglePhaseSFan.ResumeLayout(False)
-        Me.grpSinglePhaseSFan.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -571,4 +585,5 @@ Partial Class frmLCVAV
     Friend WithEvents optNot1Phase As RadioButton
     Friend WithEvents chkECMotorStaging As CheckBox
     Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents cmdDesignCautions As Button
 End Class

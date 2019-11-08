@@ -36,6 +36,17 @@ Public Class clsSupplyPerf
     Private pStaticNameYPal As ArrayList = New ArrayList
     Private pStaticDataYPal As ArrayList = New ArrayList
 
+    Private pSFanVFDPresent As Boolean
+
+    Public Property VFDPresent As Boolean
+        Get
+            Return pSFanVFDPresent
+        End Get
+        Set(value As Boolean)
+            pSFanVFDPresent = value
+        End Set
+    End Property
+
     Public Property StaticNameYpal As ArrayList
         Get
             Return pStaticNameYPal
@@ -339,6 +350,7 @@ Public Class clsSupplyPerf
         pFanSelected = "None"
         pCabEffects = " "
         pCabEffectsElev = " "
+        pSFanVFDPresent = False
     End Sub
     Public Sub ImportUPGData()
         Dim xdoc As XmlDocument = New XmlDocument
