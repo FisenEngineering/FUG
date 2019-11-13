@@ -62,6 +62,9 @@ Partial Class frmDPP
         Me.chkNoPerformance = New System.Windows.Forms.CheckBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.lblConv = New System.Windows.Forms.Label()
+        Me.lblXFan = New System.Windows.Forms.Label()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -105,6 +108,8 @@ Partial Class frmDPP
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.lblXFan)
+        Me.tpgConditions.Controls.Add(Me.lblConv)
         Me.tpgConditions.Controls.Add(Me.Label3)
         Me.tpgConditions.Controls.Add(Me.Label2)
         Me.tpgConditions.Controls.Add(Me.Label1)
@@ -498,16 +503,47 @@ Partial Class frmDPP
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
+        'lblConv
+        '
+        Me.lblConv.AutoSize = True
+        Me.lblConv.Location = New System.Drawing.Point(170, 129)
+        Me.lblConv.Name = "lblConv"
+        Me.lblConv.Size = New System.Drawing.Size(42, 13)
+        Me.lblConv.TabIndex = 34
+        Me.lblConv.Text = "lblConv"
+        Me.lblConv.Visible = False
+        '
+        'lblXFan
+        '
+        Me.lblXFan.AutoSize = True
+        Me.lblXFan.Location = New System.Drawing.Point(170, 142)
+        Me.lblXFan.Name = "lblXFan"
+        Me.lblXFan.Size = New System.Drawing.Size(42, 13)
+        Me.lblXFan.TabIndex = 35
+        Me.lblXFan.Text = "lblXFan"
+        Me.lblXFan.Visible = False
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(355, 237)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(96, 29)
+        Me.cmdDesignCautions.TabIndex = 9
+        Me.cmdDesignCautions.Text = "Design Cautions"
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
         'frmDPP
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(459, 278)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmDPP"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Dual Point Power"
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
@@ -565,4 +601,7 @@ Partial Class frmDPP
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents optEmerFisenSSFused As RadioButton
     Friend WithEvents optCommFisenSSFused As RadioButton
+    Friend WithEvents lblXFan As Label
+    Friend WithEvents lblConv As Label
+    Friend WithEvents cmdDesignCautions As Button
 End Class

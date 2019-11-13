@@ -1,6 +1,8 @@
 ﻿Imports System.ComponentModel
 Public Class frmLowAF
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -65,50 +67,52 @@ Public Class frmLowAF
         con = Nothing
     End Sub
     Private Sub UpdateCodeList()
+
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("398800")
+        ModuleCodeList.Add("398800")
         If optExistingSheaves.Checked Then
-            frmMain.ThisUnitCodes.Add("398805")
+            ModuleCodeList.Add("398805")
         End If
         If optResheave.Checked Then
-            frmMain.ThisUnitCodes.Add("398810")
+            ModuleCodeList.Add("398810")
         End If
         If optFanWallBypassExisting.Checked Then
-            frmMain.ThisUnitCodes.Add("398815")
+            ModuleCodeList.Add("398815")
         End If
         If optFanWallBypassNew.Checked Then
-            frmMain.ThisUnitCodes.Add("398820")
+            ModuleCodeList.Add("398820")
         End If
         If optReplaceFan.Checked Then
-            frmMain.ThisUnitCodes.Add("398825")
+            ModuleCodeList.Add("398825")
         End If
 
         'controls
 
-        frmMain.ThisUnitCodes.Add("398835")
+        ModuleCodeList.Add("398835")
         If optSE.Checked Then
             If chkAntiFrostProtection.Checked Then
-                frmMain.ThisUnitCodes.Add("398840")
+                ModuleCodeList.Add("398840")
             End If
             If chkElecHeatProtection.Checked Then
-                frmMain.ThisUnitCodes.Add("398850")
+                ModuleCodeList.Add("398850")
             End If
             If chkGasHeatProtection.Checked Then
-                frmMain.ThisUnitCodes.Add("398845")
+                ModuleCodeList.Add("398845")
             End If
         Else
             If chkAntiFrostProtection.Checked Then
-                frmMain.ThisUnitCodes.Add("398855")
+                ModuleCodeList.Add("398855")
             End If
             If chkElecHeatProtection.Checked Then
-                frmMain.ThisUnitCodes.Add("398865")
+                ModuleCodeList.Add("398865")
             End If
             If chkGasHeatProtection.Checked Then
-                frmMain.ThisUnitCodes.Add("398860")
+                ModuleCodeList.Add("398860")
             End If
         End If
         If chkSeriesConversion.Checked Then
-            frmMain.ThisUnitCodes.Add("398830")
+            ModuleCodeList.Add("398830")
             If optRefDwg1Ckt.Checked = True Then
                 frmMain.lstUsingRefer.Items.Add("Series Conversion 1 Circuit ZR")
             End If
@@ -117,6 +121,12 @@ Public Class frmLowAF
             End If
         End If
         'use logic to step through the controls to determine the codes and use the above format...
+
+        Call PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
 
     End Sub
     Private Sub UpdateWarrantyItems()
@@ -259,6 +269,7 @@ Public Class frmLowAF
         If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then chkGasHeatProtection.Checked = True
         If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then chkElecHeatProtection.Checked = True
 
+        ModuleCodeList.Add("398000")
 
     End Sub
 
@@ -1102,4 +1113,85 @@ Public Class frmLowAF
     Private Sub cmdCalcDehumCap_Click(sender As Object, e As EventArgs) Handles cmdCalcDehumCap.Click
         txtDehumCap.Text = Format(psyDehumCapacity(txtEDB.Text, txtEWB.Text, txtLADB.Text, txtLAWB.Text, txtAirflow.Text), "0.0")
     End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
+    End Sub
+
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+        Dim TCode As String
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '398%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '315%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
 End Class

@@ -54,9 +54,29 @@ Public Class clsElecData
     Private pFanQty As New ArrayList
     Private pFanFLAeach As New ArrayList
 
-    Private pFisenLoad01 As String
-    Private pFisenLoadFLA01 As String
+    Private pFisenLoad01 As String 'Chillers and YPAL Only?
+    Private pFisenLoadFLA01 As String 'Chillers and YPAL Only?
 
+    Private pCommLoad As New ArrayList
+    Private pEmerLoad As New ArrayList
+
+    Public Property CommLoad As ArrayList
+        Get
+            CommLoad = pCommLoad
+        End Get
+        Set(value As ArrayList)
+            pCommLoad = value
+        End Set
+    End Property
+
+    Public Property EmerLoad As ArrayList
+        Get
+            EmerLoad = pEmerLoad
+        End Get
+        Set(value As ArrayList)
+            pEmerLoad = value
+        End Set
+    End Property
     Public Property FisenLoad01 As String
         Get
             FisenLoad01 = pFisenLoad01

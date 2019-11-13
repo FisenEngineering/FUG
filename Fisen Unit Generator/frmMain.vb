@@ -2131,12 +2131,13 @@ Public Class frmMain
         Dim tempfilename As String
         Dim rowcount As Integer
         Dim tempstr As String
-
+        Dim i As Integer
 
         tempfilename = txtProjectDirectory.Text & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\" & "Submittal Source (Do not Distribute)\Submittal Design\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - " & "MCA Calculation Report.txt"
 
         mcareport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
         mcareport.WriteLine("MCA Calculation Report")
+        mcareport.WriteLine(" ")
         If optMCAReportNoChange.Checked Then
             mcareport.WriteLine("FISEN MODIFICATIONS HAVE NO IMPACT - VALUE FROM BASE UNIT SELECTION")
             mcareport.WriteLine("Rule:")
@@ -2161,15 +2162,32 @@ Public Class frmMain
         End If
 
         If optMCAReportA.Checked Then
+            mcareport.WriteLine("Commercial Circuit")
             mcareport.WriteLine(ThisUnitElecData.CommVolts & " NETWORK")
             rowcount = dgvElecLoads.RowCount
             For i = 0 To rowcount - 1
-
-                tempstr = dgvElecLoads.Rows(i).Cells.Item(4).Value & " - " & dgvElecLoads.Rows(i).Cells.Item(7).Value & " - " & dgvElecLoads.Rows(i).Cells.Item(9).Value
-                mcareport.WriteLine(tempstr)
+                If dgvElecLoads.Rows(i).Cells.Item(3).Value Then
+                    tempstr = dgvElecLoads.Rows(i).Cells.Item(4).Value & " - " & dgvElecLoads.Rows(i).Cells.Item(7).Value & " - " & dgvElecLoads.Rows(i).Cells.Item(9).Value
+                    mcareport.WriteLine(tempstr)
+                End If
             Next i
             mcareport.WriteLine(" ")
             mcareport.WriteLine("CALCULATION METHOD: 36.14(a) 1.25*LOAD1 + All other loads")
+            mcareport.WriteLine(" ")
+
+            If ThisUnitElecData.EmerCircuit Then
+                mcareport.WriteLine("Emergency Circuit")
+                mcareport.WriteLine(ThisUnitElecData.EmerVolts & " NETWORK")
+                rowcount = dgvElecLoads.RowCount
+                For i = 0 To rowcount - 1
+                    If dgvElecLoads.Rows(i).Cells.Item(8).Value Then
+                        tempstr = dgvElecLoads.Rows(i).Cells.Item(4).Value & " - " & dgvElecLoads.Rows(i).Cells.Item(7).Value & " - " & dgvElecLoads.Rows(i).Cells.Item(9).Value
+                        mcareport.WriteLine(tempstr)
+                    End If
+                Next i
+                mcareport.WriteLine(" ")
+                mcareport.WriteLine("CALCULATION METHOD: 36.14(a) 1.25*LOAD1 + All other loads")
+            End If
         End If
 
         mcareport.Close()
@@ -7026,16 +7044,7 @@ Public Class frmMain
                     Call LoadStandardLoads()
             End Select
 
-            If ThisUnitElecData.ConvOutlet Then
-                ElecChar = ThisUnitElecData.CommVolts & "-1-" & ThisUnitElecData.CommFreq
-                If ThisUnit.Family = "Series100" Then
-                    FLA = Format((2000 / Val(ThisUnitElecData.CommVolts)), "0.0")
-                Else
-                    FLA = Format((3000 / Val(ThisUnitElecData.CommVolts)), "0.0")
-                End If
-                NewRow = {True, False, "All", True, "Convenience Outlet", ElecChar, "-", FLA, False, "Math"}
-                dgvElecLoads.Rows.Add(NewRow)
-            End If
+
 
             Call cmdUpdateMCA.PerformClick()
             optMCAReportA.Checked = True
@@ -7143,14 +7152,18 @@ Public Class frmMain
         Dim Snipet As String
         Dim NewRow As String()
         Dim ElecChar As String
-        Dim i As Integer
+        Dim i, j As Integer
         Dim ThisField As String
         Dim ThisFieldHP As String
         Dim Temphp As String
         Dim Tempfla As String
+        Dim ConvLabel As String
 
         Temphp = "-"
         Tempfla = "-"
+
+        Dim xfhp As String
+        Dim myload As String
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -7205,20 +7218,85 @@ Public Class frmMain
         For i = 0 To lstFactOpts.Items.Count - 1
             If (InStr(lstFactOpts.Items.Item(i), "Powered Convenience") > 0) And (InStr(lstFactOpts.Items.Item(i), "Non") = 0) Then
                 Temphp = "-"
-                Select Case txtCommVolts.Text
-                    Case Is = "575"
-                        Tempfla = "5.2"
-                    Case Is = "460"
-                        Tempfla = "6.5"
-                    Case Is = "230"
-                        Tempfla = "13.0"
-                    Case Is = "208"
-                        Tempfla = "14.4"
-                End Select
-                NewRow = {True, False, "All", True, "CONVENIENCE OUTLET", ElecChar, Temphp, Tempfla, False, "MATH 3kVA"}
+                If ThisUnit.Family = "Series100" Then
+                    Select Case txtCommVolts.Text
+                        Case Is = "575"
+                            Tempfla = "5.2"
+                        Case Is = "460"
+                            Tempfla = "6.5"
+                        Case Is = "230"
+                            Tempfla = "13.0"
+                        Case Is = "208"
+                            Tempfla = "14.4"
+                    End Select
+                    ConvLabel = "MATH 2kVA"
+                Else
+                    Select Case txtCommVolts.Text
+                        Case Is = "575"
+                            Tempfla = "5.2"
+                        Case Is = "460"
+                            Tempfla = "6.5"
+                        Case Is = "230"
+                            Tempfla = "13.0"
+                        Case Is = "208"
+                            Tempfla = "14.4"
+                    End Select
+                    ConvLabel = "MATH 3KVA"
+                End If
+
+                NewRow = {True, False, "All", True, "CONVENIENCE OUTLET", ElecChar, Temphp, Tempfla, False, ConvLabel}
                 dgvElecLoads.Rows.Add(NewRow)
             End If
         Next
+        ' check for a factory xfan on UPG items
+        If ThisUnitRXPerf.UPGXFanPresent Then
+            Select Case ThisUnit.Family
+                Case Is = "Series5"
+                    'need to complete...
+                Case Is = "Series10"
+                    Select Case txtCommVolts.Text
+                        Case Is = "575"
+                            Tempfla = "1.5"
+                        Case Is = "460"
+                            Tempfla = "2.2"
+                        Case Is = "230"
+                            Tempfla = "5.0"
+                        Case Is = "208"
+                            Tempfla = "5.0"
+                    End Select
+                    xfhp = "3/4"
+                Case Is = "Series20"
+                    Select Case txtCommVolts.Text
+                        Case Is = "575"
+                            Tempfla = "1.5"
+                        Case Is = "460"
+                            Tempfla = "2.2"
+                        Case Is = "230"
+                            Tempfla = "5.0"
+                        Case Is = "208"
+                            Tempfla = "5.0"
+                    End Select
+                    xfhp = "3/4"
+                Case Else
+                    'Do Nothing
+            End Select
+            NewRow = {True, False, "All", True, "EXHAUST FAN", ElecChar, xfhp, Tempfla, False, "Tech Guide - Hard Code"}
+            dgvElecLoads.Rows.Add(NewRow)
+
+        End If
+
+        If ThisUnitElecData.EmerCircuit Then
+            For i = 0 To dgvElecLoads.Rows.Count - 1
+                myload = dgvElecLoads.Rows(i).Cells(4).Value
+                For j = 0 To ThisUnitElecData.EmerLoad.Count - 1
+                    If myload = ThisUnitElecData.EmerLoad(j) Then
+                        dgvElecLoads.Rows(i).Cells(3).Value = False
+                        dgvElecLoads.Rows(i).Cells(8).Value = True
+                        Exit For
+                    End If
+                Next
+            Next
+        End If
 
 
     End Sub
@@ -8032,6 +8110,7 @@ Public Class frmMain
         For i = 0 To xNodeRoot.ChildNodes.Count - 1
             ThisUnitFactOpts.Add(xNodeRoot.ChildNodes.Item(i).InnerText)
             If InStr(xNodeRoot.ChildNodes.Item(i).InnerText, "Disconnect") > 0 Then ThisUnitElecData.CommDisconnect = True
+            If InStr(xNodeRoot.ChildNodes.Item(i).InnerText, "Powered Exhaust") Then ThisUnitRXPerf.UPGXFanPresent = True
             If xNodeRoot.ChildNodes.Item(i).InnerText = "Powered Convenience Outlet" Then ThisUnitElecData.ConvOutlet = True
             'Flag as VFD present if it's a FIOP
             If xNodeRoot.ChildNodes.Item(i).InnerText = "VAV Controller with VFD" Then ThisUnitSFanPerf.VFDPresent = True
@@ -8042,6 +8121,7 @@ Public Class frmMain
         ThisUnitFieldInst.Clear()
         For i = 0 To xNodeRoot.ChildNodes.Count - 1
             ThisUnitFieldInst.Add(xNodeRoot.ChildNodes.Item(i).InnerText)
+            If InStr(xNodeRoot.ChildNodes.Item(i).InnerText, "Powered Exhaust") Then ThisUnitRXPerf.UPGXFanPresent = True
         Next
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/CoolingData")
@@ -8307,5 +8387,28 @@ Public Class frmMain
         lstUsingAirflow.Items.Clear()
     End Sub
 
+    Private Sub optEmerNA_CheckedChanged(sender As Object, e As EventArgs) Handles optEmerNA.CheckedChanged
+        txtEmerVolts.Text = "-"
+        txtEmerPhase.Text = "-"
+        txtEmerFreq.Text = "-"
 
+    End Sub
+
+    Private Sub optEmerFusedDisc_CheckedChanged(sender As Object, e As EventArgs) Handles optEmerFusedDisc.CheckedChanged
+        txtEmerVolts.Text = txtCommVolts.Text
+        txtEmerPhase.Text = txtCommPhase.Text
+        txtEmerFreq.Text = txtCommFreq.Text
+    End Sub
+
+    Private Sub optEmerNFDisc_CheckedChanged(sender As Object, e As EventArgs) Handles optEmerNFDisc.CheckedChanged
+        txtEmerVolts.Text = txtCommVolts.Text
+        txtEmerPhase.Text = txtCommPhase.Text
+        txtEmerFreq.Text = txtCommFreq.Text
+    End Sub
+
+    Private Sub optEmerMLO_CheckedChanged(sender As Object, e As EventArgs) Handles optEmerMLO.CheckedChanged
+        txtEmerVolts.Text = txtCommVolts.Text
+        txtEmerPhase.Text = txtCommPhase.Text
+        txtEmerFreq.Text = txtCommFreq.Text
+    End Sub
 End Class

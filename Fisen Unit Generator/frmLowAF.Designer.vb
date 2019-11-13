@@ -132,6 +132,7 @@ Partial Class frmLowAF
         Me.colOrigSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colAdjSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -1242,12 +1243,22 @@ Partial Class frmLowAF
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(510, 291)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(96, 29)
+        Me.cmdDesignCautions.TabIndex = 9
+        Me.cmdDesignCautions.Text = "Design Cautions"
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
         'frmLowAF
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(612, 334)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
@@ -1389,4 +1400,5 @@ Partial Class frmLowAF
     Friend WithEvents ColItem As DataGridViewTextBoxColumn
     Friend WithEvents colOrigSP As DataGridViewTextBoxColumn
     Friend WithEvents colAdjSP As DataGridViewTextBoxColumn
+    Friend WithEvents cmdDesignCautions As Button
 End Class

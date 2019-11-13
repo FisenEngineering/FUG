@@ -32,9 +32,20 @@ Public Class ClsRXPerf
     Private pFanSelected As String
     Private pXRangeFan As Boolean
 
+    Private pUPGXFanPresent As Boolean
+
     Private pStaticSummaryItem As ArrayList = New ArrayList
     Private pStaticPSTP As ArrayList = New ArrayList
     Private pStaticPATP As ArrayList = New ArrayList
+
+    Public Property UPGXFanPresent As Boolean
+        Get
+            Return pUPGXFanPresent
+        End Get
+        Set(value As Boolean)
+            pUPGXFanPresent = value
+        End Set
+    End Property
 
     Public Property MotorText As String
         Get
