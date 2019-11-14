@@ -23,6 +23,7 @@ Public Class frmMain
     Public ThisUnitERWPerf As ClsERW
     Public ThisYPALPerf As ClsYPALMainPerf
     Public ModBarn As clsModPaddock
+    Public JCICoolPerf As clsJCICoolPerfCalc
 
     Public ThisUnitMods As New ArrayList
     Public ThisUnitCodes As New ArrayList
@@ -824,6 +825,36 @@ Public Class frmMain
                         End
                     Else
                         frmLowAmbient.Dispose()
+                    End If
+
+                Case Is = "Modulating Electric Main Heat Fisen Provided"
+                    frmMEHeat_I.HeatUse = "Main Heat"
+                    frmMEHeat_I.ShowDialog()
+                    If frmMEHeat_I.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMEHeat_I.Dispose()
+                    End If
+
+                Case Is = "Modulating Electric Pre-Heat Fisen Provided"
+                    frmMEHeat_I.HeatUse = "Pre-Heat"
+                    frmMEHeat_I.ShowDialog()
+                    If frmMEHeat_I.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMEHeat_I.Dispose()
+                    End If
+
+                Case Is = "Modulating Electric Reactivation Heat Fisen Provided"
+                    frmMEHeat_I.HeatUse = "Reactivation Heat"
+                    frmMEHeat_I.ShowDialog()
+                    If frmMEHeat_I.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMEHeat_I.Dispose()
                     End If
 
                 Case Is = "Modulating Electric Heat Retrofit"

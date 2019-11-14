@@ -114,6 +114,7 @@
     <Compile Include="clsHeatPerf.vb" />
     <Compile Include="ClsHydronicsData.vb" />
     <Compile Include="clsImportUPG.vb" />
+    <Compile Include="clsJCICoolPerfCalc.vb" />
     <Compile Include="clsModPaddock.vb" />
     <Compile Include="clsPhysicalData.vb" />
     <Compile Include="ClsPsychrometrics.vb" />
@@ -294,6 +295,12 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmMEHeat_I.Designer.vb">
+      <DependentUpon>frmMEHeat_I.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMEHeat_I.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMEHeat_R.Designer.vb">
       <DependentUpon>frmMEHeat_R.vb</DependentUpon>
     </Compile>
@@ -472,6 +479,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMEHeat_I.resx">
+      <DependentUpon>frmMEHeat_I.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMEHeat_R.resx">
       <DependentUpon>frmMEHeat_R.vb</DependentUpon>
