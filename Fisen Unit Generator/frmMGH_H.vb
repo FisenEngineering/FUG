@@ -507,7 +507,4 @@
         txtBypassAirflow.Text = Str(Val(txtSFanAirflow.Text) - Val(txtBurnerAirflow.Text))
     End Sub
 
-    Private Sub TpgControls_Click(sender As Object, e As EventArgs) Handles tpgControls.Click
-
-    End Sub
 End Class

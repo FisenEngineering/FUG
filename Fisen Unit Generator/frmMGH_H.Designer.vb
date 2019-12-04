@@ -53,6 +53,12 @@ Partial Class frmMGH_H
         Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.lbl = New System.Windows.Forms.Label()
+        Me.nudOffLowHighCount = New System.Windows.Forms.NumericUpDown()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.nudOnOffCount = New System.Windows.Forms.NumericUpDown()
+        Me.nudModCount = New System.Windows.Forms.NumericUpDown()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.optCustomCtrl = New System.Windows.Forms.RadioButton()
         Me.opt100OACtrls = New System.Windows.Forms.RadioButton()
@@ -86,12 +92,6 @@ Partial Class frmMGH_H
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.nudModCount = New System.Windows.Forms.NumericUpDown()
-        Me.nudOnOffCount = New System.Windows.Forms.NumericUpDown()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.lbl = New System.Windows.Forms.Label()
-        Me.nudOffLowHighCount = New System.Windows.Forms.NumericUpDown()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -102,11 +102,11 @@ Partial Class frmMGH_H
         CType(Me.nudHMB500, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHMB600, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgControls.SuspendLayout()
+        CType(Me.nudOffLowHighCount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudOnOffCount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudModCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        CType(Me.nudModCount, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudOnOffCount, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudOffLowHighCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -465,6 +465,57 @@ Partial Class frmMGH_H
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'lbl
+        '
+        Me.lbl.AutoSize = True
+        Me.lbl.Location = New System.Drawing.Point(382, 179)
+        Me.lbl.Name = "lbl"
+        Me.lbl.Size = New System.Drawing.Size(138, 13)
+        Me.lbl.TabIndex = 20
+        Me.lbl.Text = "Off/Low/High Burner Count"
+        '
+        'nudOffLowHighCount
+        '
+        Me.nudOffLowHighCount.Location = New System.Drawing.Point(341, 177)
+        Me.nudOffLowHighCount.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudOffLowHighCount.Name = "nudOffLowHighCount"
+        Me.nudOffLowHighCount.Size = New System.Drawing.Size(35, 20)
+        Me.nudOffLowHighCount.TabIndex = 9
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(382, 153)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(105, 13)
+        Me.Label14.TabIndex = 18
+        Me.Label14.Text = "On/Off Burner Count"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(382, 127)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(124, 13)
+        Me.Label13.TabIndex = 17
+        Me.Label13.Text = "Modulating Burner Count"
+        '
+        'nudOnOffCount
+        '
+        Me.nudOnOffCount.Location = New System.Drawing.Point(341, 151)
+        Me.nudOnOffCount.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudOnOffCount.Name = "nudOnOffCount"
+        Me.nudOnOffCount.Size = New System.Drawing.Size(35, 20)
+        Me.nudOnOffCount.TabIndex = 8
+        '
+        'nudModCount
+        '
+        Me.nudModCount.Location = New System.Drawing.Point(341, 125)
+        Me.nudModCount.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudModCount.Name = "nudModCount"
+        Me.nudModCount.Size = New System.Drawing.Size(35, 20)
+        Me.nudModCount.TabIndex = 7
         '
         'RadioButton1
         '
@@ -829,57 +880,6 @@ Partial Class frmMGH_H
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'nudModCount
-        '
-        Me.nudModCount.Location = New System.Drawing.Point(341, 125)
-        Me.nudModCount.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.nudModCount.Name = "nudModCount"
-        Me.nudModCount.Size = New System.Drawing.Size(35, 20)
-        Me.nudModCount.TabIndex = 7
-        '
-        'nudOnOffCount
-        '
-        Me.nudOnOffCount.Location = New System.Drawing.Point(341, 151)
-        Me.nudOnOffCount.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.nudOnOffCount.Name = "nudOnOffCount"
-        Me.nudOnOffCount.Size = New System.Drawing.Size(35, 20)
-        Me.nudOnOffCount.TabIndex = 8
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(382, 127)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(124, 13)
-        Me.Label13.TabIndex = 17
-        Me.Label13.Text = "Modulating Burner Count"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(382, 153)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(105, 13)
-        Me.Label14.TabIndex = 18
-        Me.Label14.Text = "On/Off Burner Count"
-        '
-        'lbl
-        '
-        Me.lbl.AutoSize = True
-        Me.lbl.Location = New System.Drawing.Point(382, 179)
-        Me.lbl.Name = "lbl"
-        Me.lbl.Size = New System.Drawing.Size(138, 13)
-        Me.lbl.TabIndex = 20
-        Me.lbl.Text = "Off/Low/High Burner Count"
-        '
-        'nudOffLowHighCount
-        '
-        Me.nudOffLowHighCount.Location = New System.Drawing.Point(341, 177)
-        Me.nudOffLowHighCount.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.nudOffLowHighCount.Name = "nudOffLowHighCount"
-        Me.nudOffLowHighCount.Size = New System.Drawing.Size(35, 20)
-        Me.nudOffLowHighCount.TabIndex = 9
-        '
         'frmMGH_H
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -905,13 +905,13 @@ Partial Class frmMGH_H
         CType(Me.nudHMB600, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
+        CType(Me.nudOffLowHighCount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudOnOffCount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudModCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
-        CType(Me.nudModCount, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudOnOffCount, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudOffLowHighCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

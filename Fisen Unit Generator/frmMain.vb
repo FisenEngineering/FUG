@@ -47,7 +47,7 @@ Public Class frmMain
 
     Public ThisUnitAirflowDiag As New ArrayList
 
-    Private DwgDesc(75) As String
+    Private DwgDesc(100) As String
     Private HydroDesc(50) As String
     Private ReferDesc(50) As String
     Private AirflowDesc(50) As String
@@ -1061,8 +1061,10 @@ Public Class frmMain
                     YPALFile = YPALFile & Ver & ".dotm"
                     Process.Start(YPALFile)
                 Case Is = "YLAA"
+                    YLAAFile = YLAAFile & Ver & ".dotm"
                     Process.Start(YLAAFile)
                 Case Else
+
 
             End Select
 
