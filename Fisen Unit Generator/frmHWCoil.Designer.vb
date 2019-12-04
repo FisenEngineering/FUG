@@ -761,10 +761,12 @@ Partial Class frmHWCoil
         'optBU_Other
         '
         Me.optBU_Other.AutoSize = True
+        Me.optBU_Other.Checked = True
         Me.optBU_Other.Location = New System.Drawing.Point(6, 115)
         Me.optBU_Other.Name = "optBU_Other"
         Me.optBU_Other.Size = New System.Drawing.Size(42, 17)
         Me.optBU_Other.TabIndex = 4
+        Me.optBU_Other.TabStop = True
         Me.optBU_Other.Text = "n/a"
         Me.optBU_Other.UseVisualStyleBackColor = True
         '
