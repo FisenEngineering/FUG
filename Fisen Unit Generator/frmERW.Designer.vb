@@ -63,6 +63,12 @@ Partial Class frmERW
         Me.optOAHoodReuseJCI = New System.Windows.Forms.RadioButton()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.txtEncHeight = New System.Windows.Forms.TextBox()
+        Me.txtEncWidth = New System.Windows.Forms.TextBox()
+        Me.txtEncLength = New System.Windows.Forms.TextBox()
+        Me.Label91 = New System.Windows.Forms.Label()
+        Me.Label90 = New System.Windows.Forms.Label()
+        Me.Label89 = New System.Windows.Forms.Label()
         Me.cmbExtensionList = New System.Windows.Forms.ComboBox()
         Me.optCabinetStandAlone = New System.Windows.Forms.RadioButton()
         Me.optCabinetExtension = New System.Windows.Forms.RadioButton()
@@ -871,16 +877,76 @@ Partial Class frmERW
         '
         'GroupBox11
         '
+        Me.GroupBox11.Controls.Add(Me.txtEncHeight)
+        Me.GroupBox11.Controls.Add(Me.txtEncWidth)
+        Me.GroupBox11.Controls.Add(Me.txtEncLength)
+        Me.GroupBox11.Controls.Add(Me.Label91)
+        Me.GroupBox11.Controls.Add(Me.Label90)
+        Me.GroupBox11.Controls.Add(Me.Label89)
         Me.GroupBox11.Controls.Add(Me.cmbExtensionList)
         Me.GroupBox11.Controls.Add(Me.optCabinetStandAlone)
         Me.GroupBox11.Controls.Add(Me.optCabinetExtension)
         Me.GroupBox11.Controls.Add(Me.optCabinetInCab)
         Me.GroupBox11.Location = New System.Drawing.Point(899, 8)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(208, 100)
+        Me.GroupBox11.Size = New System.Drawing.Size(208, 165)
         Me.GroupBox11.TabIndex = 35
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Installation Style"
+        '
+        'txtEncHeight
+        '
+        Me.txtEncHeight.Enabled = False
+        Me.txtEncHeight.Location = New System.Drawing.Point(149, 122)
+        Me.txtEncHeight.Name = "txtEncHeight"
+        Me.txtEncHeight.Size = New System.Drawing.Size(53, 20)
+        Me.txtEncHeight.TabIndex = 81
+        Me.txtEncHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtEncWidth
+        '
+        Me.txtEncWidth.Enabled = False
+        Me.txtEncWidth.Location = New System.Drawing.Point(149, 96)
+        Me.txtEncWidth.Name = "txtEncWidth"
+        Me.txtEncWidth.Size = New System.Drawing.Size(53, 20)
+        Me.txtEncWidth.TabIndex = 80
+        Me.txtEncWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtEncLength
+        '
+        Me.txtEncLength.Enabled = False
+        Me.txtEncLength.Location = New System.Drawing.Point(149, 70)
+        Me.txtEncLength.Name = "txtEncLength"
+        Me.txtEncLength.Size = New System.Drawing.Size(53, 20)
+        Me.txtEncLength.TabIndex = 79
+        Me.txtEncLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label91
+        '
+        Me.Label91.AutoSize = True
+        Me.Label91.Location = New System.Drawing.Point(81, 125)
+        Me.Label91.Name = "Label91"
+        Me.Label91.Size = New System.Drawing.Size(62, 13)
+        Me.Label91.TabIndex = 78
+        Me.Label91.Text = "Ext. Height:"
+        '
+        'Label90
+        '
+        Me.Label90.AutoSize = True
+        Me.Label90.Location = New System.Drawing.Point(84, 99)
+        Me.Label90.Name = "Label90"
+        Me.Label90.Size = New System.Drawing.Size(59, 13)
+        Me.Label90.TabIndex = 77
+        Me.Label90.Text = "Ext. Width:"
+        '
+        'Label89
+        '
+        Me.Label89.AutoSize = True
+        Me.Label89.Location = New System.Drawing.Point(79, 74)
+        Me.Label89.Name = "Label89"
+        Me.Label89.Size = New System.Drawing.Size(64, 13)
+        Me.Label89.TabIndex = 76
+        Me.Label89.Text = "Ext. Length:"
         '
         'cmbExtensionList
         '
@@ -916,7 +982,7 @@ Partial Class frmERW
         'optCabinetInCab
         '
         Me.optCabinetInCab.AutoSize = True
-        Me.optCabinetInCab.Location = New System.Drawing.Point(6, 70)
+        Me.optCabinetInCab.Location = New System.Drawing.Point(6, 141)
         Me.optCabinetInCab.Name = "optCabinetInCab"
         Me.optCabinetInCab.Size = New System.Drawing.Size(73, 17)
         Me.optCabinetInCab.TabIndex = 4
@@ -1211,7 +1277,7 @@ Partial Class frmERW
         '
         Me.GroupBox5.Controls.Add(Me.optMultiPointPower)
         Me.GroupBox5.Controls.Add(Me.optSinglePointPower)
-        Me.GroupBox5.Location = New System.Drawing.Point(899, 114)
+        Me.GroupBox5.Location = New System.Drawing.Point(899, 179)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(208, 50)
         Me.GroupBox5.TabIndex = 27
@@ -4570,4 +4636,10 @@ Partial Class frmERW
     Friend WithEvents chkRXStaticRAOpeningFull As CheckBox
     Friend WithEvents optXFanbyJCI As RadioButton
     Friend WithEvents optXABPDamperNone As RadioButton
+    Friend WithEvents txtEncHeight As TextBox
+    Friend WithEvents txtEncWidth As TextBox
+    Friend WithEvents txtEncLength As TextBox
+    Friend WithEvents Label91 As Label
+    Friend WithEvents Label90 As Label
+    Friend WithEvents Label89 As Label
 End Class

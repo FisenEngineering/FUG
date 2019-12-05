@@ -295,21 +295,34 @@ Public Class frmERW
         If frmMain.ThisUnit.Cabinet = "S100A" Then
             cmbExtensionList.Items.Add("48 inch Series 100A")
             cmbExtensionList.Items.Add("60 inch Series 100A")
+            cmbExtensionList.Items.Add("48 inch Series 100A Wide 1")
+            cmbExtensionList.Items.Add("48 inch Series 100A Wide 2")
+            cmbExtensionList.Items.Add("60 inch Series 100A Wide 1")
+            cmbExtensionList.Items.Add("60 inch Series 100A Wide 2")
+            cmbExtensionList.Text = "48 inch Series 100A"
         End If
 
         If frmMain.ThisUnit.Cabinet = "S100B" Then
             cmbExtensionList.Items.Add("48 inch Series 100B")
             cmbExtensionList.Items.Add("60 inch Series 100B")
+            cmbExtensionList.Items.Add("48 inch Series 100B Wide 1")
+            cmbExtensionList.Items.Add("48 inch Series 100B Wide 2")
+            cmbExtensionList.Items.Add("60 inch Series 100B Wide 1")
+            cmbExtensionList.Items.Add("60 inch Series 100B Wide 2")
+            cmbExtensionList.Text = "48 inch Series 100B"
         End If
 
         If frmMain.ThisUnit.Cabinet = "S100C" Then
             cmbExtensionList.Items.Add("48 inch Series 100C")
             cmbExtensionList.Items.Add("60 inch Series 100C")
+            cmbExtensionList.Items.Add("48 inch Series 100C Tall 1")
+            cmbExtensionList.Items.Add("48 inch Series 100C Tall 2")
+            cmbExtensionList.Items.Add("60 inch Series 100C Tall 1")
+            cmbExtensionList.Items.Add("60 inch Series 100C Tall 2")
+            cmbExtensionList.Text = "48 inch Series 100C"
         End If
         cmbExtensionList.Items.Add("Custom")
         cmbExtensionList.Items.Add("N/A")
-
-        cmbExtensionList.Text = "Custom"
 
     End Sub
 
@@ -329,6 +342,7 @@ Public Class frmERW
         If optPlasticWheel.Checked = True Then
             Call FillWheelSelectionList("Plastic")
         End If
+        Call CalculateWeight()
     End Sub
 
     Private Sub UpdateERWElectrical()
@@ -426,9 +440,6 @@ Public Class frmERW
                 motorhp = "***Error***"
         End Select
 
-
-
-
         txtERWElectricalInfo.Text = motorhp & " hp motor at " & frmMain.ThisUnitElecData.CommVolts & " Volts"
         If optVSWheel.Checked Then
             txtERWElectricalInfo.Text = txtERWElectricalInfo.Text & " with " & vfdhp & " hp VFD"
@@ -441,6 +452,7 @@ Public Class frmERW
 
     Private Sub cmbWheel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbWheel.SelectedIndexChanged
         Call UpdateERWElectrical()
+        Call CalculateWeight()
     End Sub
 
     Private Sub chkScopeOABypass_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeOABypass.CheckedChanged
@@ -504,14 +516,15 @@ Public Class frmERW
         If optCabinetInCab.Checked = True Then
             cmbExtensionList.Text = "N/A"
             cmbExtensionList.Enabled = False
+            txtEncLength.Text = "0"
+            txtEncWidth.Text = "0"
+            txtEncHeight.Text = "0"
         Else
             cmbExtensionList.Text = "Custom"
             cmbExtensionList.Enabled = True
         End If
+        Call CalculateWeight()
     End Sub
-
-
-
 
 
     Private Sub chkEnaAltCond_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnaAltCond.CheckedChanged
@@ -782,6 +795,7 @@ Public Class frmERW
             chkERWBypassSwitch.Enabled = False
             chkERWBypassSwitch.Checked = False
         End If
+        Call CalculateWeight()
     End Sub
 
     Private Sub cmdDoneConditions_Click(sender As Object, e As EventArgs) Handles cmdDoneConditions.Click
@@ -1714,5 +1728,277 @@ Public Class frmERW
         End If
     End Sub
 
+    Private Function ERWWeight() As Double
+        Dim TempMass As Double
+        TempMass = -99999
+        Select Case cmbWheel.Text
+            Case Is = "TA3C-54-100"
+                TempMass = 217
+            Case Is = "TA3C-60-200"
+                TempMass = 407
+            Case Is = "TA3C-66-200"
+                TempMass = 478
+            Case Is = "TA3C-78-200"
+                TempMass = 644
+            Case Is = "TA3C-84-200"
+                TempMass = 736
+            Case Is = "TA3C-90-200"
+                TempMass = 832
+            Case Is = "TA3C-96-200"
+                TempMass = 1443
+            Case Is = "TA3C-108-200"
+                TempMass = 1617
+            Case Is = "TA3C-120-200"
+                TempMass = 1939
+            Case Is = "TA3C-126-200"
+                TempMass = 2191
+            Case Is = "TA3C-138-200"
+                TempMass = 2642
+            Case Is = "ERC-25-3.0"
+                TempMass = 36
+            Case Is = "ERC-30-3.0"
+                TempMass = 61
+            Case Is = "ERC-36-3.0"
+                TempMass = 118
+            Case Is = "ERC-41-3.0"
+                TempMass = 170
+            Case Is = "ERC-46-3.0"
+                TempMass = 185
+            Case Is = "ERC-52-1.5"
+                TempMass = 188
+            Case Is = "ERC-52-3.0"
+                TempMass = 220
+            Case Is = "ERC-58-1.5"
+                TempMass = 290
+            Case Is = "ERC-58-3.0"
+                TempMass = 320
+            Case Is = "ERC-64-3.0"
+                TempMass = 344
+            Case Is = "ERC-68-3.0"
+                TempMass = 408
+            Case Is = "ERC-74-3.0"
+                TempMass = 454
+            Case Is = "ERC-81-3.0"
+                TempMass = 580
+            Case Is = "ERC-86-3.0"
+                TempMass = 656
+            Case Is = "ERC-92-3.0"
+                TempMass = 858
+            Case Is = "ERC-99-3.0"
+                TempMass = 921
+            Case Is = "ERC-104-3.0"
+                TempMass = 984
+            Case Is = "ERC-110-3.0"
+                TempMass = 1100
+            Case Else
+                TempMass = -99999
+        End Select
 
+        Return TempMass
+    End Function
+    Private Function ERWArea() As Double
+        Dim temparea As Double
+        temparea = -99999
+        Select Case cmbWheel.Text
+            Case Is = "TA3C-54-100"
+                temparea = 3364
+            Case Is = "TA3C-60-200"
+                temparea = 4096
+            Case Is = "TA3C-66-200"
+                temparea = 4900
+            Case Is = "TA3C-78-200"
+                temparea = 6724
+            Case Is = "TA3C-84-200"
+                temparea = 7744
+            Case Is = "TA3C-90-200"
+                temparea = 8836
+            Case Is = "TA3C-96-200"
+                temparea = 10000
+            Case Is = "TA3C-108-200"
+                temparea = 12544
+            Case Is = "TA3C-120-200"
+                temparea = 15376
+            Case Is = "TA3C-126-200"
+                temparea = 16900
+            Case Is = "TA3C-138-200"
+                temparea = 20164
+            Case Is = "ERC-25-3.0"
+                temparea = 841
+            Case Is = "ERC-30-3.0"
+                temparea = 1156
+            Case Is = "ERC-36-3.0"
+                temparea = 1600
+            Case Is = "ERC-41-3.0"
+                temparea = 2025
+            Case Is = "ERC-46-3.0"
+                temparea = 2500
+            Case Is = "ERC-52-1.5"
+                temparea = 3136
+            Case Is = "ERC-52-3.0"
+                temparea = 3136
+            Case Is = "ERC-58-1.5"
+                temparea = 3844
+            Case Is = "ERC-58-3.0"
+                temparea = 3844
+            Case Is = "ERC-64-3.0"
+                temparea = 4624
+            Case Is = "ERC-68-3.0"
+                temparea = 4624
+            Case Is = "ERC-74-3.0"
+                temparea = 6084
+            Case Is = "ERC-81-3.0"
+                temparea = 6084
+            Case Is = "ERC-86-3.0"
+                temparea = 8464
+            Case Is = "ERC-92-3.0"
+                temparea = 9216
+            Case Is = "ERC-99-3.0"
+                temparea = 10609
+            Case Is = "ERC-104-3.0"
+                temparea = 11664
+            Case Is = "ERC-110-3.0"
+                temparea = 12996
+            Case Else
+                temparea = -99999
+        End Select
+
+        Return temparea
+    End Function
+    Private Sub cmbExtensionList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbExtensionList.SelectedIndexChanged
+        Select Case cmbExtensionList.Text
+            Case Is = "48 inch Series 100A"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "92"
+                txtEncHeight.Text = "82"
+            Case Is = "60 inch Series 100A"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "92"
+                txtEncHeight.Text = "82"
+            Case Is = "48 inch Series 100A Wide 1"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "120"
+                txtEncHeight.Text = "82"
+            Case Is = "48 inch Series 100A Wide 2"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "82"
+            Case Is = "60 inch Series 100A Wide 1"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "120"
+                txtEncHeight.Text = "82"
+            Case Is = "60 inch Series 100A Wide 2"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "82"
+
+            Case Is = "48 inch Series 100B"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "92"
+                txtEncHeight.Text = "92"
+            Case Is = "60 inch Series 100B"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "92"
+                txtEncHeight.Text = "92"
+            Case Is = "48 inch Series 100B Wide 1"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "120"
+                txtEncHeight.Text = "92"
+            Case Is = "48 inch Series 100B Wide 2"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "92"
+            Case Is = "60 inch Series 100B Wide 1"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "120"
+                txtEncHeight.Text = "92"
+            Case Is = "60 inch Series 100B Wide 2"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "92"
+
+            Case Is = "48 inch Series 100C"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "102"
+            Case Is = "60 inch Series 100C"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "102"
+            Case Is = "48 inch Series 100C Tall 1"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "112"
+            Case Is = "48 inch Series 100C Tall 2"
+                txtEncLength.Text = "48"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "120"
+            Case Is = "60 inch Series 100C Tall 1"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "112"
+            Case Is = "60 inch Series 100C Tall 2"
+                txtEncLength.Text = "60"
+                txtEncWidth.Text = "144"
+                txtEncHeight.Text = "120"
+
+        End Select
+
+        If cmbExtensionList.Text = "Custom" Then
+            txtEncHeight.Enabled = True
+            txtEncLength.Enabled = True
+            txtEncWidth.Enabled = True
+        Else
+            txtEncHeight.Enabled = False
+            txtEncLength.Enabled = False
+            txtEncWidth.Enabled = False
+        End If
+        Call CalculateWeight()
+    End Sub
+    Private Sub CalculateWeight()
+        Dim TempMass As Double
+        Dim WorkingMass As Double
+        Dim SMMass18 As Double
+        Dim InsMass1in As Double
+
+        TempMass = 0
+        SMMass18 = 0.14972222222 'lb/in^2
+        InsMass1in = 0.00086805555556 'lb/in^2
+
+        'Get the ERW Weight from the Catalogs
+        TempMass = TempMass + ERWWeight()
+
+        'Account for the floor diving the module in half (OA/RA) and the bloack off walls
+        WorkingMass = Val(txtEncWidth.Text) * Val(txtEncLength.Text) * SMMass18 * 2 'SM for divider floor
+        WorkingMass = WorkingMass + Val(txtEncWidth.Text) * Val(txtEncLength.Text) * InsMass1in 'Insulation mass
+        WorkingMass = WorkingMass * 1.02 'Brackets, Screws, Tape, etc...
+        TempMass = TempMass + WorkingMass
+
+        'Account for the wall surrounding the wheel.  Assume there are no bypass dampers.
+        WorkingMass = Val(txtEncLength.Text) * Val(txtEncHeight.Text) * SMMass18 * 2 'SM Wall
+        WorkingMass = WorkingMass + Val(txtEncLength.Text) * Val(txtEncHeight.Text) * InsMass1in 'Insulation Mass
+        WorkingMass = WorkingMass - (ERWArea() * InsMass1in) - (2 * ERWArea() * SMMass18)
+        WorkingMass = WorkingMass * 1.02 'Brackets, Screws, Tape, etc...
+        TempMass = TempMass + WorkingMass
+
+        'Handle the wheel motor starter or VFD and bypass
+        WorkingMass = 0
+        If chkERWVFDbyFisen.Checked Then WorkingMass = 10 Else WorkingMass = 6
+        If chkERWBypassSwitch.Checked Then WorkingMass = WorkingMass + 3
+        TempMass = TempMass + WorkingMass
+
+        txtDryWeight.Text = Format(TempMass, "0")
+    End Sub
+
+    Private Sub optCabinetStandAlone_CheckedChanged(sender As Object, e As EventArgs) Handles optCabinetStandAlone.CheckedChanged
+        Call CalculateWeight()
+    End Sub
+
+    Private Sub optVSWheel_CheckedChanged(sender As Object, e As EventArgs) Handles optVSWheel.CheckedChanged
+        Call CalculateWeight()
+    End Sub
+
+    Private Sub chkERWBypassSwitch_CheckedChanged(sender As Object, e As EventArgs) Handles chkERWBypassSwitch.CheckedChanged
+        Call CalculateWeight()
+
+    End Sub
 End Class
