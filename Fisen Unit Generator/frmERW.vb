@@ -1,6 +1,8 @@
 ﻿Imports System.Drawing.Imaging
 Public Class frmERW
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Dim AirflowDesc(36) As String
     Dim AirflowPath(36) As String
 
@@ -73,184 +75,186 @@ Public Class frmERW
     End Sub
     Private Sub UpdateCodeList()
         'Add the level 0 code(s)
-        frmMain.ThisUnitCodes.Add("E10000") 'Energy Recovery Wheel
+        ModuleCodeList.Add("E10000") 'Energy Recovery Wheel
         If optAlWheel.Checked Then
-            frmMain.ThisUnitCodes.Add("E10100") 'Aluminum Wheel
+            ModuleCodeList.Add("E10100") 'Aluminum Wheel
         End If
         If optPlasticWheel.Checked Then
-            frmMain.ThisUnitCodes.Add("E10110") 'Polymer Wheel
+            ModuleCodeList.Add("E10110") 'Polymer Wheel
         End If
 
         'handle constant or variable speed wheel
         If optVSWheel.Checked = True Then
-            frmMain.ThisUnitCodes.Add("E10155")
+            ModuleCodeList.Add("E10155")
             If chkERWVFDbyFisen.Checked Then
-                frmMain.ThisUnitCodes.Add("E10160")
+                ModuleCodeList.Add("E10160")
                 If chkERWBypassSwitch.Checked Then
-                    frmMain.ThisUnitCodes.Add("E10162")
+                    ModuleCodeList.Add("E10162")
                 End If
             Else
-                frmMain.ThisUnitCodes.Add("E10161")
+                ModuleCodeList.Add("E10161")
             End If
         Else
-            frmMain.ThisUnitCodes.Add("E10150")
+            ModuleCodeList.Add("E10150")
         End If
 
         'handle full flow wheel or partial flow wheel
         If optFullFlow.Checked Then
-            frmMain.ThisUnitCodes.Add("E10180")
+            ModuleCodeList.Add("E10180")
 
         Else 'It's a partial flow wheel.
-            frmMain.ThisUnitCodes.Add("E10185")
+            ModuleCodeList.Add("E10185")
 
         End If
 
         'Handle the Codes for the OA Subsystem
         'Hoods
         If optOAHoodReuseJCI.Checked Then
-            frmMain.ThisUnitCodes.Add("E10201")
+            ModuleCodeList.Add("E10201")
             If chkOAHoodMetalFilters.Checked Then
-                frmMain.ThisUnitCodes.Add("E10221")
+                ModuleCodeList.Add("E10221")
             End If
         Else
-            frmMain.ThisUnitCodes.Add("E10202")
+            ModuleCodeList.Add("E10202")
             If chkOAHoodMetalFilters.Checked Then
-                frmMain.ThisUnitCodes.Add("E10222")
+                ModuleCodeList.Add("E10222")
             End If
         End If
         If chkOAHoodFieldInstalled.Checked Then
-            frmMain.ThisUnitCodes.Add("E10248")
+            ModuleCodeList.Add("E10248")
         End If
 
         'OA Dampers
         If optOADamperByFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10232")
+            ModuleCodeList.Add("E10232")
         End If
         If optOADamperReuseJCI.Checked Then
-            frmMain.ThisUnitCodes.Add("E10231")
+            ModuleCodeList.Add("E10231")
         End If
 
         'OA Bypass Dampers
         If chkScopeOABypass.Checked Then
-            frmMain.ThisUnitCodes.Add("E10250")
+            ModuleCodeList.Add("E10250")
         End If
         If optOABPHoodReuseJCI.Checked Then
-            frmMain.ThisUnitCodes.Add("E10251")
+            ModuleCodeList.Add("E10251")
             If chkOABPHoodMetalFilters.Checked Then
-                frmMain.ThisUnitCodes.Add("E10271")
+                ModuleCodeList.Add("E10271")
             End If
         End If
         If optOABPHoodByFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10252")
+            ModuleCodeList.Add("E10252")
             If chkOABPHoodMetalFilters.Checked Then
-                frmMain.ThisUnitCodes.Add("E10272")
+                ModuleCodeList.Add("E10272")
             End If
         End If
         If chkOABPHoodFieldInstalled.Checked Then
-            frmMain.ThisUnitCodes.Add("E10298")
+            ModuleCodeList.Add("E10298")
         End If
         If optOABPDampersReuse.Checked Then
-            frmMain.ThisUnitCodes.Add("E10281")
+            ModuleCodeList.Add("E10281")
         End If
         If optOABPDampersByFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10282")
+            ModuleCodeList.Add("E10282")
         End If
 
         'Handle the Return Air Bypass Stuffs
         If chkScopeRABypassDampers.Checked Then
-            frmMain.ThisUnitCodes.Add("E10300")
+            ModuleCodeList.Add("E10300")
         End If
         If optRABPDampersReuse.Checked Then
-            frmMain.ThisUnitCodes.Add("E10381")
+            ModuleCodeList.Add("E10381")
         End If
         If optRABPDampersByFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10382")
+            ModuleCodeList.Add("E10382")
         End If
 
         'Handle the Supply Fan/Outdoor Fan Codes
         If optSFanFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10920")
+            ModuleCodeList.Add("E10920")
         End If
         If optSFanOAFan.Checked Then
-            frmMain.ThisUnitCodes.Add("E10921")
+            ModuleCodeList.Add("E10921")
         End If
 
         'Handle the Codes for the Exhaust Air System
         If chkScopeXABypassDampers.Checked Then
-            frmMain.ThisUnitCodes.Add("E10400")
+            ModuleCodeList.Add("E10400")
         End If
         If optXABPHoodReuseJCI.Checked Then
-            frmMain.ThisUnitCodes.Add("E10401")
+            ModuleCodeList.Add("E10401")
             If chkXABPHoodMesh.Checked Then
-                frmMain.ThisUnitCodes.Add("E10421")
+                ModuleCodeList.Add("E10421")
             End If
         Else
-            frmMain.ThisUnitCodes.Add("E10402")
+            ModuleCodeList.Add("E10402")
             If chkXABPHoodMesh.Checked Then
-                frmMain.ThisUnitCodes.Add("E10421")
+                ModuleCodeList.Add("E10421")
             End If
         End If
         If chkXABPHoodFieldInstalled.Checked Then
-            frmMain.ThisUnitCodes.Add("E10448")
+            ModuleCodeList.Add("E10448")
         End If
 
         If optXABPDamperWheel.Checked Then
-            frmMain.ThisUnitCodes.Add("E10431")
+            ModuleCodeList.Add("E10431")
         End If
         If optXABPDamperAtmosphere.Checked Then
-            frmMain.ThisUnitCodes.Add("E10432")
+            ModuleCodeList.Add("E10432")
         End If
 
         'Handle the Exhaust Air Fan
         If optXFanByFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10930")
+            ModuleCodeList.Add("E10930")
         End If
         If optRFanByFisen.Checked Then
-            frmMain.ThisUnitCodes.Add("E10931")
+            ModuleCodeList.Add("E10931")
         End If
 
         'Handle the Relief Damper Codes
         If optReliefDamperActuated.Checked Then
-            frmMain.ThisUnitCodes.Add("E10470")
+            ModuleCodeList.Add("E10470")
         End If
         If optReliefDamperBarometric.Checked Then
-            frmMain.ThisUnitCodes.Add("E10471")
+            ModuleCodeList.Add("E10471")
         End If
         If optReliefDamperNone.Checked Then
-            frmMain.ThisUnitCodes.Add("E10472")
+            ModuleCodeList.Add("E10472")
         End If
 
         'Handle the Filtration Codes
         If (chkFiltrationOAMetal.Checked) Or (chkFiltrationOAMERV8.Checked) Or (chkFiltrationRAMERV8.Checked) Then
-            frmMain.ThisUnitCodes.Add("E10600")
+            ModuleCodeList.Add("E10600")
         End If
 
         If chkFiltrationOAMERV8.Checked Then
-            frmMain.ThisUnitCodes.Add("E106610")
+            ModuleCodeList.Add("E106610")
             If chkFiltrationOAAngledRack.Checked Then
-                frmMain.ThisUnitCodes.Add("E10612")
+                ModuleCodeList.Add("E10612")
             Else
-                frmMain.ThisUnitCodes.Add("E10611")
+                ModuleCodeList.Add("E10611")
             End If
         End If
 
         If chkFiltrationRAMERV8.Checked Then
-            frmMain.ThisUnitCodes.Add("E106630")
+            ModuleCodeList.Add("E106630")
             If chkFiltrationRAAngledRack.Checked Then
-                frmMain.ThisUnitCodes.Add("E10632")
+                ModuleCodeList.Add("E10632")
             Else
-                frmMain.ThisUnitCodes.Add("E10631")
+                ModuleCodeList.Add("E10631")
             End If
         End If
 
         'Power Connections
         If optSinglePointPower.Checked Then
-            frmMain.ThisUnitCodes.Add("E10999")
+            ModuleCodeList.Add("E10999")
         Else
-            frmMain.ThisUnitCodes.Add("E10998")
+            ModuleCodeList.Add("E10998")
         End If
 
-
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
 
     End Sub
     Private Sub FillWheelSelectionList(WhlMaterial As String)
@@ -445,6 +449,8 @@ Public Class frmERW
             grpOABPDampers.Enabled = True
             optOABPDampersByFisen.Checked = True
             optOABPDampersNone.Enabled = False
+            optOABPHoodNone.Enabled = False
+            optOABPHoodReuseJCI.Checked = True
         Else
             grpOABPHoods.Enabled = False
             optOABPHoodNone.Checked = True
@@ -897,13 +903,7 @@ Public Class frmERW
         tbcERW.SelectTab("pgPerformance")
     End Sub
 
-    Private Sub optXFanByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optXFanByFisen.CheckedChanged
-        If optXFanByFisen.Checked Then
-            lblRecFanTypeStatic.Text = "Exhaust Fan"
-        Else
-            lblRecFanTypeStatic.Text = "Return Fan"
-        End If
-    End Sub
+
 
     Private Sub txtSFStaticOAHood_LostFocus(sender As Object, e As EventArgs) Handles txtSFStaticOAHood.LostFocus
         txtSFStaticOAHood.Text = Format(Val(txtSFStaticOAHood.Text), "0.00")
@@ -1622,4 +1622,97 @@ Public Class frmERW
         End Select
         RXAirSafetyGRatePD = TempPD
     End Function
+
+    Private Sub optFullFlow_CheckedChanged(sender As Object, e As EventArgs) Handles optFullFlow.CheckedChanged
+        If optFullFlow.Checked Then
+            chkScopeOABypass.Checked = False
+            chkScopeOABypass.Enabled = False
+            chkScopeXABypassDampers.Checked = False
+            chkScopeXABypassDampers.Enabled = False
+        Else
+            chkScopeOABypass.Enabled = True
+            chkScopeXABypassDampers.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optSFanFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optSFanFisen.CheckedChanged
+        If optSFanJCI.Checked Then
+            txtSFStaticPressureAllowance.Enabled = True
+            txtSFStaticPressureAllowance.Text = "1.00"
+        End If
+
+        If ((optSFanFisen.Checked) Or (optSFanOAFan.Checked)) Then
+            txtSFStaticPressureAllowance.Enabled = False
+            txtSFStaticPressureAllowance.Text = "-"
+        End If
+
+    End Sub
+    Private Sub optSFanJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optSFanJCI.CheckedChanged
+        If optSFanJCI.Checked Then
+            txtSFStaticPressureAllowance.Enabled = True
+            txtSFStaticPressureAllowance.Text = "1.00"
+        End If
+
+        If ((optSFanFisen.Checked) Or (optSFanOAFan.Checked)) Then
+            txtSFStaticPressureAllowance.Enabled = False
+            txtSFStaticPressureAllowance.Text = "-"
+        End If
+    End Sub
+    Private Sub optXFanbyJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optXFanbyJCI.CheckedChanged
+        If ((optXFanbyJCI.Checked) Or (optRFanbyJCI.Checked)) Then
+            txtRFStaticPressureAllowance.Enabled = True
+            txtRFStaticPressureAllowance.Text = "1.00"
+        Else
+            txtRFStaticPressureAllowance.Enabled = False
+            txtRFStaticPressureAllowance.Text = "-"
+        End If
+    End Sub
+    Private Sub optXFanByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optXFanByFisen.CheckedChanged
+        If optXFanByFisen.Checked Then
+            lblRecFanTypeStatic.Text = "Exhaust Fan"
+        Else
+            lblRecFanTypeStatic.Text = "Return Fan"
+        End If
+    End Sub
+
+    Private Sub optRFanByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optRFanByFisen.CheckedChanged
+        If ((optXFanbyJCI.Checked) Or (optRFanbyJCI.Checked)) Then
+            txtRFStaticPressureAllowance.Enabled = True
+            txtRFStaticPressureAllowance.Text = "1.00"
+        Else
+            txtRFStaticPressureAllowance.Enabled = False
+            txtRFStaticPressureAllowance.Text = "-"
+        End If
+    End Sub
+
+    Private Sub optRFanbyJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optRFanbyJCI.CheckedChanged
+        If ((optXFanbyJCI.Checked) Or (optRFanbyJCI.Checked)) Then
+            txtRFStaticPressureAllowance.Enabled = True
+            txtRFStaticPressureAllowance.Text = "1.00"
+        Else
+            txtRFStaticPressureAllowance.Enabled = False
+            txtRFStaticPressureAllowance.Text = "-"
+        End If
+    End Sub
+    Private Sub chkScopeXABypassDampers_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeXABypassDampers.CheckedChanged
+        If chkScopeXABypassDampers.Checked Then
+            grpXABypassHoods.Enabled = True
+            grpXABypassDampers.Enabled = True
+            grpReliefDampers.Enabled = True
+
+            optXABPHoodByFisen.Checked = True
+            optReliefDamperActuated.Checked = False
+        Else
+            grpXABypassHoods.Enabled = False
+            grpXABypassDampers.Enabled = False
+            grpReliefDampers.Enabled = False
+            optXABPHoodNone.Checked = True
+            chkXABPHoodMesh.Checked = False
+            chkXABPHoodFieldInstalled.Checked = False
+            optReliefDamperNone.Checked = True
+
+        End If
+    End Sub
+
+
 End Class

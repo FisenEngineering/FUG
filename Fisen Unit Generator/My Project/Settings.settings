@@ -28,5 +28,8 @@
     <Setting Name="LastProjDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">J:\3450-3499\3493F - Central One Auburn\</Value>
     </Setting>
+    <Setting Name="LastCabinet" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -28,10 +28,11 @@ Partial Class frmERW
         Me.btnOK = New System.Windows.Forms.Button()
         Me.tbcERW = New System.Windows.Forms.TabControl()
         Me.pgProposal = New System.Windows.Forms.TabPage()
-        Me.GroupBox18 = New System.Windows.Forms.GroupBox()
+        Me.grpXABypassDampers = New System.Windows.Forms.GroupBox()
+        Me.optXABPDamperNone = New System.Windows.Forms.RadioButton()
         Me.optXABPDamperAtmosphere = New System.Windows.Forms.RadioButton()
         Me.optXABPDamperWheel = New System.Windows.Forms.RadioButton()
-        Me.GroupBox17 = New System.Windows.Forms.GroupBox()
+        Me.grpXABypassHoods = New System.Windows.Forms.GroupBox()
         Me.chkXABPHoodFieldInstalled = New System.Windows.Forms.CheckBox()
         Me.optXABPHoodNone = New System.Windows.Forms.RadioButton()
         Me.chkXABPHoodMesh = New System.Windows.Forms.CheckBox()
@@ -74,6 +75,7 @@ Partial Class frmERW
         Me.optSFanOAFan = New System.Windows.Forms.RadioButton()
         Me.optSFanFisen = New System.Windows.Forms.RadioButton()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.optXFanbyJCI = New System.Windows.Forms.RadioButton()
         Me.txtRFStaticPressureAllowance = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.optRFanbyJCI = New System.Windows.Forms.RadioButton()
@@ -85,7 +87,7 @@ Partial Class frmERW
         Me.chkFiltrationOAAngledRack = New System.Windows.Forms.CheckBox()
         Me.chkFiltrationRAMERV8 = New System.Windows.Forms.CheckBox()
         Me.chkFiltrationOAMERV8 = New System.Windows.Forms.CheckBox()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.grpReliefDampers = New System.Windows.Forms.GroupBox()
         Me.optReliefDamperNone = New System.Windows.Forms.RadioButton()
         Me.optReliefDamperActuated = New System.Windows.Forms.RadioButton()
         Me.optReliefDamperBarometric = New System.Windows.Forms.RadioButton()
@@ -176,6 +178,14 @@ Partial Class frmERW
         Me.RadioButton31 = New System.Windows.Forms.RadioButton()
         Me.RadioButton32 = New System.Windows.Forms.RadioButton()
         Me.pgStatic = New System.Windows.Forms.TabPage()
+        Me.chkRXStaticTransFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticReliefHoodFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticReliefDamperFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticHWClothFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticERWFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticRAFiltersFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticSafetyFull = New System.Windows.Forms.CheckBox()
+        Me.chkRXStaticRAOpeningFull = New System.Windows.Forms.CheckBox()
         Me.cmdXFStaticUpdate = New System.Windows.Forms.Button()
         Me.txtStaticTableFullReturn = New System.Windows.Forms.TextBox()
         Me.Label88 = New System.Windows.Forms.Label()
@@ -368,18 +378,10 @@ Partial Class frmERW
         Me.lblUnitVolts = New System.Windows.Forms.Label()
         Me.lblUnitCabinet = New System.Windows.Forms.Label()
         Me.lblUnitSeries = New System.Windows.Forms.Label()
-        Me.chkRXStaticRAOpeningFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticSafetyFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticRAFiltersFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticERWFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticHWClothFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticReliefDamperFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticReliefHoodFull = New System.Windows.Forms.CheckBox()
-        Me.chkRXStaticTransFull = New System.Windows.Forms.CheckBox()
         Me.tbcERW.SuspendLayout()
         Me.pgProposal.SuspendLayout()
-        Me.GroupBox18.SuspendLayout()
-        Me.GroupBox17.SuspendLayout()
+        Me.grpXABypassDampers.SuspendLayout()
+        Me.grpXABypassHoods.SuspendLayout()
         Me.grpRABPDampers.SuspendLayout()
         Me.grpOABPDampers.SuspendLayout()
         Me.grpOABPHoods.SuspendLayout()
@@ -389,7 +391,7 @@ Partial Class frmERW
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
+        Me.grpReliefDampers.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -462,8 +464,8 @@ Partial Class frmERW
         '
         'pgProposal
         '
-        Me.pgProposal.Controls.Add(Me.GroupBox18)
-        Me.pgProposal.Controls.Add(Me.GroupBox17)
+        Me.pgProposal.Controls.Add(Me.grpXABypassDampers)
+        Me.pgProposal.Controls.Add(Me.grpXABypassHoods)
         Me.pgProposal.Controls.Add(Me.grpRABPDampers)
         Me.pgProposal.Controls.Add(Me.grpOABPDampers)
         Me.pgProposal.Controls.Add(Me.grpOABPHoods)
@@ -475,7 +477,7 @@ Partial Class frmERW
         Me.pgProposal.Controls.Add(Me.GroupBox9)
         Me.pgProposal.Controls.Add(Me.GroupBox8)
         Me.pgProposal.Controls.Add(Me.GroupBox7)
-        Me.pgProposal.Controls.Add(Me.GroupBox6)
+        Me.pgProposal.Controls.Add(Me.grpReliefDampers)
         Me.pgProposal.Controls.Add(Me.chkScopeXABypassDampers)
         Me.pgProposal.Controls.Add(Me.chkScopeRABypassDampers)
         Me.pgProposal.Controls.Add(Me.GroupBox5)
@@ -491,21 +493,35 @@ Partial Class frmERW
         Me.pgProposal.Text = "Proposal"
         Me.pgProposal.UseVisualStyleBackColor = True
         '
-        'GroupBox18
+        'grpXABypassDampers
         '
-        Me.GroupBox18.Controls.Add(Me.optXABPDamperAtmosphere)
-        Me.GroupBox18.Controls.Add(Me.optXABPDamperWheel)
-        Me.GroupBox18.Location = New System.Drawing.Point(437, 271)
-        Me.GroupBox18.Name = "GroupBox18"
-        Me.GroupBox18.Size = New System.Drawing.Size(208, 39)
-        Me.GroupBox18.TabIndex = 43
-        Me.GroupBox18.TabStop = False
-        Me.GroupBox18.Text = "Exhaust Air Bypass Damper(s)"
+        Me.grpXABypassDampers.Controls.Add(Me.optXABPDamperNone)
+        Me.grpXABypassDampers.Controls.Add(Me.optXABPDamperAtmosphere)
+        Me.grpXABypassDampers.Controls.Add(Me.optXABPDamperWheel)
+        Me.grpXABypassDampers.Enabled = False
+        Me.grpXABypassDampers.Location = New System.Drawing.Point(437, 226)
+        Me.grpXABypassDampers.Name = "grpXABypassDampers"
+        Me.grpXABypassDampers.Size = New System.Drawing.Size(208, 91)
+        Me.grpXABypassDampers.TabIndex = 43
+        Me.grpXABypassDampers.TabStop = False
+        Me.grpXABypassDampers.Text = "Exhaust Air Bypass Damper(s)"
+        '
+        'optXABPDamperNone
+        '
+        Me.optXABPDamperNone.AutoSize = True
+        Me.optXABPDamperNone.Checked = True
+        Me.optXABPDamperNone.Location = New System.Drawing.Point(6, 65)
+        Me.optXABPDamperNone.Name = "optXABPDamperNone"
+        Me.optXABPDamperNone.Size = New System.Drawing.Size(51, 17)
+        Me.optXABPDamperNone.TabIndex = 4
+        Me.optXABPDamperNone.TabStop = True
+        Me.optXABPDamperNone.Text = "None"
+        Me.optXABPDamperNone.UseVisualStyleBackColor = True
         '
         'optXABPDamperAtmosphere
         '
         Me.optXABPDamperAtmosphere.AutoSize = True
-        Me.optXABPDamperAtmosphere.Location = New System.Drawing.Point(96, 19)
+        Me.optXABPDamperAtmosphere.Location = New System.Drawing.Point(6, 42)
         Me.optXABPDamperAtmosphere.Name = "optXABPDamperAtmosphere"
         Me.optXABPDamperAtmosphere.Size = New System.Drawing.Size(97, 17)
         Me.optXABPDamperAtmosphere.TabIndex = 3
@@ -515,28 +531,27 @@ Partial Class frmERW
         'optXABPDamperWheel
         '
         Me.optXABPDamperWheel.AutoSize = True
-        Me.optXABPDamperWheel.Checked = True
         Me.optXABPDamperWheel.Location = New System.Drawing.Point(6, 19)
         Me.optXABPDamperWheel.Name = "optXABPDamperWheel"
         Me.optXABPDamperWheel.Size = New System.Drawing.Size(93, 17)
         Me.optXABPDamperWheel.TabIndex = 2
-        Me.optXABPDamperWheel.TabStop = True
         Me.optXABPDamperWheel.Text = "Around Wheel"
         Me.optXABPDamperWheel.UseVisualStyleBackColor = True
         '
-        'GroupBox17
+        'grpXABypassHoods
         '
-        Me.GroupBox17.Controls.Add(Me.chkXABPHoodFieldInstalled)
-        Me.GroupBox17.Controls.Add(Me.optXABPHoodNone)
-        Me.GroupBox17.Controls.Add(Me.chkXABPHoodMesh)
-        Me.GroupBox17.Controls.Add(Me.optXABPHoodByFisen)
-        Me.GroupBox17.Controls.Add(Me.optXABPHoodReuseJCI)
-        Me.GroupBox17.Location = New System.Drawing.Point(437, 171)
-        Me.GroupBox17.Name = "GroupBox17"
-        Me.GroupBox17.Size = New System.Drawing.Size(208, 89)
-        Me.GroupBox17.TabIndex = 42
-        Me.GroupBox17.TabStop = False
-        Me.GroupBox17.Text = "Exhaust Air Bypass Hood(s)"
+        Me.grpXABypassHoods.Controls.Add(Me.chkXABPHoodFieldInstalled)
+        Me.grpXABypassHoods.Controls.Add(Me.optXABPHoodNone)
+        Me.grpXABypassHoods.Controls.Add(Me.chkXABPHoodMesh)
+        Me.grpXABypassHoods.Controls.Add(Me.optXABPHoodByFisen)
+        Me.grpXABypassHoods.Controls.Add(Me.optXABPHoodReuseJCI)
+        Me.grpXABypassHoods.Enabled = False
+        Me.grpXABypassHoods.Location = New System.Drawing.Point(437, 126)
+        Me.grpXABypassHoods.Name = "grpXABypassHoods"
+        Me.grpXABypassHoods.Size = New System.Drawing.Size(208, 89)
+        Me.grpXABypassHoods.TabIndex = 42
+        Me.grpXABypassHoods.TabStop = False
+        Me.grpXABypassHoods.Text = "Exhaust Air Bypass Hood(s)"
         '
         'chkXABPHoodFieldInstalled
         '
@@ -551,10 +566,12 @@ Partial Class frmERW
         'optXABPHoodNone
         '
         Me.optXABPHoodNone.AutoSize = True
+        Me.optXABPHoodNone.Checked = True
         Me.optXABPHoodNone.Location = New System.Drawing.Point(147, 20)
         Me.optXABPHoodNone.Name = "optXABPHoodNone"
         Me.optXABPHoodNone.Size = New System.Drawing.Size(51, 17)
         Me.optXABPHoodNone.TabIndex = 39
+        Me.optXABPHoodNone.TabStop = True
         Me.optXABPHoodNone.Text = "None"
         Me.optXABPHoodNone.UseVisualStyleBackColor = True
         '
@@ -581,12 +598,10 @@ Partial Class frmERW
         'optXABPHoodReuseJCI
         '
         Me.optXABPHoodReuseJCI.AutoSize = True
-        Me.optXABPHoodReuseJCI.Checked = True
         Me.optXABPHoodReuseJCI.Location = New System.Drawing.Point(6, 19)
         Me.optXABPHoodReuseJCI.Name = "optXABPHoodReuseJCI"
         Me.optXABPHoodReuseJCI.Size = New System.Drawing.Size(74, 17)
         Me.optXABPHoodReuseJCI.TabIndex = 2
-        Me.optXABPHoodReuseJCI.TabStop = True
         Me.optXABPHoodReuseJCI.Text = "Reuse JCI"
         Me.optXABPHoodReuseJCI.UseVisualStyleBackColor = True
         '
@@ -595,7 +610,7 @@ Partial Class frmERW
         Me.grpRABPDampers.Controls.Add(Me.optRABPDampersNone)
         Me.grpRABPDampers.Controls.Add(Me.optRABPDampersByFisen)
         Me.grpRABPDampers.Controls.Add(Me.optRABPDampersReuse)
-        Me.grpRABPDampers.Location = New System.Drawing.Point(223, 339)
+        Me.grpRABPDampers.Location = New System.Drawing.Point(223, 294)
         Me.grpRABPDampers.Name = "grpRABPDampers"
         Me.grpRABPDampers.Size = New System.Drawing.Size(208, 39)
         Me.grpRABPDampers.TabIndex = 41
@@ -640,7 +655,7 @@ Partial Class frmERW
         Me.grpOABPDampers.Controls.Add(Me.optOABPDampersByFisen)
         Me.grpOABPDampers.Controls.Add(Me.optOABPDampersReuse)
         Me.grpOABPDampers.Enabled = False
-        Me.grpOABPDampers.Location = New System.Drawing.Point(223, 271)
+        Me.grpOABPDampers.Location = New System.Drawing.Point(223, 226)
         Me.grpOABPDampers.Name = "grpOABPDampers"
         Me.grpOABPDampers.Size = New System.Drawing.Size(208, 39)
         Me.grpOABPDampers.TabIndex = 40
@@ -687,7 +702,7 @@ Partial Class frmERW
         Me.grpOABPHoods.Controls.Add(Me.optOABPHoodByFisen)
         Me.grpOABPHoods.Controls.Add(Me.optOABPHoodReuseJCI)
         Me.grpOABPHoods.Enabled = False
-        Me.grpOABPHoods.Location = New System.Drawing.Point(223, 171)
+        Me.grpOABPHoods.Location = New System.Drawing.Point(223, 126)
         Me.grpOABPHoods.Name = "grpOABPHoods"
         Me.grpOABPHoods.Size = New System.Drawing.Size(208, 89)
         Me.grpOABPHoods.TabIndex = 39
@@ -751,7 +766,7 @@ Partial Class frmERW
         Me.GroupBox13.Controls.Add(Me.optOADamperNone)
         Me.GroupBox13.Controls.Add(Me.optOADamperReuseJCI)
         Me.GroupBox13.Controls.Add(Me.optOADamperByFisen)
-        Me.GroupBox13.Location = New System.Drawing.Point(223, 103)
+        Me.GroupBox13.Location = New System.Drawing.Point(437, 13)
         Me.GroupBox13.Name = "GroupBox13"
         Me.GroupBox13.Size = New System.Drawing.Size(208, 39)
         Me.GroupBox13.TabIndex = 38
@@ -924,7 +939,7 @@ Partial Class frmERW
         Me.GroupBox9.Controls.Add(Me.optSFanJCI)
         Me.GroupBox9.Controls.Add(Me.optSFanOAFan)
         Me.GroupBox9.Controls.Add(Me.optSFanFisen)
-        Me.GroupBox9.Location = New System.Drawing.Point(223, 384)
+        Me.GroupBox9.Location = New System.Drawing.Point(223, 394)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(208, 120)
         Me.GroupBox9.TabIndex = 33
@@ -983,29 +998,42 @@ Partial Class frmERW
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.optXFanbyJCI)
         Me.GroupBox8.Controls.Add(Me.txtRFStaticPressureAllowance)
         Me.GroupBox8.Controls.Add(Me.Label3)
         Me.GroupBox8.Controls.Add(Me.optRFanbyJCI)
         Me.GroupBox8.Controls.Add(Me.optRFanByFisen)
         Me.GroupBox8.Controls.Add(Me.optXFanByFisen)
-        Me.GroupBox8.Location = New System.Drawing.Point(437, 384)
+        Me.GroupBox8.Location = New System.Drawing.Point(437, 379)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(208, 120)
+        Me.GroupBox8.Size = New System.Drawing.Size(208, 135)
         Me.GroupBox8.TabIndex = 32
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Exhaust Source"
         '
+        'optXFanbyJCI
+        '
+        Me.optXFanbyJCI.AutoSize = True
+        Me.optXFanbyJCI.Location = New System.Drawing.Point(6, 38)
+        Me.optXFanbyJCI.Name = "optXFanbyJCI"
+        Me.optXFanbyJCI.Size = New System.Drawing.Size(116, 17)
+        Me.optXFanbyJCI.TabIndex = 30
+        Me.optXFanbyJCI.Text = "Exhaust Fan by JCI"
+        Me.optXFanbyJCI.UseVisualStyleBackColor = True
+        '
         'txtRFStaticPressureAllowance
         '
-        Me.txtRFStaticPressureAllowance.Location = New System.Drawing.Point(6, 90)
+        Me.txtRFStaticPressureAllowance.Location = New System.Drawing.Point(6, 106)
         Me.txtRFStaticPressureAllowance.Name = "txtRFStaticPressureAllowance"
         Me.txtRFStaticPressureAllowance.Size = New System.Drawing.Size(67, 20)
         Me.txtRFStaticPressureAllowance.TabIndex = 29
+        Me.txtRFStaticPressureAllowance.Text = "-"
+        Me.txtRFStaticPressureAllowance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(79, 93)
+        Me.Label3.Location = New System.Drawing.Point(79, 109)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(73, 13)
         Me.Label3.TabIndex = 28
@@ -1014,7 +1042,7 @@ Partial Class frmERW
         'optRFanbyJCI
         '
         Me.optRFanbyJCI.AutoSize = True
-        Me.optRFanbyJCI.Location = New System.Drawing.Point(6, 68)
+        Me.optRFanbyJCI.Location = New System.Drawing.Point(6, 84)
         Me.optRFanbyJCI.Name = "optRFanbyJCI"
         Me.optRFanbyJCI.Size = New System.Drawing.Size(110, 17)
         Me.optRFanbyJCI.TabIndex = 5
@@ -1024,7 +1052,7 @@ Partial Class frmERW
         'optRFanByFisen
         '
         Me.optRFanByFisen.AutoSize = True
-        Me.optRFanByFisen.Location = New System.Drawing.Point(6, 45)
+        Me.optRFanByFisen.Location = New System.Drawing.Point(6, 61)
         Me.optRFanByFisen.Name = "optRFanByFisen"
         Me.optRFanByFisen.Size = New System.Drawing.Size(120, 17)
         Me.optRFanByFisen.TabIndex = 4
@@ -1035,7 +1063,7 @@ Partial Class frmERW
         '
         Me.optXFanByFisen.AutoSize = True
         Me.optXFanByFisen.Checked = True
-        Me.optXFanByFisen.Location = New System.Drawing.Point(6, 22)
+        Me.optXFanByFisen.Location = New System.Drawing.Point(6, 15)
         Me.optXFanByFisen.Name = "optXFanByFisen"
         Me.optXFanByFisen.Size = New System.Drawing.Size(126, 17)
         Me.optXFanByFisen.TabIndex = 3
@@ -1112,25 +1140,28 @@ Partial Class frmERW
         Me.chkFiltrationOAMERV8.Text = "OA Filters MERV 8 2"""
         Me.chkFiltrationOAMERV8.UseVisualStyleBackColor = True
         '
-        'GroupBox6
+        'grpReliefDampers
         '
-        Me.GroupBox6.Controls.Add(Me.optReliefDamperNone)
-        Me.GroupBox6.Controls.Add(Me.optReliefDamperActuated)
-        Me.GroupBox6.Controls.Add(Me.optReliefDamperBarometric)
-        Me.GroupBox6.Location = New System.Drawing.Point(437, 313)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(208, 50)
-        Me.GroupBox6.TabIndex = 30
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Relief Dampers"
+        Me.grpReliefDampers.Controls.Add(Me.optReliefDamperNone)
+        Me.grpReliefDampers.Controls.Add(Me.optReliefDamperActuated)
+        Me.grpReliefDampers.Controls.Add(Me.optReliefDamperBarometric)
+        Me.grpReliefDampers.Enabled = False
+        Me.grpReliefDampers.Location = New System.Drawing.Point(437, 323)
+        Me.grpReliefDampers.Name = "grpReliefDampers"
+        Me.grpReliefDampers.Size = New System.Drawing.Size(208, 50)
+        Me.grpReliefDampers.TabIndex = 30
+        Me.grpReliefDampers.TabStop = False
+        Me.grpReliefDampers.Text = "Relief Dampers"
         '
         'optReliefDamperNone
         '
         Me.optReliefDamperNone.AutoSize = True
+        Me.optReliefDamperNone.Checked = True
         Me.optReliefDamperNone.Location = New System.Drawing.Point(136, 19)
         Me.optReliefDamperNone.Name = "optReliefDamperNone"
         Me.optReliefDamperNone.Size = New System.Drawing.Size(51, 17)
         Me.optReliefDamperNone.TabIndex = 3
+        Me.optReliefDamperNone.TabStop = True
         Me.optReliefDamperNone.Text = "None"
         Me.optReliefDamperNone.UseVisualStyleBackColor = True
         '
@@ -1147,19 +1178,17 @@ Partial Class frmERW
         'optReliefDamperBarometric
         '
         Me.optReliefDamperBarometric.AutoSize = True
-        Me.optReliefDamperBarometric.Checked = True
         Me.optReliefDamperBarometric.Location = New System.Drawing.Point(6, 19)
         Me.optReliefDamperBarometric.Name = "optReliefDamperBarometric"
         Me.optReliefDamperBarometric.Size = New System.Drawing.Size(50, 17)
         Me.optReliefDamperBarometric.TabIndex = 1
-        Me.optReliefDamperBarometric.TabStop = True
         Me.optReliefDamperBarometric.Text = "Baro."
         Me.optReliefDamperBarometric.UseVisualStyleBackColor = True
         '
         'chkScopeXABypassDampers
         '
         Me.chkScopeXABypassDampers.AutoSize = True
-        Me.chkScopeXABypassDampers.Location = New System.Drawing.Point(437, 148)
+        Me.chkScopeXABypassDampers.Location = New System.Drawing.Point(437, 103)
         Me.chkScopeXABypassDampers.Name = "chkScopeXABypassDampers"
         Me.chkScopeXABypassDampers.Size = New System.Drawing.Size(167, 17)
         Me.chkScopeXABypassDampers.TabIndex = 29
@@ -1171,7 +1200,7 @@ Partial Class frmERW
         Me.chkScopeRABypassDampers.AutoSize = True
         Me.chkScopeRABypassDampers.Checked = True
         Me.chkScopeRABypassDampers.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkScopeRABypassDampers.Location = New System.Drawing.Point(223, 316)
+        Me.chkScopeRABypassDampers.Location = New System.Drawing.Point(223, 271)
         Me.chkScopeRABypassDampers.Name = "chkScopeRABypassDampers"
         Me.chkScopeRABypassDampers.Size = New System.Drawing.Size(161, 17)
         Me.chkScopeRABypassDampers.TabIndex = 28
@@ -1264,9 +1293,9 @@ Partial Class frmERW
         Me.chkERWVFDbyFisen.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkERWVFDbyFisen.Location = New System.Drawing.Point(26, 41)
         Me.chkERWVFDbyFisen.Name = "chkERWVFDbyFisen"
-        Me.chkERWVFDbyFisen.Size = New System.Drawing.Size(120, 17)
+        Me.chkERWVFDbyFisen.Size = New System.Drawing.Size(149, 17)
         Me.chkERWVFDbyFisen.TabIndex = 4
-        Me.chkERWVFDbyFisen.Text = "Fisen Provided VFD"
+        Me.chkERWVFDbyFisen.Text = "Fisen Provided ERW VFD"
         Me.chkERWVFDbyFisen.UseVisualStyleBackColor = True
         '
         'chkERWBypassSwitch
@@ -1347,7 +1376,7 @@ Partial Class frmERW
         'chkScopeOABypass
         '
         Me.chkScopeOABypass.AutoSize = True
-        Me.chkScopeOABypass.Location = New System.Drawing.Point(223, 148)
+        Me.chkScopeOABypass.Location = New System.Drawing.Point(223, 103)
         Me.chkScopeOABypass.Name = "chkScopeOABypass"
         Me.chkScopeOABypass.Size = New System.Drawing.Size(167, 17)
         Me.chkScopeOABypass.TabIndex = 1
@@ -2134,6 +2163,90 @@ Partial Class frmERW
         Me.pgStatic.TabIndex = 9
         Me.pgStatic.Text = "Static Tables"
         Me.pgStatic.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticTransFull
+        '
+        Me.chkRXStaticTransFull.AutoSize = True
+        Me.chkRXStaticTransFull.Location = New System.Drawing.Point(684, 287)
+        Me.chkRXStaticTransFull.Name = "chkRXStaticTransFull"
+        Me.chkRXStaticTransFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticTransFull.TabIndex = 223
+        Me.chkRXStaticTransFull.Text = "Full Flow"
+        Me.chkRXStaticTransFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticReliefHoodFull
+        '
+        Me.chkRXStaticReliefHoodFull.AutoSize = True
+        Me.chkRXStaticReliefHoodFull.Location = New System.Drawing.Point(684, 261)
+        Me.chkRXStaticReliefHoodFull.Name = "chkRXStaticReliefHoodFull"
+        Me.chkRXStaticReliefHoodFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticReliefHoodFull.TabIndex = 222
+        Me.chkRXStaticReliefHoodFull.Text = "Full Flow"
+        Me.chkRXStaticReliefHoodFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticReliefDamperFull
+        '
+        Me.chkRXStaticReliefDamperFull.AutoSize = True
+        Me.chkRXStaticReliefDamperFull.Location = New System.Drawing.Point(684, 235)
+        Me.chkRXStaticReliefDamperFull.Name = "chkRXStaticReliefDamperFull"
+        Me.chkRXStaticReliefDamperFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticReliefDamperFull.TabIndex = 221
+        Me.chkRXStaticReliefDamperFull.Text = "Full Flow"
+        Me.chkRXStaticReliefDamperFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticHWClothFull
+        '
+        Me.chkRXStaticHWClothFull.AutoSize = True
+        Me.chkRXStaticHWClothFull.Location = New System.Drawing.Point(684, 209)
+        Me.chkRXStaticHWClothFull.Name = "chkRXStaticHWClothFull"
+        Me.chkRXStaticHWClothFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticHWClothFull.TabIndex = 220
+        Me.chkRXStaticHWClothFull.Text = "Full Flow"
+        Me.chkRXStaticHWClothFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticERWFull
+        '
+        Me.chkRXStaticERWFull.AutoSize = True
+        Me.chkRXStaticERWFull.Location = New System.Drawing.Point(684, 183)
+        Me.chkRXStaticERWFull.Name = "chkRXStaticERWFull"
+        Me.chkRXStaticERWFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticERWFull.TabIndex = 219
+        Me.chkRXStaticERWFull.Text = "Full Flow"
+        Me.chkRXStaticERWFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticRAFiltersFull
+        '
+        Me.chkRXStaticRAFiltersFull.AutoSize = True
+        Me.chkRXStaticRAFiltersFull.Location = New System.Drawing.Point(684, 157)
+        Me.chkRXStaticRAFiltersFull.Name = "chkRXStaticRAFiltersFull"
+        Me.chkRXStaticRAFiltersFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticRAFiltersFull.TabIndex = 218
+        Me.chkRXStaticRAFiltersFull.Text = "Full Flow"
+        Me.chkRXStaticRAFiltersFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticSafetyFull
+        '
+        Me.chkRXStaticSafetyFull.AutoSize = True
+        Me.chkRXStaticSafetyFull.Checked = True
+        Me.chkRXStaticSafetyFull.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRXStaticSafetyFull.Location = New System.Drawing.Point(684, 131)
+        Me.chkRXStaticSafetyFull.Name = "chkRXStaticSafetyFull"
+        Me.chkRXStaticSafetyFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticSafetyFull.TabIndex = 217
+        Me.chkRXStaticSafetyFull.Text = "Full Flow"
+        Me.chkRXStaticSafetyFull.UseVisualStyleBackColor = True
+        '
+        'chkRXStaticRAOpeningFull
+        '
+        Me.chkRXStaticRAOpeningFull.AutoSize = True
+        Me.chkRXStaticRAOpeningFull.Checked = True
+        Me.chkRXStaticRAOpeningFull.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRXStaticRAOpeningFull.Location = New System.Drawing.Point(684, 105)
+        Me.chkRXStaticRAOpeningFull.Name = "chkRXStaticRAOpeningFull"
+        Me.chkRXStaticRAOpeningFull.Size = New System.Drawing.Size(67, 17)
+        Me.chkRXStaticRAOpeningFull.TabIndex = 216
+        Me.chkRXStaticRAOpeningFull.Text = "Full Flow"
+        Me.chkRXStaticRAOpeningFull.UseVisualStyleBackColor = True
         '
         'cmdXFStaticUpdate
         '
@@ -4027,90 +4140,6 @@ Partial Class frmERW
         Me.lblUnitSeries.TabIndex = 77
         Me.lblUnitSeries.Text = "Unit Series:"
         '
-        'chkRXStaticRAOpeningFull
-        '
-        Me.chkRXStaticRAOpeningFull.AutoSize = True
-        Me.chkRXStaticRAOpeningFull.Checked = True
-        Me.chkRXStaticRAOpeningFull.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRXStaticRAOpeningFull.Location = New System.Drawing.Point(684, 105)
-        Me.chkRXStaticRAOpeningFull.Name = "chkRXStaticRAOpeningFull"
-        Me.chkRXStaticRAOpeningFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticRAOpeningFull.TabIndex = 216
-        Me.chkRXStaticRAOpeningFull.Text = "Full Flow"
-        Me.chkRXStaticRAOpeningFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticSafetyFull
-        '
-        Me.chkRXStaticSafetyFull.AutoSize = True
-        Me.chkRXStaticSafetyFull.Checked = True
-        Me.chkRXStaticSafetyFull.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRXStaticSafetyFull.Location = New System.Drawing.Point(684, 131)
-        Me.chkRXStaticSafetyFull.Name = "chkRXStaticSafetyFull"
-        Me.chkRXStaticSafetyFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticSafetyFull.TabIndex = 217
-        Me.chkRXStaticSafetyFull.Text = "Full Flow"
-        Me.chkRXStaticSafetyFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticRAFiltersFull
-        '
-        Me.chkRXStaticRAFiltersFull.AutoSize = True
-        Me.chkRXStaticRAFiltersFull.Location = New System.Drawing.Point(684, 157)
-        Me.chkRXStaticRAFiltersFull.Name = "chkRXStaticRAFiltersFull"
-        Me.chkRXStaticRAFiltersFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticRAFiltersFull.TabIndex = 218
-        Me.chkRXStaticRAFiltersFull.Text = "Full Flow"
-        Me.chkRXStaticRAFiltersFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticERWFull
-        '
-        Me.chkRXStaticERWFull.AutoSize = True
-        Me.chkRXStaticERWFull.Location = New System.Drawing.Point(684, 183)
-        Me.chkRXStaticERWFull.Name = "chkRXStaticERWFull"
-        Me.chkRXStaticERWFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticERWFull.TabIndex = 219
-        Me.chkRXStaticERWFull.Text = "Full Flow"
-        Me.chkRXStaticERWFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticHWClothFull
-        '
-        Me.chkRXStaticHWClothFull.AutoSize = True
-        Me.chkRXStaticHWClothFull.Location = New System.Drawing.Point(684, 209)
-        Me.chkRXStaticHWClothFull.Name = "chkRXStaticHWClothFull"
-        Me.chkRXStaticHWClothFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticHWClothFull.TabIndex = 220
-        Me.chkRXStaticHWClothFull.Text = "Full Flow"
-        Me.chkRXStaticHWClothFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticReliefDamperFull
-        '
-        Me.chkRXStaticReliefDamperFull.AutoSize = True
-        Me.chkRXStaticReliefDamperFull.Location = New System.Drawing.Point(684, 235)
-        Me.chkRXStaticReliefDamperFull.Name = "chkRXStaticReliefDamperFull"
-        Me.chkRXStaticReliefDamperFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticReliefDamperFull.TabIndex = 221
-        Me.chkRXStaticReliefDamperFull.Text = "Full Flow"
-        Me.chkRXStaticReliefDamperFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticReliefHoodFull
-        '
-        Me.chkRXStaticReliefHoodFull.AutoSize = True
-        Me.chkRXStaticReliefHoodFull.Location = New System.Drawing.Point(684, 261)
-        Me.chkRXStaticReliefHoodFull.Name = "chkRXStaticReliefHoodFull"
-        Me.chkRXStaticReliefHoodFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticReliefHoodFull.TabIndex = 222
-        Me.chkRXStaticReliefHoodFull.Text = "Full Flow"
-        Me.chkRXStaticReliefHoodFull.UseVisualStyleBackColor = True
-        '
-        'chkRXStaticTransFull
-        '
-        Me.chkRXStaticTransFull.AutoSize = True
-        Me.chkRXStaticTransFull.Location = New System.Drawing.Point(684, 287)
-        Me.chkRXStaticTransFull.Name = "chkRXStaticTransFull"
-        Me.chkRXStaticTransFull.Size = New System.Drawing.Size(67, 17)
-        Me.chkRXStaticTransFull.TabIndex = 223
-        Me.chkRXStaticTransFull.Text = "Full Flow"
-        Me.chkRXStaticTransFull.UseVisualStyleBackColor = True
-        '
         'frmERW
         '
         Me.AcceptButton = Me.btnOK
@@ -4133,10 +4162,10 @@ Partial Class frmERW
         Me.tbcERW.ResumeLayout(False)
         Me.pgProposal.ResumeLayout(False)
         Me.pgProposal.PerformLayout()
-        Me.GroupBox18.ResumeLayout(False)
-        Me.GroupBox18.PerformLayout()
-        Me.GroupBox17.ResumeLayout(False)
-        Me.GroupBox17.PerformLayout()
+        Me.grpXABypassDampers.ResumeLayout(False)
+        Me.grpXABypassDampers.PerformLayout()
+        Me.grpXABypassHoods.ResumeLayout(False)
+        Me.grpXABypassHoods.PerformLayout()
         Me.grpRABPDampers.ResumeLayout(False)
         Me.grpRABPDampers.PerformLayout()
         Me.grpOABPDampers.ResumeLayout(False)
@@ -4155,8 +4184,8 @@ Partial Class frmERW
         Me.GroupBox8.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
+        Me.grpReliefDampers.ResumeLayout(False)
+        Me.grpReliefDampers.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -4232,7 +4261,7 @@ Partial Class frmERW
     Friend WithEvents chkFiltrationOAAngledRack As CheckBox
     Friend WithEvents chkFiltrationRAMERV8 As CheckBox
     Friend WithEvents chkFiltrationOAMERV8 As CheckBox
-    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents grpReliefDampers As GroupBox
     Friend WithEvents optReliefDamperActuated As RadioButton
     Friend WithEvents optReliefDamperBarometric As RadioButton
     Friend WithEvents chkScopeXABypassDampers As CheckBox
@@ -4385,10 +4414,10 @@ Partial Class frmERW
     Friend WithEvents optOABPDampersNone As RadioButton
     Friend WithEvents optOABPDampersByFisen As RadioButton
     Friend WithEvents optOABPDampersReuse As RadioButton
-    Friend WithEvents GroupBox18 As GroupBox
+    Friend WithEvents grpXABypassDampers As GroupBox
     Friend WithEvents optXABPDamperAtmosphere As RadioButton
     Friend WithEvents optXABPDamperWheel As RadioButton
-    Friend WithEvents GroupBox17 As GroupBox
+    Friend WithEvents grpXABypassHoods As GroupBox
     Friend WithEvents optXABPHoodNone As RadioButton
     Friend WithEvents chkXABPHoodMesh As CheckBox
     Friend WithEvents optXABPHoodByFisen As RadioButton
@@ -4539,4 +4568,6 @@ Partial Class frmERW
     Friend WithEvents chkRXStaticRAFiltersFull As CheckBox
     Friend WithEvents chkRXStaticSafetyFull As CheckBox
     Friend WithEvents chkRXStaticRAOpeningFull As CheckBox
+    Friend WithEvents optXFanbyJCI As RadioButton
+    Friend WithEvents optXABPDamperNone As RadioButton
 End Class

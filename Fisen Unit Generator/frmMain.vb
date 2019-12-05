@@ -135,22 +135,27 @@ Public Class frmMain
             If optRTUSeries5.Checked Then
                 ThisUnit.Family = "Series5"
                 My.Settings.LastFamily = "Series5"
+                My.Settings.LastCabinet = "n/a"
             End If
             If optRTUSeries10.Checked Then
                 ThisUnit.Family = "Series10"
                 My.Settings.LastFamily = "Series10"
+                My.Settings.LastCabinet = "n/a"
             End If
             If optRTUSeries12.Checked Then
                 ThisUnit.Family = "Series12"
                 My.Settings.LastFamily = "Series12"
+                My.Settings.LastCabinet = "n/a"
             End If
             If optRTUSeries20.Checked Then
                 ThisUnit.Family = "Series20"
                 My.Settings.LastFamily = "Series20"
+                My.Settings.LastCabinet = "n/a"
             End If
             If optRTUSeries40.Checked Then
                 ThisUnit.Family = "Series40"
                 My.Settings.LastFamily = "Series40"
+                My.Settings.LastCabinet = "n/a"
             End If
             If optRTUSeries100.Checked Then
                 ThisUnit.Family = "Series100"
@@ -158,24 +163,35 @@ Public Class frmMain
                 lblYPALUnitSize.Visible = True
                 txtYPALUnitSize.Visible = True
                 grpYPALOnly.Visible = True
-                If chkS100ACabinet.Checked Then ThisUnit.Cabinet = "S100A"
-                If chkS100BCabinet.Checked Then ThisUnit.Cabinet = "S100B"
-                If chkS100CCabinet.Checked Then ThisUnit.Cabinet = "S100C"
+                If chkS100ACabinet.Checked Then
+                    ThisUnit.Cabinet = "S100A"
+                    My.Settings.LastCabinet = "S100A"
+                End If
+                If chkS100BCabinet.Checked Then
+                    ThisUnit.Cabinet = "S100B"
+                    My.Settings.LastCabinet = "S100B"
+                End If
+                If chkS100CCabinet.Checked Then
+                    ThisUnit.Cabinet = "S100C"
+                    My.Settings.LastCabinet = "S100C"
+                End If
             End If
             If optRTUChoice.Checked Then
                 ThisUnit.Family = "Choice"
                 My.Settings.LastFamily = "Choice"
-
+                My.Settings.LastCabinet = "n/a"
             End If
             If optRTUPremier.Checked Then
                 ThisUnit.Family = "Premier"
                 My.Settings.LastFamily = "Premier"
+                My.Settings.LastCabinet = "n/a"
             End If
         End If
 
         If optAHU.Checked Then
             ThisUnit.Kingdom = "AHU"
             My.Settings.LastKingdom = "AHU"
+            My.Settings.LastCabinet = "n/a"
             If optAHUXTI.Checked Then
                 ThisUnit.Family = "XTI"
                 My.Settings.LastFamily = "XTI"
@@ -193,6 +209,7 @@ Public Class frmMain
         If optChiller.Checked Then
             ThisUnit.Kingdom = "Chiller"
             My.Settings.LastKingdom = "Chiller"
+            My.Settings.LastCabinet = "n/a"
             If optChillerYCAL.Checked Then
                 ThisUnit.Family = "YCAL"
                 My.Settings.LastFamily = "YCAL"
@@ -219,6 +236,7 @@ Public Class frmMain
         If optMisc.Checked Then
             ThisUnit.Kingdom = "Misc"
             My.Settings.LastKingdom = "Misc"
+            My.Settings.LastCabinet = "n/a"
             If optMiscDS.Checked Then
                 ThisUnit.Family = "DS"
                 My.Settings.LastFamily = "DS"
@@ -8218,7 +8236,9 @@ Public Class frmMain
                     optRTUSeries40.Checked = True
                 Case Is = "Series100"
                     optRTUSeries100.Checked = True
-
+                    If My.Settings.LastCabinet = "S100A" Then chkS100ACabinet.Checked = True
+                    If My.Settings.LastCabinet = "S100B" Then chkS100BCabinet.Checked = True
+                    If My.Settings.LastCabinet = "S100C" Then chkS100CCabinet.Checked = True
             End Select
         End If
 
