@@ -57,6 +57,10 @@ Partial Class frmERW
         Me.optOADamperReuseJCI = New System.Windows.Forms.RadioButton()
         Me.optOADamperByFisen = New System.Windows.Forms.RadioButton()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
+        Me.txtSideOADamperLength = New System.Windows.Forms.TextBox()
+        Me.Label92 = New System.Windows.Forms.Label()
+        Me.chkOAHoodsOnSide = New System.Windows.Forms.CheckBox()
+        Me.chkOAHoodOnEnd = New System.Windows.Forms.CheckBox()
         Me.chkOAHoodFieldInstalled = New System.Windows.Forms.CheckBox()
         Me.chkOAHoodMetalFilters = New System.Windows.Forms.CheckBox()
         Me.optOAHoodByFisen = New System.Windows.Forms.RadioButton()
@@ -384,6 +388,7 @@ Partial Class frmERW
         Me.lblUnitVolts = New System.Windows.Forms.Label()
         Me.lblUnitCabinet = New System.Windows.Forms.Label()
         Me.lblUnitSeries = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.tbcERW.SuspendLayout()
         Me.pgProposal.SuspendLayout()
         Me.grpXABypassDampers.SuspendLayout()
@@ -616,7 +621,7 @@ Partial Class frmERW
         Me.grpRABPDampers.Controls.Add(Me.optRABPDampersNone)
         Me.grpRABPDampers.Controls.Add(Me.optRABPDampersByFisen)
         Me.grpRABPDampers.Controls.Add(Me.optRABPDampersReuse)
-        Me.grpRABPDampers.Location = New System.Drawing.Point(223, 294)
+        Me.grpRABPDampers.Location = New System.Drawing.Point(218, 467)
         Me.grpRABPDampers.Name = "grpRABPDampers"
         Me.grpRABPDampers.Size = New System.Drawing.Size(208, 39)
         Me.grpRABPDampers.TabIndex = 41
@@ -661,7 +666,7 @@ Partial Class frmERW
         Me.grpOABPDampers.Controls.Add(Me.optOABPDampersByFisen)
         Me.grpOABPDampers.Controls.Add(Me.optOABPDampersReuse)
         Me.grpOABPDampers.Enabled = False
-        Me.grpOABPDampers.Location = New System.Drawing.Point(223, 226)
+        Me.grpOABPDampers.Location = New System.Drawing.Point(218, 399)
         Me.grpOABPDampers.Name = "grpOABPDampers"
         Me.grpOABPDampers.Size = New System.Drawing.Size(208, 39)
         Me.grpOABPDampers.TabIndex = 40
@@ -708,7 +713,7 @@ Partial Class frmERW
         Me.grpOABPHoods.Controls.Add(Me.optOABPHoodByFisen)
         Me.grpOABPHoods.Controls.Add(Me.optOABPHoodReuseJCI)
         Me.grpOABPHoods.Enabled = False
-        Me.grpOABPHoods.Location = New System.Drawing.Point(223, 126)
+        Me.grpOABPHoods.Location = New System.Drawing.Point(218, 299)
         Me.grpOABPHoods.Name = "grpOABPHoods"
         Me.grpOABPHoods.Size = New System.Drawing.Size(208, 89)
         Me.grpOABPHoods.TabIndex = 39
@@ -813,21 +818,66 @@ Partial Class frmERW
         '
         'GroupBox12
         '
+        Me.GroupBox12.Controls.Add(Me.txtSideOADamperLength)
+        Me.GroupBox12.Controls.Add(Me.Label92)
+        Me.GroupBox12.Controls.Add(Me.chkOAHoodsOnSide)
+        Me.GroupBox12.Controls.Add(Me.chkOAHoodOnEnd)
         Me.GroupBox12.Controls.Add(Me.chkOAHoodFieldInstalled)
         Me.GroupBox12.Controls.Add(Me.chkOAHoodMetalFilters)
         Me.GroupBox12.Controls.Add(Me.optOAHoodByFisen)
         Me.GroupBox12.Controls.Add(Me.optOAHoodReuseJCI)
         Me.GroupBox12.Location = New System.Drawing.Point(223, 8)
         Me.GroupBox12.Name = "GroupBox12"
-        Me.GroupBox12.Size = New System.Drawing.Size(208, 89)
+        Me.GroupBox12.Size = New System.Drawing.Size(208, 154)
         Me.GroupBox12.TabIndex = 37
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "Outdoor Air Hood(s)"
         '
+        'txtSideOADamperLength
+        '
+        Me.txtSideOADamperLength.Enabled = False
+        Me.txtSideOADamperLength.Location = New System.Drawing.Point(140, 80)
+        Me.txtSideOADamperLength.Name = "txtSideOADamperLength"
+        Me.txtSideOADamperLength.Size = New System.Drawing.Size(53, 20)
+        Me.txtSideOADamperLength.TabIndex = 81
+        Me.txtSideOADamperLength.Text = "-"
+        Me.txtSideOADamperLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label92
+        '
+        Me.Label92.AutoSize = True
+        Me.Label92.Location = New System.Drawing.Point(33, 83)
+        Me.Label92.Name = "Label92"
+        Me.Label92.Size = New System.Drawing.Size(107, 13)
+        Me.Label92.TabIndex = 80
+        Me.Label92.Text = "Side Damper Length:"
+        '
+        'chkOAHoodsOnSide
+        '
+        Me.chkOAHoodsOnSide.AutoSize = True
+        Me.chkOAHoodsOnSide.Enabled = False
+        Me.chkOAHoodsOnSide.Location = New System.Drawing.Point(16, 63)
+        Me.chkOAHoodsOnSide.Name = "chkOAHoodsOnSide"
+        Me.chkOAHoodsOnSide.Size = New System.Drawing.Size(98, 17)
+        Me.chkOAHoodsOnSide.TabIndex = 41
+        Me.chkOAHoodsOnSide.Text = "2 - 1 each Side"
+        Me.chkOAHoodsOnSide.UseVisualStyleBackColor = True
+        '
+        'chkOAHoodOnEnd
+        '
+        Me.chkOAHoodOnEnd.AutoSize = True
+        Me.chkOAHoodOnEnd.Enabled = False
+        Me.chkOAHoodOnEnd.Location = New System.Drawing.Point(16, 40)
+        Me.chkOAHoodOnEnd.Name = "chkOAHoodOnEnd"
+        Me.chkOAHoodOnEnd.Size = New System.Drawing.Size(103, 17)
+        Me.chkOAHoodOnEnd.TabIndex = 40
+        Me.chkOAHoodOnEnd.Text = "1 on End of Unit"
+        Me.chkOAHoodOnEnd.UseVisualStyleBackColor = True
+        '
         'chkOAHoodFieldInstalled
         '
         Me.chkOAHoodFieldInstalled.AutoSize = True
-        Me.chkOAHoodFieldInstalled.Location = New System.Drawing.Point(17, 65)
+        Me.chkOAHoodFieldInstalled.Location = New System.Drawing.Point(16, 129)
         Me.chkOAHoodFieldInstalled.Name = "chkOAHoodFieldInstalled"
         Me.chkOAHoodFieldInstalled.Size = New System.Drawing.Size(124, 17)
         Me.chkOAHoodFieldInstalled.TabIndex = 39
@@ -837,7 +887,7 @@ Partial Class frmERW
         'chkOAHoodMetalFilters
         '
         Me.chkOAHoodMetalFilters.AutoSize = True
-        Me.chkOAHoodMetalFilters.Location = New System.Drawing.Point(17, 42)
+        Me.chkOAHoodMetalFilters.Location = New System.Drawing.Point(16, 106)
         Me.chkOAHoodMetalFilters.Name = "chkOAHoodMetalFilters"
         Me.chkOAHoodMetalFilters.Size = New System.Drawing.Size(150, 17)
         Me.chkOAHoodMetalFilters.TabIndex = 38
@@ -1005,7 +1055,7 @@ Partial Class frmERW
         Me.GroupBox9.Controls.Add(Me.optSFanJCI)
         Me.GroupBox9.Controls.Add(Me.optSFanOAFan)
         Me.GroupBox9.Controls.Add(Me.optSFanFisen)
-        Me.GroupBox9.Location = New System.Drawing.Point(223, 394)
+        Me.GroupBox9.Location = New System.Drawing.Point(727, 291)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(208, 120)
         Me.GroupBox9.TabIndex = 33
@@ -1070,7 +1120,7 @@ Partial Class frmERW
         Me.GroupBox8.Controls.Add(Me.optRFanbyJCI)
         Me.GroupBox8.Controls.Add(Me.optRFanByFisen)
         Me.GroupBox8.Controls.Add(Me.optXFanByFisen)
-        Me.GroupBox8.Location = New System.Drawing.Point(437, 379)
+        Me.GroupBox8.Location = New System.Drawing.Point(941, 276)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(208, 135)
         Me.GroupBox8.TabIndex = 32
@@ -1266,7 +1316,7 @@ Partial Class frmERW
         Me.chkScopeRABypassDampers.AutoSize = True
         Me.chkScopeRABypassDampers.Checked = True
         Me.chkScopeRABypassDampers.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkScopeRABypassDampers.Location = New System.Drawing.Point(223, 271)
+        Me.chkScopeRABypassDampers.Location = New System.Drawing.Point(218, 444)
         Me.chkScopeRABypassDampers.Name = "chkScopeRABypassDampers"
         Me.chkScopeRABypassDampers.Size = New System.Drawing.Size(161, 17)
         Me.chkScopeRABypassDampers.TabIndex = 28
@@ -1442,7 +1492,7 @@ Partial Class frmERW
         'chkScopeOABypass
         '
         Me.chkScopeOABypass.AutoSize = True
-        Me.chkScopeOABypass.Location = New System.Drawing.Point(223, 103)
+        Me.chkScopeOABypass.Location = New System.Drawing.Point(218, 276)
         Me.chkScopeOABypass.Name = "chkScopeOABypass"
         Me.chkScopeOABypass.Size = New System.Drawing.Size(167, 17)
         Me.chkScopeOABypass.TabIndex = 1
@@ -4206,6 +4256,15 @@ Partial Class frmERW
         Me.lblUnitSeries.TabIndex = 77
         Me.lblUnitSeries.Text = "Unit Series:"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(858, 583)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 78
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmERW
         '
         Me.AcceptButton = Me.btnOK
@@ -4213,6 +4272,7 @@ Partial Class frmERW
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(1201, 653)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.lblUnitSeries)
         Me.Controls.Add(Me.lblUnitCabinet)
         Me.Controls.Add(Me.lblUnitVolts)
@@ -4642,4 +4702,9 @@ Partial Class frmERW
     Friend WithEvents Label91 As Label
     Friend WithEvents Label90 As Label
     Friend WithEvents Label89 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents chkOAHoodsOnSide As CheckBox
+    Friend WithEvents chkOAHoodOnEnd As CheckBox
+    Friend WithEvents txtSideOADamperLength As TextBox
+    Friend WithEvents Label92 As Label
 End Class

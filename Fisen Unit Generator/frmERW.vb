@@ -67,7 +67,7 @@ Public Class frmERW
 
     End Sub
     Private Sub UpdateWeightTable()
-
+        Call CalculateWeight(True)
     End Sub
     Private Sub UpdateWarrantyItems()
         frmMain.ThisUnitWarrTest.CtrlTest = True
@@ -342,7 +342,7 @@ Public Class frmERW
         If optPlasticWheel.Checked = True Then
             Call FillWheelSelectionList("Plastic")
         End If
-        Call CalculateWeight()
+        Call CalculateWeight(False)
     End Sub
 
     Private Sub UpdateERWElectrical()
@@ -452,7 +452,7 @@ Public Class frmERW
 
     Private Sub cmbWheel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbWheel.SelectedIndexChanged
         Call UpdateERWElectrical()
-        Call CalculateWeight()
+        Call CalculateWeight(False)
     End Sub
 
     Private Sub chkScopeOABypass_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeOABypass.CheckedChanged
@@ -492,6 +492,8 @@ Public Class frmERW
         Else
             chkFiltrationOAMetal.Checked = False
         End If
+        Call CalculateWeight(False)
+
     End Sub
 
     Private Sub chkFiltrationOAMERV8_CheckedChanged(sender As Object, e As EventArgs) Handles chkFiltrationOAMERV8.CheckedChanged
@@ -523,7 +525,7 @@ Public Class frmERW
             cmbExtensionList.Text = "Custom"
             cmbExtensionList.Enabled = True
         End If
-        Call CalculateWeight()
+        Call CalculateWeight(False)
     End Sub
 
 
@@ -795,7 +797,7 @@ Public Class frmERW
             chkERWBypassSwitch.Enabled = False
             chkERWBypassSwitch.Checked = False
         End If
-        Call CalculateWeight()
+        Call CalculateWeight(False)
     End Sub
 
     Private Sub cmdDoneConditions_Click(sender As Object, e As EventArgs) Handles cmdDoneConditions.Click
@@ -1952,26 +1954,121 @@ Public Class frmERW
             txtEncLength.Enabled = False
             txtEncWidth.Enabled = False
         End If
-        Call CalculateWeight()
+        Call CalculateWeight(False)
     End Sub
-    Private Sub CalculateWeight()
+    Private Sub optCabinetStandAlone_CheckedChanged(sender As Object, e As EventArgs) Handles optCabinetStandAlone.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub optVSWheel_CheckedChanged(sender As Object, e As EventArgs) Handles optVSWheel.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub chkERWBypassSwitch_CheckedChanged(sender As Object, e As EventArgs) Handles chkERWBypassSwitch.CheckedChanged
+        Call CalculateWeight(False)
+
+    End Sub
+
+    Private Sub WriteWeightAuditReport(LineItemDescription As ArrayList, LineItemData As ArrayList)
+        Dim MassReport As System.IO.StreamWriter
+        Dim TargetPath As String
+        Dim i As Integer
+        Dim j As Integer
+
+        TargetPath = frmMain.txtProjectDirectory.Text
+        TargetPath = TargetPath & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & " - ERW Weight Calc Audit.txt"
+
+        MassReport = My.Computer.FileSystem.OpenTextFileWriter(TargetPath, False)
+        MassReport.WriteLine("Weight Calculation Audit for ERW Module")
+        MassReport.WriteLine(" ")
+
+        For i = 0 To LineItemDescription.Count - 1
+            MassReport.Write(LineItemDescription.Item(i))
+            For j = 1 To 60 - Len(LineItemDescription.Item(i))
+                MassReport.Write(".")
+            Next
+            MassReport.WriteLine(Format(Val(LineItemData.Item(i)), "0000.0"))
+        Next
+        MassReport.WriteLine(" ")
+        MassReport.Write("ERW Subtotal: ")
+        For j = 1 To 60 - Len("ERW Subtotal: ")
+            MassReport.Write(".")
+        Next
+        MassReport.WriteLine(Format(Val(txtDryWeight.Text), "0000.0"))
+        MassReport.WriteLine("------------------------------------------------------------------")
+        MassReport.WriteLine(" ")
+        MassReport.Close()
+
+    End Sub
+    Private Sub txtSideOADamperLength_Leave(sender As Object, e As EventArgs) Handles txtSideOADamperLength.Leave
+        CalculateWeight(False)
+    End Sub
+    Private Sub optOAHoodByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOAHoodByFisen.CheckedChanged
+        If optOAHoodByFisen.Checked Then
+            chkOAHoodOnEnd.Enabled = True
+            chkOAHoodOnEnd.Checked = True
+            chkOAHoodsOnSide.Enabled = True
+        Else
+            chkOAHoodOnEnd.Enabled = False
+            chkOAHoodOnEnd.Checked = False
+            chkOAHoodsOnSide.Enabled = False
+            chkOAHoodsOnSide.Checked = False
+            txtSideOADamperLength.Text = "-"
+        End If
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub chkOAHoodsOnSide_CheckedChanged(sender As Object, e As EventArgs) Handles chkOAHoodsOnSide.CheckedChanged
+        If chkOAHoodsOnSide.Checked Then
+            txtSideOADamperLength.Enabled = True
+            txtSideOADamperLength.Text = Format(Val(txtEncLength.Text) * 0.33, "0")
+        Else
+            txtSideOADamperLength.Enabled = False
+            txtSideOADamperLength.Text = "-"
+        End If
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Call CalculateWeight(True)
+    End Sub
+
+    Private Sub chkOAHoodOnEnd_CheckedChanged(sender As Object, e As EventArgs) Handles chkOAHoodOnEnd.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+    Private Sub CalculateWeight(ReportGen As Boolean)
+
+
         Dim TempMass As Double
         Dim WorkingMass As Double
         Dim SMMass18 As Double
         Dim InsMass1in As Double
+        Dim PermMetal1in As Double
+
+        Dim WeightDescription As New ArrayList
+        Dim WeightData As New ArrayList
+        Dim HalfHeight As Double
+
 
         TempMass = 0
-        SMMass18 = 0.14972222222 'lb/in^2
+        SMMass18 = 0.014972222222 'lb/in^2
         InsMass1in = 0.00086805555556 'lb/in^2
+        PermMetal1in = 0.01041666666666667 'lb/sqin
+
 
         'Get the ERW Weight from the Catalogs
-        TempMass = TempMass + ERWWeight()
+        WorkingMass = ERWWeight()
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("ERW Cassette")
+        WeightData.Add(Format(WorkingMass, "0.0"))
 
         'Account for the floor diving the module in half (OA/RA) and the bloack off walls
         WorkingMass = Val(txtEncWidth.Text) * Val(txtEncLength.Text) * SMMass18 * 2 'SM for divider floor
         WorkingMass = WorkingMass + Val(txtEncWidth.Text) * Val(txtEncLength.Text) * InsMass1in 'Insulation mass
         WorkingMass = WorkingMass * 1.02 'Brackets, Screws, Tape, etc...
         TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Floor Dividing Fresh Air/Return Air")
+        WeightData.Add(Format(WorkingMass, "0.0"))
 
         'Account for the wall surrounding the wheel.  Assume there are no bypass dampers.
         WorkingMass = Val(txtEncLength.Text) * Val(txtEncHeight.Text) * SMMass18 * 2 'SM Wall
@@ -1979,26 +2076,47 @@ Public Class frmERW
         WorkingMass = WorkingMass - (ERWArea() * InsMass1in) - (2 * ERWArea() * SMMass18)
         WorkingMass = WorkingMass * 1.02 'Brackets, Screws, Tape, etc...
         TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Wall Surrounding ERW")
+        WeightData.Add(Format(WorkingMass, "0.0"))
 
         'Handle the wheel motor starter or VFD and bypass
         WorkingMass = 0
         If chkERWVFDbyFisen.Checked Then WorkingMass = 10 Else WorkingMass = 6
         If chkERWBypassSwitch.Checked Then WorkingMass = WorkingMass + 3
         TempMass = TempMass + WorkingMass
+        WeightDescription.Add("ERW Motor Control")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Handle the outdoor air hoods.
+        WorkingMass = 0
+        If optOAHoodByFisen.Checked Then
+            'Handle the one on the end.
+            HalfHeight = Val(txtEncHeight.Text) - 4 'An estime of the height of the hood/opening(s)
+            If chkOAHoodOnEnd.Checked Then
+                WorkingMass = WorkingMass + ((HalfHeight * (Val(txtEncWidth.Text) - 8)) + (30 * HalfHeight * 2)) * SMMass18 'Roughly the 2 end peices plus the hood part of the hood.
+                If chkOAHoodMetalFilters.Checked Then
+                    WorkingMass = WorkingMass + ((HalfHeight * (Val(txtEncWidth.Text) - 8))) * PermMetal1in ' Estimate for the filters
+                End If
+            End If
+
+            'Handle the hoods on the sides
+            If chkOAHoodsOnSide.Checked Then
+                WorkingMass = WorkingMass + (((HalfHeight * (Val(txtSideOADamperLength.Text) + 4)) + (30 * HalfHeight * 2))) * SMMass18 * 2 'Side hoods.  2 of them.  Similar math.
+                If chkOAHoodMetalFilters.Checked Then
+                    WorkingMass = WorkingMass + (HalfHeight * Val(txtSideOADamperLength.Text) * PermMetal1in * 2)
+                End If
+            End If
+        Else
+            WorkingMass = 0
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Outdoor Air Dampers")
+        WeightData.Add(Format(WorkingMass, "0.0"))
 
         txtDryWeight.Text = Format(TempMass, "0")
+        If ReportGen Then
+            Call WriteWeightAuditReport(WeightDescription, WeightData)
+        End If
     End Sub
 
-    Private Sub optCabinetStandAlone_CheckedChanged(sender As Object, e As EventArgs) Handles optCabinetStandAlone.CheckedChanged
-        Call CalculateWeight()
-    End Sub
-
-    Private Sub optVSWheel_CheckedChanged(sender As Object, e As EventArgs) Handles optVSWheel.CheckedChanged
-        Call CalculateWeight()
-    End Sub
-
-    Private Sub chkERWBypassSwitch_CheckedChanged(sender As Object, e As EventArgs) Handles chkERWBypassSwitch.CheckedChanged
-        Call CalculateWeight()
-
-    End Sub
 End Class
