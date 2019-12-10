@@ -111,6 +111,11 @@ Public Class frmMHGRH_Conv
                 frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
                 frmMain.ThisUnitReferSpecs.Add("R6-04")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
+            Case Is = "J12ZT"
+                frmMain.ThisUnitReferSpecs.Add("CDST-4")
+                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecs.Add("R6-04")
+                frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J15ZR"
                 frmMain.ThisUnitReferSpecs.Add("MTW-9")
                 frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
