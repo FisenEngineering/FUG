@@ -61,6 +61,7 @@ Partial Class frmLCVAV
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkUpgradeSEBoard = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -106,6 +107,7 @@ Partial Class frmLCVAV
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkUpgradeSEBoard)
         Me.tpgConditions.Controls.Add(Me.GroupBox1)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
@@ -127,7 +129,7 @@ Partial Class frmLCVAV
         Me.GroupBox1.Size = New System.Drawing.Size(200, 114)
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "GroupBox1"
+        Me.GroupBox1.Text = "VFD Source"
         '
         'RadioButton1
         '
@@ -510,6 +512,16 @@ Partial Class frmLCVAV
         Me.cmdDesignCautions.Text = "Design Cautions"
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
+        'chkUpgradeSEBoard
+        '
+        Me.chkUpgradeSEBoard.AutoSize = True
+        Me.chkUpgradeSEBoard.Location = New System.Drawing.Point(212, 25)
+        Me.chkUpgradeSEBoard.Name = "chkUpgradeSEBoard"
+        Me.chkUpgradeSEBoard.Size = New System.Drawing.Size(189, 17)
+        Me.chkUpgradeSEBoard.TabIndex = 10
+        Me.chkUpgradeSEBoard.Text = "Upgrade SE Board to VAV Version"
+        Me.chkUpgradeSEBoard.UseVisualStyleBackColor = True
+        '
         'frmLCVAV
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -530,6 +542,7 @@ Partial Class frmLCVAV
         Me.Text = "LCVAV"
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
+        Me.tpgConditions.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
@@ -586,4 +599,5 @@ Partial Class frmLCVAV
     Friend WithEvents chkECMotorStaging As CheckBox
     Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkUpgradeSEBoard As CheckBox
 End Class

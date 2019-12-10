@@ -64,7 +64,7 @@
             frmMain.ThisUnit.CommNodes = "2"
         End If
 
-        If optSEVAV.Checked Then
+        If (optSEVAV.Checked And chkUpgradeSEBoard.Checked) Then
             frmMain.ThisUnitGenCodes.Add("960009") 'Add the board with VAV terminals.
         End If
 
@@ -388,4 +388,15 @@
         con = Nothing
     End Sub
 
+    Private Sub optDrivebyFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optDrivebyFisen.CheckedChanged
+        If optDrivebyFisen.Checked Then
+            chkUpgradeSEBoard.Checked = True
+        End If
+    End Sub
+
+    Private Sub optDrivebyField_CheckedChanged(sender As Object, e As EventArgs) Handles optDrivebyField.CheckedChanged
+        If optDrivebyField.Checked Then
+            chkUpgradeSEBoard.Checked = True
+        End If
+    End Sub
 End Class
