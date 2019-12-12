@@ -261,6 +261,21 @@ Public Class clsUnitClass
                 End Select
             End If
 
+            If pBrand = "LUX" Then
+                Select Case pUnitFamily
+                    Case Is = "Series5"
+                        pBrandFamily = "Optimum Series"
+                    Case Is = "Series10"
+                        pBrandFamily = "Ovation Series"
+                    Case Is = "Series12"
+                        pBrandFamily = "Eclipse Series"
+                    Case Is = "Choice"
+                        pBrandFamily = "Optimum Choice"
+                    Case Else
+                        pBrandFamily = "???????????"
+                End Select
+            End If
+
             Return pBrandFamily
         End Get
     End Property

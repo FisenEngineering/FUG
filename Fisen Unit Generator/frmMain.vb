@@ -5695,24 +5695,56 @@ Public Class frmMain
                         txtNominalTons.Text = "25"
                 End Select
             Case Is = "Series10"
-                If Mid(txtModelNumber.Text, 1, 2) = "JA" Then
-                    txtNominalTons.Text = Str(Val(Mid(txtModelNumber.Text, 3, 1)))
-                End If
-                If Mid(txtModelNumber.Text, 2, 2) = "06" Then
-                    txtNominalTons.Text = "6.5"
-                End If
-                If Mid(txtModelNumber.Text, 2, 2) = "07" Then
-                    txtNominalTons.Text = "7.5"
-                End If
-                If Mid(txtModelNumber.Text, 2, 2) = "08" Then
-                    txtNominalTons.Text = "8.5"
-                End If
-                If Mid(txtModelNumber.Text, 2, 2) = "10" Then
-                    txtNominalTons.Text = "10"
-                End If
-                If Mid(txtModelNumber.Text, 2, 2) = "12" Then
-                    txtNominalTons.Text = "12.5"
-                End If
+                Select Case ThisUnit.Brand
+                    Case Is = "Lux"
+
+                        If Mid(txtModelNumber.Text, 4, 5) = "A3" Then
+                            txtNominalTons.Text = "3"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "A4" Then
+                            txtNominalTons.Text = "4"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "A5" Then
+                            txtNominalTons.Text = "5"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "06" Then
+                            txtNominalTons.Text = "6.5"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "07" Then
+                            txtNominalTons.Text = "7.5"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "08" Then
+                            txtNominalTons.Text = "8.5"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "10" Then
+                            txtNominalTons.Text = "10"
+                        End If
+                        If Mid(txtModelNumber.Text, 4, 5) = "12" Then
+                            txtNominalTons.Text = "12.5"
+                        End If
+
+                    Case Else
+
+                        If Mid(txtModelNumber.Text, 1, 2) = "JA" Then
+                            txtNominalTons.Text = Str(Val(Mid(txtModelNumber.Text, 3, 1)))
+                        End If
+                        If Mid(txtModelNumber.Text, 2, 2) = "06" Then
+                            txtNominalTons.Text = "6.5"
+                        End If
+                        If Mid(txtModelNumber.Text, 2, 2) = "07" Then
+                            txtNominalTons.Text = "7.5"
+                        End If
+                        If Mid(txtModelNumber.Text, 2, 2) = "08" Then
+                            txtNominalTons.Text = "8.5"
+                        End If
+                        If Mid(txtModelNumber.Text, 2, 2) = "10" Then
+                            txtNominalTons.Text = "10"
+                        End If
+                        If Mid(txtModelNumber.Text, 2, 2) = "12" Then
+                            txtNominalTons.Text = "12.5"
+                        End If
+                End Select
+
             Case Is = "Series12"
                 If ((Mid(txtModelNumber.Text, 1, 2) = "ZX") Or (Mid(txtModelNumber.Text, 1, 2) = "ZY")) Then
                     If Mid(txtModelNumber.Text, 4, 2) = "04" Then
@@ -6529,6 +6561,22 @@ Public Class frmMain
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZR" & Mid(txtBrandModelNumber.Text, 6)
                     End Select
                 End If
+
+                If cmbBrand.Text = "LUX" Then
+                    Select Case Mid(txtBrandModelNumber.Text, 1, 2)
+                        Case = "ZK"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZR" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZV"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZT" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZS"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZH" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZU"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZH" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZW"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
+                    End Select
+                End If
+
             Case Is = "Series5"
                 If cmbBrand.Text = "York" Then
                     btu = Mid(txtBrandModelNumber.Text, 3, 3)
