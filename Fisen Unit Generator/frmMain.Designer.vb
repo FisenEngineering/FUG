@@ -9921,7 +9921,10 @@ Partial Class frmMain
         ThisUnitSpecialPerf = New ClsSpecialPerf
         ThisUnitCstmCoilPerf = New ClsCustomCoil
         ThisUnitERWPerf = New ClsERW
-        ThisUnitFilters = New clsFilters
+        ThisUnitFFilters = New clsFilters
+        ThisUnitIFilters = New clsFilters
+        ThisUnitJCIFilters = New clsFilters
+
         ModBarn = New clsModPaddock
 
         cmbHeatType.Text = "Gas"

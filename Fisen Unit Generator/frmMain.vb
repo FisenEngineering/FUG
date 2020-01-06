@@ -10,7 +10,9 @@ Public Class frmMain
     Public ThisUnitRHPerf As clsReheatPerf
     Public ThisUnitHeatPerf As clsHeatPerf
     Public ThisUnitSFanPerf As clsSupplyPerf
-    Public ThisUnitFilters As clsFilters
+    Public ThisUnitIFilters As clsFilters
+    Public ThisUnitFFilters As clsFilters
+    Public ThisUnitJCIFilters As clsFilters
     Public ThisUnitRXPerf As clsRXPerf
     Public ThisChillerMainPerf As clsChillerMainPerf
     Public ThisUnitWarrTest As clsWarrTest
@@ -8367,30 +8369,70 @@ Public Class frmMain
         For i = 1 To modcount
             NotFound = False
             Select Case ModList(i)
+                Case Is = "100OA"
+                    myindex = lstAvailableMods.FindString("100% Outdoor Air")
+                Case Is = "Acoustic"
+                    myindex = lstAvailableMods.FindString("Acoustic Package")
+                Case Is = "AFlowMod"
+                    myindex = lstAvailableMods.FindString("Airflow Path Reconfiguration")
+                Case Is = "CFan"
+                    myindex = lstAvailableMods.FindString("Condenser Fan")
+                Case Is = "CPCtrl"
+                    myindex = lstAvailableMods.FindString("Customer Provided Controls")
                 Case Is = "CstmCoil"
                     myindex = lstAvailableMods.FindString("Custom Coil")
                 Case Is = "CstmCtrl"
                     myindex = lstAvailableMods.FindString("Custom Controls")
+                Case Is = "CstmEncl"
+                    myindex = lstAvailableMods.FindString("Custom Enclosure")
                 Case Is = "CstmHV"
                     myindex = lstAvailableMods.FindString("Custom Power Options")
                 Case Is = "CstmMech"
                     myindex = lstAvailableMods.FindString("Custom Mechanical Options")
+                Case Is = "CstmRef"
+                    myindex = lstAvailableMods.FindString("Custom Refrigeration")
+                Case Is = "CstmSM"
+                    myindex = lstAvailableMods.FindString("Custom Sheetmetal")
+                Case Is = "DPP"
+                    myindex = lstAvailableMods.FindString("Dual Point Power")
+                Case Is = "DWall"
+                    myindex = lstAvailableMods.FindString("Double Wall Sheetmetal Liner")
+                Case Is = "ERW"
+                    myindex = lstAvailableMods.FindString("Energy Recovery Wheel")
+                Case Is = "Extend"
+                    myindex = lstAvailableMods.FindString("Extended Cabinet")
+                Case Is = "FanVFD"
+                    myindex = lstAvailableMods.FindString("Fan VFD")
+                Case Is = "FanWall"
+                    myindex = lstAvailableMods.FindString("Supply Fan Wall")
+                Case Is = "Filt"
+                    myindex = lstAvailableMods.FindString("Filtration")
                 Case Is = "HGBP"
                     myindex = lstAvailableMods.FindString("Hot Gas Bypass")
+                Case Is = "HGRH"
+                    myindex = lstAvailableMods.FindString("Hot Gas Reheat")
+                Case Is = "Humid"
+                    myindex = lstAvailableMods.FindString("Humidification")
                 Case Is = "HWCoil"
                     myindex = lstAvailableMods.FindString("Hot Water Coil")
                 Case Is = "LCVAV"
                     myindex = lstAvailableMods.FindString("Light Commercial VAV")
+                Case Is = "LowAF"
+                    myindex = lstAvailableMods.FindString("Reduced Air Flow")
                 Case Is = "LowAmbient-20"
                     myindex = lstAvailableMods.FindString("Low Ambient Chiller")
+                Case Is = "MEHeat(I)"
+                    myindex = lstAvailableMods.FindString("Modulating Electric Heat Fisen Provided")
+                Case Is = "MEHeat(I)Pre"
+                    myindex = lstAvailableMods.FindString("Modulating Electric Pre-Heat Fisen Provided")
+                Case Is = "MEHeat(I)React"
+                    myindex = lstAvailableMods.FindString("Modulating Electric Reactivation Heat Fisen Provided")
                 Case Is = "MEHeat(R)"
                     myindex = lstAvailableMods.FindString("Modulating Electric Heat Retrofit")
                 Case Is = "MGH(H)"
                     myindex = lstAvailableMods.FindString("Modulating Gas Heat Heatco")
                 Case Is = "MGH(R)"
                     myindex = lstAvailableMods.FindString("Modulating Gas Heat Retrofit")
-                Case Is = "HGRH"
-                    myindex = lstAvailableMods.FindString("Hot Gas Reheat")
                 Case Is = "MHGRH"
                     If ThisUnit.Family = "Series40" Then
                         myindex = lstAvailableMods.FindString("Hot Gas Reheat")
@@ -8399,17 +8441,18 @@ Public Class frmMain
                     End If
                 Case Is = "OAFMS"
                     myindex = lstAvailableMods.FindString("Outdoor Airflow Monitoring Station")
-                Case Is = "LowAF"
-                    myindex = lstAvailableMods.FindString("Reduced Air Flow")
+                Case Is = "PipePkg"
+                    myindex = lstAvailableMods.FindString("Piping Package")
                 Case Is = "RFan"
                     myindex = lstAvailableMods.FindString("Return Fan")
                 Case Is = "SCCR"
                     myindex = lstAvailableMods.FindString("Short Circuit Current Rating")
                 Case Is = "SFan"
                     myindex = lstAvailableMods.FindString("Supply Fan")
+                Case Is = "SteamCoil"
+                    myindex = lstAvailableMods.FindString("Steam Coil")
                 Case Is = "XFan"
                     myindex = lstAvailableMods.FindString("Exhaust Fan")
-
                 Case Else
                     NotFound = True
             End Select

@@ -21,11 +21,26 @@ Public Class frmERW
             chkERWVFDbyFisen.Checked = True
             chkERWBypassSwitch.Enabled = True
             chkERWBypassSwitch.Checked = False
+
+            optWheelCtrlCSpeed.Enabled = False
+            optWheelCtrlCSpeedGBAS.Enabled = False
+            optWheelCtrlVSpeedFFOnly.Enabled = True
+            optWheelCtrlVSpeedGBAS.Enabled = True
+            optWheelCtrlVSpeedWLTCtrl.Enabled = True
+            optWheelCtrlVSpeedFFOnly.Checked = True
+
         Else
             chkERWVFDbyFisen.Enabled = False
             chkERWVFDbyFisen.Checked = False
             chkERWBypassSwitch.Enabled = False
             chkERWBypassSwitch.Checked = False
+
+            optWheelCtrlCSpeed.Enabled = True
+            optWheelCtrlCSpeed.Checked = True
+            optWheelCtrlCSpeedGBAS.Enabled = True
+            optWheelCtrlVSpeedFFOnly.Enabled = False
+            optWheelCtrlVSpeedGBAS.Enabled = False
+            optWheelCtrlVSpeedWLTCtrl.Enabled = False
         End If
     End Sub
 
@@ -192,14 +207,14 @@ Public Class frmERW
                 ModuleCodeList.Add("E10421")
             End If
         End If
-        If chkXABPHoodFieldInstalled.Checked Then
+        If chk1XABypassInternal.Checked Then
             ModuleCodeList.Add("E10448")
         End If
 
-        If optXABPDamperWheel.Checked Then
+        If chk1XABypassInternal.Checked Then
             ModuleCodeList.Add("E10431")
         End If
-        If optXABPDamperAtmosphere.Checked Then
+        If chk2XABypassSides.Checked Then
             ModuleCodeList.Add("E10432")
         End If
 
@@ -279,7 +294,7 @@ Public Class frmERW
             End If
         End If
 
-            If WhlMaterial = "Plastic" Then
+        If WhlMaterial = "Plastic" Then
 
             cmbWheel.Items.Add("ERC-52-1.5")
             cmbWheel.Items.Add("ERC-52-3.0")
@@ -329,9 +344,30 @@ Public Class frmERW
     Private Sub frmERW_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call FillWheelSelectionList("Aluminum")
         Call FillCabinetExtensionList()
+
+        If ((frmMain.ThisUnit.Family <> "Series100") And (frmMain.ThisUnit.Family <> "Premier")) Then
+            optSE.Checked = True
+        End If
+        If frmMain.ThisUnit.Family = "Series100" Then
+            optIPU.Checked = True
+        End If
+        If frmMain.ThisUnit.Family = "Premier" Then
+            optASE.Checked = True
+        End If
+
         lblUnitVolts.Text = "Unit Voltage:" & frmMain.ThisUnitElecData.CommVolts
         lblUnitSeries.Text = "Unit Series:" & frmMain.ThisUnit.Family
         lblUnitCabinet.Text = "Unit Cabinet:" & frmMain.ThisUnit.Cabinet
+
+        cmbOABPDamperControlSelection.Text = "None"
+        cmbReliefAirControlSelection.Text = "None"
+        cmbXABPControlSelection.Text = "None"
+        cmbRXFanControlSelection.Text = "Unselected"
+        cmbFFControlSelection.Text = "None"
+        cmbModeControlSelection.Text = "Unselected"
+        cmbEconModeControlSelection.Text = "Unselected"
+
+
 
     End Sub
 
@@ -463,6 +499,13 @@ Public Class frmERW
             optOABPDampersNone.Enabled = False
             optOABPHoodNone.Enabled = False
             optOABPHoodReuseJCI.Checked = True
+            optOABPDAByFisen.Checked = True
+            optOABPDANone.Enabled = False
+            grpOADABPActuators.Enabled = True
+            grpOABPControls.Enabled = True
+            optOABPControlByFisen.Checked = True
+            optOABPControlNA.Enabled = False
+
         Else
             grpOABPHoods.Enabled = False
             optOABPHoodNone.Checked = True
@@ -471,7 +514,15 @@ Public Class frmERW
             grpOABPDampers.Enabled = False
             optOABPDampersNone.Checked = True
             optOABPDampersNone.Enabled = True
+
+            optOABPDANone.Checked = True
+            grpOADABPActuators.Enabled = False
+
+            grpOABPControls.Enabled = False
+            optOABPControlNA.Checked = True
+
         End If
+        Call CalculateWeight(False)
     End Sub
 
     Private Sub chkScopeRABypassDampers_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeRABypassDampers.CheckedChanged
@@ -499,9 +550,14 @@ Public Class frmERW
     Private Sub chkFiltrationOAMERV8_CheckedChanged(sender As Object, e As EventArgs) Handles chkFiltrationOAMERV8.CheckedChanged
         If chkFiltrationOAMERV8.Checked Then
             chkFiltrationOAAngledRack.Enabled = True
+            grpOAFilters.Enabled = True
         Else
             chkFiltrationOAAngledRack.Enabled = False
             chkFiltrationOAAngledRack.Checked = False
+            grpOAFilters.Enabled = False
+            chkOAFiltersDFS.Checked = False
+            chkOAFiltersDPX.Checked = False
+            chkOAFiltersMagnehelic.Checked = False
         End If
     End Sub
 
@@ -842,9 +898,13 @@ Public Class frmERW
         If IsNumeric(txtCondWAFRAFlow.Text) And (Val(txtCondWAFRAFlow.Text) > MaxExhaustAir) Then MaxExhaustAir = Val(txtCondWAFRAFlow.Text)
         txtStaticTableExhaustAirFlow.Text = Format(MaxExhaustAir, "0")
 
-        Call LoadApplicableAirFlowDrawings()
+        'prep the next page
+        If lstAvailAirflow.SelectedIndex >= 0 Then
+            frmMain.lstUsingAirflow.Items.Add(lstAvailAirflow.SelectedItem)
+        End If
 
-        tbcERW.SelectTab("pgAirflowDwg")
+        tbcERW.SelectTab("pgControls")
+
     End Sub
 
     Private Sub LoadApplicableAirFlowDrawings()
@@ -867,7 +927,7 @@ Public Class frmERW
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        MySQL = "Select * FROM tblAirflowDiagrams WHERE " & frmMain.ThisUnit.Family & "=True"
+        MySQL = "Select * FROM tblAirflowDiagrams WHERE ((" & frmMain.ThisUnit.Family & "=True) AND (DrawingType LIKE '%ERW%'))"
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
@@ -901,12 +961,9 @@ Public Class frmERW
     End Sub
 
     Private Sub btnDoneAirflowDwg_Click(sender As Object, e As EventArgs) Handles btnDoneAirflowDwg.Click
-        If lstAvailAirflow.SelectedIndex >= 0 Then
-            frmMain.lstUsingAirflow.Items.Add(lstAvailAirflow.SelectedItem)
-        End If
 
-        tbcERW.SelectTab("pgControls")
-
+        'prep the next page
+        tbcERW.SelectTab("pgStatic")
     End Sub
 
     Private Sub cmdDonePerformance_Click(sender As Object, e As EventArgs) Handles cmdDonePerformance.Click
@@ -1538,6 +1595,23 @@ Public Class frmERW
     End Sub
 
     Private Sub cmdDoneControls_Click(sender As Object, e As EventArgs) Handles cmdDoneControls.Click
+        Dim dummy As MsgBoxResult
+        Dim GTG As Boolean
+        GTG = True
+
+        If cmbOABPDamperControlSelection.Text = "Unselected" Then GTG = False
+        If cmbReliefAirControlSelection.Text = "Unselected" Then GTG = False
+        If cmbXABPControlSelection.Text = "Unselected" Then GTG = False
+        If cmbRXFanControlSelection.Text = "Unselected" Then GTG = False
+        If cmbFFControlSelection.Text = "Unselected" Then GTG = False
+        If cmbModeControlSelection.Text = "Unselected" Then GTG = False
+        If cmbEconModeControlSelection.Text = "Unselected" Then GTG = False
+
+        If Not (GTG) Then
+            dummy = MsgBox("You have one or more unselected sequences.")
+            Exit Sub
+        End If
+
         txtSFStaticOAHood.Text = Format(FreshAirHoodPD(frmMain.ThisUnit.Family, frmMain.ThisUnit.Cabinet, Val(txtStaticTableFreshAirFlow.Text)), "0.00")
         txtSFStaticMetalFilt.Text = Format(FreshAirMistElimPD(frmMain.ThisUnit.Family, frmMain.ThisUnit.Cabinet, Val(txtStaticTableFreshAirFlow.Text), chkFiltrationOAMetal.Checked), "0.00")
         txtSFStaticOADamp.Text = Format(FreshAirOADamperPD(frmMain.ThisUnit.Family, frmMain.ThisUnit.Cabinet, Val(txtStaticTableFreshAirFlow.Text)), "0.00")
@@ -1552,7 +1626,11 @@ Public Class frmERW
         txtRXFStaticCabFX.Text = Format(RXAirSafetyFactor(), "0.00")
         txtRXFStaticTotal.Text = Format(RXAirTotal(), "0.00")
 
-        tbcERW.SelectTab("pgStatic")
+        'prep the next page
+        Call LoadApplicableAirFlowDrawings()
+
+        tbcERW.SelectTab("pgAirflowDwg")
+
     End Sub
 
     Private Sub cmdSFStaticUpdate_Click(sender As Object, e As EventArgs) Handles cmdSFStaticUpdate.Click
@@ -1675,6 +1753,12 @@ Public Class frmERW
         End If
     End Sub
     Private Sub optXFanbyJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optXFanbyJCI.CheckedChanged
+        Dim ControlBase As String
+        ControlBase = ""
+        If optIPU.Checked Then ControlBase = "IPU"
+        If optSE.Checked Then ControlBase = "SE"
+        If optASE.Checked Then ControlBase = "ASE"
+
         If ((optXFanbyJCI.Checked) Or (optRFanbyJCI.Checked)) Then
             txtRFStaticPressureAllowance.Enabled = True
             txtRFStaticPressureAllowance.Text = "1.00"
@@ -1682,16 +1766,48 @@ Public Class frmERW
             txtRFStaticPressureAllowance.Enabled = False
             txtRFStaticPressureAllowance.Text = "-"
         End If
+        If optXFanbyJCI.Checked Then
+            grpRXFanControl.Text = "Exhaust Fan Control"
+            cmbRXFanControlSelection.Items.Clear()
+            cmbRXFanControlSelection.Items.Add("Exhaust Fan Tracks Supply Fan")
+            cmbRXFanControlSelection.Items.Add(ControlBase & " Controls Exhaust Fan to BSP")
+            cmbRXFanControlSelection.Items.Add("Unselected")
+            cmbRXFanControlSelection.Text = "Unselected"
+            chkSensRXSSRelay.Text = "Exhaust Fan Enable Relay"
+            chkSensRXFreqRef.Text = "Exhaust Fan Frequency Reference"
+            chkSensRXFanAFS.Text = "Exhaust Fan Airflow Switch"
+        End If
     End Sub
     Private Sub optXFanByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optXFanByFisen.CheckedChanged
+        Dim ControlBase As String
+        ControlBase = ""
+        If optIPU.Checked Then ControlBase = "IPU"
+        If optSE.Checked Then ControlBase = "SE"
+        If optASE.Checked Then ControlBase = "ASE"
+
         If optXFanByFisen.Checked Then
             lblRecFanTypeStatic.Text = "Exhaust Fan"
+            grpRXFanControl.Text = "Exhaust Fan Control"
+            cmbRXFanControlSelection.Items.Clear()
+            cmbRXFanControlSelection.Items.Add("Exhaust Fan Tracks Supply Fan")
+            cmbRXFanControlSelection.Items.Add(ControlBase & " Controls Exhaust Fan to BSP")
+            cmbRXFanControlSelection.Items.Add("Unselected")
+            cmbRXFanControlSelection.Text = "Unselected"
+            chkSensRXSSRelay.Text = "Exhaust Fan Enable Relay"
+            chkSensRXFreqRef.Text = "Exhaust Fan Frequency Reference"
+            chkSensRXFanAFS.Text = "Exhaust Fan Airflow Switch"
         Else
             lblRecFanTypeStatic.Text = "Return Fan"
         End If
     End Sub
 
     Private Sub optRFanByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optRFanByFisen.CheckedChanged
+        Dim ControlBase As String
+        ControlBase = ""
+        If optIPU.Checked Then ControlBase = "IPU"
+        If optSE.Checked Then ControlBase = "SE"
+        If optASE.Checked Then ControlBase = "ASE"
+
         If ((optXFanbyJCI.Checked) Or (optRFanbyJCI.Checked)) Then
             txtRFStaticPressureAllowance.Enabled = True
             txtRFStaticPressureAllowance.Text = "1.00"
@@ -1699,33 +1815,76 @@ Public Class frmERW
             txtRFStaticPressureAllowance.Enabled = False
             txtRFStaticPressureAllowance.Text = "-"
         End If
+        If optRFanByFisen.Checked Then
+            grpRXFanControl.Text = "Return Fan Control"
+            cmbRXFanControlSelection.Items.Clear()
+            cmbRXFanControlSelection.Items.Add("Return Fan Tracks Supply Fan")
+            If ControlBase = "SE" Then
+                cmbRXFanControlSelection.Items.Add(ControlBase & " Controls Return Fan to Plenum Pressure")
+            Else
+                cmbRXFanControlSelection.Items.Add(ControlBase & " Controls Return Fan to BSP")
+            End If
+            cmbRXFanControlSelection.Items.Add("Unselected")
+            cmbRXFanControlSelection.Text = "Unselected"
+
+            chkSensRXSSRelay.Text = "Return Fan Enable Relay"
+            chkSensRXFreqRef.Text = "Return Fan Frequency Reference"
+            chkSensRXFanAFS.Text = "Return Fan Airflow Switch"
+        End If
     End Sub
 
     Private Sub optRFanbyJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optRFanbyJCI.CheckedChanged
+        Dim ControlBase As String
+        ControlBase = ""
+        If optIPU.Checked Then ControlBase = "IPU"
+        If optSE.Checked Then ControlBase = "SE"
+        If optASE.Checked Then ControlBase = "ASE"
+
         If ((optXFanbyJCI.Checked) Or (optRFanbyJCI.Checked)) Then
             txtRFStaticPressureAllowance.Enabled = True
             txtRFStaticPressureAllowance.Text = "1.00"
         Else
             txtRFStaticPressureAllowance.Enabled = False
             txtRFStaticPressureAllowance.Text = "-"
+        End If
+        If optRFanbyJCI.Checked Then
+            grpRXFanControl.Text = "Return Fan Control"
+            cmbRXFanControlSelection.Items.Clear()
+            cmbRXFanControlSelection.Items.Add("Return Fan Tracks Supply Fan")
+            If ControlBase = "SE" Then
+                cmbRXFanControlSelection.Items.Add(ControlBase & " Controls Return Fan to Plenum Pressure")
+            Else
+                cmbRXFanControlSelection.Items.Add(ControlBase & " Controls Return Fan to BSP")
+            End If
+            cmbRXFanControlSelection.Items.Add("Unselected")
+            cmbRXFanControlSelection.Text = "Unselected"
+
+            chkSensRXSSRelay.Text = "Return Fan Enable Relay"
+            chkSensRXFreqRef.Text = "Return Fan Frequency Reference"
+            chkSensRXFanAFS.Text = "Return Fan Airflow Switch"
         End If
     End Sub
     Private Sub chkScopeXABypassDampers_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeXABypassDampers.CheckedChanged
         If chkScopeXABypassDampers.Checked Then
             grpXABypassHoods.Enabled = True
-            grpXABypassDampers.Enabled = True
             grpReliefDampers.Enabled = True
 
             optXABPHoodByFisen.Checked = True
             optReliefDamperActuated.Checked = False
+            optXABPHoodNone.Checked = False
+            optXABPHoodNone.Enabled = False
         Else
             grpXABypassHoods.Enabled = False
-            grpXABypassDampers.Enabled = False
             grpReliefDampers.Enabled = False
             optXABPHoodNone.Checked = True
             chkXABPHoodMesh.Checked = False
             chkXABPHoodFieldInstalled.Checked = False
             optReliefDamperNone.Checked = True
+            optXABPHoodNone.Enabled = True
+            chk1XABypassInternal.Checked = False
+            chk2XABypassSides.Checked = False
+            txtXABPLength.Text = "-"
+            txtXABPHeight.Text = "-"
 
         End If
     End Sub
@@ -2029,13 +2188,175 @@ Public Class frmERW
         Call CalculateWeight(False)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Call CalculateWeight(True)
-    End Sub
-
     Private Sub chkOAHoodOnEnd_CheckedChanged(sender As Object, e As EventArgs) Handles chkOAHoodOnEnd.CheckedChanged
         Call CalculateWeight(False)
     End Sub
+
+
+    Private Sub optOADamperReuseJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optOADamperReuseJCI.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub optOADamperByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOADamperByFisen.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub optOADamperNone_CheckedChanged(sender As Object, e As EventArgs) Handles optOADamperNone.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+    Private Sub optOABPHoodReuseJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPHoodReuseJCI.CheckedChanged
+        If optOABPHoodReuseJCI.Checked Then
+            chk1OABypassInternal.Enabled = True
+            chk2OABypassSides.Enabled = True
+            chkOABPHoodMetalFilters.Enabled = True
+            chkOABPHoodFieldInstalled.Enabled = True
+            Call GuessOABPDamperSize()
+            txtOABPHeight.Enabled = True
+            txtOABPLength.Enabled = True
+            chk2OABypassSides.Checked = True
+        Else
+            chk1OABypassInternal.Enabled = False
+            chk1OABypassInternal.Checked = False
+            chk2OABypassSides.Enabled = False
+            chk2OABypassSides.Checked = False
+            chkOABPHoodMetalFilters.Enabled = False
+            chkOABPHoodMetalFilters.Checked = False
+            chkOABPHoodFieldInstalled.Enabled = False
+            chkOABPHoodFieldInstalled.Checked = False
+        End If
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub optOABPHoodByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPHoodByFisen.CheckedChanged
+        If optOABPHoodByFisen.Checked Then
+            chk1OABypassInternal.Enabled = True
+            chk2OABypassSides.Enabled = True
+            chkOABPHoodMetalFilters.Enabled = True
+            chkOABPHoodFieldInstalled.Enabled = True
+            Call GuessOABPDamperSize
+            txtOABPHeight.Enabled = True
+            txtOABPLength.Enabled = True
+        Else
+            chk1OABypassInternal.Enabled = False
+            chk1OABypassInternal.Checked = False
+            chk2OABypassSides.Enabled = False
+            chk2OABypassSides.Checked = False
+            chkOABPHoodMetalFilters.Enabled = False
+            chkOABPHoodMetalFilters.Checked = False
+            chkOABPHoodFieldInstalled.Enabled = False
+            chkOABPHoodFieldInstalled.Checked = False
+        End If
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub optOABPHoodNone_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPHoodNone.CheckedChanged
+        If optOABPHoodReuseJCI.Checked Then
+            chk2OABypassSides.Enabled = True
+
+        End If
+        If optOABPHoodNone.Checked Then
+            txtOABPHeight.Enabled = False
+            txtOABPHeight.Text = "-"
+            txtOABPLength.Enabled = False
+            txtOABPLength.Text = "-"
+        End If
+        Call CalculateWeight(False)
+    End Sub
+    Private Sub chk1OABypassInternal_CheckedChanged(sender As Object, e As EventArgs) Handles chk1OABypassInternal.CheckedChanged
+        If chk1OABypassInternal.Checked Then
+            chkOABPHoodMetalFilters.Checked = False
+            chkOABPHoodMetalFilters.Enabled = False
+            chkOABPHoodFieldInstalled.Checked = False
+            chkOABPHoodFieldInstalled.Enabled = False
+        End If
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub chk2OABypassSides_CheckedChanged(sender As Object, e As EventArgs) Handles chk2OABypassSides.CheckedChanged
+        If chk2OABypassSides.Checked Then
+            chkOABPHoodMetalFilters.Checked = True
+            chkOABPHoodMetalFilters.Enabled = True
+            chkOABPHoodFieldInstalled.Enabled = True
+        End If
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub chkOABPHoodMetalFilters_CheckedChanged(sender As Object, e As EventArgs) Handles chkOABPHoodMetalFilters.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub chkOABPHoodFieldInstalled_CheckedChanged(sender As Object, e As EventArgs) Handles chkOABPHoodFieldInstalled.CheckedChanged
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub txtOABPHeight_Leave(sender As Object, e As EventArgs) Handles txtOABPHeight.Leave
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub txtOABPLength_Leave(sender As Object, e As EventArgs) Handles txtOABPLength.Leave
+        Call CalculateWeight(False)
+    End Sub
+    Private Sub GuessOABPDamperSize()
+        'This requires some real logic after module sizes are fixed.
+        'for now it's a BS number
+        txtOABPLength.Text = "48.0"
+        txtOABPHeight.Text = "30.0"
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub optXABPHoodReuseJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optXABPHoodReuseJCI.CheckedChanged
+        If optXABPHoodReuseJCI.Checked Then
+            chk1XABypassInternal.Enabled = True
+            chk2XABypassSides.Enabled = True
+            chkXABPHoodMesh.Enabled = True
+            chkXABPHoodFieldInstalled.Enabled = True
+            Call GuessXABPDamperSize()
+            txtXABPLength.Enabled = True
+            txtXABPHeight.Enabled = True
+            chk2XABypassSides.Checked = True
+        End If
+        Call CalculateWeight(False)
+    End Sub
+    Private Sub optXABPHoodByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optXABPHoodByFisen.CheckedChanged
+        If optXABPHoodByFisen.Checked Then
+            chk1XABypassInternal.Enabled = True
+            chk2XABypassSides.Enabled = True
+            chkXABPHoodMesh.Enabled = True
+            chkXABPHoodFieldInstalled.Enabled = True
+            Call GuessXABPDamperSize()
+            txtXABPHeight.Enabled = True
+            txtXABPLength.Enabled = True
+        End If
+        Call CalculateWeight(False)
+    End Sub
+    Private Sub optRABPDampersByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optRABPDampersByFisen.CheckedChanged
+        If optRABPDampersByFisen.Checked Then
+            txtRABPHeight.Enabled = True
+            txtRABPLength.Enabled = True
+            Call GuessRABPDamperSize()
+        Else
+            txtRABPHeight.Enabled = False
+            txtRABPLength.Enabled = False
+            txtRABPLength.Text = "-"
+            txtRABPHeight.Text = "-"
+        End If
+    End Sub
+    Private Sub GuessXABPDamperSize()
+        'This requires some real logic after module sizes are fixed.
+        'for now it's a BS number
+        txtXABPLength.Text = "48.0"
+        txtXABPHeight.Text = "30.0"
+        Call CalculateWeight(False)
+    End Sub
+
+    Private Sub GuessRABPDamperSize()
+        'This requires some real logic after module sizes are fixed.
+        'for now it's a BS number
+        txtRABPLength.Text = "48.0"
+        txtRABPHeight.Text = "30.0"
+        Call CalculateWeight(False)
+    End Sub
+
     Private Sub CalculateWeight(ReportGen As Boolean)
 
 
@@ -2110,13 +2431,787 @@ Public Class frmERW
             WorkingMass = 0
         End If
         TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Outdoor Air Hoods")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Handle the outdoor air dampers
+        WorkingMass = 0
+        If optOADamperByFisen.Checked Then
+            'Handle the one on the end.
+            HalfHeight = Val(txtEncHeight.Text) - 4 'An estime of the height of the damper
+            If chkOAHoodOnEnd.Checked Then
+                WorkingMass = WorkingMass + ((HalfHeight * (Val(txtEncWidth.Text) - 8)) * 0.06944444) '5100 control dampers are 10lbs/sq foot.
+            End If
+            'Handle any dampers on the side
+            If chkOAHoodsOnSide.Checked Then
+                WorkingMass = WorkingMass + (((HalfHeight * (Val(txtSideOADamperLength.Text) + 4)))) * 0.06944444 * 2 'Side dampers.  2 of them. 5100 control dampers are 10lbs/sq ft.
+            End If
+        Else
+            WorkingMass = 0
+        End If
+        TempMass = TempMass + WorkingMass
         WeightDescription.Add("Outdoor Air Dampers")
         WeightData.Add(Format(WorkingMass, "0.0"))
 
+        'Handle the outdoor air Bypass hoods.
+        WorkingMass = 0
+        If optOABPHoodByFisen.Checked Then
+            'Handle one inside the unit
+            WorkingMass = 0
+
+            'Handle the hoods on the sides
+            If chk2OABypassSides.Checked Then
+                WorkingMass = WorkingMass + (((Val(txtOABPHeight.Text) * (Val(txtOABPLength.Text) + 4)) + (30 * Val(txtOABPHeight.Text) * 2))) * SMMass18 * 2 'Side hoods.  2 of them.  Similar math.
+                If chkOAHoodMetalFilters.Checked Then
+                    WorkingMass = WorkingMass + (Val(txtOABPHeight.Text) * Val(txtOABPLength.Text) * PermMetal1in * 2)
+                End If
+            End If
+        Else
+            WorkingMass = 0
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Outdoor Air Bypass Hoods")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Handle the outdoor air bypass dampers
+        WorkingMass = 0
+        If optOABPDampersByFisen.Checked Then
+            If chk1OABypassInternal.Checked Then
+                'Handle one inside the unit
+                WorkingMass = WorkingMass + (Val(txtOABPHeight.Text) * Val(txtOABPLength.Text) * 0.06944444)  '5100 control dampers are 10lbs/sq ft.
+            End If
+            If chk2OABypassSides.Checked Then
+                'Handle 2 on the sides
+                WorkingMass = WorkingMass + (Val(txtOABPHeight.Text) * Val(txtOABPLength.Text) * 0.06944444 * 2)  '5100 control dampers are 10lbs/sq ft.
+            End If
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Outdoor Air Bypass Dampers")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'exhaust air bypass hoods
+        WorkingMass = 0
+        If chkScopeXABypassDampers.Checked Then
+            If optXABPHoodByFisen.Checked Then
+                If chk1OABypassInternal.Checked Then
+                    WorkingMass = 0
+                End If
+                If chk2XABypassSides.Checked Then
+                    WorkingMass = WorkingMass + (((Val(txtXABPHeight.Text) * (Val(txtXABPLength.Text) + 4)) + (30 * Val(txtXABPHeight.Text) * 2))) * SMMass18 * 2 'Side hoods.  2 of them.  Similar math.
+                    If chkXABPHoodMesh.Checked Then
+                        WorkingMass = WorkingMass + (Val(txtXABPHeight.Text) * Val(txtXABPLength.Text) * 0.005208333333333 * 2) 'Hardware cloth 0.75 lbs / sq ft.
+                    End If
+                End If
+            End If
+        Else
+            WorkingMass = 0
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Exhaust Air Bypass Hoods")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Exhaust air bypass hoods
+        WorkingMass = 0
+        If chkScopeXABypassDampers.Checked Then
+            If chk1OABypassInternal.Checked Then
+                WorkingMass = (Val(txtXABPHeight.Text) * (Val(txtXABPLength.Text))) * 0.0694444444444 + 3.75
+            End If
+        Else
+            WorkingMass = 0
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Internal Exhaust Air Bypass Dampers")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Relief Dampers
+        WorkingMass = 0
+        If chkScopeXABypassDampers.Checked Then
+            If optXABPHoodByFisen.Checked Then
+                If chk2XABypassSides.Checked Then
+                    If optReliefDamperBarometric.Checked Then
+                        WorkingMass = WorkingMass + (Val(txtXABPHeight.Text) * Val(txtXABPLength.Text)) * 0.0486111111111 * 2 '  2 of them.  3500 style
+                    End If
+                    If optReliefDamperActuated.Checked Then
+                        WorkingMass = WorkingMass + (((Val(txtXABPHeight.Text) * Val(txtXABPLength.Text)) * 0.069444444444444) + 3.25) * 2 '  2 of them.  5100 style
+                    End If
+                End If
+            End If
+        Else
+            WorkingMass = 0
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Relief Dampers")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Return Air Bypass Dampers
+        WorkingMass = 0
+        If chkScopeRABypassDampers.Checked Then
+            If optRABPDampersReuse.Checked Then
+                WorkingMass = 0
+            End If
+            If optRABPDampersByFisen.Checked Then
+                WorkingMass = WorkingMass + Val(txtRABPHeight.Text) * Val(txtRABPLength.Text) * 0.069444444444444 + 3.25 '5100 style + actuator
+            End If
+        End If
+        TempMass = TempMass + WorkingMass
+        WeightDescription.Add("Return Air Bypass Dampers")
+        WeightData.Add(Format(WorkingMass, "0.0"))
+
+        'Final Activity
         txtDryWeight.Text = Format(TempMass, "0")
         If ReportGen Then
             Call WriteWeightAuditReport(WeightDescription, WeightData)
         End If
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Call CalculateWeight(True)
+    End Sub
+
+    Private Sub optSE_CheckedChanged(sender As Object, e As EventArgs) Handles optSE.CheckedChanged
+        If optSE.Checked Then
+            optOADAContByJCI.Text = "By JCI SE"
+            optOABPControlByJCI.Text = "By JCI SE"
+            optReliefDamperCtrlByJCI.Text = "By JCI SE"
+        End If
+    End Sub
+
+    Private Sub optIPU_CheckedChanged(sender As Object, e As EventArgs) Handles optIPU.CheckedChanged
+        If optIPU.Checked Then
+            optOADAContByJCI.Text = "By JCI IPU"
+            optOABPControlByJCI.Text = "By JCI IPU"
+            optReliefDamperCtrlByJCI.Text = "By JCI IPU"
+        End If
+    End Sub
+
+    Private Sub optASE_CheckedChanged(sender As Object, e As EventArgs) Handles optASE.CheckedChanged
+        If optASE.Checked Then
+            optOADAContByJCI.Text = "By JCI ASE"
+            optOABPControlByJCI.Text = "By JCI ASE"
+            optReliefDamperCtrlByJCI.Text = "By JCI ASE"
+        End If
+    End Sub
+
+    Private Sub optOADAReuseJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optOADAReuseJCI.CheckedChanged
+        If optOADAReuseJCI.Checked Then
+            nudOADACount.Enabled = False
+            nudOADACount.Minimum = 0
+            nudOADACount.Value = 0
+        Else
+            nudOADACount.Enabled = True
+            nudOADACount.Value = 1
+            nudOADACount.Minimum = 1
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPDANone_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPDANone.CheckedChanged
+        If optOABPDANone.Checked Then
+            chkOABPDAModulating.Checked = False
+            chkOABPDAFailClosed.Checked = False
+            nudOABPDACount.Minimum = 0
+            nudOABPDACount.Value = 0
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPDAByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPDAByFisen.CheckedChanged
+        If optOABPDAByFisen.Checked Then
+            chkOABPDAFailClosed.Checked = True
+            nudOABPDACount.Value = 1
+            nudOABPDACount.Minimum = 1
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPDAReuseJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPDAReuseJCI.CheckedChanged
+        If optOABPDAReuseJCI.Checked Then
+            chkOABPDAFailClosed.Checked = True
+            nudOABPDACount.Value = 1
+            nudOABPDACount.Minimum = 1
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optReliefDamperNone_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperNone.CheckedChanged
+        If optReliefDamperNone.Checked Then
+            grpReliefAirControl.Enabled = False
+            optReliefDamperCtrlByNone.Checked = True
+            grpReliefAirActuators.Enabled = False
+            optReliefAirActuatorsNone.Checked = True
+            optReliefDamperCtrlByJCI.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optReliefDamperActuated_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperActuated.CheckedChanged
+        If optReliefDamperActuated.Checked Then
+            grpReliefAirControl.Enabled = True
+            grpReliefAirActuators.Enabled = True
+            optReliefAirActuatorsNone.Enabled = False
+            optReliefAirActuatorsByFisen.Checked = True
+            optReliefDamperCtrlByNone.Enabled = False
+            If optSE.Checked Then
+                optReliefDamperCtrlByJCI.Enabled = False
+                optReliefDamperCtrlByFisen.Checked = True
+            Else
+                optReliefDamperCtrlByJCI.Enabled = True
+                optReliefDamperCtrlByJCI.Checked = True
+            End If
+        End If
+    End Sub
+
+    Private Sub optReliefDamperBarometric_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperBarometric.CheckedChanged
+        If optReliefDamperBarometric.Checked Then
+            grpReliefAirControl.Enabled = False
+            optReliefDamperCtrlByNone.Checked = True
+            grpReliefAirActuators.Enabled = False
+            optReliefAirActuatorsNone.Checked = True
+            optReliefDamperCtrlByJCI.Enabled = True
+            cmbReliefAirControlSelection.Items.Clear()
+            cmbReliefAirControlSelection.Items.Add("Barometric Relief Only")
+            cmbReliefAirControlSelection.Text = "Barometric Relief Only"
+        End If
+    End Sub
+
+    Private Sub optReliefAirActuatorsNone_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefAirActuatorsNone.CheckedChanged
+        If optReliefAirActuatorsNone.Checked Then
+            chkReliefAirActuatorsMod.Checked = False
+            chkReliefAirActuatorsFailClosed.Checked = False
+            nudReliefAirActuatorCount.Minimum = 0
+            nudReliefAirActuatorCount.Value = 0
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optReliefAirActuatorsByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefAirActuatorsByFisen.CheckedChanged
+        If optReliefAirActuatorsByFisen.Checked Then
+            chkReliefAirActuatorsMod.Checked = True
+            chkReliefAirActuatorsFailClosed.Checked = True
+            nudReliefAirActuatorCount.Value = 1
+            nudReliefAirActuatorCount.Minimum = 1
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optReliefAirActuatorsByJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefAirActuatorsByJCI.CheckedChanged
+        If optReliefAirActuatorsByJCI.Checked Then
+            chkReliefAirActuatorsMod.Checked = True
+            chkReliefAirActuatorsFailClosed.Checked = True
+            nudReliefAirActuatorCount.Value = 1
+            nudReliefAirActuatorCount.Minimum = 1
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub chk1XABypassInternal_CheckedChanged(sender As Object, e As EventArgs) Handles chk1XABypassInternal.CheckedChanged
+        If chk1XABypassInternal.Checked Then
+            grpXABPActuator.Enabled = True
+            optXABPActuatorByFisen.Checked = True
+            optXABPActuatorNone.Enabled = False
+
+        Else
+            grpXABPActuator.Enabled = False
+            optXABPActuatorByFisen.Checked = False
+            optXABPActuatorNone.Enabled = True
+
+        End If
+    End Sub
+
+    Private Sub optXABPActuatorNone_CheckedChanged(sender As Object, e As EventArgs) Handles optXABPActuatorNone.CheckedChanged
+        If optXABPActuatorNone.Checked Then
+            chkXABPActuatorModulating.Checked = False
+            chkXABPActuatorModulating.Enabled = False
+            chkXABPActuatorFailClosed.Checked = False
+            chkXABPActuatorFailClosed.Enabled = False
+            nudXABPActuatorCount.Enabled = False
+            nudXABPActuatorCount.Minimum = 0
+            nudXABPActuatorCount.Value = 0
+            cmbXABPControlSelection.Items.Clear()
+            cmbXABPControlSelection.Items.Add("None")
+            cmbXABPControlSelection.Text = "None"
+        Else
+            chkXABPActuatorModulating.Enabled = True
+            chkXABPActuatorFailClosed.Enabled = True
+            nudXABPActuatorCount.Enabled = True
+            nudXABPActuatorCount.Value = 1
+            nudXABPActuatorCount.Minimum = 1
+        End If
+    End Sub
+
+    Private Sub optOABPControlByJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPControlByJCI.CheckedChanged
+        Dim ControlBase As String
+        ControlBase = ""
+        If optIPU.Checked Then ControlBase = "IPU"
+        If optSE.Checked Then ControlBase = "SE"
+        If optASE.Checked Then ControlBase = "ASE"
+        If optOABPControlByJCI.Checked Then
+            cmbOABPDamperControlSelection.Items.Clear()
+            cmbOABPDamperControlSelection.Items.Add("Unselected")
+            cmbOABPDamperControlSelection.Items.Add(ControlBase & " Modulates as OA Damper + Offset")
+            cmbOABPDamperControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPControlByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPControlByFisen.CheckedChanged
+        If optOABPControlByFisen.Checked Then
+            cmbOABPDamperControlSelection.Items.Clear()
+            cmbOABPDamperControlSelection.Items.Add("Unselected")
+            cmbOABPDamperControlSelection.Items.Add("Opens in Econ Mode")
+            cmbOABPDamperControlSelection.Items.Add("Modulaties to Maintain MA at Setpt")
+            cmbOABPDamperControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPControlByGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPControlByGBAS.CheckedChanged
+        If optOABPControlByGBAS.Checked Then
+            cmbOABPDamperControlSelection.Items.Clear()
+            cmbOABPDamperControlSelection.Items.Add("Unselected")
+            cmbOABPDamperControlSelection.Items.Add("Terminal Blocks for Control")
+            cmbOABPDamperControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPControlNA_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPControlNA.CheckedChanged
+        If optOABPControlNA.Checked Then
+            cmbOABPDamperControlSelection.Items.Clear()
+            cmbOABPDamperControlSelection.Items.Add("None")
+            cmbOABPDamperControlSelection.Text = "None"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOABPDampersByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPDampersByFisen.CheckedChanged
+        If optOABPDAByFisen.Checked Then
+            optOABPControlNA.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optOABPDampersReuse_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPDampersReuse.CheckedChanged
+        If optOABPDampersReuse.Checked Then
+            optOABPControlNA.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optOABPDampersNone_CheckedChanged(sender As Object, e As EventArgs) Handles optOABPDampersNone.CheckedChanged
+        If optOABPDampersNone.Checked Then
+            optOABPControlNA.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optReliefDamperCtrlByNone_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperCtrlByNone.CheckedChanged
+        If optReliefDamperCtrlByNone.Checked Then
+            cmbReliefAirControlSelection.Items.Clear()
+            cmbReliefAirControlSelection.Items.Add("None")
+            cmbReliefAirControlSelection.Text = "None"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optReliefDamperCtrlByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperCtrlByFisen.CheckedChanged
+        If optReliefDamperCtrlByFisen.Checked Then
+            cmbReliefAirControlSelection.Items.Clear()
+            cmbReliefAirControlSelection.Items.Add("Unselected")
+            cmbReliefAirControlSelection.Items.Add("Modulated to Maintain BSP at Setpt")
+            cmbReliefAirControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optReliefDamperCtrlByJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperCtrlByJCI.CheckedChanged
+        Dim ControlBase As String
+        ControlBase = ""
+        If optIPU.Checked Then ControlBase = "IPU"
+        If optSE.Checked Then ControlBase = "SE"
+        If optASE.Checked Then ControlBase = "ASE"
+        If ((optReliefDamperCtrlByJCI.Checked) And (ControlBase <> "SE")) Then
+            cmbReliefAirControlSelection.Items.Clear()
+            cmbReliefAirControlSelection.Items.Add("Unselected")
+            cmbReliefAirControlSelection.Items.Add(ControlBase & " Modulates to Maintain BSP")
+            cmbReliefAirControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optReliefDamperCtrlByGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optReliefDamperCtrlByGBAS.CheckedChanged
+        If optReliefDamperCtrlByGBAS.Checked Then
+            cmbReliefAirControlSelection.Items.Clear()
+            cmbReliefAirControlSelection.Items.Add("Unselected")
+            cmbReliefAirControlSelection.Items.Add("Terminal Blocks for Control")
+            cmbReliefAirControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optXABPActuatorByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optXABPActuatorByFisen.CheckedChanged
+        cmbXABPControlSelection.Items.Clear()
+        cmbXABPControlSelection.Items.Add("Unselected")
+        cmbXABPControlSelection.Items.Add("Opens on Econ Mode")
+        If chkXABPActuatorModulating.Checked Then
+            cmbXABPControlSelection.Items.Add("Opens to Setpoint on Econ")
+        End If
+        cmbXABPControlSelection.Text = "Unselected"
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub chkXABPActuatorModulating_CheckedChanged(sender As Object, e As EventArgs) Handles chkXABPActuatorModulating.CheckedChanged
+        cmbXABPControlSelection.Items.Clear()
+        cmbXABPControlSelection.Items.Add("Unselected")
+        cmbXABPControlSelection.Items.Add("Opens on Econ Mode")
+        If chkXABPActuatorModulating.Checked Then
+            cmbXABPControlSelection.Items.Add("Opens to Setpoint on Econ")
+        End If
+        cmbXABPControlSelection.Text = "Unselected"
+    End Sub
+
+    Private Sub cmbRXFanControlSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRXFanControlSelection.SelectedIndexChanged
+        If InStr(cmbRXFanControlSelection.Text, "Plenum") > 0 Then
+            chkPlenumPressureChangeOver.Enabled = True
+        Else
+            chkPlenumPressureChangeOver.Enabled = False
+            chkPlenumPressureChangeOver.Checked = False
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optWheelCtrlCSpeed_CheckedChanged(sender As Object, e As EventArgs) Handles optWheelCtrlCSpeed.CheckedChanged
+        If optWheelCtrlCSpeed.Checked Then
+            cmbFFControlSelection.Items.Clear()
+            cmbFFControlSelection.Items.Add("Jog/Stop - Variable Duty Cycle")
+            cmbFFControlSelection.Items.Add("None")
+            cmbFFControlSelection.Items.Add("Unselected")
+            cmbFFControlSelection.Text = "Unselected"
+
+            cmbModeControlSelection.Items.Clear()
+            cmbModeControlSelection.Items.Add("Summer/Winter/Vent Mode")
+            cmbModeControlSelection.Items.Add("Unselected")
+            cmbModeControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optWheelCtrlVSpeedFFOnly_CheckedChanged(sender As Object, e As EventArgs) Handles optWheelCtrlVSpeedFFOnly.CheckedChanged
+        If optWheelCtrlVSpeedFFOnly.Checked Then
+            cmbFFControlSelection.Items.Clear()
+            cmbFFControlSelection.Items.Add("Variable Speed - Maintain Exhaust Temp at Setpt")
+            If chkWheelDeltaPSensor.Checked Then
+                cmbFFControlSelection.Items.Add("Variable Speed - Maintain Delta P")
+            End If
+            cmbFFControlSelection.Items.Add("None")
+            cmbFFControlSelection.Items.Add("Unselected")
+            cmbFFControlSelection.Text = "Unselected"
+
+            cmbModeControlSelection.Items.Clear()
+            cmbModeControlSelection.Items.Add("Summer/Winter/Vent Mode - Off")
+            cmbModeControlSelection.Items.Add("Unselected")
+            cmbModeControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optWheelCtrlVSpeedWLTCtrl_CheckedChanged(sender As Object, e As EventArgs) Handles optWheelCtrlVSpeedWLTCtrl.CheckedChanged
+        If optWheelCtrlVSpeedWLTCtrl.Checked Then
+            cmbFFControlSelection.Items.Clear()
+            cmbFFControlSelection.Items.Add("Variable Speed - Maintain Exhaust Temp at Setpt")
+            If chkWheelDeltaPSensor.Checked Then
+                cmbFFControlSelection.Items.Add("Variable Speed - Maintain Delta P")
+            End If
+            cmbFFControlSelection.Items.Add("None")
+            cmbFFControlSelection.Items.Add("Unselected")
+            cmbFFControlSelection.Text = "Unselected"
+
+            cmbModeControlSelection.Items.Clear()
+            cmbModeControlSelection.Items.Add("Summer/Winter Vent Mode - Maintain WLT")
+            cmbModeControlSelection.Items.Add("Unselected")
+            cmbModeControlSelection.Text = "Unselected"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optWheelCtrlVSpeedGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optWheelCtrlVSpeedGBAS.CheckedChanged
+        If optWheelCtrlVSpeedGBAS.Checked Then
+            cmbFFControlSelection.Items.Clear()
+            cmbFFControlSelection.Items.Add("GBAS Variable Speed - Speed and Enable Terminals")
+            cmbFFControlSelection.Items.Add("Unselected")
+            cmbFFControlSelection.Text = "Unselected"
+
+            cmbModeControlSelection.Items.Clear()
+            cmbModeControlSelection.Items.Add("None - GBAS")
+            cmbModeControlSelection.Text = "None - GBAS"
+        End If
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optWheelCtrlCSpeedGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optWheelCtrlCSpeedGBAS.CheckedChanged
+        If optWheelCtrlCSpeedGBAS.Checked Then
+            cmbFFControlSelection.Items.Clear()
+            cmbFFControlSelection.Items.Add("GBAS Constant Speed - Enable Terminals")
+            cmbFFControlSelection.Items.Add("Unselected")
+            cmbFFControlSelection.Text = "Unselected"
+
+            cmbModeControlSelection.Items.Clear()
+            cmbModeControlSelection.Items.Add("None - GBAS")
+            cmbModeControlSelection.Text = "None - GBAS"
+        End If
+        Call SetTheSensors()
+    End Sub
+    Private Sub SetTheSensors()
+        Dim cChkCtrl As CheckBox
+
+        'clear all the checkboxes
+        For Each cChkCtrl In grpSensors.Controls.OfType(Of CheckBox)
+            cChkCtrl.Checked = False
+        Next
+
+        'Now test for each sensor and set if true
+        'OA Temp
+        chkSensOAT.Checked = True
+
+        'OA Humidity
+        If ((cmbEconModeControlSelection.Text = "Econ by Fisen - Enthalpy") Or (cmbEconModeControlSelection.Text = "Econ by Fisen - Comparative Enthalpy")) Then
+            chkSensOAH.Checked = True
+        End If
+
+        'Wheel Leaving Temperature
+        chkSensWLT.Checked = True
+
+        'Return Air Temperature
+        chkSensRAT.Checked = True
+
+        'Return Air Humidity
+        If (cmbEconModeControlSelection.Text = "Econ by Fisen - Comparative Enthalpy") Then
+            chkSensRAH.Checked = True
+        End If
+
+        'Exhaust Air Temperature
+        chkSensXAT.Checked = True
+
+        'Mixed Air Temperature
+        chkSensMAT.Checked = False
+
+        'ERW Delta P
+        If chkWheelDeltaPSensor.Checked Then chkSensERWDeltaP.Checked = True
+        If cmbFFControlSelection.Text = "Variable Speed - Maintain Delta P" Then chkSensERWDeltaP.Checked = True
+
+        'ERW Enable Relay
+        chkSensERWSSRelay.Checked = True
+
+        'ERW Frequency Reference
+        If chkERWVFDbyFisen.Checked Then chkSensERWFreqRef.Checked = True
+
+        'OA Bypass Actuators
+        If optOABPDAByFisen.Checked Then chkSensOABPActuator.Checked = True
+
+        'Relief Air Bypass Damper Actuators
+        If optReliefAirActuatorsByFisen.Checked Then chkSensRelAirBPActuator.Checked = True
+
+        'Building Static Pressure Sensor
+        If optReliefDamperCtrlByFisen.Checked Then chkSensBSPres.Checked = True
+        If ((optReliefDamperCtrlByJCI.Checked) And optSE.Checked) Then chkSensBSPres.Checked = True
+
+        'Plenum Static Pressure Sensor
+        If ((optReliefDamperCtrlByJCI.Checked) And optIPU.Checked) Then chkSensWheelSPres.Checked = True
+        If ((optReliefDamperCtrlByJCI.Checked) And optASE.Checked) Then chkSensWheelSPres.Checked = True
+
+        'Wheel Static Pressure Sensor
+        If chkSensWheelSPres.Checked Then chkSensPPChangoverRelay.Checked = True
+        If chkPlenumPressureChangeOver.Checked Then chkSensPPChangoverRelay.Checked = True
+
+        'Internal Bypass Actuator
+        If optXABPActuatorByFisen.Checked Then chkSensERWBypassActuator.Checked = True
+
+        'RXFan Enable Relay
+        If optXFanByFisen.Checked Then chkSensRXSSRelay.Checked = True
+        If optRFanByFisen.Checked Then chkSensRXSSRelay.Checked = True
+
+        'RXFan Frequency Refernence
+        If optXFanByFisen.Checked Then chkSensRXFreqRef.Checked = True
+        If optRFanByFisen.Checked Then chkSensRXFreqRef.Checked = True
+
+        'RXFan AFS
+        If optXFanByFisen.Checked Then chkSensRXFanAFS.Checked = True
+        If optRFanByFisen.Checked Then chkSensRXFanAFS.Checked = True
+
+    End Sub
+    Private Sub cmbEconModeControlSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEconModeControlSelection.SelectedIndexChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOADAContByJCI_CheckedChanged(sender As Object, e As EventArgs) Handles optOADAContByJCI.CheckedChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOADAContByFisen_CheckedChanged(sender As Object, e As EventArgs) Handles optOADAContByFisen.CheckedChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub optOADAContGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optOADAContGBAS.CheckedChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub chkWheelRotationSensor_CheckedChanged(sender As Object, e As EventArgs) Handles chkWheelRotationSensor.CheckedChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub chkWheelDeltaPSensor_CheckedChanged(sender As Object, e As EventArgs) Handles chkWheelDeltaPSensor.CheckedChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub cmbReliefAirControlSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbReliefAirControlSelection.SelectedIndexChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub cmbXABPControlSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbXABPControlSelection.SelectedIndexChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub chkPlenumPressureChangeOver_CheckedChanged(sender As Object, e As EventArgs) Handles chkPlenumPressureChangeOver.CheckedChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub cmbFFControlSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFFControlSelection.SelectedIndexChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Sub cmbModeControlSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbModeControlSelection.SelectedIndexChanged
+        Call SetTheSensors()
+    End Sub
+
+    Private Function OAHoodSPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+    Private Function OAMetalFiltSPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+    Private Function OADamperSPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+    Private Function OAFiltSPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+    Private Function ERWFASPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+        Dim dummy As String
+
+        dummy = InputBox("Enter the Static Pressure of the ERW Fresh Air Side.", "ERW Module", "1.00")
+        TempCalc = Val(dummy)
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+    Private Function FATransitionsSPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+        Dim dummy As String
+
+        dummy = InputBox("Enter the Static Pressure of the ERW Transitions.", "ERW Module", "1.00")
+        TempCalc = Val(dummy)
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+    Private Function FACabFXSPCalc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+
+    Private Function Calc(FAFlow As String) As String
+        Dim TempCalc As Double
+        Dim RetString As String
+
+
+        If TempCalc > 0 Then
+            RetString = Format(TempCalc, "0.00")
+        Else
+            RetString = "-"
+        End If
+        Return RetString
+
+    End Function
+
+    Private Sub btnCalculateOAHood_Click(sender As Object, e As EventArgs) Handles btnCalculateOAHood.Click
+        txtSFStaticOAHood.Text = OAHoodSPCalc(txtStaticTableFreshAirFlow.Text)
+    End Sub
+
+    Private Sub btnCalculateOAMetalFilters_Click(sender As Object, e As EventArgs) Handles btnCalculateOAMetalFilters.Click
+        txtSFStaticMetalFilt.Text = OAMetalFiltSPCalc(txtStaticTableFreshAirFlow.Text)
+    End Sub
+
+    Private Sub btnCalculateOADamper_Click(sender As Object, e As EventArgs) Handles btnCalculateOADamper.Click
+        txtSFStaticOADamp.Text = OADamperSPCalc(txtStaticTableFreshAirFlow.Text)
+    End Sub
+
+    Private Sub btnCalculateOAFilters_Click(sender As Object, e As EventArgs) Handles btnCalculateOAFilters.Click
+        txtSFStaticOAFilt.Text = OAFiltSPCalc(txtStaticTableFreshAirFlow.Text)
+    End Sub
+
+    Private Sub btnCalculateOAERW_Click(sender As Object, e As EventArgs) Handles btnCalculateOAERW.Click
+        txtSFStaticERW.Text = ERWFASPCalc(txtStaticTableFreshAirFlow.Text)
+    End Sub
+
+    Private Sub btnCalculateOATransitions_Click(sender As Object, e As EventArgs) Handles btnCalculateOATransitions.Click
+        txtSFStaticTrans.Text = FATransitionsSPCalc(txtStaticTableFreshAirFlow.Text)
+    End Sub
 End Class
