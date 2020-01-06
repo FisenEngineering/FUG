@@ -195,6 +195,70 @@
             If optIFRackHEPASS.Checked Then
                 ModuleCodeList.Add("3951A3") 'HEPA Galvanized Rack
             End If
+
+            'Handle the Codes for Filter *controls*
+            If chkIFMagnehelic.Checked Then
+                Select Case cmbIFMagRange.Text
+                    Case Is = "0.00-0.50"
+                        If chkIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395502")
+                        Else
+                            ModuleCodeList.Add("395501")
+                        End If
+                    Case Is = "0.00-1.00"
+                        If chkIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395504")
+                        Else
+                            ModuleCodeList.Add("395503")
+                        End If
+                    Case Is = "0.00-2.00"
+                        If chkIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395506")
+                        Else
+                            ModuleCodeList.Add("395505")
+                        End If
+                    Case Is = "0.00-3.00"
+                        If chkIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395508")
+                        Else
+                            ModuleCodeList.Add("395507")
+                        End If
+                    Case Is = "0.00-5.00"
+                        If chkIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395510")
+                        Else
+                            ModuleCodeList.Add("395509")
+                        End If
+                End Select
+            End If
+            If chkIFXducer.Checked Then
+                Select Case cmbIFXdcrRange.Text
+                    Case Is = "0.00-0.50"
+                        ModuleCodeList.Add("395511")
+                    Case Is = "0.00-1.00"
+                        ModuleCodeList.Add("395512")
+                    Case Is = "0.00-2.00"
+                        ModuleCodeList.Add("395513")
+                    Case Is = "0.00-3.00"
+                        ModuleCodeList.Add("395514")
+                    Case Is = "0.00-5.00"
+                        ModuleCodeList.Add("395515")
+                End Select
+                If chkIFXdcrWire.Checked Then
+                    ModuleCodeList.Add("395517")
+                Else
+                    ModuleCodeList.Add("395516")
+                End If
+            End If
+            If chkIFDFS.Checked Then
+                If chkIFDFSWire.Checked Then
+                    ModuleCodeList.Add("395519")
+                Else
+                    ModuleCodeList.Add("395518")
+                End If
+            End If
+
+            'end of initial filter
         End If
 
         If chkFFBank.Checked Then
@@ -221,15 +285,79 @@
             If optFFRackGalv.Checked Then
                 ModuleCodeList.Add("3952A0") 'Galvanized Rack
             End If
-            If optIFRackSS.Checked Then
+            If optFFRackSS.Checked Then
                 ModuleCodeList.Add("3952A1") 'SS Rack
             End If
-            If optIFRackHEPAGalv.Checked Then
+            If optFFRackHEPAGalv.Checked Then
                 ModuleCodeList.Add("3952A2") 'HEPA Galvanized Rack
             End If
-            If optIFRackHEPASS.Checked Then
+            If optFFRackHEPASS.Checked Then
                 ModuleCodeList.Add("3952A3") 'HEPA Galvanized Rack
             End If
+
+            'Handle the Codes for Filter *controls*
+            If chkFFMagnehelic.Checked Then
+                Select Case cmbFFMagRange.Text
+                    Case Is = "0.00-0.50"
+                        If chkFFMinihelic.Checked Then
+                            ModuleCodeList.Add("395532")
+                        Else
+                            ModuleCodeList.Add("395531")
+                        End If
+                    Case Is = "0.00-1.00"
+                        If chkFFMinihelic.Checked Then
+                            ModuleCodeList.Add("395534")
+                        Else
+                            ModuleCodeList.Add("395533")
+                        End If
+                    Case Is = "0.00-2.00"
+                        If chkFFMinihelic.Checked Then
+                            ModuleCodeList.Add("395536")
+                        Else
+                            ModuleCodeList.Add("395535")
+                        End If
+                    Case Is = "0.00-3.00"
+                        If chkFFMinihelic.Checked Then
+                            ModuleCodeList.Add("395538")
+                        Else
+                            ModuleCodeList.Add("395537")
+                        End If
+                    Case Is = "0.00-5.00"
+                        If chkFFMinihelic.Checked Then
+                            ModuleCodeList.Add("395540")
+                        Else
+                            ModuleCodeList.Add("395539")
+                        End If
+                End Select
+            End If
+            If chkFFXducer.Checked Then
+                Select Case cmbFFXdcrRange.Text
+                    Case Is = "0.00-0.50"
+                        ModuleCodeList.Add("395541")
+                    Case Is = "0.00-1.00"
+                        ModuleCodeList.Add("395542")
+                    Case Is = "0.00-2.00"
+                        ModuleCodeList.Add("395543")
+                    Case Is = "0.00-3.00"
+                        ModuleCodeList.Add("395544")
+                    Case Is = "0.00-5.00"
+                        ModuleCodeList.Add("395545")
+                End Select
+                If chkFFXdcrWire.Checked Then
+                    ModuleCodeList.Add("395547")
+                Else
+                    ModuleCodeList.Add("395546")
+                End If
+            End If
+            If chkFFDFS.Checked Then
+                If chkFFDFSWire.Checked Then
+                    ModuleCodeList.Add("395549")
+                Else
+                    ModuleCodeList.Add("395548")
+                End If
+            End If
+
+            'end of final filter
         End If
 
         'This mimics a checkbox for the reconfiguration of a JCI bank (Hopefully)
@@ -259,8 +387,93 @@
             If chkRelocateJCIFFilts.Checked Then
                 ModuleCodeList.Add("395308")
             End If
+
+            'Handle the Codes for Filter *controls*
+            If chkJCIFMagnehelic.Checked Then
+                Select Case cmbJCIFMagRange.Text
+                    Case Is = "0.00-0.50"
+                        If chkJCIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395562")
+                        Else
+                            ModuleCodeList.Add("395561")
+                        End If
+                    Case Is = "0.00-1.00"
+                        If chkJCIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395564")
+                        Else
+                            ModuleCodeList.Add("395563")
+                        End If
+                    Case Is = "0.00-2.00"
+                        If chkJCIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395566")
+                        Else
+                            ModuleCodeList.Add("395565")
+                        End If
+                    Case Is = "0.00-3.00"
+                        If chkJCIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395568")
+                        Else
+                            ModuleCodeList.Add("395567")
+                        End If
+                    Case Is = "0.00-5.00"
+                        If chkJCIFMinihelic.Checked Then
+                            ModuleCodeList.Add("395570")
+                        Else
+                            ModuleCodeList.Add("395569")
+                        End If
+                End Select
+            End If
+            If chkJCIFXducer.Checked Then
+                Select Case cmbJCIFXdcrRange.Text
+                    Case Is = "0.00-0.50"
+                        ModuleCodeList.Add("395571")
+                    Case Is = "0.00-1.00"
+                        ModuleCodeList.Add("395572")
+                    Case Is = "0.00-2.00"
+                        ModuleCodeList.Add("395573")
+                    Case Is = "0.00-3.00"
+                        ModuleCodeList.Add("395574")
+                    Case Is = "0.00-5.00"
+                        ModuleCodeList.Add("395575")
+                End Select
+                If chkJCIFXdcrWire.Checked Then
+                    ModuleCodeList.Add("395577")
+                Else
+                    ModuleCodeList.Add("395576")
+                End If
+            End If
+            If chkJCIFDFS.Checked Then
+                If chkJCIFDFSWire.Checked Then
+                    ModuleCodeList.Add("395579")
+                Else
+                    ModuleCodeList.Add("395578")
+                End If
+            End If
+
+
+            'end of jci filter
         End If
 
+        If Not (optExtModNone.Checked) Then
+            If optExtModHoriz.Checked Then
+                ModuleCodeList.Add("395430") 'Horizontal Discharge Module
+                'S10 is really just a placeholder showing that there is no ship loose on this one.  That might not be right.
+                If cmbExternalModuleStyle.Text = "S10 Horizontal Discharge Module" Then
+                    ModuleCodeList.Add("395432")
+                End If
+                If cmbExternalModuleStyle.Text = "S20 Horizontal Discharge Module" Then
+                    ModuleCodeList.Add("395433")
+                    ModuleCodeList.Add("395499")
+                End If
+
+            End If
+            If optExtModDown.Checked Then
+
+            End If
+            If optExtMod3Party.Checked Then
+
+            End If
+        End If
 
 
         For i = 0 To ModuleCodeList.Count - 1
@@ -270,25 +483,264 @@
     Private Sub UpdateWarrantyItems()
         'None
         frmMain.ThisUnitWarrTest.AirflowTest = True
+        If chkIFXdcrWire.Checked Then frmMain.ThisUnitWarrTest.CtrlTest = True
+        If chkIFDFSWire.Checked Then frmMain.ThisUnitWarrTest.CtrlTest = True
+        If chkFFXdcrWire.Checked Then frmMain.ThisUnitWarrTest.CtrlTest = True
+        If chkFFDFSWire.Checked Then frmMain.ThisUnitWarrTest.CtrlTest = True
+        If chkJCIFXdcrWire.Checked Then frmMain.ThisUnitWarrTest.CtrlTest = True
+        If chkJCIFDFSWire.Checked Then frmMain.ThisUnitWarrTest.CtrlTest = True
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As String
+        Dim IFB, FFB, JCIFB As Boolean
+        Dim WeightName As String
+        Dim IRackMass, FRackMass, JCIRackMass As Double
+        Dim IFilts, IPFilts, FFilts, FPFilts, JCINetFilts As Double
+        Dim ExtModule As Double
+        Dim IConts, FConts, JCIConts As Double
+        Dim i As Integer
+        Dim CurFiltCount As Integer
+        Dim CurFiltType As String
+        Dim CurFiltSize As String
+        Dim CurFiltMass As Double
 
+        tempWeight = "9999"
+
+        IFB = chkIFBank.Checked
+        FFB = chkFFBank.Checked
+        JCIFB = grpCtrlFactory.Enabled
+
+        WeightName = ""
+        If JCIFB Then
+            WeightName = "Rem/Rec JCI"
+        End If
+        If IFB Then
+            If WeightName <> "" Then
+                WeightName = WeightName & "\"
+            End If
+            WeightName = WeightName & "Initial"
+        End If
+        If IFB Then
+            If WeightName <> "" Then
+                WeightName = WeightName & "\"
+            End If
+            WeightName = WeightName & "Final"
+        End If
+        WeightName = WeightName & " Filter Bank"
 
         'next line is the mod code i.e. HWCoil...
         frmMain.ThisUnitPhysicalData.ModLoadMod.Add("Filt")
         'Next Line is the line item description i.e. Hot Water Description
-        frmMain.ThisUnitPhysicalData.ModLoadItem.Add("Horizontal S20 Return Fan Module")
-        tempWeight = "9999"
+        frmMain.ThisUnitPhysicalData.ModLoadItem.Add(WeightName)
 
-        'tempWeight = "35"
+        'Lets calculate the rack masses first
+        IRackMass = 0
+        FRackMass = 0
+        JCIRackMass = 0
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                If optIFRackGalv.Checked Then IRackMass = 12
+                If optIFRackSS.Checked Then IRackMass = 16
+                If optIFRackHEPAGalv.Checked Then IRackMass = 30
+                If optIFRackHEPASS.Checked Then IRackMass = 36
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 12
+                If optFFRackSS.Checked Then FRackMass = 16
+                If optFFRackHEPAGalv.Checked Then FRackMass = 30
+                If optFFRackHEPASS.Checked Then FRackMass = 36
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 8
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 8
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 4
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 4
+            Case Is = "Series10"
+                If optIFRackGalv.Checked Then IRackMass = 13
+                If optIFRackSS.Checked Then IRackMass = 17
+                If optIFRackHEPAGalv.Checked Then IRackMass = 32
+                If optIFRackHEPASS.Checked Then IRackMass = 37
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 13
+                If optFFRackSS.Checked Then FRackMass = 17
+                If optFFRackHEPAGalv.Checked Then FRackMass = 32
+                If optFFRackHEPASS.Checked Then FRackMass = 37
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 8
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 8
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 4
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 4
+            Case Is = "Series12"
+                If optIFRackGalv.Checked Then IRackMass = 13
+                If optIFRackSS.Checked Then IRackMass = 17
+                If optIFRackHEPAGalv.Checked Then IRackMass = 32
+                If optIFRackHEPASS.Checked Then IRackMass = 37
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 13
+                If optFFRackSS.Checked Then FRackMass = 17
+                If optFFRackHEPAGalv.Checked Then FRackMass = 32
+                If optFFRackHEPASS.Checked Then FRackMass = 37
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 8
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 8
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 4
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 4
+            Case Is = "Series20"
+                If optIFRackGalv.Checked Then IRackMass = 18
+                If optIFRackSS.Checked Then IRackMass = 22
+                If optIFRackHEPAGalv.Checked Then IRackMass = 36
+                If optIFRackHEPASS.Checked Then IRackMass = 40
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 18
+                If optFFRackSS.Checked Then FRackMass = 22
+                If optFFRackHEPAGalv.Checked Then FRackMass = 36
+                If optFFRackHEPASS.Checked Then FRackMass = 40
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 6
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 6
+            Case Is = "Series40"
+                'Depricated *Probably not going to be used*
+                If optIFRackGalv.Checked Then IRackMass = 20
+                If optIFRackSS.Checked Then IRackMass = 26
+                If optIFRackHEPAGalv.Checked Then IRackMass = 48
+                If optIFRackHEPASS.Checked Then IRackMass = 56
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 20
+                If optFFRackSS.Checked Then FRackMass = 26
+                If optFFRackHEPAGalv.Checked Then FRackMass = 48
+                If optFFRackHEPASS.Checked Then FRackMass = 5
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 6
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 6
+            Case Is = "Series100"
+                If optIFRackGalv.Checked Then IRackMass = 30
+                If optIFRackSS.Checked Then IRackMass = 36
+                If optIFRackHEPAGalv.Checked Then IRackMass = 48
+                If optIFRackHEPASS.Checked Then IRackMass = 52
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 30
+                If optFFRackSS.Checked Then FRackMass = 36
+                If optFFRackHEPAGalv.Checked Then FRackMass = 48
+                If optFFRackHEPASS.Checked Then FRackMass = 52
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 14
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 14
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 8
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 8
+            Case Is = "Premier"
+                If optIFRackGalv.Checked Then IRackMass = 20
+                If optIFRackSS.Checked Then IRackMass = 26
+                If optIFRackHEPAGalv.Checked Then IRackMass = 48
+                If optIFRackHEPASS.Checked Then IRackMass = 56
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 20
+                If optFFRackSS.Checked Then FRackMass = 26
+                If optFFRackHEPAGalv.Checked Then FRackMass = 48
+                If optFFRackHEPASS.Checked Then FRackMass = 5
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 6
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 6
+            Case Is = "Choice"
+                If optIFRackGalv.Checked Then IRackMass = 18
+                If optIFRackSS.Checked Then IRackMass = 22
+                If optIFRackHEPAGalv.Checked Then IRackMass = 36
+                If optIFRackHEPASS.Checked Then IRackMass = 40
+                If chkIFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If optFFRackGalv.Checked Then FRackMass = 18
+                If optFFRackSS.Checked Then FRackMass = 22
+                If optFFRackHEPAGalv.Checked Then FRackMass = 36
+                If optFFRackHEPASS.Checked Then FRackMass = 40
+                If chkFFPrefilt.Checked Then IRackMass = IRackMass * 1.25 'Add a bit for prefilter hardware/sm
+                If chkRemoveJCIIFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRemoveJCIFFilts.Checked Then JCIRackMass = JCIRackMass - 10
+                If chkRelocateJCIIFilts.Checked Then JCIRackMass = JCIRackMass + 6
+                If chkRelocateJCIFFilts.Checked Then JCIRackMass = JCIRackMass + 6
+            Case Else
+                JCIRackMass = -9999
+                IRackMass = -9999
+                FRackMass = -9999
+        End Select
 
-        'Shallow V Series 40
-        'tempWeight = 64
+        'Now lets handle adding the actual filter mass
+        IFilts = 0
+        If IFB Then
+            CurFiltType = cmbActIF.Text
+            Select Case CurFiltType
+                Case Is = "AAF PerfectPleat HC 1in M8"
 
-        'Series 20 drop in downflow only
-        tempWeight = 732
+                    CurFiltMass = 0.18
+                Case Is = "AAF PerfectPleat 2in M8"
+                    CurFiltMass = 0.36
+                Case Is = "AAF PerfectPleat HC 2in M8"
+                    CurFiltMass = 0.4
+                Case Is = "AAF PerfectPleat 4in M8"
+                    CurFiltMass = 0.8
+                Case Is = "AAF Varicell 12in M14"
+                    CurFiltMass = 4.75
+                Case Is = "AAF Varicell II 4in M14"
+                    CurFiltMass = 0.85
+            End Select
+            IFilts = CurFiltMass * Val(lblIFaceArea.Text)
+            If chkIFPrefilt.Checked Then IFilts = IFilts + (Val(lblIFaceArea.Text) * 0.36)
+        End If
 
+        FFilts = 0
+        If FFB Then
+            CurFiltType = cmbActFF.Text
+            Select Case CurFiltType
+                Case Is = "AAF PerfectPleat HC 1in M8"
+                    CurFiltMass = 0.18
+                Case Is = "AAF PerfectPleat 2in M8"
+                    CurFiltMass = 0.36
+                Case Is = "AAF PerfectPleat HC 2in M8"
+                    CurFiltMass = 0.4
+                Case Is = "AAF PerfectPleat 4in M8"
+                    CurFiltMass = 0.8
+                Case Is = "AAF Varicell 12in M14"
+                    CurFiltMass = 4.75
+                Case Is = "AAF Varicell II 4in M14"
+                    CurFiltMass = 0.85
+            End Select
+            FFilts = CurFiltMass * Val(lblFaceArea.Text)
+            If chkFFPrefilt.Checked Then FFilts = FFilts + (Val(lblFaceArea.Text) * 0.36)
+        End If
+
+        JCINetFilts = 0
+        If JCIFB Then
+            If chkRemoveJCIIFilts.Checked Then
+                JCINetFilts = -20
+            End If
+            If chkRemoveJCIFFilts.Checked Then
+                JCINetFilts = -20
+            End If
+        End If
+
+        ExtModule = 0
+        Select Case cmbExternalModuleStyle.Text
+            Case Is = "S20 Horizontal Discharge Module"
+                ExtModule = -999
+            Case Else
+                ExtModule = -999
+        End Select
+
+        IConts = 0
+        If chkIFMagnehelic.Checked Then IConts = IConts + 2
+        If chkIFXducer.Checked Then IConts = IConts + 1
+        If chkIFDFS.Checked Then IConts = IConts + 2
+        FConts = 0
+        If chkFFMagnehelic.Checked Then FConts = FConts + 2
+        If chkFFXducer.Checked Then FConts = FConts + 1
+        If chkFFDFS.Checked Then FConts = FConts + 2
+        JCIConts = 0
+        If chkJCIFMagnehelic.Checked Then JCIConts = JCIConts + 2
+        If chkJCIFXducer.Checked Then JCIConts = JCIConts + 1
+        If chkJCIFDFS.Checked Then JCIConts = JCIConts + 2
+
+        tempWeight = IRackMass + FRackMass + JCIRackMass + IFilts + FFilts + JCINetFilts + ExtModule + IConts + FConts + JCIConts
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
