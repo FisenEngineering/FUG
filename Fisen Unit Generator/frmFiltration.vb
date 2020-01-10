@@ -1,6 +1,8 @@
 ﻿Public Class frmFiltration
     Private pCancelled As Boolean
+#Disable Warning IDE0044 ' Add readonly modifier
     Private ModuleCodeList As New ArrayList
+#Enable Warning IDE0044 ' Add readonly modifier
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -11,13 +13,17 @@
     End Property
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Call WriteFilterAuditReport
+        Call WriteFilterAuditReport()
         Call UpdatePerformance()
         Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("Filt") 'Mod Code goes here!
 
         Call UpdateCodeList()
+
+
+
+        If chkWriteHistory.Checked = True Then Call WriteHistory()
         Me.Hide()
 
     End Sub
@@ -100,7 +106,9 @@
                 frmMain.ThisUnitFFilters.PreFiltAPD = lblPreFAPD.Text
                 frmMain.ThisUnitFFilters.PreFiltMaxAPD = lblPreFMaxAPD.Text
                 frmMain.ThisUnitFFilters.PreFiltDFA = txtPreFDFA.Text
+#Disable Warning IDE0054 ' Use compound assignment
                 YPALStaticName = YPALStaticName & " + Prefilters"
+#Enable Warning IDE0054 ' Use compound assignment
             Else
                 frmMain.ThisUnitFFilters.PreFilterPresent = False
             End If
@@ -475,6 +483,7 @@
             End If
         End If
 
+        Call PerformDesignCautionScan(False)
 
         For i = 0 To ModuleCodeList.Count - 1
             frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
@@ -495,13 +504,11 @@
         Dim IFB, FFB, JCIFB As Boolean
         Dim WeightName As String
         Dim IRackMass, FRackMass, JCIRackMass As Double
-        Dim IFilts, IPFilts, FFilts, FPFilts, JCINetFilts As Double
+        Dim IFilts, FFilts, JCINetFilts As Double
         Dim ExtModule As Double
         Dim IConts, FConts, JCIConts As Double
-        Dim i As Integer
-        Dim CurFiltCount As Integer
+
         Dim CurFiltType As String
-        Dim CurFiltSize As String
         Dim CurFiltMass As Double
 
         tempWeight = "9999"
@@ -769,6 +776,17 @@
             dummy = MsgBox("Airflow must be greater than zero.", vbOKOnly, "Fisen Unit Generator")
             Exit Sub
         End If
+
+        If ((chkIFBank.Checked) And (cmbIFType.Text = "N/A")) Then
+            dummy = MsgBox("You must select a type of filter for the initial filter bank.", vbOKOnly, "Fisen Unit Generator")
+            Exit Sub
+        End If
+
+        If ((chkFFBank.Checked) And (cmbFFType.Text = "N/A")) Then
+            dummy = MsgBox("You must select a type of filter for the final filter bank.", vbOKOnly, "Fisen Unit Generator")
+            Exit Sub
+        End If
+
         txtAirflow.Text = Trim(txtAirflow.Text)
         TabControl1.SelectTab("tpgOptions")
     End Sub
@@ -1121,6 +1139,20 @@
 
     End Sub
 
+    Private Sub txtIDFA_Leave(sender As Object, e As EventArgs) Handles txtIDFA.Leave
+        Dim apd As Double
+        Dim dfa As Double
+        Dim preapd As Double
+        Dim predfa As Double
+        Dim budget As Double
+
+        apd = Val(lblIAPD.Text)
+        dfa = Val(txtIDFA.Text)
+        preapd = Val(lblPreIAPD.Text)
+        predfa = Val(txtPreIDFA.Text)
+        budget = apd + dfa + preapd + predfa
+        lblIStaticBudget.Text = Format(budget, "0.00")
+    End Sub
     Private Sub txtDFA_Leave(sender As Object, e As EventArgs) Handles txtDFA.Leave
         Dim apd As Double
         Dim dfa As Double
@@ -1133,7 +1165,6 @@
         preapd = Val(lblPreFAPD.Text)
         predfa = Val(txtPreFDFA.Text)
         budget = apd + dfa + preapd + predfa
-        budget = apd + dfa
         lblStaticBudget.Text = Format(budget, "0.00")
     End Sub
 
@@ -1247,7 +1278,7 @@
             End Select
         End If
         cmbExternalModuleStyle.Items.Add("Custom Module")
-            cmbExternalModuleStyle.Text = "Unselected"
+        cmbExternalModuleStyle.Text = "Unselected"
     End Sub
 
     Private Sub chkRelocateJCIIPreFilts_CheckedChanged(sender As Object, e As EventArgs) Handles chkRelocateJCIIPreFilts.CheckedChanged
@@ -1528,20 +1559,7 @@
         If lstFFSelected.Items.Count < 4 Then cmdAddFF.Enabled = True
     End Sub
 
-    Private Sub txtIDFA_Leave(sender As Object, e As EventArgs) Handles txtIDFA.Leave
-        Dim apd As Double
-        Dim dfa As Double
-        Dim preapd As Double
-        Dim predfa As Double
-        Dim budget As Double
 
-        apd = Val(lblIAPD.Text)
-        dfa = Val(txtIDFA.Text)
-        preapd = Val(lblPreIAPD.Text)
-        predfa = Val(txtPreIDFA.Text)
-        budget = apd + dfa + preapd + predfa
-        lblIStaticBudget.Text = Format(budget, "0.00")
-    End Sub
 
     Private Sub cmbActIF_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbActIF.SelectedIndexChanged
         Call FillAvailableFilterSizes("Initial")
@@ -1575,15 +1593,15 @@
             MyListBox = tpgFilters.Controls("lstIFAvail")
         End If
         MyListBox.Items.Clear()
-        MyListBox.Items.Add("24x24x12")
-        MyListBox.Items.Add("20x25x12")
-        MyListBox.Items.Add("20x24x12")
-        MyListBox.Items.Add("20x20x12")
-        MyListBox.Items.Add("18x24x12")
-        MyListBox.Items.Add("16x25x12")
-        MyListBox.Items.Add("16x20x12")
-        MyListBox.Items.Add("12x24x12")
-        MyListBox.Items.Add("12x12x12")
+        MyListBox.Items.Add("24x24x4")
+        MyListBox.Items.Add("20x25x4")
+        MyListBox.Items.Add("20x24x4")
+        MyListBox.Items.Add("20x20x4")
+        MyListBox.Items.Add("18x24x4")
+        MyListBox.Items.Add("16x25x4")
+        MyListBox.Items.Add("16x20x4")
+        MyListBox.Items.Add("12x24x4")
+        MyListBox.Items.Add("12x12x4")
     End Sub
     Private Sub PopulateFilterOptsPPM8x2(MyBank As String)
         Dim MyListBox As New ListBox
@@ -1692,6 +1710,8 @@
     End Sub
     Private Sub FillAvailableFilterSizes(WhichBank As String)
         Dim FilterType As String
+
+        FilterType = "n/a"
         If WhichBank = "Initial" Then
             FilterType = cmbActIF.Text
         End If
@@ -1859,5 +1879,244 @@
         predfa = Val(txtPreIDFA.Text)
         budget = apd + dfa + preapd + predfa
         lblIStaticBudget.Text = Format(budget, "0.00")
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "Filters"
+        frmHistoryReport.Show()
+    End Sub
+
+    Private Sub WriteHistory()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        Dim FilterBank, FilterBankMaterial, ExternalModule, FilterType, FiltSize1, FiltSize2, FiltSize3, FiltSize4, FiltQ1, FiltQ2, FiltQ3, FiltQ4, PreFiltType, StaticBudget, AirFlow As String
+        Dim PreFilterThere As Boolean
+        Dim PFTS As String
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+        AirFlow = txtAirflow.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+        }
+        If chkIFBank.Checked Then
+            PreFilterThere = chkIFPrefilt.Checked
+            If PreFilterThere Then
+                PFTS = "'TRUE'"
+            Else
+                PFTS = "FALSE"
+            End If
+            FilterBank = "Initial"
+            FilterBankMaterial = "N/A"
+            If optIFRackGalv.Checked Then FilterBankMaterial = "Galvanized"
+            If optIFRackSS.Checked Then FilterBankMaterial = "Stainless Steel"
+            If optIFRackHEPAGalv.Checked Then FilterBankMaterial = "Galvanized HEPA"
+            If optIFRackHEPASS.Checked Then FilterBankMaterial = "Stainless Steel HEPA"
+
+            ExternalModule = cmbExternalModuleStyle.Text
+            FilterType = cmbActIF.Text
+            FiltQ1 = Mid(lstIFSelected.Items(0).ToString, 2, 2)
+            FiltSize1 = Mid(lstIFSelected.Items(0).ToString, 6)
+            If lstPreIFSelected.Items.Count > 1 Then
+                FiltQ2 = Mid(lstIFSelected.Items(1).ToString, 2, 2)
+                FiltSize2 = Mid(lstIFSelected.Items(1).ToString, 6)
+            Else
+                FiltQ2 = "-"
+                FiltSize2 = "-"
+            End If
+            If lstPreIFSelected.Items.Count > 2 Then
+                FiltQ3 = Mid(lstIFSelected.Items(2).ToString, 2, 2)
+                FiltSize3 = Mid(lstIFSelected.Items(2).ToString, 6)
+            Else
+                FiltQ3 = "-"
+                FiltSize3 = "-"
+            End If
+            If lstPreIFSelected.Items.Count > 3 Then
+                FiltQ4 = Mid(lstIFSelected.Items(3).ToString, 2, 2)
+                FiltSize4 = Mid(lstIFSelected.Items(3).ToString, 6)
+            Else
+                FiltQ4 = "-"
+                FiltSize4 = "-"
+            End If
+            If PreFilterThere Then
+                PreFiltType = "AAF PerfectPleat 2in M8"
+            Else
+                PreFiltType = "-"
+            End If
+            StaticBudget = lblIStaticBudget.Text
+            MySQL = "SELECT * FROM tblHistoryFilters WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (FilterBank='" & FilterBank & "')"
+
+            rs.Open(MySQL, con)
+
+            If rs.RecordCount > 0 Then
+                'Update SQL
+                ExistingRecordID = rs.Fields(0).Value
+                MySQL = "UPDATE tblHistoryFilters SET FilterBankMaterial='" & FilterBankMaterial & "', PreFilters=" & PFTS & ", " & "ExternalModule='" & ExternalModule & "', FiltType='" & FilterType & "', Filt1Size='" & FiltSize1 & "', Filt1Qty='" & FiltQ1 & "', Filt2Size='" & FiltSize2 & "', Filt2Qty='" & FiltQ2 & "', Filt3Size='" & FiltSize3 & "', Filt3Qty='" & FiltQ3 & "', Filt4Size='" & FiltSize4 & "', Filt4Qty='" & FiltQ4 & "', PreFiltType='" & PreFiltType & "', StaticBudget='" & StaticBudget & "', Airflow='" & AirFlow & "' WHERE KeyID=" & ExistingRecordID
+
+                con.Execute(MySQL)
+            Else
+                'Insert SQL
+                MySQL = "INSERT INTO tblHistoryFilters (JobName,UnitID,Version,ModelNumber,FilterBank,FilterBankMaterial,PreFilters,ExternalModule,FiltType,Filt1Size,Filt1Qty,Filt2Size,Filt2Qty,Filt3Size,Filt3Qty,Filt4Size,Filt4Qty,PreFiltType,StaticBudget,Airflow) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & FilterBank & "','" & FilterBankMaterial & "'," & PFTS & ",'" & ExternalModule & "','" & FilterType & "','" & FiltSize1 & "','" & FiltQ1 & "','" & FiltSize2 & "','" & FiltQ2 & "','" & FiltSize3 & "','" & FiltQ3 & "','" & FiltSize4 & "','" & FiltQ4 & "','" & PreFiltType & "','" & StaticBudget & "','" & AirFlow & "')"
+                con.Execute(MySQL)
+            End If
+        End If
+
+        If chkFFBank.Checked Then
+            PreFilterThere = chkFFPrefilt.Checked
+            If PreFilterThere Then
+                PFTS = "'TRUE'"
+            Else
+                PFTS = "FALSE"
+            End If
+            FilterBank = "Final"
+            FilterBankMaterial = "N/A"
+            If optFFRackGalv.Checked Then FilterBankMaterial = "Galvanized"
+            If optFFRackSS.Checked Then FilterBankMaterial = "Stainless Steel"
+            If optFFRackHEPAGalv.Checked Then FilterBankMaterial = "Galvanized HEPA"
+            If optFFRackHEPASS.Checked Then FilterBankMaterial = "Stainless Steel HEPA"
+
+            ExternalModule = cmbExternalModuleStyle.Text
+            FilterType = cmbActFF.Text
+            FiltQ1 = Mid(lstFFSelected.Items(0).ToString, 2, 2)
+            FiltSize1 = Mid(lstFFSelected.Items(0).ToString, 6)
+            If lstPreFFSelected.Items.Count > 1 Then
+                FiltQ2 = Mid(lstFFSelected.Items(1).ToString, 2, 2)
+                FiltSize2 = Mid(lstFFSelected.Items(1).ToString, 6)
+            Else
+                FiltQ2 = "-"
+                FiltSize2 = "-"
+            End If
+            If lstPreFFSelected.Items.Count > 2 Then
+                FiltQ3 = Mid(lstFFSelected.Items(2).ToString, 2, 2)
+                FiltSize3 = Mid(lstFFSelected.Items(2).ToString, 6)
+            Else
+                FiltQ3 = "-"
+                FiltSize3 = "-"
+            End If
+            If lstPreFFSelected.Items.Count > 3 Then
+                FiltQ4 = Mid(lstFFSelected.Items(3).ToString, 2, 2)
+                FiltSize4 = Mid(lstFFSelected.Items(3).ToString, 6)
+            Else
+                FiltQ4 = "-"
+                FiltSize4 = "-"
+            End If
+            If PreFilterThere Then
+                PreFiltType = "AAF PerfectPleat 2in M8"
+            Else
+                PreFiltType = "-"
+            End If
+            StaticBudget = lblStaticBudget.Text
+            MySQL = "SELECT * FROM tblHistoryFilters WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (FilterBank='" & FilterBank & "')"
+
+            rs.Open(MySQL, con)
+
+            If rs.RecordCount > 0 Then
+                'Update SQL
+                ExistingRecordID = rs.Fields(0).Value
+                MySQL = "UPDATE tblHistoryFilters SET FilterBankMaterial='" & FilterBankMaterial & "', PreFilters=" & PFTS & ", " & "ExternalModule='" & ExternalModule & "', FiltType='" & FilterType & "', Filt1Size='" & FiltSize1 & "', Filt1Qty='" & FiltQ1 & "', Filt2Size='" & FiltSize2 & "', Filt2Qty='" & FiltQ2 & "', Filt3Size='" & FiltSize3 & "', Filt3Qty='" & FiltQ3 & "', Filt4Size='" & FiltSize4 & "', Filt4Qty='" & FiltQ4 & "', PreFiltType='" & PreFiltType & "', StaticBudget='" & StaticBudget & "', Airflow='" & AirFlow & "' WHERE KeyID=" & ExistingRecordID
+
+                con.Execute(MySQL)
+            Else
+                'Insert SQL
+                MySQL = "INSERT INTO tblHistoryFilters (JobName,UnitID,Version,ModelNumber,FilterBank,FilterBankMaterial,PreFilters,ExternalModule,FiltType,Filt1Size,Filt1Qty,Filt2Size,Filt2Qty,Filt3Size,Filt3Qty,Filt4Size,Filt4Qty,PreFiltType,StaticBudget,Airflow) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & FilterBank & "','" & FilterBankMaterial & "'," & PFTS & ",'" & ExternalModule & "','" & FilterType & "','" & FiltSize1 & "','" & FiltQ1 & "','" & FiltSize2 & "','" & FiltQ2 & "','" & FiltSize3 & "','" & FiltQ3 & "','" & FiltSize4 & "','" & FiltQ4 & "','" & PreFiltType & "','" & StaticBudget & "','" & AirFlow & "')"
+                con.Execute(MySQL)
+            End If
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
+    End Sub
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '395%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '395%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
     End Sub
 End Class

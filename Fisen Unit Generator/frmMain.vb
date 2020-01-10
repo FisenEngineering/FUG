@@ -8102,12 +8102,19 @@ Public Class frmMain
 
     Private Sub cmdFSTImport_Click(sender As Object, e As EventArgs) Handles cmdFSTImport.Click
         Dim FSTFile As String
+        Dim FullFilePath As String
 
-        If txtBaseUnitFile.Text = "" Then
-            OpenFileDialog1.InitialDirectory = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\"
-            OpenFileDialog1.FileName = "BaseUnitFile.xml"
-            OpenFileDialog1.ShowDialog()
-            txtBaseUnitFile.Text = OpenFileDialog1.FileName
+        FullFilePath = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\BaseUnitFile.xml"
+        If Not (My.Computer.FileSystem.FileExists(FullFilePath)) Then
+            If txtBaseUnitFile.Text = "" Then
+                OpenFileDialog1.InitialDirectory = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\"
+                OpenFileDialog1.FileName = "BaseUnitFile.xml"
+                OpenFileDialog1.ShowDialog()
+                Debug.Print(OpenFileDialog1.FileName)
+                txtBaseUnitFile.Text = OpenFileDialog1.FileName
+            End If
+        Else
+            txtBaseUnitFile.Text = FullFilePath
         End If
 
         FSTFile = txtBaseUnitFile.Text

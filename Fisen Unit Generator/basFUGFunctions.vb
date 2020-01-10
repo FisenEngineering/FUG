@@ -44,4 +44,15 @@
         SlopeIntercept = m * newx + b
     End Function
 
+    Public Function Model2Family(ModelNumber As String) As String
+        Dim TempFamily As String
+        TempFamily = "Unknown"
+
+        If Mid(ModelNumber, 1, 4) = "YPAL" Then
+            TempFamily = "Series100"
+        End If
+
+        Return TempFamily
+    End Function
+
 End Module

@@ -22,8 +22,21 @@ Partial Class frmFiltration
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFiltration))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.grpFFRack = New System.Windows.Forms.GroupBox()
+        Me.optFFRackNA = New System.Windows.Forms.RadioButton()
+        Me.optFFRackHEPASS = New System.Windows.Forms.RadioButton()
+        Me.optFFRackHEPAGalv = New System.Windows.Forms.RadioButton()
+        Me.optFFRackSS = New System.Windows.Forms.RadioButton()
+        Me.optFFRackGalv = New System.Windows.Forms.RadioButton()
+        Me.grpIFRack = New System.Windows.Forms.GroupBox()
+        Me.optIFRackNA = New System.Windows.Forms.RadioButton()
+        Me.optIFRackHEPASS = New System.Windows.Forms.RadioButton()
+        Me.optIFRackHEPAGalv = New System.Windows.Forms.RadioButton()
+        Me.optIFRackSS = New System.Windows.Forms.RadioButton()
+        Me.optIFRackGalv = New System.Windows.Forms.RadioButton()
         Me.chkIFPrefiltUseJCI = New System.Windows.Forms.CheckBox()
         Me.chkRelocateJCIIFinalPreFilts = New System.Windows.Forms.CheckBox()
         Me.chkRemoveJCIIFinalPreFilts = New System.Windows.Forms.CheckBox()
@@ -158,20 +171,13 @@ Partial Class frmFiltration
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.grpIFRack = New System.Windows.Forms.GroupBox()
-        Me.optIFRackGalv = New System.Windows.Forms.RadioButton()
-        Me.optIFRackSS = New System.Windows.Forms.RadioButton()
-        Me.optIFRackHEPAGalv = New System.Windows.Forms.RadioButton()
-        Me.optIFRackHEPASS = New System.Windows.Forms.RadioButton()
-        Me.grpFFRack = New System.Windows.Forms.GroupBox()
-        Me.optFFRackHEPASS = New System.Windows.Forms.RadioButton()
-        Me.optFFRackHEPAGalv = New System.Windows.Forms.RadioButton()
-        Me.optFFRackSS = New System.Windows.Forms.RadioButton()
-        Me.optFFRackGalv = New System.Windows.Forms.RadioButton()
-        Me.optIFRackNA = New System.Windows.Forms.RadioButton()
-        Me.optFFRackNA = New System.Windows.Forms.RadioButton()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
+        Me.grpFFRack.SuspendLayout()
+        Me.grpIFRack.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.tpgControls.SuspendLayout()
@@ -182,8 +188,6 @@ Partial Class frmFiltration
         Me.tpgPerformance.SuspendLayout()
         Me.grpInitialPerf.SuspendLayout()
         Me.grpFinalPerf.SuspendLayout()
-        Me.grpIFRack.SuspendLayout()
-        Me.grpFFRack.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -230,6 +234,140 @@ Partial Class frmFiltration
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'grpFFRack
+        '
+        Me.grpFFRack.Controls.Add(Me.optFFRackNA)
+        Me.grpFFRack.Controls.Add(Me.optFFRackHEPASS)
+        Me.grpFFRack.Controls.Add(Me.optFFRackHEPAGalv)
+        Me.grpFFRack.Controls.Add(Me.optFFRackSS)
+        Me.grpFFRack.Controls.Add(Me.optFFRackGalv)
+        Me.grpFFRack.Enabled = False
+        Me.grpFFRack.Location = New System.Drawing.Point(20, 219)
+        Me.grpFFRack.Name = "grpFFRack"
+        Me.grpFFRack.Size = New System.Drawing.Size(431, 67)
+        Me.grpFFRack.TabIndex = 44
+        Me.grpFFRack.TabStop = False
+        Me.grpFFRack.Text = "Filter Rack Construction"
+        '
+        'optFFRackNA
+        '
+        Me.optFFRackNA.AutoSize = True
+        Me.optFFRackNA.Checked = True
+        Me.optFFRackNA.Location = New System.Drawing.Point(277, 19)
+        Me.optFFRackNA.Name = "optFFRackNA"
+        Me.optFFRackNA.Size = New System.Drawing.Size(42, 17)
+        Me.optFFRackNA.TabIndex = 49
+        Me.optFFRackNA.TabStop = True
+        Me.optFFRackNA.Text = "n/a"
+        Me.optFFRackNA.UseVisualStyleBackColor = True
+        '
+        'optFFRackHEPASS
+        '
+        Me.optFFRackHEPASS.AutoSize = True
+        Me.optFFRackHEPASS.Location = New System.Drawing.Point(106, 42)
+        Me.optFFRackHEPASS.Name = "optFFRackHEPASS"
+        Me.optFFRackHEPASS.Size = New System.Drawing.Size(153, 17)
+        Me.optFFRackHEPASS.TabIndex = 47
+        Me.optFFRackHEPASS.Text = "Stainless Face Load HEPA"
+        Me.optFFRackHEPASS.UseVisualStyleBackColor = True
+        '
+        'optFFRackHEPAGalv
+        '
+        Me.optFFRackHEPAGalv.AutoSize = True
+        Me.optFFRackHEPAGalv.Location = New System.Drawing.Point(106, 19)
+        Me.optFFRackHEPAGalv.Name = "optFFRackHEPAGalv"
+        Me.optFFRackHEPAGalv.Size = New System.Drawing.Size(164, 17)
+        Me.optFFRackHEPAGalv.TabIndex = 46
+        Me.optFFRackHEPAGalv.Text = "Galvanized Face Load HEPA"
+        Me.optFFRackHEPAGalv.UseVisualStyleBackColor = True
+        '
+        'optFFRackSS
+        '
+        Me.optFFRackSS.AutoSize = True
+        Me.optFFRackSS.Location = New System.Drawing.Point(6, 42)
+        Me.optFFRackSS.Name = "optFFRackSS"
+        Me.optFFRackSS.Size = New System.Drawing.Size(94, 17)
+        Me.optFFRackSS.TabIndex = 45
+        Me.optFFRackSS.Text = "Stainless Steel"
+        Me.optFFRackSS.UseVisualStyleBackColor = True
+        '
+        'optFFRackGalv
+        '
+        Me.optFFRackGalv.AutoSize = True
+        Me.optFFRackGalv.Location = New System.Drawing.Point(6, 19)
+        Me.optFFRackGalv.Name = "optFFRackGalv"
+        Me.optFFRackGalv.Size = New System.Drawing.Size(78, 17)
+        Me.optFFRackGalv.TabIndex = 44
+        Me.optFFRackGalv.Text = "Galvanized"
+        Me.optFFRackGalv.UseVisualStyleBackColor = True
+        '
+        'grpIFRack
+        '
+        Me.grpIFRack.Controls.Add(Me.optIFRackNA)
+        Me.grpIFRack.Controls.Add(Me.optIFRackHEPASS)
+        Me.grpIFRack.Controls.Add(Me.optIFRackHEPAGalv)
+        Me.grpIFRack.Controls.Add(Me.optIFRackSS)
+        Me.grpIFRack.Controls.Add(Me.optIFRackGalv)
+        Me.grpIFRack.Enabled = False
+        Me.grpIFRack.Location = New System.Drawing.Point(21, 100)
+        Me.grpIFRack.Name = "grpIFRack"
+        Me.grpIFRack.Size = New System.Drawing.Size(430, 67)
+        Me.grpIFRack.TabIndex = 43
+        Me.grpIFRack.TabStop = False
+        Me.grpIFRack.Text = "Filter Rack Construction"
+        '
+        'optIFRackNA
+        '
+        Me.optIFRackNA.AutoSize = True
+        Me.optIFRackNA.Checked = True
+        Me.optIFRackNA.Location = New System.Drawing.Point(276, 19)
+        Me.optIFRackNA.Name = "optIFRackNA"
+        Me.optIFRackNA.Size = New System.Drawing.Size(42, 17)
+        Me.optIFRackNA.TabIndex = 48
+        Me.optIFRackNA.TabStop = True
+        Me.optIFRackNA.Text = "n/a"
+        Me.optIFRackNA.UseVisualStyleBackColor = True
+        '
+        'optIFRackHEPASS
+        '
+        Me.optIFRackHEPASS.AutoSize = True
+        Me.optIFRackHEPASS.Location = New System.Drawing.Point(106, 42)
+        Me.optIFRackHEPASS.Name = "optIFRackHEPASS"
+        Me.optIFRackHEPASS.Size = New System.Drawing.Size(153, 17)
+        Me.optIFRackHEPASS.TabIndex = 47
+        Me.optIFRackHEPASS.Text = "Stainless Face Load HEPA"
+        Me.optIFRackHEPASS.UseVisualStyleBackColor = True
+        '
+        'optIFRackHEPAGalv
+        '
+        Me.optIFRackHEPAGalv.AutoSize = True
+        Me.optIFRackHEPAGalv.Location = New System.Drawing.Point(106, 19)
+        Me.optIFRackHEPAGalv.Name = "optIFRackHEPAGalv"
+        Me.optIFRackHEPAGalv.Size = New System.Drawing.Size(164, 17)
+        Me.optIFRackHEPAGalv.TabIndex = 46
+        Me.optIFRackHEPAGalv.Text = "Galvanized Face Load HEPA"
+        Me.optIFRackHEPAGalv.UseVisualStyleBackColor = True
+        '
+        'optIFRackSS
+        '
+        Me.optIFRackSS.AutoSize = True
+        Me.optIFRackSS.Location = New System.Drawing.Point(6, 42)
+        Me.optIFRackSS.Name = "optIFRackSS"
+        Me.optIFRackSS.Size = New System.Drawing.Size(94, 17)
+        Me.optIFRackSS.TabIndex = 45
+        Me.optIFRackSS.Text = "Stainless Steel"
+        Me.optIFRackSS.UseVisualStyleBackColor = True
+        '
+        'optIFRackGalv
+        '
+        Me.optIFRackGalv.AutoSize = True
+        Me.optIFRackGalv.Location = New System.Drawing.Point(6, 19)
+        Me.optIFRackGalv.Name = "optIFRackGalv"
+        Me.optIFRackGalv.Size = New System.Drawing.Size(78, 17)
+        Me.optIFRackGalv.TabIndex = 44
+        Me.optIFRackGalv.Text = "Galvanized"
+        Me.optIFRackGalv.UseVisualStyleBackColor = True
         '
         'chkIFPrefiltUseJCI
         '
@@ -1649,144 +1787,44 @@ Partial Class frmFiltration
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'grpIFRack
+        'cmdDesignCautions
         '
-        Me.grpIFRack.Controls.Add(Me.optIFRackNA)
-        Me.grpIFRack.Controls.Add(Me.optIFRackHEPASS)
-        Me.grpIFRack.Controls.Add(Me.optIFRackHEPAGalv)
-        Me.grpIFRack.Controls.Add(Me.optIFRackSS)
-        Me.grpIFRack.Controls.Add(Me.optIFRackGalv)
-        Me.grpIFRack.Enabled = False
-        Me.grpIFRack.Location = New System.Drawing.Point(21, 100)
-        Me.grpIFRack.Name = "grpIFRack"
-        Me.grpIFRack.Size = New System.Drawing.Size(430, 67)
-        Me.grpIFRack.TabIndex = 43
-        Me.grpIFRack.TabStop = False
-        Me.grpIFRack.Text = "Filter Rack Construction"
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(610, 454)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 9
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'optIFRackGalv
+        'cmdViewHistory
         '
-        Me.optIFRackGalv.AutoSize = True
-        Me.optIFRackGalv.Location = New System.Drawing.Point(6, 19)
-        Me.optIFRackGalv.Name = "optIFRackGalv"
-        Me.optIFRackGalv.Size = New System.Drawing.Size(78, 17)
-        Me.optIFRackGalv.TabIndex = 44
-        Me.optIFRackGalv.Text = "Galvanized"
-        Me.optIFRackGalv.UseVisualStyleBackColor = True
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(574, 454)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 10
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'optIFRackSS
+        'chkWriteHistory
         '
-        Me.optIFRackSS.AutoSize = True
-        Me.optIFRackSS.Location = New System.Drawing.Point(6, 42)
-        Me.optIFRackSS.Name = "optIFRackSS"
-        Me.optIFRackSS.Size = New System.Drawing.Size(94, 17)
-        Me.optIFRackSS.TabIndex = 45
-        Me.optIFRackSS.Text = "Stainless Steel"
-        Me.optIFRackSS.UseVisualStyleBackColor = True
-        '
-        'optIFRackHEPAGalv
-        '
-        Me.optIFRackHEPAGalv.AutoSize = True
-        Me.optIFRackHEPAGalv.Location = New System.Drawing.Point(106, 19)
-        Me.optIFRackHEPAGalv.Name = "optIFRackHEPAGalv"
-        Me.optIFRackHEPAGalv.Size = New System.Drawing.Size(164, 17)
-        Me.optIFRackHEPAGalv.TabIndex = 46
-        Me.optIFRackHEPAGalv.Text = "Galvanized Face Load HEPA"
-        Me.optIFRackHEPAGalv.UseVisualStyleBackColor = True
-        '
-        'optIFRackHEPASS
-        '
-        Me.optIFRackHEPASS.AutoSize = True
-        Me.optIFRackHEPASS.Location = New System.Drawing.Point(106, 42)
-        Me.optIFRackHEPASS.Name = "optIFRackHEPASS"
-        Me.optIFRackHEPASS.Size = New System.Drawing.Size(153, 17)
-        Me.optIFRackHEPASS.TabIndex = 47
-        Me.optIFRackHEPASS.Text = "Stainless Face Load HEPA"
-        Me.optIFRackHEPASS.UseVisualStyleBackColor = True
-        '
-        'grpFFRack
-        '
-        Me.grpFFRack.Controls.Add(Me.optFFRackNA)
-        Me.grpFFRack.Controls.Add(Me.optFFRackHEPASS)
-        Me.grpFFRack.Controls.Add(Me.optFFRackHEPAGalv)
-        Me.grpFFRack.Controls.Add(Me.optFFRackSS)
-        Me.grpFFRack.Controls.Add(Me.optFFRackGalv)
-        Me.grpFFRack.Enabled = False
-        Me.grpFFRack.Location = New System.Drawing.Point(20, 219)
-        Me.grpFFRack.Name = "grpFFRack"
-        Me.grpFFRack.Size = New System.Drawing.Size(431, 67)
-        Me.grpFFRack.TabIndex = 44
-        Me.grpFFRack.TabStop = False
-        Me.grpFFRack.Text = "Filter Rack Construction"
-        '
-        'optFFRackHEPASS
-        '
-        Me.optFFRackHEPASS.AutoSize = True
-        Me.optFFRackHEPASS.Location = New System.Drawing.Point(106, 42)
-        Me.optFFRackHEPASS.Name = "optFFRackHEPASS"
-        Me.optFFRackHEPASS.Size = New System.Drawing.Size(153, 17)
-        Me.optFFRackHEPASS.TabIndex = 47
-        Me.optFFRackHEPASS.Text = "Stainless Face Load HEPA"
-        Me.optFFRackHEPASS.UseVisualStyleBackColor = True
-        '
-        'optFFRackHEPAGalv
-        '
-        Me.optFFRackHEPAGalv.AutoSize = True
-        Me.optFFRackHEPAGalv.Location = New System.Drawing.Point(106, 19)
-        Me.optFFRackHEPAGalv.Name = "optFFRackHEPAGalv"
-        Me.optFFRackHEPAGalv.Size = New System.Drawing.Size(164, 17)
-        Me.optFFRackHEPAGalv.TabIndex = 46
-        Me.optFFRackHEPAGalv.Text = "Galvanized Face Load HEPA"
-        Me.optFFRackHEPAGalv.UseVisualStyleBackColor = True
-        '
-        'optFFRackSS
-        '
-        Me.optFFRackSS.AutoSize = True
-        Me.optFFRackSS.Location = New System.Drawing.Point(6, 42)
-        Me.optFFRackSS.Name = "optFFRackSS"
-        Me.optFFRackSS.Size = New System.Drawing.Size(94, 17)
-        Me.optFFRackSS.TabIndex = 45
-        Me.optFFRackSS.Text = "Stainless Steel"
-        Me.optFFRackSS.UseVisualStyleBackColor = True
-        '
-        'optFFRackGalv
-        '
-        Me.optFFRackGalv.AutoSize = True
-        Me.optFFRackGalv.Location = New System.Drawing.Point(6, 19)
-        Me.optFFRackGalv.Name = "optFFRackGalv"
-        Me.optFFRackGalv.Size = New System.Drawing.Size(78, 17)
-        Me.optFFRackGalv.TabIndex = 44
-        Me.optFFRackGalv.Text = "Galvanized"
-        Me.optFFRackGalv.UseVisualStyleBackColor = True
-        '
-        'optIFRackNA
-        '
-        Me.optIFRackNA.AutoSize = True
-        Me.optIFRackNA.Checked = True
-        Me.optIFRackNA.Location = New System.Drawing.Point(276, 19)
-        Me.optIFRackNA.Name = "optIFRackNA"
-        Me.optIFRackNA.Size = New System.Drawing.Size(42, 17)
-        Me.optIFRackNA.TabIndex = 48
-        Me.optIFRackNA.TabStop = True
-        Me.optIFRackNA.Text = "n/a"
-        Me.optIFRackNA.UseVisualStyleBackColor = True
-        '
-        'optFFRackNA
-        '
-        Me.optFFRackNA.AutoSize = True
-        Me.optFFRackNA.Checked = True
-        Me.optFFRackNA.Location = New System.Drawing.Point(277, 19)
-        Me.optFFRackNA.Name = "optFFRackNA"
-        Me.optFFRackNA.Size = New System.Drawing.Size(42, 17)
-        Me.optFFRackNA.TabIndex = 49
-        Me.optFFRackNA.Text = "n/a"
-        Me.optFFRackNA.UseVisualStyleBackColor = True
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(165, 470)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 13
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frmFiltration
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(646, 499)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -1797,6 +1835,10 @@ Partial Class frmFiltration
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
         Me.tpgConditions.PerformLayout()
+        Me.grpFFRack.ResumeLayout(False)
+        Me.grpFFRack.PerformLayout()
+        Me.grpIFRack.ResumeLayout(False)
+        Me.grpIFRack.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
@@ -1815,11 +1857,8 @@ Partial Class frmFiltration
         Me.grpInitialPerf.PerformLayout()
         Me.grpFinalPerf.ResumeLayout(False)
         Me.grpFinalPerf.PerformLayout()
-        Me.grpIFRack.ResumeLayout(False)
-        Me.grpIFRack.PerformLayout()
-        Me.grpFFRack.ResumeLayout(False)
-        Me.grpFFRack.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -1971,4 +2010,7 @@ Partial Class frmFiltration
     Friend WithEvents optIFRackGalv As RadioButton
     Friend WithEvents optFFRackNA As RadioButton
     Friend WithEvents optIFRackNA As RadioButton
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

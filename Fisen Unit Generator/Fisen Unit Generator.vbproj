@@ -258,6 +258,12 @@
     <Compile Include="frmHGRH.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmHistoryReport.Designer.vb">
+      <DependentUpon>frmHistoryReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHistoryReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmHumid.Designer.vb">
       <DependentUpon>frmHumid.vb</DependentUpon>
     </Compile>
@@ -462,6 +468,9 @@
     <EmbeddedResource Include="frmHGRH.resx">
       <DependentUpon>frmHGRH.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmHistoryReport.resx">
+      <DependentUpon>frmHistoryReport.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmHumid.resx">
       <DependentUpon>frmHumid.vb</DependentUpon>
     </EmbeddedResource>
@@ -530,6 +539,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Fisen Unit Generator_TemporaryKey.pfx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
