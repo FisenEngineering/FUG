@@ -15,11 +15,12 @@
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Call UpdatePerformance
+
         Call UpdateWeightTable
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("DPP") 'Mod Code goes here!
-        Call UpdateCodeList
+        Call UpdateCodeList()
+        Call UpdatePerformance() 'Update performance must happen after update code list to get the load table to construct properly.
         Me.Hide()
     End Sub
 
@@ -195,6 +196,8 @@
         frmMain.ThisUnitElecData.EmerFreq = frmMain.ThisUnitElecData.CommFreq
 
         'Eventually automatically setup the MCA Table
+
+        frmMain.chkUseCustomMCA.Checked = True
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As Integer
