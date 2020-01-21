@@ -1967,7 +1967,11 @@
         CabTransitions = 0.000000000136854 * (airflow / 2) ^ 2 - 0.000000231678622 * (airflow / 2)
 
         'now the damper
-        Damper = 0.000000000398135 * airflow ^ 2 + 0.000003330381561 * airflow
+        If airflow < 27800 Then
+            Damper = 0.03
+        Else
+            Damper = 0.00000000008192973097 * airflow ^ 2 - 0.00000220175944777729 * airflow + 0.03
+        End If
 
         'finally the hood
         Hood = 0.00000000003079 * airflow ^ 2 + 0.000000642194162 * airflow

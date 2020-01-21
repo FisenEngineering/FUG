@@ -4,6 +4,8 @@ Imports System.Xml.Serialization
 Imports System.IO
 Public Class clsSupplyPerf
     Private pAirflow As String
+    Private pFanCount As String
+
     Private pESP As String
     Private pESPElev As String
     Private pUSP As String
@@ -38,6 +40,14 @@ Public Class clsSupplyPerf
 
     Private pSFanVFDPresent As Boolean
 
+    Public Property FanCount As String
+        Get
+            Return pFanCount
+        End Get
+        Set(value As String)
+            pFanCount = value
+        End Set
+    End Property
     Public Property VFDPresent As Boolean
         Get
             Return pSFanVFDPresent
