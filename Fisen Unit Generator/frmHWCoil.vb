@@ -165,16 +165,15 @@ Public Class frmHWCoil
 
         'Handle the hmi
         If chkIncludeEquipmentTouch.Checked = True Then
+            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
             HMIAlreadyThere = False
             For iHMI = 0 To frmMain.ThisUnitGenCodes.Count - 1
                 If ((frmMain.ThisUnitGenCodes.Item(iHMI) = "960002") Or (frmMain.ThisUnitGenCodes.Item(iHMI) = "960001")) Then HMIAlreadyThere = True
             Next
             If ((chkMountEquipmentTouch.Checked = True) And (HMIAlreadyThere = False)) Then
-                If frmMain.ThisUnitGenCodes.Count > 0 Then frmMain.ThisUnitGenCodes.Add("960000")
                 frmMain.ThisUnitGenCodes.Add("960002")
             End If
             If ((chkMountEquipmentTouch.Checked = False) And (HMIAlreadyThere = False)) Then
-                If frmMain.ThisUnitGenCodes.Count > 0 Then frmMain.ThisUnitGenCodes.Add("960000")
                 frmMain.ThisUnitGenCodes.Add("960001")
             End If
         End If
@@ -186,6 +185,7 @@ Public Class frmHWCoil
 
         'Add Auxillary Panel if selected
         If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
+            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
             frmMain.HasAuxillaryPanel = True
             Select Case cmbAuxPanelOpts.Text
                 Case Is = "Series 5 Downflow"

@@ -39,6 +39,8 @@ Partial Class frmMHGRH_Conv
         Me.txtHGRHCap = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chkFisenRASensor = New System.Windows.Forms.CheckBox()
         Me.chkFisenRAStat = New System.Windows.Forms.CheckBox()
         Me.chkFisenZoneSensor = New System.Windows.Forms.CheckBox()
@@ -67,8 +69,10 @@ Partial Class frmMHGRH_Conv
         Me.txtLAT = New System.Windows.Forms.TextBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
-        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
+        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
+        Me.optUseAux = New System.Windows.Forms.RadioButton()
+        Me.optNoAux = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +81,7 @@ Partial Class frmMHGRH_Conv
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.fraAuxPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOK
@@ -108,7 +113,7 @@ Partial Class frmMHGRH_Conv
         Me.TabControl1.Location = New System.Drawing.Point(7, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(440, 179)
+        Me.TabControl1.Size = New System.Drawing.Size(661, 179)
         Me.TabControl1.TabIndex = 2
         '
         'tpgConditions
@@ -128,7 +133,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgConditions.Size = New System.Drawing.Size(432, 153)
+        Me.tpgConditions.Size = New System.Drawing.Size(653, 153)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
@@ -229,7 +234,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(385, 124)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(606, 124)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneConditions.TabIndex = 23
@@ -238,6 +243,7 @@ Partial Class frmMHGRH_Conv
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkFisenRASensor)
@@ -248,10 +254,31 @@ Partial Class frmMHGRH_Conv
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
         Me.tpgOptions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgOptions.Size = New System.Drawing.Size(432, 153)
+        Me.tpgOptions.Size = New System.Drawing.Size(653, 153)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chkMountEquipmentTouch
+        '
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(20, 117)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 32
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        '
+        'chkIncludeEquipmentTouch
+        '
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(6, 98)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 31
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'chkFisenRASensor
         '
@@ -295,7 +322,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDoneOptions
         '
-        Me.btnDoneOptions.Location = New System.Drawing.Point(385, 124)
+        Me.btnDoneOptions.Location = New System.Drawing.Point(606, 124)
         Me.btnDoneOptions.Name = "btnDoneOptions"
         Me.btnDoneOptions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneOptions.TabIndex = 24
@@ -312,7 +339,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgControls.Size = New System.Drawing.Size(432, 153)
+        Me.tpgControls.Size = New System.Drawing.Size(653, 153)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -414,7 +441,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(385, 124)
+        Me.btnDoneControls.Location = New System.Drawing.Point(606, 124)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneControls.TabIndex = 25
@@ -435,7 +462,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgPerformance.Controls.Add(Me.btnDonePerformance)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Size = New System.Drawing.Size(432, 153)
+        Me.tpgPerformance.Size = New System.Drawing.Size(653, 153)
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
@@ -517,7 +544,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDonePerformance
         '
-        Me.btnDonePerformance.Location = New System.Drawing.Point(385, 124)
+        Me.btnDonePerformance.Location = New System.Drawing.Point(606, 124)
         Me.btnDonePerformance.Name = "btnDonePerformance"
         Me.btnDonePerformance.Size = New System.Drawing.Size(41, 23)
         Me.btnDonePerformance.TabIndex = 25
@@ -529,37 +556,61 @@ Partial Class frmMHGRH_Conv
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(432, 153)
+        Me.DebugPage.Size = New System.Drawing.Size(653, 153)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'chkMountEquipmentTouch
+        'fraAuxPanel
         '
-        Me.chkMountEquipmentTouch.AutoSize = True
-        Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(20, 117)
-        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
-        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
-        Me.chkMountEquipmentTouch.TabIndex = 32
-        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
-        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        Me.fraAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.fraAuxPanel.Controls.Add(Me.optUseAux)
+        Me.fraAuxPanel.Controls.Add(Me.optNoAux)
+        Me.fraAuxPanel.Enabled = False
+        Me.fraAuxPanel.Location = New System.Drawing.Point(433, 25)
+        Me.fraAuxPanel.Name = "fraAuxPanel"
+        Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
+        Me.fraAuxPanel.TabIndex = 48
+        Me.fraAuxPanel.TabStop = False
+        Me.fraAuxPanel.Text = "Auxillary Control Panel"
         '
-        'chkIncludeEquipmentTouch
+        'cmbAuxPanelOpts
         '
-        Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(6, 98)
-        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
-        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
-        Me.chkIncludeEquipmentTouch.TabIndex = 31
-        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
-        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
+        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAuxPanelOpts.FormattingEnabled = True
+        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
+        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
+        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
+        Me.cmbAuxPanelOpts.TabIndex = 29
+        '
+        'optUseAux
+        '
+        Me.optUseAux.AutoSize = True
+        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
+        Me.optUseAux.Name = "optUseAux"
+        Me.optUseAux.Size = New System.Drawing.Size(151, 17)
+        Me.optUseAux.TabIndex = 1
+        Me.optUseAux.TabStop = True
+        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.UseVisualStyleBackColor = True
+        '
+        'optNoAux
+        '
+        Me.optNoAux.AutoSize = True
+        Me.optNoAux.Checked = True
+        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
+        Me.optNoAux.Name = "optNoAux"
+        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
+        Me.optNoAux.TabIndex = 0
+        Me.optNoAux.TabStop = True
+        Me.optNoAux.Text = "None"
+        Me.optNoAux.UseVisualStyleBackColor = True
         '
         'frmMHGRH_Conv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(459, 236)
+        Me.ClientSize = New System.Drawing.Size(672, 236)
         Me.ControlBox = False
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
@@ -581,6 +632,8 @@ Partial Class frmMHGRH_Conv
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
+        Me.fraAuxPanel.ResumeLayout(False)
+        Me.fraAuxPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -632,4 +685,8 @@ Partial Class frmMHGRH_Conv
     Friend WithEvents chkFisenZoneHum As CheckBox
     Friend WithEvents chkMountEquipmentTouch As CheckBox
     Friend WithEvents chkIncludeEquipmentTouch As CheckBox
+    Friend WithEvents fraAuxPanel As GroupBox
+    Friend WithEvents cmbAuxPanelOpts As ComboBox
+    Friend WithEvents optUseAux As RadioButton
+    Friend WithEvents optNoAux As RadioButton
 End Class

@@ -2704,6 +2704,9 @@ Public Class frmMain
         Dim dummy As MsgBoxResult
         Dim TargetPath As String
 
+        Dim GenGen As Boolean
+        GenGen = False
+
         myXMLSettings.Indent = True
         myXMLSettings.NewLineOnAttributes = True
 
@@ -2955,9 +2958,14 @@ Public Class frmMain
         End If
         If ThisUnitGenCodes.Count > 0 Then
             UnitWriter.WriteStartElement("Common")
-            UnitWriter.WriteStartElement("ModeCode")
-            UnitWriter.WriteString("960000")
-            UnitWriter.WriteEndElement()
+            For j = 1 To ThisUnitGenCodes.Count - 1
+                If ThisUnitGenCodes.Item(j) = "960000" Then GenGen = True 'The General Master code is present.
+            Next j
+            If Not (GenGen) Then
+                UnitWriter.WriteStartElement("ModeCode")
+                UnitWriter.WriteString("960000")
+                UnitWriter.WriteEndElement()
+            End If
             For j = 0 To ThisUnitGenCodes.Count - 1
                 UnitWriter.WriteStartElement("ModeCode")
                 UnitWriter.WriteString(ThisUnitGenCodes.Item(j))
@@ -5999,16 +6007,20 @@ Public Class frmMain
         tabMain.SelectTab("pgWarranty")
     End Sub
     Private Sub btnAddFieldInst_Click(sender As Object, e As EventArgs) Handles btnAddFieldInst.Click
+
         If txtNewFieldInst.Text <> "" Then
+            If lstFieldInst.Items.Count = 0 Then lstFieldInst.Items.Add(txtNewFieldInst.Text)
             If lstFieldInst.Items.Item(0) = "None" Then
-                lstFieldInst.Items.Clear()
-                lstFieldInst.Items.Add(txtNewFieldInst.Text)
-                txtNewFactOpt.Text = ""
-            Else
-                lstFieldInst.Items.Add(txtNewFieldInst.Text)
-                txtNewFieldInst.Text = ""
+                    lstFieldInst.Items.Clear()
+                    lstFieldInst.Items.Add(txtNewFieldInst.Text)
+                    txtNewFactOpt.Text = ""
+                Else
+                    lstFieldInst.Items.Add(txtNewFieldInst.Text)
+                    txtNewFieldInst.Text = ""
+                End If
             End If
-        End If
+
+
     End Sub
     Private Sub btnDelFieldInst_Click(sender As Object, e As EventArgs) Handles btnDelFieldInst.Click
         lstFieldInst.Items.Remove(lstFieldInst.SelectedItem)

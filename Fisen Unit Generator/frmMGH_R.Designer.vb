@@ -36,10 +36,15 @@ Partial Class frmMGH_R
         Me.chkPropane = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
+        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
+        Me.optUseAux = New System.Windows.Forms.RadioButton()
+        Me.optNoAux = New System.Windows.Forms.RadioButton()
         Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.cmbCustomControls = New System.Windows.Forms.ComboBox()
         Me.chkSATReset = New System.Windows.Forms.CheckBox()
         Me.optCustomCtrl = New System.Windows.Forms.RadioButton()
         Me.opt100OACtrls = New System.Windows.Forms.RadioButton()
@@ -62,10 +67,10 @@ Partial Class frmMGH_R
         Me.txtSSE = New System.Windows.Forms.TextBox()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
-        Me.cmbCustomControls = New System.Windows.Forms.ComboBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.fraAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
@@ -194,6 +199,7 @@ Partial Class frmMGH_R
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
@@ -203,6 +209,51 @@ Partial Class frmMGH_R
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'fraAuxPanel
+        '
+        Me.fraAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.fraAuxPanel.Controls.Add(Me.optUseAux)
+        Me.fraAuxPanel.Controls.Add(Me.optNoAux)
+        Me.fraAuxPanel.Enabled = False
+        Me.fraAuxPanel.Location = New System.Drawing.Point(3, 57)
+        Me.fraAuxPanel.Name = "fraAuxPanel"
+        Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
+        Me.fraAuxPanel.TabIndex = 47
+        Me.fraAuxPanel.TabStop = False
+        Me.fraAuxPanel.Text = "Auxillary Control Panel"
+        '
+        'cmbAuxPanelOpts
+        '
+        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAuxPanelOpts.FormattingEnabled = True
+        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
+        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
+        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
+        Me.cmbAuxPanelOpts.TabIndex = 29
+        '
+        'optUseAux
+        '
+        Me.optUseAux.AutoSize = True
+        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
+        Me.optUseAux.Name = "optUseAux"
+        Me.optUseAux.Size = New System.Drawing.Size(151, 17)
+        Me.optUseAux.TabIndex = 1
+        Me.optUseAux.TabStop = True
+        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.UseVisualStyleBackColor = True
+        '
+        'optNoAux
+        '
+        Me.optNoAux.AutoSize = True
+        Me.optNoAux.Checked = True
+        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
+        Me.optNoAux.Name = "optNoAux"
+        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
+        Me.optNoAux.TabIndex = 0
+        Me.optNoAux.TabStop = True
+        Me.optNoAux.Text = "None"
+        Me.optNoAux.UseVisualStyleBackColor = True
         '
         'chkMountEquipmentTouch
         '
@@ -252,6 +303,17 @@ Partial Class frmMGH_R
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'cmbCustomControls
+        '
+        Me.cmbCustomControls.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCustomControls.Enabled = False
+        Me.cmbCustomControls.FormattingEnabled = True
+        Me.cmbCustomControls.Items.AddRange(New Object() {"IPU Enabled/Fisen Controlled Modulation"})
+        Me.cmbCustomControls.Location = New System.Drawing.Point(113, 126)
+        Me.cmbCustomControls.Name = "cmbCustomControls"
+        Me.cmbCustomControls.Size = New System.Drawing.Size(266, 21)
+        Me.cmbCustomControls.TabIndex = 11
         '
         'chkSATReset
         '
@@ -468,17 +530,6 @@ Partial Class frmMGH_R
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'cmbCustomControls
-        '
-        Me.cmbCustomControls.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbCustomControls.Enabled = False
-        Me.cmbCustomControls.FormattingEnabled = True
-        Me.cmbCustomControls.Items.AddRange(New Object() {"IPU Enabled/Fisen Controlled Modulation"})
-        Me.cmbCustomControls.Location = New System.Drawing.Point(113, 126)
-        Me.cmbCustomControls.Name = "cmbCustomControls"
-        Me.cmbCustomControls.Size = New System.Drawing.Size(266, 21)
-        Me.cmbCustomControls.TabIndex = 11
-        '
         'frmMGH_R
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -496,6 +547,8 @@ Partial Class frmMGH_R
         Me.tpgConditions.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.fraAuxPanel.ResumeLayout(False)
+        Me.fraAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -546,4 +599,8 @@ Partial Class frmMGH_R
     Friend WithEvents TTfrmMGH_R As ToolTip
     Friend WithEvents chkPropane As CheckBox
     Friend WithEvents cmbCustomControls As ComboBox
+    Friend WithEvents fraAuxPanel As GroupBox
+    Friend WithEvents cmbAuxPanelOpts As ComboBox
+    Friend WithEvents optUseAux As RadioButton
+    Friend WithEvents optNoAux As RadioButton
 End Class
