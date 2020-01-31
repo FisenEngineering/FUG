@@ -724,10 +724,12 @@
             End If
         End If
 
-        ExtModule = 0
+        ExtModule = -99999
         Select Case cmbExternalModuleStyle.Text
             Case Is = "S20 Horizontal Discharge Module"
                 ExtModule = -999
+            Case Is = "No Module Required"
+                ExtModule = 0
             Case Else
                 ExtModule = -999
         End Select
@@ -746,7 +748,7 @@
         If chkJCIFDFS.Checked Then JCIConts = JCIConts + 2
 
         tempWeight = IRackMass + FRackMass + JCIRackMass + IFilts + FFilts + JCINetFilts + ExtModule + IConts + FConts + JCIConts
-        frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
+        frmMain.ThisUnitPhysicalData.ModLoadMass.Add(Format(tempWeight, "0"))
     End Sub
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
         pCancelled = True

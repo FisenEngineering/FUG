@@ -1,6 +1,8 @@
 ﻿Imports System.ComponentModel
 Public Class frm100OA
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -27,36 +29,38 @@ Public Class frm100OA
         frmMain.lstRequiredFactoryItems.Items.Add("Factory installed HGBP on Circuit 1")
     End Sub
     Private Sub UpdateCodeList()
+
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("0A0100")
-        frmMain.ThisUnitCodes.Add("0A0701")
+        ModuleCodeList.Add("0A0100")
+        ModuleCodeList.Add("0A0701")
 
 
         If opt100OACapable.Checked Then
-            frmMain.ThisUnitCodes.Add("0A0105") '100% OA Capable
+            ModuleCodeList.Add("0A0105") '100% OA Capable
 
-            frmMain.ThisUnitCodes.Add("0A0110") 'Modulating Damper
-            frmMain.ThisUnitCodes.Add("0A0113")
+            ModuleCodeList.Add("0A0110") 'Modulating Damper
+            ModuleCodeList.Add("0A0113")
 
-            frmMain.ThisUnitCodes.Add("0A0130") 'Controls for 100% Outdoor Air Capable Unit
-            frmMain.ThisUnitCodes.Add("0A0135")
-            frmMain.ThisUnitCodes.Add("0A0140")
-            frmMain.ThisUnitCodes.Add("0A0145")
-            frmMain.ThisUnitCodes.Add("0A0150")
+            ModuleCodeList.Add("0A0130") 'Controls for 100% Outdoor Air Capable Unit
+            ModuleCodeList.Add("0A0135")
+            ModuleCodeList.Add("0A0140")
+            ModuleCodeList.Add("0A0145")
+            ModuleCodeList.Add("0A0150")
 
             If ((frmMain.ThisUnit.Family = "Series10") Or (frmMain.ThisUnit.Family = "Series20")) And optReturnHorizontal.Checked Then
-                frmMain.ThisUnitCodes.Add("0A0550")
+                ModuleCodeList.Add("0A0550")
             End If
         Else
-            frmMain.ThisUnitCodes.Add("0A0101") '100% Outdoor Air Conversion
+            ModuleCodeList.Add("0A0101") '100% Outdoor Air Conversion
 
-            frmMain.ThisUnitCodes.Add("0A0111") 'Open/Closed Damper
-            frmMain.ThisUnitCodes.Add("0A0112")
-            frmMain.ThisUnitCodes.Add("0A0113")
+            ModuleCodeList.Add("0A0111") 'Open/Closed Damper
+            ModuleCodeList.Add("0A0112")
+            ModuleCodeList.Add("0A0113")
 
-            frmMain.ThisUnitCodes.Add("0A0119") 'Seal Existing Return Air Opening
+            ModuleCodeList.Add("0A0119") 'Seal Existing Return Air Opening
 
-            frmMain.ThisUnitCodes.Add("0A0120") 'Controls for 100% Outdoor Air Unit
+            ModuleCodeList.Add("0A0120") 'Controls for 100% Outdoor Air Unit
         End If
 
         If opt100OA.Checked Then
@@ -64,190 +68,190 @@ Public Class frm100OA
 
             'mode controls
             If optModeAuto.Checked = True Then
-                frmMain.ThisUnitCodes.Add("0A0123")
+                ModuleCodeList.Add("0A0123")
             End If
             If optModeGBAS.Checked = True Then
-                frmMain.ThisUnitCodes.Add("0A0125")
+                ModuleCodeList.Add("0A0125")
             End If
             If optModeDATOnly.Checked = True Then
-                frmMain.ThisUnitCodes.Add("0A0129")
+                ModuleCodeList.Add("0A0129")
             End If
 
             If optSE.Checked Then
                 'handle the heating
                 If optNoHeat.Checked Then
                     If optHeatCtrlDAFutureTB.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0160")
+                        ModuleCodeList.Add("0A0160")
                     End If
                     If optHeatCtrlDAFieldInstTB.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0161")
+                        ModuleCodeList.Add("0A0161")
                     End If
                 End If
                 If optEHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0183")
+                        ModuleCodeList.Add("0A0183")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0193")
+                        ModuleCodeList.Add("0A0193")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0173")
+                        ModuleCodeList.Add("0A0173")
                     End If
                 End If
                 If optGasHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0180")
+                        ModuleCodeList.Add("0A0180")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0190")
+                        ModuleCodeList.Add("0A0190")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0170")
+                        ModuleCodeList.Add("0A0170")
                     End If
                 End If
                 If optHeatcoGas.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0184")
+                        ModuleCodeList.Add("0A0184")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0194")
+                        ModuleCodeList.Add("0A0194")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0174")
+                        ModuleCodeList.Add("0A0174")
                     End If
                 End If
                 If optHWHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0181")
+                        ModuleCodeList.Add("0A0181")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0191")
+                        ModuleCodeList.Add("0A0191")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0171")
+                        ModuleCodeList.Add("0A0171")
                     End If
                 End If
                 If optSteamHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0182")
+                        ModuleCodeList.Add("0A0182")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0192")
+                        ModuleCodeList.Add("0A0192")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0172")
+                        ModuleCodeList.Add("0A0172")
                     End If
                 End If
 
                 'This is the cooling for an SE Controller
                 If optCoolCtrlStagedOA.Checked Then
-                    frmMain.ThisUnitCodes.Add("0A0151")
+                    ModuleCodeList.Add("0A0151")
                     'hande the HGRH Stuffs
                     If chkFisenHGRH.Checked And chkFisenMHGRH.Checked Then
                         If optSE.Checked Then
-                            frmMain.ThisUnitCodes.Add("0A0381")
+                            ModuleCodeList.Add("0A0381")
                         Else
-                            frmMain.ThisUnitCodes.Add("0A0383")
+                            ModuleCodeList.Add("0A0383")
                         End If
                     End If
                     If chkFisenHGRH.Checked And Not (chkFisenMHGRH.Checked) Then
                         If optSE.Checked Then
-                            frmMain.ThisUnitCodes.Add("0A0380")
+                            ModuleCodeList.Add("0A0380")
                         Else
-                            frmMain.ThisUnitCodes.Add("0A0382")
+                            ModuleCodeList.Add("0A0382")
                         End If
                     End If
                     'handle the zone override sensor
                     If chkZoneOvrSensor.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0122")
+                        ModuleCodeList.Add("0A0122")
                     End If
                 End If
                 If optCoolCtrlDAByFisenSE.Checked Then
-                    frmMain.ThisUnitCodes.Add("0A0152")
+                    ModuleCodeList.Add("0A0152")
                 End If
                 If optCoolCtrlGBAS.Checked Then
 
                 End If
                 If optCoolCtrlBySE.Checked Then
-                    frmMain.ThisUnitCodes.Add("0A0153")
+                    ModuleCodeList.Add("0A0153")
                 End If
                 If optCoolCtrlByIPU.Checked Then
 
                 End If
 
                 If chkIntellispeed.Checked Then
-                    frmMain.ThisUnitCodes.Add("0A0370")
+                    ModuleCodeList.Add("0A0370")
                 End If
 
             Else
                 'This is the heating for an IPU
                 If optNoHeat.Checked Then
                     If optHeatCtrlDAFutureTB.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0260")
+                        ModuleCodeList.Add("0A0260")
                     End If
                     If optHeatCtrlDAFieldInstTB.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0261")
+                        ModuleCodeList.Add("0A0261")
                     End If
                 End If
                 If optEHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0283")
+                        ModuleCodeList.Add("0A0283")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0293")
+                        ModuleCodeList.Add("0A0293")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0273")
+                        ModuleCodeList.Add("0A0273")
                     End If
                 End If
 
                 If optGasHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0280")
+                        ModuleCodeList.Add("0A0280")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0290")
+                        ModuleCodeList.Add("0A0290")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0270")
+                        ModuleCodeList.Add("0A0270")
                     End If
                 End If
                 If optHeatcoGas.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0284")
+                        ModuleCodeList.Add("0A0284")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0294")
+                        ModuleCodeList.Add("0A0294")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0274")
+                        ModuleCodeList.Add("0A0274")
                     End If
                 End If
                 If optHWHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0281")
+                        ModuleCodeList.Add("0A0281")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0291")
+                        ModuleCodeList.Add("0A0291")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0271")
+                        ModuleCodeList.Add("0A0271")
                     End If
                 End If
                 If optSteamHeat.Checked Then
                     If optHeatCtrlDAByFisen.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0282")
+                        ModuleCodeList.Add("0A0282")
                     End If
                     If optHeatCtrlDABaseUnit.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0292")
+                        ModuleCodeList.Add("0A0292")
                     End If
                     If optHeatCtrlStagedOA.Checked Then
-                        frmMain.ThisUnitCodes.Add("0A0272")
+                        ModuleCodeList.Add("0A0272")
                     End If
                 End If
                 'This is the cooling for an IPU
                 If optCoolCtrlStagedOA.Checked Then
-                    frmMain.ThisUnitCodes.Add("0A0251")
+                    ModuleCodeList.Add("0A0251")
                 End If
 
                 If optCoolCtrlGBAS.Checked Then
@@ -259,19 +263,13 @@ Public Class frm100OA
             End If
 
 
-
-
-
-
-
-
             'handle the safeties
             If optSE.Checked Then 'handles the SE Controller
-                frmMain.ThisUnitCodes.Add("0A0390")
-                frmMain.ThisUnitCodes.Add("0A0391")
+                ModuleCodeList.Add("0A0390")
+                ModuleCodeList.Add("0A0391")
             Else 'now handle the ipu
-                frmMain.ThisUnitCodes.Add("0A0399")
-                frmMain.ThisUnitCodes.Add("0A0398")
+                ModuleCodeList.Add("0A0399")
+                ModuleCodeList.Add("0A0398")
 
             End If
 
@@ -292,6 +290,11 @@ Public Class frm100OA
         'Add Auxillary Panel if selected
         Call AuxPanelCodeInsert() 'v1.0
 
+        Call PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
 
     End Sub
 
@@ -827,6 +830,85 @@ Public Class frm100OA
         End If
 
         con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
+    End Sub
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '0A0%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '0A0%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
         rs = Nothing
         con = Nothing
     End Sub

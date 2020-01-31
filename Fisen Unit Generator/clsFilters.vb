@@ -131,7 +131,7 @@
             FilterQ1 = pFilterQ1
         End Get
         Set(value As String)
-            pFilterQ1 = FilterQ1
+            pFilterQ1 = value
         End Set
     End Property
     Public Property FilterQ2 As String
@@ -139,7 +139,7 @@
             FilterQ2 = pFilterQ2
         End Get
         Set(value As String)
-            pFilterQ2 = FilterQ2
+            pFilterQ2 = value
         End Set
     End Property
     Public Property FilterQ3 As String
@@ -147,7 +147,7 @@
             FilterQ3 = pFilterQ3
         End Get
         Set(value As String)
-            pFilterQ3 = FilterQ3
+            pFilterQ3 = value
         End Set
     End Property
     Public Property FilterQ4 As String
@@ -155,7 +155,7 @@
             FilterQ4 = pFilterQ4
         End Get
         Set(value As String)
-            pFilterQ4 = FilterQ4
+            pFilterQ4 = value
         End Set
     End Property
     Public Property FilterSize1 As String
@@ -201,6 +201,14 @@
 
     Public Sub New()
         pHasNewFilters = False
-
+        pFilterQ1 = "-"
+        pFilterQ2 = "-"
+        pFilterQ3 = "-"
+        pFilterQ4 = "-"
+        pFilterSize1 = "-"
+        pFilterSize2 = "-"
+        pFilterSize3 = "-"
+        pFilterSize4 = "-"
+        pFilterType = "-"
     End Sub
 End Class
