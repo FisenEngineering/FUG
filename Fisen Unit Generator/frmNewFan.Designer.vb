@@ -23,9 +23,9 @@ Partial Class frmNewFan
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNewFan))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -232,6 +232,8 @@ Partial Class frmNewFan
         Me.tslblESP = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tslblElevation = New System.Windows.Forms.ToolStripStatusLabel()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.chkRetainVFD = New System.Windows.Forms.CheckBox()
+        Me.chkRetainMotor = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpFlowConfig.SuspendLayout()
@@ -707,7 +709,7 @@ Partial Class frmNewFan
         'chkReliefHoodsShipLoose
         '
         Me.chkReliefHoodsShipLoose.AutoSize = True
-        Me.chkReliefHoodsShipLoose.Location = New System.Drawing.Point(494, 344)
+        Me.chkReliefHoodsShipLoose.Location = New System.Drawing.Point(432, 386)
         Me.chkReliefHoodsShipLoose.Name = "chkReliefHoodsShipLoose"
         Me.chkReliefHoodsShipLoose.Size = New System.Drawing.Size(143, 17)
         Me.chkReliefHoodsShipLoose.TabIndex = 86
@@ -717,7 +719,7 @@ Partial Class frmNewFan
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(176, 307)
+        Me.Label36.Location = New System.Drawing.Point(243, 382)
         Me.Label36.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(136, 13)
@@ -771,7 +773,7 @@ Partial Class frmNewFan
         'chkRemoteVFDKeypad
         '
         Me.chkRemoteVFDKeypad.AutoSize = True
-        Me.chkRemoteVFDKeypad.Location = New System.Drawing.Point(392, 235)
+        Me.chkRemoteVFDKeypad.Location = New System.Drawing.Point(392, 322)
         Me.chkRemoteVFDKeypad.Name = "chkRemoteVFDKeypad"
         Me.chkRemoteVFDKeypad.Size = New System.Drawing.Size(130, 17)
         Me.chkRemoteVFDKeypad.TabIndex = 67
@@ -781,7 +783,7 @@ Partial Class frmNewFan
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(68, 285)
+        Me.Label21.Location = New System.Drawing.Point(4, 382)
         Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(104, 13)
@@ -793,7 +795,7 @@ Partial Class frmNewFan
         Me.cmbNewMotorHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbNewMotorHP.FormattingEnabled = True
         Me.cmbNewMotorHP.Items.AddRange(New Object() {"0.5", "1", "1.5", "2", "3", "5", "7.5", "10", "15", "20", "25", "30", "40", "50", "n/a"})
-        Me.cmbNewMotorHP.Location = New System.Drawing.Point(179, 282)
+        Me.cmbNewMotorHP.Location = New System.Drawing.Point(115, 379)
         Me.cmbNewMotorHP.Name = "cmbNewMotorHP"
         Me.cmbNewMotorHP.Size = New System.Drawing.Size(121, 21)
         Me.cmbNewMotorHP.TabIndex = 25
@@ -802,7 +804,7 @@ Partial Class frmNewFan
         '
         Me.GroupBox1.Controls.Add(Me.optODP)
         Me.GroupBox1.Controls.Add(Me.optTEFC)
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 230)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 317)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(383, 46)
         Me.GroupBox1.TabIndex = 24
@@ -877,12 +879,13 @@ Partial Class frmNewFan
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.chkRetainMotor)
         Me.GroupBox7.Controls.Add(Me.optNewMotor)
         Me.GroupBox7.Controls.Add(Me.optReuseMotor)
         Me.GroupBox7.Controls.Add(Me.optReplaceMotor)
-        Me.GroupBox7.Location = New System.Drawing.Point(3, 183)
+        Me.GroupBox7.Location = New System.Drawing.Point(3, 226)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(516, 46)
+        Me.GroupBox7.Size = New System.Drawing.Size(516, 85)
         Me.GroupBox7.TabIndex = 22
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Motor"
@@ -914,19 +917,20 @@ Partial Class frmNewFan
         Me.optReplaceMotor.AutoSize = True
         Me.optReplaceMotor.Location = New System.Drawing.Point(6, 21)
         Me.optReplaceMotor.Name = "optReplaceMotor"
-        Me.optReplaceMotor.Size = New System.Drawing.Size(134, 17)
+        Me.optReplaceMotor.Size = New System.Drawing.Size(168, 17)
         Me.optReplaceMotor.TabIndex = 15
-        Me.optReplaceMotor.Text = "Replace Existing Motor"
+        Me.optReplaceMotor.Text = "Replace with Other Unit Motor"
         Me.optReplaceMotor.UseVisualStyleBackColor = True
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.chkRetainVFD)
         Me.GroupBox6.Controls.Add(Me.optNewVFD)
         Me.GroupBox6.Controls.Add(Me.optReuseVFD)
         Me.GroupBox6.Controls.Add(Me.optReplaceVFD)
         Me.GroupBox6.Location = New System.Drawing.Point(3, 135)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(516, 46)
+        Me.GroupBox6.Size = New System.Drawing.Size(516, 85)
         Me.GroupBox6.TabIndex = 21
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "VFD"
@@ -958,9 +962,9 @@ Partial Class frmNewFan
         Me.optReplaceVFD.AutoSize = True
         Me.optReplaceVFD.Location = New System.Drawing.Point(6, 21)
         Me.optReplaceVFD.Name = "optReplaceVFD"
-        Me.optReplaceVFD.Size = New System.Drawing.Size(128, 17)
+        Me.optReplaceVFD.Size = New System.Drawing.Size(162, 17)
         Me.optReplaceVFD.TabIndex = 15
-        Me.optReplaceVFD.Text = "Replace Existing VFD"
+        Me.optReplaceVFD.Text = "Replace with Other Unit VFD"
         Me.optReplaceVFD.UseVisualStyleBackColor = True
         '
         'GroupBox5
@@ -2453,8 +2457,8 @@ Partial Class frmNewFan
         'colItem
         '
         Me.colItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colItem.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colItem.DefaultCellStyle = DataGridViewCellStyle1
         Me.colItem.HeaderText = "Item"
         Me.colItem.MinimumWidth = 6
         Me.colItem.Name = "colItem"
@@ -2463,8 +2467,8 @@ Partial Class frmNewFan
         'colSTPStatic
         '
         Me.colSTPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle2
         Me.colSTPStatic.HeaderText = "Static(std)"
         Me.colSTPStatic.MinimumWidth = 6
         Me.colSTPStatic.Name = "colSTPStatic"
@@ -2473,8 +2477,8 @@ Partial Class frmNewFan
         'colATPStatic
         '
         Me.colATPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle3
         Me.colATPStatic.HeaderText = "Static(elev)"
         Me.colATPStatic.MinimumWidth = 6
         Me.colATPStatic.Name = "colATPStatic"
@@ -2534,6 +2538,28 @@ Partial Class frmNewFan
         Me.chkWriteHistory.TabIndex = 11
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
+        'chkRetainVFD
+        '
+        Me.chkRetainVFD.AutoSize = True
+        Me.chkRetainVFD.Enabled = False
+        Me.chkRetainVFD.Location = New System.Drawing.Point(146, 44)
+        Me.chkRetainVFD.Name = "chkRetainVFD"
+        Me.chkRetainVFD.Size = New System.Drawing.Size(219, 17)
+        Me.chkRetainVFD.TabIndex = 68
+        Me.chkRetainVFD.Text = "Retain Existing VFD for Use in Other Unit"
+        Me.chkRetainVFD.UseVisualStyleBackColor = True
+        '
+        'chkRetainMotor
+        '
+        Me.chkRetainMotor.AutoSize = True
+        Me.chkRetainMotor.Enabled = False
+        Me.chkRetainMotor.Location = New System.Drawing.Point(146, 44)
+        Me.chkRetainMotor.Name = "chkRetainMotor"
+        Me.chkRetainMotor.Size = New System.Drawing.Size(225, 17)
+        Me.chkRetainMotor.TabIndex = 69
+        Me.chkRetainMotor.Text = "Retain Existing Motor for Use in Other Unit"
+        Me.chkRetainMotor.UseVisualStyleBackColor = True
         '
         'frmNewFan
         '
@@ -2809,4 +2835,6 @@ Partial Class frmNewFan
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
     Friend WithEvents tslblElevation As ToolStripStatusLabel
+    Friend WithEvents chkRetainMotor As CheckBox
+    Friend WithEvents chkRetainVFD As CheckBox
 End Class

@@ -22,14 +22,18 @@ Partial Class frm100OA
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm100OA))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
-        Me.chkIntellispeed = New System.Windows.Forms.CheckBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.optIPU = New System.Windows.Forms.RadioButton()
-        Me.optSE = New System.Windows.Forms.RadioButton()
+        Me.grpReturn = New System.Windows.Forms.GroupBox()
+        Me.optReturnNone = New System.Windows.Forms.RadioButton()
+        Me.optReturnHorizontal = New System.Windows.Forms.RadioButton()
+        Me.optReturnBottom = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.opt100OACapable = New System.Windows.Forms.RadioButton()
+        Me.opt100OA = New System.Windows.Forms.RadioButton()
         Me.chkJCIHGRH = New System.Windows.Forms.CheckBox()
         Me.chkHGRH_Conv = New System.Windows.Forms.CheckBox()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
@@ -49,15 +53,17 @@ Partial Class frm100OA
         Me.chkLowAF = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chkIntellispeed = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.opt100OACapable = New System.Windows.Forms.RadioButton()
-        Me.opt100OA = New System.Windows.Forms.RadioButton()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.optASE = New System.Windows.Forms.RadioButton()
+        Me.optIPU = New System.Windows.Forms.RadioButton()
+        Me.optSE = New System.Windows.Forms.RadioButton()
         Me.chkZoneOvrSensor = New System.Windows.Forms.CheckBox()
         Me.grp100OACapable = New System.Windows.Forms.GroupBox()
         Me.optCoolCtrlByIPU = New System.Windows.Forms.RadioButton()
@@ -86,24 +92,24 @@ Partial Class frm100OA
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.grpReturn = New System.Windows.Forms.GroupBox()
-        Me.optReturnHorizontal = New System.Windows.Forms.RadioButton()
-        Me.optReturnBottom = New System.Windows.Forms.RadioButton()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.grpReturn.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.tpgControls.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.grp100OACapable.SuspendLayout()
         Me.grpModeCtrl.SuspendLayout()
         Me.grpHeatCtrl.SuspendLayout()
         Me.grpGBASCtrl4.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        Me.grpReturn.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOK
@@ -135,13 +141,13 @@ Partial Class frm100OA
         Me.TabControl1.Location = New System.Drawing.Point(9, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(587, 220)
+        Me.TabControl1.Size = New System.Drawing.Size(827, 220)
         Me.TabControl1.TabIndex = 2
         '
         'tpgConditions
         '
-        Me.tpgConditions.Controls.Add(Me.chkIntellispeed)
-        Me.tpgConditions.Controls.Add(Me.GroupBox2)
+        Me.tpgConditions.Controls.Add(Me.grpReturn)
+        Me.tpgConditions.Controls.Add(Me.GroupBox1)
         Me.tpgConditions.Controls.Add(Me.chkJCIHGRH)
         Me.tpgConditions.Controls.Add(Me.chkHGRH_Conv)
         Me.tpgConditions.Controls.Add(Me.GroupBox8)
@@ -153,61 +159,93 @@ Partial Class frm100OA
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgConditions.Size = New System.Drawing.Size(579, 194)
+        Me.tpgConditions.Size = New System.Drawing.Size(819, 194)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
-        'chkIntellispeed
+        'grpReturn
         '
-        Me.chkIntellispeed.AutoSize = True
-        Me.chkIntellispeed.Location = New System.Drawing.Point(5, 110)
-        Me.chkIntellispeed.Margin = New System.Windows.Forms.Padding(2)
-        Me.chkIntellispeed.Name = "chkIntellispeed"
-        Me.chkIntellispeed.Size = New System.Drawing.Size(214, 17)
-        Me.chkIntellispeed.TabIndex = 42
-        Me.chkIntellispeed.Text = "Convert Intellispeed to Constant Volume"
-        Me.chkIntellispeed.UseVisualStyleBackColor = True
+        Me.grpReturn.Controls.Add(Me.optReturnNone)
+        Me.grpReturn.Controls.Add(Me.optReturnHorizontal)
+        Me.grpReturn.Controls.Add(Me.optReturnBottom)
+        Me.grpReturn.Location = New System.Drawing.Point(6, 78)
+        Me.grpReturn.Name = "grpReturn"
+        Me.grpReturn.Size = New System.Drawing.Size(158, 91)
+        Me.grpReturn.TabIndex = 44
+        Me.grpReturn.TabStop = False
+        Me.grpReturn.Text = "Return"
         '
-        'GroupBox2
+        'optReturnNone
         '
-        Me.GroupBox2.Controls.Add(Me.optIPU)
-        Me.GroupBox2.Controls.Add(Me.optSE)
-        Me.GroupBox2.Location = New System.Drawing.Point(221, 126)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(212, 63)
-        Me.GroupBox2.TabIndex = 41
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Base Unit Controls"
+        Me.optReturnNone.AutoSize = True
+        Me.optReturnNone.Checked = True
+        Me.optReturnNone.Location = New System.Drawing.Point(6, 65)
+        Me.optReturnNone.Name = "optReturnNone"
+        Me.optReturnNone.Size = New System.Drawing.Size(74, 17)
+        Me.optReturnNone.TabIndex = 4
+        Me.optReturnNone.TabStop = True
+        Me.optReturnNone.Text = "No Return"
+        Me.optReturnNone.UseVisualStyleBackColor = True
         '
-        'optIPU
+        'optReturnHorizontal
         '
-        Me.optIPU.AutoSize = True
-        Me.optIPU.Location = New System.Drawing.Point(5, 41)
-        Me.optIPU.Name = "optIPU"
-        Me.optIPU.Size = New System.Drawing.Size(43, 17)
-        Me.optIPU.TabIndex = 3
-        Me.optIPU.Text = "IPU"
-        Me.optIPU.UseVisualStyleBackColor = True
+        Me.optReturnHorizontal.AutoSize = True
+        Me.optReturnHorizontal.Location = New System.Drawing.Point(6, 42)
+        Me.optReturnHorizontal.Name = "optReturnHorizontal"
+        Me.optReturnHorizontal.Size = New System.Drawing.Size(72, 17)
+        Me.optReturnHorizontal.TabIndex = 3
+        Me.optReturnHorizontal.Text = "Horizontal"
+        Me.optReturnHorizontal.UseVisualStyleBackColor = True
         '
-        'optSE
+        'optReturnBottom
         '
-        Me.optSE.AutoSize = True
-        Me.optSE.Checked = True
-        Me.optSE.Location = New System.Drawing.Point(5, 18)
-        Me.optSE.Name = "optSE"
-        Me.optSE.Size = New System.Drawing.Size(86, 17)
-        Me.optSE.TabIndex = 1
-        Me.optSE.TabStop = True
-        Me.optSE.Text = "SE Controller"
-        Me.optSE.UseVisualStyleBackColor = True
+        Me.optReturnBottom.AutoSize = True
+        Me.optReturnBottom.Location = New System.Drawing.Point(6, 19)
+        Me.optReturnBottom.Name = "optReturnBottom"
+        Me.optReturnBottom.Size = New System.Drawing.Size(58, 17)
+        Me.optReturnBottom.TabIndex = 2
+        Me.optReturnBottom.Text = "Bottom"
+        Me.optReturnBottom.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.opt100OACapable)
+        Me.GroupBox1.Controls.Add(Me.opt100OA)
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(158, 71)
+        Me.GroupBox1.TabIndex = 43
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Conversion"
+        '
+        'opt100OACapable
+        '
+        Me.opt100OACapable.AutoSize = True
+        Me.opt100OACapable.Location = New System.Drawing.Point(6, 42)
+        Me.opt100OACapable.Name = "opt100OACapable"
+        Me.opt100OACapable.Size = New System.Drawing.Size(149, 17)
+        Me.opt100OACapable.TabIndex = 1
+        Me.opt100OACapable.TabStop = True
+        Me.opt100OACapable.Text = "100% Outdoor Air Capable"
+        Me.opt100OACapable.UseVisualStyleBackColor = True
+        '
+        'opt100OA
+        '
+        Me.opt100OA.AutoSize = True
+        Me.opt100OA.Checked = True
+        Me.opt100OA.Location = New System.Drawing.Point(6, 19)
+        Me.opt100OA.Name = "opt100OA"
+        Me.opt100OA.Size = New System.Drawing.Size(107, 17)
+        Me.opt100OA.TabIndex = 0
+        Me.opt100OA.TabStop = True
+        Me.opt100OA.Text = "100% Outdoor Air"
+        Me.opt100OA.UseVisualStyleBackColor = True
         '
         'chkJCIHGRH
         '
         Me.chkJCIHGRH.AutoSize = True
-        Me.chkJCIHGRH.Location = New System.Drawing.Point(5, 27)
+        Me.chkJCIHGRH.Location = New System.Drawing.Point(169, 32)
         Me.chkJCIHGRH.Margin = New System.Windows.Forms.Padding(2)
         Me.chkJCIHGRH.Name = "chkJCIHGRH"
         Me.chkJCIHGRH.Size = New System.Drawing.Size(76, 17)
@@ -219,7 +257,7 @@ Partial Class frm100OA
         '
         Me.chkHGRH_Conv.AutoSize = True
         Me.chkHGRH_Conv.Enabled = False
-        Me.chkHGRH_Conv.Location = New System.Drawing.Point(30, 47)
+        Me.chkHGRH_Conv.Location = New System.Drawing.Point(194, 52)
         Me.chkHGRH_Conv.Margin = New System.Windows.Forms.Padding(2)
         Me.chkHGRH_Conv.Name = "chkHGRH_Conv"
         Me.chkHGRH_Conv.Size = New System.Drawing.Size(103, 17)
@@ -231,7 +269,7 @@ Partial Class frm100OA
         '
         Me.GroupBox8.Controls.Add(Me.optFisenHGBP)
         Me.GroupBox8.Controls.Add(Me.optJCIHGBP)
-        Me.GroupBox8.Location = New System.Drawing.Point(437, 5)
+        Me.GroupBox8.Location = New System.Drawing.Point(517, 6)
         Me.GroupBox8.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Padding = New System.Windows.Forms.Padding(2)
@@ -272,7 +310,7 @@ Partial Class frm100OA
         Me.GroupBox9.Controls.Add(Me.optEHeat)
         Me.GroupBox9.Controls.Add(Me.optGasHeat)
         Me.GroupBox9.Controls.Add(Me.optNoHeat)
-        Me.GroupBox9.Location = New System.Drawing.Point(221, 6)
+        Me.GroupBox9.Location = New System.Drawing.Point(301, 6)
         Me.GroupBox9.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Padding = New System.Windows.Forms.Padding(2)
@@ -371,7 +409,7 @@ Partial Class frm100OA
         '
         Me.chkFisenMHGRH.AutoSize = True
         Me.chkFisenMHGRH.Enabled = False
-        Me.chkFisenMHGRH.Location = New System.Drawing.Point(30, 89)
+        Me.chkFisenMHGRH.Location = New System.Drawing.Point(194, 94)
         Me.chkFisenMHGRH.Margin = New System.Windows.Forms.Padding(2)
         Me.chkFisenMHGRH.Name = "chkFisenMHGRH"
         Me.chkFisenMHGRH.Size = New System.Drawing.Size(78, 17)
@@ -382,7 +420,7 @@ Partial Class frm100OA
         'chkFisenHGRH
         '
         Me.chkFisenHGRH.AutoSize = True
-        Me.chkFisenHGRH.Location = New System.Drawing.Point(5, 68)
+        Me.chkFisenHGRH.Location = New System.Drawing.Point(169, 73)
         Me.chkFisenHGRH.Margin = New System.Windows.Forms.Padding(2)
         Me.chkFisenHGRH.Name = "chkFisenHGRH"
         Me.chkFisenHGRH.Size = New System.Drawing.Size(86, 17)
@@ -393,7 +431,7 @@ Partial Class frm100OA
         'chkLowAF
         '
         Me.chkLowAF.AutoSize = True
-        Me.chkLowAF.Location = New System.Drawing.Point(5, 6)
+        Me.chkLowAF.Location = New System.Drawing.Point(169, 11)
         Me.chkLowAF.Margin = New System.Windows.Forms.Padding(2)
         Me.chkLowAF.Name = "chkLowAF"
         Me.chkLowAF.Size = New System.Drawing.Size(104, 17)
@@ -403,7 +441,7 @@ Partial Class frm100OA
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(758, 160)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneConditions.TabIndex = 23
@@ -412,17 +450,27 @@ Partial Class frm100OA
         '
         'tpgOptions
         '
-        Me.tpgOptions.Controls.Add(Me.grpReturn)
+        Me.tpgOptions.Controls.Add(Me.chkIntellispeed)
         Me.tpgOptions.Controls.Add(Me.GroupBox3)
-        Me.tpgOptions.Controls.Add(Me.GroupBox1)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
         Me.tpgOptions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgOptions.Size = New System.Drawing.Size(579, 194)
+        Me.tpgOptions.Size = New System.Drawing.Size(819, 194)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chkIntellispeed
+        '
+        Me.chkIntellispeed.AutoSize = True
+        Me.chkIntellispeed.Location = New System.Drawing.Point(6, 5)
+        Me.chkIntellispeed.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkIntellispeed.Name = "chkIntellispeed"
+        Me.chkIntellispeed.Size = New System.Drawing.Size(214, 17)
+        Me.chkIntellispeed.TabIndex = 43
+        Me.chkIntellispeed.Text = "Convert Intellispeed to Constant Volume"
+        Me.chkIntellispeed.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -434,7 +482,7 @@ Partial Class frm100OA
         Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
         Me.GroupBox3.TabIndex = 28
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auxillary Control Panel"
+        Me.GroupBox3.Text = "Auxiliary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -453,7 +501,7 @@ Partial Class frm100OA
         Me.optUseAux.Size = New System.Drawing.Size(151, 17)
         Me.optUseAux.TabIndex = 1
         Me.optUseAux.TabStop = True
-        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.Text = "Use Auxiliary Control Panel"
         Me.optUseAux.UseVisualStyleBackColor = True
         '
         'optNoAux
@@ -468,43 +516,9 @@ Partial Class frm100OA
         Me.optNoAux.Text = "None"
         Me.optNoAux.UseVisualStyleBackColor = True
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.opt100OACapable)
-        Me.GroupBox1.Controls.Add(Me.opt100OA)
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(214, 71)
-        Me.GroupBox1.TabIndex = 27
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Conversion"
-        '
-        'opt100OACapable
-        '
-        Me.opt100OACapable.AutoSize = True
-        Me.opt100OACapable.Location = New System.Drawing.Point(6, 42)
-        Me.opt100OACapable.Name = "opt100OACapable"
-        Me.opt100OACapable.Size = New System.Drawing.Size(149, 17)
-        Me.opt100OACapable.TabIndex = 1
-        Me.opt100OACapable.TabStop = True
-        Me.opt100OACapable.Text = "100% Outdoor Air Capable"
-        Me.opt100OACapable.UseVisualStyleBackColor = True
-        '
-        'opt100OA
-        '
-        Me.opt100OA.AutoSize = True
-        Me.opt100OA.Checked = True
-        Me.opt100OA.Location = New System.Drawing.Point(6, 19)
-        Me.opt100OA.Name = "opt100OA"
-        Me.opt100OA.Size = New System.Drawing.Size(107, 17)
-        Me.opt100OA.TabIndex = 0
-        Me.opt100OA.TabStop = True
-        Me.opt100OA.Text = "100% Outdoor Air"
-        Me.opt100OA.UseVisualStyleBackColor = True
-        '
         'btnDoneOptions
         '
-        Me.btnDoneOptions.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneOptions.Location = New System.Drawing.Point(758, 160)
         Me.btnDoneOptions.Name = "btnDoneOptions"
         Me.btnDoneOptions.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneOptions.TabIndex = 24
@@ -513,6 +527,7 @@ Partial Class frm100OA
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.GroupBox2)
         Me.tpgControls.Controls.Add(Me.chkZoneOvrSensor)
         Me.tpgControls.Controls.Add(Me.grp100OACapable)
         Me.tpgControls.Controls.Add(Me.grpModeCtrl)
@@ -522,10 +537,56 @@ Partial Class frm100OA
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgControls.Size = New System.Drawing.Size(579, 194)
+        Me.tpgControls.Size = New System.Drawing.Size(819, 194)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.optASE)
+        Me.GroupBox2.Controls.Add(Me.optIPU)
+        Me.GroupBox2.Controls.Add(Me.optSE)
+        Me.GroupBox2.Location = New System.Drawing.Point(548, 6)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox2.Size = New System.Drawing.Size(212, 68)
+        Me.GroupBox2.TabIndex = 42
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Base Unit Controls"
+        '
+        'optASE
+        '
+        Me.optASE.AutoSize = True
+        Me.optASE.Location = New System.Drawing.Point(99, 18)
+        Me.optASE.Name = "optASE"
+        Me.optASE.Size = New System.Drawing.Size(46, 17)
+        Me.optASE.TabIndex = 4
+        Me.optASE.Text = "ASE"
+        Me.optASE.UseVisualStyleBackColor = True
+        '
+        'optIPU
+        '
+        Me.optIPU.AutoSize = True
+        Me.optIPU.Location = New System.Drawing.Point(50, 18)
+        Me.optIPU.Name = "optIPU"
+        Me.optIPU.Size = New System.Drawing.Size(43, 17)
+        Me.optIPU.TabIndex = 3
+        Me.optIPU.Text = "IPU"
+        Me.optIPU.UseVisualStyleBackColor = True
+        '
+        'optSE
+        '
+        Me.optSE.AutoSize = True
+        Me.optSE.Checked = True
+        Me.optSE.Location = New System.Drawing.Point(5, 18)
+        Me.optSE.Name = "optSE"
+        Me.optSE.Size = New System.Drawing.Size(39, 17)
+        Me.optSE.TabIndex = 1
+        Me.optSE.TabStop = True
+        Me.optSE.Text = "SE"
+        Me.optSE.UseVisualStyleBackColor = True
         '
         'chkZoneOvrSensor
         '
@@ -806,7 +867,7 @@ Partial Class frm100OA
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneControls.Location = New System.Drawing.Point(758, 160)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneControls.TabIndex = 25
@@ -818,7 +879,7 @@ Partial Class frm100OA
         Me.tpgPerformance.Controls.Add(Me.btnDonePerformance)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Size = New System.Drawing.Size(579, 194)
+        Me.tpgPerformance.Size = New System.Drawing.Size(819, 194)
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
@@ -826,7 +887,7 @@ Partial Class frm100OA
         'btnDonePerformance
         '
         Me.btnDonePerformance.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnDonePerformance.Location = New System.Drawing.Point(513, 153)
+        Me.btnDonePerformance.Location = New System.Drawing.Point(758, 160)
         Me.btnDonePerformance.Name = "btnDonePerformance"
         Me.btnDonePerformance.Size = New System.Drawing.Size(55, 28)
         Me.btnDonePerformance.TabIndex = 25
@@ -838,47 +899,49 @@ Partial Class frm100OA
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(579, 194)
+        Me.DebugPage.Size = New System.Drawing.Size(819, 194)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'grpReturn
+        'cmdViewHistory
         '
-        Me.grpReturn.Controls.Add(Me.optReturnHorizontal)
-        Me.grpReturn.Controls.Add(Me.optReturnBottom)
-        Me.grpReturn.Location = New System.Drawing.Point(226, 6)
-        Me.grpReturn.Name = "grpReturn"
-        Me.grpReturn.Size = New System.Drawing.Size(144, 71)
-        Me.grpReturn.TabIndex = 29
-        Me.grpReturn.TabStop = False
-        Me.grpReturn.Text = "Return"
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(766, 249)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 12
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'optReturnHorizontal
+        'cmdDesignCautions
         '
-        Me.optReturnHorizontal.AutoSize = True
-        Me.optReturnHorizontal.Location = New System.Drawing.Point(6, 42)
-        Me.optReturnHorizontal.Name = "optReturnHorizontal"
-        Me.optReturnHorizontal.Size = New System.Drawing.Size(72, 17)
-        Me.optReturnHorizontal.TabIndex = 3
-        Me.optReturnHorizontal.Text = "Horizontal"
-        Me.optReturnHorizontal.UseVisualStyleBackColor = True
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(802, 249)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 11
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'optReturnBottom
+        'chkWriteHistory
         '
-        Me.optReturnBottom.AutoSize = True
-        Me.optReturnBottom.Location = New System.Drawing.Point(6, 19)
-        Me.optReturnBottom.Name = "optReturnBottom"
-        Me.optReturnBottom.Size = New System.Drawing.Size(58, 17)
-        Me.optReturnBottom.TabIndex = 2
-        Me.optReturnBottom.Text = "Bottom"
-        Me.optReturnBottom.UseVisualStyleBackColor = True
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(222, 261)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 14
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frm100OA
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(612, 290)
+        Me.ClientSize = New System.Drawing.Size(848, 290)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -889,19 +952,22 @@ Partial Class frm100OA
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
         Me.tpgConditions.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.grpReturn.ResumeLayout(False)
+        Me.grpReturn.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
+        Me.tpgOptions.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.grp100OACapable.ResumeLayout(False)
         Me.grp100OACapable.PerformLayout()
         Me.grpModeCtrl.ResumeLayout(False)
@@ -911,9 +977,8 @@ Partial Class frm100OA
         Me.grpGBASCtrl4.ResumeLayout(False)
         Me.grpGBASCtrl4.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
-        Me.grpReturn.ResumeLayout(False)
-        Me.grpReturn.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -939,9 +1004,6 @@ Partial Class frm100OA
     Friend WithEvents optGBASFuture As RadioButton
     Friend WithEvents optGBAS3Level As RadioButton
     Friend WithEvents optGBASVernier As RadioButton
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents opt100OACapable As RadioButton
-    Friend WithEvents opt100OA As RadioButton
     Friend WithEvents tpgPerformance As TabPage
     Friend WithEvents btnDonePerformance As Button
     Friend WithEvents GroupBox8 As GroupBox
@@ -966,9 +1028,6 @@ Partial Class frm100OA
     Friend WithEvents optCoolCtrlGBAS As RadioButton
     Friend WithEvents optCoolCtrlStagedOA As RadioButton
     Friend WithEvents optCoolCtrlDAByFisenSE As RadioButton
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents optIPU As RadioButton
-    Friend WithEvents optSE As RadioButton
     Friend WithEvents chkZoneOvrSensor As CheckBox
     Friend WithEvents optHeatcoGas As RadioButton
     Friend WithEvents GroupBox3 As GroupBox
@@ -980,8 +1039,19 @@ Partial Class frm100OA
     Friend WithEvents optCoolCtrlBySE As RadioButton
     Friend WithEvents optHeatCtrlDABaseUnit As RadioButton
     Friend WithEvents optModeNoChange As RadioButton
-    Friend WithEvents chkIntellispeed As CheckBox
     Friend WithEvents grpReturn As GroupBox
+    Friend WithEvents optReturnNone As RadioButton
     Friend WithEvents optReturnHorizontal As RadioButton
     Friend WithEvents optReturnBottom As RadioButton
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents opt100OACapable As RadioButton
+    Friend WithEvents opt100OA As RadioButton
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents optASE As RadioButton
+    Friend WithEvents optIPU As RadioButton
+    Friend WithEvents optSE As RadioButton
+    Friend WithEvents chkIntellispeed As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

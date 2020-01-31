@@ -592,8 +592,21 @@ Public Class frmMain
     Private Sub btnDoneModSel_Click(sender As Object, e As EventArgs) Handles btnDoneModSel.Click
         Dim i As Integer
         Dim dummy As MsgBoxResult
+        Dim OA100Present, LowAFPresent As Boolean
 
         Dim thisitem As String
+        'scan for 100% OA without low airflow
+        OA100Present = False
+        LowAFPresent = False
+        For i = 0 To lstSelectedMods.Items.Count - 1
+            If lstSelectedMods.Items(i) = "100% Outdoor Air" Then OA100Present = True
+            If lstSelectedMods.Items(i) = "Reduced Air Flow" Then LowAFPresent = True
+        Next
+        If (OA100Present And Not (LowAFPresent)) Then
+            dummy = MsgBox("You have selected 100% OA without Reduced Airflow.  Are you certain you want to proceed?", vbYesNo, "Fisen Unit Generator")
+            If dummy = vbNo Then Exit Sub
+        End If
+
 
         'This block of codes processes mods at a higher priority
         For i = 0 To lstSelectedMods.Items.Count - 1
@@ -1886,6 +1899,184 @@ Public Class frmMain
         lUnitWriter.WriteEndElement()
 
     End Sub
+
+    Private Sub WriteFFilterPerformance(lUnitWriter As XmlWriter, lsettings As XmlWriterSettings)
+
+        lUnitWriter.WriteStartElement("Present")
+        If ThisUnitFFilters.HasNewFilters Then
+            lUnitWriter.WriteString("True")
+        Else
+            lUnitWriter.WriteString("False")
+        End If
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Filter1")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterQ1)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterSize1)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 1
+
+        lUnitWriter.WriteStartElement("Filter2")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterQ2)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterSize2)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 2
+
+        lUnitWriter.WriteStartElement("Filter3")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterQ3)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterSize3)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 3
+
+        lUnitWriter.WriteStartElement("Filter4")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterQ4)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterSize4)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitFFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 4
+
+        lUnitWriter.WriteStartElement("InitialResistance")
+        lUnitWriter.WriteString(ThisUnitFFilters.FAPD)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("DFA")
+        lUnitWriter.WriteString(ThisUnitFFilters.FDFA)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("FinalResistance")
+        lUnitWriter.WriteString(Format((Val(ThisUnitFFilters.FAPD) + Val(ThisUnitFFilters.FDFA)), "0.00"))
+        lUnitWriter.WriteEndElement()
+
+    End Sub
+
+
+    Private Sub WriteIFilterPerformance(lUnitWriter As XmlWriter, lsettings As XmlWriterSettings)
+
+        lUnitWriter.WriteStartElement("Present")
+        If ThisUnitIFilters.HasNewFilters Then
+            lUnitWriter.WriteString("True")
+        Else
+            lUnitWriter.WriteString("False")
+        End If
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Filter1")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterQ1)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterSize1)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 1
+
+        lUnitWriter.WriteStartElement("Filter2")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterQ2)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterSize2)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 2
+
+        lUnitWriter.WriteStartElement("Filter3")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterQ3)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterSize3)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 3
+
+        lUnitWriter.WriteStartElement("Filter4")
+
+        lUnitWriter.WriteStartElement("Qty")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterQ4)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Size")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterSize4)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("Rating")
+        lUnitWriter.WriteString(ThisUnitIFilters.FilterType)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteEndElement() 'End Filter 4
+
+        lUnitWriter.WriteStartElement("InitialResistance")
+        lUnitWriter.WriteString(ThisUnitIFilters.FAPD)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("DFA")
+        lUnitWriter.WriteString(ThisUnitIFilters.FDFA)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("FinalResistance")
+        lUnitWriter.WriteString(Format((Val(ThisUnitIFilters.FAPD) + Val(ThisUnitIFilters.FDFA)), "0.00"))
+        lUnitWriter.WriteEndElement()
+
+    End Sub
+
     Private Sub WriteRXPerfData(lUnitWriter As XmlWriter, lsettings As XmlWriterSettings)
 
         lUnitWriter.WriteStartElement("FanStyle")
@@ -2826,11 +3017,19 @@ Public Class frmMain
             Next j
         End If
         UnitWriter.WriteStartElement("CULiquidSize")
-        UnitWriter.WriteString(ThisUnitRefData.CULiquidLineSize)
+        If ThisUnitCstmCoilPerf.CoilStyle = "Reclaim Coil - Hot Gas" Then
+            UnitWriter.WriteString(ThisUnitCstmCoilPerf.InletConn)
+        Else
+            UnitWriter.WriteString(ThisUnitRefData.CULiquidLineSize)
+        End If
         UnitWriter.WriteEndElement()
 
         UnitWriter.WriteStartElement("CUSuctionSize")
-        UnitWriter.WriteString(ThisUnitRefData.CUSuctionLineSize)
+        If ThisUnitCstmCoilPerf.CoilStyle = "Reclaim Coil - Hot Gas" Then
+            UnitWriter.WriteString(ThisUnitCstmCoilPerf.OutletConn)
+        Else
+            UnitWriter.WriteString(ThisUnitRefData.CUSuctionLineSize)
+        End If
         UnitWriter.WriteEndElement()
 
         UnitWriter.WriteStartElement("ReferSpecCount")
@@ -2857,6 +3056,12 @@ Public Class frmMain
         End If
 
         UnitWriter.WriteEndElement() ' Refer Spec list
+
+        UnitWriter.WriteStartElement("CoilType")
+        UnitWriter.WriteString(ThisUnitCstmCoilPerf.CoilStyle)
+        UnitWriter.WriteEndElement()
+
+
         UnitWriter.WriteEndElement() 'Refrig Drawings
 
         UnitWriter.WriteStartElement("AirFlowDiagramsRqd")
@@ -2958,7 +3163,7 @@ Public Class frmMain
         End If
         If ThisUnitGenCodes.Count > 0 Then
             UnitWriter.WriteStartElement("Common")
-            For j = 1 To ThisUnitGenCodes.Count - 1
+            For j = 0 To ThisUnitGenCodes.Count - 1
                 If ThisUnitGenCodes.Item(j) = "960000" Then GenGen = True 'The General Master code is present.
             Next j
             If Not (GenGen) Then
@@ -4779,6 +4984,14 @@ Public Class frmMain
         lUnitWriter.WriteStartElement("RXFanPerformance")
         Call WriteRXPerfData(lUnitWriter, lmyXMLSettings)
         lUnitWriter.WriteEndElement() 'ends Supply Fan performance
+
+        lUnitWriter.WriteStartElement("IFilterPerformance")
+        Call WriteIFilterPerformance(lUnitWriter, lmyXMLSettings)
+        lUnitWriter.WriteEndElement() 'ends Initial Filter Performance
+
+        lUnitWriter.WriteStartElement("FFilterPerformance")
+        Call WriteFFilterPerformance(lUnitWriter, lmyXMLSettings)
+        lUnitWriter.WriteEndElement() 'ends Final Filter Performance
 
     End Sub
     Private Sub btnDoneCoolPerf_Click(sender As Object, e As EventArgs) Handles btnDoneCoolPerf.Click

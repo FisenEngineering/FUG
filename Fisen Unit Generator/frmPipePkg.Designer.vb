@@ -25,9 +25,24 @@ Partial Class frmPipePkg
         Me.components = New System.ComponentModel.Container()
         Me.tbcPipePkg = New System.Windows.Forms.TabControl()
         Me.pgSpecialities = New System.Windows.Forms.TabPage()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.cmbFluidHeat = New System.Windows.Forms.ComboBox()
+        Me.cmbFluidPercentHeat = New System.Windows.Forms.ComboBox()
+        Me.txtFlowHeat = New System.Windows.Forms.TextBox()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.grpPkgModel = New System.Windows.Forms.GroupBox()
+        Me.chkPkgAHUCool = New System.Windows.Forms.CheckBox()
+        Me.chkPkgAHUHeat = New System.Windows.Forms.CheckBox()
+        Me.optPkgAHU = New System.Windows.Forms.RadioButton()
+        Me.optPkgSkid = New System.Windows.Forms.RadioButton()
+        Me.optPkgIntegral = New System.Windows.Forms.RadioButton()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.btnDoneProposal = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.optCoilHeadSpec = New System.Windows.Forms.RadioButton()
         Me.txtTotalHead = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtFisenHead = New System.Windows.Forms.TextBox()
@@ -268,23 +283,19 @@ Partial Class frmPipePkg
         Me.txtPackagePD = New System.Windows.Forms.TextBox()
         Me.txtWeightPerGallon = New System.Windows.Forms.TextBox()
         Me.txtFluidSG = New System.Windows.Forms.TextBox()
-        Me.grpPkgModel = New System.Windows.Forms.GroupBox()
-        Me.optPkgIntegral = New System.Windows.Forms.RadioButton()
-        Me.optPkgSkid = New System.Windows.Forms.RadioButton()
-        Me.optPkgAHU = New System.Windows.Forms.RadioButton()
-        Me.chkPkgAHUHeat = New System.Windows.Forms.CheckBox()
-        Me.chkPkgAHUCool = New System.Windows.Forms.CheckBox()
-        Me.optCoilHeadSpec = New System.Windows.Forms.RadioButton()
-        Me.Label45 = New System.Windows.Forms.Label()
-        Me.Label46 = New System.Windows.Forms.Label()
-        Me.cmbFluidHeat = New System.Windows.Forms.ComboBox()
-        Me.cmbFluidPercentHeat = New System.Windows.Forms.ComboBox()
-        Me.txtFlowHeat = New System.Windows.Forms.TextBox()
-        Me.Label47 = New System.Windows.Forms.Label()
-        Me.Label49 = New System.Windows.Forms.Label()
-        Me.Label50 = New System.Windows.Forms.Label()
+        Me.cmbPumpSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbTDVSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbSucDiffSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbBuffTankSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbStrainSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbAirSepSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbExpTankSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbPotFeedSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbInsSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbGMUSpec = New System.Windows.Forms.ComboBox()
         Me.tbcPipePkg.SuspendLayout()
         Me.pgSpecialities.SuspendLayout()
+        Me.grpPkgModel.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.pgHydronicDwg.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -321,7 +332,6 @@ Partial Class frmPipePkg
         CType(Me.nudAnchorHoles, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudFloorDrainCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        Me.grpPkgModel.SuspendLayout()
         Me.SuspendLayout()
         '
         'tbcPipePkg
@@ -344,6 +354,16 @@ Partial Class frmPipePkg
         '
         'pgSpecialities
         '
+        Me.pgSpecialities.Controls.Add(Me.cmbPotFeedSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbInsSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbGMUSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbStrainSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbAirSepSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbExpTankSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbBuffTankSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbSucDiffSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbTDVSpec)
+        Me.pgSpecialities.Controls.Add(Me.cmbPumpSpec)
         Me.pgSpecialities.Controls.Add(Me.Label50)
         Me.pgSpecialities.Controls.Add(Me.Label49)
         Me.pgSpecialities.Controls.Add(Me.Label45)
@@ -377,6 +397,153 @@ Partial Class frmPipePkg
         Me.pgSpecialities.TabIndex = 3
         Me.pgSpecialities.Text = "Proposal"
         Me.pgSpecialities.UseVisualStyleBackColor = True
+        '
+        'Label50
+        '
+        Me.Label50.AutoSize = True
+        Me.Label50.Location = New System.Drawing.Point(1009, 276)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(44, 13)
+        Me.Label50.TabIndex = 30
+        Me.Label50.Text = "Heating"
+        Me.Label50.Visible = False
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(817, 276)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(42, 13)
+        Me.Label49.TabIndex = 29
+        Me.Label49.Text = "Cooling"
+        '
+        'Label45
+        '
+        Me.Label45.AutoSize = True
+        Me.Label45.Location = New System.Drawing.Point(1091, 355)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(66, 13)
+        Me.Label45.TabIndex = 28
+        Me.Label45.Text = "% by Weight"
+        Me.Label45.Visible = False
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(1091, 325)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(29, 13)
+        Me.Label46.TabIndex = 27
+        Me.Label46.Text = "Fluid"
+        Me.Label46.Visible = False
+        '
+        'cmbFluidHeat
+        '
+        Me.cmbFluidHeat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFluidHeat.FormattingEnabled = True
+        Me.cmbFluidHeat.Items.AddRange(New Object() {"Water", "Ethylene Glycol", "Propylene Glycol"})
+        Me.cmbFluidHeat.Location = New System.Drawing.Point(973, 321)
+        Me.cmbFluidHeat.Name = "cmbFluidHeat"
+        Me.cmbFluidHeat.Size = New System.Drawing.Size(112, 21)
+        Me.cmbFluidHeat.TabIndex = 26
+        Me.cmbFluidHeat.Visible = False
+        '
+        'cmbFluidPercentHeat
+        '
+        Me.cmbFluidPercentHeat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFluidPercentHeat.FormattingEnabled = True
+        Me.cmbFluidPercentHeat.Items.AddRange(New Object() {"5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "-"})
+        Me.cmbFluidPercentHeat.Location = New System.Drawing.Point(973, 351)
+        Me.cmbFluidPercentHeat.Name = "cmbFluidPercentHeat"
+        Me.cmbFluidPercentHeat.Size = New System.Drawing.Size(112, 21)
+        Me.cmbFluidPercentHeat.TabIndex = 25
+        Me.cmbFluidPercentHeat.Visible = False
+        '
+        'txtFlowHeat
+        '
+        Me.txtFlowHeat.Location = New System.Drawing.Point(973, 292)
+        Me.txtFlowHeat.Name = "txtFlowHeat"
+        Me.txtFlowHeat.Size = New System.Drawing.Size(112, 20)
+        Me.txtFlowHeat.TabIndex = 24
+        Me.txtFlowHeat.Visible = False
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(1091, 297)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(58, 13)
+        Me.Label47.TabIndex = 23
+        Me.Label47.Text = "Flow (gpm)"
+        Me.Label47.Visible = False
+        '
+        'grpPkgModel
+        '
+        Me.grpPkgModel.Controls.Add(Me.chkPkgAHUCool)
+        Me.grpPkgModel.Controls.Add(Me.chkPkgAHUHeat)
+        Me.grpPkgModel.Controls.Add(Me.optPkgAHU)
+        Me.grpPkgModel.Controls.Add(Me.optPkgSkid)
+        Me.grpPkgModel.Controls.Add(Me.optPkgIntegral)
+        Me.grpPkgModel.Location = New System.Drawing.Point(3, 3)
+        Me.grpPkgModel.Name = "grpPkgModel"
+        Me.grpPkgModel.Size = New System.Drawing.Size(351, 68)
+        Me.grpPkgModel.TabIndex = 22
+        Me.grpPkgModel.TabStop = False
+        Me.grpPkgModel.Text = "Type of Package"
+        '
+        'chkPkgAHUCool
+        '
+        Me.chkPkgAHUCool.AutoSize = True
+        Me.chkPkgAHUCool.Enabled = False
+        Me.chkPkgAHUCool.Location = New System.Drawing.Point(288, 42)
+        Me.chkPkgAHUCool.Name = "chkPkgAHUCool"
+        Me.chkPkgAHUCool.Size = New System.Drawing.Size(61, 17)
+        Me.chkPkgAHUCool.TabIndex = 6
+        Me.chkPkgAHUCool.Text = "Cooling"
+        Me.chkPkgAHUCool.UseVisualStyleBackColor = True
+        '
+        'chkPkgAHUHeat
+        '
+        Me.chkPkgAHUHeat.AutoSize = True
+        Me.chkPkgAHUHeat.Enabled = False
+        Me.chkPkgAHUHeat.Location = New System.Drawing.Point(219, 42)
+        Me.chkPkgAHUHeat.Name = "chkPkgAHUHeat"
+        Me.chkPkgAHUHeat.Size = New System.Drawing.Size(63, 17)
+        Me.chkPkgAHUHeat.TabIndex = 5
+        Me.chkPkgAHUHeat.Text = "Heating"
+        Me.chkPkgAHUHeat.UseVisualStyleBackColor = True
+        '
+        'optPkgAHU
+        '
+        Me.optPkgAHU.AutoSize = True
+        Me.optPkgAHU.Location = New System.Drawing.Point(212, 19)
+        Me.optPkgAHU.Name = "optPkgAHU"
+        Me.optPkgAHU.Size = New System.Drawing.Size(102, 17)
+        Me.optPkgAHU.TabIndex = 4
+        Me.optPkgAHU.Text = "Air Handler Coils"
+        Me.optPkgAHU.UseVisualStyleBackColor = True
+        '
+        'optPkgSkid
+        '
+        Me.optPkgSkid.AutoSize = True
+        Me.optPkgSkid.Location = New System.Drawing.Point(103, 19)
+        Me.optPkgSkid.Name = "optPkgSkid"
+        Me.optPkgSkid.Size = New System.Drawing.Size(103, 17)
+        Me.optPkgSkid.TabIndex = 3
+        Me.optPkgSkid.Text = "Standalone Skid"
+        Me.optPkgSkid.UseVisualStyleBackColor = True
+        '
+        'optPkgIntegral
+        '
+        Me.optPkgIntegral.AutoSize = True
+        Me.optPkgIntegral.Checked = True
+        Me.optPkgIntegral.Location = New System.Drawing.Point(6, 19)
+        Me.optPkgIntegral.Name = "optPkgIntegral"
+        Me.optPkgIntegral.Size = New System.Drawing.Size(91, 17)
+        Me.optPkgIntegral.TabIndex = 2
+        Me.optPkgIntegral.TabStop = True
+        Me.optPkgIntegral.Text = "Integral Chiller"
+        Me.optPkgIntegral.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
@@ -417,6 +584,16 @@ Partial Class frmPipePkg
         Me.GroupBox3.TabIndex = 19
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Static Resistance"
+        '
+        'optCoilHeadSpec
+        '
+        Me.optCoilHeadSpec.AutoSize = True
+        Me.optCoilHeadSpec.Location = New System.Drawing.Point(16, 201)
+        Me.optCoilHeadSpec.Name = "optCoilHeadSpec"
+        Me.optCoilHeadSpec.Size = New System.Drawing.Size(88, 17)
+        Me.optCoilHeadSpec.TabIndex = 19
+        Me.optCoilHeadSpec.Text = "Coil Package"
+        Me.optCoilHeadSpec.UseVisualStyleBackColor = True
         '
         'txtTotalHead
         '
@@ -2851,162 +3028,105 @@ Partial Class frmPipePkg
         Me.txtFluidSG.Text = "1.00"
         Me.txtFluidSG.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'grpPkgModel
+        'cmbPumpSpec
         '
-        Me.grpPkgModel.Controls.Add(Me.chkPkgAHUCool)
-        Me.grpPkgModel.Controls.Add(Me.chkPkgAHUHeat)
-        Me.grpPkgModel.Controls.Add(Me.optPkgAHU)
-        Me.grpPkgModel.Controls.Add(Me.optPkgSkid)
-        Me.grpPkgModel.Controls.Add(Me.optPkgIntegral)
-        Me.grpPkgModel.Location = New System.Drawing.Point(3, 3)
-        Me.grpPkgModel.Name = "grpPkgModel"
-        Me.grpPkgModel.Size = New System.Drawing.Size(351, 68)
-        Me.grpPkgModel.TabIndex = 22
-        Me.grpPkgModel.TabStop = False
-        Me.grpPkgModel.Text = "Type of Package"
+        Me.cmbPumpSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPumpSpec.FormattingEnabled = True
+        Me.cmbPumpSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
+        Me.cmbPumpSpec.Location = New System.Drawing.Point(164, 75)
+        Me.cmbPumpSpec.Name = "cmbPumpSpec"
+        Me.cmbPumpSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPumpSpec.TabIndex = 31
         '
-        'optPkgIntegral
+        'cmbTDVSpec
         '
-        Me.optPkgIntegral.AutoSize = True
-        Me.optPkgIntegral.Checked = True
-        Me.optPkgIntegral.Location = New System.Drawing.Point(6, 19)
-        Me.optPkgIntegral.Name = "optPkgIntegral"
-        Me.optPkgIntegral.Size = New System.Drawing.Size(91, 17)
-        Me.optPkgIntegral.TabIndex = 2
-        Me.optPkgIntegral.TabStop = True
-        Me.optPkgIntegral.Text = "Integral Chiller"
-        Me.optPkgIntegral.UseVisualStyleBackColor = True
+        Me.cmbTDVSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTDVSpec.FormattingEnabled = True
+        Me.cmbTDVSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
+        Me.cmbTDVSpec.Location = New System.Drawing.Point(164, 101)
+        Me.cmbTDVSpec.Name = "cmbTDVSpec"
+        Me.cmbTDVSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbTDVSpec.TabIndex = 32
         '
-        'optPkgSkid
+        'cmbSucDiffSpec
         '
-        Me.optPkgSkid.AutoSize = True
-        Me.optPkgSkid.Location = New System.Drawing.Point(103, 19)
-        Me.optPkgSkid.Name = "optPkgSkid"
-        Me.optPkgSkid.Size = New System.Drawing.Size(103, 17)
-        Me.optPkgSkid.TabIndex = 3
-        Me.optPkgSkid.Text = "Standalone Skid"
-        Me.optPkgSkid.UseVisualStyleBackColor = True
+        Me.cmbSucDiffSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSucDiffSpec.FormattingEnabled = True
+        Me.cmbSucDiffSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
+        Me.cmbSucDiffSpec.Location = New System.Drawing.Point(164, 127)
+        Me.cmbSucDiffSpec.Name = "cmbSucDiffSpec"
+        Me.cmbSucDiffSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbSucDiffSpec.TabIndex = 33
         '
-        'optPkgAHU
+        'cmbBuffTankSpec
         '
-        Me.optPkgAHU.AutoSize = True
-        Me.optPkgAHU.Location = New System.Drawing.Point(212, 19)
-        Me.optPkgAHU.Name = "optPkgAHU"
-        Me.optPkgAHU.Size = New System.Drawing.Size(102, 17)
-        Me.optPkgAHU.TabIndex = 4
-        Me.optPkgAHU.Text = "Air Handler Coils"
-        Me.optPkgAHU.UseVisualStyleBackColor = True
+        Me.cmbBuffTankSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBuffTankSpec.FormattingEnabled = True
+        Me.cmbBuffTankSpec.Items.AddRange(New Object() {"Use Standard", "Niles Steel Tank", "Buckeye Fabrication", "Elbi"})
+        Me.cmbBuffTankSpec.Location = New System.Drawing.Point(164, 153)
+        Me.cmbBuffTankSpec.Name = "cmbBuffTankSpec"
+        Me.cmbBuffTankSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbBuffTankSpec.TabIndex = 34
         '
-        'chkPkgAHUHeat
+        'cmbStrainSpec
         '
-        Me.chkPkgAHUHeat.AutoSize = True
-        Me.chkPkgAHUHeat.Enabled = False
-        Me.chkPkgAHUHeat.Location = New System.Drawing.Point(219, 42)
-        Me.chkPkgAHUHeat.Name = "chkPkgAHUHeat"
-        Me.chkPkgAHUHeat.Size = New System.Drawing.Size(63, 17)
-        Me.chkPkgAHUHeat.TabIndex = 5
-        Me.chkPkgAHUHeat.Text = "Heating"
-        Me.chkPkgAHUHeat.UseVisualStyleBackColor = True
+        Me.cmbStrainSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbStrainSpec.FormattingEnabled = True
+        Me.cmbStrainSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
+        Me.cmbStrainSpec.Location = New System.Drawing.Point(164, 231)
+        Me.cmbStrainSpec.Name = "cmbStrainSpec"
+        Me.cmbStrainSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbStrainSpec.TabIndex = 37
         '
-        'chkPkgAHUCool
+        'cmbAirSepSpec
         '
-        Me.chkPkgAHUCool.AutoSize = True
-        Me.chkPkgAHUCool.Enabled = False
-        Me.chkPkgAHUCool.Location = New System.Drawing.Point(288, 42)
-        Me.chkPkgAHUCool.Name = "chkPkgAHUCool"
-        Me.chkPkgAHUCool.Size = New System.Drawing.Size(61, 17)
-        Me.chkPkgAHUCool.TabIndex = 6
-        Me.chkPkgAHUCool.Text = "Cooling"
-        Me.chkPkgAHUCool.UseVisualStyleBackColor = True
+        Me.cmbAirSepSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAirSepSpec.FormattingEnabled = True
+        Me.cmbAirSepSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Honeywell"})
+        Me.cmbAirSepSpec.Location = New System.Drawing.Point(164, 205)
+        Me.cmbAirSepSpec.Name = "cmbAirSepSpec"
+        Me.cmbAirSepSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbAirSepSpec.TabIndex = 36
         '
-        'optCoilHeadSpec
+        'cmbExpTankSpec
         '
-        Me.optCoilHeadSpec.AutoSize = True
-        Me.optCoilHeadSpec.Location = New System.Drawing.Point(16, 201)
-        Me.optCoilHeadSpec.Name = "optCoilHeadSpec"
-        Me.optCoilHeadSpec.Size = New System.Drawing.Size(88, 17)
-        Me.optCoilHeadSpec.TabIndex = 19
-        Me.optCoilHeadSpec.Text = "Coil Package"
-        Me.optCoilHeadSpec.UseVisualStyleBackColor = True
+        Me.cmbExpTankSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbExpTankSpec.FormattingEnabled = True
+        Me.cmbExpTankSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
+        Me.cmbExpTankSpec.Location = New System.Drawing.Point(164, 179)
+        Me.cmbExpTankSpec.Name = "cmbExpTankSpec"
+        Me.cmbExpTankSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbExpTankSpec.TabIndex = 35
         '
-        'Label45
+        'cmbPotFeedSpec
         '
-        Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(1091, 355)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(66, 13)
-        Me.Label45.TabIndex = 28
-        Me.Label45.Text = "% by Weight"
-        Me.Label45.Visible = False
+        Me.cmbPotFeedSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPotFeedSpec.FormattingEnabled = True
+        Me.cmbPotFeedSpec.Items.AddRange(New Object() {"Use Standard"})
+        Me.cmbPotFeedSpec.Location = New System.Drawing.Point(164, 309)
+        Me.cmbPotFeedSpec.Name = "cmbPotFeedSpec"
+        Me.cmbPotFeedSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPotFeedSpec.TabIndex = 40
         '
-        'Label46
+        'cmbInsSpec
         '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(1091, 325)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(29, 13)
-        Me.Label46.TabIndex = 27
-        Me.Label46.Text = "Fluid"
-        Me.Label46.Visible = False
+        Me.cmbInsSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbInsSpec.FormattingEnabled = True
+        Me.cmbInsSpec.Items.AddRange(New Object() {"Use Standard"})
+        Me.cmbInsSpec.Location = New System.Drawing.Point(164, 283)
+        Me.cmbInsSpec.Name = "cmbInsSpec"
+        Me.cmbInsSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbInsSpec.TabIndex = 39
         '
-        'cmbFluidHeat
+        'cmbGMUSpec
         '
-        Me.cmbFluidHeat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbFluidHeat.FormattingEnabled = True
-        Me.cmbFluidHeat.Items.AddRange(New Object() {"Water", "Ethylene Glycol", "Propylene Glycol"})
-        Me.cmbFluidHeat.Location = New System.Drawing.Point(973, 321)
-        Me.cmbFluidHeat.Name = "cmbFluidHeat"
-        Me.cmbFluidHeat.Size = New System.Drawing.Size(112, 21)
-        Me.cmbFluidHeat.TabIndex = 26
-        Me.cmbFluidHeat.Visible = False
-        '
-        'cmbFluidPercentHeat
-        '
-        Me.cmbFluidPercentHeat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbFluidPercentHeat.FormattingEnabled = True
-        Me.cmbFluidPercentHeat.Items.AddRange(New Object() {"5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "-"})
-        Me.cmbFluidPercentHeat.Location = New System.Drawing.Point(973, 351)
-        Me.cmbFluidPercentHeat.Name = "cmbFluidPercentHeat"
-        Me.cmbFluidPercentHeat.Size = New System.Drawing.Size(112, 21)
-        Me.cmbFluidPercentHeat.TabIndex = 25
-        Me.cmbFluidPercentHeat.Visible = False
-        '
-        'txtFlowHeat
-        '
-        Me.txtFlowHeat.Location = New System.Drawing.Point(973, 292)
-        Me.txtFlowHeat.Name = "txtFlowHeat"
-        Me.txtFlowHeat.Size = New System.Drawing.Size(112, 20)
-        Me.txtFlowHeat.TabIndex = 24
-        Me.txtFlowHeat.Visible = False
-        '
-        'Label47
-        '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(1091, 297)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(58, 13)
-        Me.Label47.TabIndex = 23
-        Me.Label47.Text = "Flow (gpm)"
-        Me.Label47.Visible = False
-        '
-        'Label49
-        '
-        Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(817, 276)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(42, 13)
-        Me.Label49.TabIndex = 29
-        Me.Label49.Text = "Cooling"
-        '
-        'Label50
-        '
-        Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(1009, 276)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(44, 13)
-        Me.Label50.TabIndex = 30
-        Me.Label50.Text = "Heating"
-        Me.Label50.Visible = False
+        Me.cmbGMUSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbGMUSpec.FormattingEnabled = True
+        Me.cmbGMUSpec.Items.AddRange(New Object() {"Use Standard"})
+        Me.cmbGMUSpec.Location = New System.Drawing.Point(164, 257)
+        Me.cmbGMUSpec.Name = "cmbGMUSpec"
+        Me.cmbGMUSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbGMUSpec.TabIndex = 38
         '
         'frmPipePkg
         '
@@ -3036,6 +3156,8 @@ Partial Class frmPipePkg
         Me.tbcPipePkg.ResumeLayout(False)
         Me.pgSpecialities.ResumeLayout(False)
         Me.pgSpecialities.PerformLayout()
+        Me.grpPkgModel.ResumeLayout(False)
+        Me.grpPkgModel.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.pgHydronicDwg.ResumeLayout(False)
@@ -3085,8 +3207,6 @@ Partial Class frmPipePkg
         CType(Me.nudFloorDrainCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.grpPkgModel.ResumeLayout(False)
-        Me.grpPkgModel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3352,4 +3472,14 @@ Partial Class frmPipePkg
     Friend WithEvents txtFlowHeat As TextBox
     Friend WithEvents Label47 As Label
     Friend WithEvents optCoilHeadSpec As RadioButton
+    Friend WithEvents cmbPumpSpec As ComboBox
+    Friend WithEvents cmbPotFeedSpec As ComboBox
+    Friend WithEvents cmbInsSpec As ComboBox
+    Friend WithEvents cmbGMUSpec As ComboBox
+    Friend WithEvents cmbStrainSpec As ComboBox
+    Friend WithEvents cmbAirSepSpec As ComboBox
+    Friend WithEvents cmbExpTankSpec As ComboBox
+    Friend WithEvents cmbBuffTankSpec As ComboBox
+    Friend WithEvents cmbSucDiffSpec As ComboBox
+    Friend WithEvents cmbTDVSpec As ComboBox
 End Class

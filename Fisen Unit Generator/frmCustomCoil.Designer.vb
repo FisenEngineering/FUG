@@ -25,6 +25,9 @@ Partial Class frmCustomCoil
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomCoil))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.lblFluidFlowUnits = New System.Windows.Forms.Label()
+        Me.lblFluidFlow = New System.Windows.Forms.Label()
+        Me.txtFluidFlow = New System.Windows.Forms.TextBox()
         Me.lblFluid = New System.Windows.Forms.Label()
         Me.txtFluid = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -44,7 +47,6 @@ Partial Class frmCustomCoil
         Me.lblReclaimCap = New System.Windows.Forms.Label()
         Me.lblRefType = New System.Windows.Forms.Label()
         Me.txtReclaimCap = New System.Windows.Forms.TextBox()
-        Me.txtRefType = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
         Me.chkPumpedCoil = New System.Windows.Forms.CheckBox()
@@ -59,6 +61,10 @@ Partial Class frmCustomCoil
         Me.nudRows = New System.Windows.Forms.NumericUpDown()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.optValve3Way = New System.Windows.Forms.RadioButton()
+        Me.optValve2Way = New System.Windows.Forms.RadioButton()
+        Me.optValveNone = New System.Windows.Forms.RadioButton()
         Me.grpLowLimit = New System.Windows.Forms.GroupBox()
         Me.optLLBreakStuff = New System.Windows.Forms.RadioButton()
         Me.optLLNone = New System.Windows.Forms.RadioButton()
@@ -89,9 +95,6 @@ Partial Class frmCustomCoil
         Me.txtLAT = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.tpgValves = New System.Windows.Forms.TabPage()
-        Me.btnDoneValves = New System.Windows.Forms.Button()
-        Me.Cancel = New System.Windows.Forms.Button()
-        Me.btnOK = New System.Windows.Forms.Button()
         Me.btnSelectAValve = New System.Windows.Forms.Button()
         Me.cmbValveDesc = New System.Windows.Forms.ComboBox()
         Me.cmbValveSize = New System.Windows.Forms.ComboBox()
@@ -103,13 +106,10 @@ Partial Class frmCustomCoil
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtValveTag = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.optValveNone = New System.Windows.Forms.RadioButton()
-        Me.optValve2Way = New System.Windows.Forms.RadioButton()
-        Me.optValve3Way = New System.Windows.Forms.RadioButton()
-        Me.lblFluidFlowUnits = New System.Windows.Forms.Label()
-        Me.lblFluidFlow = New System.Windows.Forms.Label()
-        Me.txtFluidFlow = New System.Windows.Forms.TextBox()
+        Me.btnDoneValves = New System.Windows.Forms.Button()
+        Me.Cancel = New System.Windows.Forms.Button()
+        Me.btnOK = New System.Windows.Forms.Button()
+        Me.cmbRefType = New System.Windows.Forms.ComboBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,11 +117,11 @@ Partial Class frmCustomCoil
         Me.GroupBox4.SuspendLayout()
         CType(Me.nudRows, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgControls.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.grpLowLimit.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
         Me.tpgValves.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -139,6 +139,7 @@ Partial Class frmCustomCoil
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.cmbRefType)
         Me.tpgConditions.Controls.Add(Me.lblFluidFlowUnits)
         Me.tpgConditions.Controls.Add(Me.lblFluidFlow)
         Me.tpgConditions.Controls.Add(Me.txtFluidFlow)
@@ -161,7 +162,6 @@ Partial Class frmCustomCoil
         Me.tpgConditions.Controls.Add(Me.lblReclaimCap)
         Me.tpgConditions.Controls.Add(Me.lblRefType)
         Me.tpgConditions.Controls.Add(Me.txtReclaimCap)
-        Me.tpgConditions.Controls.Add(Me.txtRefType)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
@@ -171,11 +171,36 @@ Partial Class frmCustomCoil
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
+        'lblFluidFlowUnits
+        '
+        Me.lblFluidFlowUnits.AutoSize = True
+        Me.lblFluidFlowUnits.Location = New System.Drawing.Point(234, 87)
+        Me.lblFluidFlowUnits.Name = "lblFluidFlowUnits"
+        Me.lblFluidFlowUnits.Size = New System.Drawing.Size(27, 13)
+        Me.lblFluidFlowUnits.TabIndex = 65
+        Me.lblFluidFlowUnits.Text = "gpm"
+        '
+        'lblFluidFlow
+        '
+        Me.lblFluidFlow.AutoSize = True
+        Me.lblFluidFlow.Location = New System.Drawing.Point(102, 87)
+        Me.lblFluidFlow.Name = "lblFluidFlow"
+        Me.lblFluidFlow.Size = New System.Drawing.Size(54, 13)
+        Me.lblFluidFlow.TabIndex = 64
+        Me.lblFluidFlow.Text = "Fluid Flow"
+        '
+        'txtFluidFlow
+        '
+        Me.txtFluidFlow.Location = New System.Drawing.Point(166, 84)
+        Me.txtFluidFlow.Name = "txtFluidFlow"
+        Me.txtFluidFlow.Size = New System.Drawing.Size(62, 20)
+        Me.txtFluidFlow.TabIndex = 4
+        '
         'lblFluid
         '
         Me.lblFluid.AutoSize = True
         Me.lblFluid.Enabled = False
-        Me.lblFluid.Location = New System.Drawing.Point(242, 36)
+        Me.lblFluid.Location = New System.Drawing.Point(293, 35)
         Me.lblFluid.Name = "lblFluid"
         Me.lblFluid.Size = New System.Drawing.Size(29, 13)
         Me.lblFluid.TabIndex = 62
@@ -184,7 +209,7 @@ Partial Class frmCustomCoil
         'txtFluid
         '
         Me.txtFluid.Enabled = False
-        Me.txtFluid.Location = New System.Drawing.Point(277, 33)
+        Me.txtFluid.Location = New System.Drawing.Point(328, 32)
         Me.txtFluid.Name = "txtFluid"
         Me.txtFluid.Size = New System.Drawing.Size(62, 20)
         Me.txtFluid.TabIndex = 2
@@ -334,13 +359,6 @@ Partial Class frmCustomCoil
         Me.txtReclaimCap.Name = "txtReclaimCap"
         Me.txtReclaimCap.Size = New System.Drawing.Size(62, 20)
         Me.txtReclaimCap.TabIndex = 3
-        '
-        'txtRefType
-        '
-        Me.txtRefType.Location = New System.Drawing.Point(166, 33)
-        Me.txtRefType.Name = "txtRefType"
-        Me.txtRefType.Size = New System.Drawing.Size(62, 20)
-        Me.txtRefType.TabIndex = 1
         '
         'btnDoneConditions
         '
@@ -494,6 +512,50 @@ Partial Class frmCustomCoil
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.optValve3Way)
+        Me.GroupBox2.Controls.Add(Me.optValve2Way)
+        Me.GroupBox2.Controls.Add(Me.optValveNone)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 79)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(221, 100)
+        Me.GroupBox2.TabIndex = 10
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Valves"
+        '
+        'optValve3Way
+        '
+        Me.optValve3Way.AutoSize = True
+        Me.optValve3Way.Location = New System.Drawing.Point(6, 67)
+        Me.optValve3Way.Name = "optValve3Way"
+        Me.optValve3Way.Size = New System.Drawing.Size(86, 17)
+        Me.optValve3Way.TabIndex = 17
+        Me.optValve3Way.Text = "3 Way Valve"
+        Me.optValve3Way.UseVisualStyleBackColor = True
+        '
+        'optValve2Way
+        '
+        Me.optValve2Way.AutoSize = True
+        Me.optValve2Way.Location = New System.Drawing.Point(6, 44)
+        Me.optValve2Way.Name = "optValve2Way"
+        Me.optValve2Way.Size = New System.Drawing.Size(86, 17)
+        Me.optValve2Way.TabIndex = 16
+        Me.optValve2Way.Text = "2 Way Valve"
+        Me.optValve2Way.UseVisualStyleBackColor = True
+        '
+        'optValveNone
+        '
+        Me.optValveNone.AutoSize = True
+        Me.optValveNone.Checked = True
+        Me.optValveNone.Location = New System.Drawing.Point(6, 21)
+        Me.optValveNone.Name = "optValveNone"
+        Me.optValveNone.Size = New System.Drawing.Size(51, 17)
+        Me.optValveNone.TabIndex = 15
+        Me.optValveNone.TabStop = True
+        Me.optValveNone.Text = "None"
+        Me.optValveNone.UseVisualStyleBackColor = True
         '
         'grpLowLimit
         '
@@ -803,34 +865,6 @@ Partial Class frmCustomCoil
         Me.tpgValves.Text = "Valves"
         Me.tpgValves.UseVisualStyleBackColor = True
         '
-        'btnDoneValves
-        '
-        Me.btnDoneValves.Location = New System.Drawing.Point(386, 164)
-        Me.btnDoneValves.Name = "btnDoneValves"
-        Me.btnDoneValves.Size = New System.Drawing.Size(41, 23)
-        Me.btnDoneValves.TabIndex = 7
-        Me.btnDoneValves.Text = ">"
-        Me.btnDoneValves.UseVisualStyleBackColor = True
-        '
-        'Cancel
-        '
-        Me.Cancel.Location = New System.Drawing.Point(90, 249)
-        Me.Cancel.Name = "Cancel"
-        Me.Cancel.Size = New System.Drawing.Size(72, 29)
-        Me.Cancel.TabIndex = 10
-        Me.Cancel.Text = "Cancel"
-        Me.Cancel.UseVisualStyleBackColor = True
-        '
-        'btnOK
-        '
-        Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(12, 249)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(72, 29)
-        Me.btnOK.TabIndex = 0
-        Me.btnOK.Text = "OK"
-        Me.btnOK.UseVisualStyleBackColor = True
-        '
         'btnSelectAValve
         '
         Me.btnSelectAValve.Image = CType(resources.GetObject("btnSelectAValve.Image"), System.Drawing.Image)
@@ -932,74 +966,42 @@ Partial Class frmCustomCoil
         Me.Label3.TabIndex = 25
         Me.Label3.Text = "Tag"
         '
-        'GroupBox2
+        'btnDoneValves
         '
-        Me.GroupBox2.Controls.Add(Me.optValve3Way)
-        Me.GroupBox2.Controls.Add(Me.optValve2Way)
-        Me.GroupBox2.Controls.Add(Me.optValveNone)
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 79)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(221, 100)
-        Me.GroupBox2.TabIndex = 10
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Valves"
+        Me.btnDoneValves.Location = New System.Drawing.Point(386, 164)
+        Me.btnDoneValves.Name = "btnDoneValves"
+        Me.btnDoneValves.Size = New System.Drawing.Size(41, 23)
+        Me.btnDoneValves.TabIndex = 7
+        Me.btnDoneValves.Text = ">"
+        Me.btnDoneValves.UseVisualStyleBackColor = True
         '
-        'optValveNone
+        'Cancel
         '
-        Me.optValveNone.AutoSize = True
-        Me.optValveNone.Checked = True
-        Me.optValveNone.Location = New System.Drawing.Point(6, 21)
-        Me.optValveNone.Name = "optValveNone"
-        Me.optValveNone.Size = New System.Drawing.Size(51, 17)
-        Me.optValveNone.TabIndex = 15
-        Me.optValveNone.TabStop = True
-        Me.optValveNone.Text = "None"
-        Me.optValveNone.UseVisualStyleBackColor = True
+        Me.Cancel.Location = New System.Drawing.Point(90, 249)
+        Me.Cancel.Name = "Cancel"
+        Me.Cancel.Size = New System.Drawing.Size(72, 29)
+        Me.Cancel.TabIndex = 10
+        Me.Cancel.Text = "Cancel"
+        Me.Cancel.UseVisualStyleBackColor = True
         '
-        'optValve2Way
+        'btnOK
         '
-        Me.optValve2Way.AutoSize = True
-        Me.optValve2Way.Location = New System.Drawing.Point(6, 44)
-        Me.optValve2Way.Name = "optValve2Way"
-        Me.optValve2Way.Size = New System.Drawing.Size(86, 17)
-        Me.optValve2Way.TabIndex = 16
-        Me.optValve2Way.Text = "2 Way Valve"
-        Me.optValve2Way.UseVisualStyleBackColor = True
+        Me.btnOK.Enabled = False
+        Me.btnOK.Location = New System.Drawing.Point(12, 249)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(72, 29)
+        Me.btnOK.TabIndex = 0
+        Me.btnOK.Text = "OK"
+        Me.btnOK.UseVisualStyleBackColor = True
         '
-        'optValve3Way
+        'cmbRefType
         '
-        Me.optValve3Way.AutoSize = True
-        Me.optValve3Way.Location = New System.Drawing.Point(6, 67)
-        Me.optValve3Way.Name = "optValve3Way"
-        Me.optValve3Way.Size = New System.Drawing.Size(86, 17)
-        Me.optValve3Way.TabIndex = 17
-        Me.optValve3Way.Text = "3 Way Valve"
-        Me.optValve3Way.UseVisualStyleBackColor = True
-        '
-        'lblFluidFlowUnits
-        '
-        Me.lblFluidFlowUnits.AutoSize = True
-        Me.lblFluidFlowUnits.Location = New System.Drawing.Point(234, 87)
-        Me.lblFluidFlowUnits.Name = "lblFluidFlowUnits"
-        Me.lblFluidFlowUnits.Size = New System.Drawing.Size(27, 13)
-        Me.lblFluidFlowUnits.TabIndex = 65
-        Me.lblFluidFlowUnits.Text = "gpm"
-        '
-        'lblFluidFlow
-        '
-        Me.lblFluidFlow.AutoSize = True
-        Me.lblFluidFlow.Location = New System.Drawing.Point(102, 87)
-        Me.lblFluidFlow.Name = "lblFluidFlow"
-        Me.lblFluidFlow.Size = New System.Drawing.Size(54, 13)
-        Me.lblFluidFlow.TabIndex = 64
-        Me.lblFluidFlow.Text = "Fluid Flow"
-        '
-        'txtFluidFlow
-        '
-        Me.txtFluidFlow.Location = New System.Drawing.Point(166, 84)
-        Me.txtFluidFlow.Name = "txtFluidFlow"
-        Me.txtFluidFlow.Size = New System.Drawing.Size(62, 20)
-        Me.txtFluidFlow.TabIndex = 4
+        Me.cmbRefType.FormattingEnabled = True
+        Me.cmbRefType.Items.AddRange(New Object() {"Unselected", "R-448A"})
+        Me.cmbRefType.Location = New System.Drawing.Point(166, 32)
+        Me.cmbRefType.Name = "cmbRefType"
+        Me.cmbRefType.Size = New System.Drawing.Size(121, 21)
+        Me.cmbRefType.TabIndex = 1
         '
         'frmCustomCoil
         '
@@ -1023,6 +1025,8 @@ Partial Class frmCustomCoil
         Me.GroupBox4.PerformLayout()
         CType(Me.nudRows, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpgControls.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.grpLowLimit.ResumeLayout(False)
         Me.grpLowLimit.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -1031,8 +1035,6 @@ Partial Class frmCustomCoil
         Me.tpgPerformance.PerformLayout()
         Me.tpgValves.ResumeLayout(False)
         Me.tpgValves.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1052,7 +1054,6 @@ Partial Class frmCustomCoil
     Friend WithEvents lblReclaimCap As Label
     Friend WithEvents lblRefType As Label
     Friend WithEvents txtReclaimCap As TextBox
-    Friend WithEvents txtRefType As TextBox
     Friend WithEvents btnDoneConditions As Button
     Friend WithEvents tpgOptions As TabPage
     Friend WithEvents optPenTTWFieldCut As RadioButton
@@ -1124,4 +1125,5 @@ Partial Class frmCustomCoil
     Friend WithEvents lblFluidFlowUnits As Label
     Friend WithEvents lblFluidFlow As Label
     Friend WithEvents txtFluidFlow As TextBox
+    Friend WithEvents cmbRefType As ComboBox
 End Class

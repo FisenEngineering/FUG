@@ -18,8 +18,13 @@ Public Class frm100OA
             frmMain.ThisUnit.GenCodesPresent = True
             'frmMain.ThisUnitMods.Add("Common")
         End If
-        Call UpdateCodeList
+        Call UpdateCodeList()
+        Call UpdateBaseUnitRequiredItems()
+        If chkWriteHistory.Checked = True Then Call WriteHistory()
         Me.Hide()
+    End Sub
+    Private Sub UpdateBaseUnitRequiredItems()
+        frmMain.lstRequiredFactoryItems.Items.Add("Factory installed HGBP on Circuit 1")
     End Sub
     Private Sub UpdateCodeList()
         'Add the level 0 code
@@ -154,10 +159,10 @@ Public Class frm100OA
                     End If
                     'handle the zone override sensor
                     If chkZoneOvrSensor.Checked Then
-                            frmMain.ThisUnitCodes.Add("0A0122")
-                        End If
+                        frmMain.ThisUnitCodes.Add("0A0122")
                     End If
-                    If optCoolCtrlDAByFisenSE.Checked Then
+                End If
+                If optCoolCtrlDAByFisenSE.Checked Then
                     frmMain.ThisUnitCodes.Add("0A0152")
                 End If
                 If optCoolCtrlGBAS.Checked Then
@@ -283,8 +288,17 @@ Public Class frm100OA
             frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
         End If
 
+
         'Add Auxillary Panel if selected
+        Call AuxPanelCodeInsert() 'v1.0
+
+
+    End Sub
+
+    Private Sub AuxPanelCodeInsert()
+        'v 1.0
         If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
+            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
             frmMain.HasAuxillaryPanel = True
             Select Case cmbAuxPanelOpts.Text
                 Case Is = "Series 5 Downflow"
@@ -321,6 +335,12 @@ Public Class frm100OA
                     frmMain.ThisUnitGenCodes.Add("960022")
                 Case Is = "Series 100 Custom Application"
                     frmMain.ThisUnitGenCodes.Add("960023")
+                Case Is = "Premier Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960024")
+                Case Is = "Choice Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960025")
+                Case Is = "Select Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960026")
             End Select
         End If
     End Sub
@@ -372,27 +392,48 @@ Public Class frm100OA
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
-        Call PopulateAuxPanelList()
+        Call PopulateAuxPanelList() 'V1.0
 
-        If frmMain.ThisUnit.Family = "Series5" Then
-            optUseAux.Checked = True
-            optNoAux.Enabled = False
-            optIPU.Enabled = False
-        End If
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                optUseAux.Checked = True
+                optNoAux.Enabled = False
+                optIPU.Enabled = False
+                optASE.Enabled = False
+            Case Is = "Series10"
+                optUseAux.Checked = True
+                optNoAux.Enabled = False
+                optIPU.Enabled = False
+                optASE.Enabled = False
+            Case Is = "Series12"
+                optIPU.Enabled = False
+                optASE.Enabled = False
+            Case Is = "Series20"
+                optIPU.Enabled = False
+                optASE.Enabled = False
+            Case Is = "Series40"
+                'Depricated *Probably not going to be used*
+                optIPU.Enabled = False
+                optASE.Enabled = False
+            Case Is = "Series100"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+            Case Is = "Premier"
+                optSE.Enabled = False
+                optIPU.Enabled = False
+                optASE.Checked = True
+            Case Is = "Choice"
+                optSE.Enabled = False
+                optIPU.Enabled = False
+                optASE.Checked = True
+            Case Is = "Select"
+                optSE.Enabled = False
+                optIPU.Enabled = False
+                optASE.Checked = True
+            Case Else
 
-        If frmMain.ThisUnit.Family = "Series10" Then
-            optUseAux.Checked = True
-            optNoAux.Enabled = False
-            optIPU.Enabled = False
-        End If
-
-        If frmMain.ThisUnit.Family = "Series20" Then
-            optIPU.Enabled = False
-        End If
-
-        If frmMain.ThisUnit.Family = "Series100" Then
-            optIPU.Checked = True
-        End If
+        End Select
 
         If ((InTheQueue("Reduced Air Flow") = True) Or (AlreadyDone("LowAF") = True)) Then
             chkLowAF.Checked = True
@@ -513,6 +554,7 @@ Public Class frm100OA
         End If
     End Sub
     Private Sub PopulateAuxPanelList()
+        'V1.0
         If optNoAux.Checked = True Then
             cmbAuxPanelOpts.Items.Clear()
             cmbAuxPanelOpts.Items.Add("None")
@@ -551,6 +593,18 @@ Public Class frm100OA
                     cmbAuxPanelOpts.Items.Clear()
                     cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
                     cmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                Case Is = "Premier"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
+                Case Is = "Choice"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
+                Case Is = "Select"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
             End Select
         End If
     End Sub
@@ -653,7 +707,7 @@ Public Class frm100OA
         End If
     End Sub
 
-    Private Sub opt100OACapable_CheckedChanged(sender As Object, e As EventArgs) Handles opt100OACapable.CheckedChanged
+    Private Sub opt100OACapable_CheckedChanged(sender As Object, e As EventArgs)
         If opt100OACapable.Checked Then
             grpReturn.Visible = True
             optReturnBottom.Checked = True
@@ -662,5 +716,118 @@ Public Class frm100OA
             optReturnBottom.Checked = False
             optReturnHorizontal.Checked = False
         End If
+    End Sub
+
+    Private Sub opt100OA_CheckedChanged(sender As Object, e As EventArgs)
+        If opt100OA.Checked Then
+            grpReturn.Enabled = False
+            optReturnNone.Checked = True
+            optReturnNone.Enabled = True
+        Else
+            grpReturn.Enabled = True
+            optReturnBottom.Checked = True
+            optReturnNone.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optSE_CheckedChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub optIPU_CheckedChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub optASE_CheckedChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "100OA"
+        frmHistoryReport.Show()
+    End Sub
+
+    Private Sub WriteHistory()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific 
+        Dim Controller, HeatType, HeatCtrl, CoolCtrl, ModeCtrl, ZoneOverride As String
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+        }
+
+        Controller = "Unselected"
+        If optSE.Checked Then Controller = "SE"
+        If optIPU.Checked Then Controller = "IPU"
+        If optASE.Checked Then Controller = "ASE"
+
+        'Set the heat type
+        HeatType = "UnSelected"
+        If optNoHeat.Checked Then HeatType = "None"
+        If optHWHeat.Checked Then HeatType = "HotWater"
+        If optSteamHeat.Checked Then HeatType = "Steam"
+        If optEHeat.Checked Then HeatType = "Electric"
+        If optGasHeat.Checked Then HeatType = "Gas"
+        If optHeatcoGas.Checked Then HeatType = "HeatCo"
+
+        HeatCtrl = "Unselected"
+        If optHeatCtrlStagedOA.Checked Then HeatCtrl = "OAStaged"
+        If optHeatCtrlDAByFisen.Checked Then HeatCtrl = "DATByFisen"
+        If optHeatCtrlDAFutureTB.Checked Then HeatCtrl = "DATFutureHeat"
+        If optHeatCtrlDABaseUnit.Checked Then HeatCtrl = "DATBaseUnit"
+        If optHeatCtrlDAFieldInstTB.Checked Then HeatCtrl = "DATFieldInstalledHeat"
+        If optHeatCtrlGBAS.Checked Then HeatCtrl = "GBAS"
+
+        CoolCtrl = "Unselected"
+        If optCoolCtrlStagedOA.Checked Then CoolCtrl = "OAStaged"
+        If optCoolCtrlDAByFisenSE.Checked Then CoolCtrl = "DATByFisen"
+        If optCoolCtrlBySE.Checked Then CoolCtrl = "DATBaseUnit"
+        If optCoolCtrlByIPU.Checked Then CoolCtrl = "DATBaseUnit"
+        If optCoolCtrlGBAS.Checked Then CoolCtrl = "GBAS"
+
+        ModeCtrl = "Unselected"
+        If optModeAuto.Checked Then ModeCtrl = "Auto-OA"
+        If optModeGBAS.Checked Then ModeCtrl = "GBAS"
+        If optModeDATOnly.Checked Then ModeCtrl = "DATOnly"
+        If optModeNoChange.Checked Then ModeCtrl = "No Change"
+
+        If chkZoneOvrSensor.Checked Then
+            ZoneOverride = "Yes"
+        Else
+            ZoneOverride = "No"
+        End If
+
+        MySQL = "SELECT * FROM tblHistory100OA WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If rs.RecordCount > 0 Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistory100OA SET Controller='" & Controller & "', HeatType=" & HeatType & ", " & "HeatCtrl='" & HeatCtrl & "', CoolCtrl='" & CoolCtrl & "', ModeCtrl='" & ModeCtrl & "', ZoneOverride='" & ZoneOverride & "' WHERE KeyID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistory100OA (JobName,UnitID,Version,ModelNumber,Controller,HeatType,HeatCtrl,CoolCtrl,ModeCtrl,ZoneOverride) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & Controller & "','" & HeatType & "'," & HeatCtrl & ",'" & CoolCtrl & "','" & ModeCtrl & "','" & ZoneOverride & "')"
+            con.Execute(MySQL)
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
     End Sub
 End Class

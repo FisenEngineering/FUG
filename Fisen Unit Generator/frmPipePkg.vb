@@ -49,9 +49,24 @@
         cmbPipeSchedule.Text = "Schedule 40"
         cmbFittingStyle.Text = "Victaulic"
         cmbPipeSize.Text = "3"
+        Call InitializeProposalDropdowns
 
 
     End Sub
+    Private Sub InitializeProposalDropdowns()
+        cmbPumpSpec.Text = "Use Standard"
+        cmbTDVSpec.Text = "Use Standard"
+        cmbSucDiffSpec.Text = "Use Standard"
+        cmbBuffTankSpec.Text = "Use Standard"
+        cmbExpTankSpec.Text = "Use Standard"
+        cmbAirSepSpec.Text = "Use Standard"
+        cmbStrainSpec.Text = "Use Standard"
+        cmbGMUSpec.Text = "Use Standard"
+        cmbInsSpec.Text = "Use Standard"
+        cmbPotFeedSpec.Text = "Use Standard"
+
+    End Sub
+
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()

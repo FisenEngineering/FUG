@@ -12,9 +12,12 @@
         cmbCoilType.Items.Add("Reclaim Coil - Hot Gas")
         cmbCoilType.Items.Add("Preheat Reclaim Coil - Glycol")
         cmbCoilType.Items.Add("Preheat Coil - Fluid")
+        cmbCoilType.Items.Add("Unselected")
+        cmbCoilType.Text = "Unselected"
 
         txtAFlow.Text = frmMain.ThisUnitSFanPerf.Airflow
         txtEAT.Text = frmMain.ThisUnitCoolPerf.LeavingDB
+        cmbRefType.Text = "Unselected"
 
     End Sub
 
@@ -45,7 +48,7 @@
 
         Select Case cmbCoilType.Text
             Case Is = "Reclaim Coil - Hot Gas"
-                frmMain.ThisUnitCstmCoilPerf.RefType = txtRefType.Text
+                frmMain.ThisUnitCstmCoilPerf.RefType = cmbRefType.Text
             Case Is = "Preheat Reclaim Coil - Glycol"
                 frmMain.ThisUnitCstmCoilPerf.RefType = txtFluid.Text
             Case Is = "Preheat Coil - Water"
@@ -306,6 +309,15 @@
     End Sub
 
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
+        Dim dummy As MsgBoxResult
+        If cmbCoilType.Text = "Unselected" Then
+            dummy = MsgBox("You must select a coil type.", vbOKOnly, "Custom Coil Module")
+            Exit Sub
+        End If
+        If cmbRefType.Enabled = True And cmbRefType.Text = "Unselected" Then
+            dummy = MsgBox("You must select/enter a refrigerant.", vbOKOnly, "Custom Coil Module")
+            Exit Sub
+        End If
         TabControl1.SelectTab("tpgOptions")
     End Sub
 
@@ -358,7 +370,7 @@
                 lblFluidPressDrop.Text = "Refrigeration Pressure Drop"
                 lblFPDUnits.Text = "psi"
                 lblRefType.Enabled = True
-                txtRefType.Enabled = True
+                cmbRefType.Enabled = True
                 lblCircuitsofRH.Visible = True
                 nudCircuitsofRH.Visible = True
                 lblReclaimCap.Text = "Reclaim Coil Capacity"
@@ -378,7 +390,7 @@
                 lblFluidPressDrop.Text = "Glycol Pressure Drop"
                 lblFPDUnits.Text = "ft."
                 lblRefType.Enabled = False
-                txtRefType.Enabled = False
+                cmbRefType.Enabled = False
                 lblCircuitsofRH.Visible = False
                 nudCircuitsofRH.Visible = False
                 lblReclaimCap.Text = "Reclaim Coil Capacity"
@@ -397,7 +409,7 @@
                 txtFluid.Enabled = True
                 grpLowLimit.Enabled = True
                 lblRefType.Enabled = False
-                txtRefType.Enabled = False
+                cmbRefType.Enabled = False
                 lblReclaimCap.Text = "Preheat Coil Capacity"
                 lblReclaimAirflow.Text = "Preheat Coil Airflow"
                 lblCircuitsofRH.Visible = False

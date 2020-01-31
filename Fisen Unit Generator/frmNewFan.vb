@@ -902,9 +902,10 @@
         Else
             If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
                 frmMain.ThisUnitCodes.Add("320141") 'vfd rplace
+                If chkRetainVFD.Checked Then frmMain.ThisUnitCodes.Add("320F01")
+                If optReplaceVFD.Checked Then frmMain.ThisUnitCodes.Add("320F02")
             Else
                 frmMain.ThisUnitCodes.Add("320142") 'reuse vfd
-
             End If
             If optNoBypass.Checked Then frmMain.ThisUnitCodes.Add("320145")
             If optReuseBypass.Checked Then frmMain.ThisUnitCodes.Add("320146")
@@ -917,6 +918,8 @@
         'handle the motor
         If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
             frmMain.ThisUnitCodes.Add("320150") 'provide new motor
+            If chkRetainMotor.Checked Then frmMain.ThisUnitCodes.Add("320F00")
+            If optReplaceMotor.Checked Then frmMain.ThisUnitCodes.Add("320F03")
             If optTEFC.Checked Then frmMain.ThisUnitCodes.Add("320152")
             If optODP.Checked Then frmMain.ThisUnitCodes.Add("320151")
             If ((frmMain.ThisUnit.Family = "Series10") And (Val(cmbNewMotorHP.Text) > 5)) Then
@@ -2465,11 +2468,23 @@
         If optReuseMotor.Checked = True Then
             cmbNewMotorHP.Text = "n/a"
         End If
+        If optReuseMotor.Checked Then
+            chkRetainMotor.Enabled = True
+        Else
+            chkRetainMotor.Enabled = False
+            chkRetainMotor.Checked = False
+        End If
     End Sub
 
     Private Sub optReuseVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optReuseVFD.CheckedChanged
         If optReuseMotor.Checked = True Then
             cmbNewMotorHP.Text = "n/a"
+        End If
+        If optReuseVFD.Checked Then
+            chkRetainVFD.Enabled = True
+        Else
+            chkRetainVFD.Enabled = False
+            chkRetainVFD.Checked = False
         End If
     End Sub
 

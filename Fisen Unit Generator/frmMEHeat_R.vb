@@ -184,8 +184,14 @@
                 tempWeight = "20"
             Case Is = "Series40"
                 tempWeight = "20"
-            Case Is = "Series 100"
+            Case Is = "Series100"
                 tempWeight = "30"
+            Case Is = "Choice"
+                tempWeight = "20"
+            Case Is = "Select"
+                tempWeight = "25"
+            Case Is = "Primier"
+                tempWeight = "28"
             Case Else
                 tempWeight = "9999"
         End Select

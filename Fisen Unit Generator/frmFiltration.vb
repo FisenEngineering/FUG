@@ -21,8 +21,6 @@
 
         Call UpdateCodeList()
 
-
-
         If chkWriteHistory.Checked = True Then Call WriteHistory()
         Me.Hide()
 

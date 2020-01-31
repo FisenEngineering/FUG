@@ -13,6 +13,48 @@
         Call InitializeQuery
     End Sub
 
+    Private Sub Load100OAHistoryTable()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+
+        Dim PFBString, ExtModString As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        txtReport.Text = ""
+
+        MySQL = "SELECT * FROM tblHistory100OA"
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rs.Open(MySQL, con)
+
+        Do While Not (rs.EOF)
+            If Not (chkFilterByFamily.Checked) Or (frmMain.ThisUnit.Family = Model2Family(rs.Fields(4).Value)) Then
+                OneLine = rs.Fields(2).Value & " " & rs.Fields(3).Value & " " & rs.Fields(4).Value & " - " & rs.Fields(1).Value
+                txtReport.Text = txtReport.Text & OneLine & vbCrLf
+                OneLine = vbTab & rs.Fields(5).Value & " Controller" & vbTab & rs.Fields(6).Value & " Heat" & vbTab & rs.Fields(7).Value & " Heat Control" & vbTab & rs.Fields(8).Value & " Cool Control" & vbTab & rs.Fields(9).Value & " Mode Control" & vbTab & "Zone Override: " & rs.Fields(10).Value
+                txtReport.Text = txtReport.Text & OneLine & vbCrLf
+            End If
+
+            rs.MoveNext()
+        Loop
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
+
     Private Sub LoadFilterHistoryTable()
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -83,6 +125,9 @@
             Case Is = "Filters"
                 Call LoadFilterHistoryTable()
                 Me.Text = "Filter History"
+            Case Is = "100OA"
+                Call Load100OAHistoryTable()
+                Me.Text = "100% Outdoor Air"
         End Select
 
     End Sub
