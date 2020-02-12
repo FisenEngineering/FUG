@@ -22,8 +22,6 @@
 
         Dim OneLine As String
 
-        Dim PFBString, ExtModString As String
-
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
         con.ConnectionString = dbProvider
@@ -120,14 +118,62 @@
         rs = Nothing
         con = Nothing
     End Sub
+    Private Sub LoadSupplyFanHistoryTable()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        txtReport.Text = ""
+
+        MySQL = "SELECT * FROM tblHistorySFan"
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rs.Open(MySQL, con)
+
+        Do While Not (rs.EOF)
+            If Not (chkFilterByFamily.Checked) Or (frmMain.ThisUnit.Family = Model2Family(rs.Fields(4).Value)) Then
+                OneLine = rs.Fields(2).Value & " " & rs.Fields(3).Value & " " & rs.Fields(4).Value & " - " & rs.Fields(1).Value
+                txtReport.Text = txtReport.Text & OneLine & vbCrLf
+                OneLine = vbTab & rs.Fields(5).Value & "cfm" & vbTab & rs.Fields(6).Value & "ESP" & vbTab & rs.Fields(7).Value & "TSP" & vbTab & rs.Fields(9).Value & "@" & rs.Fields(8).Value & vbTab & rs.Fields(9).Value & "@" & rs.Fields(10).Value & "bhp ea." & vbTab & rs.Fields(9).Value & "-" & rs.Fields(11).Value & "Mhp ea."
+                txtReport.Text = txtReport.Text & OneLine & vbCrLf
+            End If
+
+            rs.MoveNext()
+        Loop
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
     Private Sub InitializeQuery()
         Select Case pMyModule
-            Case Is = "Filters"
-                Call LoadFilterHistoryTable()
-                Me.Text = "Filter History"
             Case Is = "100OA"
                 Call Load100OAHistoryTable()
                 Me.Text = "100% Outdoor Air"
+            Case Is = "Filters"
+                Call LoadFilterHistoryTable()
+                Me.Text = "Filter History"
+            Case Is = "RFan"
+                'ToDo
+                Me.Text = "New Return Fan - History is Offline"
+            Case Is = "SFan"
+                Call LoadSupplyFanHistoryTable()
+                Me.Text = "New Supply Fan"
+            Case Is = "XFan"
+                'ToDo
+                Me.Text = "New Exhaust Fan - History is Offline"
         End Select
 
     End Sub

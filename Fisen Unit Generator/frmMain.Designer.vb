@@ -796,6 +796,7 @@ Partial Class frmMain
         Me.cmbJumpDest = New System.Windows.Forms.ComboBox()
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
+        Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -9733,7 +9734,7 @@ Partial Class frmMain
         'cmbJumpDest
         '
         Me.cmbJumpDest.FormattingEnabled = True
-        Me.cmbJumpDest.Items.AddRange(New Object() {"Filtration", "Piping Package", "Return Fan", "Steam Coil"})
+        Me.cmbJumpDest.Items.AddRange(New Object() {"Filtration", "Piping Package", "Return Fan", "Steam Coil", "100% Outdoor Air"})
         Me.cmbJumpDest.Location = New System.Drawing.Point(141, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
         Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)
@@ -9763,10 +9764,22 @@ Partial Class frmMain
         Me.chkAutoLaunchTemplate.Text = "Auto Word Launch Template"
         Me.chkAutoLaunchTemplate.UseVisualStyleBackColor = True
         '
+        'chkInhibitDigConditions
+        '
+        Me.chkInhibitDigConditions.AutoSize = True
+        Me.chkInhibitDigConditions.Location = New System.Drawing.Point(806, 540)
+        Me.chkInhibitDigConditions.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkInhibitDigConditions.Name = "chkInhibitDigConditions"
+        Me.chkInhibitDigConditions.Size = New System.Drawing.Size(138, 17)
+        Me.chkInhibitDigConditions.TabIndex = 23
+        Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
+        Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
+        Me.Controls.Add(Me.chkInhibitDigConditions)
         Me.Controls.Add(Me.chkAutoLaunchTemplate)
         Me.Controls.Add(Me.cmdDebug)
         Me.Controls.Add(Me.cmbJumpDest)
@@ -10716,4 +10729,5 @@ Partial Class frmMain
     Friend WithEvents chkAutoLaunchTemplate As CheckBox
     Friend WithEvents optRTUPremier As RadioButton
     Friend WithEvents optRTUChoice As RadioButton
+    Friend WithEvents chkInhibitDigConditions As CheckBox
 End Class

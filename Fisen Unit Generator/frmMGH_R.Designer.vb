@@ -67,6 +67,9 @@ Partial Class frmMGH_R
         Me.txtSSE = New System.Windows.Forms.TextBox()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
+        Me.chkUnitAtElevation = New System.Windows.Forms.CheckBox()
+        Me.txtElevation = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -102,6 +105,7 @@ Partial Class frmMGH_R
         Me.txtHeatAF.Size = New System.Drawing.Size(40, 20)
         Me.txtHeatAF.TabIndex = 0
         Me.txtHeatAF.Text = "88888"
+        Me.txtHeatAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label1
         '
@@ -128,6 +132,7 @@ Partial Class frmMGH_R
         Me.txtEAT.Size = New System.Drawing.Size(40, 20)
         Me.txtEAT.TabIndex = 2
         Me.txtEAT.Text = "88888"
+        Me.txtEAT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
@@ -145,6 +150,7 @@ Partial Class frmMGH_R
         Me.txtInputCap.Size = New System.Drawing.Size(40, 20)
         Me.txtInputCap.TabIndex = 4
         Me.txtInputCap.Text = "88888"
+        Me.txtInputCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'TabControl1
         '
@@ -161,6 +167,9 @@ Partial Class frmMGH_R
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.Label8)
+        Me.tpgConditions.Controls.Add(Me.txtElevation)
+        Me.tpgConditions.Controls.Add(Me.chkUnitAtElevation)
         Me.tpgConditions.Controls.Add(Me.chkPropane)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Controls.Add(Me.Label3)
@@ -530,6 +539,34 @@ Partial Class frmMGH_R
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
+        'chkUnitAtElevation
+        '
+        Me.chkUnitAtElevation.AutoSize = True
+        Me.chkUnitAtElevation.Location = New System.Drawing.Point(6, 108)
+        Me.chkUnitAtElevation.Name = "chkUnitAtElevation"
+        Me.chkUnitAtElevation.Size = New System.Drawing.Size(114, 17)
+        Me.chkUnitAtElevation.TabIndex = 8
+        Me.chkUnitAtElevation.Text = "Unit is at Elevation"
+        Me.chkUnitAtElevation.UseVisualStyleBackColor = True
+        '
+        'txtElevation
+        '
+        Me.txtElevation.Location = New System.Drawing.Point(126, 106)
+        Me.txtElevation.Name = "txtElevation"
+        Me.txtElevation.Size = New System.Drawing.Size(40, 20)
+        Me.txtElevation.TabIndex = 9
+        Me.txtElevation.Text = "0"
+        Me.txtElevation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(172, 109)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(69, 13)
+        Me.Label8.TabIndex = 10
+        Me.Label8.Text = "Elevation (ft.)"
+        '
         'frmMGH_R
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -603,4 +640,7 @@ Partial Class frmMGH_R
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txtElevation As TextBox
+    Friend WithEvents chkUnitAtElevation As CheckBox
 End Class

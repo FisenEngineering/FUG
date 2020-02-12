@@ -1,4 +1,6 @@
 ﻿Imports System.ComponentModel
+Imports System.Xml
+
 Public Class frmLowAF
     Private pCancelled As Boolean
     Private ModuleCodeList As New ArrayList
@@ -270,6 +272,45 @@ Public Class frmLowAF
         If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then chkElecHeatProtection.Checked = True
 
         ModuleCodeList.Add("398000")
+
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+
+
+
+    End Sub
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/LowAF")
+
+        TempVal = xNodeRoot.SelectSingleNode("OA100Unit").InnerText
+        If TempVal = "Yes" Then chk100OA.Checked = True Else chk100OA.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("Airflow").InnerText
+        txtAirflow.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("ESP").InnerText
+        txtESP.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("HeatingAF").InnerText
+        txtHeatingAF.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("Ambient").InnerText
+        txtAmbient.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("EDBCooling").InnerText
+        txtEDB.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("EWBCooling").InnerText
+        txtEWB.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("EDBHeating").InnerText
+        txtHeatEAT.Text = TempVal
 
     End Sub
 

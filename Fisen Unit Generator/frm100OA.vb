@@ -1,4 +1,6 @@
 ﻿Imports System.ComponentModel
+Imports System.Xml
+
 Public Class frm100OA
     Private pCancelled As Boolean
     Private ModuleCodeList As New ArrayList
@@ -26,56 +28,141 @@ Public Class frm100OA
         Me.Hide()
     End Sub
     Private Sub UpdateBaseUnitRequiredItems()
-        frmMain.lstRequiredFactoryItems.Items.Add("Factory installed HGBP on Circuit 1")
+        If optJCIHGBP.Checked Then
+            frmMain.lstRequiredFactoryItems.Items.Add("Factory installed HGBP on Circuit 1")
+        End If
     End Sub
     Private Sub UpdateCodeList()
+        Dim BaseControl As String
+
+        BaseControl = "SE"
+        If optSE.Checked Then BaseControl = "SE"
+        If optIPU.Checked Then BaseControl = "IPU"
+        If optASE.Checked Then BaseControl = "ASE"
 
         ModuleCodeList.Clear()
         'Add the level 0 code
         ModuleCodeList.Add("0A0100")
-        ModuleCodeList.Add("0A0701")
+        If optJCIHGBP.Checked Then
+            ModuleCodeList.Add("0A0701")
+        End If
 
 
+        'Mechanical Stuffs
         If opt100OACapable.Checked Then
             ModuleCodeList.Add("0A0105") '100% OA Capable
 
             ModuleCodeList.Add("0A0110") 'Modulating Damper
             ModuleCodeList.Add("0A0113")
 
-            ModuleCodeList.Add("0A0130") 'Controls for 100% Outdoor Air Capable Unit
-            ModuleCodeList.Add("0A0135")
-            ModuleCodeList.Add("0A0140")
-            ModuleCodeList.Add("0A0145")
-            ModuleCodeList.Add("0A0150")
-
-            If ((frmMain.ThisUnit.Family = "Series10") Or (frmMain.ThisUnit.Family = "Series20")) And optReturnHorizontal.Checked Then
-                ModuleCodeList.Add("0A0550")
-            End If
         Else
             ModuleCodeList.Add("0A0101") '100% Outdoor Air Conversion
 
             ModuleCodeList.Add("0A0111") 'Open/Closed Damper
             ModuleCodeList.Add("0A0112")
-            ModuleCodeList.Add("0A0113")
+            ModuleCodeList.Add("0A0114")
 
             ModuleCodeList.Add("0A0119") 'Seal Existing Return Air Opening
 
-            ModuleCodeList.Add("0A0120") 'Controls for 100% Outdoor Air Unit
         End If
 
+        'Controls for OA Capable
+        If opt100OACapable.Checked Then
+            ModuleCodeList.Add("0A0130") 'Controls for 100% Outdoor Air Capable Unit
+
+            Select Case BaseControl
+                Case Is = "SE"
+                    'First Handle the general safeties
+                    ModuleCodeList.Add("0A0135") 'Timed Freeze Protection
+                    ModuleCodeList.Add("0A0145")
+                    ModuleCodeList.Add("0A0150")
+
+                    'Mode Control
+
+                Case Is = "IPU"
+                    'First Handle the general safeties
+                    ModuleCodeList.Add("0A0136") 'Timed Freeze Protection
+                    ModuleCodeList.Add("0A0146")
+                    ModuleCodeList.Add("0A0151")
+
+                    'Mode Control
+
+                Case Is = "ASE"
+                    'First Handle the general safeties
+                    ModuleCodeList.Add("0A0137") 'Timed Freeze Protection
+                    ModuleCodeList.Add("0A0147")
+                    ModuleCodeList.Add("0A0152")
+
+                    'Mode Control
+
+            End Select
+
+
+
+            If ((frmMain.ThisUnit.Family = "Series10") Or (frmMain.ThisUnit.Family = "Series20")) And optReturnHorizontal.Checked Then
+                ModuleCodeList.Add("0A0550")
+            End If
+        End If
+
+        'Controls for 100OA
         If opt100OA.Checked Then
             'Handle the Controls
+            ModuleCodeList.Add("0A0120") 'Controls for 100% Outdoor Air Unit
 
-            'mode controls
-            If optModeAuto.Checked = True Then
-                ModuleCodeList.Add("0A0123")
-            End If
-            If optModeGBAS.Checked = True Then
-                ModuleCodeList.Add("0A0125")
-            End If
-            If optModeDATOnly.Checked = True Then
-                ModuleCodeList.Add("0A0129")
-            End If
+            Select Case BaseControl
+                Case Is = "SE"
+                    'First Handle the general safeties
+                    ModuleCodeList.Add("0A0390") 'Timed Freeze Protection
+                    ModuleCodeList.Add("0A0395") 'High Suction Gas Protection
+                    If chkOADamperSwitch.Checked Then
+                        ModuleCodeList.Add("0A0301") 'OA Damper Limit Switch
+                        ModuleCodeList.Add("0A0308") 'FanSS with Large Motor
+                    Else
+                        ModuleCodeList.Add("0A0305") 'FanSS with Small Motor
+                    End If
+
+                    'Intellispeed Conversion
+                    If chkIntellispeed.Checked Then ModuleCodeList.Add("0A0370")
+
+                    'Mode Control
+                    If optModeAuto.Checked Then ModuleCodeList.Add("0A0123") 'OA Temp based mode control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A0125") 'GBAS
+                    If optModeDATOnly.Checked Then ModuleCodeList.Add("0A0129") 'DAT Only
+
+                Case Is = "IPU"
+                    'First Handle the general safeties
+                    ModuleCodeList.Add("0A0391") 'Timed Freeze Protection
+                    ModuleCodeList.Add("0A0396") 'High Suction Gas Protection
+                    If chkOADamperSwitch.Checked Then
+                        ModuleCodeList.Add("0A0302") 'OA Damper Limit Switch 
+                        ModuleCodeList.Add("0A0309") 'FanSS with Large Motor
+                    Else
+                        ModuleCodeList.Add("0A0306") 'FanSS with Small Motor
+                    End If
+
+                    'Mode Control
+                    If optModeAuto.Checked Then ModuleCodeList.Add("0A0123") 'OA Temp based mode control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A0125") 'GBAS
+                    If optModeDATOnly.Checked Then ModuleCodeList.Add("0A0129") 'DAT Only
+
+                Case Is = "ASE"
+                    'First Handle the general safeties
+                    ModuleCodeList.Add("0A0392") 'Timed Freeze Protection
+                    ModuleCodeList.Add("0A0397") 'High Suction Gas Protection
+                    If chkOADamperSwitch.Checked Then
+                        ModuleCodeList.Add("0A0303") 'OA Damper Limit Switch 
+                        ModuleCodeList.Add("0A030A") 'FanSS with Large Motor
+                    Else
+                        ModuleCodeList.Add("0A0307") 'FanSS with Small Motor
+                    End If
+
+                    'Mode Control
+                    If optModeAuto.Checked Then ModuleCodeList.Add("0A0123") 'OA Temp based mode control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A0125") 'GBAS
+                    If optModeDATOnly.Checked Then ModuleCodeList.Add("0A0129") 'DAT Only
+
+            End Select
+
 
             If optSE.Checked Then
                 'handle the heating
@@ -166,17 +253,14 @@ Public Class frm100OA
                         ModuleCodeList.Add("0A0122")
                     End If
                 End If
-                If optCoolCtrlDAByFisenSE.Checked Then
+                If optCoolCtrlDAByFisen.Checked Then
                     ModuleCodeList.Add("0A0152")
                 End If
                 If optCoolCtrlGBAS.Checked Then
 
                 End If
-                If optCoolCtrlBySE.Checked Then
+                If optCoolCtrlByBaseUnit.Checked Then
                     ModuleCodeList.Add("0A0153")
-                End If
-                If optCoolCtrlByIPU.Checked Then
-
                 End If
 
                 If chkIntellispeed.Checked Then
@@ -257,24 +341,10 @@ Public Class frm100OA
                 If optCoolCtrlGBAS.Checked Then
 
                 End If
-                If optCoolCtrlByIPU.Checked Then
-
-                End If
-            End If
-
-
-            'handle the safeties
-            If optSE.Checked Then 'handles the SE Controller
-                ModuleCodeList.Add("0A0390")
-                ModuleCodeList.Add("0A0391")
-            Else 'now handle the ipu
-                ModuleCodeList.Add("0A0399")
-                ModuleCodeList.Add("0A0398")
 
             End If
 
-        Else
-            'This is the 100OA Capable section
+
 
         End If
 
@@ -380,9 +450,21 @@ Public Class frm100OA
             Case Is = "Series100"
                 If opt100OA.Checked = True Then tempWeight = "175"
                 If opt100OACapable.Checked = True Then tempWeight = "20"
+            Case Is = "Premier"
+                If opt100OA.Checked = True Then tempWeight = "85"
+                If opt100OACapable.Checked = True Then tempWeight = "20"
+            Case Is = "Choice"
+                If opt100OA.Checked = True Then tempWeight = "65"
+                If opt100OACapable.Checked = True Then tempWeight = "20"
+            Case Is = "Select"
+                If opt100OA.Checked = True Then tempWeight = "65"
+                If opt100OACapable.Checked = True Then tempWeight = "20"
             Case Else
                 tempWeight = "9999"
         End Select
+
+
+
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub UpdatePerformance()
@@ -390,6 +472,7 @@ Public Class frm100OA
 
     End Sub
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         pCancelled = False
 
         If Not (frmMain.chkDebug.Checked) Then
@@ -442,6 +525,71 @@ Public Class frm100OA
             chkLowAF.Checked = True
             chkLowAF.Enabled = False
         End If
+
+        If ((InTheQueue("Hot Gas Bypass") = True) Or (AlreadyDone("HGBP") = True)) Then
+            optFisenHGBP.Checked = True
+        End If
+
+        If Val(frmMain.ThisUnitSFanPerf.MotorHP) > 5.0 Then
+            chkOADamperSwitch.Checked = True
+        End If
+
+
+        ModuleCodeList.Add("0A0100")
+
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+
+
+    End Sub
+
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/OA100")
+
+        TempVal = xNodeRoot.SelectSingleNode("Conversion").InnerText
+        If TempVal = "100OA" Then opt100OA.Checked = True Else opt100OACapable.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("ReturnCon").InnerText
+        If TempVal = "Bottom" Then optReturnBottom.Checked = True
+        If TempVal = "Horizontal" Then optReturnHorizontal.Checked = True
+        If TempVal = "No Return" Then optReturnNone.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("HeatType").InnerText
+        If TempVal = "None" Then optNoHeat.Checked = True
+        If TempVal = "Gas" Then optGasHeat.Checked = True
+        If TempVal = "Electric" Then optEHeat.Checked = True
+        If TempVal = "Hot Water" Then optHWHeat.Checked = True
+        If TempVal = "Steam" Then optSteamHeat.Checked = True
+        If TempVal = "Heatco" Then optHeatcoGas.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("ModByFisen").InnerText
+        If TempVal = "Yes" Then chkModHeat.Checked = True Else chkModHeat.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("LowAF").InnerText
+        If TempVal = "Yes" Then chkLowAF.Checked = True Else chkLowAF.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("HGRHByJCI").InnerText
+        If TempVal = "Yes" Then chkJCIHGRH.Checked = True Else chkJCIHGRH.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("HGRHConvByFisen").InnerText
+        If TempVal = "Yes" Then chkHGRH_Conv.Checked = True Else chkHGRH_Conv.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("HGRHByFisen").InnerText
+        If TempVal = "Yes" Then chkFisenHGRH.Checked = True Else chkFisenHGRH.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("HGRHModByFisen").InnerText
+        If TempVal = "Yes" Then chkFisenMHGRH.Checked = True Else chkFisenMHGRH.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("HGBP").InnerText
+        If TempVal = "ByJCI" Then optJCIHGBP.Checked = True Else optFisenHGBP.Checked = True
+
 
     End Sub
 
@@ -516,6 +664,7 @@ Public Class frm100OA
     End Sub
 
     Private Sub btnDoneControls_Click(sender As Object, e As EventArgs) Handles btnDoneControls.Click
+        txtNoPerformanceNote.Text = "If RA opening Is part Of the supply fan total Static," & vbCrLf & "remove this prior To calculating fan performance."
         TabControl1.SelectTab("tpgPerformance")
     End Sub
 
@@ -548,14 +697,7 @@ Public Class frm100OA
         End If
     End Sub
 
-    Private Sub optGasHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optGasHeat.CheckedChanged
-        If optGasHeat.Checked = True Then
-            chkModHeat.Enabled = True
-        Else
-            chkModHeat.Enabled = False
-            chkModHeat.Checked = False
-        End If
-    End Sub
+
     Private Sub PopulateAuxPanelList()
         'V1.0
         If optNoAux.Checked = True Then
@@ -622,23 +764,47 @@ Public Class frm100OA
 
     Private Sub optModeGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optModeGBAS.CheckedChanged
         If optModeGBAS.Checked = True Then
-            optHeatCtrlGBAS.Checked = True
-            optHeatCtrlGBAS.Enabled = True
-            optHeatCtrlStagedOA.Enabled = False
-            optHeatCtrlDAByFisen.enabled = False
-            optHeatCtrlDAFutureTB.Enabled = False
-            optHeatCtrlDAFieldInstTB.Enabled = False
-            optHeatCtrlDABaseUnit.Enabled = False
 
-            optCoolCtrlGBAS.Checked = True
-            optCoolCtrlGBAS.Enabled = True
+            'handle the zone override sensor
+            chkZoneOvrSensor.Enabled = False
+            chkZoneOvrSensor.Checked = False
+
+            'handle the cooling controls    
             optCoolCtrlStagedOA.Enabled = False
-            optCoolCtrlBySE.Enabled = False
-            optCoolCtrlByIPU.Enabled = False
-            optCoolCtrlDAByFisenSE.Enabled = False
+            optCoolCtrlDAByFisen.Enabled = False
+            optCoolCtrlByBaseUnit.Enabled = False
+            optCoolCtrlGBAS.Enabled = True
+            optCoolCtrlGBAS.Checked = True
 
-            optGBASVernier.Checked = True
+            'handle the heating controls
+            If Not (optNoHeat.Checked) Then
+                grpGBASHeat.Enabled = True
+                optHeatCtrlGBAS.Checked = True
+                optGBASVernier.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlDABaseUnit.Enabled = False
+                optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlGBAS.Enabled = True
+                optHeatCtrlNone.Enabled = False
+            Else 'executes if no heat
+                optHeatCtrlNone.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlDABaseUnit.Enabled = False
+                optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = True
+            End If
+
+
+            'Handle the GBAS Controls
             grpGBASCtrl4.Enabled = True
+            optGBASCooling.Checked = True
 
 
         End If
@@ -646,92 +812,97 @@ Public Class frm100OA
 
     Private Sub optModeAuto_CheckedChanged(sender As Object, e As EventArgs) Handles optModeAuto.CheckedChanged
         If optModeAuto.Checked = True Then
+            'Handle Zone Override Sensor
+            chkZoneOvrSensor.Enabled = True
+            chkZoneOvrSensor.Checked = True
 
-            optHeatCtrlStagedOA.Checked = True
-            optHeatCtrlStagedOA.Enabled = True
-            optHeatCtrlGBAS.Enabled = False
-
-            optHeatCtrlDAByFisen.Enabled = True
-            optHeatCtrlDAFutureTB.Enabled = True
-            optHeatCtrlDAFieldInstTB.Enabled = True
-            optHeatCtrlDABaseUnit.Enabled = True
-
-            optCoolCtrlStagedOA.Checked = True
+            'Handle Cooling Controls
             optCoolCtrlStagedOA.Enabled = True
-            optCoolCtrlBySE.Enabled = True
-            optCoolCtrlByIPU.Enabled = True
+            optCoolCtrlStagedOA.Checked = True
+            optCoolCtrlDAByFisen.Enabled = True
+            optCoolCtrlByBaseUnit.Enabled = True
             optCoolCtrlGBAS.Enabled = False
-            optCoolCtrlDAByFisenSE.Enabled = True
 
-            optGBASVernier.Checked = False
-            optGBASFuture.Checked = False
-            optGBAS3Level.Checked = False
-            chkGBASOADamper.Checked = False
+            'Handle Heating Controls
+            If Not (optNoHeat.Checked) Then
+                optHeatCtrlStagedOA.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = True
+                optHeatCtrlDAByFisen.Enabled = True
+                optHeatCtrlDAFutureTB.Enabled = True
+                optHeatCtrlDABaseUnit.Enabled = True
+                optHeatCtrlDAFieldInstTB.Enabled = True
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = False
+
+            Else 'executes if no heat
+                optHeatCtrlNone.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlDABaseUnit.Enabled = False
+                optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = True
+
+            End If
+
+            'Handle GBAS Controls
             grpGBASCtrl4.Enabled = False
+            optGBASNoGBAS.Checked = True
+            chkGBASOADamper.Checked = False
+            optNoGBASHeat.Checked = True
 
         End If
     End Sub
 
     Private Sub optModeDATOnly_CheckedChanged(sender As Object, e As EventArgs) Handles optModeDATOnly.CheckedChanged
         If optModeDATOnly.Checked = True Then
+            'handle the Zone Override Sensor
+            chkZoneOvrSensor.Enabled = True
+            chkZoneOvrSensor.Checked = False
 
-            optHeatCtrlDAByFisen.Enabled = True
-            optHeatCtrlDAByFisen.Checked = True
-
-            optHeatCtrlStagedOA.Enabled = False
-            optHeatCtrlDAFutureTB.Enabled = True
-            optHeatCtrlDAFieldInstTB.Enabled = True
-            optHeatCtrlDABaseUnit.Enabled = False
-            optHeatCtrlGBAS.Enabled = False
-
-            optCoolCtrlDAByFisenSE.Enabled = True
-            optCoolCtrlDAByFisenSE.Checked = True
-
+            'handle the cooling controls
             optCoolCtrlStagedOA.Enabled = False
-            optCoolCtrlBySE.Enabled = True
-            optCoolCtrlByIPU.Enabled = True
+            optCoolCtrlDAByFisen.Enabled = True
+            optCoolCtrlByBaseUnit.Checked = True
+            optCoolCtrlByBaseUnit.Enabled = True
             optCoolCtrlGBAS.Enabled = False
 
 
-            optGBASVernier.Checked = False
-            optGBASFuture.Checked = False
-            optGBAS3Level.Checked = False
-            chkGBASOADamper.Checked = False
+            'handle the heating controls
+            If Not (optNoHeat.Checked) Then 'Unit has heat
+                optHeatCtrlDAByFisen.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = True
+                optHeatCtrlDAFutureTB.Enabled = True
+                optHeatCtrlDABaseUnit.Enabled = True
+                optHeatCtrlDAFieldInstTB.Enabled = True
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = False
+            Else 'unit doesn't have heat
+                optHeatCtrlNone.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlDABaseUnit.Enabled = False
+                optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = True
+            End If
+
+            'handle the GBAS Controls
             grpGBASCtrl4.Enabled = False
+            optGBASNoGBAS.Checked = True
+            chkGBASOADamper.Checked = False
+            optNoGBASHeat.Checked = True
+
         End If
     End Sub
 
-    Private Sub optEHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optEHeat.CheckedChanged
-        If optEHeat.Checked Then
-            chkModEHeat.Enabled = True
-        Else
-            chkModEHeat.Enabled = False
-            chkModEHeat.Checked = False
-        End If
-    End Sub
-
-    Private Sub opt100OACapable_CheckedChanged(sender As Object, e As EventArgs)
-        If opt100OACapable.Checked Then
-            grpReturn.Visible = True
-            optReturnBottom.Checked = True
-        Else
-            grpReturn.Visible = False
-            optReturnBottom.Checked = False
-            optReturnHorizontal.Checked = False
-        End If
-    End Sub
-
-    Private Sub opt100OA_CheckedChanged(sender As Object, e As EventArgs)
-        If opt100OA.Checked Then
-            grpReturn.Enabled = False
-            optReturnNone.Checked = True
-            optReturnNone.Enabled = True
-        Else
-            grpReturn.Enabled = True
-            optReturnBottom.Checked = True
-            optReturnNone.Enabled = False
-        End If
-    End Sub
 
     Private Sub optSE_CheckedChanged(sender As Object, e As EventArgs)
 
@@ -798,9 +969,8 @@ Public Class frm100OA
 
         CoolCtrl = "Unselected"
         If optCoolCtrlStagedOA.Checked Then CoolCtrl = "OAStaged"
-        If optCoolCtrlDAByFisenSE.Checked Then CoolCtrl = "DATByFisen"
-        If optCoolCtrlBySE.Checked Then CoolCtrl = "DATBaseUnit"
-        If optCoolCtrlByIPU.Checked Then CoolCtrl = "DATBaseUnit"
+        If optCoolCtrlDAByFisen.Checked Then CoolCtrl = "DATByFisen"
+        If optCoolCtrlByBaseUnit.Checked Then CoolCtrl = "DATBaseUnit"
         If optCoolCtrlGBAS.Checked Then CoolCtrl = "GBAS"
 
         ModeCtrl = "Unselected"
@@ -815,7 +985,7 @@ Public Class frm100OA
             ZoneOverride = "No"
         End If
 
-        MySQL = "SELECT * FROM tblHistory100OA WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        MySQL = "Select * FROM tblHistory100OA WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
         rs.Open(MySQL, con)
 
         If rs.RecordCount > 0 Then
@@ -911,5 +1081,195 @@ Public Class frm100OA
 
         rs = Nothing
         con = Nothing
+    End Sub
+
+    Private Sub opt100OA_CheckedChanged(sender As Object, e As EventArgs) Handles opt100OA.CheckedChanged
+        If opt100OA.Checked Then
+            optReturnBottom.Enabled = False
+            optReturnHorizontal.Enabled = False
+            optReturnNone.Enabled = True
+            optReturnNone.Checked = True
+            chkOADamperSwitch.Enabled = True
+            If Val(frmMain.ThisUnitSFanPerf.MotorHP) > 5.0 Then
+                chkOADamperSwitch.Checked = True
+            Else
+                chkOADamperSwitch.Checked = False
+            End If
+        Else
+            optReturnNone.Enabled = False
+            optReturnBottom.Enabled = True
+            optReturnBottom.Checked = True
+            optReturnHorizontal.Enabled = True
+            chkOADamperSwitch.Enabled = False
+            chkOADamperSwitch.Checked = False
+        End If
+    End Sub
+
+    Private Sub opt100OACapable_CheckedChanged(sender As Object, e As EventArgs) Handles opt100OACapable.CheckedChanged
+        If opt100OA.Checked Then
+            optReturnBottom.Enabled = False
+            optReturnHorizontal.Enabled = False
+            optReturnNone.Enabled = True
+            optReturnNone.Checked = True
+            optModeAuto.Checked = True
+            chkOADamperSwitch.Enabled = True
+            If Val(frmMain.ThisUnitSFanPerf.MotorHP) > 5.0 Then
+                chkOADamperSwitch.Checked = True
+            Else
+                chkOADamperSwitch.Checked = False
+            End If
+        Else
+            optReturnNone.Enabled = False
+            optReturnBottom.Enabled = True
+            optReturnBottom.Checked = True
+            optReturnHorizontal.Enabled = True
+            optModeNoChange.Checked = True
+            chkOADamperSwitch.Enabled = False
+            chkOADamperSwitch.Checked = False
+        End If
+    End Sub
+
+    Private Sub optNoHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optNoHeat.CheckedChanged
+
+        If optNoHeat.Checked Then
+            chkModHeat.Checked = False
+            chkModHeat.Enabled = False
+
+            optHeatCtrlNone.Checked = True
+
+            optHeatCtrlStagedOA.Enabled = False
+            optHeatCtrlDAByFisen.Enabled = False
+            optHeatCtrlDAFutureTB.Enabled = False
+            optHeatCtrlDABaseUnit.Enabled = False
+            optHeatCtrlDAFieldInstTB.Enabled = False
+            optHeatCtrlGBAS.Enabled = False
+            optHeatCtrlNone.Enabled = True
+
+            optNoGBASHeat.Checked = True
+        Else
+
+        End If
+
+    End Sub
+
+    Private Sub optGasHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optGasHeat.CheckedChanged
+        If optGasHeat.Checked = True Then
+            chkModHeat.Enabled = True
+            optHeatCtrlStagedOA.Checked = True
+
+            optHeatCtrlStagedOA.Enabled = True
+            optHeatCtrlDAByFisen.Enabled = True
+            optHeatCtrlDAFutureTB.Enabled = True
+            optHeatCtrlDABaseUnit.Enabled = True
+            optHeatCtrlDAFieldInstTB.Enabled = True
+            optHeatCtrlGBAS.Enabled = False
+            optHeatCtrlNone.Enabled = False
+        End If
+    End Sub
+    Private Sub optEHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optEHeat.CheckedChanged
+        If optEHeat.Checked Then
+            chkModHeat.Enabled = True
+            optHeatCtrlStagedOA.Checked = True
+
+            optHeatCtrlStagedOA.Enabled = True
+            optHeatCtrlDAByFisen.Enabled = True
+            optHeatCtrlDAFutureTB.Enabled = True
+            optHeatCtrlDABaseUnit.Enabled = True
+            optHeatCtrlDAFieldInstTB.Enabled = True
+            optHeatCtrlGBAS.Enabled = False
+            optHeatCtrlNone.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optHWHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optHWHeat.CheckedChanged
+        If optHWHeat.Checked Then
+            chkModHeat.Enabled = True
+            optHeatCtrlStagedOA.Checked = True
+
+            optHeatCtrlStagedOA.Enabled = True
+            optHeatCtrlDAByFisen.Enabled = True
+            optHeatCtrlDAFutureTB.Enabled = True
+            optHeatCtrlDABaseUnit.Enabled = True
+            optHeatCtrlDAFieldInstTB.Enabled = True
+            optHeatCtrlGBAS.Enabled = False
+            optHeatCtrlNone.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optSteamHeat_CheckedChanged(sender As Object, e As EventArgs) Handles optSteamHeat.CheckedChanged
+        If optSteamHeat.Checked Then
+            chkModHeat.Enabled = True
+            optHeatCtrlStagedOA.Checked = True
+
+            optHeatCtrlStagedOA.Enabled = True
+            optHeatCtrlDAByFisen.Enabled = True
+            optHeatCtrlDAFutureTB.Enabled = True
+            optHeatCtrlDABaseUnit.Enabled = True
+            optHeatCtrlDAFieldInstTB.Enabled = True
+            optHeatCtrlGBAS.Enabled = False
+            optHeatCtrlNone.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optHeatcoGas_CheckedChanged(sender As Object, e As EventArgs) Handles optHeatcoGas.CheckedChanged
+        If optHeatcoGas.Checked Then
+            chkModHeat.Enabled = True
+            optHeatCtrlStagedOA.Checked = True
+
+            optHeatCtrlStagedOA.Enabled = True
+            optHeatCtrlDAByFisen.Enabled = True
+            optHeatCtrlDAFutureTB.Enabled = True
+            optHeatCtrlDABaseUnit.Enabled = True
+            optHeatCtrlDAFieldInstTB.Enabled = True
+            optHeatCtrlGBAS.Enabled = False
+            optHeatCtrlNone.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optModeNoChange_CheckedChanged(sender As Object, e As EventArgs) Handles optModeNoChange.CheckedChanged
+
+        If optModeNoChange.Checked = True Then
+            'handle the Zone Override Sensor
+            chkZoneOvrSensor.Enabled = False
+            chkZoneOvrSensor.Checked = False
+
+            'handle the cooling controls
+            optCoolCtrlByBaseUnit.Checked = True
+
+            optCoolCtrlStagedOA.Enabled = False
+            optCoolCtrlDAByFisen.Enabled = False
+            optCoolCtrlByBaseUnit.Enabled = True
+            optCoolCtrlGBAS.Enabled = False
+
+            'handle the heating controls
+            If Not (optNoHeat.Checked) Then
+                optHeatCtrlDABaseUnit.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlDABaseUnit.Enabled = True
+                optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = False
+            Else 'This executes if no heat unit
+                optHeatCtrlNone.Checked = True
+
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlDAByFisen.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlDABaseUnit.Enabled = False
+                optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = True
+            End If
+
+            'handle the GBAS Controls
+            grpGBASCtrl4.Enabled = False
+            optGBASNoGBAS.Checked = True
+            chkGBASOADamper.Checked = False
+            optNoGBASHeat.Checked = True
+
+        End If
     End Sub
 End Class

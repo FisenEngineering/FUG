@@ -1,4 +1,5 @@
-﻿Public Class frmMGH_R
+﻿Imports System.Xml
+Public Class frmMGH_R
     Private pCancelled As Boolean
     Public Property Cancelled As Boolean
         Get
@@ -9,8 +10,8 @@
         End Set
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Call UpdatePerformance
-        Call UpdateWeightTable
+        Call UpdatePerformance()
+        Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("MGH_R") 'Mod Code goes here!
         If frmMain.ThisUnit.GenCodesPresent = False Then
@@ -18,7 +19,7 @@
             'frmMain.ThisUnitMods.Add("Common")
         End If
         Call UpdateCodeList()
-        Call UpdateBaseUnitRequiredItems
+        Call UpdateBaseUnitRequiredItems()
         Me.Hide()
     End Sub
     Private Sub UpdateBaseUnitRequiredItems()
@@ -85,7 +86,7 @@
 
         End If
 
-            Select Case frmMain.ThisUnit.Family
+        Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
                 frmMain.ThisUnitCodes.Add("523150")
             Case Is = "Series10"
@@ -101,11 +102,11 @@
         If chkIncludeEquipmentTouch.Checked = True Then
             If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
             If chkMountEquipmentTouch.Checked = True Then
-                    frmMain.ThisUnitGenCodes.Add("960002")
-                Else
-                    frmMain.ThisUnitGenCodes.Add("960001")
-                End If
+                frmMain.ThisUnitGenCodes.Add("960002")
+            Else
+                frmMain.ThisUnitGenCodes.Add("960001")
             End If
+        End If
 
         'Add Auxillary Panel if selected
         If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
@@ -242,6 +243,40 @@
             Case Else
 
         End Select
+
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+
+    End Sub
+
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/MGH_R")
+
+        TempVal = xNodeRoot.SelectSingleNode("HeatingAirflow").InnerText
+        txtHeatAF.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("EAT").InnerText
+        txtEAT.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("InputCapacity").InnerText
+        txtInputCap.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("Propane").InnerText
+        If TempVal = "Yes" Then chkPropane.Checked = True Else chkPropane.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("AtElevation").InnerText
+        If TempVal = "Yes" Then chkUnitAtElevation.Checked = True Else chkUnitAtElevation.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("Elevation").InnerText
+        txtElevation.Text = TempVal
+
     End Sub
 
     Private Sub PopulateAuxPanelList()

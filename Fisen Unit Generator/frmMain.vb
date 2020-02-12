@@ -5032,6 +5032,7 @@ Public Class frmMain
     End Sub
     Private Sub btnDonePD_Click(sender As Object, e As EventArgs) Handles btnDonePD.Click
         Dim LastProjectFile As System.IO.StreamWriter
+        Dim Dummy As MsgBoxResult
 
         Dim TempFileName As String
 
@@ -5115,6 +5116,13 @@ Public Class frmMain
         Else
             nudJobNumberAdj.Value = 3300
         End If
+
+        TempFileName = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Sales Info\" & txtJobNumber.Text & "-" & txtUnitNumber.Text & " - ModsFile.xml"
+        If Not (My.Computer.FileSystem.FileExists(TempFileName)) Then
+            chkInhibitDigConditions.Checked = True
+            Dummy = MsgBox("Sales entered modification conditions file missing." & vbCrLf & "Conditions will need to be manually entered.", vbOKOnly, "Fisen Unit Generator")
+        End If
+
         My.Settings.Save()
 
     End Sub
@@ -8335,7 +8343,6 @@ Public Class frmMain
                 OpenFileDialog1.InitialDirectory = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\"
                 OpenFileDialog1.FileName = "BaseUnitFile.xml"
                 OpenFileDialog1.ShowDialog()
-                Debug.Print(OpenFileDialog1.FileName)
                 txtBaseUnitFile.Text = OpenFileDialog1.FileName
             End If
         Else
@@ -8698,6 +8705,11 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdJumpButton_Click(sender As Object, e As EventArgs) Handles cmdJumpButton.Click
+        ThisUnit.Family = "Series100"
+        txtJobNumber.Text = "3993F"
+        txtUnitNumber.Text = "01"
+        txtProjectDirectory.Text = "J:\3950-3999\3993F - Test YPAL Do Not Use\"
+
         Select Case cmbJumpDest.Text
             Case Is = "Filtration"
                 ThisUnitSFanPerf.Airflow = "3500"
@@ -8709,6 +8721,10 @@ Public Class frmMain
                 frmNewFan.ShowDialog()
             Case Is = "Steam Coil"
                 frmSteamCoil.ShowDialog()
+            Case Is = "100% Outdoor Air"
+
+                frm100OA.ShowDialog()
+
         End Select
     End Sub
 
@@ -8731,6 +8747,9 @@ Public Class frmMain
         clip = Clipboard.GetText
         If Mid(clip, 1, 5) = "local" Then
             clip = Mid(clip, 15) & "\"
+        End If
+        If Mid(clip, Len(clip), 1) <> "\" Then
+            clip = clip & "\"
         End If
         txtProjectDirectory.Text = clip
     End Sub

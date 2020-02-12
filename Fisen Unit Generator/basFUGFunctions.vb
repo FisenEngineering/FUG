@@ -46,7 +46,46 @@
 
     Public Function Model2Family(ModelNumber As String) As String
         Dim TempFamily As String
+        Dim UPGTons As String
+
         TempFamily = "Unknown"
+
+        If Mid(ModelNumber, 1, 1) = "J" Then
+            UPGTons = Mid(ModelNumber, 2, 2)
+
+            Select Case UPGTons
+                Case Is = "03"
+                    TempFamily = "Series5"
+                Case Is = "04"
+                    TempFamily = "Series5"
+                Case Is = "05"
+                    TempFamily = "Series5"
+                Case Is = "A3"
+                    TempFamily = "Series10"
+                Case Is = "A4"
+                    TempFamily = "Series10"
+                Case Is = "A5"
+                    TempFamily = "Series10"
+                Case Is = "06"
+                    TempFamily = "Series10"
+                Case Is = "07"
+                    TempFamily = "Series10"
+                Case Is = "08"
+                    TempFamily = "Series10"
+                Case Is = "10"
+                    TempFamily = "Series10"
+                Case Is = "12"
+                    TempFamily = "Series10"
+                Case Is = "15"
+                    TempFamily = "Series20"
+                Case Is = "18"
+                    TempFamily = "Series20"
+                Case Is = "20"
+                    TempFamily = "Series20"
+                Case Is = "25"
+                    TempFamily = "Series20"
+            End Select
+        End If
 
         If Mid(ModelNumber, 1, 4) = "YPAL" Then
             TempFamily = "Series100"

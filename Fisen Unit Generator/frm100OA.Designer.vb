@@ -40,7 +40,6 @@ Partial Class frm100OA
         Me.optFisenHGBP = New System.Windows.Forms.RadioButton()
         Me.optJCIHGBP = New System.Windows.Forms.RadioButton()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
-        Me.chkModEHeat = New System.Windows.Forms.CheckBox()
         Me.optHeatcoGas = New System.Windows.Forms.RadioButton()
         Me.chkModHeat = New System.Windows.Forms.CheckBox()
         Me.optSteamHeat = New System.Windows.Forms.RadioButton()
@@ -66,17 +65,17 @@ Partial Class frm100OA
         Me.optSE = New System.Windows.Forms.RadioButton()
         Me.chkZoneOvrSensor = New System.Windows.Forms.CheckBox()
         Me.grp100OACapable = New System.Windows.Forms.GroupBox()
-        Me.optCoolCtrlByIPU = New System.Windows.Forms.RadioButton()
-        Me.optCoolCtrlBySE = New System.Windows.Forms.RadioButton()
+        Me.optCoolCtrlByBaseUnit = New System.Windows.Forms.RadioButton()
         Me.optCoolCtrlGBAS = New System.Windows.Forms.RadioButton()
         Me.optCoolCtrlStagedOA = New System.Windows.Forms.RadioButton()
-        Me.optCoolCtrlDAByFisenSE = New System.Windows.Forms.RadioButton()
+        Me.optCoolCtrlDAByFisen = New System.Windows.Forms.RadioButton()
         Me.grpModeCtrl = New System.Windows.Forms.GroupBox()
         Me.optModeNoChange = New System.Windows.Forms.RadioButton()
         Me.optModeDATOnly = New System.Windows.Forms.RadioButton()
         Me.optModeGBAS = New System.Windows.Forms.RadioButton()
         Me.optModeAuto = New System.Windows.Forms.RadioButton()
         Me.grpHeatCtrl = New System.Windows.Forms.GroupBox()
+        Me.optHeatCtrlNone = New System.Windows.Forms.RadioButton()
         Me.optHeatCtrlDABaseUnit = New System.Windows.Forms.RadioButton()
         Me.optHeatCtrlDAByFisen = New System.Windows.Forms.RadioButton()
         Me.optHeatCtrlGBAS = New System.Windows.Forms.RadioButton()
@@ -84,17 +83,25 @@ Partial Class frm100OA
         Me.optHeatCtrlDAFieldInstTB = New System.Windows.Forms.RadioButton()
         Me.optHeatCtrlStagedOA = New System.Windows.Forms.RadioButton()
         Me.grpGBASCtrl4 = New System.Windows.Forms.GroupBox()
-        Me.chkGBASOADamper = New System.Windows.Forms.CheckBox()
-        Me.optGBASFuture = New System.Windows.Forms.RadioButton()
-        Me.optGBAS3Level = New System.Windows.Forms.RadioButton()
+        Me.grpGBASHeat = New System.Windows.Forms.GroupBox()
+        Me.optNoGBASHeat = New System.Windows.Forms.RadioButton()
         Me.optGBASVernier = New System.Windows.Forms.RadioButton()
+        Me.optGBAS3Level = New System.Windows.Forms.RadioButton()
+        Me.optGBASFuture = New System.Windows.Forms.RadioButton()
+        Me.optGBASCoolDAT = New System.Windows.Forms.RadioButton()
+        Me.optGBASCooling = New System.Windows.Forms.RadioButton()
+        Me.optGBASNoGBAS = New System.Windows.Forms.RadioButton()
+        Me.chkGBASOADamper = New System.Windows.Forms.CheckBox()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.txtNoPerformanceNote = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.chkOADamperSwitch = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpReturn.SuspendLayout()
@@ -109,13 +116,14 @@ Partial Class frm100OA
         Me.grpModeCtrl.SuspendLayout()
         Me.grpHeatCtrl.SuspendLayout()
         Me.grpGBASCtrl4.SuspendLayout()
+        Me.grpGBASHeat.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOK
         '
         Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(16, 240)
+        Me.btnOK.Location = New System.Drawing.Point(12, 267)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(96, 36)
         Me.btnOK.TabIndex = 0
@@ -124,7 +132,7 @@ Partial Class frm100OA
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(120, 240)
+        Me.Cancel.Location = New System.Drawing.Point(116, 267)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(96, 36)
         Me.Cancel.TabIndex = 1
@@ -141,7 +149,7 @@ Partial Class frm100OA
         Me.TabControl1.Location = New System.Drawing.Point(9, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(827, 220)
+        Me.TabControl1.Size = New System.Drawing.Size(862, 249)
         Me.TabControl1.TabIndex = 2
         '
         'tpgConditions
@@ -159,7 +167,7 @@ Partial Class frm100OA
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgConditions.Size = New System.Drawing.Size(819, 194)
+        Me.tpgConditions.Size = New System.Drawing.Size(854, 223)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
@@ -191,6 +199,7 @@ Partial Class frm100OA
         'optReturnHorizontal
         '
         Me.optReturnHorizontal.AutoSize = True
+        Me.optReturnHorizontal.Enabled = False
         Me.optReturnHorizontal.Location = New System.Drawing.Point(6, 42)
         Me.optReturnHorizontal.Name = "optReturnHorizontal"
         Me.optReturnHorizontal.Size = New System.Drawing.Size(72, 17)
@@ -201,6 +210,7 @@ Partial Class frm100OA
         'optReturnBottom
         '
         Me.optReturnBottom.AutoSize = True
+        Me.optReturnBottom.Enabled = False
         Me.optReturnBottom.Location = New System.Drawing.Point(6, 19)
         Me.optReturnBottom.Name = "optReturnBottom"
         Me.optReturnBottom.Size = New System.Drawing.Size(58, 17)
@@ -273,7 +283,7 @@ Partial Class frm100OA
         Me.GroupBox8.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox8.Size = New System.Drawing.Size(140, 116)
+        Me.GroupBox8.Size = New System.Drawing.Size(140, 63)
         Me.GroupBox8.TabIndex = 38
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Hot Gas Bypass"
@@ -302,7 +312,6 @@ Partial Class frm100OA
         '
         'GroupBox9
         '
-        Me.GroupBox9.Controls.Add(Me.chkModEHeat)
         Me.GroupBox9.Controls.Add(Me.optHeatcoGas)
         Me.GroupBox9.Controls.Add(Me.chkModHeat)
         Me.GroupBox9.Controls.Add(Me.optSteamHeat)
@@ -314,27 +323,15 @@ Partial Class frm100OA
         Me.GroupBox9.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox9.Size = New System.Drawing.Size(212, 116)
+        Me.GroupBox9.Size = New System.Drawing.Size(212, 163)
         Me.GroupBox9.TabIndex = 37
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Heat Type"
         '
-        'chkModEHeat
-        '
-        Me.chkModEHeat.AutoSize = True
-        Me.chkModEHeat.Enabled = False
-        Me.chkModEHeat.Location = New System.Drawing.Point(70, 41)
-        Me.chkModEHeat.Margin = New System.Windows.Forms.Padding(2)
-        Me.chkModEHeat.Name = "chkModEHeat"
-        Me.chkModEHeat.Size = New System.Drawing.Size(120, 17)
-        Me.chkModEHeat.TabIndex = 39
-        Me.chkModEHeat.Text = "Modulation by Fisen"
-        Me.chkModEHeat.UseVisualStyleBackColor = True
-        '
         'optHeatcoGas
         '
         Me.optHeatcoGas.AutoSize = True
-        Me.optHeatcoGas.Location = New System.Drawing.Point(5, 88)
+        Me.optHeatcoGas.Location = New System.Drawing.Point(5, 133)
         Me.optHeatcoGas.Name = "optHeatcoGas"
         Me.optHeatcoGas.Size = New System.Drawing.Size(82, 17)
         Me.optHeatcoGas.TabIndex = 38
@@ -345,7 +342,7 @@ Partial Class frm100OA
         '
         Me.chkModHeat.AutoSize = True
         Me.chkModHeat.Enabled = False
-        Me.chkModHeat.Location = New System.Drawing.Point(70, 67)
+        Me.chkModHeat.Location = New System.Drawing.Point(88, 20)
         Me.chkModHeat.Margin = New System.Windows.Forms.Padding(2)
         Me.chkModHeat.Name = "chkModHeat"
         Me.chkModHeat.Size = New System.Drawing.Size(120, 17)
@@ -356,7 +353,7 @@ Partial Class frm100OA
         'optSteamHeat
         '
         Me.optSteamHeat.AutoSize = True
-        Me.optSteamHeat.Location = New System.Drawing.Point(150, 19)
+        Me.optSteamHeat.Location = New System.Drawing.Point(5, 110)
         Me.optSteamHeat.Name = "optSteamHeat"
         Me.optSteamHeat.Size = New System.Drawing.Size(55, 17)
         Me.optSteamHeat.TabIndex = 5
@@ -366,7 +363,7 @@ Partial Class frm100OA
         'optHWHeat
         '
         Me.optHWHeat.AutoSize = True
-        Me.optHWHeat.Location = New System.Drawing.Point(70, 18)
+        Me.optHWHeat.Location = New System.Drawing.Point(5, 87)
         Me.optHWHeat.Name = "optHWHeat"
         Me.optHWHeat.Size = New System.Drawing.Size(74, 17)
         Me.optHWHeat.TabIndex = 4
@@ -376,7 +373,7 @@ Partial Class frm100OA
         'optEHeat
         '
         Me.optEHeat.AutoSize = True
-        Me.optEHeat.Location = New System.Drawing.Point(5, 41)
+        Me.optEHeat.Location = New System.Drawing.Point(5, 64)
         Me.optEHeat.Name = "optEHeat"
         Me.optEHeat.Size = New System.Drawing.Size(60, 17)
         Me.optEHeat.TabIndex = 3
@@ -386,7 +383,7 @@ Partial Class frm100OA
         'optGasHeat
         '
         Me.optGasHeat.AutoSize = True
-        Me.optGasHeat.Location = New System.Drawing.Point(5, 66)
+        Me.optGasHeat.Location = New System.Drawing.Point(5, 41)
         Me.optGasHeat.Name = "optGasHeat"
         Me.optGasHeat.Size = New System.Drawing.Size(44, 17)
         Me.optGasHeat.TabIndex = 2
@@ -441,7 +438,7 @@ Partial Class frm100OA
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(758, 160)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(793, 189)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneConditions.TabIndex = 23
@@ -456,7 +453,7 @@ Partial Class frm100OA
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
         Me.tpgOptions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgOptions.Size = New System.Drawing.Size(819, 194)
+        Me.tpgOptions.Size = New System.Drawing.Size(854, 223)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
@@ -477,7 +474,7 @@ Partial Class frm100OA
         Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
         Me.GroupBox3.Controls.Add(Me.optUseAux)
         Me.GroupBox3.Controls.Add(Me.optNoAux)
-        Me.GroupBox3.Location = New System.Drawing.Point(6, 83)
+        Me.GroupBox3.Location = New System.Drawing.Point(6, 112)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
         Me.GroupBox3.TabIndex = 28
@@ -518,7 +515,7 @@ Partial Class frm100OA
         '
         'btnDoneOptions
         '
-        Me.btnDoneOptions.Location = New System.Drawing.Point(758, 160)
+        Me.btnDoneOptions.Location = New System.Drawing.Point(793, 189)
         Me.btnDoneOptions.Name = "btnDoneOptions"
         Me.btnDoneOptions.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneOptions.TabIndex = 24
@@ -527,6 +524,7 @@ Partial Class frm100OA
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.chkOADamperSwitch)
         Me.tpgControls.Controls.Add(Me.GroupBox2)
         Me.tpgControls.Controls.Add(Me.chkZoneOvrSensor)
         Me.tpgControls.Controls.Add(Me.grp100OACapable)
@@ -537,7 +535,7 @@ Partial Class frm100OA
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgControls.Size = New System.Drawing.Size(819, 194)
+        Me.tpgControls.Size = New System.Drawing.Size(854, 223)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -547,11 +545,11 @@ Partial Class frm100OA
         Me.GroupBox2.Controls.Add(Me.optASE)
         Me.GroupBox2.Controls.Add(Me.optIPU)
         Me.GroupBox2.Controls.Add(Me.optSE)
-        Me.GroupBox2.Location = New System.Drawing.Point(548, 6)
+        Me.GroupBox2.Location = New System.Drawing.Point(200, 153)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(212, 68)
+        Me.GroupBox2.Size = New System.Drawing.Size(151, 41)
         Me.GroupBox2.TabIndex = 42
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Base Unit Controls"
@@ -591,7 +589,7 @@ Partial Class frm100OA
         'chkZoneOvrSensor
         '
         Me.chkZoneOvrSensor.AutoSize = True
-        Me.chkZoneOvrSensor.Location = New System.Drawing.Point(6, 172)
+        Me.chkZoneOvrSensor.Location = New System.Drawing.Point(12, 128)
         Me.chkZoneOvrSensor.Margin = New System.Windows.Forms.Padding(2)
         Me.chkZoneOvrSensor.Name = "chkZoneOvrSensor"
         Me.chkZoneOvrSensor.Size = New System.Drawing.Size(130, 17)
@@ -601,45 +599,33 @@ Partial Class frm100OA
         '
         'grp100OACapable
         '
-        Me.grp100OACapable.Controls.Add(Me.optCoolCtrlByIPU)
-        Me.grp100OACapable.Controls.Add(Me.optCoolCtrlBySE)
+        Me.grp100OACapable.Controls.Add(Me.optCoolCtrlByBaseUnit)
         Me.grp100OACapable.Controls.Add(Me.optCoolCtrlGBAS)
         Me.grp100OACapable.Controls.Add(Me.optCoolCtrlStagedOA)
-        Me.grp100OACapable.Controls.Add(Me.optCoolCtrlDAByFisenSE)
-        Me.grp100OACapable.Location = New System.Drawing.Point(6, 74)
+        Me.grp100OACapable.Controls.Add(Me.optCoolCtrlDAByFisen)
+        Me.grp100OACapable.Location = New System.Drawing.Point(200, 6)
         Me.grp100OACapable.Name = "grp100OACapable"
-        Me.grp100OACapable.Size = New System.Drawing.Size(307, 93)
+        Me.grp100OACapable.Size = New System.Drawing.Size(383, 68)
         Me.grp100OACapable.TabIndex = 31
         Me.grp100OACapable.TabStop = False
         Me.grp100OACapable.Text = "Cool Control"
         '
-        'optCoolCtrlByIPU
+        'optCoolCtrlByBaseUnit
         '
-        Me.optCoolCtrlByIPU.AutoSize = True
-        Me.optCoolCtrlByIPU.Enabled = False
-        Me.optCoolCtrlByIPU.Location = New System.Drawing.Point(132, 65)
-        Me.optCoolCtrlByIPU.Name = "optCoolCtrlByIPU"
-        Me.optCoolCtrlByIPU.Size = New System.Drawing.Size(96, 17)
-        Me.optCoolCtrlByIPU.TabIndex = 10
-        Me.optCoolCtrlByIPU.Text = "DA Ctrl(by IPU)"
-        Me.optCoolCtrlByIPU.UseVisualStyleBackColor = True
-        '
-        'optCoolCtrlBySE
-        '
-        Me.optCoolCtrlBySE.AutoSize = True
-        Me.optCoolCtrlBySE.Enabled = False
-        Me.optCoolCtrlBySE.Location = New System.Drawing.Point(132, 42)
-        Me.optCoolCtrlBySE.Name = "optCoolCtrlBySE"
-        Me.optCoolCtrlBySE.Size = New System.Drawing.Size(92, 17)
-        Me.optCoolCtrlBySE.TabIndex = 9
-        Me.optCoolCtrlBySE.Text = "DA Ctrl(by SE)"
-        Me.optCoolCtrlBySE.UseVisualStyleBackColor = True
+        Me.optCoolCtrlByBaseUnit.AutoSize = True
+        Me.optCoolCtrlByBaseUnit.Enabled = False
+        Me.optCoolCtrlByBaseUnit.Location = New System.Drawing.Point(6, 42)
+        Me.optCoolCtrlByBaseUnit.Name = "optCoolCtrlByBaseUnit"
+        Me.optCoolCtrlByBaseUnit.Size = New System.Drawing.Size(121, 17)
+        Me.optCoolCtrlByBaseUnit.TabIndex = 9
+        Me.optCoolCtrlByBaseUnit.Text = "DA Ctrl by Base Unit"
+        Me.optCoolCtrlByBaseUnit.UseVisualStyleBackColor = True
         '
         'optCoolCtrlGBAS
         '
         Me.optCoolCtrlGBAS.AutoSize = True
         Me.optCoolCtrlGBAS.Enabled = False
-        Me.optCoolCtrlGBAS.Location = New System.Drawing.Point(6, 65)
+        Me.optCoolCtrlGBAS.Location = New System.Drawing.Point(133, 42)
         Me.optCoolCtrlGBAS.Name = "optCoolCtrlGBAS"
         Me.optCoolCtrlGBAS.Size = New System.Drawing.Size(54, 17)
         Me.optCoolCtrlGBAS.TabIndex = 8
@@ -652,22 +638,22 @@ Partial Class frm100OA
         Me.optCoolCtrlStagedOA.Checked = True
         Me.optCoolCtrlStagedOA.Location = New System.Drawing.Point(6, 19)
         Me.optCoolCtrlStagedOA.Name = "optCoolCtrlStagedOA"
-        Me.optCoolCtrlStagedOA.Size = New System.Drawing.Size(74, 17)
+        Me.optCoolCtrlStagedOA.Size = New System.Drawing.Size(77, 17)
         Me.optCoolCtrlStagedOA.TabIndex = 7
         Me.optCoolCtrlStagedOA.TabStop = True
-        Me.optCoolCtrlStagedOA.Text = "StagedOA"
+        Me.optCoolCtrlStagedOA.Text = "Staged OA"
         Me.optCoolCtrlStagedOA.UseVisualStyleBackColor = True
         '
-        'optCoolCtrlDAByFisenSE
+        'optCoolCtrlDAByFisen
         '
-        Me.optCoolCtrlDAByFisenSE.AutoSize = True
-        Me.optCoolCtrlDAByFisenSE.Enabled = False
-        Me.optCoolCtrlDAByFisenSE.Location = New System.Drawing.Point(6, 42)
-        Me.optCoolCtrlDAByFisenSE.Name = "optCoolCtrlDAByFisenSE"
-        Me.optCoolCtrlDAByFisenSE.Size = New System.Drawing.Size(120, 17)
-        Me.optCoolCtrlDAByFisenSE.TabIndex = 6
-        Me.optCoolCtrlDAByFisenSE.Text = "DA Ctrl(by Fisen-SE)"
-        Me.optCoolCtrlDAByFisenSE.UseVisualStyleBackColor = True
+        Me.optCoolCtrlDAByFisen.AutoSize = True
+        Me.optCoolCtrlDAByFisen.Enabled = False
+        Me.optCoolCtrlDAByFisen.Location = New System.Drawing.Point(133, 19)
+        Me.optCoolCtrlDAByFisen.Name = "optCoolCtrlDAByFisen"
+        Me.optCoolCtrlDAByFisen.Size = New System.Drawing.Size(100, 17)
+        Me.optCoolCtrlDAByFisen.TabIndex = 6
+        Me.optCoolCtrlDAByFisen.Text = "DA Ctrl by Fisen"
+        Me.optCoolCtrlDAByFisen.UseVisualStyleBackColor = True
         '
         'grpModeCtrl
         '
@@ -675,9 +661,9 @@ Partial Class frm100OA
         Me.grpModeCtrl.Controls.Add(Me.optModeDATOnly)
         Me.grpModeCtrl.Controls.Add(Me.optModeGBAS)
         Me.grpModeCtrl.Controls.Add(Me.optModeAuto)
-        Me.grpModeCtrl.Location = New System.Drawing.Point(319, 78)
+        Me.grpModeCtrl.Location = New System.Drawing.Point(6, 6)
         Me.grpModeCtrl.Name = "grpModeCtrl"
-        Me.grpModeCtrl.Size = New System.Drawing.Size(188, 89)
+        Me.grpModeCtrl.Size = New System.Drawing.Size(188, 114)
         Me.grpModeCtrl.TabIndex = 29
         Me.grpModeCtrl.TabStop = False
         Me.grpModeCtrl.Text = "Mode Control "
@@ -685,12 +671,12 @@ Partial Class frm100OA
         'optModeNoChange
         '
         Me.optModeNoChange.AutoSize = True
-        Me.optModeNoChange.Location = New System.Drawing.Point(83, 65)
+        Me.optModeNoChange.Location = New System.Drawing.Point(6, 88)
         Me.optModeNoChange.Name = "optModeNoChange"
-        Me.optModeNoChange.Size = New System.Drawing.Size(79, 17)
+        Me.optModeNoChange.Size = New System.Drawing.Size(151, 17)
         Me.optModeNoChange.TabIndex = 7
         Me.optModeNoChange.TabStop = True
-        Me.optModeNoChange.Text = "No Change"
+        Me.optModeNoChange.Text = "No Change from Base Unit"
         Me.optModeNoChange.UseVisualStyleBackColor = True
         '
         'optModeDATOnly
@@ -729,23 +715,35 @@ Partial Class frm100OA
         '
         'grpHeatCtrl
         '
+        Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlNone)
         Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlDABaseUnit)
         Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlDAByFisen)
         Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlGBAS)
         Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlDAFutureTB)
         Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlDAFieldInstTB)
         Me.grpHeatCtrl.Controls.Add(Me.optHeatCtrlStagedOA)
-        Me.grpHeatCtrl.Location = New System.Drawing.Point(6, 6)
+        Me.grpHeatCtrl.Location = New System.Drawing.Point(200, 80)
         Me.grpHeatCtrl.Name = "grpHeatCtrl"
-        Me.grpHeatCtrl.Size = New System.Drawing.Size(307, 68)
+        Me.grpHeatCtrl.Size = New System.Drawing.Size(383, 68)
         Me.grpHeatCtrl.TabIndex = 28
         Me.grpHeatCtrl.TabStop = False
         Me.grpHeatCtrl.Text = "Heat Control"
         '
+        'optHeatCtrlNone
+        '
+        Me.optHeatCtrlNone.AutoSize = True
+        Me.optHeatCtrlNone.Checked = True
+        Me.optHeatCtrlNone.Location = New System.Drawing.Point(303, 45)
+        Me.optHeatCtrlNone.Name = "optHeatCtrlNone"
+        Me.optHeatCtrlNone.Size = New System.Drawing.Size(65, 17)
+        Me.optHeatCtrlNone.TabIndex = 12
+        Me.optHeatCtrlNone.TabStop = True
+        Me.optHeatCtrlNone.Text = "No Heat"
+        Me.optHeatCtrlNone.UseVisualStyleBackColor = True
+        '
         'optHeatCtrlDABaseUnit
         '
         Me.optHeatCtrlDABaseUnit.AutoSize = True
-        Me.optHeatCtrlDABaseUnit.Enabled = False
         Me.optHeatCtrlDABaseUnit.Location = New System.Drawing.Point(124, 45)
         Me.optHeatCtrlDABaseUnit.Name = "optHeatCtrlDABaseUnit"
         Me.optHeatCtrlDABaseUnit.Size = New System.Drawing.Size(113, 17)
@@ -756,7 +754,6 @@ Partial Class frm100OA
         'optHeatCtrlDAByFisen
         '
         Me.optHeatCtrlDAByFisen.AutoSize = True
-        Me.optHeatCtrlDAByFisen.Enabled = False
         Me.optHeatCtrlDAByFisen.Location = New System.Drawing.Point(6, 45)
         Me.optHeatCtrlDAByFisen.Name = "optHeatCtrlDAByFisen"
         Me.optHeatCtrlDAByFisen.Size = New System.Drawing.Size(107, 17)
@@ -767,7 +764,6 @@ Partial Class frm100OA
         'optHeatCtrlGBAS
         '
         Me.optHeatCtrlGBAS.AutoSize = True
-        Me.optHeatCtrlGBAS.Enabled = False
         Me.optHeatCtrlGBAS.Location = New System.Drawing.Point(243, 45)
         Me.optHeatCtrlGBAS.Name = "optHeatCtrlGBAS"
         Me.optHeatCtrlGBAS.Size = New System.Drawing.Size(54, 17)
@@ -782,78 +778,68 @@ Partial Class frm100OA
         Me.optHeatCtrlDAFutureTB.Name = "optHeatCtrlDAFutureTB"
         Me.optHeatCtrlDAFutureTB.Size = New System.Drawing.Size(85, 17)
         Me.optHeatCtrlDAFutureTB.TabIndex = 8
-        Me.optHeatCtrlDAFutureTB.TabStop = True
         Me.optHeatCtrlDAFutureTB.Text = "DA Ctrl (Fut.)"
         Me.optHeatCtrlDAFutureTB.UseVisualStyleBackColor = True
         '
         'optHeatCtrlDAFieldInstTB
         '
         Me.optHeatCtrlDAFieldInstTB.AutoSize = True
-        Me.optHeatCtrlDAFieldInstTB.Location = New System.Drawing.Point(219, 22)
+        Me.optHeatCtrlDAFieldInstTB.Location = New System.Drawing.Point(243, 22)
         Me.optHeatCtrlDAFieldInstTB.Name = "optHeatCtrlDAFieldInstTB"
         Me.optHeatCtrlDAFieldInstTB.Size = New System.Drawing.Size(83, 17)
         Me.optHeatCtrlDAFieldInstTB.TabIndex = 7
-        Me.optHeatCtrlDAFieldInstTB.TabStop = True
         Me.optHeatCtrlDAFieldInstTB.Text = "DA Ctrl Field"
         Me.optHeatCtrlDAFieldInstTB.UseVisualStyleBackColor = True
         '
         'optHeatCtrlStagedOA
         '
         Me.optHeatCtrlStagedOA.AutoSize = True
-        Me.optHeatCtrlStagedOA.Checked = True
         Me.optHeatCtrlStagedOA.Location = New System.Drawing.Point(6, 22)
         Me.optHeatCtrlStagedOA.Name = "optHeatCtrlStagedOA"
         Me.optHeatCtrlStagedOA.Size = New System.Drawing.Size(116, 17)
         Me.optHeatCtrlStagedOA.TabIndex = 6
-        Me.optHeatCtrlStagedOA.TabStop = True
         Me.optHeatCtrlStagedOA.Text = "DA Ctrl (StagedOA)"
         Me.optHeatCtrlStagedOA.UseVisualStyleBackColor = True
         '
         'grpGBASCtrl4
         '
+        Me.grpGBASCtrl4.Controls.Add(Me.grpGBASHeat)
+        Me.grpGBASCtrl4.Controls.Add(Me.optGBASCoolDAT)
+        Me.grpGBASCtrl4.Controls.Add(Me.optGBASCooling)
+        Me.grpGBASCtrl4.Controls.Add(Me.optGBASNoGBAS)
         Me.grpGBASCtrl4.Controls.Add(Me.chkGBASOADamper)
-        Me.grpGBASCtrl4.Controls.Add(Me.optGBASFuture)
-        Me.grpGBASCtrl4.Controls.Add(Me.optGBAS3Level)
-        Me.grpGBASCtrl4.Controls.Add(Me.optGBASVernier)
-        Me.grpGBASCtrl4.Enabled = False
-        Me.grpGBASCtrl4.Location = New System.Drawing.Point(319, 6)
+        Me.grpGBASCtrl4.Location = New System.Drawing.Point(589, 6)
         Me.grpGBASCtrl4.Name = "grpGBASCtrl4"
-        Me.grpGBASCtrl4.Size = New System.Drawing.Size(224, 68)
+        Me.grpGBASCtrl4.Size = New System.Drawing.Size(240, 148)
         Me.grpGBASCtrl4.TabIndex = 27
         Me.grpGBASCtrl4.TabStop = False
         Me.grpGBASCtrl4.Text = "GBAS Controls"
         '
-        'chkGBASOADamper
+        'grpGBASHeat
         '
-        Me.chkGBASOADamper.AutoSize = True
-        Me.chkGBASOADamper.Location = New System.Drawing.Point(138, 42)
-        Me.chkGBASOADamper.Name = "chkGBASOADamper"
-        Me.chkGBASOADamper.Size = New System.Drawing.Size(81, 17)
-        Me.chkGBASOADamper.TabIndex = 5
-        Me.chkGBASOADamper.Text = "OA Damper"
-        Me.chkGBASOADamper.UseVisualStyleBackColor = True
+        Me.grpGBASHeat.Controls.Add(Me.optNoGBASHeat)
+        Me.grpGBASHeat.Controls.Add(Me.optGBASVernier)
+        Me.grpGBASHeat.Controls.Add(Me.optGBAS3Level)
+        Me.grpGBASHeat.Controls.Add(Me.optGBASFuture)
+        Me.grpGBASHeat.Location = New System.Drawing.Point(6, 70)
+        Me.grpGBASHeat.Name = "grpGBASHeat"
+        Me.grpGBASHeat.Size = New System.Drawing.Size(228, 66)
+        Me.grpGBASHeat.TabIndex = 16
+        Me.grpGBASHeat.TabStop = False
+        Me.grpGBASHeat.Text = "Heat"
         '
-        'optGBASFuture
+        'optNoGBASHeat
         '
-        Me.optGBASFuture.AutoSize = True
-        Me.optGBASFuture.Location = New System.Drawing.Point(96, 19)
-        Me.optGBASFuture.Name = "optGBASFuture"
-        Me.optGBASFuture.Size = New System.Drawing.Size(123, 17)
-        Me.optGBASFuture.TabIndex = 4
-        Me.optGBASFuture.TabStop = True
-        Me.optGBASFuture.Text = "Future Heat (Vernier)"
-        Me.optGBASFuture.UseVisualStyleBackColor = True
-        '
-        'optGBAS3Level
-        '
-        Me.optGBAS3Level.AutoSize = True
-        Me.optGBAS3Level.Location = New System.Drawing.Point(6, 41)
-        Me.optGBAS3Level.Name = "optGBAS3Level"
-        Me.optGBAS3Level.Size = New System.Drawing.Size(117, 17)
-        Me.optGBAS3Level.TabIndex = 3
-        Me.optGBAS3Level.TabStop = True
-        Me.optGBAS3Level.Text = "Off/Low/High Heat"
-        Me.optGBAS3Level.UseVisualStyleBackColor = True
+        Me.optNoGBASHeat.AutoSize = True
+        Me.optNoGBASHeat.Checked = True
+        Me.optNoGBASHeat.Enabled = False
+        Me.optNoGBASHeat.Location = New System.Drawing.Point(135, 41)
+        Me.optNoGBASHeat.Name = "optNoGBASHeat"
+        Me.optNoGBASHeat.Size = New System.Drawing.Size(65, 17)
+        Me.optNoGBASHeat.TabIndex = 14
+        Me.optNoGBASHeat.TabStop = True
+        Me.optNoGBASHeat.Text = "No Heat"
+        Me.optNoGBASHeat.UseVisualStyleBackColor = True
         '
         'optGBASVernier
         '
@@ -865,9 +851,76 @@ Partial Class frm100OA
         Me.optGBASVernier.Text = "Vernier Heat"
         Me.optGBASVernier.UseVisualStyleBackColor = True
         '
+        'optGBAS3Level
+        '
+        Me.optGBAS3Level.AutoSize = True
+        Me.optGBAS3Level.Location = New System.Drawing.Point(105, 18)
+        Me.optGBAS3Level.Name = "optGBAS3Level"
+        Me.optGBAS3Level.Size = New System.Drawing.Size(117, 17)
+        Me.optGBAS3Level.TabIndex = 3
+        Me.optGBAS3Level.TabStop = True
+        Me.optGBAS3Level.Text = "Off/Low/High Heat"
+        Me.optGBAS3Level.UseVisualStyleBackColor = True
+        '
+        'optGBASFuture
+        '
+        Me.optGBASFuture.AutoSize = True
+        Me.optGBASFuture.Location = New System.Drawing.Point(6, 41)
+        Me.optGBASFuture.Name = "optGBASFuture"
+        Me.optGBASFuture.Size = New System.Drawing.Size(123, 17)
+        Me.optGBASFuture.TabIndex = 4
+        Me.optGBASFuture.TabStop = True
+        Me.optGBASFuture.Text = "Future Heat (Vernier)"
+        Me.optGBASFuture.UseVisualStyleBackColor = True
+        '
+        'optGBASCoolDAT
+        '
+        Me.optGBASCoolDAT.AutoSize = True
+        Me.optGBASCoolDAT.Location = New System.Drawing.Point(96, 42)
+        Me.optGBASCoolDAT.Name = "optGBASCoolDAT"
+        Me.optGBASCoolDAT.Size = New System.Drawing.Size(128, 17)
+        Me.optGBASCoolDAT.TabIndex = 15
+        Me.optGBASCoolDAT.TabStop = True
+        Me.optGBASCoolDAT.Text = "GBAS Enable Cooling"
+        Me.optGBASCoolDAT.UseVisualStyleBackColor = True
+        '
+        'optGBASCooling
+        '
+        Me.optGBASCooling.AutoSize = True
+        Me.optGBASCooling.Location = New System.Drawing.Point(6, 42)
+        Me.optGBASCooling.Name = "optGBASCooling"
+        Me.optGBASCooling.Size = New System.Drawing.Size(92, 17)
+        Me.optGBASCooling.TabIndex = 14
+        Me.optGBASCooling.TabStop = True
+        Me.optGBASCooling.Text = "GBAS Cooling"
+        Me.optGBASCooling.UseVisualStyleBackColor = True
+        '
+        'optGBASNoGBAS
+        '
+        Me.optGBASNoGBAS.AutoSize = True
+        Me.optGBASNoGBAS.Checked = True
+        Me.optGBASNoGBAS.Enabled = False
+        Me.optGBASNoGBAS.Location = New System.Drawing.Point(6, 19)
+        Me.optGBASNoGBAS.Name = "optGBASNoGBAS"
+        Me.optGBASNoGBAS.Size = New System.Drawing.Size(71, 17)
+        Me.optGBASNoGBAS.TabIndex = 13
+        Me.optGBASNoGBAS.TabStop = True
+        Me.optGBASNoGBAS.Text = "No GBAS"
+        Me.optGBASNoGBAS.UseVisualStyleBackColor = True
+        '
+        'chkGBASOADamper
+        '
+        Me.chkGBASOADamper.AutoSize = True
+        Me.chkGBASOADamper.Location = New System.Drawing.Point(96, 20)
+        Me.chkGBASOADamper.Name = "chkGBASOADamper"
+        Me.chkGBASOADamper.Size = New System.Drawing.Size(81, 17)
+        Me.chkGBASOADamper.TabIndex = 5
+        Me.chkGBASOADamper.Text = "OA Damper"
+        Me.chkGBASOADamper.UseVisualStyleBackColor = True
+        '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(758, 160)
+        Me.btnDoneControls.Location = New System.Drawing.Point(793, 189)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneControls.TabIndex = 25
@@ -876,18 +929,38 @@ Partial Class frm100OA
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.txtNoPerformanceNote)
+        Me.tpgPerformance.Controls.Add(Me.Label1)
         Me.tpgPerformance.Controls.Add(Me.btnDonePerformance)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Size = New System.Drawing.Size(819, 194)
+        Me.tpgPerformance.Size = New System.Drawing.Size(854, 223)
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'txtNoPerformanceNote
+        '
+        Me.txtNoPerformanceNote.Enabled = False
+        Me.txtNoPerformanceNote.Location = New System.Drawing.Point(6, 27)
+        Me.txtNoPerformanceNote.Multiline = True
+        Me.txtNoPerformanceNote.Name = "txtNoPerformanceNote"
+        Me.txtNoPerformanceNote.Size = New System.Drawing.Size(243, 63)
+        Me.txtNoPerformanceNote.TabIndex = 27
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 11)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(246, 13)
+        Me.Label1.TabIndex = 26
+        Me.Label1.Text = "No Performance Modifications for this Modification."
+        '
         'btnDonePerformance
         '
         Me.btnDonePerformance.Cursor = System.Windows.Forms.Cursors.Default
-        Me.btnDonePerformance.Location = New System.Drawing.Point(758, 160)
+        Me.btnDonePerformance.Location = New System.Drawing.Point(793, 189)
         Me.btnDonePerformance.Name = "btnDonePerformance"
         Me.btnDonePerformance.Size = New System.Drawing.Size(55, 28)
         Me.btnDonePerformance.TabIndex = 25
@@ -899,7 +972,7 @@ Partial Class frm100OA
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(819, 194)
+        Me.DebugPage.Size = New System.Drawing.Size(854, 223)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
@@ -907,7 +980,7 @@ Partial Class frm100OA
         'cmdViewHistory
         '
         Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
-        Me.cmdViewHistory.Location = New System.Drawing.Point(766, 249)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(795, 274)
         Me.cmdViewHistory.Name = "cmdViewHistory"
         Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
         Me.cmdViewHistory.TabIndex = 12
@@ -916,7 +989,7 @@ Partial Class frm100OA
         'cmdDesignCautions
         '
         Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
-        Me.cmdDesignCautions.Location = New System.Drawing.Point(802, 249)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(831, 274)
         Me.cmdDesignCautions.Name = "cmdDesignCautions"
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 11
@@ -927,17 +1000,28 @@ Partial Class frm100OA
         Me.chkWriteHistory.AutoSize = True
         Me.chkWriteHistory.Checked = True
         Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkWriteHistory.Location = New System.Drawing.Point(222, 261)
+        Me.chkWriteHistory.Location = New System.Drawing.Point(218, 288)
         Me.chkWriteHistory.Name = "chkWriteHistory"
         Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
         Me.chkWriteHistory.TabIndex = 14
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'chkOADamperSwitch
+        '
+        Me.chkOADamperSwitch.AutoSize = True
+        Me.chkOADamperSwitch.Location = New System.Drawing.Point(12, 149)
+        Me.chkOADamperSwitch.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkOADamperSwitch.Name = "chkOADamperSwitch"
+        Me.chkOADamperSwitch.Size = New System.Drawing.Size(155, 17)
+        Me.chkOADamperSwitch.TabIndex = 43
+        Me.chkOADamperSwitch.Text = "OA Damper Proving Switch"
+        Me.chkOADamperSwitch.UseVisualStyleBackColor = True
+        '
         'frm100OA
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(848, 290)
+        Me.ClientSize = New System.Drawing.Size(883, 315)
         Me.ControlBox = False
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
@@ -976,7 +1060,10 @@ Partial Class frm100OA
         Me.grpHeatCtrl.PerformLayout()
         Me.grpGBASCtrl4.ResumeLayout(False)
         Me.grpGBASCtrl4.PerformLayout()
+        Me.grpGBASHeat.ResumeLayout(False)
+        Me.grpGBASHeat.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
+        Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1027,16 +1114,14 @@ Partial Class frm100OA
     Friend WithEvents grp100OACapable As GroupBox
     Friend WithEvents optCoolCtrlGBAS As RadioButton
     Friend WithEvents optCoolCtrlStagedOA As RadioButton
-    Friend WithEvents optCoolCtrlDAByFisenSE As RadioButton
+    Friend WithEvents optCoolCtrlDAByFisen As RadioButton
     Friend WithEvents chkZoneOvrSensor As CheckBox
     Friend WithEvents optHeatcoGas As RadioButton
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
     Friend WithEvents cmbAuxPanelOpts As ComboBox
-    Friend WithEvents chkModEHeat As CheckBox
-    Friend WithEvents optCoolCtrlByIPU As RadioButton
-    Friend WithEvents optCoolCtrlBySE As RadioButton
+    Friend WithEvents optCoolCtrlByBaseUnit As RadioButton
     Friend WithEvents optHeatCtrlDABaseUnit As RadioButton
     Friend WithEvents optModeNoChange As RadioButton
     Friend WithEvents grpReturn As GroupBox
@@ -1054,4 +1139,13 @@ Partial Class frm100OA
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents optHeatCtrlNone As RadioButton
+    Friend WithEvents optGBASNoGBAS As RadioButton
+    Friend WithEvents optGBASCoolDAT As RadioButton
+    Friend WithEvents optGBASCooling As RadioButton
+    Friend WithEvents grpGBASHeat As GroupBox
+    Friend WithEvents optNoGBASHeat As RadioButton
+    Friend WithEvents txtNoPerformanceNote As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents chkOADamperSwitch As CheckBox
 End Class

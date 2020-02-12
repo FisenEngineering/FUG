@@ -465,7 +465,7 @@ Partial Class frmFiltration
         Me.cmbFFType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbFFType.Enabled = False
         Me.cmbFFType.FormattingEnabled = True
-        Me.cmbFFType.Items.AddRange(New Object() {"MERV 8 (2in)", "MERV 8 (4in)", "MERV 14 (4in)", "MERV 14 (6in)", "MERV 14 (12in)", "N/A"})
+        Me.cmbFFType.Items.AddRange(New Object() {"MERV 8 (2in)", "MERV 8 (4in)", "MERV 13 (2in)", "MERV 14 (4in)", "MERV 14 (6in)", "MERV 14 (12in)", "N/A"})
         Me.cmbFFType.Location = New System.Drawing.Point(180, 171)
         Me.cmbFFType.Name = "cmbFFType"
         Me.cmbFFType.Size = New System.Drawing.Size(121, 21)
@@ -476,7 +476,7 @@ Partial Class frmFiltration
         Me.cmbIFType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbIFType.Enabled = False
         Me.cmbIFType.FormattingEnabled = True
-        Me.cmbIFType.Items.AddRange(New Object() {"MERV 8 (2in)", "MERV 8 (4in)", "MERV 14 (4in)", "MERV 14 (6in)", "MERV 14 (12in)", "N/A"})
+        Me.cmbIFType.Items.AddRange(New Object() {"MERV 8 (2in)", "MERV 8 (4in)", "MERV 13 (2in)", "MERV 14 (4in)", "MERV 14 (6in)", "MERV 14 (12in)", "N/A"})
         Me.cmbIFType.Location = New System.Drawing.Point(179, 30)
         Me.cmbIFType.Name = "cmbIFType"
         Me.cmbIFType.Size = New System.Drawing.Size(121, 21)

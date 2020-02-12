@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Xml
 
 Public Class frmHWCoil
 
@@ -263,6 +264,11 @@ Public Class frmHWCoil
                 If optCoil1Row.Checked = True Then tempWeight = "170"
                 If optCoil2Row.Checked = True Then tempWeight = "215"
                 If optCoilCustom.Checked = True Then tempWeight = "215"
+            Case Is = "Choice"
+                If optCoil1Row.Checked = True Then tempWeight = "175"
+                If optCoil2Row.Checked = True Then tempWeight = "195"
+                If optCoilCustom.Checked = True Then tempWeight = "195"
+
             Case Else
                 tempWeight = "9999"
                 Dummy = MsgBox("Error in Weight Selection for HWCoil Module.", vbOKOnly)
@@ -392,9 +398,43 @@ Public Class frmHWCoil
             Case Else
 
         End Select
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
 
     End Sub
 
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/HWCoil")
+
+        TempVal = xNodeRoot.SelectSingleNode("HeatingAirflow").InnerText
+        txtHeatAF.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("EAT").InnerText
+        txtEAT.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("InputCapacity").InnerText
+        txtInputCap.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("EFT").InnerText
+        txtEFT.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("FluidFlow").InnerText
+        txtFluidFlow.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("Fluid").InnerText
+        cmbFluidList.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("FlPercent").InnerText
+        cmbFluidPer.Text = TempVal
+
+    End Sub
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
         pCancelled = True
         Me.Hide()

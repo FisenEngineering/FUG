@@ -32,7 +32,6 @@ Partial Class frmLowAF
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -133,6 +132,8 @@ Partial Class frmLowAF
         Me.colAdjSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtHeatingAF = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -183,12 +184,13 @@ Partial Class frmLowAF
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.Label39)
+        Me.tpgConditions.Controls.Add(Me.txtHeatingAF)
         Me.tpgConditions.Controls.Add(Me.lblsqftevap)
         Me.tpgConditions.Controls.Add(Me.chk100OA)
         Me.tpgConditions.Controls.Add(Me.Label8)
         Me.tpgConditions.Controls.Add(Me.Label7)
         Me.tpgConditions.Controls.Add(Me.Label4)
-        Me.tpgConditions.Controls.Add(Me.Label6)
         Me.tpgConditions.Controls.Add(Me.Label5)
         Me.tpgConditions.Controls.Add(Me.Label3)
         Me.tpgConditions.Controls.Add(Me.Label2)
@@ -232,7 +234,7 @@ Partial Class frmLowAF
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(287, 111)
+        Me.Label8.Location = New System.Drawing.Point(180, 111)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(44, 13)
         Me.Label8.TabIndex = 52
@@ -259,16 +261,6 @@ Partial Class frmLowAF
         Me.Label4.Text = "Entering DB"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(208, 136)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(64, 13)
-        Me.Label6.TabIndex = 49
-        Me.Label6.Text = "Entering DB"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -292,7 +284,7 @@ Partial Class frmLowAF
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(68, 56)
+        Me.Label2.Location = New System.Drawing.Point(200, 67)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(28, 13)
         Me.Label2.TabIndex = 46
@@ -302,16 +294,16 @@ Partial Class frmLowAF
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(58, 30)
+        Me.Label1.Location = New System.Drawing.Point(152, 41)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(38, 13)
+        Me.Label1.Size = New System.Drawing.Size(76, 13)
         Me.Label1.TabIndex = 45
-        Me.Label1.Text = "Airflow"
+        Me.Label1.Text = "Cooling Airflow"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'txtHeatEAT
         '
-        Me.txtHeatEAT.Location = New System.Drawing.Point(278, 131)
+        Me.txtHeatEAT.Location = New System.Drawing.Point(171, 157)
         Me.txtHeatEAT.Name = "txtHeatEAT"
         Me.txtHeatEAT.Size = New System.Drawing.Size(63, 20)
         Me.txtHeatEAT.TabIndex = 5
@@ -343,7 +335,7 @@ Partial Class frmLowAF
         '
         'txtESP
         '
-        Me.txtESP.Location = New System.Drawing.Point(102, 53)
+        Me.txtESP.Location = New System.Drawing.Point(234, 64)
         Me.txtESP.Name = "txtESP"
         Me.txtESP.Size = New System.Drawing.Size(63, 20)
         Me.txtESP.TabIndex = 1
@@ -351,7 +343,7 @@ Partial Class frmLowAF
         '
         'txtAirflow
         '
-        Me.txtAirflow.Location = New System.Drawing.Point(102, 27)
+        Me.txtAirflow.Location = New System.Drawing.Point(234, 38)
         Me.txtAirflow.Name = "txtAirflow"
         Me.txtAirflow.Size = New System.Drawing.Size(63, 20)
         Me.txtAirflow.TabIndex = 0
@@ -1252,6 +1244,24 @@ Partial Class frmLowAF
         Me.cmdDesignCautions.Text = "Design Cautions"
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(326, 44)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(78, 13)
+        Me.Label39.TabIndex = 56
+        Me.Label39.Text = "Heating Airflow"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtHeatingAF
+        '
+        Me.txtHeatingAF.Location = New System.Drawing.Point(410, 41)
+        Me.txtHeatingAF.Name = "txtHeatingAF"
+        Me.txtHeatingAF.Size = New System.Drawing.Size(63, 20)
+        Me.txtHeatingAF.TabIndex = 55
+        Me.txtHeatingAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'frmLowAF
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1306,7 +1316,6 @@ Partial Class frmLowAF
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
@@ -1401,4 +1410,6 @@ Partial Class frmLowAF
     Friend WithEvents colOrigSP As DataGridViewTextBoxColumn
     Friend WithEvents colAdjSP As DataGridViewTextBoxColumn
     Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents Label39 As Label
+    Friend WithEvents txtHeatingAF As TextBox
 End Class

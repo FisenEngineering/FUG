@@ -1,4 +1,5 @@
-﻿Public Class frmNewFan
+﻿Imports System.Xml
+Public Class frmNewFan
     Private pCancelled As Boolean
     Private pFanStyle As String
     Private ModuleCodeList As New ArrayList
@@ -21,6 +22,10 @@
     End Property
 
     Private Sub frmNewFan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim lFamily As String
+
+        lFamily = frmMain.ThisUnit.Family
+
         pCancelled = False
         cmbFanSelected.Text = "None"
         cmbFanType.Text = pFanStyle
@@ -32,6 +37,8 @@
         Call LoadTheFanList()
         Call PopulateAuxPanelList()
 
+
+
         If pFanStyle = "Supply Fan" Then
             lblHeatType.Visible = True
             cmbHeatBox.Visible = True
@@ -41,48 +48,53 @@
             optAFFan.Checked = True
             chkReliefHoodsShipLoose.Visible = False
 
-            If frmMain.ThisUnit.Family = "Series10" Then
-                cmdS10BottomSupply.Visible = True
-                cmdS10SideSupply.Visible = True
-                lblNote1.Text = "Preferred Max Fan ATZAF12-12FF"
-            End If
+            Select Case frmMain.ThisUnit.Family
+                Case Is = "Series5"
+                    opt1InchFilters.Checked = True
+                    cmdS5BottomSupply.Visible = True
+                    lblNote1.Text = "An ALTI 9-9R has been successfully used."
 
-            If frmMain.ThisUnit.Family = "Series20" Then
-                cmdS20SideSupply.Visible = True
-                cmdS20BottomSupply.Visible = True
-                lblNote1.Text = "Preferred Max Fan ATZAF18-18FF"
-            End If
+                Case Is = "Series10"
+                    cmdS10BottomSupply.Visible = True
+                    cmdS10SideSupply.Visible = True
+                    lblNote1.Text = "Preferred Max Fan ATZAF12-12FF"
+                Case Is = "Series12"
 
-            If frmMain.ThisUnit.Family = "Series40" Then
-                cmdS40Supply.Visible = True
-                lblNote1.Text = "An ATZAF22-22FF has been successfully used."
-            End If
+                Case Is = "Series20"
+                    cmdS20SideSupply.Visible = True
+                    cmdS20BottomSupply.Visible = True
+                    lblNote1.Text = "Preferred Max Fan ATZAF18-18FF"
+                Case Is = "Series40"
+                    'Depricated *Probably not going to be used*
+                    cmdS40Supply.Visible = True
+                    lblNote1.Text = "An ATZAF22-22FF has been successfully used."
+                Case Is = "Series100"
+
+                Case Is = "Premier"
+
+                Case Is = "Choice"
+
+                Case Is = "Select"
+
+                Case Else
+
+            End Select
 
             Select Case frmMain.ThisUnitHeatPerf.HeatType
                 Case Is = "Gas"
                     cmbHeatBox.Text = "Gas"
-
                 Case Is = "Electric"
                     cmbHeatBox.Text = "72kW"
                 Case Is = "None"
                     cmbHeatBox.Text = "CoolOnly"
             End Select
+
+            ModuleCodeList.Add("320100")
         End If
         If pFanStyle = "Return Fan" Then
             Select Case frmMain.ThisUnit.Family
-                Case Is = "Series100"
-                    cmdS100BEndReturn.Visible = True
-                Case Is = "Series40"
-                    cmdS40EndReturn.Visible = True
-                    cmdS40BottomReturn.Visible = True
-                    lblNote1.Text = "Preferred Max Fan NAPAF18 (2)"
-                    chkRFPiezoRingsOnly.Visible = True
-                    chkRFPiezoRingsXmitterOnly.Visible = True
-                    chkRFPiezoRingsNet.Visible = True
-                Case Is = "Series20"
-                    cmdS20BottomReturn.Visible = True
-                    cmdS20SideReturn.Visible = True
-                    lblNote1.Text = "DNE fan is a Continental AFK 27in Fan (5hp max).  24in is preferred (2hp max)."
+                Case Is = "Series5"
+
                 Case Is = "Series10"
                     cmdS10BottomReturn.Visible = True
                     lblNote1.Text = "DNE fan is a Continental AFK 16in Fan (2hp max).  14in fan is preferred (2hp max)."
@@ -90,9 +102,32 @@
                     chkInletMeasuringStationOnly.Visible = True
                     chkInletMeasuringStationWithXMit.Visible = True
                     chkInletMeasuringStationFull.Visible = True
+                Case Is = "Series12"
+
+                Case Is = "Series20"
+                    cmdS20BottomReturn.Visible = True
+                    cmdS20SideReturn.Visible = True
+                    lblNote1.Text = "DNE fan is a Continental AFK 27in Fan (5hp max).  24in is preferred (2hp max)."
+                Case Is = "Series40"
+                    'Depricated *Probably not going to be used*
+                    cmdS40EndReturn.Visible = True
+                    cmdS40BottomReturn.Visible = True
+                    lblNote1.Text = "Preferred Max Fan NAPAF18 (2)"
+                    chkRFPiezoRingsOnly.Visible = True
+                    chkRFPiezoRingsXmitterOnly.Visible = True
+                    chkRFPiezoRingsNet.Visible = True
+                Case Is = "Series100"
+                    cmdS100BEndReturn.Visible = True
+                Case Is = "Premier"
+
+                Case Is = "Choice"
+
+                Case Is = "Select"
+
+                Case Else
+
             End Select
-
-
+            ModuleCodeList.Add("330100")
         End If
 
         Select Case frmMain.ThisUnit.Family
@@ -105,15 +140,57 @@
             Case Is = "Series20"
                 fraAuxPanel.Enabled = True
             Case Is = "Series40"
-
+                 'Depricated *Probably not going to be used*
             Case Is = "Series100"
+
+            Case Is = "Premier"
+
+            Case Is = "Choice"
+
+            Case Is = "Select"
 
             Case Else
 
         End Select
 
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+
+        tslblAirflow.Text = "Airflow:" & txtAirflow.Text
+        tslblTSP.Text = "TSP: " & "TBD"
+        tslblESP.Text = "ESP: " & txtESP.Text
+        tslblElevation.Text = "Elevation: " & txtElevation.Text
+
+    End Sub
+
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/SFan")
+
+        If cmbFanType.Text = "Return Fan" Then xNodeRoot = xDoc.SelectSingleNode("//ModFile/Modifications/RFan")
+        If cmbFanType.Text = "Exhaust Fan" Then xNodeRoot = xDoc.SelectSingleNode("//ModFile/Modifications/XFan")
+
+        TempVal = xNodeRoot.SelectSingleNode("FlowConfig").InnerText
+        If TempVal = "Downflow" Then optDownFlow.Checked = True Else optHorizFlow.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("Isolation").InnerText
+        If TempVal = "None" Then optIsoNone.Checked = True
+        If TempVal = "1 inch" Then optIso1.Checked = True
+        If TempVal = "2 inch" Then optIso2.Checked = True
+
+        txtAirflow.Text = xNodeRoot.SelectSingleNode("Airflow").InnerText
+        txtESP.Text = xNodeRoot.SelectSingleNode("ESP").InnerText
+        txtElevation.Text = xNodeRoot.SelectSingleNode("Elevation").InnerText
+
     End Sub
     Private Sub PopulateAuxPanelList()
+        'V1.0
         If optNoAux.Checked = True Then
             cmbAuxPanelOpts.Items.Clear()
             cmbAuxPanelOpts.Items.Add("None")
@@ -152,6 +229,18 @@
                     cmbAuxPanelOpts.Items.Clear()
                     cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
                     cmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                Case Is = "Premier"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
+                Case Is = "Choice"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
+                Case Is = "Select"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
             End Select
         End If
     End Sub
@@ -316,8 +405,11 @@
         Call UpdatePerformance()
         Call UpdateWeightTable()
         Call UpdateWarrantyItems()
+        ModuleCodeList.Clear()
+
         If cmbFanType.Text = "Supply Fan" Then
             frmMain.ThisUnitMods.Add("SFan") 'Mod Code goes here!
+
             Call UpdateCodeListSFan()
             If chkWriteHistory.Checked = True Then Call WriteSFanHistory()
         End If
@@ -380,6 +472,9 @@
 
         Call PerformDesignCautionScan()
 
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
 
         Me.Hide()
     End Sub
@@ -470,269 +565,269 @@
     Private Sub UpdateCodeListXFan()
 
         'Add the level 0 code(s)
-        frmMain.ThisUnitCodes.Add("350100") 'Exhaust Fan Level 1 Code
+        ModuleCodeList.Add("350100") 'Exhaust Fan Level 1 Code
 
         'handle the fan type
-        If optFCFan.Checked Then frmMain.ThisUnitCodes.Add("350101")
-        If optAFFan.Checked Then frmMain.ThisUnitCodes.Add("350102")
-        If optPlenumFan.Checked Then frmMain.ThisUnitCodes.Add("350103")
-        If optPropFan.Checked Then frmMain.ThisUnitCodes.Add("350104")
+        If optFCFan.Checked Then ModuleCodeList.Add("350101")
+        If optAFFan.Checked Then ModuleCodeList.Add("350102")
+        If optPlenumFan.Checked Then ModuleCodeList.Add("350103")
+        If optPropFan.Checked Then ModuleCodeList.Add("350104")
 
         'handle the drive
         If optBeltDrive.Checked Then
-            frmMain.ThisUnitCodes.Add("330120") ' belt drive spec
+            ModuleCodeList.Add("330120") ' belt drive spec
             If optCVSystem.Checked Then
-                frmMain.ThisUnitCodes.Add("330121") 'sheaves for motorstarter
+                ModuleCodeList.Add("330121") 'sheaves for motorstarter
             Else
-                frmMain.ThisUnitCodes.Add("330122") 'sheaves for VFD
+                ModuleCodeList.Add("330122") 'sheaves for VFD
             End If
         Else
-            frmMain.ThisUnitCodes.Add("330110") 'direct drive spec
+            ModuleCodeList.Add("330110") 'direct drive spec
         End If
 
-        If chkMultipleFans.Checked Then frmMain.ThisUnitCodes.Add("330119")
+        If chkMultipleFans.Checked Then ModuleCodeList.Add("330119")
 
         'handle the isolation
-        If optIsoNone.Checked Then frmMain.ThisUnitCodes.Add("330130")
-        If optIso1.Checked Then frmMain.ThisUnitCodes.Add("330131")
-        If optIso2.Checked Then frmMain.ThisUnitCodes.Add("330132")
+        If optIsoNone.Checked Then ModuleCodeList.Add("330130")
+        If optIso1.Checked Then ModuleCodeList.Add("330131")
+        If optIso2.Checked Then ModuleCodeList.Add("330132")
 
         'handle the starter type
         If optCVSystem.Checked Then
-            frmMain.ThisUnitCodes.Add("330140") 'motorstarter discussion code / ol relay
+            ModuleCodeList.Add("330140") 'motorstarter discussion code / ol relay
         Else
             If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
-                frmMain.ThisUnitCodes.Add("330141") 'vfd rplace
+                ModuleCodeList.Add("330141") 'vfd rplace
                 If frmMain.ThisUnit.Family = "Series100" Then
-                    frmMain.ThisUnitCodes.Add("330201")
-                Else
-                    frmMain.ThisUnitCodes.Add("330202")
-                End If
-            Else
-                frmMain.ThisUnitCodes.Add("330142") 'reuse vfd
-            End If
-
-            If optNoBypass.Checked Then frmMain.ThisUnitCodes.Add("330145")
-            If optReuseBypass.Checked Then frmMain.ThisUnitCodes.Add("330146")
-            If optNewBypass.Checked Then frmMain.ThisUnitCodes.Add("330147")
-            If chkRemoteVFDKeypad.Checked Then
-                frmMain.ThisUnitCodes.Add("330148")
-            End If
-        End If
-
-        'handle the motor
-        If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
-            frmMain.ThisUnitCodes.Add("330150") 'provide new motor
-
-            If optTEFC.Checked Then frmMain.ThisUnitCodes.Add("330152")
-            If optODP.Checked Then frmMain.ThisUnitCodes.Add("330151")
-        Else
-            frmMain.ThisUnitCodes.Add("330155") 'reuse existing motor
-        End If
-
-        If chkMultipleFans.Checked Then frmMain.ThisUnitCodes.Add("330159")
-
-        frmMain.ThisUnitCodes.Add("330160") 'Return Fan Controls
-        If optNoControls.Checked Then
-            frmMain.ThisUnitCodes.Add("330161") 'Return Fan NO Controls
-            frmMain.ThisUnitCodes.Add("330162") 'On/Off Only
-        Else
-            If optTrackSupplyFan.Checked Then frmMain.ThisUnitCodes.Add("330165")
-            If optGBASRFan.Checked Then
-                frmMain.ThisUnitCodes.Add("330170") 'GBAS Return Fan
-                frmMain.ThisUnitCodes.Add("330171") 'GBAS Actuated Dampers
-            End If
-            If optBldgStaticPressureCtrl.Checked Then
-                frmMain.ThisUnitCodes.Add("330180") 'General Building Static PRessure Control Statement
-                If optBSPbySE.Checked Then frmMain.ThisUnitCodes.Add("330181") 'SE Econ Return Fan
-                If optBSPbyFisen.Checked Then frmMain.ThisUnitCodes.Add("330182") 'Fisen Ctrl Return Fan
-                If optBSPbyIPU.Checked Then
-                    frmMain.ThisUnitCodes.Add("330185") 'IPU Ctrl of Return Fan
-                    If chkIPUModulateDamper.Checked Then
-                        frmMain.ThisUnitCodes.Add("330186") 'IPU modulate relief damper
-                    End If
-                End If
-            End If
-
-        End If
-        If optNoRelief.Checked Then frmMain.ThisUnitCodes.Add("330190")
-        If optBaroRelief.Checked Then
-            frmMain.ThisUnitCodes.Add("330191")
-            If chkReliefHoodsShipLoose.Checked Then frmMain.ThisUnitCodes.Add("330194") Else frmMain.ThisUnitCodes.Add("330193")
-        End If
-        If optControlRelief.Checked Then
-            frmMain.ThisUnitCodes.Add("330192")
-            If chkReliefHoodsShipLoose.Checked Then frmMain.ThisUnitCodes.Add("330194") Else frmMain.ThisUnitCodes.Add("330193")
-        End If
-    End Sub
-    Private Sub UpdateCodeListRFan()
-
-        'Add the level 0 code(s)
-        frmMain.ThisUnitCodes.Add("330100") 'Supply Fan Level 1 Code
-        ModuleCodeList.Add("330100")
-        Select Case frmMain.ThisUnit.Family
-            Case Is = "Series10"
-                frmMain.ThisUnitCodes.Add("330910")
-                ModuleCodeList.Add("330910")
-            Case Is = "Series20"
-                frmMain.ThisUnitCodes.Add("330920")
-                ModuleCodeList.Add("330920")
-            Case Is = "Series40"
-                frmMain.ThisUnitCodes.Add("330940")
-                ModuleCodeList.Add("330940")
-            Case Is = "Series100"
-                frmMain.ThisUnitCodes.Add("330990")
-                ModuleCodeList.Add("330990")
-        End Select
-
-
-        'handle the fan type
-        If optFCFan.Checked Then
-            frmMain.ThisUnitCodes.Add("330101")
-            ModuleCodeList.Add("330101")
-        End If
-        If optAFFan.Checked Then
-            frmMain.ThisUnitCodes.Add("330102")
-            ModuleCodeList.Add("330102")
-        End If
-        If optPlenumFan.Checked Then
-            frmMain.ThisUnitCodes.Add("330103")
-            ModuleCodeList.Add("330103")
-        End If
-        If optPropFan.Checked Then
-            frmMain.ThisUnitCodes.Add("330104")
-            ModuleCodeList.Add("330104")
-        End If
-        'handle the drive
-        If optBeltDrive.Checked Then
-            frmMain.ThisUnitCodes.Add("330120") ' belt drive spec
-            ModuleCodeList.Add("330120")
-            If optCVSystem.Checked Then
-                frmMain.ThisUnitCodes.Add("330121") 'sheaves for motorstarter
-                ModuleCodeList.Add("330121")
-            Else
-                frmMain.ThisUnitCodes.Add("330122") 'sheaves for VFD
-                ModuleCodeList.Add("330122")
-            End If
-        Else
-            frmMain.ThisUnitCodes.Add("330110") 'direct drive spec
-            ModuleCodeList.Add("330110")
-        End If
-
-        If chkMultipleFans.Checked Then
-            frmMain.ThisUnitCodes.Add("330119")
-            ModuleCodeList.Add("330119")
-        End If
-        'handle the isolation
-        If optIsoNone.Checked Then
-            frmMain.ThisUnitCodes.Add("330130")
-            ModuleCodeList.Add("330130")
-        End If
-        If optIso1.Checked Then
-            frmMain.ThisUnitCodes.Add("330131")
-            ModuleCodeList.Add("330131")
-        End If
-        If optIso2.Checked Then
-            frmMain.ThisUnitCodes.Add("330132")
-            ModuleCodeList.Add("330132")
-        End If
-
-        'handle the starter type
-        If optCVSystem.Checked Then
-            frmMain.ThisUnitCodes.Add("330140") 'motorstarter discussion code / ol relay
-            ModuleCodeList.Add("330140")
-        Else
-            If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
-                frmMain.ThisUnitCodes.Add("330141") 'vfd rplace
-                ModuleCodeList.Add("330141")
-                If frmMain.ThisUnit.Family = "Series100" Then
-                    frmMain.ThisUnitCodes.Add("330201")
                     ModuleCodeList.Add("330201")
                 Else
-                    frmMain.ThisUnitCodes.Add("330202")
                     ModuleCodeList.Add("330202")
                 End If
             Else
-                frmMain.ThisUnitCodes.Add("330142") 'reuse vfd
-                ModuleCodeList.Add("330142")
+                ModuleCodeList.Add("330142") 'reuse vfd
             End If
 
-            If optNoBypass.Checked Then
-                frmMain.ThisUnitCodes.Add("330145")
-                ModuleCodeList.Add("330145")
-            End If
-
-            If optReuseBypass.Checked Then
-                frmMain.ThisUnitCodes.Add("330146")
-                ModuleCodeList.Add("330146")
-            End If
-            If optNewBypass.Checked Then
-                frmMain.ThisUnitCodes.Add("330147")
-                ModuleCodeList.Add("330147")
-            End If
+            If optNoBypass.Checked Then ModuleCodeList.Add("330145")
+            If optReuseBypass.Checked Then ModuleCodeList.Add("330146")
+            If optNewBypass.Checked Then ModuleCodeList.Add("330147")
             If chkRemoteVFDKeypad.Checked Then
-                frmMain.ThisUnitCodes.Add("330148")
                 ModuleCodeList.Add("330148")
             End If
         End If
 
         'handle the motor
         If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
-            frmMain.ThisUnitCodes.Add("330150") 'provide new motor
+            ModuleCodeList.Add("330150") 'provide new motor
+
+            If optTEFC.Checked Then ModuleCodeList.Add("330152")
+            If optODP.Checked Then ModuleCodeList.Add("330151")
+        Else
+            ModuleCodeList.Add("330155") 'reuse existing motor
+        End If
+
+        If chkMultipleFans.Checked Then ModuleCodeList.Add("330159")
+
+        ModuleCodeList.Add("330160") 'Return Fan Controls
+        If optNoControls.Checked Then
+            ModuleCodeList.Add("330161") 'Return Fan NO Controls
+            ModuleCodeList.Add("330162") 'On/Off Only
+        Else
+            If optTrackSupplyFan.Checked Then ModuleCodeList.Add("330165")
+            If optGBASRFan.Checked Then
+                ModuleCodeList.Add("330170") 'GBAS Return Fan
+                ModuleCodeList.Add("330171") 'GBAS Actuated Dampers
+            End If
+            If optBldgStaticPressureCtrl.Checked Then
+                ModuleCodeList.Add("330180") 'General Building Static PRessure Control Statement
+                If optBSPbySE.Checked Then ModuleCodeList.Add("330181") 'SE Econ Return Fan
+                If optBSPbyFisen.Checked Then ModuleCodeList.Add("330182") 'Fisen Ctrl Return Fan
+                If optBSPbyIPU.Checked Then
+                    ModuleCodeList.Add("330185") 'IPU Ctrl of Return Fan
+                    If chkIPUModulateDamper.Checked Then
+                        ModuleCodeList.Add("330186") 'IPU modulate relief damper
+                    End If
+                End If
+            End If
+
+        End If
+        If optNoRelief.Checked Then ModuleCodeList.Add("330190")
+        If optBaroRelief.Checked Then
+            ModuleCodeList.Add("330191")
+            If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
+        End If
+        If optControlRelief.Checked Then
+            ModuleCodeList.Add("330192")
+            If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
+        End If
+    End Sub
+    Private Sub UpdateCodeListRFan()
+
+        'Add the level 0 code(s)
+        ModuleCodeList.Add("330100") 'Supply Fan Level 1 Code
+        ModuleCodeList.Add("330100")
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series10"
+                ModuleCodeList.Add("330910")
+                ModuleCodeList.Add("330910")
+            Case Is = "Series20"
+                ModuleCodeList.Add("330920")
+                ModuleCodeList.Add("330920")
+            Case Is = "Series40"
+                ModuleCodeList.Add("330940")
+                ModuleCodeList.Add("330940")
+            Case Is = "Series100"
+                ModuleCodeList.Add("330990")
+                ModuleCodeList.Add("330990")
+        End Select
+
+
+        'handle the fan type
+        If optFCFan.Checked Then
+            ModuleCodeList.Add("330101")
+            ModuleCodeList.Add("330101")
+        End If
+        If optAFFan.Checked Then
+            ModuleCodeList.Add("330102")
+            ModuleCodeList.Add("330102")
+        End If
+        If optPlenumFan.Checked Then
+            ModuleCodeList.Add("330103")
+            ModuleCodeList.Add("330103")
+        End If
+        If optPropFan.Checked Then
+            ModuleCodeList.Add("330104")
+            ModuleCodeList.Add("330104")
+        End If
+        'handle the drive
+        If optBeltDrive.Checked Then
+            ModuleCodeList.Add("330120") ' belt drive spec
+            ModuleCodeList.Add("330120")
+            If optCVSystem.Checked Then
+                ModuleCodeList.Add("330121") 'sheaves for motorstarter
+                ModuleCodeList.Add("330121")
+            Else
+                ModuleCodeList.Add("330122") 'sheaves for VFD
+                ModuleCodeList.Add("330122")
+            End If
+        Else
+            ModuleCodeList.Add("330110") 'direct drive spec
+            ModuleCodeList.Add("330110")
+        End If
+
+        If chkMultipleFans.Checked Then
+            ModuleCodeList.Add("330119")
+            ModuleCodeList.Add("330119")
+        End If
+        'handle the isolation
+        If optIsoNone.Checked Then
+            ModuleCodeList.Add("330130")
+            ModuleCodeList.Add("330130")
+        End If
+        If optIso1.Checked Then
+            ModuleCodeList.Add("330131")
+            ModuleCodeList.Add("330131")
+        End If
+        If optIso2.Checked Then
+            ModuleCodeList.Add("330132")
+            ModuleCodeList.Add("330132")
+        End If
+
+        'handle the starter type
+        If optCVSystem.Checked Then
+            ModuleCodeList.Add("330140") 'motorstarter discussion code / ol relay
+            ModuleCodeList.Add("330140")
+        Else
+            If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
+                ModuleCodeList.Add("330141") 'vfd rplace
+                ModuleCodeList.Add("330141")
+                If frmMain.ThisUnit.Family = "Series100" Then
+                    ModuleCodeList.Add("330201")
+                    ModuleCodeList.Add("330201")
+                Else
+                    ModuleCodeList.Add("330202")
+                    ModuleCodeList.Add("330202")
+                End If
+            Else
+                ModuleCodeList.Add("330142") 'reuse vfd
+                ModuleCodeList.Add("330142")
+            End If
+
+            If optNoBypass.Checked Then
+                ModuleCodeList.Add("330145")
+                ModuleCodeList.Add("330145")
+            End If
+
+            If optReuseBypass.Checked Then
+                ModuleCodeList.Add("330146")
+                ModuleCodeList.Add("330146")
+            End If
+            If optNewBypass.Checked Then
+                ModuleCodeList.Add("330147")
+                ModuleCodeList.Add("330147")
+            End If
+            If chkRemoteVFDKeypad.Checked Then
+                ModuleCodeList.Add("330148")
+                ModuleCodeList.Add("330148")
+            End If
+        End If
+
+        'handle the motor
+        If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
+            ModuleCodeList.Add("330150") 'provide new motor
             ModuleCodeList.Add("330150")
 
             If optTEFC.Checked Then
-                frmMain.ThisUnitCodes.Add("330152")
+                ModuleCodeList.Add("330152")
                 ModuleCodeList.Add("330152")
             End If
             If optODP.Checked Then
-                frmMain.ThisUnitCodes.Add("330151")
+                ModuleCodeList.Add("330151")
                 ModuleCodeList.Add("330151")
             End If
         Else
-            frmMain.ThisUnitCodes.Add("330155") 'reuse existing motor
+            ModuleCodeList.Add("330155") 'reuse existing motor
             ModuleCodeList.Add("330155")
         End If
 
         If chkMultipleFans.Checked Then
-            frmMain.ThisUnitCodes.Add("330159")
+            ModuleCodeList.Add("330159")
             ModuleCodeList.Add("330159")
         End If
 
-        frmMain.ThisUnitCodes.Add("330160") 'Return Fan Controls
+        ModuleCodeList.Add("330160") 'Return Fan Controls
         ModuleCodeList.Add("330160")
         If optNoControls.Checked Then
-            frmMain.ThisUnitCodes.Add("330161") 'Return Fan NO Controls
+            ModuleCodeList.Add("330161") 'Return Fan NO Controls
             ModuleCodeList.Add("330161")
-            frmMain.ThisUnitCodes.Add("330162") 'On/Off Only
+            ModuleCodeList.Add("330162") 'On/Off Only
             ModuleCodeList.Add("330162")
         Else
             If optTrackSupplyFan.Checked Then
-                frmMain.ThisUnitCodes.Add("330165")
+                ModuleCodeList.Add("330165")
                 ModuleCodeList.Add("330165")
             End If
             If optGBASRFan.Checked Then
-                frmMain.ThisUnitCodes.Add("330170") 'GBAS Return Fan
+                ModuleCodeList.Add("330170") 'GBAS Return Fan
                 ModuleCodeList.Add("330170")
-                frmMain.ThisUnitCodes.Add("330171") 'GBAS Actuated Dampers
+                ModuleCodeList.Add("330171") 'GBAS Actuated Dampers
                 ModuleCodeList.Add("330171")
             End If
             If optBldgStaticPressureCtrl.Checked Then
-                frmMain.ThisUnitCodes.Add("330180") 'General Building Static PRessure Control Statement
+                ModuleCodeList.Add("330180") 'General Building Static PRessure Control Statement
                 ModuleCodeList.Add("330180")
                 If optBSPbySE.Checked Then
-                    frmMain.ThisUnitCodes.Add("330181") 'SE Econ Return Fan
+                    ModuleCodeList.Add("330181") 'SE Econ Return Fan
                     ModuleCodeList.Add("330181")
                 End If
                 If optBSPbyFisen.Checked Then
-                    frmMain.ThisUnitCodes.Add("330182") 'Fisen Ctrl Return Fan
+                    ModuleCodeList.Add("330182") 'Fisen Ctrl Return Fan
                     ModuleCodeList.Add("330182")
                 End If
                 If optBSPbyIPU.Checked Then
-                    frmMain.ThisUnitCodes.Add("330185") 'IPU Ctrl of Return Fan
+                    ModuleCodeList.Add("330185") 'IPU Ctrl of Return Fan
                     ModuleCodeList.Add("330185")
                     If chkIPUModulateDamper.Checked Then
-                        frmMain.ThisUnitCodes.Add("330186") 'IPU modulate relief damper
+                        ModuleCodeList.Add("330186") 'IPU modulate relief damper
                         ModuleCodeList.Add("330186")
                     End If
                 End If
@@ -740,67 +835,67 @@
 
         End If
         If chkRFPiezoRingsOnly.Checked Then
-            frmMain.ThisUnitCodes.Add("330169")
+            ModuleCodeList.Add("330169")
             ModuleCodeList.Add("330169")
         End If
         If chkRFPiezoRingsXmitterOnly.Checked Then
-            frmMain.ThisUnitCodes.Add("330168")
+            ModuleCodeList.Add("330168")
             ModuleCodeList.Add("330168")
         End If
         If chkRFPiezoRingsNet.Checked Then
-            frmMain.ThisUnitCodes.Add("330167")
+            ModuleCodeList.Add("330167")
             ModuleCodeList.Add("330167")
         End If
 
         If frmMain.ThisUnit.Family = "Series10" Then
             If chkInletMeasuringStationOnly.Checked Then
-                frmMain.ThisUnitCodes.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
+                ModuleCodeList.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
                 ModuleCodeList.Add("33016A")
-                frmMain.ThisUnitCodes.Add("33016H") 'No Change to sequence code.
+                ModuleCodeList.Add("33016H") 'No Change to sequence code.
                 ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationWithXMit.Checked Then
-                frmMain.ThisUnitCodes.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
+                ModuleCodeList.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
                 ModuleCodeList.Add("33016A")
-                frmMain.ThisUnitCodes.Add("33016B") 'Return Fan Airflow Transducer
+                ModuleCodeList.Add("33016B") 'Return Fan Airflow Transducer
                 ModuleCodeList.Add("33016B")
-                frmMain.ThisUnitCodes.Add("33016G") 'Return Fan Terminal Blocks
+                ModuleCodeList.Add("33016G") 'Return Fan Terminal Blocks
                 ModuleCodeList.Add("33016G")
-                frmMain.ThisUnitCodes.Add("33016H") 'No Change to sequence code.
+                ModuleCodeList.Add("33016H") 'No Change to sequence code.
                 ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationFull.Checked Then
-                frmMain.ThisUnitCodes.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
+                ModuleCodeList.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
                 ModuleCodeList.Add("33016A")
-                frmMain.ThisUnitCodes.Add("33016B") 'Return Fan Airflow Transducer
+                ModuleCodeList.Add("33016B") 'Return Fan Airflow Transducer
                 ModuleCodeList.Add("33016B")
-                frmMain.ThisUnitCodes.Add("33016C") 'Return Fan Airflow Monitor Wired to Fisen Controller
+                ModuleCodeList.Add("33016C") 'Return Fan Airflow Monitor Wired to Fisen Controller
                 ModuleCodeList.Add("33016C")
             End If
         End If
         If frmMain.ThisUnit.Family = "Series20" Then
             If chkInletMeasuringStationOnly.Checked Then
-                frmMain.ThisUnitCodes.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
+                ModuleCodeList.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
                 ModuleCodeList.Add("33016D")
-                frmMain.ThisUnitCodes.Add("33016H") 'No Change to sequence code.
+                ModuleCodeList.Add("33016H") 'No Change to sequence code.
                 ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationWithXMit.Checked Then
-                frmMain.ThisUnitCodes.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
+                ModuleCodeList.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
                 ModuleCodeList.Add("33016D")
-                frmMain.ThisUnitCodes.Add("33016E") 'Return Fan Airflow Monitor Wired to Fisen Controller
+                ModuleCodeList.Add("33016E") 'Return Fan Airflow Monitor Wired to Fisen Controller
                 ModuleCodeList.Add("33016E")
-                frmMain.ThisUnitCodes.Add("33016G") 'Return Fan Terminal Blocks
+                ModuleCodeList.Add("33016G") 'Return Fan Terminal Blocks
                 ModuleCodeList.Add("33016G")
-                frmMain.ThisUnitCodes.Add("33016H") 'No Change to sequence code.
+                ModuleCodeList.Add("33016H") 'No Change to sequence code.
                 ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationFull.Checked Then
-                frmMain.ThisUnitCodes.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
+                ModuleCodeList.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
                 ModuleCodeList.Add("33016D")
-                frmMain.ThisUnitCodes.Add("33016E") 'Return Fan Airflow Transducer
+                ModuleCodeList.Add("33016E") 'Return Fan Airflow Transducer
                 ModuleCodeList.Add("33016E")
-                frmMain.ThisUnitCodes.Add("33016F") 'Return Fan Airflow Monitor Wired to Fisen Controller
+                ModuleCodeList.Add("33016F") 'Return Fan Airflow Monitor Wired to Fisen Controller
                 ModuleCodeList.Add("33016F")
             End If
         End If
@@ -808,54 +903,54 @@
 
 
         If optNoRelief.Checked Then
-            frmMain.ThisUnitCodes.Add("330190")
+            ModuleCodeList.Add("330190")
             ModuleCodeList.Add("330190")
         End If
         If optBaroRelief.Checked Then
-            frmMain.ThisUnitCodes.Add("330191")
             ModuleCodeList.Add("330191")
-            If chkReliefHoodsShipLoose.Checked Then frmMain.ThisUnitCodes.Add("330194") Else frmMain.ThisUnitCodes.Add("330193")
+            ModuleCodeList.Add("330191")
+            If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
         End If
         If optControlRelief.Checked Then
-            frmMain.ThisUnitCodes.Add("330192")
+            ModuleCodeList.Add("330192")
             ModuleCodeList.Add("330192")
             If chkReliefHoodsShipLoose.Checked Then
-                frmMain.ThisUnitCodes.Add("330194")
+                ModuleCodeList.Add("330194")
                 ModuleCodeList.Add("330194")
             Else
-                frmMain.ThisUnitCodes.Add("330193")
+                ModuleCodeList.Add("330193")
                 ModuleCodeList.Add("330193")
             End If
         End If
 
         If optHorizFlow.Checked Then
             If frmMain.ThisUnit.Family = "Series10" Then
-                frmMain.ThisUnitCodes.Add("330310")
                 ModuleCodeList.Add("330310")
-                frmMain.ThisUnitCodes.Add("330311")
+                ModuleCodeList.Add("330310")
                 ModuleCodeList.Add("330311")
-                frmMain.ThisUnitCodes.Add("330312")
+                ModuleCodeList.Add("330311")
                 ModuleCodeList.Add("330312")
-                frmMain.ThisUnitCodes.Add("330313")
+                ModuleCodeList.Add("330312")
                 ModuleCodeList.Add("330313")
-                frmMain.ThisUnitCodes.Add("330324")
+                ModuleCodeList.Add("330313")
                 ModuleCodeList.Add("330324")
-                frmMain.ThisUnitCodes.Add("330325")
+                ModuleCodeList.Add("330324")
+                ModuleCodeList.Add("330325")
                 ModuleCodeList.Add("330325")
             End If
 
             If frmMain.ThisUnit.Family = "Series20" Then
-                frmMain.ThisUnitCodes.Add("330320")
                 ModuleCodeList.Add("330320")
-                frmMain.ThisUnitCodes.Add("330321")
+                ModuleCodeList.Add("330320")
                 ModuleCodeList.Add("330321")
-                frmMain.ThisUnitCodes.Add("330322")
+                ModuleCodeList.Add("330321")
                 ModuleCodeList.Add("330322")
-                frmMain.ThisUnitCodes.Add("330313")
+                ModuleCodeList.Add("330322")
                 ModuleCodeList.Add("330313")
-                frmMain.ThisUnitCodes.Add("330323")
+                ModuleCodeList.Add("330313")
                 ModuleCodeList.Add("330323")
-                frmMain.ThisUnitCodes.Add("330325")
+                ModuleCodeList.Add("330323")
+                ModuleCodeList.Add("330325")
                 ModuleCodeList.Add("330325")
             End If
 
@@ -869,78 +964,78 @@
     End Sub
     Private Sub UpdateCodeListSFan()
         'Add the level 0 code(s)
-        frmMain.ThisUnitCodes.Add("320100") 'Supply Fan Level 0 Code
+        ModuleCodeList.Add("320100") 'Supply Fan Level 0 Code
 
         'handle the fan type
-        If optFCFan.Checked Then frmMain.ThisUnitCodes.Add("320101")
-        If optAFFan.Checked Then frmMain.ThisUnitCodes.Add("320102")
-        If optPlenumFan.Checked Then frmMain.ThisUnitCodes.Add("320103")
-        If optPropFan.Checked Then frmMain.ThisUnitCodes.Add("320104")
-        Call BOMCodesSupplyFan
+        If optFCFan.Checked Then ModuleCodeList.Add("320101")
+        If optAFFan.Checked Then ModuleCodeList.Add("320102")
+        If optPlenumFan.Checked Then ModuleCodeList.Add("320103")
+        If optPropFan.Checked Then ModuleCodeList.Add("320104")
+        Call BOMCodesSupplyFan()
 
 
         'handle the drive
         If optBeltDrive.Checked Then
-            frmMain.ThisUnitCodes.Add("320120") ' belt drive spec
+            ModuleCodeList.Add("320120") ' belt drive spec
             If optCVSystem.Checked Then
-                frmMain.ThisUnitCodes.Add("320121") 'sheaves for motorstarter
+                ModuleCodeList.Add("320121") 'sheaves for motorstarter
             Else
-                frmMain.ThisUnitCodes.Add("320122") 'sheaves for VFD
+                ModuleCodeList.Add("320122") 'sheaves for VFD
             End If
         Else
-            frmMain.ThisUnitCodes.Add("320110") 'direct drive spec
+            ModuleCodeList.Add("320110") 'direct drive spec
         End If
 
         'handle the isolation
-        If optIsoNone.Checked Then frmMain.ThisUnitCodes.Add("320130")
-        If optIso1.Checked Then frmMain.ThisUnitCodes.Add("320131")
-        If optIso2.Checked Then frmMain.ThisUnitCodes.Add("320132")
+        If optIsoNone.Checked Then ModuleCodeList.Add("320130")
+        If optIso1.Checked Then ModuleCodeList.Add("320131")
+        If optIso2.Checked Then ModuleCodeList.Add("320132")
 
         'handle the starter type
         If optCVSystem.Checked Then
-            frmMain.ThisUnitCodes.Add("320140") 'motorstarter discussion code / ol relay
+            ModuleCodeList.Add("320140") 'motorstarter discussion code / ol relay
         Else
             If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
-                frmMain.ThisUnitCodes.Add("320141") 'vfd rplace
-                If chkRetainVFD.Checked Then frmMain.ThisUnitCodes.Add("320F01")
-                If optReplaceVFD.Checked Then frmMain.ThisUnitCodes.Add("320F02")
+                ModuleCodeList.Add("320141") 'vfd rplace
+                If chkRetainVFD.Checked Then ModuleCodeList.Add("320F01")
+                If optReplaceVFD.Checked Then ModuleCodeList.Add("320F02")
             Else
-                frmMain.ThisUnitCodes.Add("320142") 'reuse vfd
+                ModuleCodeList.Add("320142") 'reuse vfd
             End If
-            If optNoBypass.Checked Then frmMain.ThisUnitCodes.Add("320145")
-            If optReuseBypass.Checked Then frmMain.ThisUnitCodes.Add("320146")
-            If optNewBypass.Checked Then frmMain.ThisUnitCodes.Add("320147")
+            If optNoBypass.Checked Then ModuleCodeList.Add("320145")
+            If optReuseBypass.Checked Then ModuleCodeList.Add("320146")
+            If optNewBypass.Checked Then ModuleCodeList.Add("320147")
             If chkRemoteVFDKeypad.Checked Then
-                frmMain.ThisUnitCodes.Add("320148")
+                ModuleCodeList.Add("320148")
             End If
         End If
 
         'handle the motor
         If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
-            frmMain.ThisUnitCodes.Add("320150") 'provide new motor
-            If chkRetainMotor.Checked Then frmMain.ThisUnitCodes.Add("320F00")
-            If optReplaceMotor.Checked Then frmMain.ThisUnitCodes.Add("320F03")
-            If optTEFC.Checked Then frmMain.ThisUnitCodes.Add("320152")
-            If optODP.Checked Then frmMain.ThisUnitCodes.Add("320151")
+            ModuleCodeList.Add("320150") 'provide new motor
+            If chkRetainMotor.Checked Then ModuleCodeList.Add("320F00")
+            If optReplaceMotor.Checked Then ModuleCodeList.Add("320F03")
+            If optTEFC.Checked Then ModuleCodeList.Add("320152")
+            If optODP.Checked Then ModuleCodeList.Add("320151")
             If ((frmMain.ThisUnit.Family = "Series10") And (Val(cmbNewMotorHP.Text) > 5)) Then
-                frmMain.ThisUnitCodes.Add("320158")
+                ModuleCodeList.Add("320158")
             End If
 
         Else
-                frmMain.ThisUnitCodes.Add("320155") 'reuse existing motor
+            ModuleCodeList.Add("320155") 'reuse existing motor
         End If
 
         'Handle the controls
-        frmMain.ThisUnitCodes.Add("320200")
-        frmMain.ThisUnitCodes.Add("320205") 'No Controls Changes
+        ModuleCodeList.Add("320200")
+        ModuleCodeList.Add("320205") 'No Controls Changes
         If chkSFanROPiezo.Checked Then
-            frmMain.ThisUnitCodes.Add("320241")
+            ModuleCodeList.Add("320241")
         End If
         If chkSFanROandXmitPiezo.Checked Then
-            frmMain.ThisUnitCodes.Add("320242")
+            ModuleCodeList.Add("320242")
         End If
         If chkSFanNetPointPiezo.Checked Then
-            frmMain.ThisUnitCodes.Add("320243")
+            ModuleCodeList.Add("320243")
         End If
     End Sub
     Private Sub UpdateWeightTable()
@@ -1235,13 +1330,7 @@
     End Sub
 
     Private Sub cmdDoneOptions_Click(sender As Object, e As EventArgs) Handles cmdDoneOptions.Click
-        Dim dummy As MsgBoxResult
-        If ((optReuseMotor.Checked = False) Or (optReuseVFD.Checked = False)) Then
-            If cmbNewMotorHP.Text = "n/a" Then
-                dummy = MsgBox("You must select a new motor/drive horsepower.")
-                Exit Sub
-            End If
-        End If
+
 
         TabControl1.SelectTab("tpgControls")
     End Sub
@@ -1267,6 +1356,14 @@
     End Sub
 
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
+        Dim dummy As MsgBoxResult
+        If ((optReuseMotor.Checked = False) Or (optReuseVFD.Checked = False)) Then
+            If cmbNewMotorHP.Text = "n/a" Then
+                dummy = MsgBox("You must select a new motor/drive horsepower.")
+                Exit Sub
+            End If
+        End If
+
         btnDonePerf.Enabled = False
         btnOK.Enabled = True
     End Sub
@@ -1413,6 +1510,11 @@
 
         NewRow = {"Cabinet Effects", Format(sfactor, "0.00"), Format(asfactor, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
+
+        tslblAirflow.Text = "Airflow:" & txtAirflow.Text
+        tslblTSP.Text = "TSP: " & txtTSP.Text
+        tslblESP.Text = "ESP: " & txtESP.Text
+        tslblElevation.Text = "Elevation: " & txtElevation.Text
 
         TabControl1.SelectTab("tpgConditions")
     End Sub
@@ -1611,10 +1713,10 @@
         'now the FilterAdjustment
         If opt2InchFilters.Checked = True Then fourinchers = False
         If opt4InchFilters.Checked = True Then fourinchers = True
-        FilterMod = FilterAdjustmentS10(airflow, FourInchers)
+        FilterMod = FilterAdjustmentS10(airflow, fourinchers)
         'finally the EconMod
         econyesno = chkEconPresent.Checked
-        EconMod = EconAdjustmentS10(airflow, EconYesNo)
+        EconMod = EconAdjustmentS10(airflow, econyesno)
 
         FactoryOptions = GasHeatMod + FilterMod + EconMod
 
@@ -1627,6 +1729,8 @@
 
 
     End Sub
+
+
     Private Function UnitStaticPressureS10(localAirflow As Double, BottomD As Boolean)
         Dim temp As Double
         Dim Snippet As String
@@ -1899,7 +2003,7 @@
                     temp = 0.000000001978349 * localAirflow ^ 2 + 0.000050003935905 * localAirflow
                 Case Else
                     temp = 99.9
-                    dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:FilterAdjustmentS10")
+                    Dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:FilterAdjustmentS10")
 
             End Select
             If temp < 0 Then temp = 0
@@ -2458,6 +2562,8 @@
                 frmMain.ThisUnitCodes.Add("320A09")
             Case Is = "Comefri ATZAF_20-20_FF_T2"
                 frmMain.ThisUnitCodes.Add("320A0A")
+            Case Is = "ComefriATLI9-7_R"
+                frmMain.ThisUnitCodes.Add("320B01")
             Case Else
                 dummy = MsgBox("Fan not defined for BOM.  Please Add and Rerun.")
                 Stop
@@ -2701,11 +2807,388 @@
         End If
     End Sub
 
-    Private Sub optNoAux_CheckedChanged(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
+    Private Sub optNoAux_CheckedChanged(sender As Object, e As EventArgs)
         Call PopulateAuxPanelList()
     End Sub
 
-    Private Sub optUseAux_CheckedChanged(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
+    Private Sub optUseAux_CheckedChanged(sender As Object, e As EventArgs)
         Call PopulateAuxPanelList()
     End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        If cmbFanType.Text = "Supply Fan" Then frmHistoryReport.MyModule = "SFan"
+        If cmbFanType.Text = "Return Fan" Then frmHistoryReport.MyModule = "RFan"
+        If cmbFanType.Text = "Exhaust Fan" Then frmHistoryReport.MyModule = "XFan"
+        frmHistoryReport.Show()
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        If cmbFanType.Text = "Supply Fan" Then Call PerformDesignCautionScanSFan(True)
+        If cmbFanType.Text = "Return Fan" Then Call PerformDesignCautionScanRFan(True)
+        If cmbFanType.Text = "Exhaust Fan" Then Call PerformDesignCautionScanXFan(True)
+    End Sub
+
+    Private Sub PerformDesignCautionScanSFan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '320%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '320%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+    Private Sub PerformDesignCautionScanRFan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '330%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '330%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+
+    Private Sub PerformDesignCautionScanXFan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '350%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '350%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+
+    End Sub
+
+    Private Sub cmdS5BottomSupply_Click(sender As Object, e As EventArgs) Handles cmdS5BottomSupply.Click
+        Dim BaseUnit As Double
+        Dim GasHeatMod As Double
+        Dim FilterMod As Double
+        Dim EconMod As Double
+        Dim FactoryOptions As Double
+        Dim fourinchers As Boolean
+        Dim econyesno As Boolean
+
+        Dim airflow As Double
+
+        Dim NewRow As String()
+
+        airflow = Val(txtAirflow.Text)
+        'first the Base Unit
+        BaseUnit = UnitStaticPressureS5(airflow, True)
+        'now the heatAdjustment
+        GasHeatMod = HeatAdjustmentS5(airflow, cmbHeatBox.Text)
+        'now the FilterAdjustment
+        If opt2InchFilters.Checked = True Then fourinchers = False
+        If opt4InchFilters.Checked = True Then fourinchers = True
+        FilterMod = FilterAdjustmentS5(airflow, fourinchers)
+        'finally the EconMod
+        econyesno = chkEconPresent.Checked
+        EconMod = EconAdjustmentS5(airflow, econyesno)
+
+        FactoryOptions = GasHeatMod + FilterMod + EconMod
+
+        NewRow = {"Base Unit Static Pressure", Format(BaseUnit, "0.00"), Format(BaseUnit / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        cmdS5BottomSupply.Enabled = False
+
+    End Sub
+    Private Function UnitStaticPressureS5(localAirflow As Double, BottomD As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
+
+        temp = 0
+        If BottomD Then
+
+            Select Case Snippet
+                Case Is = "J05ZE"
+                    temp = 0.000000196428180185 * localAirflow ^ 2 + 0.00015767659173568 * localAirflow + 0
+
+                Case Else
+                    dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
+
+                    Stop
+            End Select
+
+        Else
+            Select Case Snippet
+
+                Case Else
+                    dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
+
+                    Stop
+            End Select
+        End If
+
+        Return temp
+    End Function
+
+    Private Function HeatAdjustmentS5(localairflow As Double, HeatCode As String) As Double
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
+
+        temp = 0
+
+        If ((HeatCode = "5kW") Or (HeatCode = "7kW") Or (HeatCode = "10kW") Or (HeatCode = "15kW")) Then HeatCode = "LowEHeat"
+        If ((HeatCode = "20kW") Or (HeatCode = "30kW")) Then HeatCode = "HighEHeat"
+
+        Select Case HeatCode
+            Case Is = "Gas"
+                temp = 0
+            Case Is = "CoolOnly"
+                temp = -1 * (0.000000013827152977 * localairflow ^ 2 + 0.000064011853295175 * localairflow + 0)
+            Case Is = "LowEHeat"
+                temp = 0.000000017967687593 * localairflow ^ 2 + 0.000030671416103432 * localairflow + 0
+            Case Is = "HighEHeat"
+                temp = 0.000000019170269338 * localairflow ^ 2 + 0.000013531429499279 * localairflow + 0
+            Case Else
+                temp = 99.9
+                dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:HeatAdjustmentS5")
+        End Select
+
+        If temp < 0 Then temp = 0
+        Return temp
+    End Function
+
+    Private Function FilterAdjustmentS5(localairflow As Double, FourInch As Boolean) As Double
+        'no filter adjustments for series 5 so far
+        Return 0
+    End Function
+
+    Private Function EconAdjustmentS5(localairflow As Double, econpresent As Boolean) As Double
+        Dim temp As Double
+        Dim Snippet As String
+        Dim Dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
+
+        temp = 0
+        If econpresent Then
+            Select Case Snippet
+                Case Is = "J03ZE"
+                    temp = 0.000000019817227871 * localairflow ^ 2 + 0.000037498122551706 * localairflow + 0
+                Case Is = "J04ZE"
+                    temp = 0.000000019817227871 * localairflow ^ 2 + 0.000037498122551706 * localairflow + 0
+                Case Is = "J05ZE"
+                    temp = 0.000000019817227871 * localairflow ^ 2 + 0.000037498122551706 * localairflow + 0
+                Case Is = "J06ZE"
+                    temp = 0.000000019817227871 * localairflow ^ 2 + 0.000037498122551706 * localairflow + 0
+                Case Else
+                    temp = 99.9
+                    Dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:EconAdjustmentS5")
+
+            End Select
+            If temp < 0 Then temp = 0
+        Else
+            temp = 0
+        End If
+
+        Return temp
+    End Function
+
 End Class

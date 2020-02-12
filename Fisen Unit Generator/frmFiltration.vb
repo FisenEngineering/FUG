@@ -1,4 +1,6 @@
-﻿Public Class frmFiltration
+﻿Imports System.Xml
+
+Public Class frmFiltration
     Private pCancelled As Boolean
 #Disable Warning IDE0044 ' Add readonly modifier
     Private ModuleCodeList As New ArrayList
@@ -819,8 +821,6 @@
         TabControl1.Enabled = False
     End Sub
 
-
-
     Private Sub frmFiltration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cmbIFType.Text = "N/A"
         cmbFFType.Text = "N/A"
@@ -834,8 +834,46 @@
         cmbJCIFXdcrRange.Text = "n/a"
         cmbFFMagRange.Text = "n/a"
         cmbFFXdcrRange.Text = "n/a"
-    End Sub
 
+        ModuleCodeList.Add("395000")
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+    End Sub
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/Filt")
+
+        TempVal = xNodeRoot.SelectSingleNode("Airflow").InnerText
+        txtAirflow.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("IFB").InnerText
+        If TempVal = "Yes" Then chkIFBank.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("IFBType").InnerText
+        cmbIFType.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("IFBPrefilts").InnerText
+        If TempVal = "Yes" Then chkIFPrefilt.Checked = True Else chkIFPrefilt.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("IFBPreFiltsByJCI").InnerText
+        If TempVal = "Yes" Then chkIFPrefiltUseJCI.Checked = True Else chkIFPrefiltUseJCI.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("FFB").InnerText
+        If TempVal = "Yes" Then chkFFBank.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("FFBType").InnerText
+        cmbFFType.Text = TempVal
+
+        TempVal = xNodeRoot.SelectSingleNode("FFBPrefilts").InnerText
+        If TempVal = "Yes" Then chkFFPrefilt.Checked = True Else chkFFPrefilt.Checked = False
+
+    End Sub
     Private Sub chkIFBank_CheckedChanged(sender As Object, e As EventArgs) Handles chkIFBank.CheckedChanged
         If chkIFBank.Checked = True Then
             cmbIFType.Enabled = True
@@ -1708,6 +1746,34 @@
         MyListBox.Items.Add("24x24x4")
         MyListBox.Items.Add("25x29x4")
     End Sub
+    Private Sub PopulateFilterOptsPPM13x2(MyBank As String)
+        Dim MyListBox As New ListBox
+        MyListBox = tpgFilters.Controls("lstFFAvail")
+        If MyBank = "Final" Then
+            MyListBox = tpgFilters.Controls("lstFFAvail")
+        End If
+        If MyBank = "Initial" Then
+            MyListBox = tpgFilters.Controls("lstIFAvail")
+        End If
+        MyListBox.Items.Clear()
+        MyListBox.Items.Add("10x20x2")
+        MyListBox.Items.Add("12x20x2")
+        MyListBox.Items.Add("12x24x2")
+        MyListBox.Items.Add("14x20x2")
+        MyListBox.Items.Add("14x25x2")
+        MyListBox.Items.Add("15x20x2")
+        MyListBox.Items.Add("16x20x2")
+        MyListBox.Items.Add("16x24x2")
+        MyListBox.Items.Add("16x25x2")
+        MyListBox.Items.Add("18x20x2")
+        MyListBox.Items.Add("18x24x2")
+        MyListBox.Items.Add("18x25x2")
+        MyListBox.Items.Add("20x20x2")
+        MyListBox.Items.Add("20x24x2")
+        MyListBox.Items.Add("20x25x2")
+        MyListBox.Items.Add("24x24x2")
+        MyListBox.Items.Add("25x25x2")
+    End Sub
     Private Sub FillAvailableFilterSizes(WhichBank As String)
         Dim FilterType As String
 
@@ -1732,6 +1798,8 @@
                 Call PopulateFilterOptsVCM14x12(WhichBank)
             Case Is = "AAF Varicell II 4in M14"
                 Call PopulateFilterOptsVC2M14x4(WhichBank)
+            Case Is = "AAF PREpleat 2in M13"
+                Call PopulateFilterOptsPPM13x2(WhichBank)
 
         End Select
     End Sub
@@ -1750,6 +1818,10 @@
                 cmbActIF.Items.Clear()
                 cmbActIF.Items.Add("AAF PerfectPleat 4in M8")
                 cmbActIF.Text = "AAF PerfectPleat 4in M8"
+            Case Is = "MERV 13 (2in)"
+                cmbActIF.Items.Clear()
+                cmbActIF.Items.Add("AAF PREpleat 2in M13")
+                cmbActIF.Text = "AAF PREpleat 2in M13"
             Case Is = "MERV 14 (12in)"
                 cmbActIF.Items.Clear()
                 cmbActIF.Items.Add("AAF Varicell 12in M14")
@@ -1775,6 +1847,10 @@
                 cmbActIF.Items.Clear()
                 cmbActIF.Items.Add("AAF PerfectPleat 4in M8")
                 cmbActIF.Text = "AAF PerfectPleat 4in M8"
+            Case Is = "MERV 13 (2in)"
+                cmbActIF.Items.Clear()
+                cmbActIF.Items.Add("AAF PREpleat 2in M13")
+                cmbActIF.Text = "AAF PREpleat 2in M13"
             Case Is = "MERV 14 (12in)"
                 cmbActFF.Items.Clear()
                 cmbActFF.Items.Add("AAF Varicell 12in M14")
@@ -1805,6 +1881,9 @@
                 lapd = 0.00000048 * lvel ^ 2 + 0.000636 * lvel - 0.0175
             Case Is = "AAF PerfectPleat HC 2in M8"
                 lapd = 0.000000548571 * lvel ^ 2 + 0.000196571429 * lvel + 0.000000000000
+            Case Is = "AAF PREpleat 2in M13"
+                lapd = 0.000000459355 * lvel ^ 2 + 0.000377935484 * lvel + 0.00
+
             Case Else
                 lapd = -99.99
         End Select
@@ -1827,6 +1906,8 @@
             Case Is = "AAF PerfectPleat HC 1in M8"
                 maxapd = 1
             Case Is = "AAF PerfectPleat HC 2in M8"
+                maxapd = 1
+            Case Is = "AAF PREpleat 2in M13"
                 maxapd = 1
             Case Else
                 maxapd = -99.99
