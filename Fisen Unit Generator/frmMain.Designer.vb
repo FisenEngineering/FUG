@@ -797,6 +797,7 @@ Partial Class frmMain
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
+        Me.optRTUSelect = New System.Windows.Forms.RadioButton()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -944,7 +945,7 @@ Partial Class frmMain
         Me.fraMisc.Margin = New System.Windows.Forms.Padding(4)
         Me.fraMisc.Name = "fraMisc"
         Me.fraMisc.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraMisc.Size = New System.Drawing.Size(158, 306)
+        Me.fraMisc.Size = New System.Drawing.Size(158, 318)
         Me.fraMisc.TabIndex = 10
         Me.fraMisc.TabStop = False
         Me.fraMisc.Text = "Misc"
@@ -1120,7 +1121,7 @@ Partial Class frmMain
         Me.fraChiller.Margin = New System.Windows.Forms.Padding(4)
         Me.fraChiller.Name = "fraChiller"
         Me.fraChiller.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraChiller.Size = New System.Drawing.Size(143, 306)
+        Me.fraChiller.Size = New System.Drawing.Size(143, 318)
         Me.fraChiller.TabIndex = 1
         Me.fraChiller.TabStop = False
         Me.fraChiller.Text = "Chiller"
@@ -1194,7 +1195,7 @@ Partial Class frmMain
         Me.fraAHU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraAHU.Name = "fraAHU"
         Me.fraAHU.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraAHU.Size = New System.Drawing.Size(143, 306)
+        Me.fraAHU.Size = New System.Drawing.Size(143, 318)
         Me.fraAHU.TabIndex = 1
         Me.fraAHU.TabStop = False
         Me.fraAHU.Text = "Air Handling Unit"
@@ -1237,6 +1238,7 @@ Partial Class frmMain
         '
         'fraRTU
         '
+        Me.fraRTU.Controls.Add(Me.optRTUSelect)
         Me.fraRTU.Controls.Add(Me.optRTUPremier)
         Me.fraRTU.Controls.Add(Me.optRTUChoice)
         Me.fraRTU.Controls.Add(Me.chkS100CCabinet)
@@ -1252,7 +1254,7 @@ Partial Class frmMain
         Me.fraRTU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraRTU.Name = "fraRTU"
         Me.fraRTU.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraRTU.Size = New System.Drawing.Size(143, 306)
+        Me.fraRTU.Size = New System.Drawing.Size(143, 318)
         Me.fraRTU.TabIndex = 0
         Me.fraRTU.TabStop = False
         Me.fraRTU.Text = "Rooftop Unit"
@@ -1260,7 +1262,7 @@ Partial Class frmMain
         'optRTUPremier
         '
         Me.optRTUPremier.AutoSize = True
-        Me.optRTUPremier.Location = New System.Drawing.Point(8, 284)
+        Me.optRTUPremier.Location = New System.Drawing.Point(8, 267)
         Me.optRTUPremier.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUPremier.Name = "optRTUPremier"
         Me.optRTUPremier.Size = New System.Drawing.Size(60, 17)
@@ -1271,7 +1273,7 @@ Partial Class frmMain
         'optRTUChoice
         '
         Me.optRTUChoice.AutoSize = True
-        Me.optRTUChoice.Location = New System.Drawing.Point(8, 259)
+        Me.optRTUChoice.Location = New System.Drawing.Point(8, 242)
         Me.optRTUChoice.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUChoice.Name = "optRTUChoice"
         Me.optRTUChoice.Size = New System.Drawing.Size(58, 17)
@@ -1283,7 +1285,7 @@ Partial Class frmMain
         '
         Me.chkS100CCabinet.AutoSize = True
         Me.chkS100CCabinet.Enabled = False
-        Me.chkS100CCabinet.Location = New System.Drawing.Point(24, 235)
+        Me.chkS100CCabinet.Location = New System.Drawing.Point(24, 218)
         Me.chkS100CCabinet.Name = "chkS100CCabinet"
         Me.chkS100CCabinet.Size = New System.Drawing.Size(72, 17)
         Me.chkS100CCabinet.TabIndex = 10
@@ -1294,7 +1296,7 @@ Partial Class frmMain
         '
         Me.chkS100BCabinet.AutoSize = True
         Me.chkS100BCabinet.Enabled = False
-        Me.chkS100BCabinet.Location = New System.Drawing.Point(24, 212)
+        Me.chkS100BCabinet.Location = New System.Drawing.Point(24, 195)
         Me.chkS100BCabinet.Name = "chkS100BCabinet"
         Me.chkS100BCabinet.Size = New System.Drawing.Size(72, 17)
         Me.chkS100BCabinet.TabIndex = 9
@@ -1305,7 +1307,7 @@ Partial Class frmMain
         '
         Me.chkS100ACabinet.AutoSize = True
         Me.chkS100ACabinet.Enabled = False
-        Me.chkS100ACabinet.Location = New System.Drawing.Point(24, 189)
+        Me.chkS100ACabinet.Location = New System.Drawing.Point(24, 172)
         Me.chkS100ACabinet.Name = "chkS100ACabinet"
         Me.chkS100ACabinet.Size = New System.Drawing.Size(72, 17)
         Me.chkS100ACabinet.TabIndex = 8
@@ -1315,7 +1317,7 @@ Partial Class frmMain
         'optRTUSeries12
         '
         Me.optRTUSeries12.AutoSize = True
-        Me.optRTUSeries12.Location = New System.Drawing.Point(8, 80)
+        Me.optRTUSeries12.Location = New System.Drawing.Point(8, 73)
         Me.optRTUSeries12.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries12.Name = "optRTUSeries12"
         Me.optRTUSeries12.Size = New System.Drawing.Size(69, 17)
@@ -1326,7 +1328,7 @@ Partial Class frmMain
         'optRTUSeries100
         '
         Me.optRTUSeries100.AutoSize = True
-        Me.optRTUSeries100.Location = New System.Drawing.Point(8, 165)
+        Me.optRTUSeries100.Location = New System.Drawing.Point(8, 148)
         Me.optRTUSeries100.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries100.Name = "optRTUSeries100"
         Me.optRTUSeries100.Size = New System.Drawing.Size(75, 17)
@@ -1337,7 +1339,7 @@ Partial Class frmMain
         'optRTUSeries40
         '
         Me.optRTUSeries40.AutoSize = True
-        Me.optRTUSeries40.Location = New System.Drawing.Point(8, 136)
+        Me.optRTUSeries40.Location = New System.Drawing.Point(8, 123)
         Me.optRTUSeries40.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries40.Name = "optRTUSeries40"
         Me.optRTUSeries40.Size = New System.Drawing.Size(69, 17)
@@ -1349,7 +1351,7 @@ Partial Class frmMain
         '
         Me.optRTUSeries20.AutoSize = True
         Me.optRTUSeries20.Checked = True
-        Me.optRTUSeries20.Location = New System.Drawing.Point(8, 108)
+        Me.optRTUSeries20.Location = New System.Drawing.Point(8, 98)
         Me.optRTUSeries20.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries20.Name = "optRTUSeries20"
         Me.optRTUSeries20.Size = New System.Drawing.Size(69, 17)
@@ -1361,7 +1363,7 @@ Partial Class frmMain
         'optRTUSeries10
         '
         Me.optRTUSeries10.AutoSize = True
-        Me.optRTUSeries10.Location = New System.Drawing.Point(8, 52)
+        Me.optRTUSeries10.Location = New System.Drawing.Point(8, 48)
         Me.optRTUSeries10.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries10.Name = "optRTUSeries10"
         Me.optRTUSeries10.Size = New System.Drawing.Size(69, 17)
@@ -9775,6 +9777,17 @@ Partial Class frmMain
         Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
         Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
         '
+        'optRTUSelect
+        '
+        Me.optRTUSelect.AutoSize = True
+        Me.optRTUSelect.Location = New System.Drawing.Point(8, 292)
+        Me.optRTUSelect.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUSelect.Name = "optRTUSelect"
+        Me.optRTUSelect.Size = New System.Drawing.Size(55, 17)
+        Me.optRTUSelect.TabIndex = 13
+        Me.optRTUSelect.Text = "Select"
+        Me.optRTUSelect.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -10730,4 +10743,5 @@ Partial Class frmMain
     Friend WithEvents optRTUPremier As RadioButton
     Friend WithEvents optRTUChoice As RadioButton
     Friend WithEvents chkInhibitDigConditions As CheckBox
+    Friend WithEvents optRTUSelect As RadioButton
 End Class

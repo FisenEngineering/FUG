@@ -1096,6 +1096,9 @@ Public Class frmMain
                 Case Is = "YLAA"
                     YLAAFile = YLAAFile & Ver & ".dotm"
                     Process.Start(YLAAFile)
+                Case Is = "Choice"
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Else
 
 
@@ -8528,6 +8531,12 @@ Public Class frmMain
                     If My.Settings.LastCabinet = "S100A" Then chkS100ACabinet.Checked = True
                     If My.Settings.LastCabinet = "S100B" Then chkS100BCabinet.Checked = True
                     If My.Settings.LastCabinet = "S100C" Then chkS100CCabinet.Checked = True
+                Case Is = "Choice"
+                    optRTUChoice.Checked = True
+                Case Is = "Select"
+                    optRTUSelect.Checked = True
+                Case Is = "Premier"
+                    optRTUPremier.Checked = True
             End Select
         End If
 
