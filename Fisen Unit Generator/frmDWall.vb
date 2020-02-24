@@ -1,6 +1,9 @@
 ﻿Imports System.ComponentModel
+Imports System.Xml
 Public Class frmDWall
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -10,24 +13,76 @@ Public Class frmDWall
         End Set
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Call UpdatePerformance
-        Call UpdateWeightTable
+        Call UpdatePerformance()
+        Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("DWall") 'Mod Code goes here!
-        Call UpdateCodeList
+        Call UpdateCodeList()
+
+        If chkWriteHistory.Checked = True Then Call WriteHistory()
+
+        PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
+
         Me.Hide()
     End Sub
+
+    Private Sub WriteHistory()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        Dim HXAction, Material As String
+
+        Dim MySQL As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        Material = lstLinerMaterial.Text
+        HXAction = "Error"
+        If optHXComesOut.Checked Then HXAction = "Remove/Rinstall HX"
+        If optHXNotThere.Checked Then HXAction = "No Gas Heat"
+        If optHXStaysIn.Checked Then HXAction = "Keep HX Installed"
+
+        MySQL = "INSERT INTO tblHistoryDWall (JobName, UnitID, Version, ModelNumber, HXAction, Material) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HXAction & "','" & Material & "')"
+
+        con.Execute(MySQL)
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+    End Sub
     Private Sub UpdateCodeList()
+
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("605100")
-        If frmMain.ThisUnitHeatPerf.HeatType = "Gas" Then
+        ModuleCodeList.Add("605100")
+        If lstLinerMaterial.Text = "Galvanized Liners" Then ModuleCodeList.Add("605101")
+        If lstLinerMaterial.Text = "Stainless Steel(304) Liners" Then ModuleCodeList.Add("605102")
+        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
             If optHXStaysIn.Checked = True Then
-                frmMain.ThisUnitCodes.Add("605105")
+                ModuleCodeList.Add("605105")
             Else
-                frmMain.ThisUnitCodes.Add("605110")
+                ModuleCodeList.Add("605110")
             End If
         Else
-            frmMain.ThisUnitCodes.Add("605115")
+            ModuleCodeList.Add("605115")
         End If
         'use logic to step through the controls to determine the codes and use the above format...
 
@@ -77,8 +132,32 @@ Public Class frmDWall
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
-    End Sub
 
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+        ModuleCodeList.Add("605100")
+
+    End Sub
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/DWall")
+
+        TempVal = xNodeRoot.SelectSingleNode("Material").InnerText
+        If TempVal = "Galvanized G90" Then
+            lstLinerMaterial.Text = "Galvanized Liners"
+        End If
+        If TempVal = "SS 304" Then
+            lstLinerMaterial.Text = "Stainless Steel(304) Liners"
+        End If
+
+
+    End Sub
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
         TabControl1.SelectTab("tpgOptions")
     End Sub
@@ -98,5 +177,91 @@ Public Class frmDWall
     Private Sub frmDWall_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         lstLinerMaterial.SelectedIndex = 0 'Select Galvanized as the default
 
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        PerformDesignCautionScan(True)
+
+    End Sub
+
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '605%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '605%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "DWall"
+        frmHistoryReport.Show()
     End Sub
 End Class

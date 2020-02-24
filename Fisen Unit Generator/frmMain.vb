@@ -786,7 +786,28 @@ Public Class frmMain
                         frmExtend.Dispose()
                     End If
 
-                Case Is = "Fan VFD"
+                Case Is = "Supply Fan VFD"
+                    frmFanVFD.FanType = "Supply Fan"
+                    frmFanVFD.ShowDialog()
+                    If frmFanVFD.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmFanVFD.Dispose()
+                    End If
+
+                Case Is = "Return Fan VFD"
+                    frmFanVFD.FanType = "Return Fan"
+                    frmFanVFD.ShowDialog()
+                    If frmFanVFD.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmFanVFD.Dispose()
+                    End If
+
+                Case Is = "Exhaust Fan VFD"
+                    frmFanVFD.FanType = "Exhaust Fan"
                     frmFanVFD.ShowDialog()
                     If frmFanVFD.Cancelled = True Then
                         dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
@@ -8651,6 +8672,12 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Extended Cabinet")
                 Case Is = "FanVFD"
                     myindex = lstAvailableMods.FindString("Fan VFD")
+                Case Is = "SFVFD"
+                    myindex = lstAvailableMods.FindString("Supply Fan VFD")
+                Case Is = "RFVFD"
+                    myindex = lstAvailableMods.FindString("Return Fan VFD")
+                Case Is = "XFVFD"
+                    myindex = lstAvailableMods.FindString("Exhaust Fan VFD")
                 Case Is = "FanWall"
                     myindex = lstAvailableMods.FindString("Supply Fan Wall")
                 Case Is = "Filt"
@@ -8814,5 +8841,16 @@ Public Class frmMain
         txtEmerVolts.Text = txtCommVolts.Text
         txtEmerPhase.Text = txtCommPhase.Text
         txtEmerFreq.Text = txtCommFreq.Text
+    End Sub
+
+    Private Sub cmdUPGERVModule_Click(sender As Object, e As EventArgs) Handles cmdUPGERVModule.Click
+
+        If lstFieldInst.Items.Item(0) = "None" Then
+            lstFieldInst.Items.Clear()
+            lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
+        Else
+            lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
+        End If
+
     End Sub
 End Class

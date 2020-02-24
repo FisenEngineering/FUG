@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.btnDoneBU = New System.Windows.Forms.Button()
@@ -55,6 +55,7 @@ Partial Class frmMain
         Me.optAHUXTI = New System.Windows.Forms.RadioButton()
         Me.optAHUXTO = New System.Windows.Forms.RadioButton()
         Me.fraRTU = New System.Windows.Forms.GroupBox()
+        Me.optRTUSelect = New System.Windows.Forms.RadioButton()
         Me.optRTUPremier = New System.Windows.Forms.RadioButton()
         Me.optRTUChoice = New System.Windows.Forms.RadioButton()
         Me.chkS100CCabinet = New System.Windows.Forms.CheckBox()
@@ -797,7 +798,7 @@ Partial Class frmMain
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
-        Me.optRTUSelect = New System.Windows.Forms.RadioButton()
+        Me.cmdUPGERVModule = New System.Windows.Forms.Button()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -1258,6 +1259,17 @@ Partial Class frmMain
         Me.fraRTU.TabIndex = 0
         Me.fraRTU.TabStop = False
         Me.fraRTU.Text = "Rooftop Unit"
+        '
+        'optRTUSelect
+        '
+        Me.optRTUSelect.AutoSize = True
+        Me.optRTUSelect.Location = New System.Drawing.Point(8, 292)
+        Me.optRTUSelect.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUSelect.Name = "optRTUSelect"
+        Me.optRTUSelect.Size = New System.Drawing.Size(55, 17)
+        Me.optRTUSelect.TabIndex = 13
+        Me.optRTUSelect.Text = "Select"
+        Me.optRTUSelect.UseVisualStyleBackColor = True
         '
         'optRTUPremier
         '
@@ -3034,6 +3046,7 @@ Partial Class frmMain
         '
         'pgFieldInst
         '
+        Me.pgFieldInst.Controls.Add(Me.cmdUPGERVModule)
         Me.pgFieldInst.Controls.Add(Me.txtNewFieldInst)
         Me.pgFieldInst.Controls.Add(Me.btnDelFieldInst)
         Me.pgFieldInst.Controls.Add(Me.btnAddFieldInst)
@@ -6990,8 +7003,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7042,8 +7055,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.Name = "ElecLoadHP"
         Me.ElecLoadHP.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
@@ -7052,8 +7065,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
         Me.ElecLoadFLA.Width = 50
@@ -9777,16 +9790,15 @@ Partial Class frmMain
         Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
         Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
         '
-        'optRTUSelect
+        'cmdUPGERVModule
         '
-        Me.optRTUSelect.AutoSize = True
-        Me.optRTUSelect.Location = New System.Drawing.Point(8, 292)
-        Me.optRTUSelect.Margin = New System.Windows.Forms.Padding(4)
-        Me.optRTUSelect.Name = "optRTUSelect"
-        Me.optRTUSelect.Size = New System.Drawing.Size(55, 17)
-        Me.optRTUSelect.TabIndex = 13
-        Me.optRTUSelect.Text = "Select"
-        Me.optRTUSelect.UseVisualStyleBackColor = True
+        Me.cmdUPGERVModule.Location = New System.Drawing.Point(681, 93)
+        Me.cmdUPGERVModule.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdUPGERVModule.Name = "cmdUPGERVModule"
+        Me.cmdUPGERVModule.Size = New System.Drawing.Size(117, 25)
+        Me.cmdUPGERVModule.TabIndex = 21
+        Me.cmdUPGERVModule.Text = "UPG ERV Module"
+        Me.cmdUPGERVModule.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -10744,4 +10756,5 @@ Partial Class frmMain
     Friend WithEvents optRTUChoice As RadioButton
     Friend WithEvents chkInhibitDigConditions As CheckBox
     Friend WithEvents optRTUSelect As RadioButton
+    Friend WithEvents cmdUPGERVModule As Button
 End Class

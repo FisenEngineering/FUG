@@ -22,6 +22,7 @@ Partial Class frmDWall
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDWall))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -30,6 +31,7 @@ Partial Class frmDWall
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optHXNotThere = New System.Windows.Forms.RadioButton()
         Me.optHXComesOut = New System.Windows.Forms.RadioButton()
         Me.optHXStaysIn = New System.Windows.Forms.RadioButton()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
@@ -40,7 +42,9 @@ Partial Class frmDWall
         Me.chkNoPerformance = New System.Windows.Forms.CheckBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.optHXNotThere = New System.Windows.Forms.RadioButton()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -134,6 +138,16 @@ Partial Class frmDWall
         Me.GroupBox1.TabIndex = 25
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Heat Exchanger Removal"
+        '
+        'optHXNotThere
+        '
+        Me.optHXNotThere.AutoSize = True
+        Me.optHXNotThere.Location = New System.Drawing.Point(6, 65)
+        Me.optHXNotThere.Name = "optHXNotThere"
+        Me.optHXNotThere.Size = New System.Drawing.Size(120, 17)
+        Me.optHXNotThere.TabIndex = 2
+        Me.optHXNotThere.Text = "No Gas Heat in Unit"
+        Me.optHXNotThere.UseVisualStyleBackColor = True
         '
         'optHXComesOut
         '
@@ -243,15 +257,35 @@ Partial Class frmDWall
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'optHXNotThere
+        'cmdViewHistory
         '
-        Me.optHXNotThere.AutoSize = True
-        Me.optHXNotThere.Location = New System.Drawing.Point(6, 65)
-        Me.optHXNotThere.Name = "optHXNotThere"
-        Me.optHXNotThere.Size = New System.Drawing.Size(120, 17)
-        Me.optHXNotThere.TabIndex = 2
-        Me.optHXNotThere.Text = "No Gas Heat in Unit"
-        Me.optHXNotThere.UseVisualStyleBackColor = True
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 195)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 16
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 195)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 15
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(168, 207)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 17
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frmDWall
         '
@@ -259,6 +293,9 @@ Partial Class frmDWall
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 236)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -275,6 +312,7 @@ Partial Class frmDWall
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -297,4 +335,7 @@ Partial Class frmDWall
     Friend WithEvents chkNoPerformance As CheckBox
     Friend WithEvents lstLinerMaterial As ListBox
     Friend WithEvents optHXNotThere As RadioButton
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

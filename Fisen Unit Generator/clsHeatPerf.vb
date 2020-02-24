@@ -240,7 +240,7 @@ Public Class clsHeatPerf
             pLAT = xNodeRoot.SelectSingleNode("LeavingDB").InnerText
             pDeltaT = xNodeRoot.SelectSingleNode("AirTempRise").InnerText
             pDeltaT = Val(pLAT) - Val(pEAT)
-            pControlStyle = "Staged"
+            pControlStyle = xNodeRoot.SelectSingleNode("ControlStyle").InnerText
         End If
 
         If pType = "Gas Heat" Then

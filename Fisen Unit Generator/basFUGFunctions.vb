@@ -87,6 +87,10 @@
             End Select
         End If
 
+        If Mid(ModelNumber, 1, 2) = "AD" Then
+            TempFamily = "Choice"
+        End If
+
         If Mid(ModelNumber, 1, 4) = "YPAL" Then
             TempFamily = "Series100"
         End If

@@ -74,26 +74,29 @@ Public Class frm100OA
                 Case Is = "SE"
                     'First Handle the general safeties
                     ModuleCodeList.Add("0A0135") 'Timed Freeze Protection
-                    ModuleCodeList.Add("0A0145")
-                    ModuleCodeList.Add("0A0150")
+                    ModuleCodeList.Add("0A0145") 'MAT Protection
+                    ModuleCodeList.Add("0A0150") 'SG High Limit
 
                     'Mode Control
+                    ModuleCodeList.Add("0A01A5") 'OAT Mode Control
 
                 Case Is = "IPU"
                     'First Handle the general safeties
                     ModuleCodeList.Add("0A0136") 'Timed Freeze Protection
-                    ModuleCodeList.Add("0A0146")
-                    ModuleCodeList.Add("0A0151")
+                    ModuleCodeList.Add("0A0146") 'MAT Protection
+                    ModuleCodeList.Add("0A0151") 'SG High Limit
 
                     'Mode Control
+                    ModuleCodeList.Add("0A01A6") 'OAT Mode Control
 
                 Case Is = "ASE"
                     'First Handle the general safeties
                     ModuleCodeList.Add("0A0137") 'Timed Freeze Protection
-                    ModuleCodeList.Add("0A0147")
-                    ModuleCodeList.Add("0A0152")
+                    ModuleCodeList.Add("0A0147") 'MAT Protection
+                    ModuleCodeList.Add("0A0152") 'SG High Limit
 
                     'Mode Control
+                    ModuleCodeList.Add("0A01A6") 'OAT Mode Control
 
             End Select
 
@@ -1089,43 +1092,46 @@ Public Class frm100OA
             optReturnHorizontal.Enabled = False
             optReturnNone.Enabled = True
             optReturnNone.Checked = True
+
             chkOADamperSwitch.Enabled = True
+            chkOADamperSwitch.Enabled = False
             If Val(frmMain.ThisUnitSFanPerf.MotorHP) > 5.0 Then
                 chkOADamperSwitch.Checked = True
             Else
                 chkOADamperSwitch.Checked = False
             End If
-        Else
-            optReturnNone.Enabled = False
-            optReturnBottom.Enabled = True
-            optReturnBottom.Checked = True
-            optReturnHorizontal.Enabled = True
-            chkOADamperSwitch.Enabled = False
-            chkOADamperSwitch.Checked = False
+
+            optModeAuto.Enabled = True
+            optModeAuto.Checked = True
+            optModeGBAS.Enabled = True
+            optModeDATOnly.Enabled = True
+            optModeNoChange.Enabled = True
+
+
+
         End If
     End Sub
 
     Private Sub opt100OACapable_CheckedChanged(sender As Object, e As EventArgs) Handles opt100OACapable.CheckedChanged
-        If opt100OA.Checked Then
-            optReturnBottom.Enabled = False
-            optReturnHorizontal.Enabled = False
-            optReturnNone.Enabled = True
-            optReturnNone.Checked = True
-            optModeAuto.Checked = True
-            chkOADamperSwitch.Enabled = True
+        If opt100OACapable.Checked Then
+            optReturnBottom.Enabled = True
+            optReturnBottom.Checked = True
+            optReturnHorizontal.Enabled = True
+            optReturnNone.Enabled = False
+
+            chkOADamperSwitch.Checked = False
+            chkOADamperSwitch.Enabled = False
             If Val(frmMain.ThisUnitSFanPerf.MotorHP) > 5.0 Then
                 chkOADamperSwitch.Checked = True
             Else
                 chkOADamperSwitch.Checked = False
             End If
-        Else
-            optReturnNone.Enabled = False
-            optReturnBottom.Enabled = True
-            optReturnBottom.Checked = True
-            optReturnHorizontal.Enabled = True
+
+            optModeAuto.Enabled = True
+            optModeGBAS.Enabled = True
+            optModeDATOnly.Enabled = False
+            optModeNoChange.Enabled = True
             optModeNoChange.Checked = True
-            chkOADamperSwitch.Enabled = False
-            chkOADamperSwitch.Checked = False
         End If
     End Sub
 

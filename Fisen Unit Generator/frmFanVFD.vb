@@ -1,5 +1,7 @@
-﻿Public Class frmFanVFD
+﻿Imports System.Xml
+Public Class frmFanVFD
     Private pCancelled As Boolean
+    Private Property pFanType As String
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -8,6 +10,15 @@
             pCancelled = value
         End Set
     End Property
+    Public Property FanType As String
+        Get
+            Return pFanType
+        End Get
+        Set(value As String)
+            pFanType = value
+        End Set
+    End Property
+
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()
         Call UpdateWeightTable()
@@ -18,11 +29,11 @@
             'frmMain.ThisUnitMods.Add("Common")
         End If
         Call UpdateCodeList()
-        Call UpdateBaseUnitRequiredItems
+        Call UpdateBaseUnitRequiredItems()
         Me.Hide()
     End Sub
     Private Sub UpdateBaseUnitRequiredItems()
-        If chkSFanVFD.Checked Then
+        If ((chkSFanVFD.Checked) And (chkSpecificVFD.Checked)) Then
             frmMain.lstRequiredFactoryItems.Items.Add("VAV (Customer Installed VFD)")
         End If
     End Sub
@@ -173,7 +184,7 @@
         TabControl1.Enabled = False
     End Sub
 
-    Private Sub chkIncludeEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeEquipmentTouch.CheckedChanged
+    Private Sub chkIncludeEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs)
         If chkIncludeEquipmentTouch.Checked = False Then
             chkMountEquipmentTouch.Checked = False
             chkMountEquipmentTouch.Enabled = False
@@ -235,8 +246,75 @@
     Private Sub frmFanVFD_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pCancelled = False
 
+        Select Case Me.FanType
+            Case Is = "Supply Fan"
+                chkSFanVFD.Visible = True
+                chkSFanVFD.Checked = True
+                chkSFanVFD.Enabled = False
+                chkSFanBypass.Visible = True
+                chkSFanDisconnect.Visible = True
+            Case Is = "Return Fan"
+                chkRFanVFD.Visible = True
+                chkRFanVFD.Checked = True
+                chkRFanVFD.Enabled = False
+                chkRFanBypass.Visible = True
+                chkRFanDisconnect.Visible = True
+            Case Is = "Exhaust Fan"
+                chkXFanVFD.Visible = True
+                chkXFanVFD.Checked = True
+                chkXFanVFD.Enabled = False
+                chkXFanBypass.Visible = True
+                chkXFanDisconnect.Visible = True
+        End Select
+
         Call PopulateAuxPanelList()
         cmbVFDBrand.Text = "Fisen Standard"
+
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+
+    End Sub
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/OA100")
+        If Me.FanType = "Supply Fan" Then
+            xNodeRoot = xDoc.SelectSingleNode("//ModFile/Modifications/SFVFD")
+            TempVal = xNodeRoot.SelectSingleNode("Bypass").InnerText
+            If TempVal = "Yes" Then chkSFanBypass.Checked = True Else chkSFanBypass.Checked = False
+
+            TempVal = xNodeRoot.SelectSingleNode("Disconnect").InnerText
+            If TempVal = "Yes" Then chkSFanDisconnect.Checked = True Else chkSFanDisconnect.Checked = False
+
+        End If
+
+        If Me.FanType = "Return Fan" Then
+            xNodeRoot = xDoc.SelectSingleNode("//ModFile/Modifications/RFVFD")
+
+            TempVal = xNodeRoot.SelectSingleNode("Bypass").InnerText
+            If TempVal = "Yes" Then chkRFanBypass.Checked = True Else chkRFanBypass.Checked = False
+
+            TempVal = xNodeRoot.SelectSingleNode("Disconnect").InnerText
+            If TempVal = "Yes" Then chkRFanDisconnect.Checked = True Else chkRFanDisconnect.Checked = False
+
+        End If
+
+        If Me.FanType = "Exhaust Fan" Then
+            xNodeRoot = xDoc.SelectSingleNode("//ModFile/Modifications/XFVFD")
+
+            TempVal = xNodeRoot.SelectSingleNode("Bypass").InnerText
+            If TempVal = "Yes" Then chkXFanBypass.Checked = True Else chkXFanBypass.Checked = False
+
+            TempVal = xNodeRoot.SelectSingleNode("Disconnect").InnerText
+            If TempVal = "Yes" Then chkXFanDisconnect.Checked = True Else chkXFanDisconnect.Checked = False
+
+        End If
+
 
     End Sub
 End Class

@@ -160,7 +160,9 @@ Public Class frmFiltration
         End If
     End Sub
     Private Sub UpdateCodeList()
+        Dim NoControlNotesIFB As Boolean
 
+        NoControlNotesIFB = True
         ModuleCodeList.Clear()
         'Add the level 0 code
         ModuleCodeList.Add("395000")
@@ -174,12 +176,14 @@ Public Class frmFiltration
                     ModuleCodeList.Add("395102") 'M8 2 Inch
                 Case Is = "MERV 8 (4in)"
                     ModuleCodeList.Add("395104") 'M8 4 Inch
+                Case Is = "MERV 13 (2in)"
+                    ModuleCodeList.Add("395122") 'M13 2 Inch
                 Case Is = "MERV 14 (4in)"
-                    ModuleCodeList.Add("395114") 'M8 4 Inch
+                    ModuleCodeList.Add("395114") 'M14 4 Inch
                 Case Is = "MERV 14 (6in)"
-                    ModuleCodeList.Add("395116") 'M8 6 Inch
+                    ModuleCodeList.Add("395116") 'M14 6 Inch
                 Case Is = "MERV 14 (12in)"
-                    ModuleCodeList.Add("39511C") 'M8 12 Inch
+                    ModuleCodeList.Add("39511C") 'M14 12 Inch
             End Select
 
             'Handle the Prefilter rack
@@ -240,6 +244,7 @@ Public Class frmFiltration
                 End Select
             End If
             If chkIFXducer.Checked Then
+                NoControlNotesIFB = False
                 Select Case cmbIFXdcrRange.Text
                     Case Is = "0.00-0.50"
                         ModuleCodeList.Add("395511")
@@ -259,11 +264,16 @@ Public Class frmFiltration
                 End If
             End If
             If chkIFDFS.Checked Then
+                NoControlNotesIFB = False
                 If chkIFDFSWire.Checked Then
                     ModuleCodeList.Add("395519")
                 Else
                     ModuleCodeList.Add("395518")
                 End If
+            End If
+
+            If Not (NoControlNotesIFB) Then
+                ModuleCodeList.Add("3951ZZ")
             End If
 
             'end of initial filter
@@ -878,6 +888,7 @@ Public Class frmFiltration
         If chkIFBank.Checked = True Then
             cmbIFType.Enabled = True
             chkIFPrefilt.Enabled = True
+            chkIFPrefiltUseJCI.Enabled = True
             grpCtrlInitital.Enabled = True
 
             grpIFRack.Enabled = True
@@ -903,6 +914,8 @@ Public Class frmFiltration
             cmbIFType.Text = "N/A"
             chkIFPrefilt.Enabled = False
             chkIFPrefilt.Checked = False
+            chkIFPrefiltUseJCI.Enabled = False
+            chkIFPrefiltUseJCI.Checked = False
             grpCtrlInitital.Enabled = True
             chkIFMagnehelic.Checked = False
             chkIFXducer.Checked = False

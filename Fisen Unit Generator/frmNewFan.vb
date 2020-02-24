@@ -1744,6 +1744,8 @@ Public Class frmNewFan
             Select Case Snippet
                 Case Is = "J06ZR"
                     temp = 0.000000094891 * localAirflow ^ 2 + 0.000278041791 * localAirflow
+                Case Is = "J06ZJ"
+                    temp = 0.000000094891 * localAirflow ^ 2 + 0.000278041791 * localAirflow
                 Case Is = "J07ZR"
                     temp = 0.00000017797 * localAirflow ^ 2 + 0.00011516589 * localAirflow
                 Case Is = "J07ZT"
@@ -1843,6 +1845,8 @@ Public Class frmNewFan
                         temp = -0.000000016071428571 * localAirflow ^ 2 + 0.000009009034443817 * localAirflow - 0.0158819169960459
                     Case Is = "J06ZR"
                         temp = -0.000000008403034 * localAirflow ^ 2 + 0.000011537438724 * localAirflow
+                    Case Is = "J06ZJ"
+                        temp = -0.000000008403034 * localAirflow ^ 2 + 0.000011537438724 * localAirflow
                         If temp > 0 Then temp = 0
                     Case Else
                         temp = 99.9
@@ -1865,6 +1869,8 @@ Public Class frmNewFan
                     Case Is = "J07ZR"
                         temp = 0.000000013911631846 * localAirflow ^ 2 - 0.000010962732919255 * localAirflow + 0.0196516798418959
                     Case Is = "J06ZR"
+                        temp = 0.000000011948603 * localAirflow ^ 2 + 0.000001710118785 * localAirflow
+                    Case Is = "J06ZJ"
                         temp = 0.000000011948603 * localAirflow ^ 2 + 0.000001710118785 * localAirflow
                     Case Else
                         temp = 99.9
@@ -1889,6 +1895,8 @@ Public Class frmNewFan
                         temp = 0.000000015774985884 * localAirflow * localAirflow - 0.000023178994918126 * localAirflow + 0.0481793478260862
                     Case Is = "J06ZR"
                         temp = 0.000000010965454 * localAirflow ^ 2 + 0.000008170233413 * localAirflow
+                    Case Is = "J06ZJ"
+                        temp = 0.000000010965454 * localAirflow ^ 2 + 0.000008170233413 * localAirflow
                     Case Else
                         temp = 99.9
                         dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:HeatAdjustmentS10")
@@ -1911,6 +1919,8 @@ Public Class frmNewFan
                     Case Is = "J07ZR"
                         temp = 0.000000012859966121 * localAirflow * localAirflow + 0.000008085827216262 * localAirflow + 0.00369071146245078
                     Case Is = "J06ZR"
+                        temp = 0.000000012554697 * localAirflow ^ 2 + 0.00001014514702 * localAirflow
+                    Case Is = "J06ZJ"
                         temp = 0.000000012554697 * localAirflow ^ 2 + 0.00001014514702 * localAirflow
                     Case Else
                         temp = 99.9
@@ -1935,6 +1945,8 @@ Public Class frmNewFan
                         temp = 0.000000015047995483 * localAirflow * localAirflow - 0.00000540937323546 * localAirflow + 0.0331719367588933
                     Case Is = "J06ZR"
                         temp = 0.000000011571549 * localAirflow ^ 2 + 0.000016605261648 * localAirflow
+                    Case Is = "J06ZJ"
+                        temp = 0.000000011571549 * localAirflow ^ 2 + 0.000016605261648 * localAirflow
                     Case Else
                         temp = 99.9
                         dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:HeatAdjustmentS10")
@@ -1957,6 +1969,8 @@ Public Class frmNewFan
                     Case Is = "J07ZR"
                         temp = 0.000000013212874082 * localAirflow * localAirflow + 0.000020112930547712 * localAirflow + 0.0100000000000018
                     Case Is = "J06ZR"
+                        temp = 0.000000011825439 * localAirflow ^ 2 + 0.000027574352925 * localAirflow
+                    Case Is = "J06ZJ"
                         temp = 0.000000011825439 * localAirflow ^ 2 + 0.000027574352925 * localAirflow
                     Case Else
                         temp = 99.9
@@ -2001,6 +2015,8 @@ Public Class frmNewFan
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J06ZR"
                     temp = 0.000000001978349 * localAirflow ^ 2 + 0.000050003935905 * localAirflow
+                Case Is = "J06ZJ"
+                    temp = 0.000000001978349 * localAirflow ^ 2 + 0.000050003935905 * localAirflow
                 Case Else
                     temp = 99.9
                     Dummy = MsgBox("That Model Number is not modeled.  Please notify JBL to add a model.", vbOKOnly, "NewFan:FilterAdjustmentS10")
@@ -2042,6 +2058,8 @@ Public Class frmNewFan
                 Case Is = "J07ZR"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J06ZR"
+                    temp = 0.000000012497656 * localAirflow ^ 2 + 0.000022831433083 * localAirflow
+                Case Is = "J06ZJ"
                     temp = 0.000000012497656 * localAirflow ^ 2 + 0.000022831433083 * localAirflow
                 Case Else
                     temp = 99.9

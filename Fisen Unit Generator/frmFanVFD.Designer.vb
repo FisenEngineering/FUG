@@ -22,27 +22,27 @@ Partial Class frmFanVFD
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFanVFD))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
-        Me.CheckBox7 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox8 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox9 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox6 = New System.Windows.Forms.CheckBox()
+        Me.chkXFanDisconnect = New System.Windows.Forms.CheckBox()
+        Me.chkXFanBypass = New System.Windows.Forms.CheckBox()
+        Me.chkXFanVFD = New System.Windows.Forms.CheckBox()
+        Me.chkRFanDisconnect = New System.Windows.Forms.CheckBox()
+        Me.chkRFanBypass = New System.Windows.Forms.CheckBox()
+        Me.chkRFanVFD = New System.Windows.Forms.CheckBox()
         Me.chkSFanDisconnect = New System.Windows.Forms.CheckBox()
         Me.chkSFanBypass = New System.Windows.Forms.CheckBox()
         Me.chkSFanVFD = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kInstall = New System.Windows.Forms.CheckBox()
         Me.cmbVFDBrand = New System.Windows.Forms.ComboBox()
         Me.chkNEMA4xDrive = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
-        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
-        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chkBACnet = New System.Windows.Forms.CheckBox()
         Me.chkSpecificVFD = New System.Windows.Forms.CheckBox()
         Me.chkRemotePad = New System.Windows.Forms.CheckBox()
@@ -60,7 +60,11 @@ Partial Class frmFanVFD
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.chk65kInstall = New System.Windows.Forms.CheckBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -85,12 +89,12 @@ Partial Class frmFanVFD
         '
         'tpgConditions
         '
-        Me.tpgConditions.Controls.Add(Me.CheckBox7)
-        Me.tpgConditions.Controls.Add(Me.CheckBox8)
-        Me.tpgConditions.Controls.Add(Me.CheckBox9)
-        Me.tpgConditions.Controls.Add(Me.CheckBox4)
-        Me.tpgConditions.Controls.Add(Me.CheckBox5)
-        Me.tpgConditions.Controls.Add(Me.CheckBox6)
+        Me.tpgConditions.Controls.Add(Me.chkXFanDisconnect)
+        Me.tpgConditions.Controls.Add(Me.chkXFanBypass)
+        Me.tpgConditions.Controls.Add(Me.chkXFanVFD)
+        Me.tpgConditions.Controls.Add(Me.chkRFanDisconnect)
+        Me.tpgConditions.Controls.Add(Me.chkRFanBypass)
+        Me.tpgConditions.Controls.Add(Me.chkRFanVFD)
         Me.tpgConditions.Controls.Add(Me.chkSFanDisconnect)
         Me.tpgConditions.Controls.Add(Me.chkSFanBypass)
         Me.tpgConditions.Controls.Add(Me.chkSFanVFD)
@@ -103,77 +107,77 @@ Partial Class frmFanVFD
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
-        'CheckBox7
+        'chkXFanDisconnect
         '
-        Me.CheckBox7.AutoSize = True
-        Me.CheckBox7.Enabled = False
-        Me.CheckBox7.Location = New System.Drawing.Point(210, 50)
-        Me.CheckBox7.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox7.Name = "CheckBox7"
-        Me.CheckBox7.Size = New System.Drawing.Size(102, 17)
-        Me.CheckBox7.TabIndex = 32
-        Me.CheckBox7.Text = "with Disconnect"
-        Me.CheckBox7.UseVisualStyleBackColor = True
+        Me.chkXFanDisconnect.AutoSize = True
+        Me.chkXFanDisconnect.Location = New System.Drawing.Point(210, 50)
+        Me.chkXFanDisconnect.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkXFanDisconnect.Name = "chkXFanDisconnect"
+        Me.chkXFanDisconnect.Size = New System.Drawing.Size(102, 17)
+        Me.chkXFanDisconnect.TabIndex = 32
+        Me.chkXFanDisconnect.Text = "with Disconnect"
+        Me.chkXFanDisconnect.UseVisualStyleBackColor = True
+        Me.chkXFanDisconnect.Visible = False
         '
-        'CheckBox8
+        'chkXFanBypass
         '
-        Me.CheckBox8.AutoSize = True
-        Me.CheckBox8.Enabled = False
-        Me.CheckBox8.Location = New System.Drawing.Point(210, 28)
-        Me.CheckBox8.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox8.Name = "CheckBox8"
-        Me.CheckBox8.Size = New System.Drawing.Size(150, 17)
-        Me.CheckBox8.TabIndex = 31
-        Me.CheckBox8.Text = "with Bypass Safety Switch"
-        Me.CheckBox8.UseVisualStyleBackColor = True
+        Me.chkXFanBypass.AutoSize = True
+        Me.chkXFanBypass.Location = New System.Drawing.Point(210, 28)
+        Me.chkXFanBypass.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkXFanBypass.Name = "chkXFanBypass"
+        Me.chkXFanBypass.Size = New System.Drawing.Size(150, 17)
+        Me.chkXFanBypass.TabIndex = 31
+        Me.chkXFanBypass.Text = "with Bypass Safety Switch"
+        Me.chkXFanBypass.UseVisualStyleBackColor = True
+        Me.chkXFanBypass.Visible = False
         '
-        'CheckBox9
+        'chkXFanVFD
         '
-        Me.CheckBox9.AutoSize = True
-        Me.CheckBox9.Enabled = False
-        Me.CheckBox9.Location = New System.Drawing.Point(192, 6)
-        Me.CheckBox9.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox9.Name = "CheckBox9"
-        Me.CheckBox9.Size = New System.Drawing.Size(109, 17)
-        Me.CheckBox9.TabIndex = 30
-        Me.CheckBox9.Text = "Exhaust Fan VFD"
-        Me.CheckBox9.UseVisualStyleBackColor = True
+        Me.chkXFanVFD.AutoSize = True
+        Me.chkXFanVFD.Location = New System.Drawing.Point(192, 6)
+        Me.chkXFanVFD.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkXFanVFD.Name = "chkXFanVFD"
+        Me.chkXFanVFD.Size = New System.Drawing.Size(109, 17)
+        Me.chkXFanVFD.TabIndex = 30
+        Me.chkXFanVFD.Text = "Exhaust Fan VFD"
+        Me.chkXFanVFD.UseVisualStyleBackColor = True
+        Me.chkXFanVFD.Visible = False
         '
-        'CheckBox4
+        'chkRFanDisconnect
         '
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Enabled = False
-        Me.CheckBox4.Location = New System.Drawing.Point(23, 128)
-        Me.CheckBox4.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(102, 17)
-        Me.CheckBox4.TabIndex = 29
-        Me.CheckBox4.Text = "with Disconnect"
-        Me.CheckBox4.UseVisualStyleBackColor = True
+        Me.chkRFanDisconnect.AutoSize = True
+        Me.chkRFanDisconnect.Location = New System.Drawing.Point(23, 128)
+        Me.chkRFanDisconnect.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkRFanDisconnect.Name = "chkRFanDisconnect"
+        Me.chkRFanDisconnect.Size = New System.Drawing.Size(102, 17)
+        Me.chkRFanDisconnect.TabIndex = 29
+        Me.chkRFanDisconnect.Text = "with Disconnect"
+        Me.chkRFanDisconnect.UseVisualStyleBackColor = True
+        Me.chkRFanDisconnect.Visible = False
         '
-        'CheckBox5
+        'chkRFanBypass
         '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Enabled = False
-        Me.CheckBox5.Location = New System.Drawing.Point(23, 106)
-        Me.CheckBox5.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(150, 17)
-        Me.CheckBox5.TabIndex = 28
-        Me.CheckBox5.Text = "with Bypass Safety Switch"
-        Me.CheckBox5.UseVisualStyleBackColor = True
+        Me.chkRFanBypass.AutoSize = True
+        Me.chkRFanBypass.Location = New System.Drawing.Point(23, 106)
+        Me.chkRFanBypass.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkRFanBypass.Name = "chkRFanBypass"
+        Me.chkRFanBypass.Size = New System.Drawing.Size(150, 17)
+        Me.chkRFanBypass.TabIndex = 28
+        Me.chkRFanBypass.Text = "with Bypass Safety Switch"
+        Me.chkRFanBypass.UseVisualStyleBackColor = True
+        Me.chkRFanBypass.Visible = False
         '
-        'CheckBox6
+        'chkRFanVFD
         '
-        Me.CheckBox6.AutoSize = True
-        Me.CheckBox6.Enabled = False
-        Me.CheckBox6.Location = New System.Drawing.Point(5, 84)
-        Me.CheckBox6.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox6.Name = "CheckBox6"
-        Me.CheckBox6.Size = New System.Drawing.Size(103, 17)
-        Me.CheckBox6.TabIndex = 27
-        Me.CheckBox6.Text = "Return Fan VFD"
-        Me.CheckBox6.UseVisualStyleBackColor = True
+        Me.chkRFanVFD.AutoSize = True
+        Me.chkRFanVFD.Location = New System.Drawing.Point(5, 84)
+        Me.chkRFanVFD.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkRFanVFD.Name = "chkRFanVFD"
+        Me.chkRFanVFD.Size = New System.Drawing.Size(103, 17)
+        Me.chkRFanVFD.TabIndex = 27
+        Me.chkRFanVFD.Text = "Return Fan VFD"
+        Me.chkRFanVFD.UseVisualStyleBackColor = True
+        Me.chkRFanVFD.Visible = False
         '
         'chkSFanDisconnect
         '
@@ -185,6 +189,7 @@ Partial Class frmFanVFD
         Me.chkSFanDisconnect.TabIndex = 26
         Me.chkSFanDisconnect.Text = "with Disconnect"
         Me.chkSFanDisconnect.UseVisualStyleBackColor = True
+        Me.chkSFanDisconnect.Visible = False
         '
         'chkSFanBypass
         '
@@ -196,12 +201,11 @@ Partial Class frmFanVFD
         Me.chkSFanBypass.TabIndex = 25
         Me.chkSFanBypass.Text = "with Bypass Safety Switch"
         Me.chkSFanBypass.UseVisualStyleBackColor = True
+        Me.chkSFanBypass.Visible = False
         '
         'chkSFanVFD
         '
         Me.chkSFanVFD.AutoSize = True
-        Me.chkSFanVFD.Checked = True
-        Me.chkSFanVFD.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkSFanVFD.Location = New System.Drawing.Point(5, 6)
         Me.chkSFanVFD.Margin = New System.Windows.Forms.Padding(2)
         Me.chkSFanVFD.Name = "chkSFanVFD"
@@ -209,10 +213,11 @@ Partial Class frmFanVFD
         Me.chkSFanVFD.TabIndex = 24
         Me.chkSFanVFD.Text = "Supply Fan VFD"
         Me.chkSFanVFD.UseVisualStyleBackColor = True
+        Me.chkSFanVFD.Visible = False
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(385, 120)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(385, 133)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneConditions.TabIndex = 23
@@ -225,8 +230,6 @@ Partial Class frmFanVFD
         Me.tpgOptions.Controls.Add(Me.cmbVFDBrand)
         Me.tpgOptions.Controls.Add(Me.chkNEMA4xDrive)
         Me.tpgOptions.Controls.Add(Me.GroupBox3)
-        Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
-        Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkBACnet)
         Me.tpgOptions.Controls.Add(Me.chkSpecificVFD)
         Me.tpgOptions.Controls.Add(Me.chkRemotePad)
@@ -239,9 +242,21 @@ Partial Class frmFanVFD
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chk65kInstall
+        '
+        Me.chk65kInstall.AutoSize = True
+        Me.chk65kInstall.Location = New System.Drawing.Point(5, 120)
+        Me.chk65kInstall.Margin = New System.Windows.Forms.Padding(2)
+        Me.chk65kInstall.Name = "chk65kInstall"
+        Me.chk65kInstall.Size = New System.Drawing.Size(107, 17)
+        Me.chk65kInstall.TabIndex = 33
+        Me.chk65kInstall.Text = "65kIA Installation"
+        Me.chk65kInstall.UseVisualStyleBackColor = True
+        '
         'cmbVFDBrand
         '
         Me.cmbVFDBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbVFDBrand.Enabled = False
         Me.cmbVFDBrand.FormattingEnabled = True
         Me.cmbVFDBrand.Items.AddRange(New Object() {"ABB Eclipse", "Danfoss VLT HVAC - FC102", "Danfoss VLT HVAC Basic - FC101", "Fisen Standard", "Rockwell Automation Power Flex 753", ""})
         Me.cmbVFDBrand.Location = New System.Drawing.Point(24, 55)
@@ -304,27 +319,6 @@ Partial Class frmFanVFD
         Me.optNoAux.Text = "None"
         Me.optNoAux.UseVisualStyleBackColor = True
         '
-        'chkMountEquipmentTouch
-        '
-        Me.chkMountEquipmentTouch.AutoSize = True
-        Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(226, 143)
-        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
-        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
-        Me.chkMountEquipmentTouch.TabIndex = 30
-        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
-        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
-        '
-        'chkIncludeEquipmentTouch
-        '
-        Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(212, 124)
-        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
-        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
-        Me.chkIncludeEquipmentTouch.TabIndex = 29
-        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
-        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
-        '
         'chkBACnet
         '
         Me.chkBACnet.AutoSize = True
@@ -360,7 +354,7 @@ Partial Class frmFanVFD
         '
         'btnDoneOptions
         '
-        Me.btnDoneOptions.Location = New System.Drawing.Point(385, 120)
+        Me.btnDoneOptions.Location = New System.Drawing.Point(385, 133)
         Me.btnDoneOptions.Name = "btnDoneOptions"
         Me.btnDoneOptions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneOptions.TabIndex = 24
@@ -369,6 +363,8 @@ Partial Class frmFanVFD
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.chkMountEquipmentTouch)
+        Me.tpgControls.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgControls.Controls.Add(Me.GroupBox1)
         Me.tpgControls.Controls.Add(Me.btnDoneControls)
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
@@ -442,7 +438,7 @@ Partial Class frmFanVFD
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(385, 120)
+        Me.btnDoneControls.Location = New System.Drawing.Point(385, 133)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneControls.TabIndex = 25
@@ -475,7 +471,7 @@ Partial Class frmFanVFD
         '
         'btnDonePerformance
         '
-        Me.btnDonePerformance.Location = New System.Drawing.Point(385, 120)
+        Me.btnDonePerformance.Location = New System.Drawing.Point(385, 133)
         Me.btnDonePerformance.Name = "btnDonePerformance"
         Me.btnDonePerformance.Size = New System.Drawing.Size(41, 23)
         Me.btnDonePerformance.TabIndex = 25
@@ -511,16 +507,56 @@ Partial Class frmFanVFD
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'chk65kInstall
+        'cmdViewHistory
         '
-        Me.chk65kInstall.AutoSize = True
-        Me.chk65kInstall.Location = New System.Drawing.Point(5, 120)
-        Me.chk65kInstall.Margin = New System.Windows.Forms.Padding(2)
-        Me.chk65kInstall.Name = "chk65kInstall"
-        Me.chk65kInstall.Size = New System.Drawing.Size(107, 17)
-        Me.chk65kInstall.TabIndex = 33
-        Me.chk65kInstall.Text = "65kIA Installation"
-        Me.chk65kInstall.UseVisualStyleBackColor = True
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 200)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 14
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 200)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 13
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(168, 216)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 15
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
+        'chkMountEquipmentTouch
+        '
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(214, 137)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 32
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        '
+        'chkIncludeEquipmentTouch
+        '
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(200, 118)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 31
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'frmFanVFD
         '
@@ -528,6 +564,9 @@ Partial Class frmFanVFD
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 236)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.TabControl1)
@@ -543,11 +582,13 @@ Partial Class frmFanVFD
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
+        Me.tpgControls.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -564,12 +605,12 @@ Partial Class frmFanVFD
     Friend WithEvents DebugPage As TabPage
     Friend WithEvents Cancel As Button
     Friend WithEvents btnOK As Button
-    Friend WithEvents CheckBox7 As CheckBox
-    Friend WithEvents CheckBox8 As CheckBox
-    Friend WithEvents CheckBox9 As CheckBox
-    Friend WithEvents CheckBox4 As CheckBox
-    Friend WithEvents CheckBox5 As CheckBox
-    Friend WithEvents CheckBox6 As CheckBox
+    Friend WithEvents chkXFanDisconnect As CheckBox
+    Friend WithEvents chkXFanBypass As CheckBox
+    Friend WithEvents chkXFanVFD As CheckBox
+    Friend WithEvents chkRFanDisconnect As CheckBox
+    Friend WithEvents chkRFanBypass As CheckBox
+    Friend WithEvents chkRFanVFD As CheckBox
     Friend WithEvents chkSFanDisconnect As CheckBox
     Friend WithEvents chkSFanBypass As CheckBox
     Friend WithEvents chkSFanVFD As CheckBox
@@ -581,8 +622,6 @@ Partial Class frmFanVFD
     Friend WithEvents optSFanSEVFDReady As RadioButton
     Friend WithEvents chkBACnet As CheckBox
     Friend WithEvents optSFanBalanceOnly As RadioButton
-    Friend WithEvents chkMountEquipmentTouch As CheckBox
-    Friend WithEvents chkIncludeEquipmentTouch As CheckBox
     Friend WithEvents chkNEMA4xDrive As CheckBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents cmbAuxPanelOpts As ComboBox
@@ -590,4 +629,9 @@ Partial Class frmFanVFD
     Friend WithEvents optNoAux As RadioButton
     Friend WithEvents cmbVFDBrand As ComboBox
     Friend WithEvents chk65kInstall As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents chkMountEquipmentTouch As CheckBox
+    Friend WithEvents chkIncludeEquipmentTouch As CheckBox
 End Class
