@@ -211,6 +211,12 @@ Public Class clsUnitClass
                                 pBrandFamily = "Series 40"
                             Case Is = "Series100"
                                 pBrandFamily = "Series 100"
+                            Case Is = "Choice"
+                                pBrandFamily = "Choice"
+                            Case Is = "Select"
+                                pBrandFamily = "Select"
+                            Case Is = "Premier"
+                                pBrandFamily = "Premier"
                         End Select
                 End Select
             End If

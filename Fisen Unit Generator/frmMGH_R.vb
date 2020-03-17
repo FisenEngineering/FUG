@@ -185,6 +185,12 @@ Public Class frmMGH_R
                 tempWeight = "35"
             Case Is = "Series100"
                 tempWeight = "65"
+            Case Is = "Choice"
+                tempWeight = "25"
+            Case Is = "Select"
+                tempWeight = "35"
+            Case Is = "Premier"
+                tempWeight = "35"
             Case Else
                 tempWeight = "9999"
         End Select
