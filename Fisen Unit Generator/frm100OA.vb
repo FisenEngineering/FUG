@@ -78,8 +78,9 @@ Public Class frm100OA
                     ModuleCodeList.Add("0A0150") 'SG High Limit
 
                     'Mode Control
-                    ModuleCodeList.Add("0A01A5") 'OAT Mode Control
-
+                    If optModeAuto.Checked Then ModuleCodeList.Add("0A01A5") 'OAT Mode Control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A01B5") 'GBAS Mode Control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A01C5") 'Base Unit Only Mode Control
                 Case Is = "IPU"
                     'First Handle the general safeties
                     ModuleCodeList.Add("0A0136") 'Timed Freeze Protection
@@ -87,8 +88,9 @@ Public Class frm100OA
                     ModuleCodeList.Add("0A0151") 'SG High Limit
 
                     'Mode Control
-                    ModuleCodeList.Add("0A01A6") 'OAT Mode Control
-
+                    If optModeAuto.Checked Then ModuleCodeList.Add("0A01A6") 'OAT Mode Control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A01B6") 'GBAS Mode Control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A01C6") 'Base Unit Only Mode Control
                 Case Is = "ASE"
                     'First Handle the general safeties
                     ModuleCodeList.Add("0A0137") 'Timed Freeze Protection
@@ -96,7 +98,9 @@ Public Class frm100OA
                     ModuleCodeList.Add("0A0152") 'SG High Limit
 
                     'Mode Control
-                    ModuleCodeList.Add("0A01A6") 'OAT Mode Control
+                    If optModeAuto.Checked Then ModuleCodeList.Add("0A01A7") 'OAT Mode Control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A01B7") 'GBAS Mode Control
+                    If optModeGBAS.Checked Then ModuleCodeList.Add("0A01C7") 'Base Unit Only Mode Control
 
             End Select
 
@@ -510,12 +514,13 @@ Public Class frm100OA
                 optASE.Enabled = False
             Case Is = "Premier"
                 optSE.Enabled = False
+                optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Checked = True
             Case Is = "Choice"
-                optSE.Enabled = False
+                optSE.Enabled = True
                 optIPU.Enabled = False
-                optASE.Checked = True
+                optASE.Enabled = False
             Case Is = "Select"
                 optSE.Enabled = False
                 optIPU.Enabled = False
@@ -766,89 +771,177 @@ Public Class frm100OA
     End Sub
 
     Private Sub optModeGBAS_CheckedChanged(sender As Object, e As EventArgs) Handles optModeGBAS.CheckedChanged
-        If optModeGBAS.Checked = True Then
+        If opt100OA.Checked Then
+            If optModeGBAS.Checked = True Then
 
-            'handle the zone override sensor
-            chkZoneOvrSensor.Enabled = False
-            chkZoneOvrSensor.Checked = False
+                'handle the zone override sensor
+                chkZoneOvrSensor.Enabled = False
+                chkZoneOvrSensor.Checked = False
 
-            'handle the cooling controls    
-            optCoolCtrlStagedOA.Enabled = False
-            optCoolCtrlDAByFisen.Enabled = False
-            optCoolCtrlByBaseUnit.Enabled = False
-            optCoolCtrlGBAS.Enabled = True
-            optCoolCtrlGBAS.Checked = True
+                'handle the cooling controls    
+                optCoolCtrlStagedOA.Enabled = False
+                optCoolCtrlDAByFisen.Enabled = False
+                optCoolCtrlByBaseUnit.Enabled = False
+                optCoolCtrlGBAS.Enabled = True
+                optCoolCtrlGBAS.Checked = True
 
-            'handle the heating controls
-            If Not (optNoHeat.Checked) Then
-                grpGBASHeat.Enabled = True
-                optHeatCtrlGBAS.Checked = True
-                optGBASVernier.Checked = True
+                'handle the heating controls
+                If Not (optNoHeat.Checked) Then
+                    grpGBASHeat.Enabled = True
+                    optHeatCtrlGBAS.Checked = True
+                    optGBASVernier.Checked = True
 
-                optHeatCtrlStagedOA.Enabled = False
-                optHeatCtrlDAByFisen.Enabled = False
-                optHeatCtrlDAFutureTB.Enabled = False
-                optHeatCtrlDABaseUnit.Enabled = False
-                optHeatCtrlDAFieldInstTB.Enabled = False
-                optHeatCtrlGBAS.Enabled = True
-                optHeatCtrlNone.Enabled = False
-            Else 'executes if no heat
-                optHeatCtrlNone.Checked = True
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = True
+                    optHeatCtrlNone.Enabled = False
+                Else 'executes if no heat
+                    optHeatCtrlNone.Checked = True
 
-                optHeatCtrlStagedOA.Enabled = False
-                optHeatCtrlDAByFisen.Enabled = False
-                optHeatCtrlDAFutureTB.Enabled = False
-                optHeatCtrlDABaseUnit.Enabled = False
-                optHeatCtrlDAFieldInstTB.Enabled = False
-                optHeatCtrlGBAS.Enabled = False
-                optHeatCtrlNone.Enabled = True
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = True
+                End If
+
+
+                'Handle the GBAS Controls
+                grpGBASCtrl4.Enabled = True
+                optGBASCooling.Checked = True
+
+
             End If
+        Else
+            If optModeGBAS.Checked = True Then
+
+                'handle the zone override sensor
+                chkZoneOvrSensor.Enabled = False
+                chkZoneOvrSensor.Checked = False
+
+                'handle the cooling controls    
+                optCoolCtrlStagedOA.Enabled = False
+                optCoolCtrlDAByFisen.Enabled = False
+                optCoolCtrlByBaseUnit.Enabled = False
+                optCoolCtrlGBAS.Enabled = True
+                optCoolCtrlGBAS.Checked = True
+
+                'handle the heating controls
+                If Not (optNoHeat.Checked) Then
+                    grpGBASHeat.Enabled = True
+                    optHeatCtrlGBAS.Checked = True
+                    optGBASVernier.Checked = True
+
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = True
+                    optHeatCtrlNone.Enabled = False
+                Else 'executes if no heat
+                    optHeatCtrlNone.Checked = True
+
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = True
+                End If
 
 
-            'Handle the GBAS Controls
-            grpGBASCtrl4.Enabled = True
-            optGBASCooling.Checked = True
+                'Handle the GBAS Controls
+                grpGBASCtrl4.Enabled = True
+                optGBASCooling.Checked = True
 
 
+            End If
         End If
     End Sub
 
     Private Sub optModeAuto_CheckedChanged(sender As Object, e As EventArgs) Handles optModeAuto.CheckedChanged
-        If optModeAuto.Checked = True Then
-            'Handle Zone Override Sensor
-            chkZoneOvrSensor.Enabled = True
-            chkZoneOvrSensor.Checked = True
+        If opt100OA.Checked Then
+            If optModeAuto.Checked = True Then
+                'Handle Zone Override Sensor
+                chkZoneOvrSensor.Enabled = True
+                chkZoneOvrSensor.Checked = True
 
-            'Handle Cooling Controls
-            optCoolCtrlStagedOA.Enabled = True
-            optCoolCtrlStagedOA.Checked = True
+                'Handle Cooling Controls
+                optCoolCtrlStagedOA.Enabled = True
+                optCoolCtrlStagedOA.Checked = True
+                optCoolCtrlDAByFisen.Enabled = True
+                optCoolCtrlByBaseUnit.Enabled = True
+                optCoolCtrlGBAS.Enabled = False
+
+                'Handle Heating Controls
+                If Not (optNoHeat.Checked) Then
+                    optHeatCtrlStagedOA.Checked = True
+
+                    optHeatCtrlStagedOA.Enabled = True
+                    optHeatCtrlDAByFisen.Enabled = True
+                    optHeatCtrlDAFutureTB.Enabled = True
+                    optHeatCtrlDABaseUnit.Enabled = True
+                    optHeatCtrlDAFieldInstTB.Enabled = True
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = False
+
+                Else 'executes if no heat
+                    optHeatCtrlNone.Checked = True
+
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = True
+
+                End If
+
+                'Handle GBAS Controls
+                grpGBASCtrl4.Enabled = False
+                optGBASNoGBAS.Checked = True
+                chkGBASOADamper.Checked = False
+                optNoGBASHeat.Checked = True
+
+            End If
+        Else
+
+            'handle the cool options
+            optCoolCtrlStagedOA.Enabled = False
             optCoolCtrlDAByFisen.Enabled = True
             optCoolCtrlByBaseUnit.Enabled = True
             optCoolCtrlGBAS.Enabled = False
+            optCoolCtrlByBaseUnit.Checked = True
 
-            'Handle Heating Controls
-            If Not (optNoHeat.Checked) Then
-                optHeatCtrlStagedOA.Checked = True
 
-                optHeatCtrlStagedOA.Enabled = True
-                optHeatCtrlDAByFisen.Enabled = True
-                optHeatCtrlDAFutureTB.Enabled = True
-                optHeatCtrlDABaseUnit.Enabled = True
-                optHeatCtrlDAFieldInstTB.Enabled = True
-                optHeatCtrlGBAS.Enabled = False
-                optHeatCtrlNone.Enabled = False
 
-            Else 'executes if no heat
-                optHeatCtrlNone.Checked = True
-
-                optHeatCtrlStagedOA.Enabled = False
+            'handle the heat options
+            If optNoHeat.Checked Then
                 optHeatCtrlDAByFisen.Enabled = False
-                optHeatCtrlDAFutureTB.Enabled = False
                 optHeatCtrlDABaseUnit.Enabled = False
                 optHeatCtrlDAFieldInstTB.Enabled = False
+                optHeatCtrlDAFutureTB.Enabled = False
+                optHeatCtrlStagedOA.Enabled = False
                 optHeatCtrlGBAS.Enabled = False
                 optHeatCtrlNone.Enabled = True
-
+                optHeatCtrlNone.Checked = True
+            Else
+                optHeatCtrlDAByFisen.Enabled = True
+                optHeatCtrlDABaseUnit.Enabled = True
+                optHeatCtrlDABaseUnit.Checked = True
+                optHeatCtrlDAFieldInstTB.Enabled = True
+                optHeatCtrlDAFutureTB.Enabled = True
+                optHeatCtrlStagedOA.Enabled = False
+                optHeatCtrlGBAS.Enabled = False
+                optHeatCtrlNone.Enabled = False
             End If
 
             'Handle GBAS Controls
@@ -857,68 +950,59 @@ Public Class frm100OA
             chkGBASOADamper.Checked = False
             optNoGBASHeat.Checked = True
 
+
         End If
     End Sub
 
     Private Sub optModeDATOnly_CheckedChanged(sender As Object, e As EventArgs) Handles optModeDATOnly.CheckedChanged
-        If optModeDATOnly.Checked = True Then
-            'handle the Zone Override Sensor
-            chkZoneOvrSensor.Enabled = True
-            chkZoneOvrSensor.Checked = False
+        If opt100OA.Checked Then
+            If optModeDATOnly.Checked = True Then
+                'handle the Zone Override Sensor
+                chkZoneOvrSensor.Enabled = True
+                chkZoneOvrSensor.Checked = False
 
-            'handle the cooling controls
-            optCoolCtrlStagedOA.Enabled = False
-            optCoolCtrlDAByFisen.Enabled = True
-            optCoolCtrlByBaseUnit.Checked = True
-            optCoolCtrlByBaseUnit.Enabled = True
-            optCoolCtrlGBAS.Enabled = False
+                'handle the cooling controls
+                optCoolCtrlStagedOA.Enabled = False
+                optCoolCtrlDAByFisen.Enabled = True
+                optCoolCtrlByBaseUnit.Checked = True
+                optCoolCtrlByBaseUnit.Enabled = True
+                optCoolCtrlGBAS.Enabled = False
 
 
-            'handle the heating controls
-            If Not (optNoHeat.Checked) Then 'Unit has heat
-                optHeatCtrlDAByFisen.Checked = True
+                'handle the heating controls
+                If Not (optNoHeat.Checked) Then 'Unit has heat
+                    optHeatCtrlDAByFisen.Checked = True
 
-                optHeatCtrlStagedOA.Enabled = False
-                optHeatCtrlDAByFisen.Enabled = True
-                optHeatCtrlDAFutureTB.Enabled = True
-                optHeatCtrlDABaseUnit.Enabled = True
-                optHeatCtrlDAFieldInstTB.Enabled = True
-                optHeatCtrlGBAS.Enabled = False
-                optHeatCtrlNone.Enabled = False
-            Else 'unit doesn't have heat
-                optHeatCtrlNone.Checked = True
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = True
+                    optHeatCtrlDAFutureTB.Enabled = True
+                    optHeatCtrlDABaseUnit.Enabled = True
+                    optHeatCtrlDAFieldInstTB.Enabled = True
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = False
+                Else 'unit doesn't have heat
+                    optHeatCtrlNone.Checked = True
 
-                optHeatCtrlStagedOA.Enabled = False
-                optHeatCtrlDAByFisen.Enabled = False
-                optHeatCtrlDAFutureTB.Enabled = False
-                optHeatCtrlDABaseUnit.Enabled = False
-                optHeatCtrlDAFieldInstTB.Enabled = False
-                optHeatCtrlGBAS.Enabled = False
-                optHeatCtrlNone.Enabled = True
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = True
+                End If
+
+                'handle the GBAS Controls
+                grpGBASCtrl4.Enabled = False
+                optGBASNoGBAS.Checked = True
+                chkGBASOADamper.Checked = False
+                optNoGBASHeat.Checked = True
+
             End If
-
-            'handle the GBAS Controls
-            grpGBASCtrl4.Enabled = False
-            optGBASNoGBAS.Checked = True
-            chkGBASOADamper.Checked = False
-            optNoGBASHeat.Checked = True
+        Else
 
         End If
     End Sub
-
-
-    Private Sub optSE_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub optIPU_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub optASE_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
         frmHistoryReport.MyModule = "100OA"
         frmHistoryReport.Show()
@@ -998,7 +1082,7 @@ Public Class frm100OA
             con.Execute(MySQL)
         Else
             'Insert SQL
-            MySQL = "INSERT INTO tblHistory100OA (JobName,UnitID,Version,ModelNumber,Controller,HeatType,HeatCtrl,CoolCtrl,ModeCtrl,ZoneOverride) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & Controller & "','" & HeatType & "'," & HeatCtrl & ",'" & CoolCtrl & "','" & ModeCtrl & "','" & ZoneOverride & "')"
+            MySQL = "INSERT INTO tblHistory100OA (JobName,UnitID,Version,ModelNumber,Controller,HeatType,HeatCtrl,CoolCtrl,ModeCtrl,ZoneOverride) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & Controller & "','" & HeatType & "','" & HeatCtrl & "','" & CoolCtrl & "','" & ModeCtrl & "','" & ZoneOverride & "')"
             con.Execute(MySQL)
         End If
 
@@ -1233,48 +1317,66 @@ Public Class frm100OA
     End Sub
 
     Private Sub optModeNoChange_CheckedChanged(sender As Object, e As EventArgs) Handles optModeNoChange.CheckedChanged
+        If opt100OA.Checked Then
+            If optModeNoChange.Checked = True Then
+                'handle the Zone Override Sensor
+                chkZoneOvrSensor.Enabled = False
+                chkZoneOvrSensor.Checked = False
 
-        If optModeNoChange.Checked = True Then
-            'handle the Zone Override Sensor
-            chkZoneOvrSensor.Enabled = False
-            chkZoneOvrSensor.Checked = False
+                'handle the cooling controls
+                optCoolCtrlByBaseUnit.Checked = True
 
-            'handle the cooling controls
+                optCoolCtrlStagedOA.Enabled = False
+                optCoolCtrlDAByFisen.Enabled = False
+                optCoolCtrlByBaseUnit.Enabled = True
+                optCoolCtrlGBAS.Enabled = False
+
+                'handle the heating controls
+                If Not (optNoHeat.Checked) Then
+                    optHeatCtrlDABaseUnit.Checked = True
+
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = True
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = False
+                Else 'This executes if no heat unit
+                    optHeatCtrlNone.Checked = True
+
+                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlDAByFisen.Enabled = False
+                    optHeatCtrlDAFutureTB.Enabled = False
+                    optHeatCtrlDABaseUnit.Enabled = False
+                    optHeatCtrlDAFieldInstTB.Enabled = False
+                    optHeatCtrlGBAS.Enabled = False
+                    optHeatCtrlNone.Enabled = True
+                End If
+
+                'handle the GBAS Controls
+                grpGBASCtrl4.Enabled = False
+                optGBASNoGBAS.Checked = True
+                chkGBASOADamper.Checked = False
+                optNoGBASHeat.Checked = True
+
+            End If
+        Else
+            '100 OA Capable
+            optCoolCtrlByBaseUnit.Enabled = True
             optCoolCtrlByBaseUnit.Checked = True
-
             optCoolCtrlStagedOA.Enabled = False
             optCoolCtrlDAByFisen.Enabled = False
-            optCoolCtrlByBaseUnit.Enabled = True
             optCoolCtrlGBAS.Enabled = False
 
-            'handle the heating controls
-            If Not (optNoHeat.Checked) Then
-                optHeatCtrlDABaseUnit.Checked = True
-
-                optHeatCtrlStagedOA.Enabled = False
+            optHeatCtrlDABaseUnit.Enabled = True
+            optHeatCtrlDABaseUnit.Checked = True
+            optHeatCtrlGBAS.Enabled = False
+            If chkModHeat.Checked Then
+                optHeatCtrlDAByFisen.Enabled = True
+            Else
                 optHeatCtrlDAByFisen.Enabled = False
-                optHeatCtrlDAFutureTB.Enabled = False
-                optHeatCtrlDABaseUnit.Enabled = True
-                optHeatCtrlDAFieldInstTB.Enabled = False
-                optHeatCtrlGBAS.Enabled = False
-                optHeatCtrlNone.Enabled = False
-            Else 'This executes if no heat unit
-                optHeatCtrlNone.Checked = True
-
-                optHeatCtrlStagedOA.Enabled = False
-                optHeatCtrlDAByFisen.Enabled = False
-                optHeatCtrlDAFutureTB.Enabled = False
-                optHeatCtrlDABaseUnit.Enabled = False
-                optHeatCtrlDAFieldInstTB.Enabled = False
-                optHeatCtrlGBAS.Enabled = False
-                optHeatCtrlNone.Enabled = True
             End If
-
-            'handle the GBAS Controls
-            grpGBASCtrl4.Enabled = False
-            optGBASNoGBAS.Checked = True
-            chkGBASOADamper.Checked = False
-            optNoGBASHeat.Checked = True
 
         End If
     End Sub

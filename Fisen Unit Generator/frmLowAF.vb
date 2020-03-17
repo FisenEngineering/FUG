@@ -175,6 +175,12 @@ Public Class frmLowAF
                 If optFanWallBypassExisting.Checked Then tempWeight = "45" '10+5 for FWBP
                 If optFanWallBypassNew.Checked Then tempWeight = "45" '10+10+5
                 If optReplaceFan.Checked Then tempWeight = "10" 'just the controls - fan is a different line item
+            Case Is = "Choice"
+                If optExistingSheaves.Checked Then tempWeight = "10" '10 for the new controls
+                If optResheave.Checked Then tempWeight = "8" '10 for the new controls 5 for net new sheaves
+                If optFanWallBypassExisting.Checked Then tempWeight = "15" '10+5 for FWBP
+                If optFanWallBypassNew.Checked Then tempWeight = "23" '10+5+8
+                If optReplaceFan.Checked Then tempWeight = "10" 'just the controls - fan is a different line item
             Case Else
                 tempWeight = "9999"
         End Select
@@ -286,7 +292,7 @@ Public Class frmLowAF
         ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
         xDoc.Load(ModFilePath)
 
-        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/LowAF")
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/LCVAV")
 
         TempVal = xNodeRoot.SelectSingleNode("OA100Unit").InnerText
         If TempVal = "Yes" Then chk100OA.Checked = True Else chk100OA.Checked = False
@@ -769,6 +775,157 @@ Public Class frmLowAF
                     Case Else
                         lowflow = -9999
                 End Select
+            Case Is = "Choice"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "N1"
+                                    lowflow = 3600
+                                Case Is = "S1"
+                                    lowflow = 3600
+                                Case Is = "N3"
+                                    lowflow = 4620
+                                Case Is = "S3"
+                                    lowflow = 4620
+                                Case Is = "T3"
+                                    lowflow = 4620
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "E1"
+                                    lowflow = 4500
+                                Case Is = "E2"
+                                    lowflow = 4500
+                                Case Is = "E3"
+                                    lowflow = 60000
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+
+                    Case Is = "17.5"
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "N1"
+                                    lowflow = 3600
+                                Case Is = "S1"
+                                    lowflow = 3600
+                                Case Is = "N3"
+                                    lowflow = 4620
+                                Case Is = "S3"
+                                    lowflow = 4620
+                                Case Is = "T3"
+                                    lowflow = 4620
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "E1"
+                                    lowflow = 5250
+                                Case Is = "E2"
+                                    lowflow = 5250
+                                Case Is = "E3"
+                                    lowflow = 60000
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                    Case Is = "20.0"
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "N1"
+                                    lowflow = 3660
+                                Case Is = "S1"
+                                    lowflow = 3660
+                                Case Is = "N3"
+                                    lowflow = 4620
+                                Case Is = "S3"
+                                    lowflow = 4620
+                                Case Is = "T3"
+                                    lowflow = 4620
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "E1"
+                                    lowflow = 6000
+                                Case Is = "E2"
+                                    lowflow = 6000
+                                Case Is = "E3"
+                                    lowflow = 6000
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                    Case Is = "25.0"
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "N1"
+                                    lowflow = 4120
+                                Case Is = "S1"
+                                    lowflow = 4120
+                                Case Is = "N3"
+                                    lowflow = 5450
+                                Case Is = "S3"
+                                    lowflow = 5450
+                                Case Is = "T3"
+                                    lowflow = 5450
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "E1"
+                                    lowflow = 7500
+                                Case Is = "E2"
+                                    lowflow = 7500
+                                Case Is = "E3"
+                                    lowflow = 7500
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                    Case Is = "27.5"
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Gas Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "N1"
+                                    lowflow = 4120
+                                Case Is = "S1"
+                                    lowflow = 4120
+                                Case Is = "N3"
+                                    lowflow = 5450
+                                Case Is = "S3"
+                                    lowflow = 5450
+                                Case Is = "T3"
+                                    lowflow = 5450
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                        If frmMain.ThisUnitHeatPerf.HeatType = "Electric Heat" Then
+                            Select Case Mid(frmMain.ThisUnit.ModelNumber, 5, 2)
+                                Case Is = "E1"
+                                    lowflow = 8250
+                                Case Is = "E2"
+                                    lowflow = 8250
+                                Case Is = "E3"
+                                    lowflow = 8250
+                                Case Else
+                                    lowflow = -9999
+                            End Select
+                        End If
+                    Case Else
+                        lowflow = 9999
+                End Select
             Case Is = "Series100"
 
 
@@ -917,6 +1074,22 @@ Public Class frmLowAF
                     Case Else
                         lowflow = -9999
                 End Select
+            Case Is = "Choice"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        lowflow = 4500
+                    Case Is = "17.5"
+                        lowflow = 5400
+                    Case Is = "20.0"
+                        lowflow = 6000
+                    Case Is = "25.0"
+                        lowflow = 7500
+                    Case Is = "27.5"
+                        lowflow = 8000
+                    Case Else
+                        lowflow = -9999
+                End Select
+
             Case Else
                 lowflow = -9999
         End Select

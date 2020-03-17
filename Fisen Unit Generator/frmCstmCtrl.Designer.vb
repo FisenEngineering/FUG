@@ -22,6 +22,7 @@ Partial Class frmCstmCtrl
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCstmCtrl))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -35,30 +36,33 @@ Partial Class frmCstmCtrl
         Me.lstTagAlongs = New System.Windows.Forms.ListBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
+        Me.optUseAux = New System.Windows.Forms.RadioButton()
+        Me.optNoAux = New System.Windows.Forms.RadioButton()
         Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optASE = New System.Windows.Forms.RadioButton()
         Me.optIPU = New System.Windows.Forms.RadioButton()
         Me.optSE = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
-        Me.optUseAux = New System.Windows.Forms.RadioButton()
-        Me.optNoAux = New System.Windows.Forms.RadioButton()
-        Me.optASE = New System.Windows.Forms.RadioButton()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOK
@@ -203,6 +207,50 @@ Partial Class frmCstmCtrl
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.GroupBox3.Controls.Add(Me.optUseAux)
+        Me.GroupBox3.Controls.Add(Me.optNoAux)
+        Me.GroupBox3.Location = New System.Drawing.Point(7, 82)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
+        Me.GroupBox3.TabIndex = 29
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Auxiliary Control Panel"
+        '
+        'cmbAuxPanelOpts
+        '
+        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAuxPanelOpts.FormattingEnabled = True
+        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
+        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
+        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
+        Me.cmbAuxPanelOpts.TabIndex = 29
+        '
+        'optUseAux
+        '
+        Me.optUseAux.AutoSize = True
+        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
+        Me.optUseAux.Name = "optUseAux"
+        Me.optUseAux.Size = New System.Drawing.Size(151, 17)
+        Me.optUseAux.TabIndex = 1
+        Me.optUseAux.TabStop = True
+        Me.optUseAux.Text = "Use Auxiliary Control Panel"
+        Me.optUseAux.UseVisualStyleBackColor = True
+        '
+        'optNoAux
+        '
+        Me.optNoAux.AutoSize = True
+        Me.optNoAux.Checked = True
+        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
+        Me.optNoAux.Name = "optNoAux"
+        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
+        Me.optNoAux.TabIndex = 0
+        Me.optNoAux.TabStop = True
+        Me.optNoAux.Text = "None"
+        Me.optNoAux.UseVisualStyleBackColor = True
+        '
         'chkMountEquipmentTouch
         '
         Me.chkMountEquipmentTouch.AutoSize = True
@@ -260,6 +308,17 @@ Partial Class frmCstmCtrl
         Me.GroupBox1.TabIndex = 26
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Base Unit Control"
+        '
+        'optASE
+        '
+        Me.optASE.AutoSize = True
+        Me.optASE.Location = New System.Drawing.Point(8, 71)
+        Me.optASE.Margin = New System.Windows.Forms.Padding(4)
+        Me.optASE.Name = "optASE"
+        Me.optASE.Size = New System.Drawing.Size(93, 17)
+        Me.optASE.TabIndex = 2
+        Me.optASE.Text = "ASE Controller"
+        Me.optASE.UseVisualStyleBackColor = True
         '
         'optIPU
         '
@@ -323,60 +382,35 @@ Partial Class frmCstmCtrl
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'cmdViewHistory
         '
-        Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
-        Me.GroupBox3.Controls.Add(Me.optUseAux)
-        Me.GroupBox3.Controls.Add(Me.optNoAux)
-        Me.GroupBox3.Location = New System.Drawing.Point(7, 82)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
-        Me.GroupBox3.TabIndex = 29
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auxiliary Control Panel"
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(534, 248)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 14
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'cmbAuxPanelOpts
+        'cmdDesignCautions
         '
-        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbAuxPanelOpts.FormattingEnabled = True
-        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
-        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
-        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
-        Me.cmbAuxPanelOpts.TabIndex = 29
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(570, 248)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 13
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'optUseAux
+        'chkWriteHistory
         '
-        Me.optUseAux.AutoSize = True
-        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
-        Me.optUseAux.Name = "optUseAux"
-        Me.optUseAux.Size = New System.Drawing.Size(151, 17)
-        Me.optUseAux.TabIndex = 1
-        Me.optUseAux.TabStop = True
-        Me.optUseAux.Text = "Use Auxiliary Control Panel"
-        Me.optUseAux.UseVisualStyleBackColor = True
-        '
-        'optNoAux
-        '
-        Me.optNoAux.AutoSize = True
-        Me.optNoAux.Checked = True
-        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
-        Me.optNoAux.Name = "optNoAux"
-        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
-        Me.optNoAux.TabIndex = 0
-        Me.optNoAux.TabStop = True
-        Me.optNoAux.Text = "None"
-        Me.optNoAux.UseVisualStyleBackColor = True
-        '
-        'optASE
-        '
-        Me.optASE.AutoSize = True
-        Me.optASE.Location = New System.Drawing.Point(8, 71)
-        Me.optASE.Margin = New System.Windows.Forms.Padding(4)
-        Me.optASE.Name = "optASE"
-        Me.optASE.Size = New System.Drawing.Size(93, 17)
-        Me.optASE.TabIndex = 2
-        Me.optASE.Text = "ASE Controller"
-        Me.optASE.UseVisualStyleBackColor = True
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(226, 260)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 15
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frmCstmCtrl
         '
@@ -384,6 +418,9 @@ Partial Class frmCstmCtrl
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(612, 290)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -397,13 +434,14 @@ Partial Class frmCstmCtrl
         Me.tpgConditions.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -436,4 +474,7 @@ Partial Class frmCstmCtrl
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
     Friend WithEvents optASE As RadioButton
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

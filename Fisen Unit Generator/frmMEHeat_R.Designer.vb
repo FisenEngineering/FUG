@@ -60,12 +60,15 @@ Partial Class frmMEHeat_R
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -169,9 +172,9 @@ Partial Class frmMEHeat_R
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
+        Me.tpgOptions.Controls.Add(Me.GroupBox2)
         Me.tpgOptions.Controls.Add(Me.chkFisenInstallsJCI)
-        Me.tpgOptions.Controls.Add(Me.optFieldSCR)
-        Me.tpgOptions.Controls.Add(Me.optFisenSCR)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
@@ -186,7 +189,7 @@ Partial Class frmMEHeat_R
         'chkFisenInstallsJCI
         '
         Me.chkFisenInstallsJCI.AutoSize = True
-        Me.chkFisenInstallsJCI.Location = New System.Drawing.Point(23, 98)
+        Me.chkFisenInstallsJCI.Location = New System.Drawing.Point(12, 82)
         Me.chkFisenInstallsJCI.Margin = New System.Windows.Forms.Padding(4)
         Me.chkFisenInstallsJCI.Name = "chkFisenInstallsJCI"
         Me.chkFisenInstallsJCI.Size = New System.Drawing.Size(139, 17)
@@ -197,7 +200,7 @@ Partial Class frmMEHeat_R
         'optFieldSCR
         '
         Me.optFieldSCR.AutoSize = True
-        Me.optFieldSCR.Location = New System.Drawing.Point(23, 49)
+        Me.optFieldSCR.Location = New System.Drawing.Point(6, 42)
         Me.optFieldSCR.Name = "optFieldSCR"
         Me.optFieldSCR.Size = New System.Drawing.Size(222, 17)
         Me.optFieldSCR.TabIndex = 12
@@ -208,7 +211,7 @@ Partial Class frmMEHeat_R
         '
         Me.optFisenSCR.AutoSize = True
         Me.optFisenSCR.Checked = True
-        Me.optFisenSCR.Location = New System.Drawing.Point(23, 22)
+        Me.optFisenSCR.Location = New System.Drawing.Point(6, 19)
         Me.optFisenSCR.Name = "optFisenSCR"
         Me.optFisenSCR.Size = New System.Drawing.Size(117, 17)
         Me.optFisenSCR.TabIndex = 11
@@ -220,7 +223,7 @@ Partial Class frmMEHeat_R
         '
         Me.chkMountEquipmentTouch.AutoSize = True
         Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(42, 150)
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(38, 132)
         Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
         Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
         Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
@@ -231,7 +234,7 @@ Partial Class frmMEHeat_R
         'chkIncludeEquipmentTouch
         '
         Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(23, 127)
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(12, 107)
         Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
         Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
         Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
@@ -505,6 +508,28 @@ Partial Class frmMEHeat_R
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.optFisenSCR)
+        Me.GroupBox2.Controls.Add(Me.optFieldSCR)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(242, 63)
+        Me.GroupBox2.TabIndex = 14
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Modulation Source"
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(12, 157)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(142, 17)
+        Me.chk65kASCCRBase.TabIndex = 15
+        Me.chk65kASCCRBase.Text = "Base Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'frmMEHeat_R
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -527,6 +552,8 @@ Partial Class frmMEHeat_R
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -569,4 +596,6 @@ Partial Class frmMEHeat_R
     Friend WithEvents chkFisenInstallsJCI As CheckBox
     Friend WithEvents optCustomCtrl As RadioButton
     Friend WithEvents opt100OACapable As RadioButton
+    Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents GroupBox2 As GroupBox
 End Class

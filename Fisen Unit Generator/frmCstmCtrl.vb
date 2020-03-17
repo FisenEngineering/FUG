@@ -5,6 +5,8 @@ Public Class frmCstmCtrl
     Private pModsSelected As Integer()
     Private pTagALongsSelected As New ArrayList
     Private pTagALongParent As New ArrayList
+    Private pSelectedCodes As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -209,6 +211,7 @@ Public Class frmCstmCtrl
             }
 
         MySQL2 = "SELECT COUNT(*) as RowCount FROM tblCstmCtrl INNER JOIN tblCstmTagALong ON tblCstmCtrl.CstmCode = tblCstmTagALong.CstmCode WHERE (((tblCstmCtrl.CstmFIOP)='" & loccode & "'))"
+
         rs2.Open(MySQL2, con2)
         Reccount = rs2.Fields("RowCount").Value
         rs2.Close()
@@ -219,6 +222,7 @@ Public Class frmCstmCtrl
             rs2.Open(MySQL2, con2)
             lstTagAlongs.Items.Clear()
             lblCurrentCode.Text = rs2.Fields("CstmCode").Value
+
 
             Do While Not (rs2.EOF)
 
@@ -397,11 +401,76 @@ Public Class frmCstmCtrl
         con.Close()
         rs = Nothing
         con = Nothing
-        Me.Hide()
 
         'Add Auxillary Panel if selected
         Call AuxPanelCodeInsert() 'v1.0
+        If chkWriteHistory.Checked = True Then Call WriteHistory()
+        Me.Hide()
+    End Sub
+    Private Sub WriteHistory()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific 
+        Dim CstmCode, CstmDesc, Controller As String
 
+        Dim i As Integer
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+        }
+
+        Controller = "Unselected"
+        If optSE.Checked Then Controller = "SE"
+        If optIPU.Checked Then Controller = "IPU"
+        If optASE.Checked Then Controller = "ASE"
+
+        For i = 0 To lstItemsInDB.SelectedItems.Count - 1
+            MySQL = "Select * FROM tblCstmCtrl WHERE (CstmFIOP='" & lstItemsInDB.SelectedItems(i).ToString & "')"
+            rs.Open(MySQL, con)
+            pSelectedCodes.Add(rs.Fields("CstmCode").Value)
+            rs.Close()
+        Next i
+
+
+        For i = 1 To lstItemsInDB.SelectedItems.Count
+
+            CstmDesc = lstItemsInDB.SelectedItems(i - 1).ToString
+            CstmCode = pSelectedCodes.Item(i - 1)
+
+            MySQL = "Select * FROM tblHistoryCstmCtrl WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (CustomCode='" & CstmCode & "')"
+            rs.Open(MySQL, con)
+
+            If rs.RecordCount > 0 Then
+                'Update SQL
+                ExistingRecordID = rs.Fields(0).Value
+                MySQL = "UPDATE tblHistoryCstmCtrl SET Controller='" & Controller & "', CustomCode='" & CstmCode & "', " & "CustomDescription='" & CstmDesc & "' WHERE ID=" & ExistingRecordID
+                con.Execute(MySQL)
+            Else
+                'Insert SQL
+                MySQL = "INSERT INTO tblHistoryCstmCtrl (JobName,UnitID,Version,ModelNumber,CustomCode,CustomDescription,Controller) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & CstmCode & "','" & CstmDesc & "','" & Controller & "')"
+                con.Execute(MySQL)
+            End If
+            rs.Close()
+
+        Next i
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
     End Sub
     Private Sub AuxPanelCodeInsert()
         'V1.0
@@ -469,7 +538,7 @@ Public Class frmCstmCtrl
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
 
-        MySQL2 = "SELECT COUNT(*) as RowCount FROM tblCstmJCIRequired WHERE CstmFIOPID='" & loccode & "'"
+        MySQL2 = "Select COUNT(*) As RowCount FROM tblCstmJCIRequired WHERE CstmFIOPID='" & loccode & "'"
         lrs.Open(MySQL2, lcon)
         reccount = lrs.Fields("RowCount").Value
         lrs.Close()
@@ -597,5 +666,10 @@ Public Class frmCstmCtrl
 
     Private Sub optUseAux_CheckedChanged(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
         Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "100OA"
+        frmHistoryReport.Show()
     End Sub
 End Class

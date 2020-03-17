@@ -23,8 +23,24 @@ Partial Class frmPipePkg
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPipePkg))
         Me.tbcPipePkg = New System.Windows.Forms.TabControl()
         Me.pgSpecialities = New System.Windows.Forms.TabPage()
+        Me.optODPPumpMotor = New System.Windows.Forms.RadioButton()
+        Me.grpPumpMotorStyle = New System.Windows.Forms.GroupBox()
+        Me.nudPumpCount = New System.Windows.Forms.NumericUpDown()
+        Me.cmbPumpStyle = New System.Windows.Forms.ComboBox()
+        Me.Label51 = New System.Windows.Forms.Label()
+        Me.cmbPotFeedSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbInsSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbGMUSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbStrainSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbAirSepSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbExpTankSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbBuffTankSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbSucDiffSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbTDVSpec = New System.Windows.Forms.ComboBox()
+        Me.cmbPumpSpec = New System.Windows.Forms.ComboBox()
         Me.Label50 = New System.Windows.Forms.Label()
         Me.Label49 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
@@ -39,7 +55,7 @@ Partial Class frmPipePkg
         Me.optPkgAHU = New System.Windows.Forms.RadioButton()
         Me.optPkgSkid = New System.Windows.Forms.RadioButton()
         Me.optPkgIntegral = New System.Windows.Forms.RadioButton()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.chkScopePotFeed = New System.Windows.Forms.CheckBox()
         Me.btnDoneProposal = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.optCoilHeadSpec = New System.Windows.Forms.RadioButton()
@@ -171,6 +187,10 @@ Partial Class frmPipePkg
         Me.SpecPDrop = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnDoneSpecialties = New System.Windows.Forms.Button()
         Me.pgSpecOpt = New System.Windows.Forms.TabPage()
+        Me.grpTDVOptions = New System.Windows.Forms.GroupBox()
+        Me.RadioButton7 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton6 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton5 = New System.Windows.Forms.RadioButton()
         Me.grpBufferTankOpts = New System.Windows.Forms.GroupBox()
         Me.grpBTDrain = New System.Windows.Forms.GroupBox()
         Me.optBTDrainNone = New System.Windows.Forms.RadioButton()
@@ -213,7 +233,6 @@ Partial Class frmPipePkg
         Me.Label30 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
-        Me.cmbPumpStyle = New System.Windows.Forms.ComboBox()
         Me.btnDonePumps = New System.Windows.Forms.Button()
         Me.pgCouplings = New System.Windows.Forms.TabPage()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -283,18 +302,14 @@ Partial Class frmPipePkg
         Me.txtPackagePD = New System.Windows.Forms.TextBox()
         Me.txtWeightPerGallon = New System.Windows.Forms.TextBox()
         Me.txtFluidSG = New System.Windows.Forms.TextBox()
-        Me.cmbPumpSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbTDVSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbSucDiffSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbBuffTankSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbStrainSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbAirSepSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbExpTankSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbPotFeedSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbInsSpec = New System.Windows.Forms.ComboBox()
-        Me.cmbGMUSpec = New System.Windows.Forms.ComboBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.optTEFCPumpMotor = New System.Windows.Forms.RadioButton()
+        Me.optPumpMotorNA = New System.Windows.Forms.RadioButton()
         Me.tbcPipePkg.SuspendLayout()
         Me.pgSpecialities.SuspendLayout()
+        Me.grpPumpMotorStyle.SuspendLayout()
+        CType(Me.nudPumpCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpPkgModel.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.pgHydronicDwg.SuspendLayout()
@@ -311,6 +326,7 @@ Partial Class frmPipePkg
         CType(Me.gridAvailItems, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gridSepecialties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pgSpecOpt.SuspendLayout()
+        Me.grpTDVOptions.SuspendLayout()
         Me.grpBufferTankOpts.SuspendLayout()
         Me.grpBTDrain.SuspendLayout()
         Me.grpBTVenting.SuspendLayout()
@@ -354,6 +370,10 @@ Partial Class frmPipePkg
         '
         'pgSpecialities
         '
+        Me.pgSpecialities.Controls.Add(Me.grpPumpMotorStyle)
+        Me.pgSpecialities.Controls.Add(Me.nudPumpCount)
+        Me.pgSpecialities.Controls.Add(Me.cmbPumpStyle)
+        Me.pgSpecialities.Controls.Add(Me.Label51)
         Me.pgSpecialities.Controls.Add(Me.cmbPotFeedSpec)
         Me.pgSpecialities.Controls.Add(Me.cmbInsSpec)
         Me.pgSpecialities.Controls.Add(Me.cmbGMUSpec)
@@ -373,7 +393,7 @@ Partial Class frmPipePkg
         Me.pgSpecialities.Controls.Add(Me.txtFlowHeat)
         Me.pgSpecialities.Controls.Add(Me.Label47)
         Me.pgSpecialities.Controls.Add(Me.grpPkgModel)
-        Me.pgSpecialities.Controls.Add(Me.CheckBox1)
+        Me.pgSpecialities.Controls.Add(Me.chkScopePotFeed)
         Me.pgSpecialities.Controls.Add(Me.btnDoneProposal)
         Me.pgSpecialities.Controls.Add(Me.GroupBox3)
         Me.pgSpecialities.Controls.Add(Me.Label12)
@@ -397,6 +417,161 @@ Partial Class frmPipePkg
         Me.pgSpecialities.TabIndex = 3
         Me.pgSpecialities.Text = "Proposal"
         Me.pgSpecialities.UseVisualStyleBackColor = True
+        '
+        'optODPPumpMotor
+        '
+        Me.optODPPumpMotor.AutoSize = True
+        Me.optODPPumpMotor.Location = New System.Drawing.Point(6, 20)
+        Me.optODPPumpMotor.Name = "optODPPumpMotor"
+        Me.optODPPumpMotor.Size = New System.Drawing.Size(48, 17)
+        Me.optODPPumpMotor.TabIndex = 83
+        Me.optODPPumpMotor.Text = "ODP"
+        Me.optODPPumpMotor.UseVisualStyleBackColor = True
+        '
+        'grpPumpMotorStyle
+        '
+        Me.grpPumpMotorStyle.Controls.Add(Me.optPumpMotorNA)
+        Me.grpPumpMotorStyle.Controls.Add(Me.optTEFCPumpMotor)
+        Me.grpPumpMotorStyle.Controls.Add(Me.optODPPumpMotor)
+        Me.grpPumpMotorStyle.Location = New System.Drawing.Point(597, 80)
+        Me.grpPumpMotorStyle.Name = "grpPumpMotorStyle"
+        Me.grpPumpMotorStyle.Size = New System.Drawing.Size(180, 46)
+        Me.grpPumpMotorStyle.TabIndex = 82
+        Me.grpPumpMotorStyle.TabStop = False
+        Me.grpPumpMotorStyle.Text = "Motor Type"
+        '
+        'nudPumpCount
+        '
+        Me.nudPumpCount.Location = New System.Drawing.Point(360, 97)
+        Me.nudPumpCount.Maximum = New Decimal(New Integer() {3, 0, 0, 0})
+        Me.nudPumpCount.Name = "nudPumpCount"
+        Me.nudPumpCount.Size = New System.Drawing.Size(46, 20)
+        Me.nudPumpCount.TabIndex = 81
+        Me.nudPumpCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'cmbPumpStyle
+        '
+        Me.cmbPumpStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPumpStyle.Enabled = False
+        Me.cmbPumpStyle.FormattingEnabled = True
+        Me.cmbPumpStyle.Items.AddRange(New Object() {"Close Coupled Dual Arm", "Close Coupled Twin Pump", "Close Coupled Vertical Inline", "Split Coupled Twin Pump", "Split Coupled Dual Arm", "Split Coupled Vertical Inline", "Split Coupled End Suction"})
+        Me.cmbPumpStyle.Location = New System.Drawing.Point(412, 96)
+        Me.cmbPumpStyle.Name = "cmbPumpStyle"
+        Me.cmbPumpStyle.Size = New System.Drawing.Size(173, 21)
+        Me.cmbPumpStyle.TabIndex = 42
+        '
+        'Label51
+        '
+        Me.Label51.AutoSize = True
+        Me.Label51.Location = New System.Drawing.Point(243, 80)
+        Me.Label51.Name = "Label51"
+        Me.Label51.Size = New System.Drawing.Size(35, 13)
+        Me.Label51.TabIndex = 41
+        Me.Label51.Text = "Brand"
+        Me.Label51.Visible = False
+        '
+        'cmbPotFeedSpec
+        '
+        Me.cmbPotFeedSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPotFeedSpec.FormattingEnabled = True
+        Me.cmbPotFeedSpec.Items.AddRange(New Object() {"Use Standard", "Not Required"})
+        Me.cmbPotFeedSpec.Location = New System.Drawing.Point(164, 305)
+        Me.cmbPotFeedSpec.Name = "cmbPotFeedSpec"
+        Me.cmbPotFeedSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPotFeedSpec.TabIndex = 40
+        '
+        'cmbInsSpec
+        '
+        Me.cmbInsSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbInsSpec.FormattingEnabled = True
+        Me.cmbInsSpec.Items.AddRange(New Object() {"Use Standard", "Super Duper", "Not Required"})
+        Me.cmbInsSpec.Location = New System.Drawing.Point(164, 332)
+        Me.cmbInsSpec.Name = "cmbInsSpec"
+        Me.cmbInsSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbInsSpec.TabIndex = 39
+        '
+        'cmbGMUSpec
+        '
+        Me.cmbGMUSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbGMUSpec.FormattingEnabled = True
+        Me.cmbGMUSpec.Items.AddRange(New Object() {"Use Standard", "GMUs are Us", "Not Required"})
+        Me.cmbGMUSpec.Location = New System.Drawing.Point(164, 278)
+        Me.cmbGMUSpec.Name = "cmbGMUSpec"
+        Me.cmbGMUSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbGMUSpec.TabIndex = 38
+        '
+        'cmbStrainSpec
+        '
+        Me.cmbStrainSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbStrainSpec.FormattingEnabled = True
+        Me.cmbStrainSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Not Required"})
+        Me.cmbStrainSpec.Location = New System.Drawing.Point(164, 252)
+        Me.cmbStrainSpec.Name = "cmbStrainSpec"
+        Me.cmbStrainSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbStrainSpec.TabIndex = 37
+        '
+        'cmbAirSepSpec
+        '
+        Me.cmbAirSepSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAirSepSpec.FormattingEnabled = True
+        Me.cmbAirSepSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Honeywell", "Not Required"})
+        Me.cmbAirSepSpec.Location = New System.Drawing.Point(164, 226)
+        Me.cmbAirSepSpec.Name = "cmbAirSepSpec"
+        Me.cmbAirSepSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbAirSepSpec.TabIndex = 36
+        '
+        'cmbExpTankSpec
+        '
+        Me.cmbExpTankSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbExpTankSpec.FormattingEnabled = True
+        Me.cmbExpTankSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Not Required"})
+        Me.cmbExpTankSpec.Location = New System.Drawing.Point(164, 200)
+        Me.cmbExpTankSpec.Name = "cmbExpTankSpec"
+        Me.cmbExpTankSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbExpTankSpec.TabIndex = 35
+        '
+        'cmbBuffTankSpec
+        '
+        Me.cmbBuffTankSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBuffTankSpec.FormattingEnabled = True
+        Me.cmbBuffTankSpec.Items.AddRange(New Object() {"Use Standard", "Niles Steel Tank", "Buckeye Fabrication", "Elbi", "Not Required"})
+        Me.cmbBuffTankSpec.Location = New System.Drawing.Point(164, 174)
+        Me.cmbBuffTankSpec.Name = "cmbBuffTankSpec"
+        Me.cmbBuffTankSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbBuffTankSpec.TabIndex = 34
+        '
+        'cmbSucDiffSpec
+        '
+        Me.cmbSucDiffSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSucDiffSpec.Enabled = False
+        Me.cmbSucDiffSpec.FormattingEnabled = True
+        Me.cmbSucDiffSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Not Required"})
+        Me.cmbSucDiffSpec.Location = New System.Drawing.Point(164, 148)
+        Me.cmbSucDiffSpec.Name = "cmbSucDiffSpec"
+        Me.cmbSucDiffSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbSucDiffSpec.TabIndex = 33
+        '
+        'cmbTDVSpec
+        '
+        Me.cmbTDVSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTDVSpec.Enabled = False
+        Me.cmbTDVSpec.FormattingEnabled = True
+        Me.cmbTDVSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Not Required"})
+        Me.cmbTDVSpec.Location = New System.Drawing.Point(164, 122)
+        Me.cmbTDVSpec.Name = "cmbTDVSpec"
+        Me.cmbTDVSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbTDVSpec.TabIndex = 32
+        '
+        'cmbPumpSpec
+        '
+        Me.cmbPumpSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPumpSpec.Enabled = False
+        Me.cmbPumpSpec.FormattingEnabled = True
+        Me.cmbPumpSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Not Required"})
+        Me.cmbPumpSpec.Location = New System.Drawing.Point(164, 96)
+        Me.cmbPumpSpec.Name = "cmbPumpSpec"
+        Me.cmbPumpSpec.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPumpSpec.TabIndex = 31
         '
         'Label50
         '
@@ -545,15 +720,15 @@ Partial Class frmPipePkg
         Me.optPkgIntegral.Text = "Integral Chiller"
         Me.optPkgIntegral.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'chkScopePotFeed
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(9, 311)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(124, 17)
-        Me.CheckBox1.TabIndex = 21
-        Me.CheckBox1.Text = "Chemical Pot Feeder"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.chkScopePotFeed.AutoSize = True
+        Me.chkScopePotFeed.Location = New System.Drawing.Point(9, 307)
+        Me.chkScopePotFeed.Name = "chkScopePotFeed"
+        Me.chkScopePotFeed.Size = New System.Drawing.Size(124, 17)
+        Me.chkScopePotFeed.TabIndex = 21
+        Me.chkScopePotFeed.Text = "Chemical Pot Feeder"
+        Me.chkScopePotFeed.UseVisualStyleBackColor = True
         '
         'btnDoneProposal
         '
@@ -731,7 +906,7 @@ Partial Class frmPipePkg
         'chkScopeSuctionDiff
         '
         Me.chkScopeSuctionDiff.AutoSize = True
-        Me.chkScopeSuctionDiff.Location = New System.Drawing.Point(9, 129)
+        Me.chkScopeSuctionDiff.Location = New System.Drawing.Point(9, 150)
         Me.chkScopeSuctionDiff.Name = "chkScopeSuctionDiff"
         Me.chkScopeSuctionDiff.Size = New System.Drawing.Size(98, 17)
         Me.chkScopeSuctionDiff.TabIndex = 12
@@ -741,7 +916,7 @@ Partial Class frmPipePkg
         'chkScopeTDV
         '
         Me.chkScopeTDV.AutoSize = True
-        Me.chkScopeTDV.Location = New System.Drawing.Point(9, 103)
+        Me.chkScopeTDV.Location = New System.Drawing.Point(9, 124)
         Me.chkScopeTDV.Name = "chkScopeTDV"
         Me.chkScopeTDV.Size = New System.Drawing.Size(107, 17)
         Me.chkScopeTDV.TabIndex = 11
@@ -760,7 +935,7 @@ Partial Class frmPipePkg
         'chkScopeStrainer
         '
         Me.chkScopeStrainer.AutoSize = True
-        Me.chkScopeStrainer.Location = New System.Drawing.Point(9, 233)
+        Me.chkScopeStrainer.Location = New System.Drawing.Point(9, 254)
         Me.chkScopeStrainer.Name = "chkScopeStrainer"
         Me.chkScopeStrainer.Size = New System.Drawing.Size(62, 17)
         Me.chkScopeStrainer.TabIndex = 6
@@ -770,7 +945,7 @@ Partial Class frmPipePkg
         'chkScopeInsulation
         '
         Me.chkScopeInsulation.AutoSize = True
-        Me.chkScopeInsulation.Location = New System.Drawing.Point(9, 285)
+        Me.chkScopeInsulation.Location = New System.Drawing.Point(9, 334)
         Me.chkScopeInsulation.Name = "chkScopeInsulation"
         Me.chkScopeInsulation.Size = New System.Drawing.Size(71, 17)
         Me.chkScopeInsulation.TabIndex = 5
@@ -780,7 +955,7 @@ Partial Class frmPipePkg
         'chkScopeGMU
         '
         Me.chkScopeGMU.AutoSize = True
-        Me.chkScopeGMU.Location = New System.Drawing.Point(9, 259)
+        Me.chkScopeGMU.Location = New System.Drawing.Point(9, 280)
         Me.chkScopeGMU.Name = "chkScopeGMU"
         Me.chkScopeGMU.Size = New System.Drawing.Size(51, 17)
         Me.chkScopeGMU.TabIndex = 4
@@ -790,7 +965,7 @@ Partial Class frmPipePkg
         'chkScopeExpansionTank
         '
         Me.chkScopeExpansionTank.AutoSize = True
-        Me.chkScopeExpansionTank.Location = New System.Drawing.Point(9, 181)
+        Me.chkScopeExpansionTank.Location = New System.Drawing.Point(9, 202)
         Me.chkScopeExpansionTank.Name = "chkScopeExpansionTank"
         Me.chkScopeExpansionTank.Size = New System.Drawing.Size(103, 17)
         Me.chkScopeExpansionTank.TabIndex = 3
@@ -800,7 +975,7 @@ Partial Class frmPipePkg
         'chkScopeAirSeparator
         '
         Me.chkScopeAirSeparator.AutoSize = True
-        Me.chkScopeAirSeparator.Location = New System.Drawing.Point(9, 207)
+        Me.chkScopeAirSeparator.Location = New System.Drawing.Point(9, 228)
         Me.chkScopeAirSeparator.Name = "chkScopeAirSeparator"
         Me.chkScopeAirSeparator.Size = New System.Drawing.Size(87, 17)
         Me.chkScopeAirSeparator.TabIndex = 2
@@ -810,7 +985,7 @@ Partial Class frmPipePkg
         'chkScopePumps
         '
         Me.chkScopePumps.AutoSize = True
-        Me.chkScopePumps.Location = New System.Drawing.Point(9, 77)
+        Me.chkScopePumps.Location = New System.Drawing.Point(9, 98)
         Me.chkScopePumps.Name = "chkScopePumps"
         Me.chkScopePumps.Size = New System.Drawing.Size(64, 17)
         Me.chkScopePumps.TabIndex = 1
@@ -820,7 +995,7 @@ Partial Class frmPipePkg
         'chkScopeBufferTank
         '
         Me.chkScopeBufferTank.AutoSize = True
-        Me.chkScopeBufferTank.Location = New System.Drawing.Point(9, 155)
+        Me.chkScopeBufferTank.Location = New System.Drawing.Point(9, 176)
         Me.chkScopeBufferTank.Name = "chkScopeBufferTank"
         Me.chkScopeBufferTank.Size = New System.Drawing.Size(82, 17)
         Me.chkScopeBufferTank.TabIndex = 0
@@ -1868,6 +2043,7 @@ Partial Class frmPipePkg
         '
         'pgSpecOpt
         '
+        Me.pgSpecOpt.Controls.Add(Me.grpTDVOptions)
         Me.pgSpecOpt.Controls.Add(Me.grpBufferTankOpts)
         Me.pgSpecOpt.Location = New System.Drawing.Point(4, 22)
         Me.pgSpecOpt.Name = "pgSpecOpt"
@@ -1875,6 +2051,52 @@ Partial Class frmPipePkg
         Me.pgSpecOpt.TabIndex = 8
         Me.pgSpecOpt.Text = "Specialty Options"
         Me.pgSpecOpt.UseVisualStyleBackColor = True
+        '
+        'grpTDVOptions
+        '
+        Me.grpTDVOptions.Controls.Add(Me.RadioButton7)
+        Me.grpTDVOptions.Controls.Add(Me.RadioButton6)
+        Me.grpTDVOptions.Controls.Add(Me.RadioButton5)
+        Me.grpTDVOptions.Location = New System.Drawing.Point(16, 23)
+        Me.grpTDVOptions.Name = "grpTDVOptions"
+        Me.grpTDVOptions.Size = New System.Drawing.Size(117, 88)
+        Me.grpTDVOptions.TabIndex = 1
+        Me.grpTDVOptions.TabStop = False
+        Me.grpTDVOptions.Text = "Triple Duty Valve(s)"
+        '
+        'RadioButton7
+        '
+        Me.RadioButton7.AutoSize = True
+        Me.RadioButton7.Enabled = False
+        Me.RadioButton7.Location = New System.Drawing.Point(6, 65)
+        Me.RadioButton7.Name = "RadioButton7"
+        Me.RadioButton7.Size = New System.Drawing.Size(64, 17)
+        Me.RadioButton7.TabIndex = 5
+        Me.RadioButton7.Text = "Straight "
+        Me.RadioButton7.UseVisualStyleBackColor = True
+        '
+        'RadioButton6
+        '
+        Me.RadioButton6.AutoSize = True
+        Me.RadioButton6.Enabled = False
+        Me.RadioButton6.Location = New System.Drawing.Point(6, 42)
+        Me.RadioButton6.Name = "RadioButton6"
+        Me.RadioButton6.Size = New System.Drawing.Size(52, 17)
+        Me.RadioButton6.TabIndex = 4
+        Me.RadioButton6.Text = "Angle"
+        Me.RadioButton6.UseVisualStyleBackColor = True
+        '
+        'RadioButton5
+        '
+        Me.RadioButton5.AutoSize = True
+        Me.RadioButton5.Checked = True
+        Me.RadioButton5.Location = New System.Drawing.Point(6, 19)
+        Me.RadioButton5.Name = "RadioButton5"
+        Me.RadioButton5.Size = New System.Drawing.Size(88, 17)
+        Me.RadioButton5.TabIndex = 3
+        Me.RadioButton5.TabStop = True
+        Me.RadioButton5.Text = "Not Required"
+        Me.RadioButton5.UseVisualStyleBackColor = True
         '
         'grpBufferTankOpts
         '
@@ -2206,7 +2428,6 @@ Partial Class frmPipePkg
         Me.pgPumps.Controls.Add(Me.Label30)
         Me.pgPumps.Controls.Add(Me.Label29)
         Me.pgPumps.Controls.Add(Me.Label28)
-        Me.pgPumps.Controls.Add(Me.cmbPumpStyle)
         Me.pgPumps.Controls.Add(Me.btnDonePumps)
         Me.pgPumps.Location = New System.Drawing.Point(4, 22)
         Me.pgPumps.Margin = New System.Windows.Forms.Padding(4)
@@ -2297,16 +2518,6 @@ Partial Class frmPipePkg
         Me.Label28.Size = New System.Drawing.Size(112, 13)
         Me.Label28.TabIndex = 23
         Me.Label28.Text = "Pump Count and Style"
-        '
-        'cmbPumpStyle
-        '
-        Me.cmbPumpStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbPumpStyle.FormattingEnabled = True
-        Me.cmbPumpStyle.Items.AddRange(New Object() {"1 Close Coupled Dual Arm", "1 Split Coupled Dual Arm", "1 Close Coupled Twin Pump", "1 Split Coupled Twin Pump", "1 Close Coupled Vertical Inline", "1 Split Coupled Vertical Inline", "2 Close Coupled Vertical Inline", "2 Spllt Coupled Vertical Inline", "1 Split Coupled End Suction", "2 Split End Suction "})
-        Me.cmbPumpStyle.Location = New System.Drawing.Point(54, 38)
-        Me.cmbPumpStyle.Name = "cmbPumpStyle"
-        Me.cmbPumpStyle.Size = New System.Drawing.Size(243, 21)
-        Me.cmbPumpStyle.TabIndex = 22
         '
         'btnDonePumps
         '
@@ -3028,111 +3239,53 @@ Partial Class frmPipePkg
         Me.txtFluidSG.Text = "1.00"
         Me.txtFluidSG.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'cmbPumpSpec
+        'cmdViewHistory
         '
-        Me.cmbPumpSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbPumpSpec.FormattingEnabled = True
-        Me.cmbPumpSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
-        Me.cmbPumpSpec.Location = New System.Drawing.Point(164, 75)
-        Me.cmbPumpSpec.Name = "cmbPumpSpec"
-        Me.cmbPumpSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbPumpSpec.TabIndex = 31
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(1123, 612)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 61
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'cmbTDVSpec
+        'cmdDesignCautions
         '
-        Me.cmbTDVSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTDVSpec.FormattingEnabled = True
-        Me.cmbTDVSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
-        Me.cmbTDVSpec.Location = New System.Drawing.Point(164, 101)
-        Me.cmbTDVSpec.Name = "cmbTDVSpec"
-        Me.cmbTDVSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbTDVSpec.TabIndex = 32
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(1159, 612)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 60
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'cmbSucDiffSpec
+        'optTEFCPumpMotor
         '
-        Me.cmbSucDiffSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSucDiffSpec.FormattingEnabled = True
-        Me.cmbSucDiffSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
-        Me.cmbSucDiffSpec.Location = New System.Drawing.Point(164, 127)
-        Me.cmbSucDiffSpec.Name = "cmbSucDiffSpec"
-        Me.cmbSucDiffSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbSucDiffSpec.TabIndex = 33
+        Me.optTEFCPumpMotor.AutoSize = True
+        Me.optTEFCPumpMotor.Location = New System.Drawing.Point(63, 20)
+        Me.optTEFCPumpMotor.Name = "optTEFCPumpMotor"
+        Me.optTEFCPumpMotor.Size = New System.Drawing.Size(52, 17)
+        Me.optTEFCPumpMotor.TabIndex = 84
+        Me.optTEFCPumpMotor.Text = "TEFC"
+        Me.optTEFCPumpMotor.UseVisualStyleBackColor = True
         '
-        'cmbBuffTankSpec
+        'optPumpMotorNA
         '
-        Me.cmbBuffTankSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbBuffTankSpec.FormattingEnabled = True
-        Me.cmbBuffTankSpec.Items.AddRange(New Object() {"Use Standard", "Niles Steel Tank", "Buckeye Fabrication", "Elbi"})
-        Me.cmbBuffTankSpec.Location = New System.Drawing.Point(164, 153)
-        Me.cmbBuffTankSpec.Name = "cmbBuffTankSpec"
-        Me.cmbBuffTankSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbBuffTankSpec.TabIndex = 34
-        '
-        'cmbStrainSpec
-        '
-        Me.cmbStrainSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbStrainSpec.FormattingEnabled = True
-        Me.cmbStrainSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
-        Me.cmbStrainSpec.Location = New System.Drawing.Point(164, 231)
-        Me.cmbStrainSpec.Name = "cmbStrainSpec"
-        Me.cmbStrainSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbStrainSpec.TabIndex = 37
-        '
-        'cmbAirSepSpec
-        '
-        Me.cmbAirSepSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbAirSepSpec.FormattingEnabled = True
-        Me.cmbAirSepSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco", "Honeywell"})
-        Me.cmbAirSepSpec.Location = New System.Drawing.Point(164, 205)
-        Me.cmbAirSepSpec.Name = "cmbAirSepSpec"
-        Me.cmbAirSepSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbAirSepSpec.TabIndex = 36
-        '
-        'cmbExpTankSpec
-        '
-        Me.cmbExpTankSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbExpTankSpec.FormattingEnabled = True
-        Me.cmbExpTankSpec.Items.AddRange(New Object() {"Use Standard", "Armstrong", "Bell and Gossett", "Taco"})
-        Me.cmbExpTankSpec.Location = New System.Drawing.Point(164, 179)
-        Me.cmbExpTankSpec.Name = "cmbExpTankSpec"
-        Me.cmbExpTankSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbExpTankSpec.TabIndex = 35
-        '
-        'cmbPotFeedSpec
-        '
-        Me.cmbPotFeedSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbPotFeedSpec.FormattingEnabled = True
-        Me.cmbPotFeedSpec.Items.AddRange(New Object() {"Use Standard"})
-        Me.cmbPotFeedSpec.Location = New System.Drawing.Point(164, 309)
-        Me.cmbPotFeedSpec.Name = "cmbPotFeedSpec"
-        Me.cmbPotFeedSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbPotFeedSpec.TabIndex = 40
-        '
-        'cmbInsSpec
-        '
-        Me.cmbInsSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbInsSpec.FormattingEnabled = True
-        Me.cmbInsSpec.Items.AddRange(New Object() {"Use Standard"})
-        Me.cmbInsSpec.Location = New System.Drawing.Point(164, 283)
-        Me.cmbInsSpec.Name = "cmbInsSpec"
-        Me.cmbInsSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbInsSpec.TabIndex = 39
-        '
-        'cmbGMUSpec
-        '
-        Me.cmbGMUSpec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbGMUSpec.FormattingEnabled = True
-        Me.cmbGMUSpec.Items.AddRange(New Object() {"Use Standard"})
-        Me.cmbGMUSpec.Location = New System.Drawing.Point(164, 257)
-        Me.cmbGMUSpec.Name = "cmbGMUSpec"
-        Me.cmbGMUSpec.Size = New System.Drawing.Size(190, 21)
-        Me.cmbGMUSpec.TabIndex = 38
+        Me.optPumpMotorNA.AutoSize = True
+        Me.optPumpMotorNA.Checked = True
+        Me.optPumpMotorNA.Location = New System.Drawing.Point(121, 20)
+        Me.optPumpMotorNA.Name = "optPumpMotorNA"
+        Me.optPumpMotorNA.Size = New System.Drawing.Size(45, 17)
+        Me.optPumpMotorNA.TabIndex = 85
+        Me.optPumpMotorNA.TabStop = True
+        Me.optPumpMotorNA.Text = "N/A"
+        Me.optPumpMotorNA.UseVisualStyleBackColor = True
         '
         'frmPipePkg
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1201, 653)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.txtFluidSG)
         Me.Controls.Add(Me.Label41)
         Me.Controls.Add(Me.txtWeightPerGallon)
@@ -3156,6 +3309,9 @@ Partial Class frmPipePkg
         Me.tbcPipePkg.ResumeLayout(False)
         Me.pgSpecialities.ResumeLayout(False)
         Me.pgSpecialities.PerformLayout()
+        Me.grpPumpMotorStyle.ResumeLayout(False)
+        Me.grpPumpMotorStyle.PerformLayout()
+        CType(Me.nudPumpCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpPkgModel.ResumeLayout(False)
         Me.grpPkgModel.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
@@ -3177,6 +3333,8 @@ Partial Class frmPipePkg
         CType(Me.gridAvailItems, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gridSepecialties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pgSpecOpt.ResumeLayout(False)
+        Me.grpTDVOptions.ResumeLayout(False)
+        Me.grpTDVOptions.PerformLayout()
         Me.grpBufferTankOpts.ResumeLayout(False)
         Me.grpBTDrain.ResumeLayout(False)
         Me.grpBTDrain.PerformLayout()
@@ -3300,7 +3458,6 @@ Partial Class frmPipePkg
     Friend WithEvents Label30 As Label
     Friend WithEvents Label29 As Label
     Friend WithEvents Label28 As Label
-    Friend WithEvents cmbPumpStyle As ComboBox
     Friend WithEvents btnDelSpecialtytoGrid As Button
     Friend WithEvents lstAvailSpecialties As ListBox
     Friend WithEvents txtPackagePD As TextBox
@@ -3405,7 +3562,7 @@ Partial Class frmPipePkg
     Friend WithEvents Label18 As Label
     Friend WithEvents Label20 As Label
     Friend WithEvents Label42 As Label
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents chkScopePotFeed As CheckBox
     Friend WithEvents txtAvailDescription As TextBox
     Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents TextBox1 As TextBox
@@ -3482,4 +3639,17 @@ Partial Class frmPipePkg
     Friend WithEvents cmbBuffTankSpec As ComboBox
     Friend WithEvents cmbSucDiffSpec As ComboBox
     Friend WithEvents cmbTDVSpec As ComboBox
+    Friend WithEvents Label51 As Label
+    Friend WithEvents cmbPumpStyle As ComboBox
+    Friend WithEvents nudPumpCount As NumericUpDown
+    Friend WithEvents grpTDVOptions As GroupBox
+    Friend WithEvents RadioButton7 As RadioButton
+    Friend WithEvents RadioButton6 As RadioButton
+    Friend WithEvents RadioButton5 As RadioButton
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents optODPPumpMotor As RadioButton
+    Friend WithEvents grpPumpMotorStyle As GroupBox
+    Friend WithEvents optTEFCPumpMotor As RadioButton
+    Friend WithEvents optPumpMotorNA As RadioButton
 End Class

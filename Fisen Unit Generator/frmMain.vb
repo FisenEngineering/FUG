@@ -6724,6 +6724,7 @@ Public Class frmMain
                 chkSaveinProjDB.Checked = False
             End If
         End If
+        cmbJumpDest.Text = "Piping Package"
     End Sub
     Private Sub btnTranslate_Click(sender As Object, e As EventArgs) Handles btnTranslate.Click
         Call TranslateBrandModelNumber()
@@ -6903,7 +6904,15 @@ Public Class frmMain
         If chkCSAGas.Checked Then ThisUnit.UPGCertifications.Add("CSA Gas")
 
         btnDoneCerts.Enabled = False
-        Button1.Enabled = True
+        If chkMoveCutsheets.Checked Then
+            tabMain.SelectTab("pgCutSheets")
+
+        Else
+            tabMain.Enabled = False
+            Button1.Enabled = True
+        End If
+
+
     End Sub
 
     Private Sub btnDoneCHW_Click(sender As Object, e As EventArgs) Handles btnDoneCHW.Click
@@ -8479,6 +8488,8 @@ Public Class frmMain
             'Flag as VFD present if it's a FIOP
             If xNodeRoot.ChildNodes.Item(i).InnerText = "VAV Controller with VFD" Then ThisUnitSFanPerf.VFDPresent = True
             If xNodeRoot.ChildNodes.Item(i).InnerText = "Intellispeed VFD" Then ThisUnitSFanPerf.VFDPresent = True
+            'Test for 65kA SCCR Base Unit
+            If xNodeRoot.ChildNodes.Item(i).InnerText = "65kA SCCR" Then chk65kASCCRBase.Checked = True
         Next
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/FieldInstalled")
@@ -8852,5 +8863,11 @@ Public Class frmMain
             lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
         End If
 
+    End Sub
+
+    Private Sub btnDoneCutSheets_Click(sender As Object, e As EventArgs) Handles btnDoneCutSheets.Click
+        btnDoneCutSheets.Enabled = False
+        tabMain.Enabled = False
+        Button1.Enabled = True
     End Sub
 End Class

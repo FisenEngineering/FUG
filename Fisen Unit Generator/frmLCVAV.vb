@@ -1,4 +1,6 @@
-﻿Public Class frmLCVAV
+﻿Imports System.Xml
+
+Public Class frmLCVAV
     Private pCancelled As Boolean
     Private ModuleCodeList As New ArrayList
 
@@ -11,7 +13,7 @@
         End Set
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Call UpdatePerformance
+        Call UpdatePerformance()
         Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("LCVAV") 'Mod Code goes here!
@@ -19,7 +21,7 @@
             frmMain.ThisUnit.GenCodesPresent = True
             'frmMain.ThisUnitMods.Add("Common")
         End If
-        Call UpdateCodeList
+        Call UpdateCodeList()
         Me.Hide()
     End Sub
     Private Sub UpdatePerformance()
@@ -218,6 +220,28 @@
         End If
 
         ModuleCodeList.Add("315000")
+        If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+    End Sub
+
+    Private Sub LoadDigConditions()
+        Dim ModFilePath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim TempVal As String
+
+        ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
+        xDoc.Load(ModFilePath)
+
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/LCVAV")
+
+        TempVal = xNodeRoot.SelectSingleNode("UpgradeSE").InnerText
+        If TempVal = "True" Then chkUpgradeSEBoard.Checked = True Else chkUpgradeSEBoard.Checked = False
+
+        TempVal = xNodeRoot.SelectSingleNode("VFDSource").InnerText
+        If TempVal = "JCI Provided" Then optDrivebyJCI.Checked = True
+        If TempVal = "Fisen Provided" Then optDrivebyFisen.Checked = True
+        If TempVal = "Field Provided" Then optDrivebyField.Checked = True
+        If TempVal = "JCI EC Motor" Then optJCIECMotor.Checked = True
+
     End Sub
     Private Sub PopulateAuxPanelList()
         If optNoAux.Checked = True Then

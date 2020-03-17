@@ -26,8 +26,9 @@ Partial Class frmLCVAV
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkUpgradeSEBoard = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.optJCIECMotor = New System.Windows.Forms.RadioButton()
         Me.optDrivebyField = New System.Windows.Forms.RadioButton()
         Me.optDrivebyFisen = New System.Windows.Forms.RadioButton()
         Me.optDrivebyJCI = New System.Windows.Forms.RadioButton()
@@ -61,7 +62,6 @@ Partial Class frmLCVAV
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.chkUpgradeSEBoard = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -118,9 +118,19 @@ Partial Class frmLCVAV
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
+        'chkUpgradeSEBoard
+        '
+        Me.chkUpgradeSEBoard.AutoSize = True
+        Me.chkUpgradeSEBoard.Location = New System.Drawing.Point(212, 25)
+        Me.chkUpgradeSEBoard.Name = "chkUpgradeSEBoard"
+        Me.chkUpgradeSEBoard.Size = New System.Drawing.Size(189, 17)
+        Me.chkUpgradeSEBoard.TabIndex = 10
+        Me.chkUpgradeSEBoard.Text = "Upgrade SE Board to VAV Version"
+        Me.chkUpgradeSEBoard.UseVisualStyleBackColor = True
+        '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Controls.Add(Me.optJCIECMotor)
         Me.GroupBox1.Controls.Add(Me.optDrivebyField)
         Me.GroupBox1.Controls.Add(Me.optDrivebyFisen)
         Me.GroupBox1.Controls.Add(Me.optDrivebyJCI)
@@ -131,15 +141,15 @@ Partial Class frmLCVAV
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "VFD Source"
         '
-        'RadioButton1
+        'optJCIECMotor
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(6, 88)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(87, 17)
-        Me.RadioButton1.TabIndex = 11
-        Me.RadioButton1.Text = "JCI EC Motor"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.optJCIECMotor.AutoSize = True
+        Me.optJCIECMotor.Location = New System.Drawing.Point(6, 88)
+        Me.optJCIECMotor.Name = "optJCIECMotor"
+        Me.optJCIECMotor.Size = New System.Drawing.Size(87, 17)
+        Me.optJCIECMotor.TabIndex = 11
+        Me.optJCIECMotor.Text = "JCI EC Motor"
+        Me.optJCIECMotor.UseVisualStyleBackColor = True
         '
         'optDrivebyField
         '
@@ -512,16 +522,6 @@ Partial Class frmLCVAV
         Me.cmdDesignCautions.Text = "Design Cautions"
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'chkUpgradeSEBoard
-        '
-        Me.chkUpgradeSEBoard.AutoSize = True
-        Me.chkUpgradeSEBoard.Location = New System.Drawing.Point(212, 25)
-        Me.chkUpgradeSEBoard.Name = "chkUpgradeSEBoard"
-        Me.chkUpgradeSEBoard.Size = New System.Drawing.Size(189, 17)
-        Me.chkUpgradeSEBoard.TabIndex = 10
-        Me.chkUpgradeSEBoard.Text = "Upgrade SE Board to VAV Version"
-        Me.chkUpgradeSEBoard.UseVisualStyleBackColor = True
-        '
         'frmLCVAV
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -597,7 +597,7 @@ Partial Class frmLCVAV
     Friend WithEvents optReplaceFanAndMotor As RadioButton
     Friend WithEvents optNot1Phase As RadioButton
     Friend WithEvents chkECMotorStaging As CheckBox
-    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents optJCIECMotor As RadioButton
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chkUpgradeSEBoard As CheckBox
 End Class

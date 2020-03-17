@@ -46,6 +46,8 @@
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
+
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
     End Sub
 
 
@@ -68,6 +70,7 @@
         If chkFisenInstallsJCI.Checked Then frmMain.ThisUnitCodes.Add("501101")
         If optFisenSCR.Checked Then
             frmMain.ThisUnitCodes.Add("501105") 'Fisen SCR
+            If chk65kASCCRBase.Checked Then frmMain.ThisUnitCodes.Add("501106")
         Else
             frmMain.ThisUnitCodes.Add("501110") 'Field SCR
         End If

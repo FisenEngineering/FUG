@@ -59,6 +59,7 @@ Partial Class frm100OA
         Me.optNoAux = New System.Windows.Forms.RadioButton()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.chkOADamperSwitch = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.optASE = New System.Windows.Forms.RadioButton()
         Me.optIPU = New System.Windows.Forms.RadioButton()
@@ -101,7 +102,7 @@ Partial Class frm100OA
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chkOADamperSwitch = New System.Windows.Forms.CheckBox()
+        Me.chkYPALtoVAV = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpReturn.SuspendLayout()
@@ -447,6 +448,7 @@ Partial Class frm100OA
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chkYPALtoVAV)
         Me.tpgOptions.Controls.Add(Me.chkIntellispeed)
         Me.tpgOptions.Controls.Add(Me.GroupBox3)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
@@ -539,6 +541,17 @@ Partial Class frm100OA
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'chkOADamperSwitch
+        '
+        Me.chkOADamperSwitch.AutoSize = True
+        Me.chkOADamperSwitch.Location = New System.Drawing.Point(12, 149)
+        Me.chkOADamperSwitch.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkOADamperSwitch.Name = "chkOADamperSwitch"
+        Me.chkOADamperSwitch.Size = New System.Drawing.Size(155, 17)
+        Me.chkOADamperSwitch.TabIndex = 43
+        Me.chkOADamperSwitch.Text = "OA Damper Proving Switch"
+        Me.chkOADamperSwitch.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -1007,16 +1020,16 @@ Partial Class frm100OA
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chkOADamperSwitch
+        'chkYPALtoVAV
         '
-        Me.chkOADamperSwitch.AutoSize = True
-        Me.chkOADamperSwitch.Location = New System.Drawing.Point(12, 149)
-        Me.chkOADamperSwitch.Margin = New System.Windows.Forms.Padding(2)
-        Me.chkOADamperSwitch.Name = "chkOADamperSwitch"
-        Me.chkOADamperSwitch.Size = New System.Drawing.Size(155, 17)
-        Me.chkOADamperSwitch.TabIndex = 43
-        Me.chkOADamperSwitch.Text = "OA Damper Proving Switch"
-        Me.chkOADamperSwitch.UseVisualStyleBackColor = True
+        Me.chkYPALtoVAV.AutoSize = True
+        Me.chkYPALtoVAV.Location = New System.Drawing.Point(6, 26)
+        Me.chkYPALtoVAV.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkYPALtoVAV.Name = "chkYPALtoVAV"
+        Me.chkYPALtoVAV.Size = New System.Drawing.Size(235, 17)
+        Me.chkYPALtoVAV.TabIndex = 44
+        Me.chkYPALtoVAV.Text = "Convert YPAL/IPU VAV to Constant Volume"
+        Me.chkYPALtoVAV.UseVisualStyleBackColor = True
         '
         'frm100OA
         '
@@ -1148,4 +1161,5 @@ Partial Class frm100OA
     Friend WithEvents txtNoPerformanceNote As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents chkOADamperSwitch As CheckBox
+    Friend WithEvents chkYPALtoVAV As CheckBox
 End Class

@@ -2,7 +2,17 @@
     Private pCancelled As Boolean
     Private HydroDesc(25) As String
     Private HydroWMF(25) As String
-
+    Private PumpsDone As Integer
+    Private TDVDone As Boolean
+    Private SucDiffDone As Boolean
+    Private BTankDone As Boolean
+    Private XTankDone As Boolean
+    Private ASepDone As Boolean
+    Private StrainDone As Boolean
+    Private GMUDone As Boolean
+    Private InsDone As Boolean
+    Private PotFeedDone As Boolean
+    Private ModuleCodeList As New ArrayList
 
     Public Property Cancelled As Boolean
         Get
@@ -31,6 +41,10 @@
         End Set
     End Property
     Private Sub frmPipePkg_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Initialize the proposal choices
+        Call InitializeProposalDropdowns()
+
+        'Old stuff follows
         txtFlow.Text = frmMain.ThisChillerMainPerf.Flow
         cmbFluid.Text = frmMain.ThisChillerMainPerf.Fluid
         cmbFluidPercent.Text = frmMain.ThisChillerMainPerf.FluidPercent
@@ -49,21 +63,22 @@
         cmbPipeSchedule.Text = "Schedule 40"
         cmbFittingStyle.Text = "Victaulic"
         cmbPipeSize.Text = "3"
-        Call InitializeProposalDropdowns
+
+        ModuleCodeList.Add("800000")
 
 
     End Sub
     Private Sub InitializeProposalDropdowns()
-        cmbPumpSpec.Text = "Use Standard"
-        cmbTDVSpec.Text = "Use Standard"
-        cmbSucDiffSpec.Text = "Use Standard"
-        cmbBuffTankSpec.Text = "Use Standard"
-        cmbExpTankSpec.Text = "Use Standard"
-        cmbAirSepSpec.Text = "Use Standard"
-        cmbStrainSpec.Text = "Use Standard"
-        cmbGMUSpec.Text = "Use Standard"
-        cmbInsSpec.Text = "Use Standard"
-        cmbPotFeedSpec.Text = "Use Standard"
+        cmbPumpSpec.Text = "Not Required"
+        cmbTDVSpec.Text = "Not Required"
+        cmbSucDiffSpec.Text = "Not Required"
+        cmbBuffTankSpec.Text = "Not Required"
+        cmbExpTankSpec.Text = "Not Required"
+        cmbAirSepSpec.Text = "Not Required"
+        cmbStrainSpec.Text = "Not Required"
+        cmbGMUSpec.Text = "Not Required"
+        cmbInsSpec.Text = "Not Required"
+        cmbPotFeedSpec.Text = "Not Required"
 
     End Sub
 
@@ -74,8 +89,86 @@
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("PipePkg") 'Mod Code goes here!
         Call UpdateCodeList()
+
+        Call PerformDesignCautionScan(False)
         Me.Hide()
     End Sub
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '800'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '800'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
     Private Sub UpdateWarrantyItems()
         'using logic complete the following items...
         frmMain.ThisUnitWarrTest.CtrlTest = True
@@ -104,71 +197,104 @@
     End Sub
     Private Sub UpdateCodeList()
         Dim i As Integer
-        Dim CurrentSpecialty As String
         Dim dummy As MsgBoxResult
 
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("800000") 'Hydronic Piping Package
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("800000") 'Hydronic Piping Package
 
-        frmMain.ThisUnitCodes.Add("800300") 'Hydronic Specialties
-        For i = 0 To gridSepecialties.Rows.Count - 1
+        'Handle the codes for the pumps
+        If chkScopePumps.Checked Then Call HandleCodesPumps()
 
-            CurrentSpecialty = gridSepecialties.Rows(i).Cells.Item(1).Value
-            Select Case CurrentSpecialty
-                Case Is = "Suction Diffuser"
-                    frmMain.ThisUnitCodes.Add("800310")
-                Case Is = "Triple Duty Valve"
-                    frmMain.ThisUnitCodes.Add("800305")
-                Case Is = "Bladder Expansion Tank"
-                    frmMain.ThisUnitCodes.Add("800315")
-                Case Is = "Air Separator"
-                    frmMain.ThisUnitCodes.Add("800320")
-                Case Is = "Automatic Air Vent"
-                    frmMain.ThisUnitCodes.Add("800321")
-                Case Is = "Wye Strainer"
-                    frmMain.ThisUnitCodes.Add("800325")
-                Case Is = "Tee Strainer"
-                    frmMain.ThisUnitCodes.Add("800326")
-                Case Is = "Glycol Makeup Unit"
-                    frmMain.ThisUnitCodes.Add("800330")
-                Case Is = "Buffer Tank"
-                    frmMain.ThisUnitCodes.Add("800A00")
-                    Select Case gridSepecialties.Rows(i).Cells.Item(1).Value
-                        Case Is = "160"
-                            frmMain.ThisUnitCodes.Add("800336")
-                        Case Is = "250"
-                            frmMain.ThisUnitCodes.Add("800337")
-                    End Select
-                    'Handle the BT Insulation
-                    If optBTUninsulated.Checked Then frmMain.ThisUnitCodes.Add("800338")
-                    If optBTSprayFoam.Checked Then frmMain.ThisUnitCodes.Add("800339")
-                    If optBTArmaflex.Checked Then frmMain.ThisUnitCodes.Add("800340")
+        'Handle the codes for each of the installed specialties
+        If chkScopeTDV.Checked Then Call HandleCodesTDV()
+        If chkScopeSuctionDiff.Checked Then Call HandleCodesTDV()
 
-                    'Handle the BT Heat
-                    If optBTHTNone.Checked Then frmMain.ThisUnitCodes.Add("800341")
-                    If ((optBTHTHeatTrace.Checked) And (chkBTHTUnitPowered.Checked)) Then frmMain.ThisUnitCodes.Add("800345")
-                    If ((optBTHTHeatTrace.Checked) And (chkBTHTUnitPowered.Checked = False)) Then frmMain.ThisUnitCodes.Add("800344")
-                    If ((optBTHTImmersion.Checked) And (chkBTHTUnitPowered.Checked)) Then frmMain.ThisUnitCodes.Add("800343")
-                    If ((optBTHTImmersion.Checked) And (chkBTHTUnitPowered.Checked = False)) Then frmMain.ThisUnitCodes.Add("800342")
+        Call PerformDesignCautionScan(False)
 
-                    'Handle the BT Venting
-                    If optBTVentNone.Checked Then frmMain.ThisUnitCodes.Add("800347")
-                    If optBTVentManual.Checked Then frmMain.ThisUnitCodes.Add("800348")
-                    If optBTVentAuto.Checked Then
-                        frmMain.ThisUnitCodes.Add("800349")
-                        frmMain.ThisUnitCodes.Add("800350")
-                    End If
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
 
-                    'Handle the BT Drain
-                    If optBTDrainNone.Checked Then frmMain.ThisUnitCodes.Add("800351")
-                    If optBTDrainValve.Checked Then frmMain.ThisUnitCodes.Add("800352")
-                    If optBTDrainChainCap.Checked Then frmMain.ThisUnitCodes.Add("800353")
+    End Sub
 
-                Case Else
-                    dummy = MsgBox("Unknown Specialty! Error!")
-                    End
-            End Select
-        Next
+    Private Sub HandleCodesSucDiff()
+
+        ModuleCodeList.Add("800C00") 'Main Code for Suction Diffuser are included
+        'First branchout by manufacturer...
+        Select Case cmbTDVSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                ModuleCodeList.Add("800C01")
+            Case Is = "Bell and Gossett"
+                ModuleCodeList.Add("800C02")
+            Case Is = "Taco"
+                ModuleCodeList.Add("800C03")
+        End Select
+    End Sub
+    Private Sub HandleCodesTDV()
+
+        ModuleCodeList.Add("800B00") 'Main Code for TDV are included
+        'First branchout by manufacturer...
+        Select Case cmbTDVSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                ModuleCodeList.Add("800B01")
+            Case Is = "Bell and Gossett"
+                ModuleCodeList.Add("800B02")
+            Case Is = "Taco"
+                ModuleCodeList.Add("800B03")
+        End Select
+    End Sub
+
+    Private Sub HandleCodesPumps()
+        Dim dummy As MsgBoxResult
+
+        ModuleCodeList.Add("800A00") 'Main Code for Pumps are included
+
+        'First branchout by manufacturer...
+        Select Case cmbPumpSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                Select Case cmbPumpStyle.Text
+                    Case Is = "Close Coupled Dual Arm"
+                        ModuleCodeList.Add("800A10")
+                        ModuleCodeList.Add("800AZ1") 'Series 4382
+                    Case Is = "Close Coupled Twin Pump"
+                        ModuleCodeList.Add("800A11")
+                        ModuleCodeList.Add("800AZ2") 'Series 4372
+                    Case Is = "Close Coupled Vertical Inline"
+                        ModuleCodeList.Add("800A12")
+                        ModuleCodeList.Add("800AZ3") 'Series 4380
+                    Case Is = "Split Coupled Twin Pump"
+                        ModuleCodeList.Add("800A14")
+                        ModuleCodeList.Add("800AZ5") 'Series 4322
+                    Case Is = "Split Coupled Dual Arm"
+                        ModuleCodeList.Add("800A13")
+                        ModuleCodeList.Add("800AZ4") 'Series 4302
+                    Case Is = "Split Coupled Vertical Inline"
+                        ModuleCodeList.Add("800A15")
+                        ModuleCodeList.Add("800AZ6") 'Series 4300
+                    Case Is = "Split Coupled End Suction"
+                        ModuleCodeList.Add("800A16")
+                        ModuleCodeList.Add("800AZ7") 'Series 4200h
+                    Case Else
+                        dummy = MsgBox("Error in Pump Selection Logic.", vbOKOnly, "Piping Package Error")
+                        Stop
+                End Select
+
+            Case Is = "Bell and Gossett"
+                dummy = MsgBox("B&G Pumps logic is incomplete.", vbOKOnly, "Piping Package Error")
+                Stop
+            Case Is = "Taco"
+                dummy = MsgBox("B&G Pumps logic is incomplete.", vbOKOnly, "Piping Package Error")
+                Stop
+        End Select
+
+        'Type of motors for the pumps
+        If optODPPumpMotor.Checked Then
+            ModuleCodeList.Add("800A71")
+        End If
+        If optTEFCPumpMotor.Checked Then
+            ModuleCodeList.Add("800A72")
+        End If
     End Sub
     Private Function ChillerWidth(family As String, fans As String) As String
         Dim tempwidth As String
@@ -326,6 +452,18 @@
     End Sub
 
     Private Sub btnDoneProposal_Click(sender As Object, e As EventArgs) Handles btnDoneProposal.Click
+
+        If chkScopePumps.Checked Then PumpsDone = nudPumpCount.Value
+        If chkScopeTDV.Checked Then TDVDone = False
+        If chkScopeSuctionDiff.Checked Then SucDiffDone = False
+        If chkScopeBufferTank.Checked Then BTankDone = False
+        If chkScopeExpansionTank.Checked Then XTankDone = False
+        If chkScopeAirSeparator.Checked Then ASepDone = False
+        If chkScopeStrainer.Checked Then StrainDone = False
+        If chkScopeGMU.Checked Then GMUDone = False
+        If chkScopePotFeed.Checked Then PotFeedDone = False
+        If chkScopeInsulation.Checked Then InsDone = False
+
         Call LoadApplicableHydroDrawings()
 
         tbcPipePkg.SelectTab("pgHydronicDWG")
@@ -375,7 +513,15 @@
     End Sub
 
     Private Sub btnDoneSpecialties_Click(sender As Object, e As EventArgs) Handles btnDoneSpecialties.Click
+        Dim Dummy As MsgBoxResult
+        Dim SpecDone As Boolean
+        SpecDone = False
 
+        SpecDone = TDVDone And SucDiffDone And BTankDone And XTankDone And ASepDone And StrainDone And GMUDone And PotFeedDone
+        If Not SpecDone Then
+            Dummy = MsgBox("You have not added all the items in the scope." & "Proceed?", vbYesNo, "Piping Package")
+            If Dummy = vbNo Then Exit Sub
+        End If
         tbcPipePkg.SelectTab("pgValves")
     End Sub
 
@@ -427,11 +573,38 @@
         txtFluidVolume.Text = PackageVolume()
         txtPackagePD.Text = PackagePD()
         txtWetWeight.Text = Format(Val(txtDryWeight.Text) + Val(txtFluidVolume.Text) * Val(txtWeightPerGallon.Text), "0.0")
+        Call UpdateWorkComplete(lstAvailSpecialties.Text)
         lstAvailSpecialties.ClearSelected()
+
+
+
     End Sub
 
-    Private Sub btnDebug_Click(sender As Object, e As EventArgs) Handles btnDebug.Click
-
+    Private Sub UpdateWorkComplete(lItem As String)
+        Select Case lItem
+            Case Is = "Pumps"
+                PumpsDone = PumpsDone - 1
+            Case Is = "Triple Duty Valve"
+                TDVDone = True
+            Case Is = "Suction Diffuser"
+                SucDiffDone = True
+            Case Is = "Buffer Tank"
+                BTankDone = True
+            Case Is = "Expansion Tank"
+                XTankDone = True
+            Case Is = "Air Separator"
+                ASepDone = True
+            Case Is = "Wye Strainer"
+                StrainDone = True
+            Case Is = "Tee Strainer"
+                StrainDone = True
+            Case Is = "Glycol Makeup Unit"
+                StrainDone = True
+            Case Is = "Chemical Pot Feeder"
+                PotFeedDone = True
+            Case Is = "Insulation"
+                InsDone = True
+        End Select
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -1276,5 +1449,113 @@
             Label50.Visible = False
 
         End If
+    End Sub
+
+    Private Sub chkScopePumps_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopePumps.CheckedChanged
+        If chkScopePumps.Checked Then
+            cmbPumpSpec.Enabled = True
+            cmbPumpSpec.Text = "Use Standard"
+            nudPumpCount.Enabled = True
+            nudPumpCount.Value = 1
+            nudPumpCount.Minimum = 1
+            cmbPumpStyle.Enabled = True
+            chkScopeTDV.Checked = True
+            chkScopeSuctionDiff.Checked = True
+            optODPPumpMotor.Enabled = True
+            optTEFCPumpMotor.Enabled = True
+            optPumpMotorNA.Enabled = False
+            optTEFCPumpMotor.Checked = True
+        Else
+            cmbPumpSpec.Enabled = False
+            cmbPumpSpec.Text = "Not Required"
+            nudPumpCount.Enabled = False
+            nudPumpCount.Minimum = 0
+            nudPumpCount.Value = 0
+            cmbPumpStyle.Enabled = False
+            optODPPumpMotor.Enabled = False
+            optTEFCPumpMotor.Enabled = False
+            optPumpMotorNA.Enabled = True
+            optPumpMotorNA.Checked = True
+
+        End If
+    End Sub
+
+    Private Sub cmbPumpSpec_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPumpSpec.SelectedIndexChanged
+
+        cmbPumpStyle.Items.Clear()
+
+        Select Case cmbPumpSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                cmbPumpStyle.Items.Add("Close Coupled Dual Arm")
+                cmbPumpStyle.Items.Add("Split Coupled Dual Arm")
+                cmbPumpStyle.Items.Add("Close Coupled Twin")
+                cmbPumpStyle.Items.Add("Split Coupled Twin")
+                cmbPumpStyle.Items.Add("Close Coupled Vertical Inline")
+                cmbPumpStyle.Items.Add("Split Coupled Vertical Inline")
+                cmbPumpStyle.Items.Add("Split Coupled End Suction")
+                cmbPumpStyle.Items.Add("Split End Suction")
+                cmbPumpStyle.Items.Add("Unselected")
+                cmbPumpStyle.Text = "Unselected"
+            Case Is = "Bell and Gossett"
+                cmbPumpStyle.Items.Add("Close Coupled Vertical Inline")
+                cmbPumpStyle.Items.Add("Split Coupled Vertical Inline")
+                cmbPumpStyle.Items.Add("Split Coupled End Suction")
+                cmbPumpStyle.Items.Add("Split End Suction")
+                cmbPumpStyle.Items.Add("Unselected")
+                cmbPumpStyle.Text = "Unselected"
+            Case Is = "Taco"
+                cmbPumpStyle.Items.Add("Close Coupled Vertical Inline")
+                cmbPumpStyle.Items.Add("Split Coupled Vertical Inline")
+                cmbPumpStyle.Items.Add("Split Coupled End Suction")
+                cmbPumpStyle.Items.Add("Split End Suction")
+                cmbPumpStyle.Items.Add("Unselected")
+                cmbPumpStyle.Text = "Unselected"
+            Case Is = "Not Required"
+                cmbPumpStyle.Items.Add("Not Required")
+                cmbPumpStyle.Text = "Not Required"
+        End Select
+    End Sub
+
+    Private Sub chkScopeTDV_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeTDV.CheckedChanged
+        If chkScopeTDV.Checked Then
+            cmbTDVSpec.Enabled = True
+            cmbTDVSpec.Text = "Use Standard"
+        Else
+            cmbTDVSpec.Enabled = False
+            cmbTDVSpec.Text = "Not Required"
+        End If
+
+    End Sub
+
+    Private Sub chkScopeSuctionDiff_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeSuctionDiff.CheckedChanged
+        If chkScopeSuctionDiff.Checked Then
+            cmbSucDiffSpec.Enabled = True
+            cmbSucDiffSpec.Text = "Use Standard"
+        Else
+            cmbSucDiffSpec.Enabled = False
+            cmbSucDiffSpec.Text = "Not Required"
+        End If
+    End Sub
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        PumpsDone = 0
+        SucDiffDone = True
+        TDVDone = True
+        BTankDone = True
+        XTankDone = True
+        ASepDone = True
+        StrainDone = True
+        GMUDone = True
+        InsDone = True
+        PotFeedDone = True
+
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
     End Sub
 End Class

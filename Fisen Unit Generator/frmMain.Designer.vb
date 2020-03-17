@@ -217,6 +217,7 @@ Partial Class frmMain
         Me.lstFactOpts = New System.Windows.Forms.ListBox()
         Me.btnDoneFactOpts = New System.Windows.Forms.Button()
         Me.pgFieldInst = New System.Windows.Forms.TabPage()
+        Me.cmdUPGERVModule = New System.Windows.Forms.Button()
         Me.txtNewFieldInst = New System.Windows.Forms.TextBox()
         Me.btnDelFieldInst = New System.Windows.Forms.Button()
         Me.btnAddFieldInst = New System.Windows.Forms.Button()
@@ -783,7 +784,7 @@ Partial Class frmMain
         Me.picASHRAE90_1 = New System.Windows.Forms.PictureBox()
         Me.btnDoneCerts = New System.Windows.Forms.Button()
         Me.pgCutSheets = New System.Windows.Forms.TabPage()
-        Me.Button13 = New System.Windows.Forms.Button()
+        Me.btnDoneCutSheets = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.chkDebug = New System.Windows.Forms.CheckBox()
         Me.cmdJumpButton = New System.Windows.Forms.Button()
@@ -798,7 +799,8 @@ Partial Class frmMain
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
-        Me.cmdUPGERVModule = New System.Windows.Forms.Button()
+        Me.chkMoveCutsheets = New System.Windows.Forms.CheckBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -3060,6 +3062,16 @@ Partial Class frmMain
         Me.pgFieldInst.TabIndex = 13
         Me.pgFieldInst.Text = "Field Installed"
         Me.pgFieldInst.UseVisualStyleBackColor = True
+        '
+        'cmdUPGERVModule
+        '
+        Me.cmdUPGERVModule.Location = New System.Drawing.Point(681, 93)
+        Me.cmdUPGERVModule.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdUPGERVModule.Name = "cmdUPGERVModule"
+        Me.cmdUPGERVModule.Size = New System.Drawing.Size(117, 25)
+        Me.cmdUPGERVModule.TabIndex = 21
+        Me.cmdUPGERVModule.Text = "UPG ERV Module"
+        Me.cmdUPGERVModule.UseVisualStyleBackColor = True
         '
         'txtNewFieldInst
         '
@@ -9650,7 +9662,7 @@ Partial Class frmMain
         '
         'pgCutSheets
         '
-        Me.pgCutSheets.Controls.Add(Me.Button13)
+        Me.pgCutSheets.Controls.Add(Me.btnDoneCutSheets)
         Me.pgCutSheets.Location = New System.Drawing.Point(4, 22)
         Me.pgCutSheets.Margin = New System.Windows.Forms.Padding(4)
         Me.pgCutSheets.Name = "pgCutSheets"
@@ -9659,15 +9671,15 @@ Partial Class frmMain
         Me.pgCutSheets.Text = "Cut Sheets"
         Me.pgCutSheets.UseVisualStyleBackColor = True
         '
-        'Button13
+        'btnDoneCutSheets
         '
-        Me.Button13.Location = New System.Drawing.Point(1115, 443)
-        Me.Button13.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button13.Name = "Button13"
-        Me.Button13.Size = New System.Drawing.Size(77, 34)
-        Me.Button13.TabIndex = 16
-        Me.Button13.Text = ">"
-        Me.Button13.UseVisualStyleBackColor = True
+        Me.btnDoneCutSheets.Location = New System.Drawing.Point(1115, 443)
+        Me.btnDoneCutSheets.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDoneCutSheets.Name = "btnDoneCutSheets"
+        Me.btnDoneCutSheets.Size = New System.Drawing.Size(77, 34)
+        Me.btnDoneCutSheets.TabIndex = 16
+        Me.btnDoneCutSheets.Text = ">"
+        Me.btnDoneCutSheets.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -9790,20 +9802,34 @@ Partial Class frmMain
         Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
         Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
         '
-        'cmdUPGERVModule
+        'chkMoveCutsheets
         '
-        Me.cmdUPGERVModule.Location = New System.Drawing.Point(681, 93)
-        Me.cmdUPGERVModule.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdUPGERVModule.Name = "cmdUPGERVModule"
-        Me.cmdUPGERVModule.Size = New System.Drawing.Size(117, 25)
-        Me.cmdUPGERVModule.TabIndex = 21
-        Me.cmdUPGERVModule.Text = "UPG ERV Module"
-        Me.cmdUPGERVModule.UseVisualStyleBackColor = True
+        Me.chkMoveCutsheets.AutoSize = True
+        Me.chkMoveCutsheets.Location = New System.Drawing.Point(806, 560)
+        Me.chkMoveCutsheets.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMoveCutsheets.Name = "chkMoveCutsheets"
+        Me.chkMoveCutsheets.Size = New System.Drawing.Size(151, 17)
+        Me.chkMoveCutsheets.TabIndex = 24
+        Me.chkMoveCutsheets.Text = "Move Cutsheets to Project"
+        Me.chkMoveCutsheets.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(656, 560)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(142, 17)
+        Me.chk65kASCCRBase.TabIndex = 26
+        Me.chk65kASCCRBase.Text = "Base Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
+        Me.Controls.Add(Me.chk65kASCCRBase)
+        Me.Controls.Add(Me.chkMoveCutsheets)
         Me.Controls.Add(Me.chkInhibitDigConditions)
         Me.Controls.Add(Me.chkAutoLaunchTemplate)
         Me.Controls.Add(Me.cmdDebug)
@@ -10244,7 +10270,7 @@ Partial Class frmMain
     Friend WithEvents pgConnections As TabPage
     Friend WithEvents btnDoneConns As Button
     Friend WithEvents pgCutSheets As TabPage
-    Friend WithEvents Button13 As Button
+    Friend WithEvents btnDoneCutSheets As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents opt5YrLabor As RadioButton
     Friend WithEvents opt1YrLabor As RadioButton
@@ -10757,4 +10783,6 @@ Partial Class frmMain
     Friend WithEvents chkInhibitDigConditions As CheckBox
     Friend WithEvents optRTUSelect As RadioButton
     Friend WithEvents cmdUPGERVModule As Button
+    Friend WithEvents chkMoveCutsheets As CheckBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class
