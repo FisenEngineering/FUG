@@ -2053,6 +2053,8 @@ Public Class frmNewFan
                     temp = -0.00000002100701087 * localAirflow ^ 2 + 0.000416422272434739 * localAirflow - 0.768013952863524
                 Case Is = "J10ZR"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
+                Case Is = "J12ZH"
+                    temp = -0.000000020419254658 * localAirflow ^ 2 + 0.000412447769621681 * localAirflow - 0.761850296442687
                 Case Is = "J10ZJ"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J10ZT"
