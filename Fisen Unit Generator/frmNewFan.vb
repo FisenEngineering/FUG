@@ -1768,6 +1768,8 @@ Public Class frmNewFan
                     temp = 0.000000145691 * localAirflow ^ 2 - 0.000039648178 * localAirflow
                 Case Is = "J12ZF"
                     temp = 0.000000124168 * localAirflow ^ 2 - 0.000010597484 * localAirflow
+                Case Is = "J12ZH"
+                    temp = 0.000000119120125705 * localAirflow ^ 2 + 0.000013904963053223 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
@@ -1800,6 +1802,8 @@ Public Class frmNewFan
                     temp = 0.000000073142 * localAirflow ^ 2 + 0.000040949828 * localAirflow
                 Case Is = "J12ZF"
                     temp = 0.000000062138 * localAirflow ^ 2 + 0.000041605488 * localAirflow
+                Case Is = "J12ZH"
+                    temp = 0.000000070777592264 * localAirflow ^ 2 + 0.000005982431510823 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
