@@ -23,6 +23,7 @@ Partial Class frmMGH_R
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMGH_R))
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.txtHeatAF = New System.Windows.Forms.TextBox()
@@ -33,6 +34,9 @@ Partial Class frmMGH_R
         Me.txtInputCap = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtElevation = New System.Windows.Forms.TextBox()
+        Me.chkUnitAtElevation = New System.Windows.Forms.CheckBox()
         Me.chkPropane = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
@@ -67,9 +71,8 @@ Partial Class frmMGH_R
         Me.txtSSE = New System.Windows.Forms.TextBox()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkUnitAtElevation = New System.Windows.Forms.CheckBox()
-        Me.txtElevation = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -185,6 +188,34 @@ Partial Class frmMGH_R
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(172, 109)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(69, 13)
+        Me.Label8.TabIndex = 10
+        Me.Label8.Text = "Elevation (ft.)"
+        '
+        'txtElevation
+        '
+        Me.txtElevation.Location = New System.Drawing.Point(126, 106)
+        Me.txtElevation.Name = "txtElevation"
+        Me.txtElevation.Size = New System.Drawing.Size(40, 20)
+        Me.txtElevation.TabIndex = 9
+        Me.txtElevation.Text = "0"
+        Me.txtElevation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'chkUnitAtElevation
+        '
+        Me.chkUnitAtElevation.AutoSize = True
+        Me.chkUnitAtElevation.Location = New System.Drawing.Point(6, 108)
+        Me.chkUnitAtElevation.Name = "chkUnitAtElevation"
+        Me.chkUnitAtElevation.Size = New System.Drawing.Size(114, 17)
+        Me.chkUnitAtElevation.TabIndex = 8
+        Me.chkUnitAtElevation.Text = "Unit is at Elevation"
+        Me.chkUnitAtElevation.UseVisualStyleBackColor = True
         '
         'chkPropane
         '
@@ -539,33 +570,23 @@ Partial Class frmMGH_R
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'chkUnitAtElevation
+        'cmdViewHistory
         '
-        Me.chkUnitAtElevation.AutoSize = True
-        Me.chkUnitAtElevation.Location = New System.Drawing.Point(6, 108)
-        Me.chkUnitAtElevation.Name = "chkUnitAtElevation"
-        Me.chkUnitAtElevation.Size = New System.Drawing.Size(114, 17)
-        Me.chkUnitAtElevation.TabIndex = 8
-        Me.chkUnitAtElevation.Text = "Unit is at Elevation"
-        Me.chkUnitAtElevation.UseVisualStyleBackColor = True
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 195)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 18
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'txtElevation
+        'cmdDesignCautions
         '
-        Me.txtElevation.Location = New System.Drawing.Point(126, 106)
-        Me.txtElevation.Name = "txtElevation"
-        Me.txtElevation.Size = New System.Drawing.Size(40, 20)
-        Me.txtElevation.TabIndex = 9
-        Me.txtElevation.Text = "0"
-        Me.txtElevation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(172, 109)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(69, 13)
-        Me.Label8.TabIndex = 10
-        Me.Label8.Text = "Elevation (ft.)"
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 195)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 17
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
         'frmMGH_R
         '
@@ -573,6 +594,8 @@ Partial Class frmMGH_R
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 236)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -643,4 +666,6 @@ Partial Class frmMGH_R
     Friend WithEvents Label8 As Label
     Friend WithEvents txtElevation As TextBox
     Friend WithEvents chkUnitAtElevation As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
 End Class

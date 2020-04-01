@@ -26,8 +26,11 @@ Partial Class frmPipePkg
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPipePkg))
         Me.tbcPipePkg = New System.Windows.Forms.TabControl()
         Me.pgSpecialities = New System.Windows.Forms.TabPage()
-        Me.optODPPumpMotor = New System.Windows.Forms.RadioButton()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.grpPumpMotorStyle = New System.Windows.Forms.GroupBox()
+        Me.optPumpMotorNA = New System.Windows.Forms.RadioButton()
+        Me.optTEFCPumpMotor = New System.Windows.Forms.RadioButton()
+        Me.optODPPumpMotor = New System.Windows.Forms.RadioButton()
         Me.nudPumpCount = New System.Windows.Forms.NumericUpDown()
         Me.cmbPumpStyle = New System.Windows.Forms.ComboBox()
         Me.Label51 = New System.Windows.Forms.Label()
@@ -187,10 +190,12 @@ Partial Class frmPipePkg
         Me.SpecPDrop = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnDoneSpecialties = New System.Windows.Forms.Button()
         Me.pgSpecOpt = New System.Windows.Forms.TabPage()
+        Me.grpSucDiffOptions = New System.Windows.Forms.GroupBox()
+        Me.chkSucDiffOptionsBlowDownValve = New System.Windows.Forms.CheckBox()
         Me.grpTDVOptions = New System.Windows.Forms.GroupBox()
-        Me.RadioButton7 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton6 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton5 = New System.Windows.Forms.RadioButton()
+        Me.optTDVOptionsStraight = New System.Windows.Forms.RadioButton()
+        Me.optTDVOptionsAngle = New System.Windows.Forms.RadioButton()
+        Me.optTDVOptionsNA = New System.Windows.Forms.RadioButton()
         Me.grpBufferTankOpts = New System.Windows.Forms.GroupBox()
         Me.grpBTDrain = New System.Windows.Forms.GroupBox()
         Me.optBTDrainNone = New System.Windows.Forms.RadioButton()
@@ -304,8 +309,8 @@ Partial Class frmPipePkg
         Me.txtFluidSG = New System.Windows.Forms.TextBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.optTEFCPumpMotor = New System.Windows.Forms.RadioButton()
-        Me.optPumpMotorNA = New System.Windows.Forms.RadioButton()
+        Me.chkBuffTankOptionsCstmNozzles = New System.Windows.Forms.CheckBox()
+        Me.cmbBuffTankStyle = New System.Windows.Forms.ComboBox()
         Me.tbcPipePkg.SuspendLayout()
         Me.pgSpecialities.SuspendLayout()
         Me.grpPumpMotorStyle.SuspendLayout()
@@ -326,6 +331,7 @@ Partial Class frmPipePkg
         CType(Me.gridAvailItems, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gridSepecialties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pgSpecOpt.SuspendLayout()
+        Me.grpSucDiffOptions.SuspendLayout()
         Me.grpTDVOptions.SuspendLayout()
         Me.grpBufferTankOpts.SuspendLayout()
         Me.grpBTDrain.SuspendLayout()
@@ -370,6 +376,8 @@ Partial Class frmPipePkg
         '
         'pgSpecialities
         '
+        Me.pgSpecialities.Controls.Add(Me.cmbBuffTankStyle)
+        Me.pgSpecialities.Controls.Add(Me.chk65kASCCRBase)
         Me.pgSpecialities.Controls.Add(Me.grpPumpMotorStyle)
         Me.pgSpecialities.Controls.Add(Me.nudPumpCount)
         Me.pgSpecialities.Controls.Add(Me.cmbPumpStyle)
@@ -418,15 +426,16 @@ Partial Class frmPipePkg
         Me.pgSpecialities.Text = "Proposal"
         Me.pgSpecialities.UseVisualStyleBackColor = True
         '
-        'optODPPumpMotor
+        'chk65kASCCRBase
         '
-        Me.optODPPumpMotor.AutoSize = True
-        Me.optODPPumpMotor.Location = New System.Drawing.Point(6, 20)
-        Me.optODPPumpMotor.Name = "optODPPumpMotor"
-        Me.optODPPumpMotor.Size = New System.Drawing.Size(48, 17)
-        Me.optODPPumpMotor.TabIndex = 83
-        Me.optODPPumpMotor.Text = "ODP"
-        Me.optODPPumpMotor.UseVisualStyleBackColor = True
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(836, 494)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 62
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'grpPumpMotorStyle
         '
@@ -439,6 +448,38 @@ Partial Class frmPipePkg
         Me.grpPumpMotorStyle.TabIndex = 82
         Me.grpPumpMotorStyle.TabStop = False
         Me.grpPumpMotorStyle.Text = "Motor Type"
+        '
+        'optPumpMotorNA
+        '
+        Me.optPumpMotorNA.AutoSize = True
+        Me.optPumpMotorNA.Checked = True
+        Me.optPumpMotorNA.Location = New System.Drawing.Point(121, 20)
+        Me.optPumpMotorNA.Name = "optPumpMotorNA"
+        Me.optPumpMotorNA.Size = New System.Drawing.Size(45, 17)
+        Me.optPumpMotorNA.TabIndex = 85
+        Me.optPumpMotorNA.TabStop = True
+        Me.optPumpMotorNA.Text = "N/A"
+        Me.optPumpMotorNA.UseVisualStyleBackColor = True
+        '
+        'optTEFCPumpMotor
+        '
+        Me.optTEFCPumpMotor.AutoSize = True
+        Me.optTEFCPumpMotor.Location = New System.Drawing.Point(63, 20)
+        Me.optTEFCPumpMotor.Name = "optTEFCPumpMotor"
+        Me.optTEFCPumpMotor.Size = New System.Drawing.Size(52, 17)
+        Me.optTEFCPumpMotor.TabIndex = 84
+        Me.optTEFCPumpMotor.Text = "TEFC"
+        Me.optTEFCPumpMotor.UseVisualStyleBackColor = True
+        '
+        'optODPPumpMotor
+        '
+        Me.optODPPumpMotor.AutoSize = True
+        Me.optODPPumpMotor.Location = New System.Drawing.Point(6, 20)
+        Me.optODPPumpMotor.Name = "optODPPumpMotor"
+        Me.optODPPumpMotor.Size = New System.Drawing.Size(48, 17)
+        Me.optODPPumpMotor.TabIndex = 83
+        Me.optODPPumpMotor.Text = "ODP"
+        Me.optODPPumpMotor.UseVisualStyleBackColor = True
         '
         'nudPumpCount
         '
@@ -2043,6 +2084,7 @@ Partial Class frmPipePkg
         '
         'pgSpecOpt
         '
+        Me.pgSpecOpt.Controls.Add(Me.grpSucDiffOptions)
         Me.pgSpecOpt.Controls.Add(Me.grpTDVOptions)
         Me.pgSpecOpt.Controls.Add(Me.grpBufferTankOpts)
         Me.pgSpecOpt.Location = New System.Drawing.Point(4, 22)
@@ -2052,61 +2094,82 @@ Partial Class frmPipePkg
         Me.pgSpecOpt.Text = "Specialty Options"
         Me.pgSpecOpt.UseVisualStyleBackColor = True
         '
+        'grpSucDiffOptions
+        '
+        Me.grpSucDiffOptions.Controls.Add(Me.chkSucDiffOptionsBlowDownValve)
+        Me.grpSucDiffOptions.Location = New System.Drawing.Point(14, 98)
+        Me.grpSucDiffOptions.Name = "grpSucDiffOptions"
+        Me.grpSucDiffOptions.Size = New System.Drawing.Size(208, 96)
+        Me.grpSucDiffOptions.TabIndex = 2
+        Me.grpSucDiffOptions.TabStop = False
+        Me.grpSucDiffOptions.Text = "Suction Diffusers"
+        '
+        'chkSucDiffOptionsBlowDownValve
+        '
+        Me.chkSucDiffOptionsBlowDownValve.AutoSize = True
+        Me.chkSucDiffOptionsBlowDownValve.Location = New System.Drawing.Point(6, 19)
+        Me.chkSucDiffOptionsBlowDownValve.Name = "chkSucDiffOptionsBlowDownValve"
+        Me.chkSucDiffOptionsBlowDownValve.Size = New System.Drawing.Size(199, 17)
+        Me.chkSucDiffOptionsBlowDownValve.TabIndex = 6
+        Me.chkSucDiffOptionsBlowDownValve.Text = "Blow Down Valve /w Cap and Chain"
+        Me.chkSucDiffOptionsBlowDownValve.UseVisualStyleBackColor = True
+        '
         'grpTDVOptions
         '
-        Me.grpTDVOptions.Controls.Add(Me.RadioButton7)
-        Me.grpTDVOptions.Controls.Add(Me.RadioButton6)
-        Me.grpTDVOptions.Controls.Add(Me.RadioButton5)
-        Me.grpTDVOptions.Location = New System.Drawing.Point(16, 23)
+        Me.grpTDVOptions.Controls.Add(Me.optTDVOptionsStraight)
+        Me.grpTDVOptions.Controls.Add(Me.optTDVOptionsAngle)
+        Me.grpTDVOptions.Controls.Add(Me.optTDVOptionsNA)
+        Me.grpTDVOptions.Location = New System.Drawing.Point(14, 4)
         Me.grpTDVOptions.Name = "grpTDVOptions"
-        Me.grpTDVOptions.Size = New System.Drawing.Size(117, 88)
+        Me.grpTDVOptions.Size = New System.Drawing.Size(208, 88)
         Me.grpTDVOptions.TabIndex = 1
         Me.grpTDVOptions.TabStop = False
         Me.grpTDVOptions.Text = "Triple Duty Valve(s)"
         '
-        'RadioButton7
+        'optTDVOptionsStraight
         '
-        Me.RadioButton7.AutoSize = True
-        Me.RadioButton7.Enabled = False
-        Me.RadioButton7.Location = New System.Drawing.Point(6, 65)
-        Me.RadioButton7.Name = "RadioButton7"
-        Me.RadioButton7.Size = New System.Drawing.Size(64, 17)
-        Me.RadioButton7.TabIndex = 5
-        Me.RadioButton7.Text = "Straight "
-        Me.RadioButton7.UseVisualStyleBackColor = True
+        Me.optTDVOptionsStraight.AutoSize = True
+        Me.optTDVOptionsStraight.Enabled = False
+        Me.optTDVOptionsStraight.Location = New System.Drawing.Point(6, 65)
+        Me.optTDVOptionsStraight.Name = "optTDVOptionsStraight"
+        Me.optTDVOptionsStraight.Size = New System.Drawing.Size(64, 17)
+        Me.optTDVOptionsStraight.TabIndex = 5
+        Me.optTDVOptionsStraight.Text = "Straight "
+        Me.optTDVOptionsStraight.UseVisualStyleBackColor = True
         '
-        'RadioButton6
+        'optTDVOptionsAngle
         '
-        Me.RadioButton6.AutoSize = True
-        Me.RadioButton6.Enabled = False
-        Me.RadioButton6.Location = New System.Drawing.Point(6, 42)
-        Me.RadioButton6.Name = "RadioButton6"
-        Me.RadioButton6.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton6.TabIndex = 4
-        Me.RadioButton6.Text = "Angle"
-        Me.RadioButton6.UseVisualStyleBackColor = True
+        Me.optTDVOptionsAngle.AutoSize = True
+        Me.optTDVOptionsAngle.Enabled = False
+        Me.optTDVOptionsAngle.Location = New System.Drawing.Point(6, 42)
+        Me.optTDVOptionsAngle.Name = "optTDVOptionsAngle"
+        Me.optTDVOptionsAngle.Size = New System.Drawing.Size(52, 17)
+        Me.optTDVOptionsAngle.TabIndex = 4
+        Me.optTDVOptionsAngle.Text = "Angle"
+        Me.optTDVOptionsAngle.UseVisualStyleBackColor = True
         '
-        'RadioButton5
+        'optTDVOptionsNA
         '
-        Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Checked = True
-        Me.RadioButton5.Location = New System.Drawing.Point(6, 19)
-        Me.RadioButton5.Name = "RadioButton5"
-        Me.RadioButton5.Size = New System.Drawing.Size(88, 17)
-        Me.RadioButton5.TabIndex = 3
-        Me.RadioButton5.TabStop = True
-        Me.RadioButton5.Text = "Not Required"
-        Me.RadioButton5.UseVisualStyleBackColor = True
+        Me.optTDVOptionsNA.AutoSize = True
+        Me.optTDVOptionsNA.Checked = True
+        Me.optTDVOptionsNA.Location = New System.Drawing.Point(6, 19)
+        Me.optTDVOptionsNA.Name = "optTDVOptionsNA"
+        Me.optTDVOptionsNA.Size = New System.Drawing.Size(88, 17)
+        Me.optTDVOptionsNA.TabIndex = 3
+        Me.optTDVOptionsNA.TabStop = True
+        Me.optTDVOptionsNA.Text = "Not Required"
+        Me.optTDVOptionsNA.UseVisualStyleBackColor = True
         '
         'grpBufferTankOpts
         '
+        Me.grpBufferTankOpts.Controls.Add(Me.chkBuffTankOptionsCstmNozzles)
         Me.grpBufferTankOpts.Controls.Add(Me.grpBTDrain)
         Me.grpBufferTankOpts.Controls.Add(Me.grpBTVenting)
         Me.grpBufferTankOpts.Controls.Add(Me.grpHeatTrace)
         Me.grpBufferTankOpts.Controls.Add(Me.grpBTankInsulation)
-        Me.grpBufferTankOpts.Location = New System.Drawing.Point(906, 4)
+        Me.grpBufferTankOpts.Location = New System.Drawing.Point(228, 4)
         Me.grpBufferTankOpts.Name = "grpBufferTankOpts"
-        Me.grpBufferTankOpts.Size = New System.Drawing.Size(248, 353)
+        Me.grpBufferTankOpts.Size = New System.Drawing.Size(248, 430)
         Me.grpBufferTankOpts.TabIndex = 0
         Me.grpBufferTankOpts.TabStop = False
         Me.grpBufferTankOpts.Text = "Buffer Tanks"
@@ -2116,7 +2179,7 @@ Partial Class frmPipePkg
         Me.grpBTDrain.Controls.Add(Me.optBTDrainNone)
         Me.grpBTDrain.Controls.Add(Me.optBTDrainChainCap)
         Me.grpBTDrain.Controls.Add(Me.optBTDrainValve)
-        Me.grpBTDrain.Location = New System.Drawing.Point(6, 281)
+        Me.grpBTDrain.Location = New System.Drawing.Point(6, 358)
         Me.grpBTDrain.Name = "grpBTDrain"
         Me.grpBTDrain.Size = New System.Drawing.Size(233, 66)
         Me.grpBTDrain.TabIndex = 11
@@ -2160,7 +2223,7 @@ Partial Class frmPipePkg
         Me.grpBTVenting.Controls.Add(Me.optBTVentNone)
         Me.grpBTVenting.Controls.Add(Me.optBTVentAuto)
         Me.grpBTVenting.Controls.Add(Me.optBTVentManual)
-        Me.grpBTVenting.Location = New System.Drawing.Point(6, 209)
+        Me.grpBTVenting.Location = New System.Drawing.Point(6, 286)
         Me.grpBTVenting.Name = "grpBTVenting"
         Me.grpBTVenting.Size = New System.Drawing.Size(233, 66)
         Me.grpBTVenting.TabIndex = 10
@@ -2207,7 +2270,7 @@ Partial Class frmPipePkg
         Me.grpHeatTrace.Controls.Add(Me.optBTHTNone)
         Me.grpHeatTrace.Controls.Add(Me.optBTHTHeatTrace)
         Me.grpHeatTrace.Controls.Add(Me.optBTHTImmersion)
-        Me.grpHeatTrace.Location = New System.Drawing.Point(6, 91)
+        Me.grpHeatTrace.Location = New System.Drawing.Point(6, 168)
         Me.grpHeatTrace.Name = "grpHeatTrace"
         Me.grpHeatTrace.Size = New System.Drawing.Size(233, 112)
         Me.grpHeatTrace.TabIndex = 9
@@ -2277,7 +2340,7 @@ Partial Class frmPipePkg
         Me.grpBTankInsulation.Controls.Add(Me.optBTUninsulated)
         Me.grpBTankInsulation.Controls.Add(Me.optBTArmaflex)
         Me.grpBTankInsulation.Controls.Add(Me.optBTSprayFoam)
-        Me.grpBTankInsulation.Location = New System.Drawing.Point(6, 19)
+        Me.grpBTankInsulation.Location = New System.Drawing.Point(6, 96)
         Me.grpBTankInsulation.Name = "grpBTankInsulation"
         Me.grpBTankInsulation.Size = New System.Drawing.Size(233, 66)
         Me.grpBTankInsulation.TabIndex = 8
@@ -3257,27 +3320,26 @@ Partial Class frmPipePkg
         Me.cmdDesignCautions.TabIndex = 60
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'optTEFCPumpMotor
+        'chkBuffTankOptionsCstmNozzles
         '
-        Me.optTEFCPumpMotor.AutoSize = True
-        Me.optTEFCPumpMotor.Location = New System.Drawing.Point(63, 20)
-        Me.optTEFCPumpMotor.Name = "optTEFCPumpMotor"
-        Me.optTEFCPumpMotor.Size = New System.Drawing.Size(52, 17)
-        Me.optTEFCPumpMotor.TabIndex = 84
-        Me.optTEFCPumpMotor.Text = "TEFC"
-        Me.optTEFCPumpMotor.UseVisualStyleBackColor = True
+        Me.chkBuffTankOptionsCstmNozzles.AutoSize = True
+        Me.chkBuffTankOptionsCstmNozzles.Location = New System.Drawing.Point(12, 20)
+        Me.chkBuffTankOptionsCstmNozzles.Name = "chkBuffTankOptionsCstmNozzles"
+        Me.chkBuffTankOptionsCstmNozzles.Size = New System.Drawing.Size(175, 17)
+        Me.chkBuffTankOptionsCstmNozzles.TabIndex = 12
+        Me.chkBuffTankOptionsCstmNozzles.Text = "Custom Nozzle Locations/Sizes"
+        Me.chkBuffTankOptionsCstmNozzles.UseVisualStyleBackColor = True
         '
-        'optPumpMotorNA
+        'cmbBuffTankStyle
         '
-        Me.optPumpMotorNA.AutoSize = True
-        Me.optPumpMotorNA.Checked = True
-        Me.optPumpMotorNA.Location = New System.Drawing.Point(121, 20)
-        Me.optPumpMotorNA.Name = "optPumpMotorNA"
-        Me.optPumpMotorNA.Size = New System.Drawing.Size(45, 17)
-        Me.optPumpMotorNA.TabIndex = 85
-        Me.optPumpMotorNA.TabStop = True
-        Me.optPumpMotorNA.Text = "N/A"
-        Me.optPumpMotorNA.UseVisualStyleBackColor = True
+        Me.cmbBuffTankStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBuffTankStyle.Enabled = False
+        Me.cmbBuffTankStyle.FormattingEnabled = True
+        Me.cmbBuffTankStyle.Items.AddRange(New Object() {"Not Required"})
+        Me.cmbBuffTankStyle.Location = New System.Drawing.Point(412, 174)
+        Me.cmbBuffTankStyle.Name = "cmbBuffTankStyle"
+        Me.cmbBuffTankStyle.Size = New System.Drawing.Size(173, 21)
+        Me.cmbBuffTankStyle.TabIndex = 83
         '
         'frmPipePkg
         '
@@ -3333,9 +3395,12 @@ Partial Class frmPipePkg
         CType(Me.gridAvailItems, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gridSepecialties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pgSpecOpt.ResumeLayout(False)
+        Me.grpSucDiffOptions.ResumeLayout(False)
+        Me.grpSucDiffOptions.PerformLayout()
         Me.grpTDVOptions.ResumeLayout(False)
         Me.grpTDVOptions.PerformLayout()
         Me.grpBufferTankOpts.ResumeLayout(False)
+        Me.grpBufferTankOpts.PerformLayout()
         Me.grpBTDrain.ResumeLayout(False)
         Me.grpBTDrain.PerformLayout()
         Me.grpBTVenting.ResumeLayout(False)
@@ -3643,13 +3708,18 @@ Partial Class frmPipePkg
     Friend WithEvents cmbPumpStyle As ComboBox
     Friend WithEvents nudPumpCount As NumericUpDown
     Friend WithEvents grpTDVOptions As GroupBox
-    Friend WithEvents RadioButton7 As RadioButton
-    Friend WithEvents RadioButton6 As RadioButton
-    Friend WithEvents RadioButton5 As RadioButton
+    Friend WithEvents optTDVOptionsStraight As RadioButton
+    Friend WithEvents optTDVOptionsAngle As RadioButton
+    Friend WithEvents optTDVOptionsNA As RadioButton
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents optODPPumpMotor As RadioButton
     Friend WithEvents grpPumpMotorStyle As GroupBox
     Friend WithEvents optTEFCPumpMotor As RadioButton
     Friend WithEvents optPumpMotorNA As RadioButton
+    Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents grpSucDiffOptions As GroupBox
+    Friend WithEvents chkSucDiffOptionsBlowDownValve As CheckBox
+    Friend WithEvents cmbBuffTankStyle As ComboBox
+    Friend WithEvents chkBuffTankOptionsCstmNozzles As CheckBox
 End Class

@@ -24,13 +24,14 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.btnDoneBU = New System.Windows.Forms.Button()
         Me.fraMisc = New System.Windows.Forms.GroupBox()
+        Me.optYLUASplit = New System.Windows.Forms.RadioButton()
         Me.optLSeries = New System.Windows.Forms.RadioButton()
         Me.optS40ODSplit = New System.Windows.Forms.RadioButton()
         Me.optS20IDSplit = New System.Windows.Forms.RadioButton()
@@ -315,7 +316,6 @@ Partial Class frmMain
         Me.EDevName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EDevType = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EDevIO = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EDevProvideByFisen = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.EDevFieldInst = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.btnDoneEndDev = New System.Windows.Forms.Button()
         Me.pgWeights = New System.Windows.Forms.TabPage()
@@ -801,6 +801,8 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chkMoveCutsheets = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.chkEDMovetoCutSheets = New System.Windows.Forms.CheckBox()
+        Me.chkEDMovetoDesign = New System.Windows.Forms.CheckBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -936,6 +938,7 @@ Partial Class frmMain
         '
         'fraMisc
         '
+        Me.fraMisc.Controls.Add(Me.optYLUASplit)
         Me.fraMisc.Controls.Add(Me.optLSeries)
         Me.fraMisc.Controls.Add(Me.optS40ODSplit)
         Me.fraMisc.Controls.Add(Me.optS20IDSplit)
@@ -953,10 +956,22 @@ Partial Class frmMain
         Me.fraMisc.TabStop = False
         Me.fraMisc.Text = "Misc"
         '
+        'optYLUASplit
+        '
+        Me.optYLUASplit.AutoSize = True
+        Me.optYLUASplit.Location = New System.Drawing.Point(8, 123)
+        Me.optYLUASplit.Margin = New System.Windows.Forms.Padding(4)
+        Me.optYLUASplit.Name = "optYLUASplit"
+        Me.optYLUASplit.Size = New System.Drawing.Size(53, 17)
+        Me.optYLUASplit.TabIndex = 13
+        Me.optYLUASplit.TabStop = True
+        Me.optYLUASplit.Text = "YLUA"
+        Me.optYLUASplit.UseVisualStyleBackColor = True
+        '
         'optLSeries
         '
         Me.optLSeries.AutoSize = True
-        Me.optLSeries.Location = New System.Drawing.Point(8, 205)
+        Me.optLSeries.Location = New System.Drawing.Point(8, 229)
         Me.optLSeries.Margin = New System.Windows.Forms.Padding(4)
         Me.optLSeries.Name = "optLSeries"
         Me.optLSeries.Size = New System.Drawing.Size(63, 17)
@@ -968,7 +983,7 @@ Partial Class frmMain
         'optS40ODSplit
         '
         Me.optS40ODSplit.AutoSize = True
-        Me.optS40ODSplit.Location = New System.Drawing.Point(8, 180)
+        Me.optS40ODSplit.Location = New System.Drawing.Point(8, 73)
         Me.optS40ODSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optS40ODSplit.Name = "optS40ODSplit"
         Me.optS40ODSplit.Size = New System.Drawing.Size(111, 17)
@@ -980,7 +995,7 @@ Partial Class frmMain
         'optS20IDSplit
         '
         Me.optS20IDSplit.AutoSize = True
-        Me.optS20IDSplit.Location = New System.Drawing.Point(8, 77)
+        Me.optS20IDSplit.Location = New System.Drawing.Point(8, 48)
         Me.optS20IDSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optS20IDSplit.Name = "optS20IDSplit"
         Me.optS20IDSplit.Size = New System.Drawing.Size(106, 17)
@@ -992,7 +1007,7 @@ Partial Class frmMain
         'optDOAS
         '
         Me.optDOAS.AutoSize = True
-        Me.optDOAS.Location = New System.Drawing.Point(8, 155)
+        Me.optDOAS.Location = New System.Drawing.Point(8, 205)
         Me.optDOAS.Margin = New System.Windows.Forms.Padding(4)
         Me.optDOAS.Name = "optDOAS"
         Me.optDOAS.Size = New System.Drawing.Size(55, 17)
@@ -1004,7 +1019,7 @@ Partial Class frmMain
         'optYCULSplit
         '
         Me.optYCULSplit.AutoSize = True
-        Me.optYCULSplit.Location = New System.Drawing.Point(8, 130)
+        Me.optYCULSplit.Location = New System.Drawing.Point(8, 98)
         Me.optYCULSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optYCULSplit.Name = "optYCULSplit"
         Me.optYCULSplit.Size = New System.Drawing.Size(53, 17)
@@ -1017,7 +1032,7 @@ Partial Class frmMain
         '
         Me.optMiscDS.AutoSize = True
         Me.optMiscDS.Enabled = False
-        Me.optMiscDS.Location = New System.Drawing.Point(8, 23)
+        Me.optMiscDS.Location = New System.Drawing.Point(8, 279)
         Me.optMiscDS.Margin = New System.Windows.Forms.Padding(4)
         Me.optMiscDS.Name = "optMiscDS"
         Me.optMiscDS.Size = New System.Drawing.Size(52, 17)
@@ -1029,7 +1044,7 @@ Partial Class frmMain
         'optS20ODSplit
         '
         Me.optS20ODSplit.AutoSize = True
-        Me.optS20ODSplit.Location = New System.Drawing.Point(8, 52)
+        Me.optS20ODSplit.Location = New System.Drawing.Point(8, 23)
         Me.optS20ODSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optS20ODSplit.Name = "optS20ODSplit"
         Me.optS20ODSplit.Size = New System.Drawing.Size(111, 17)
@@ -1042,7 +1057,7 @@ Partial Class frmMain
         '
         Me.RadioButton5.AutoSize = True
         Me.RadioButton5.Enabled = False
-        Me.RadioButton5.Location = New System.Drawing.Point(8, 102)
+        Me.RadioButton5.Location = New System.Drawing.Point(8, 254)
         Me.RadioButton5.Margin = New System.Windows.Forms.Padding(4)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.Size = New System.Drawing.Size(40, 17)
@@ -4098,6 +4113,8 @@ Partial Class frmMain
         '
         'pgEndDeviceSchedule
         '
+        Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoDesign)
+        Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoCutSheets)
         Me.pgEndDeviceSchedule.Controls.Add(Me.dgvEndDevices)
         Me.pgEndDeviceSchedule.Controls.Add(Me.btnDoneEndDev)
         Me.pgEndDeviceSchedule.Location = New System.Drawing.Point(4, 22)
@@ -4110,12 +4127,13 @@ Partial Class frmMain
         '
         'dgvEndDevices
         '
-        Me.dgvEndDevices.AllowUserToAddRows = False
+        Me.dgvEndDevices.AllowUserToResizeColumns = False
+        Me.dgvEndDevices.AllowUserToResizeRows = False
         Me.dgvEndDevices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEndDevices.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.EDevTag, Me.EDevName, Me.EDevType, Me.EDevIO, Me.EDevProvideByFisen, Me.EDevFieldInst})
+        Me.dgvEndDevices.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.EDevTag, Me.EDevName, Me.EDevType, Me.EDevIO, Me.EDevFieldInst})
         Me.dgvEndDevices.Location = New System.Drawing.Point(3, 3)
         Me.dgvEndDevices.Name = "dgvEndDevices"
-        Me.dgvEndDevices.Size = New System.Drawing.Size(1199, 433)
+        Me.dgvEndDevices.Size = New System.Drawing.Size(620, 486)
         Me.dgvEndDevices.TabIndex = 17
         '
         'EDevTag
@@ -4145,17 +4163,10 @@ Partial Class frmMain
         Me.EDevIO.HeaderText = "I/O"
         Me.EDevIO.Name = "EDevIO"
         '
-        'EDevProvideByFisen
-        '
-        Me.EDevProvideByFisen.HeaderText = "By Fisen"
-        Me.EDevProvideByFisen.Name = "EDevProvideByFisen"
-        '
         'EDevFieldInst
         '
-        Me.EDevFieldInst.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.EDevFieldInst.HeaderText = "Field Installed"
         Me.EDevFieldInst.Name = "EDevFieldInst"
-        Me.EDevFieldInst.Width = 77
         '
         'btnDoneEndDev
         '
@@ -7015,8 +7026,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7067,8 +7078,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.Name = "ElecLoadHP"
         Me.ElecLoadHP.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
@@ -7077,8 +7088,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
         Me.ElecLoadFLA.Width = 50
@@ -9816,13 +9827,35 @@ Partial Class frmMain
         'chk65kASCCRBase
         '
         Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(656, 560)
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(583, 560)
         Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
         Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(142, 17)
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
         Me.chk65kASCCRBase.TabIndex = 26
-        Me.chk65kASCCRBase.Text = "Base Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
+        'chkEDMovetoCutSheets
+        '
+        Me.chkEDMovetoCutSheets.AutoSize = True
+        Me.chkEDMovetoCutSheets.Location = New System.Drawing.Point(629, 3)
+        Me.chkEDMovetoCutSheets.Name = "chkEDMovetoCutSheets"
+        Me.chkEDMovetoCutSheets.Size = New System.Drawing.Size(332, 17)
+        Me.chkEDMovetoCutSheets.TabIndex = 18
+        Me.chkEDMovetoCutSheets.Text = "Move Cut Sheets to 'Cut Sheets to Include with Submittal ' Folder"
+        Me.chkEDMovetoCutSheets.UseVisualStyleBackColor = True
+        '
+        'chkEDMovetoDesign
+        '
+        Me.chkEDMovetoDesign.AutoSize = True
+        Me.chkEDMovetoDesign.Checked = True
+        Me.chkEDMovetoDesign.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEDMovetoDesign.Location = New System.Drawing.Point(629, 26)
+        Me.chkEDMovetoDesign.Name = "chkEDMovetoDesign"
+        Me.chkEDMovetoDesign.Size = New System.Drawing.Size(238, 17)
+        Me.chkEDMovetoDesign.TabIndex = 19
+        Me.chkEDMovetoDesign.Text = "Move Cut Sheets to 'Submittal Design' Folder"
+        Me.chkEDMovetoDesign.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -9900,6 +9933,7 @@ Partial Class frmMain
         Me.pgPoints.ResumeLayout(False)
         Me.pgPoints.PerformLayout
         Me.pgEndDeviceSchedule.ResumeLayout(False)
+        Me.pgEndDeviceSchedule.PerformLayout
         CType(Me.dgvEndDevices, System.ComponentModel.ISupportInitialize).EndInit
         Me.pgWeights.ResumeLayout(False)
         Me.pgWeights.PerformLayout
@@ -10572,12 +10606,6 @@ Partial Class frmMain
     Friend WithEvents txtChillMCA As TextBox
     Friend WithEvents Label116 As Label
     Friend WithEvents dgvEndDevices As DataGridView
-    Friend WithEvents EDevTag As DataGridViewTextBoxColumn
-    Friend WithEvents EDevName As DataGridViewTextBoxColumn
-    Friend WithEvents EDevType As DataGridViewTextBoxColumn
-    Friend WithEvents EDevIO As DataGridViewTextBoxColumn
-    Friend WithEvents EDevProvideByFisen As DataGridViewCheckBoxColumn
-    Friend WithEvents EDevFieldInst As DataGridViewCheckBoxColumn
     Friend WithEvents cmdChooseProjectDirectory As Button
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents StatusStrip1 As StatusStrip
@@ -10785,4 +10813,12 @@ Partial Class frmMain
     Friend WithEvents cmdUPGERVModule As Button
     Friend WithEvents chkMoveCutsheets As CheckBox
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents optYLUASplit As RadioButton
+    Friend WithEvents EDevTag As DataGridViewTextBoxColumn
+    Friend WithEvents EDevName As DataGridViewTextBoxColumn
+    Friend WithEvents EDevType As DataGridViewTextBoxColumn
+    Friend WithEvents EDevIO As DataGridViewTextBoxColumn
+    Friend WithEvents EDevFieldInst As DataGridViewCheckBoxColumn
+    Friend WithEvents chkEDMovetoDesign As CheckBox
+    Friend WithEvents chkEDMovetoCutSheets As CheckBox
 End Class

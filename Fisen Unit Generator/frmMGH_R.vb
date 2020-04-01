@@ -1,6 +1,8 @@
 ﻿Imports System.Xml
 Public Class frmMGH_R
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -20,144 +22,233 @@ Public Class frmMGH_R
         End If
         Call UpdateCodeList()
         Call UpdateBaseUnitRequiredItems()
+
+        Call PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+        Next i
+
         Me.Hide()
+    End Sub
+
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '523%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '523%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
     End Sub
     Private Sub UpdateBaseUnitRequiredItems()
         frmMain.lstRequiredFactoryItems.Items.Add("Stainless Steel Heat Exchanger")
     End Sub
     Private Sub UpdateCodeList()
+
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("523100")
-        frmMain.ThisUnitCodes.Add("523101")
+        ModuleCodeList.Add("523100")
+        ModuleCodeList.Add("523101")
         If optSATCtrl.Checked = True Then 'Normal SAT Controls
-            frmMain.ThisUnitCodes.Add("523110")
+            ModuleCodeList.Add("523110")
             If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                 If optSE.Checked = True Then
-                    frmMain.ThisUnitCodes.Add("523112") 'SE 4Stage Board
+                    ModuleCodeList.Add("523112") 'SE 4Stage Board
                 Else
-                    frmMain.ThisUnitCodes.Add("523114") 'IPU
+                    ModuleCodeList.Add("523114") 'IPU
                 End If
             Else 'This should mean S20, S10, S5
-                frmMain.ThisUnitCodes.Add("523111") 'SE Single board
+                ModuleCodeList.Add("523111") 'SE Single board
             End If
 
             If chkTempering.Checked = True Then
-                frmMain.ThisUnitCodes.Add("523130")
+                ModuleCodeList.Add("523130")
                 If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                     If optSE.Checked = True Then
-                        frmMain.ThisUnitCodes.Add("523132") 'SE 4Stage Board
+                        ModuleCodeList.Add("523132") 'SE 4Stage Board
                     Else
-                        frmMain.ThisUnitCodes.Add("523134") 'IPU
+                        ModuleCodeList.Add("523134") 'IPU
                     End If
                 Else 'This should mean S20, S10, S5
-                    frmMain.ThisUnitCodes.Add("523131") 'SE Single board
+                    ModuleCodeList.Add("523131") 'SE Single board
                 End If
 
             End If
 
             If chkSATReset.Checked = True Then
-                frmMain.ThisUnitCodes.Add("523135")
+                ModuleCodeList.Add("523135")
             End If
         End If
 
         If opt100OACtrls.Checked = True Then
-            frmMain.ThisUnitCodes.Add("523140") '100% OA SAT Controls
+            ModuleCodeList.Add("523140") '100% OA SAT Controls
             If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                 If optSE.Checked = True Then
-                    frmMain.ThisUnitCodes.Add("523143") 'SE 100% Outdoor Air
+                    ModuleCodeList.Add("523143") 'SE 100% Outdoor Air
                 Else
-                    frmMain.ThisUnitCodes.Add("523145") 'IPU 100% Outdoor Air
+                    ModuleCodeList.Add("523145") 'IPU 100% Outdoor Air
                 End If
             Else 'This should mean S20, S10, S5
-                frmMain.ThisUnitCodes.Add("523143") 'SE Single board
+                ModuleCodeList.Add("523143") 'SE Single board
             End If
         End If
 
         If optGBAS.Checked = True Then
-            frmMain.ThisUnitCodes.Add("523120") 'GBAS Interface
+            ModuleCodeList.Add("523120") 'GBAS Interface
         End If
 
         If optCustomCtrl.Checked Then
-            frmMain.ThisUnitCodes.Add("523105")
+            ModuleCodeList.Add("523105")
             Select Case cmbCustomControls.Text
                 Case Is = "IPU Enabled/Fisen Controlled Modulation"
-                    frmMain.ThisUnitCodes.Add("523161")
+                    ModuleCodeList.Add("523161")
             End Select
 
         End If
 
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
-                frmMain.ThisUnitCodes.Add("523150")
+                ModuleCodeList.Add("523150")
             Case Is = "Series10"
-                frmMain.ThisUnitCodes.Add("523151")
+                ModuleCodeList.Add("523151")
             Case Is = "Series20"
-                frmMain.ThisUnitCodes.Add("523152")
+                ModuleCodeList.Add("523152")
             Case Is = "Series40"
-                frmMain.ThisUnitCodes.Add("523153")
+                ModuleCodeList.Add("523153")
             Case Is = "Series100"
-                frmMain.ThisUnitCodes.Add("523154")
+                ModuleCodeList.Add("523154")
         End Select
 
         If chkIncludeEquipmentTouch.Checked = True Then
-            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
+            If ModuleCodeList.Count = 0 Then ModuleCodeList.Add("960000")
             If chkMountEquipmentTouch.Checked = True Then
-                frmMain.ThisUnitGenCodes.Add("960002")
+                ModuleCodeList.Add("960002")
             Else
-                frmMain.ThisUnitGenCodes.Add("960001")
+                ModuleCodeList.Add("960001")
             End If
         End If
 
         'Add Auxillary Panel if selected
         If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
-            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
+            If ModuleCodeList.Count = 0 Then ModuleCodeList.Add("960000")
             frmMain.HasAuxillaryPanel = True
             Select Case cmbAuxPanelOpts.Text
                 Case Is = "Series 5 Downflow"
-                    frmMain.ThisUnitGenCodes.Add("960008")
+                    ModuleCodeList.Add("960008")
                 Case Is = "Series 5 Horizontal"
-                    frmMain.ThisUnitGenCodes.Add("960013")
+                    ModuleCodeList.Add("960013")
                 Case Is = "Series 5 Horizontal No Return"
-                    frmMain.ThisUnitGenCodes.Add("960014")
+                    ModuleCodeList.Add("960014")
                 Case Is = "Series 5 Convertible"
-                    frmMain.ThisUnitGenCodes.Add("960015")
+                    ModuleCodeList.Add("960015")
                 Case Is = "Series 5 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960017")
+                    ModuleCodeList.Add("960017")
                 Case Is = "Series 10 Downflow"
-                    frmMain.ThisUnitGenCodes.Add("960005")
+                    ModuleCodeList.Add("960005")
                 Case Is = "Series 10 Horizontal"
-                    frmMain.ThisUnitGenCodes.Add("960006")
+                    ModuleCodeList.Add("960006")
                 Case Is = "Series 10 Horizontal No Return"
-                    frmMain.ThisUnitGenCodes.Add("960007")
+                    ModuleCodeList.Add("960007")
                 Case Is = "Series 10 Convertible"
-                    frmMain.ThisUnitGenCodes.Add("960010")
+                    ModuleCodeList.Add("960010")
                 Case Is = "Series 10 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960016")
+                    ModuleCodeList.Add("960016")
                 Case Is = "Series 20 Downflow"
-                    frmMain.ThisUnitGenCodes.Add("960018")
+                    ModuleCodeList.Add("960018")
                 Case Is = "Series 20 Horizontal"
-                    frmMain.ThisUnitGenCodes.Add("960019")
+                    ModuleCodeList.Add("960019")
                 Case Is = "Series 20 Horizontal No Return"
-                    frmMain.ThisUnitGenCodes.Add("960020")
+                    ModuleCodeList.Add("960020")
                 Case Is = "Series 20 Convertible"
-                    frmMain.ThisUnitGenCodes.Add("960021")
+                    ModuleCodeList.Add("960021")
                 Case Is = "Series 20 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960012")
+                    ModuleCodeList.Add("960012")
                 Case Is = "Series 40 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960022")
+                    ModuleCodeList.Add("960022")
                 Case Is = "Series 100 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960023")
+                    ModuleCodeList.Add("960023")
             End Select
         End If
 
 
         If chkPropane.Checked Then
-            frmMain.ThisUnitCodes.Add("523999")
-            frmMain.ThisUnitCodes.Add("523998")
+            ModuleCodeList.Add("523999")
+            ModuleCodeList.Add("523998")
         End If
 
         frmMain.ThisUnit.CommNodes = "2"
-        'use logic to step through the controls to determine the codes and use the above format...
+
+
+
+
 
     End Sub
     Private Sub UpdateWarrantyItems()
@@ -251,7 +342,7 @@ Public Class frmMGH_R
         End Select
 
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
-
+        ModuleCodeList.Add("523100")
     End Sub
 
     Private Sub LoadDigConditions()
@@ -428,5 +519,9 @@ Public Class frmMGH_R
 
     Private Sub optUseAux_CheckedChanged(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
         Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        PerformDesignCautionScan(True)
     End Sub
 End Class

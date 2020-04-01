@@ -44,7 +44,13 @@
         'Initialize the proposal choices
         Call InitializeProposalDropdowns()
 
-        'Old stuff follows
+        'Handle SCCR requirements of base unit
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+        'Prime the pump for Design Cautions
+        ModuleCodeList.Add("800000")
+
+        'Old stuff follows - Should eventually be deleted or migrated out of here.
         txtFlow.Text = frmMain.ThisChillerMainPerf.Flow
         cmbFluid.Text = frmMain.ThisChillerMainPerf.Fluid
         cmbFluidPercent.Text = frmMain.ThisChillerMainPerf.FluidPercent
@@ -64,7 +70,7 @@
         cmbFittingStyle.Text = "Victaulic"
         cmbPipeSize.Text = "3"
 
-        ModuleCodeList.Add("800000")
+
 
 
     End Sub
@@ -208,7 +214,8 @@
 
         'Handle the codes for each of the installed specialties
         If chkScopeTDV.Checked Then Call HandleCodesTDV()
-        If chkScopeSuctionDiff.Checked Then Call HandleCodesTDV()
+        If chkScopeSuctionDiff.Checked Then Call HandleCodesSucDiff()
+        If chkScopeBufferTank.Checked Then Call HandleCodesBuffTank
 
         Call PerformDesignCautionScan(False)
 
@@ -218,18 +225,63 @@
 
     End Sub
 
+    Private Sub HandleCodesBuffTank()
+        ModuleCodeList.Add("800D00") 'Main code for Buffer Tanks are included
+        'First branchout is by manufacturer
+        Select Case cmbBuffTankSpec.Text
+            Case Is = "Use Standard", Is = "Niles Steel Tank"
+                ModuleCodeList.Add("800D01")
+                Select Case cmbBuffTankStyle.Text
+                    Case Is = "130 gal. CBT-24-072"
+                        ModuleCodeList.Add("800DZ1")
+                    Case Is = "210 gal. CBT-30-075"
+                        ModuleCodeList.Add("800DZ2")
+                    Case Is = "300 gal. CBT-36-072"
+                        ModuleCodeList.Add("800DZ3")
+                    Case Is = "400 gal. CBT-36-094"
+                        ModuleCodeList.Add("800DZ4")
+                    Case Is = "460 gal. CBT-42-084"
+                        ModuleCodeList.Add("800DZ5")
+                    Case Is = "528 gal. CBT-48-077"
+                        ModuleCodeList.Add("800DZ6")
+                    Case Is = "1000 gal. CBT-48-141"
+                        ModuleCodeList.Add("800DZ7")
+                    Case Is = "Custom Capacity Tank"
+                        ModuleCodeList.Add("800DZ0")
+                End Select
+            Case Is = "Elbi"
+                ModuleCodeList.Add("800D02")
+                Select Case cmbBuffTankStyle.Text
+                    Case Is = "Custom Capacity Tank"
+                        ModuleCodeList.Add("800DZR")
+                End Select
+            Case Is = "Buckeye Fabrication"
+                ModuleCodeList.Add("800D03")
+                Select Case cmbBuffTankStyle.Text
+                    Case Is = "Custom Capacity Tank"
+                        ModuleCodeList.Add("800DZH")
+                End Select
+        End Select
+        'Now handle the options for the specialty
+        If chkBuffTankOptionsCstmNozzles.Checked Then ModuleCodeList.Add("800DA1")
+
+
+    End Sub
     Private Sub HandleCodesSucDiff()
 
         ModuleCodeList.Add("800C00") 'Main Code for Suction Diffuser are included
         'First branchout by manufacturer...
-        Select Case cmbTDVSpec.Text
+        Select Case cmbSucDiffSpec.Text
             Case Is = "Use Standard", Is = "Armstrong"
                 ModuleCodeList.Add("800C01")
+                ModuleCodeList.Add("800CZ1")
             Case Is = "Bell and Gossett"
                 ModuleCodeList.Add("800C02")
             Case Is = "Taco"
                 ModuleCodeList.Add("800C03")
         End Select
+        If chkSucDiffOptionsBlowDownValve.Checked Then ModuleCodeList.Add("800CA1")
+
     End Sub
     Private Sub HandleCodesTDV()
 
@@ -238,11 +290,17 @@
         Select Case cmbTDVSpec.Text
             Case Is = "Use Standard", Is = "Armstrong"
                 ModuleCodeList.Add("800B01")
+                ModuleCodeList.Add("800BZ1")
             Case Is = "Bell and Gossett"
                 ModuleCodeList.Add("800B02")
             Case Is = "Taco"
                 ModuleCodeList.Add("800B03")
         End Select
+
+        'Handle the options page choices
+        If optTDVOptionsStraight.Checked Then ModuleCodeList.Add("800B91")
+        If optTDVOptionsAngle.Checked Then ModuleCodeList.Add("800B92")
+
     End Sub
 
     Private Sub HandleCodesPumps()
@@ -1520,9 +1578,17 @@
         If chkScopeTDV.Checked Then
             cmbTDVSpec.Enabled = True
             cmbTDVSpec.Text = "Use Standard"
+            optTDVOptionsAngle.Enabled = True
+            optTDVOptionsStraight.Enabled = True
+            optTDVOptionsNA.Enabled = False
+            optTDVOptionsStraight.Checked = True
         Else
             cmbTDVSpec.Enabled = False
             cmbTDVSpec.Text = "Not Required"
+            optTDVOptionsAngle.Enabled = False
+            optTDVOptionsStraight.Enabled = False
+            optTDVOptionsNA.Enabled = True
+            optTDVOptionsNA.Checked = True
         End If
 
     End Sub
@@ -1531,9 +1597,14 @@
         If chkScopeSuctionDiff.Checked Then
             cmbSucDiffSpec.Enabled = True
             cmbSucDiffSpec.Text = "Use Standard"
+            grpSucDiffOptions.Enabled = True
+
         Else
             cmbSucDiffSpec.Enabled = False
             cmbSucDiffSpec.Text = "Not Required"
+            grpSucDiffOptions.Enabled = True
+            chkSucDiffOptionsBlowDownValve.Checked = False
+
         End If
     End Sub
     Public Sub New()
@@ -1557,5 +1628,34 @@
 
     Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
         Call PerformDesignCautionScan(True)
+    End Sub
+
+    Private Sub cmbBuffTankSpec_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBuffTankSpec.SelectedIndexChanged
+        cmbBuffTankStyle.Items.Clear()
+
+        Select Case cmbBuffTankSpec.Text
+            Case Is = "Use Standard", Is = "Niles Steel Tank"
+                cmbBuffTankStyle.Items.Add("130 gal. CBT-24-072")
+                cmbBuffTankStyle.Items.Add("210 gal. CBT-30-075")
+                cmbBuffTankStyle.Items.Add("300 gal. CBT-36-072")
+                cmbBuffTankStyle.Items.Add("400 gal. CBT-36-094")
+                cmbBuffTankStyle.Items.Add("460 gal. CBT-42-084")
+                cmbBuffTankStyle.Items.Add("528 gal. CBT-48-077")
+                cmbBuffTankStyle.Items.Add("1000 gal. CBT-48-141")
+                cmbBuffTankStyle.Items.Add("Custom Capacity Tank")
+                cmbBuffTankStyle.Items.Add("Unselected")
+                cmbBuffTankStyle.Text = "Unselected"
+            Case Is = "Buckeye Fabrication"
+                cmbBuffTankStyle.Items.Add("Custom Capacity Tank")
+                cmbBuffTankStyle.Items.Add("Unselected")
+                cmbBuffTankStyle.Text = "Unselected"
+            Case Is = "Elbi"
+                cmbBuffTankStyle.Items.Add("Custom Capacity Tank")
+                cmbBuffTankStyle.Items.Add("Unselected")
+                cmbBuffTankStyle.Text = "Unselected"
+            Case Is = "Not Required"
+                cmbBuffTankStyle.Items.Add("Not Required")
+                cmbBuffTankStyle.Text = "Not Required"
+        End Select
     End Sub
 End Class

@@ -34,6 +34,14 @@ Public Class frm100OA
     End Sub
     Private Sub UpdateCodeList()
         Dim BaseControl As String
+        Dim HeatType As String
+
+        HeatType = "None"
+        If optGasHeat.Checked Then HeatType = "Gas"
+        If optEHeat.Checked Then HeatType = "Electric"
+        If optHWHeat.Checked Then HeatType = "Hot Water"
+        If optSteamHeat.Checked Then HeatType = "Steam"
+        If optHeatcoGas.Checked Then HeatType = "Heatco"
 
         BaseControl = "SE"
         If optSE.Checked Then BaseControl = "SE"
@@ -69,6 +77,7 @@ Public Class frm100OA
         'Controls for OA Capable
         If opt100OACapable.Checked Then
             ModuleCodeList.Add("0A0130") 'Controls for 100% Outdoor Air Capable Unit
+            If chk65kASCCRBase.Checked Then ModuleCodeList.Add("0A0991")
 
             Select Case BaseControl
                 Case Is = "SE"
@@ -115,6 +124,7 @@ Public Class frm100OA
         If opt100OA.Checked Then
             'Handle the Controls
             ModuleCodeList.Add("0A0120") 'Controls for 100% Outdoor Air Unit
+            If chk65kASCCRBase.Checked Then ModuleCodeList.Add("0A0990")
 
             Select Case BaseControl
                 Case Is = "SE"
@@ -136,6 +146,20 @@ Public Class frm100OA
                     If optModeGBAS.Checked Then ModuleCodeList.Add("0A0125") 'GBAS
                     If optModeDATOnly.Checked Then ModuleCodeList.Add("0A0129") 'DAT Only
 
+                    'Handle the cooling controls
+
+                    'handle the heating controls
+                    Select Case HeatType
+                        Case Is = "None"
+                        Case Is = "Gas"
+                        Case Is = "Electric"
+                        Case Is = "Hot Water"
+                        Case Is = "Steam"
+                        Case Is = "Heatco"
+                    End Select
+
+                    'Handle Zone Override Sensors
+
                 Case Is = "IPU"
                     'First Handle the general safeties
                     ModuleCodeList.Add("0A0391") 'Timed Freeze Protection
@@ -147,10 +171,38 @@ Public Class frm100OA
                         ModuleCodeList.Add("0A0306") 'FanSS with Small Motor
                     End If
 
+                    'Convert VFD
+                    If chkIntellispeed.Checked Then ModuleCodeList.Add("0A0371")
+
                     'Mode Control
                     If optModeAuto.Checked Then ModuleCodeList.Add("0A0123") 'OA Temp based mode control
                     If optModeGBAS.Checked Then ModuleCodeList.Add("0A0125") 'GBAS
                     If optModeDATOnly.Checked Then ModuleCodeList.Add("0A0129") 'DAT Only
+
+                    'Handle the cooling controls
+                    If optCoolCtrlByBaseUnit.Checked Then ModuleCodeList.Add("0A02E3")
+
+                    'handle the heating controls
+                    Select Case HeatType
+                        Case Is = "None"
+                        Case Is = "Gas"
+                            If optHeatCtrlStagedOA.Checked Then ModuleCodeList.Add("0A0270")
+                        Case Is = "Electric"
+                        Case Is = "Hot Water"
+                        Case Is = "Steam"
+                        Case Is = "Heatco"
+                    End Select
+
+                    'Handle Zone Override Sensors
+                    If chkZoneOvrSensor.Checked Then
+                        If optCoolCtrlByBaseUnit.Checked Then ModuleCodeList.Add("0A02D1")
+                        If optCoolCtrlDAByFisen.Checked Then ModuleCodeList.Add("0A02D2")
+                        If optCoolCtrlStagedOA.Checked Then ModuleCodeList.Add("0A02D3")
+                        If optHeatCtrlStagedOA.Checked Then ModuleCodeList.Add("0A02D4")
+                        If optHeatCtrlDAByFisen.Checked Then ModuleCodeList.Add("0A02D5")
+                        If optHeatCtrlDABaseUnit.Checked Then ModuleCodeList.Add("0A02D6")
+                    End If
+
 
                 Case Is = "ASE"
                     'First Handle the general safeties
@@ -168,190 +220,22 @@ Public Class frm100OA
                     If optModeGBAS.Checked Then ModuleCodeList.Add("0A0125") 'GBAS
                     If optModeDATOnly.Checked Then ModuleCodeList.Add("0A0129") 'DAT Only
 
+                    'Handle the cooling controls
+
+                    'handle the heating controls
+                    Select Case HeatType
+                        Case Is = "None"
+                        Case Is = "Gas"
+                        Case Is = "Electric"
+                        Case Is = "Hot Water"
+                        Case Is = "Steam"
+                        Case Is = "Heatco"
+                    End Select
+
+                    'Handle Zone Override Sensors
+
+
             End Select
-
-
-            If optSE.Checked Then
-                'handle the heating
-                If optNoHeat.Checked Then
-                    If optHeatCtrlDAFutureTB.Checked Then
-                        ModuleCodeList.Add("0A0160")
-                    End If
-                    If optHeatCtrlDAFieldInstTB.Checked Then
-                        ModuleCodeList.Add("0A0161")
-                    End If
-                End If
-                If optEHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0183")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0193")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0173")
-                    End If
-                End If
-                If optGasHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0180")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0190")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0170")
-                    End If
-                End If
-                If optHeatcoGas.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0184")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0194")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0174")
-                    End If
-                End If
-                If optHWHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0181")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0191")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0171")
-                    End If
-                End If
-                If optSteamHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0182")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0192")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0172")
-                    End If
-                End If
-
-                'This is the cooling for an SE Controller
-                If optCoolCtrlStagedOA.Checked Then
-                    ModuleCodeList.Add("0A0151")
-                    'hande the HGRH Stuffs
-                    If chkFisenHGRH.Checked And chkFisenMHGRH.Checked Then
-                        If optSE.Checked Then
-                            ModuleCodeList.Add("0A0381")
-                        Else
-                            ModuleCodeList.Add("0A0383")
-                        End If
-                    End If
-                    If chkFisenHGRH.Checked And Not (chkFisenMHGRH.Checked) Then
-                        If optSE.Checked Then
-                            ModuleCodeList.Add("0A0380")
-                        Else
-                            ModuleCodeList.Add("0A0382")
-                        End If
-                    End If
-                    'handle the zone override sensor
-                    If chkZoneOvrSensor.Checked Then
-                        ModuleCodeList.Add("0A0122")
-                    End If
-                End If
-                If optCoolCtrlDAByFisen.Checked Then
-                    ModuleCodeList.Add("0A0152")
-                End If
-                If optCoolCtrlGBAS.Checked Then
-
-                End If
-                If optCoolCtrlByBaseUnit.Checked Then
-                    ModuleCodeList.Add("0A0153")
-                End If
-
-                If chkIntellispeed.Checked Then
-                    ModuleCodeList.Add("0A0370")
-                End If
-
-            Else
-                'This is the heating for an IPU
-                If optNoHeat.Checked Then
-                    If optHeatCtrlDAFutureTB.Checked Then
-                        ModuleCodeList.Add("0A0260")
-                    End If
-                    If optHeatCtrlDAFieldInstTB.Checked Then
-                        ModuleCodeList.Add("0A0261")
-                    End If
-                End If
-                If optEHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0283")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0293")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0273")
-                    End If
-                End If
-
-                If optGasHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0280")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0290")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0270")
-                    End If
-                End If
-                If optHeatcoGas.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0284")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0294")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0274")
-                    End If
-                End If
-                If optHWHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0281")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0291")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0271")
-                    End If
-                End If
-                If optSteamHeat.Checked Then
-                    If optHeatCtrlDAByFisen.Checked Then
-                        ModuleCodeList.Add("0A0282")
-                    End If
-                    If optHeatCtrlDABaseUnit.Checked Then
-                        ModuleCodeList.Add("0A0292")
-                    End If
-                    If optHeatCtrlStagedOA.Checked Then
-                        ModuleCodeList.Add("0A0272")
-                    End If
-                End If
-                'This is the cooling for an IPU
-                If optCoolCtrlStagedOA.Checked Then
-                    ModuleCodeList.Add("0A0251")
-                End If
-
-                If optCoolCtrlGBAS.Checked Then
-
-                End If
-
-            End If
-
-
 
         End If
 
@@ -512,6 +396,7 @@ Public Class frm100OA
                 optIPU.Checked = True
                 optSE.Enabled = False
                 optASE.Enabled = False
+                chkYPALtoVAV.Enabled = True
             Case Is = "Premier"
                 optSE.Enabled = False
                 optSE.Checked = True
@@ -546,6 +431,7 @@ Public Class frm100OA
         ModuleCodeList.Add("0A0100")
 
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
 
     End Sub
@@ -973,7 +859,7 @@ Public Class frm100OA
                 If Not (optNoHeat.Checked) Then 'Unit has heat
                     optHeatCtrlDAByFisen.Checked = True
 
-                    optHeatCtrlStagedOA.Enabled = False
+                    optHeatCtrlStagedOA.Enabled = True
                     optHeatCtrlDAByFisen.Enabled = True
                     optHeatCtrlDAFutureTB.Enabled = True
                     optHeatCtrlDABaseUnit.Enabled = True

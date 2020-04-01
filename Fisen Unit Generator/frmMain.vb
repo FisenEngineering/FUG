@@ -38,6 +38,7 @@ Public Class frmMain
     Public ThisUnitDQCodes As New ArrayList
     Public ThisUnitFactOpts As New ArrayList
     Public ThisUnitFieldInst As New ArrayList
+    Public ThisUnitEndDevices As New ArrayList
     Public ThisUnitUnitDrawings As New ArrayList
     Public ThisUnitUnitDrawingsAction As New ArrayList
     Public ThisUnitHydro As New ArrayList
@@ -601,6 +602,7 @@ Public Class frmMain
         For i = 0 To lstSelectedMods.Items.Count - 1
             If lstSelectedMods.Items(i) = "100% Outdoor Air" Then OA100Present = True
             If lstSelectedMods.Items(i) = "Reduced Air Flow" Then LowAFPresent = True
+            If lstSelectedMods.Items(i) = "Short Circuit Current Rating" Then chk65kASCCRBase.Checked = True
         Next
         If (OA100Present And Not (LowAFPresent)) Then
             dummy = MsgBox("You have selected 100% OA without Reduced Airflow.  Are you certain you want to proceed?", vbYesNo, "Fisen Unit Generator")
@@ -3106,8 +3108,43 @@ Public Class frmMain
         UnitWriter.WriteStartElement("EndDevicesRqd")
 
         UnitWriter.WriteStartElement("ProcessEndDeviceTable")
-        UnitWriter.WriteString("No")
-        UnitWriter.WriteEndElement()
+        If dgvEndDevices.Rows.Count > 0 Then
+            UnitWriter.WriteString("Yes")
+            UnitWriter.WriteEndElement() 'Process Device Table
+            UnitWriter.WriteStartElement("EndDeviceList")
+            For i = 0 To dgvEndDevices.Rows.Count - 2
+                UnitWriter.WriteStartElement("EndDevice")
+
+                UnitWriter.WriteStartElement("Tag")
+                UnitWriter.WriteString(dgvEndDevices.Rows(i).Cells.Item(0).Value)
+                UnitWriter.WriteEndElement() 'Tag
+
+                UnitWriter.WriteStartElement("Name")
+                UnitWriter.WriteString(dgvEndDevices.Rows(i).Cells.Item(1).Value)
+                UnitWriter.WriteEndElement() 'Name
+
+                UnitWriter.WriteStartElement("Type")
+                UnitWriter.WriteString(dgvEndDevices.Rows(i).Cells.Item(2).Value)
+                UnitWriter.WriteEndElement() 'Type
+
+                UnitWriter.WriteStartElement("IO")
+                UnitWriter.WriteString(dgvEndDevices.Rows(i).Cells.Item(3).Value)
+                UnitWriter.WriteEndElement() 'IO
+
+                UnitWriter.WriteStartElement("FieldInstalled")
+                UnitWriter.WriteString(dgvEndDevices.Rows(i).Cells.Item(4).Value)
+                UnitWriter.WriteEndElement() 'Name
+
+                UnitWriter.WriteEndElement() 'End Device
+            Next i
+            UnitWriter.WriteEndElement() 'End Device List
+        Else
+            UnitWriter.WriteString("No")
+            UnitWriter.WriteEndElement() 'Process Device Table
+        End If
+
+        'Now handle moving the end device cutsheets as needed.
+        If (chkEDMovetoCutSheets.Checked Or chkEDMovetoDesign.Checked) Then Call CopyEndDeviceCusSheets
 
         UnitWriter.WriteEndElement() 'EndDevices Required
 
@@ -6645,7 +6682,42 @@ Public Class frmMain
         tabMain.SelectTab("pgPoints")
     End Sub
     Private Sub btnDonePoints_Click(sender As Object, e As EventArgs) Handles btnDonePoints.Click
+        Call PopulateEndDeviceDGV
         tabMain.SelectTab("pgEndDeviceSchedule")
+    End Sub
+    Private Sub PopulateEndDeviceDGV()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim MySQL As String
+
+        Dim NewRow As String()
+        Dim MyIo As String
+        Dim i As Integer
+
+        If ThisUnitEndDevices.Count = 0 Then Exit Sub
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT * FROM tblEndDevices"
+        rs.Open(MySQL, con)
+
+        For i = 0 To ThisUnitEndDevices.Count - 1
+            rs.MoveFirst()
+            rs.Find("ID=#" & ThisUnitEndDevices.Item(i) & "#")
+            If Not rs.EOF Then
+                If rs.Fields("EDType").Value = "Sensor" Then MyIo = "Input" Else MyIo = "Output"
+                NewRow = {rs.Fields("EDTag").Value, rs.Fields("EDName").Value, rs.Fields("EDClass").Value, MyIo, False}
+                dgvEndDevices.Rows.Add(NewRow)
+            End If
+        Next
     End Sub
     Private Sub btnDoneEndDev_Click(sender As Object, e As EventArgs) Handles btnDoneEndDev.Click
         Dim i As Integer
@@ -8494,10 +8566,14 @@ Public Class frmMain
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/FieldInstalled")
         ThisUnitFieldInst.Clear()
-        For i = 0 To xNodeRoot.ChildNodes.Count - 1
-            ThisUnitFieldInst.Add(xNodeRoot.ChildNodes.Item(i).InnerText)
-            If InStr(xNodeRoot.ChildNodes.Item(i).InnerText, "Powered Exhaust") Then ThisUnitRXPerf.UPGXFanPresent = True
-        Next
+        If xNodeRoot.ChildNodes.Count > 0 Then
+            For i = 0 To xNodeRoot.ChildNodes.Count - 1
+                ThisUnitFieldInst.Add(xNodeRoot.ChildNodes.Item(i).InnerText)
+                If InStr(xNodeRoot.ChildNodes.Item(i).InnerText, "Powered Exhaust") Then ThisUnitRXPerf.UPGXFanPresent = True
+            Next
+        Else
+            ThisUnitFieldInst.Add("None")
+        End If
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/CoolingData")
         txtNominalTons.Text = Trim(xNodeRoot.SelectSingleNode("NominalTons").InnerText)
@@ -8869,5 +8945,59 @@ Public Class frmMain
         btnDoneCutSheets.Enabled = False
         tabMain.Enabled = False
         Button1.Enabled = True
+    End Sub
+
+    Private Sub CopyEndDeviceCusSheets()
+        Dim FileBase As String
+        Dim FileName As String
+        Dim SourcePath As String
+        Dim ProjectPath As String
+        Dim TargetPath1 As String
+        Dim TargetPath2 As String
+        Dim i As Integer
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT * FROM tblEndDevices"
+        rs.Open(MySQL, con)
+
+        FileBase = ThisUnit.ResourcePath
+
+        ProjectPath = txtProjectDirectory.Text
+
+
+        TargetPath1 = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
+        TargetPath2 = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Cut Sheets to Include with Submittal\"
+        SourcePath = FileBase & "CutSheets\EndDevices\"
+
+        For i = 0 To ThisUnitEndDevices.Count - 1
+            rs.MoveFirst()
+            rs.Find("ID=#" & Val(ThisUnitEndDevices.Item(i)) & "#")
+            If rs.Fields("EDCutSheetPath").Value <> "-" Then
+                SourcePath = SourcePath & rs.Fields("EDCutSheetPath").Value & rs.Fields("EDCutSheet").Value
+                FileName = "Cut Sheet-" & rs.Fields("EDName").Value
+                TargetPath1 = TargetPath1 & FileName
+                TargetPath2 = TargetPath2 & FileName
+                If chkEDMovetoCutSheets.Checked Then FileCopy(SourcePath, TargetPath1)
+                If chkEDMovetoCutSheets.Checked Then FileCopy(SourcePath, TargetPath2)
+            End If
+        Next
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
     End Sub
 End Class

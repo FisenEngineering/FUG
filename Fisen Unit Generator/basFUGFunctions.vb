@@ -1,4 +1,48 @@
 ﻿Module basFUGFunctions
+    Public Sub AddUniqueEndDeviceRequirements(ModCodeLocal As String)
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim MySQL As String
+
+        Dim i As Integer
+        Dim Foundit As Boolean
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+        }
+
+        MySQL = "SELECT * FROM tblRequiredEndDevices WHERE FIOpCode='" & ModCodeLocal & "'"
+        rs.Open(MySQL, con)
+
+        If rs.RecordCount = 0 Then
+            rs.Close()
+            con.Close()
+            Exit Sub
+        End If
+
+        rs.MoveFirst()
+        Do While Not (rs.EOF)
+            Foundit = False
+            For i = 0 To frmMain.ThisUnitEndDevices.Count - 1
+                If frmMain.ThisUnitEndDevices.Item(i) = Trim(Str(rs.Fields("EndDeviceID").Value)) Then Foundit = True
+            Next
+
+            If Not (Foundit) Then
+                frmMain.ThisUnitEndDevices.Add(Trim(Str(rs.Fields("EndDeviceID").Value)))
+            End If
+            rs.MoveNext()
+        Loop
+
+        rs.Close()
+        con.Close()
+
+    End Sub
     Public Function ToFracSize(DecimalSize As String) As String
         Dim FracSize As String
         Dim Whole As String

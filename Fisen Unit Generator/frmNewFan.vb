@@ -664,19 +664,14 @@ Public Class frmNewFan
 
         'Add the level 0 code(s)
         ModuleCodeList.Add("330100") 'Supply Fan Level 1 Code
-        ModuleCodeList.Add("330100")
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series10"
                 ModuleCodeList.Add("330910")
-                ModuleCodeList.Add("330910")
             Case Is = "Series20"
-                ModuleCodeList.Add("330920")
                 ModuleCodeList.Add("330920")
             Case Is = "Series40"
                 ModuleCodeList.Add("330940")
-                ModuleCodeList.Add("330940")
             Case Is = "Series100"
-                ModuleCodeList.Add("330990")
                 ModuleCodeList.Add("330990")
         End Select
 
@@ -684,89 +679,68 @@ Public Class frmNewFan
         'handle the fan type
         If optFCFan.Checked Then
             ModuleCodeList.Add("330101")
-            ModuleCodeList.Add("330101")
         End If
         If optAFFan.Checked Then
-            ModuleCodeList.Add("330102")
             ModuleCodeList.Add("330102")
         End If
         If optPlenumFan.Checked Then
             ModuleCodeList.Add("330103")
-            ModuleCodeList.Add("330103")
         End If
         If optPropFan.Checked Then
-            ModuleCodeList.Add("330104")
             ModuleCodeList.Add("330104")
         End If
         'handle the drive
         If optBeltDrive.Checked Then
             ModuleCodeList.Add("330120") ' belt drive spec
-            ModuleCodeList.Add("330120")
             If optCVSystem.Checked Then
                 ModuleCodeList.Add("330121") 'sheaves for motorstarter
-                ModuleCodeList.Add("330121")
             Else
                 ModuleCodeList.Add("330122") 'sheaves for VFD
-                ModuleCodeList.Add("330122")
             End If
         Else
             ModuleCodeList.Add("330110") 'direct drive spec
-            ModuleCodeList.Add("330110")
         End If
 
         If chkMultipleFans.Checked Then
-            ModuleCodeList.Add("330119")
             ModuleCodeList.Add("330119")
         End If
         'handle the isolation
         If optIsoNone.Checked Then
             ModuleCodeList.Add("330130")
-            ModuleCodeList.Add("330130")
         End If
         If optIso1.Checked Then
             ModuleCodeList.Add("330131")
-            ModuleCodeList.Add("330131")
         End If
         If optIso2.Checked Then
-            ModuleCodeList.Add("330132")
             ModuleCodeList.Add("330132")
         End If
 
         'handle the starter type
         If optCVSystem.Checked Then
             ModuleCodeList.Add("330140") 'motorstarter discussion code / ol relay
-            ModuleCodeList.Add("330140")
         Else
             If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
                 ModuleCodeList.Add("330141") 'vfd rplace
-                ModuleCodeList.Add("330141")
                 If frmMain.ThisUnit.Family = "Series100" Then
                     ModuleCodeList.Add("330201")
-                    ModuleCodeList.Add("330201")
                 Else
-                    ModuleCodeList.Add("330202")
                     ModuleCodeList.Add("330202")
                 End If
             Else
                 ModuleCodeList.Add("330142") 'reuse vfd
-                ModuleCodeList.Add("330142")
             End If
 
             If optNoBypass.Checked Then
-                ModuleCodeList.Add("330145")
                 ModuleCodeList.Add("330145")
             End If
 
             If optReuseBypass.Checked Then
                 ModuleCodeList.Add("330146")
-                ModuleCodeList.Add("330146")
             End If
             If optNewBypass.Checked Then
                 ModuleCodeList.Add("330147")
-                ModuleCodeList.Add("330147")
             End If
             If chkRemoteVFDKeypad.Checked Then
-                ModuleCodeList.Add("330148")
                 ModuleCodeList.Add("330148")
             End If
         End If
@@ -774,61 +748,45 @@ Public Class frmNewFan
         'handle the motor
         If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
             ModuleCodeList.Add("330150") 'provide new motor
-            ModuleCodeList.Add("330150")
 
             If optTEFC.Checked Then
-                ModuleCodeList.Add("330152")
                 ModuleCodeList.Add("330152")
             End If
             If optODP.Checked Then
                 ModuleCodeList.Add("330151")
-                ModuleCodeList.Add("330151")
             End If
         Else
             ModuleCodeList.Add("330155") 'reuse existing motor
-            ModuleCodeList.Add("330155")
         End If
 
         If chkMultipleFans.Checked Then
             ModuleCodeList.Add("330159")
-            ModuleCodeList.Add("330159")
         End If
 
         ModuleCodeList.Add("330160") 'Return Fan Controls
-        ModuleCodeList.Add("330160")
         If optNoControls.Checked Then
             ModuleCodeList.Add("330161") 'Return Fan NO Controls
-            ModuleCodeList.Add("330161")
             ModuleCodeList.Add("330162") 'On/Off Only
-            ModuleCodeList.Add("330162")
         Else
             If optTrackSupplyFan.Checked Then
-                ModuleCodeList.Add("330165")
                 ModuleCodeList.Add("330165")
             End If
             If optGBASRFan.Checked Then
                 ModuleCodeList.Add("330170") 'GBAS Return Fan
-                ModuleCodeList.Add("330170")
                 ModuleCodeList.Add("330171") 'GBAS Actuated Dampers
-                ModuleCodeList.Add("330171")
             End If
             If optBldgStaticPressureCtrl.Checked Then
                 ModuleCodeList.Add("330180") 'General Building Static PRessure Control Statement
-                ModuleCodeList.Add("330180")
                 If optBSPbySE.Checked Then
                     ModuleCodeList.Add("330181") 'SE Econ Return Fan
-                    ModuleCodeList.Add("330181")
                 End If
                 If optBSPbyFisen.Checked Then
                     ModuleCodeList.Add("330182") 'Fisen Ctrl Return Fan
-                    ModuleCodeList.Add("330182")
                 End If
                 If optBSPbyIPU.Checked Then
                     ModuleCodeList.Add("330185") 'IPU Ctrl of Return Fan
-                    ModuleCodeList.Add("330185")
                     If chkIPUModulateDamper.Checked Then
                         ModuleCodeList.Add("330186") 'IPU modulate relief damper
-                        ModuleCodeList.Add("330186")
                     End If
                 End If
             End If
@@ -836,67 +794,46 @@ Public Class frmNewFan
         End If
         If chkRFPiezoRingsOnly.Checked Then
             ModuleCodeList.Add("330169")
-            ModuleCodeList.Add("330169")
         End If
         If chkRFPiezoRingsXmitterOnly.Checked Then
             ModuleCodeList.Add("330168")
-            ModuleCodeList.Add("330168")
         End If
         If chkRFPiezoRingsNet.Checked Then
-            ModuleCodeList.Add("330167")
             ModuleCodeList.Add("330167")
         End If
 
         If frmMain.ThisUnit.Family = "Series10" Then
             If chkInletMeasuringStationOnly.Checked Then
                 ModuleCodeList.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
-                ModuleCodeList.Add("33016A")
                 ModuleCodeList.Add("33016H") 'No Change to sequence code.
-                ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationWithXMit.Checked Then
                 ModuleCodeList.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
-                ModuleCodeList.Add("33016A")
                 ModuleCodeList.Add("33016B") 'Return Fan Airflow Transducer
-                ModuleCodeList.Add("33016B")
                 ModuleCodeList.Add("33016G") 'Return Fan Terminal Blocks
-                ModuleCodeList.Add("33016G")
                 ModuleCodeList.Add("33016H") 'No Change to sequence code.
-                ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationFull.Checked Then
                 ModuleCodeList.Add("33016A") 'Series 10 Return Fan(Bottom Return) Airflow Measuring Station
-                ModuleCodeList.Add("33016A")
                 ModuleCodeList.Add("33016B") 'Return Fan Airflow Transducer
-                ModuleCodeList.Add("33016B")
                 ModuleCodeList.Add("33016C") 'Return Fan Airflow Monitor Wired to Fisen Controller
-                ModuleCodeList.Add("33016C")
             End If
         End If
         If frmMain.ThisUnit.Family = "Series20" Then
             If chkInletMeasuringStationOnly.Checked Then
                 ModuleCodeList.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
-                ModuleCodeList.Add("33016D")
                 ModuleCodeList.Add("33016H") 'No Change to sequence code.
-                ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationWithXMit.Checked Then
                 ModuleCodeList.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
-                ModuleCodeList.Add("33016D")
                 ModuleCodeList.Add("33016E") 'Return Fan Airflow Monitor Wired to Fisen Controller
-                ModuleCodeList.Add("33016E")
                 ModuleCodeList.Add("33016G") 'Return Fan Terminal Blocks
-                ModuleCodeList.Add("33016G")
                 ModuleCodeList.Add("33016H") 'No Change to sequence code.
-                ModuleCodeList.Add("33016H")
             End If
             If chkInletMeasuringStationFull.Checked Then
                 ModuleCodeList.Add("33016D") 'Series 20 Return Fan(Bottom Return) Airflow Measuring Station
-                ModuleCodeList.Add("33016D")
                 ModuleCodeList.Add("33016E") 'Return Fan Airflow Transducer
-                ModuleCodeList.Add("33016E")
                 ModuleCodeList.Add("33016F") 'Return Fan Airflow Monitor Wired to Fisen Controller
-                ModuleCodeList.Add("33016F")
             End If
         End If
 
@@ -904,21 +841,16 @@ Public Class frmNewFan
 
         If optNoRelief.Checked Then
             ModuleCodeList.Add("330190")
-            ModuleCodeList.Add("330190")
         End If
         If optBaroRelief.Checked Then
-            ModuleCodeList.Add("330191")
             ModuleCodeList.Add("330191")
             If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
         End If
         If optControlRelief.Checked Then
             ModuleCodeList.Add("330192")
-            ModuleCodeList.Add("330192")
             If chkReliefHoodsShipLoose.Checked Then
                 ModuleCodeList.Add("330194")
-                ModuleCodeList.Add("330194")
             Else
-                ModuleCodeList.Add("330193")
                 ModuleCodeList.Add("330193")
             End If
         End If
@@ -926,31 +858,19 @@ Public Class frmNewFan
         If optHorizFlow.Checked Then
             If frmMain.ThisUnit.Family = "Series10" Then
                 ModuleCodeList.Add("330310")
-                ModuleCodeList.Add("330310")
-                ModuleCodeList.Add("330311")
                 ModuleCodeList.Add("330311")
                 ModuleCodeList.Add("330312")
-                ModuleCodeList.Add("330312")
-                ModuleCodeList.Add("330313")
                 ModuleCodeList.Add("330313")
                 ModuleCodeList.Add("330324")
-                ModuleCodeList.Add("330324")
-                ModuleCodeList.Add("330325")
                 ModuleCodeList.Add("330325")
             End If
 
             If frmMain.ThisUnit.Family = "Series20" Then
                 ModuleCodeList.Add("330320")
-                ModuleCodeList.Add("330320")
-                ModuleCodeList.Add("330321")
                 ModuleCodeList.Add("330321")
                 ModuleCodeList.Add("330322")
-                ModuleCodeList.Add("330322")
-                ModuleCodeList.Add("330313")
                 ModuleCodeList.Add("330313")
                 ModuleCodeList.Add("330323")
-                ModuleCodeList.Add("330323")
-                ModuleCodeList.Add("330325")
                 ModuleCodeList.Add("330325")
             End If
 
@@ -1768,6 +1688,8 @@ Public Class frmNewFan
                     temp = 0.000000145691 * localAirflow ^ 2 - 0.000039648178 * localAirflow
                 Case Is = "J12ZF"
                     temp = 0.000000124168 * localAirflow ^ 2 - 0.000010597484 * localAirflow
+                Case Is = "J12ZH"
+                    temp = 0.000000119120125705 * localAirflow ^ 2 + 0.000013904963053223 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
@@ -1800,6 +1722,8 @@ Public Class frmNewFan
                     temp = 0.000000073142 * localAirflow ^ 2 + 0.000040949828 * localAirflow
                 Case Is = "J12ZF"
                     temp = 0.000000062138 * localAirflow ^ 2 + 0.000041605488 * localAirflow
+                Case Is = "J12ZH"
+                    temp = 0.000000070777592264 * localAirflow ^ 2 + 0.000005982431510823 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
@@ -2041,6 +1965,8 @@ Public Class frmNewFan
             Select Case Snippet
                 Case Is = "J12ZR"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
+                Case Is = "J12ZH"
+                    temp = -0.000000020419254658 * localAirflow ^ 2 + 0.000412447769621681 * localAirflow - 0.761850296442687
                 Case Is = "J12ZJ"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J12ZT"

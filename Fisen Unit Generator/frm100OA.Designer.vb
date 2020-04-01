@@ -52,6 +52,7 @@ Partial Class frm100OA
         Me.chkLowAF = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chkYPALtoVAV = New System.Windows.Forms.CheckBox()
         Me.chkIntellispeed = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
@@ -102,7 +103,7 @@ Partial Class frm100OA
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chkYPALtoVAV = New System.Windows.Forms.CheckBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpReturn.SuspendLayout()
@@ -448,6 +449,7 @@ Partial Class frm100OA
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.chkYPALtoVAV)
         Me.tpgOptions.Controls.Add(Me.chkIntellispeed)
         Me.tpgOptions.Controls.Add(Me.GroupBox3)
@@ -459,6 +461,17 @@ Partial Class frm100OA
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chkYPALtoVAV
+        '
+        Me.chkYPALtoVAV.AutoSize = True
+        Me.chkYPALtoVAV.Location = New System.Drawing.Point(6, 26)
+        Me.chkYPALtoVAV.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkYPALtoVAV.Name = "chkYPALtoVAV"
+        Me.chkYPALtoVAV.Size = New System.Drawing.Size(235, 17)
+        Me.chkYPALtoVAV.TabIndex = 44
+        Me.chkYPALtoVAV.Text = "Convert YPAL/IPU VAV to Constant Volume"
+        Me.chkYPALtoVAV.UseVisualStyleBackColor = True
         '
         'chkIntellispeed
         '
@@ -809,9 +822,9 @@ Partial Class frm100OA
         Me.optHeatCtrlStagedOA.AutoSize = True
         Me.optHeatCtrlStagedOA.Location = New System.Drawing.Point(6, 22)
         Me.optHeatCtrlStagedOA.Name = "optHeatCtrlStagedOA"
-        Me.optHeatCtrlStagedOA.Size = New System.Drawing.Size(116, 17)
+        Me.optHeatCtrlStagedOA.Size = New System.Drawing.Size(77, 17)
         Me.optHeatCtrlStagedOA.TabIndex = 6
-        Me.optHeatCtrlStagedOA.Text = "DA Ctrl (StagedOA)"
+        Me.optHeatCtrlStagedOA.Text = "Staged OA"
         Me.optHeatCtrlStagedOA.UseVisualStyleBackColor = True
         '
         'grpGBASCtrl4
@@ -1020,16 +1033,16 @@ Partial Class frm100OA
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chkYPALtoVAV
+        'chk65kASCCRBase
         '
-        Me.chkYPALtoVAV.AutoSize = True
-        Me.chkYPALtoVAV.Location = New System.Drawing.Point(6, 26)
-        Me.chkYPALtoVAV.Margin = New System.Windows.Forms.Padding(2)
-        Me.chkYPALtoVAV.Name = "chkYPALtoVAV"
-        Me.chkYPALtoVAV.Size = New System.Drawing.Size(235, 17)
-        Me.chkYPALtoVAV.TabIndex = 44
-        Me.chkYPALtoVAV.Text = "Convert YPAL/IPU VAV to Constant Volume"
-        Me.chkYPALtoVAV.UseVisualStyleBackColor = True
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(6, 49)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 45
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'frm100OA
         '
@@ -1162,4 +1175,5 @@ Partial Class frm100OA
     Friend WithEvents Label1 As Label
     Friend WithEvents chkOADamperSwitch As CheckBox
     Friend WithEvents chkYPALtoVAV As CheckBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class
