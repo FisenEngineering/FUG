@@ -29,20 +29,22 @@ Partial Class frmHistoryReport
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.chkFilterByFamily = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cmbModCode = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'txtReport
         '
         Me.txtReport.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReport.Location = New System.Drawing.Point(12, 47)
+        Me.txtReport.Location = New System.Drawing.Point(12, 91)
         Me.txtReport.Name = "txtReport"
-        Me.txtReport.Size = New System.Drawing.Size(776, 390)
+        Me.txtReport.Size = New System.Drawing.Size(776, 346)
         Me.txtReport.TabIndex = 0
         Me.txtReport.Text = ""
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(394, 12)
+        Me.Button1.Location = New System.Drawing.Point(112, 12)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(74, 29)
         Me.Button1.TabIndex = 1
@@ -52,7 +54,7 @@ Partial Class frmHistoryReport
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(474, 12)
+        Me.Button2.Location = New System.Drawing.Point(192, 12)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(74, 29)
         Me.Button2.TabIndex = 2
@@ -62,7 +64,7 @@ Partial Class frmHistoryReport
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(554, 12)
+        Me.Button3.Location = New System.Drawing.Point(272, 12)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(74, 29)
         Me.Button3.TabIndex = 3
@@ -72,7 +74,7 @@ Partial Class frmHistoryReport
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(634, 12)
+        Me.Button4.Location = New System.Drawing.Point(352, 12)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(74, 29)
         Me.Button4.TabIndex = 4
@@ -82,7 +84,7 @@ Partial Class frmHistoryReport
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(714, 12)
+        Me.Button5.Location = New System.Drawing.Point(432, 12)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(74, 29)
         Me.Button5.TabIndex = 5
@@ -95,18 +97,40 @@ Partial Class frmHistoryReport
         Me.chkFilterByFamily.AutoSize = True
         Me.chkFilterByFamily.Checked = True
         Me.chkFilterByFamily.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkFilterByFamily.Location = New System.Drawing.Point(12, 12)
+        Me.chkFilterByFamily.Location = New System.Drawing.Point(12, 19)
         Me.chkFilterByFamily.Name = "chkFilterByFamily"
         Me.chkFilterByFamily.Size = New System.Drawing.Size(94, 17)
         Me.chkFilterByFamily.TabIndex = 6
         Me.chkFilterByFamily.Text = "Filter by Family"
         Me.chkFilterByFamily.UseVisualStyleBackColor = True
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(630, 48)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "Label1"
+        Me.Label1.Visible = False
+        '
+        'cmbModCode
+        '
+        Me.cmbModCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbModCode.FormattingEnabled = True
+        Me.cmbModCode.Items.AddRange(New Object() {"Unit Report", "100OA", "CstmCtrl", "DWall", "Filters", "HGBP", "HWCoil", "LCVAV", "RFan", "SFan", "XFan", "Not Selected"})
+        Me.cmbModCode.Location = New System.Drawing.Point(12, 47)
+        Me.cmbModCode.Name = "cmbModCode"
+        Me.cmbModCode.Size = New System.Drawing.Size(174, 21)
+        Me.cmbModCode.TabIndex = 8
+        '
         'frmHistoryReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 451)
+        Me.Controls.Add(Me.cmbModCode)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chkFilterByFamily)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
@@ -114,18 +138,20 @@ Partial Class frmHistoryReport
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.txtReport)
+        Me.MinimumSize = New System.Drawing.Size(530, 265)
         Me.Name = "frmHistoryReport"
         Me.Text = "frmHistoryReport"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents txtReport As RichTextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents chkFilterByFamily As CheckBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents cmbModCode As ComboBox
+    Friend WithEvents txtReport As RichTextBox
 End Class

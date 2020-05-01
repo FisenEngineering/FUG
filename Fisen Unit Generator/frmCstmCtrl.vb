@@ -6,6 +6,8 @@ Public Class frmCstmCtrl
     Private pTagALongsSelected As New ArrayList
     Private pTagALongParent As New ArrayList
     Private pSelectedCodes As New ArrayList
+    Private ModuleCodeList As New ArrayList
+
 
     Public Property Cancelled As Boolean
         Get
@@ -17,6 +19,10 @@ Public Class frmCstmCtrl
     End Property
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         pCancelled = False
+
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        ModuleCodeList.Add("980000")
+
         Call LoadPermittedCtrlMods()
 
         If Not (frmMain.chkDebug.Checked) Then
@@ -189,7 +195,7 @@ Public Class frmCstmCtrl
 
     End Sub
     Private Sub btnDoneSelection_Click(sender As Object, e As EventArgs) Handles btnDoneSelection.Click
-        Call PerformDesignCautionScan
+
         lblCount.Text = Str(lstItemsInDB.SelectedItems.Count - 1)
         lblCurrentCstmMod.Text = lstItemsInDB.SelectedItems.Item(Val(lblCount.Text))
         Call TagALongPopulate(lblCurrentCstmMod.Text)
@@ -235,7 +241,9 @@ Public Class frmCstmCtrl
         rs2 = Nothing
         con2 = Nothing
     End Sub
-    Private Sub PerformDesignCautionScan()
+
+
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
         Dim i As Integer
         Dim dummy As MsgBoxResult
         Dim startingcaution As String
@@ -243,6 +251,7 @@ Public Class frmCstmCtrl
         Dim totalmessage As String
         Dim spacepos As Integer
         Dim RecCount As Integer
+
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -259,22 +268,33 @@ Public Class frmCstmCtrl
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        For i = 0 To lstItemsInDB.SelectedItems.Count - 1
-            MySQL = "SELECT COUNT(*) as RowCount FROM tblCstmCtrl INNER JOIN tblDesignCautions ON tblCstmCtrl.CstmCode = tblDesignCautions.TriggerCode WHERE tblCstmCtrl.CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '980%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
             rs.Open(MySQL, con)
-            Reccount = rs.Fields("RowCount").Value
+            RecCount = rs.Fields("RowCount").Value
             rs.Close()
 
             If RecCount > 0 Then
-                MySQL = "SELECT tblCstmCtrl.CstmCode as CstmCode, tblCstmCtrl.CstmFIOP as CstmFIOP, tblDesignCautions.ShortName as ShortName, tblDesignCautions.LongText as MyLongText, tblDesignCautions.TriggerCode as TriggerCode FROM tblCstmCtrl INNER JOIN tblDesignCautions ON tblCstmCtrl.CstmCode = tblDesignCautions.TriggerCode WHERE tblCstmCtrl.CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '980%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
                 rs.Open(MySQL, con)
 
                 rs.MoveFirst()
                 Do While Not (rs.EOF)
-                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, rs.Fields("CstmFIOP").Value)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
                     If dummy = vbYes Then
                         totalmessage = ""
-                        startingcaution = rs.Fields("MyLongText").Value
+                        startingcaution = rs.Fields("LongText").Value
                         While Len(startingcaution) > 61
                             spacepos = 61
                             Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
@@ -286,7 +306,7 @@ Public Class frmCstmCtrl
                             totalmessage = totalmessage & vbCrLf & eachline
                         End While
                         totalmessage = totalmessage & vbCrLf & startingcaution
-                        dummy = MsgBox(totalmessage, vbOKOnly, rs.Fields("CstmFIOP").Value)
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
                     End If
                     rs.MoveNext()
                 Loop
@@ -362,6 +382,8 @@ Public Class frmCstmCtrl
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
 
+        ModuleCodeList.Clear()
+
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
 
             MySQL = "SELECT * FROM tblCstmCtrl WHERE CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"
@@ -392,6 +414,7 @@ Public Class frmCstmCtrl
                 If rs.Fields("MCAChange").Value = True Then
                     Call CustomMCARequired(rs.Fields("LoadName").Value, rs.Fields("LoadHP").Value, rs.Fields("LoadValue").Value)
                 End If
+
                 Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value)
                 rs.MoveNext()
             Loop
@@ -405,9 +428,22 @@ Public Class frmCstmCtrl
         'Add Auxillary Panel if selected
         Call AuxPanelCodeInsert() 'v1.0
         If chkWriteHistory.Checked = True Then Call WriteHistory()
+
+        'handle base SCCR Unit Code
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("980F6A")
+        End If
+
+        Call PerformDesignCautionScan(False)
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCstmCtrlCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+        Next i
         Me.Hide()
     End Sub
     Private Sub WriteHistory()
+        'Updated to Version 2.0 29 Apr 2020
+
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -454,7 +490,7 @@ Public Class frmCstmCtrl
             MySQL = "Select * FROM tblHistoryCstmCtrl WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (CustomCode='" & CstmCode & "')"
             rs.Open(MySQL, con)
 
-            If rs.RecordCount > 0 Then
+            If Not (rs.EOF And rs.BOF) Then
                 'Update SQL
                 ExistingRecordID = rs.Fields(0).Value
                 MySQL = "UPDATE tblHistoryCstmCtrl SET Controller='" & Controller & "', CustomCode='" & CstmCode & "', " & "CustomDescription='" & CstmDesc & "' WHERE ID=" & ExistingRecordID
@@ -626,6 +662,10 @@ Public Class frmCstmCtrl
         con2 = Nothing
     End Sub
     Private Sub AddTagALongCodes(locCode As String)
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Is this used?")
+        Stop
+
         Dim con2 As ADODB.Connection
         Dim rs2 As ADODB.Recordset
         Dim dbProvider2 As String
@@ -649,13 +689,14 @@ Public Class frmCstmCtrl
         con2.Close()
         rs2 = Nothing
         con2 = Nothing
+
     End Sub
     Private Sub UpdateCodeList(locCode As String)
         Dim i As Integer
-        frmMain.ThisUnitCstmCtrlCodes.Add(locCode)
+        ModuleCodeList.Add(locCode)
         For i = 0 To pTagALongParent.Count - 1
             If pTagALongParent.Item(i) = locCode Then
-                frmMain.ThisUnitCstmCtrlCodes.Add(pTagALongsSelected.Item(i))
+                ModuleCodeList.Add(pTagALongsSelected.Item(i))
             End If
         Next
     End Sub
@@ -671,5 +712,9 @@ Public Class frmCstmCtrl
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
         frmHistoryReport.MyModule = "100OA"
         frmHistoryReport.Show()
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
     End Sub
 End Class

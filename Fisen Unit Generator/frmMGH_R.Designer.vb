@@ -40,6 +40,7 @@ Partial Class frmMGH_R
         Me.chkPropane = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
@@ -84,7 +85,7 @@ Partial Class frmMGH_R
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(90, 195)
+        Me.Cancel.Location = New System.Drawing.Point(90, 241)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(72, 29)
         Me.Cancel.TabIndex = 3
@@ -94,7 +95,7 @@ Partial Class frmMGH_R
         'btnOK
         '
         Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(12, 195)
+        Me.btnOK.Location = New System.Drawing.Point(12, 241)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(72, 29)
         Me.btnOK.TabIndex = 2
@@ -165,7 +166,7 @@ Partial Class frmMGH_R
         Me.TabControl1.Location = New System.Drawing.Point(7, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(440, 179)
+        Me.TabControl1.Size = New System.Drawing.Size(440, 225)
         Me.TabControl1.TabIndex = 6
         '
         'tpgConditions
@@ -184,7 +185,7 @@ Partial Class frmMGH_R
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgConditions.Size = New System.Drawing.Size(432, 153)
+        Me.tpgConditions.Size = New System.Drawing.Size(432, 199)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
@@ -230,7 +231,7 @@ Partial Class frmMGH_R
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(385, 124)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(385, 170)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneConditions.TabIndex = 6
@@ -239,16 +240,28 @@ Partial Class frmMGH_R
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
-        Me.tpgOptions.Size = New System.Drawing.Size(432, 153)
+        Me.tpgOptions.Size = New System.Drawing.Size(432, 199)
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(9, 178)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 48
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'fraAuxPanel
         '
@@ -318,7 +331,7 @@ Partial Class frmMGH_R
         '
         'cmdDoneOptions
         '
-        Me.cmdDoneOptions.Location = New System.Drawing.Point(385, 124)
+        Me.cmdDoneOptions.Location = New System.Drawing.Point(385, 170)
         Me.cmdDoneOptions.Name = "cmdDoneOptions"
         Me.cmdDoneOptions.Size = New System.Drawing.Size(41, 23)
         Me.cmdDoneOptions.TabIndex = 8
@@ -339,7 +352,7 @@ Partial Class frmMGH_R
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgControls.Size = New System.Drawing.Size(432, 153)
+        Me.tpgControls.Size = New System.Drawing.Size(432, 199)
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -389,7 +402,7 @@ Partial Class frmMGH_R
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(385, 124)
+        Me.btnDoneControls.Location = New System.Drawing.Point(385, 170)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneControls.TabIndex = 7
@@ -478,14 +491,14 @@ Partial Class frmMGH_R
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
         Me.tpgPerformance.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgPerformance.Size = New System.Drawing.Size(432, 153)
+        Me.tpgPerformance.Size = New System.Drawing.Size(432, 199)
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
         'btnDonePerf
         '
-        Me.btnDonePerf.Location = New System.Drawing.Point(385, 124)
+        Me.btnDonePerf.Location = New System.Drawing.Point(385, 170)
         Me.btnDonePerf.Name = "btnDonePerf"
         Me.btnDonePerf.Size = New System.Drawing.Size(41, 23)
         Me.btnDonePerf.TabIndex = 14
@@ -565,7 +578,7 @@ Partial Class frmMGH_R
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(432, 153)
+        Me.DebugPage.Size = New System.Drawing.Size(432, 199)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
@@ -573,7 +586,7 @@ Partial Class frmMGH_R
         'cmdViewHistory
         '
         Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
-        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 195)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 241)
         Me.cmdViewHistory.Name = "cmdViewHistory"
         Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
         Me.cmdViewHistory.TabIndex = 18
@@ -582,7 +595,7 @@ Partial Class frmMGH_R
         'cmdDesignCautions
         '
         Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
-        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 195)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 241)
         Me.cmdDesignCautions.Name = "cmdDesignCautions"
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 17
@@ -592,7 +605,7 @@ Partial Class frmMGH_R
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(459, 236)
+        Me.ClientSize = New System.Drawing.Size(459, 282)
         Me.ControlBox = False
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
@@ -668,4 +681,5 @@ Partial Class frmMGH_R
     Friend WithEvents chkUnitAtElevation As CheckBox
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

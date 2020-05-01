@@ -23,6 +23,11 @@ Public Class frmMGH_R
         Call UpdateCodeList()
         Call UpdateBaseUnitRequiredItems()
 
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("523F6A")
+        End If
+
+
         Call PerformDesignCautionScan(False)
 
         For i = 0 To ModuleCodeList.Count - 1
@@ -303,6 +308,8 @@ Public Class frmMGH_R
     Private Sub frmMGH_R_Load(sender As Object, e As EventArgs) Handles Me.Load
         pCancelled = False
 
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
         If frmMain.ThisUnitHeatPerf.Airflow > 0 Then
             txtHeatAF.Text = frmMain.ThisUnitHeatPerf.Airflow
         Else
@@ -505,13 +512,6 @@ Public Class frmMGH_R
 
     End Sub
 
-    Private Sub optUseAux_CheckedChanged_1(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub optNoAux_CheckedChanged_1(sender As Object, e As EventArgs)
-
-    End Sub
 
     Private Sub optNoAux_CheckedChanged(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
         Call PopulateAuxPanelList()
@@ -524,4 +524,6 @@ Public Class frmMGH_R
     Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
         PerformDesignCautionScan(True)
     End Sub
+
+
 End Class

@@ -493,6 +493,10 @@ Public Class frmFiltration
             End If
         End If
 
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("395F6A")
+        End If
+
         Call PerformDesignCautionScan(False)
 
         For i = 0 To ModuleCodeList.Count - 1
@@ -832,6 +836,9 @@ Public Class frmFiltration
     End Sub
 
     Private Sub frmFiltration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
         cmbIFType.Text = "N/A"
         cmbFFType.Text = "N/A"
 
@@ -1977,14 +1984,18 @@ Public Class frmFiltration
 
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
         frmHistoryReport.MyModule = "Filters"
+        frmHistoryReport.cmbModCode.Text = "Filters"
         frmHistoryReport.Show()
     End Sub
 
     Private Sub WriteHistory()
+        'Updated to version 2.0 28 Apr 2020
+
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim jname, unit, ver, modnum As String
+        'next dim the module specific variables
         Dim FilterBank, FilterBankMaterial, ExternalModule, FilterType, FiltSize1, FiltSize2, FiltSize3, FiltSize4, FiltQ1, FiltQ2, FiltQ3, FiltQ4, PreFiltType, StaticBudget, AirFlow As String
         Dim PreFilterThere As Boolean
         Dim PFTS As String
@@ -1995,7 +2006,8 @@ Public Class frmFiltration
         unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
         ver = frmMain.txtUnitVersion.Text
         modnum = frmMain.txtModelNumber.Text
-        AirFlow = txtAirflow.Text
+
+
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -2003,8 +2015,11 @@ Public Class frmFiltration
         con.Open()
 
         rs = New ADODB.Recordset With {
-            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
+
+        AirFlow = txtAirflow.Text
+
         If chkIFBank.Checked Then
             PreFilterThere = chkIFPrefilt.Checked
             If PreFilterThere Then
@@ -2050,15 +2065,14 @@ Public Class frmFiltration
                 PreFiltType = "-"
             End If
             StaticBudget = lblIStaticBudget.Text
-            MySQL = "SELECT * FROM tblHistoryFilters WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (FilterBank='" & FilterBank & "')"
 
+            MySQL = "SELECT * FROM tblHistoryFilters WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (FilterBank='" & FilterBank & "')"
             rs.Open(MySQL, con)
 
-            If rs.RecordCount > 0 Then
+            If Not (rs.EOF And rs.BOF) Then
                 'Update SQL
                 ExistingRecordID = rs.Fields(0).Value
-                MySQL = "UPDATE tblHistoryFilters SET FilterBankMaterial='" & FilterBankMaterial & "', PreFilters=" & PFTS & ", " & "ExternalModule='" & ExternalModule & "', FiltType='" & FilterType & "', Filt1Size='" & FiltSize1 & "', Filt1Qty='" & FiltQ1 & "', Filt2Size='" & FiltSize2 & "', Filt2Qty='" & FiltQ2 & "', Filt3Size='" & FiltSize3 & "', Filt3Qty='" & FiltQ3 & "', Filt4Size='" & FiltSize4 & "', Filt4Qty='" & FiltQ4 & "', PreFiltType='" & PreFiltType & "', StaticBudget='" & StaticBudget & "', Airflow='" & AirFlow & "' WHERE KeyID=" & ExistingRecordID
-
+                MySQL = "UPDATE tblHistoryFilters SET FilterBankMaterial='" & FilterBankMaterial & "', PreFilters=" & PFTS & ", " & "ExternalModule='" & ExternalModule & "', FiltType='" & FilterType & "', Filt1Size='" & FiltSize1 & "', Filt1Qty='" & FiltQ1 & "', Filt2Size='" & FiltSize2 & "', Filt2Qty='" & FiltQ2 & "', Filt3Size='" & FiltSize3 & "', Filt3Qty='" & FiltQ3 & "', Filt4Size='" & FiltSize4 & "', Filt4Qty='" & FiltQ4 & "', PreFiltType='" & PreFiltType & "', StaticBudget='" & StaticBudget & "', Airflow='" & AirFlow & "' WHERE ID=" & ExistingRecordID
                 con.Execute(MySQL)
             Else
                 'Insert SQL
@@ -2111,16 +2125,15 @@ Public Class frmFiltration
             Else
                 PreFiltType = "-"
             End If
+
             StaticBudget = lblStaticBudget.Text
             MySQL = "SELECT * FROM tblHistoryFilters WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (FilterBank='" & FilterBank & "')"
-
             rs.Open(MySQL, con)
 
-            If rs.RecordCount > 0 Then
+            If Not (rs.EOF And rs.BOF) Then
                 'Update SQL
                 ExistingRecordID = rs.Fields(0).Value
-                MySQL = "UPDATE tblHistoryFilters SET FilterBankMaterial='" & FilterBankMaterial & "', PreFilters=" & PFTS & ", " & "ExternalModule='" & ExternalModule & "', FiltType='" & FilterType & "', Filt1Size='" & FiltSize1 & "', Filt1Qty='" & FiltQ1 & "', Filt2Size='" & FiltSize2 & "', Filt2Qty='" & FiltQ2 & "', Filt3Size='" & FiltSize3 & "', Filt3Qty='" & FiltQ3 & "', Filt4Size='" & FiltSize4 & "', Filt4Qty='" & FiltQ4 & "', PreFiltType='" & PreFiltType & "', StaticBudget='" & StaticBudget & "', Airflow='" & AirFlow & "' WHERE KeyID=" & ExistingRecordID
-
+                MySQL = "UPDATE tblHistoryFilters SET FilterBankMaterial='" & FilterBankMaterial & "', PreFilters=" & PFTS & ", " & "ExternalModule='" & ExternalModule & "', FiltType='" & FilterType & "', Filt1Size='" & FiltSize1 & "', Filt1Qty='" & FiltQ1 & "', Filt2Size='" & FiltSize2 & "', Filt2Qty='" & FiltQ2 & "', Filt3Size='" & FiltSize3 & "', Filt3Qty='" & FiltQ3 & "', Filt4Size='" & FiltSize4 & "', Filt4Qty='" & FiltQ4 & "', PreFiltType='" & PreFiltType & "', StaticBudget='" & StaticBudget & "', Airflow='" & AirFlow & "' WHERE ID=" & ExistingRecordID
                 con.Execute(MySQL)
             Else
                 'Insert SQL

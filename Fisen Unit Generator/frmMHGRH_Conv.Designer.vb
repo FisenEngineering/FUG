@@ -22,6 +22,7 @@ Partial Class frmMHGRH_Conv
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMHGRH_Conv))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -39,6 +40,10 @@ Partial Class frmMHGRH_Conv
         Me.txtHGRHCap = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
+        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
+        Me.optUseAux = New System.Windows.Forms.RadioButton()
+        Me.optNoAux = New System.Windows.Forms.RadioButton()
         Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chkFisenRASensor = New System.Windows.Forms.CheckBox()
@@ -69,25 +74,24 @@ Partial Class frmMHGRH_Conv
         Me.txtLAT = New System.Windows.Forms.TextBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
-        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
-        Me.optUseAux = New System.Windows.Forms.RadioButton()
-        Me.optNoAux = New System.Windows.Forms.RadioButton()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgOptions.SuspendLayout()
+        Me.fraAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        Me.fraAuxPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOK
         '
         Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(12, 195)
+        Me.btnOK.Location = New System.Drawing.Point(14, 240)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(72, 29)
         Me.btnOK.TabIndex = 0
@@ -96,7 +100,7 @@ Partial Class frmMHGRH_Conv
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(90, 195)
+        Me.Cancel.Location = New System.Drawing.Point(92, 240)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(72, 29)
         Me.Cancel.TabIndex = 1
@@ -113,7 +117,7 @@ Partial Class frmMHGRH_Conv
         Me.TabControl1.Location = New System.Drawing.Point(7, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(661, 179)
+        Me.TabControl1.Size = New System.Drawing.Size(661, 224)
         Me.TabControl1.TabIndex = 2
         '
         'tpgConditions
@@ -133,7 +137,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgConditions.Size = New System.Drawing.Size(653, 153)
+        Me.tpgConditions.Size = New System.Drawing.Size(653, 198)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
@@ -234,7 +238,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(606, 124)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(606, 168)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneConditions.TabIndex = 23
@@ -243,6 +247,7 @@ Partial Class frmMHGRH_Conv
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
@@ -254,10 +259,55 @@ Partial Class frmMHGRH_Conv
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
         Me.tpgOptions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgOptions.Size = New System.Drawing.Size(653, 153)
+        Me.tpgOptions.Size = New System.Drawing.Size(653, 198)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'fraAuxPanel
+        '
+        Me.fraAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.fraAuxPanel.Controls.Add(Me.optUseAux)
+        Me.fraAuxPanel.Controls.Add(Me.optNoAux)
+        Me.fraAuxPanel.Enabled = False
+        Me.fraAuxPanel.Location = New System.Drawing.Point(433, 25)
+        Me.fraAuxPanel.Name = "fraAuxPanel"
+        Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
+        Me.fraAuxPanel.TabIndex = 48
+        Me.fraAuxPanel.TabStop = False
+        Me.fraAuxPanel.Text = "Auxillary Control Panel"
+        '
+        'cmbAuxPanelOpts
+        '
+        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAuxPanelOpts.FormattingEnabled = True
+        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
+        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
+        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
+        Me.cmbAuxPanelOpts.TabIndex = 29
+        '
+        'optUseAux
+        '
+        Me.optUseAux.AutoSize = True
+        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
+        Me.optUseAux.Name = "optUseAux"
+        Me.optUseAux.Size = New System.Drawing.Size(151, 17)
+        Me.optUseAux.TabIndex = 1
+        Me.optUseAux.TabStop = True
+        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.UseVisualStyleBackColor = True
+        '
+        'optNoAux
+        '
+        Me.optNoAux.AutoSize = True
+        Me.optNoAux.Checked = True
+        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
+        Me.optNoAux.Name = "optNoAux"
+        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
+        Me.optNoAux.TabIndex = 0
+        Me.optNoAux.TabStop = True
+        Me.optNoAux.Text = "None"
+        Me.optNoAux.UseVisualStyleBackColor = True
         '
         'chkMountEquipmentTouch
         '
@@ -322,7 +372,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDoneOptions
         '
-        Me.btnDoneOptions.Location = New System.Drawing.Point(606, 124)
+        Me.btnDoneOptions.Location = New System.Drawing.Point(606, 168)
         Me.btnDoneOptions.Name = "btnDoneOptions"
         Me.btnDoneOptions.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneOptions.TabIndex = 24
@@ -339,7 +389,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgControls.Size = New System.Drawing.Size(653, 153)
+        Me.tpgControls.Size = New System.Drawing.Size(653, 198)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -441,7 +491,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(606, 124)
+        Me.btnDoneControls.Location = New System.Drawing.Point(606, 168)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(41, 23)
         Me.btnDoneControls.TabIndex = 25
@@ -462,7 +512,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgPerformance.Controls.Add(Me.btnDonePerformance)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Size = New System.Drawing.Size(653, 153)
+        Me.tpgPerformance.Size = New System.Drawing.Size(653, 198)
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
@@ -544,7 +594,7 @@ Partial Class frmMHGRH_Conv
         '
         'btnDonePerformance
         '
-        Me.btnDonePerformance.Location = New System.Drawing.Point(606, 124)
+        Me.btnDonePerformance.Location = New System.Drawing.Point(606, 168)
         Me.btnDonePerformance.Name = "btnDonePerformance"
         Me.btnDonePerformance.Size = New System.Drawing.Size(41, 23)
         Me.btnDonePerformance.TabIndex = 25
@@ -556,62 +606,48 @@ Partial Class frmMHGRH_Conv
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(653, 153)
+        Me.DebugPage.Size = New System.Drawing.Size(653, 198)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'fraAuxPanel
+        'cmdViewHistory
         '
-        Me.fraAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
-        Me.fraAuxPanel.Controls.Add(Me.optUseAux)
-        Me.fraAuxPanel.Controls.Add(Me.optNoAux)
-        Me.fraAuxPanel.Enabled = False
-        Me.fraAuxPanel.Location = New System.Drawing.Point(433, 25)
-        Me.fraAuxPanel.Name = "fraAuxPanel"
-        Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
-        Me.fraAuxPanel.TabIndex = 48
-        Me.fraAuxPanel.TabStop = False
-        Me.fraAuxPanel.Text = "Auxillary Control Panel"
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(594, 240)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 16
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'cmbAuxPanelOpts
+        'cmdDesignCautions
         '
-        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbAuxPanelOpts.FormattingEnabled = True
-        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
-        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
-        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
-        Me.cmbAuxPanelOpts.TabIndex = 29
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(630, 240)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 15
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'optUseAux
+        'chk65kASCCRBase
         '
-        Me.optUseAux.AutoSize = True
-        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
-        Me.optUseAux.Name = "optUseAux"
-        Me.optUseAux.Size = New System.Drawing.Size(151, 17)
-        Me.optUseAux.TabIndex = 1
-        Me.optUseAux.TabStop = True
-        Me.optUseAux.Text = "Use Auxillary Control Panel"
-        Me.optUseAux.UseVisualStyleBackColor = True
-        '
-        'optNoAux
-        '
-        Me.optNoAux.AutoSize = True
-        Me.optNoAux.Checked = True
-        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
-        Me.optNoAux.Name = "optNoAux"
-        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
-        Me.optNoAux.TabIndex = 0
-        Me.optNoAux.TabStop = True
-        Me.optNoAux.Text = "None"
-        Me.optNoAux.UseVisualStyleBackColor = True
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 174)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 49
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'frmMHGRH_Conv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(672, 236)
+        Me.ClientSize = New System.Drawing.Size(672, 281)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -624,6 +660,8 @@ Partial Class frmMHGRH_Conv
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.fraAuxPanel.ResumeLayout(False)
+        Me.fraAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -632,8 +670,6 @@ Partial Class frmMHGRH_Conv
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
-        Me.fraAuxPanel.ResumeLayout(False)
-        Me.fraAuxPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -689,4 +725,7 @@ Partial Class frmMHGRH_Conv
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

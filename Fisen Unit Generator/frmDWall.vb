@@ -31,17 +31,20 @@ Public Class frmDWall
     End Sub
 
     Private Sub WriteHistory()
+        'Updated to version 2.0 27 Apr 2020
+
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim jname, unit, ver, modnum As String
+        'next we dim the module specific
         Dim HXAction, Material As String
 
         Dim MySQL As String
+        Dim ExistingRecordID As String
         jname = frmMain.txtProjectName.Text
         unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
         ver = frmMain.txtUnitVersion.Text
-
         modnum = frmMain.txtModelNumber.Text
 
         con = New ADODB.Connection
@@ -59,9 +62,19 @@ Public Class frmDWall
         If optHXNotThere.Checked Then HXAction = "No Gas Heat"
         If optHXStaysIn.Checked Then HXAction = "Keep HX Installed"
 
-        MySQL = "INSERT INTO tblHistoryDWall (JobName, UnitID, Version, ModelNumber, HXAction, Material) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HXAction & "','" & Material & "')"
+        MySQL = "Select * FROM tblHistoryDWall WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
 
-        con.Execute(MySQL)
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistoryDWall SET HXAction='" & HXAction & "', Material='" & Material & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistoryDWall (JobName, UnitID, Version, ModelNumber, HXAction, Material) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HXAction & "','" & Material & "')"
+            con.Execute(MySQL)
+        End If
 
         con.Close()
         rs = Nothing
@@ -84,7 +97,11 @@ Public Class frmDWall
         Else
             ModuleCodeList.Add("605115")
         End If
-        'use logic to step through the controls to determine the codes and use the above format...
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("605F6A")
+        End If
+
 
     End Sub
     Private Sub UpdateWarrantyItems()
@@ -128,6 +145,8 @@ Public Class frmDWall
     End Sub
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         pCancelled = False
+
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
@@ -262,6 +281,7 @@ Public Class frmDWall
 
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
         frmHistoryReport.MyModule = "DWall"
+        frmHistoryReport.cmbModCode.Text = "DWall"
         frmHistoryReport.Show()
     End Sub
 End Class

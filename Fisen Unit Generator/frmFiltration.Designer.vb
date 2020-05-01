@@ -174,6 +174,7 @@ Partial Class frmFiltration
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpFFRack.SuspendLayout()
@@ -551,6 +552,7 @@ Partial Class frmFiltration
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.cmbExternalModuleStyle)
         Me.tpgOptions.Controls.Add(Me.GroupBox2)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
@@ -1817,6 +1819,17 @@ Partial Class frmFiltration
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 391)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 31
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'frmFiltration
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1840,6 +1853,7 @@ Partial Class frmFiltration
         Me.grpIFRack.ResumeLayout(False)
         Me.grpIFRack.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
+        Me.tpgOptions.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
@@ -2013,4 +2027,5 @@ Partial Class frmFiltration
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

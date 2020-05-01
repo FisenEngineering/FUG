@@ -24,6 +24,8 @@ Public Class frmNewFan
     Private Sub frmNewFan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim lFamily As String
 
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
         lFamily = frmMain.ThisUnit.Family
 
         pCancelled = False
@@ -479,27 +481,21 @@ Public Class frmNewFan
         Me.Hide()
     End Sub
     Private Sub WriteSFanHistory()
+        'Updated to version 2.0 29 April 2020
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
-        Dim jname, unit, ver As String
-        Dim modnum, rqAF, RQESP, TSP, Fan, FanQ, Fanbhpea, systembhp, motorhpea, systemhp As String
+        Dim jname, unit, ver, modnum As String
+
+        'next dim the module specific
+        Dim rqAF, RQESP, TSP, Fan, FanQ, Fanbhpea, systembhp, motorhpea, systemhp As String
 
         Dim MySQL As String
+        Dim ExistingRecordID As String
         jname = frmMain.txtProjectName.Text
         unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
         ver = frmMain.txtUnitVersion.Text
-
         modnum = frmMain.txtModelNumber.Text
-        rqAF = txtAirflow.Text
-        RQESP = txtESP.Text
-        TSP = txtTSP.Text
-        Fan = cmbFanSelected.Text
-        FanQ = nudFanCount.Value
-        Fanbhpea = txtFanbhp.Text / FanQ
-        systembhp = txtFanbhp.Text
-        motorhpea = frmMain.ThisUnitSFanPerf.MotorHP / FanQ
-        systemhp = frmMain.ThisUnitSFanPerf.MotorHP
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -510,8 +506,30 @@ Public Class frmNewFan
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        MySQL = "INSERT INTO tblHistorySFan (JobName, UnitID, Version, ModelNumber, Airflow, ESP, TSP, Fan, FanQ, FanBHPea, SystemBHP, MotorHPea, SystemHP) VALUES ('" _
+        rqAF = txtAirflow.Text
+        RQESP = txtESP.Text
+        TSP = txtTSP.Text
+        Fan = cmbFanSelected.Text
+        FanQ = nudFanCount.Value
+        Fanbhpea = txtFanbhp.Text / FanQ
+        systembhp = txtFanbhp.Text
+        motorhpea = frmMain.ThisUnitSFanPerf.MotorHP / FanQ
+        systemhp = frmMain.ThisUnitSFanPerf.MotorHP
+
+        MySQL = "Select * FROM tblHistorySFan WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistorySFan SET Airflow='" & rqAF & "', ESP='" & RQESP & "', " & "TSP='" & TSP & "', Fan='" & Fan & "', FanQ='" & FanQ & "', FanBHPea='" & Fanbhpea & "', SystemBHP='" & systembhp & "', MotorHPea='" & motorhpea & "', SystemHP='" & systemhp & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistorySFan (JobName, UnitID, Version, ModelNumber, Airflow, ESP, TSP, Fan, FanQ, FanBHPea, SystemBHP, MotorHPea, SystemHP) VALUES ('" _
 & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & rqAF & "','" & RQESP & "','" & TSP & "','" & Fan & "','" & FanQ & "','" & Fanbhpea & "','" & systembhp & "','" & motorhpea & "','" & systemhp & "')"
+            con.Execute(MySQL)
+        End If
 
         con.Execute(MySQL)
 
@@ -659,6 +677,11 @@ Public Class frmNewFan
             ModuleCodeList.Add("330192")
             If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
         End If
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("350F6A")
+        End If
+
     End Sub
     Private Sub UpdateCodeListRFan()
 
@@ -876,6 +899,11 @@ Public Class frmNewFan
 
         End If
 
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("330F6A")
+        End If
+
+
         'handle the commnodes
         If Not ((chkRFPiezoRingsNet.Checked) Or (chkInletMeasuringStationFull.Checked)) Then
             frmMain.ThisUnit.CommNodes = "2"
@@ -957,6 +985,12 @@ Public Class frmNewFan
         If chkSFanNetPointPiezo.Checked Then
             ModuleCodeList.Add("320243")
         End If
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("320F6A")
+        End If
+
+
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As String

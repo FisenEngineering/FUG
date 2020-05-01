@@ -31,5 +31,8 @@
     <Setting Name="LastCabinet" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="DebugLastModule" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LCVAV</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

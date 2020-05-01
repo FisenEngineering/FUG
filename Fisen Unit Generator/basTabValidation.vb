@@ -38,8 +38,19 @@
         BrandModNumOK = ok
     End Function
     Private Function UnitVersionOK() As Boolean
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver As String
+
         Dim dummy As MsgBoxResult
         Dim ok As Boolean
+        Dim HighVer, errmsg As String
+        Dim tempver As Single
+
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
 
         ok = True
         If Trim(frmMain.txtUnitVersion.Text) = "" Then
@@ -49,7 +60,45 @@
 
         If Not (IsNumeric(frmMain.txtUnitVersion.Text)) Then
             dummy = MsgBox("Unit Varsion must be a non zero number.", MsgBoxStyle.OkOnly, glbProjName)
+            ok = False
         End If
+
+        'Check and see if the current version is already in the database
+        If ok Then
+            con = New ADODB.Connection
+            dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+            con.ConnectionString = dbProvider
+            con.Open()
+
+            rs = New ADODB.Recordset With {
+                .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+            }
+
+            Dim MySQL As String
+
+
+
+            MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') ORDER BY Version DESC"
+            rs.Open(MySQL, con)
+
+            If Not (rs.EOF And rs.BOF) Then
+                HighVer = rs.Fields(3).Value
+                If Trim(HighVer) = Trim(ver) Then
+                    tempver = Val(HighVer)
+                    tempver = tempver + 0.1
+                    errmsg = "You have already generated a submittal with the version of the submittal." & vbCrLf & "Yes to Auto Increment to " & Trim(Str(tempver)) & vbCrLf & "No to replace existing submittal record." & vbCrLf & "Cancel to change manually."
+                    dummy = MsgBox(errmsg, vbYesNoCancel, "Fisen Unit Generator")
+                    If dummy = vbYes Then frmMain.txtUnitVersion.Text = Trim(Str(tempver))
+                    If dummy = vbCancel Then ok = False
+                End If
+            End If
+
+            con.Close()
+            rs = Nothing
+            con = Nothing
+
+        End If
+
         UnitVersionOK = ok
     End Function
     Private Function QtyOK() As Boolean

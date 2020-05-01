@@ -55,6 +55,7 @@ Partial Class frmHGBP
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -230,6 +231,7 @@ Partial Class frmHGBP
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.chkRemoveJCIHGBP)
         Me.tpgOptions.Controls.Add(Me.GroupBox2)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
@@ -408,6 +410,17 @@ Partial Class frmHGBP
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 128)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 27
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'frmHGBP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -472,4 +485,5 @@ Partial Class frmHGBP
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

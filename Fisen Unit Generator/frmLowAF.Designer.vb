@@ -27,6 +27,8 @@ Partial Class frmLowAF
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtHeatingAF = New System.Windows.Forms.TextBox()
         Me.lblsqftevap = New System.Windows.Forms.Label()
         Me.chk100OA = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -132,8 +134,7 @@ Partial Class frmLowAF
         Me.colAdjSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.Label39 = New System.Windows.Forms.Label()
-        Me.txtHeatingAF = New System.Windows.Forms.TextBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -209,6 +210,24 @@ Partial Class frmLowAF
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(326, 44)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(78, 13)
+        Me.Label39.TabIndex = 56
+        Me.Label39.Text = "Heating Airflow"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtHeatingAF
+        '
+        Me.txtHeatingAF.Location = New System.Drawing.Point(410, 41)
+        Me.txtHeatingAF.Name = "txtHeatingAF"
+        Me.txtHeatingAF.Size = New System.Drawing.Size(63, 20)
+        Me.txtHeatingAF.TabIndex = 55
+        Me.txtHeatingAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblsqftevap
         '
@@ -360,6 +379,7 @@ Partial Class frmLowAF
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.GroupBox4)
         Me.tpgOptions.Controls.Add(Me.CheckBox1)
         Me.tpgOptions.Controls.Add(Me.chkSeriesConversion)
@@ -1244,23 +1264,16 @@ Partial Class frmLowAF
         Me.cmdDesignCautions.Text = "Design Cautions"
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'Label39
+        'chk65kASCCRBase
         '
-        Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(326, 44)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(78, 13)
-        Me.Label39.TabIndex = 56
-        Me.Label39.Text = "Heating Airflow"
-        Me.Label39.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtHeatingAF
-        '
-        Me.txtHeatingAF.Location = New System.Drawing.Point(410, 41)
-        Me.txtHeatingAF.Name = "txtHeatingAF"
-        Me.txtHeatingAF.Size = New System.Drawing.Size(63, 20)
-        Me.txtHeatingAF.TabIndex = 55
-        Me.txtHeatingAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 218)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 53
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'frmLowAF
         '
@@ -1412,4 +1425,5 @@ Partial Class frmLowAF
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents Label39 As Label
     Friend WithEvents txtHeatingAF As TextBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

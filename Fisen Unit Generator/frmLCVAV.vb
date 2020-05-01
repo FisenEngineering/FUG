@@ -22,6 +22,8 @@ Public Class frmLCVAV
             'frmMain.ThisUnitMods.Add("Common")
         End If
         Call UpdateCodeList()
+        If chkWriteHistory.Checked = True Then Call WriteHistory()
+
         Me.Hide()
     End Sub
     Private Sub UpdatePerformance()
@@ -119,14 +121,28 @@ Public Class frmLCVAV
                     frmMain.ThisUnitGenCodes.Add("960022")
                 Case Is = "Series 100 Custom Application"
                     frmMain.ThisUnitGenCodes.Add("960023")
+                Case Is = "Premier Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960024")
+                Case Is = "Choice Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960025")
+                Case Is = "Select Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960026")
             End Select
         End If
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("315F6A")
+        End If
+
 
         Call PerformDesignCautionScan(False)
 
         For i = 0 To ModuleCodeList.Count - 1
             frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
+
+
 
     End Sub
 
@@ -153,6 +169,12 @@ Public Class frmLCVAV
                 tempWeight = "14"
             Case Is = "Series100"
                 tempWeight = "65"
+            Case Is = "Premier"
+                tempWeight = "65"
+            Case Is = "Choice"
+                tempWeight = "13"
+            Case Is = "Select"
+                tempWeight = "18"
             Case Else
                 tempWeight = "9999"
         End Select
@@ -181,7 +203,7 @@ Public Class frmLCVAV
         TabControl1.Enabled = False
     End Sub
 
-    Private Sub optFisenVAV_CheckedChanged(sender As Object, e As EventArgs) Handles optFisenVAV.CheckedChanged
+    Private Sub optFisenVAV_CheckedChanged(sender As Object, e As EventArgs)
         If optFisenVAV.Checked = True Then
             chkFisenDSPCtrl.Enabled = True
             chkFisenMWUCtrl.Enabled = True
@@ -202,14 +224,26 @@ Public Class frmLCVAV
     End Sub
 
     Private Sub frmLCVAV_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Call PopulateAuxPanelList()
-        If frmMain.ThisUnit.Family = "Series5" Then
-            optUseAux.Checked = True
-        End If
 
-        If frmMain.ThisUnit.Family = "Series10" Then
-            optUseAux.Checked = True
-        End If
+        Call PopulateAuxPanelList()
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                optUseAux.Checked = True
+            Case Is = "Series10"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Series20"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Series40"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Series100"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Premier"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Select"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Choice"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+        End Select
 
         If frmMain.ThisUnitSFanPerf.VFDPresent Then
             optDrivebyJCI.Checked = True
@@ -221,6 +255,8 @@ Public Class frmLCVAV
 
         ModuleCodeList.Add("315000")
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
     End Sub
 
     Private Sub LoadDigConditions()
@@ -242,8 +278,18 @@ Public Class frmLCVAV
         If TempVal = "Field Provided" Then optDrivebyField.Checked = True
         If TempVal = "JCI EC Motor" Then optJCIECMotor.Checked = True
 
+        TempVal = xNodeRoot.SelectSingleNode("VAVStyle").InnerText
+        If TempVal = "Use SE Board" Then optSEVAV.Checked = True
+        If TempVal = "Use OEM Board" Then optFisenVAV.Checked = True
+
+        TempVal = xNodeRoot.SelectSingleNode("ExistingMotor").InnerText
+        If TempVal = "Not a Single Phase Motor" Then optNot1Phase.Checked = True
+        If TempVal = "Use JCI EC Motor" Then optJustECMotor.Checked = True
+        If TempVal = "R and R Fan and Motor" Then optReplaceFanAndMotor.Checked = True
     End Sub
     Private Sub PopulateAuxPanelList()
+        'v1.0
+
         If optNoAux.Checked = True Then
             cmbAuxPanelOpts.Items.Clear()
             cmbAuxPanelOpts.Items.Add("None")
@@ -282,6 +328,18 @@ Public Class frmLCVAV
                     cmbAuxPanelOpts.Items.Clear()
                     cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
                     cmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                Case Is = "Premier"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
+                Case Is = "Choice"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
+                Case Is = "Select"
+                    cmbAuxPanelOpts.Items.Clear()
+                    cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
+                    cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
             End Select
         End If
     End Sub
@@ -332,8 +390,9 @@ Public Class frmLCVAV
         End Select
     End Sub
 
-    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs)
         Call PerformDesignCautionScan(True)
+
     End Sub
 
     Private Sub PerformDesignCautionScan(Prelim As Boolean)
@@ -344,7 +403,6 @@ Public Class frmLCVAV
         Dim totalmessage As String
         Dim spacepos As Integer
         Dim RecCount As Integer
-        Dim TCode As String
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -422,5 +480,77 @@ Public Class frmLCVAV
         If optDrivebyField.Checked Then
             chkUpgradeSEBoard.Checked = True
         End If
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "LCVAV"
+        frmHistoryReport.cmbModCode.Text = "LCVAV"
+        frmHistoryReport.Show()
+    End Sub
+
+    Private Sub cmdDesignCautions_Click_1(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+
+    End Sub
+
+    Private Sub WriteHistory()
+        'Updated to version 2.0 24 Apr 2020
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific 
+        Dim ConvStyle, DSPC, SATCool, MWU, HSFanRH, HeatPump, ECMStaged, UpgradeBoard As String
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        If optSEVAV.Checked Then
+            ConvStyle = "Existing SE"
+            DSPC = "n/a"
+            SATCool = "n/a"
+            MWU = "n/a"
+        Else
+            ConvStyle = "By Fisen"
+            If chkFisenDSPCtrl.Checked Then DSPC = "Yes" Else DSPC = "No"
+            If chkFisenSATCtrl.Checked Then SATCool = "Yes" Else SATCool = "No"
+            If chkFisenMWUCtrl.Checked Then SATCool = "Yes" Else SATCool = "No"
+        End If
+
+        If chkHSFaninRH.Checked Then HSFanRH = "Yes" Else HSFanRH = "No"
+        If chkUnitisHeatPump.Checked Then HeatPump = "Yes" Else HeatPump = "No"
+        If chkECMotorStaging.Checked Then ECMStaged = "Yes" Else ECMStaged = "No"
+        If chkUpgradeSEBoard.Checked Then UpgradeBoard = "Yes" Else UpgradeBoard = "No"
+
+        MySQL = "Select * FROM tblHistoryLCVAV WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistoryLCVAV SET Style='" & ConvStyle & "', DSPC='" & DSPC & "', " & "SATCooling='" & SATCool & "', MWU='" & MWU & "', HSFanReheat='" & HSFanRH & "', HeatPump='" & HeatPump & "', ECMStaged='" & ECMStaged & "', UpgradeBoard='" & UpgradeBoard & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistoryLCVAV (JobName,UnitID,Version,ModelNumber,Style,DSPC,SATCooling,MWU,HSFanReheat,HeatPump,ECMStaged,UpgradeBoard) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & ConvStyle & "','" & DSPC & "','" & SATCool & "','" & MWU & "','" & HSFanRH & "','" & HeatPump & "','" & ECMStaged & "','" & UpgradeBoard & "')"
+            con.Execute(MySQL)
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
     End Sub
 End Class

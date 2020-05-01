@@ -116,9 +116,70 @@ Public Class frmMain
         fraMisc.Enabled = False
         If optChiller.Checked Then optChillerYVAA.Checked = True
     End Sub
+    Private Function SetUnitFamily() As String
+        Dim dummy As MsgBoxResult
+        Dim TempFamily
+
+        TempFamily = "Error in SetUnitFamily()"
+
+        If optRTUSeries5.Checked Then TempFamily = "Series5"
+        If optRTUSeries10.Checked Then TempFamily = "Series10"
+        If optRTUSeries12.Checked Then TempFamily = "Series12"
+        If optRTUSeries20.Checked Then TempFamily = "Series20"
+        If optRTUSeries40.Checked Then TempFamily = "Series40"
+        If optRTUSeries100.Checked Then TempFamily = "Series100"
+        If optRTUChoice.Checked Then TempFamily = "Choice"
+        If optRTUPremier.Checked Then TempFamily = "Premier"
+        If optRTUSelect.Checked Then TempFamily = "Select"
+
+        If optAHUXTI.Checked Then TempFamily = "XTI"
+        If optAHUXTO.Checked Then TempFamily = "XTO"
+        If optAHUYorkCustom.Checked Then TempFamily = "YorkCustom"
+
+        If optChillerYCAL.Checked Then TempFamily = "YCAL"
+        If optChillerYLAA.Checked Then TempFamily = "YLAA"
+        If optChillerYVAA.Checked Then TempFamily = "YVAA"
+        If optChillerYCIV.Checked Then TempFamily = "YCIV"
+        If optChillerYCAV.Checked Then TempFamily = "YCAV"
+
+
+        If optMiscDS.Checked Then TempFamily = "DS"
+        If optS20ODSplit.Checked Then TempFamily = "Series20ODSplit"
+        If optS40ODSplit.Checked Then TempFamily = "Series40ODSplit"
+        If optS20IDSplit.Checked Then TempFamily = "Series20IDSplit"
+        If optYCULSplit.Checked Then TempFamily = "YCUL"
+        If optDOAS.Checked Then TempFamily = "DOAS"
+
+        Return TempFamily
+    End Function
+    Private Function SetUnitCabinet() As String
+        Dim dummy As MsgBoxResult
+        Dim TempCabinet As String
+        TempCabinet = "n/a"
+        If optRTUSeries100.Checked = True Then
+            If ((chkS100ACabinet.Checked = False) And (chkS100BCabinet.Checked = False) And (chkS100CCabinet.Checked = False)) Then
+                dummy = MsgBox("Please Choose a Cabinet Size", vbOK)
+            End If
+            If chkS100ACabinet.Checked Then TempCabinet = "S100A"
+            If chkS100BCabinet.Checked Then TempCabinet = "S100B"
+            If chkS100CCabinet.Checked Then TempCabinet = "S100C"
+        End If
+
+        Return TempCabinet
+    End Function
+    Private Function SetUnitKingdom() As String
+        Dim TempKing As String
+
+        TempKing = "Error in SetUnitKingdom()"
+        If optRTU.Checked Then TempKing = "RTU"
+        If optAHU.Checked Then TempKing = "AHU"
+        If optChiller.Checked Then TempKing = "Chiller"
+        If optMisc.Checked Then TempKing = "Misc"
+
+        Return TempKing
+    End Function
     Private Sub btnDoneBU_Click(sender As Object, e As EventArgs) Handles btnDoneBU.Click
-        Dim LastProjectFile As System.IO.StreamReader
-        Dim tempfilename As String
+
         Dim dummy As MsgBoxResult
 
         If optRTUSeries100.Checked = True Then
@@ -128,149 +189,18 @@ Public Class frmMain
             End If
         End If
 
-
         ProgramGTG = True
 
+        ThisUnit.Family = SetUnitFamily()
+        ThisUnit.Cabinet = SetUnitCabinet()
+        ThisUnit.Kingdom = SetUnitKingdom()
 
-        If optRTU.Checked Then
-            ThisUnit.Kingdom = "RTU"
-            My.Settings.LastKingdom = "RTU"
-            If optRTUSeries5.Checked Then
-                ThisUnit.Family = "Series5"
-                My.Settings.LastFamily = "Series5"
-                My.Settings.LastCabinet = "n/a"
-            End If
-            If optRTUSeries10.Checked Then
-                ThisUnit.Family = "Series10"
-                My.Settings.LastFamily = "Series10"
-                My.Settings.LastCabinet = "n/a"
-            End If
-            If optRTUSeries12.Checked Then
-                ThisUnit.Family = "Series12"
-                My.Settings.LastFamily = "Series12"
-                My.Settings.LastCabinet = "n/a"
-            End If
-            If optRTUSeries20.Checked Then
-                ThisUnit.Family = "Series20"
-                My.Settings.LastFamily = "Series20"
-                My.Settings.LastCabinet = "n/a"
-            End If
-            If optRTUSeries40.Checked Then
-                ThisUnit.Family = "Series40"
-                My.Settings.LastFamily = "Series40"
-                My.Settings.LastCabinet = "n/a"
-            End If
-            If optRTUSeries100.Checked Then
-                ThisUnit.Family = "Series100"
-                My.Settings.LastFamily = "Series100"
-                lblYPALUnitSize.Visible = True
-                txtYPALUnitSize.Visible = True
-                grpYPALOnly.Visible = True
-                If chkS100ACabinet.Checked Then
-                    ThisUnit.Cabinet = "S100A"
-                    My.Settings.LastCabinet = "S100A"
-                End If
-                If chkS100BCabinet.Checked Then
-                    ThisUnit.Cabinet = "S100B"
-                    My.Settings.LastCabinet = "S100B"
-                End If
-                If chkS100CCabinet.Checked Then
-                    ThisUnit.Cabinet = "S100C"
-                    My.Settings.LastCabinet = "S100C"
-                End If
-            End If
-            If optRTUChoice.Checked Then
-                ThisUnit.Family = "Choice"
-                My.Settings.LastFamily = "Choice"
-                My.Settings.LastCabinet = "n/a"
-            End If
-            If optRTUPremier.Checked Then
-                ThisUnit.Family = "Premier"
-                My.Settings.LastFamily = "Premier"
-                My.Settings.LastCabinet = "n/a"
-            End If
-        End If
-
-        If optAHU.Checked Then
-            ThisUnit.Kingdom = "AHU"
-            My.Settings.LastKingdom = "AHU"
-            My.Settings.LastCabinet = "n/a"
-            If optAHUXTI.Checked Then
-                ThisUnit.Family = "XTI"
-                My.Settings.LastFamily = "XTI"
-            End If
-            If optAHUXTO.Checked Then
-                ThisUnit.Family = "XTO"
-                My.Settings.LastFamily = "XTO"
-            End If
-            If optAHUYorkCustom.Checked Then
-                ThisUnit.Family = "YorkCustom"
-                My.Settings.LastFamily = "YorkCustom"
-            End If
-        End If
-
-        If optChiller.Checked Then
-            ThisUnit.Kingdom = "Chiller"
-            My.Settings.LastKingdom = "Chiller"
-            My.Settings.LastCabinet = "n/a"
-            If optChillerYCAL.Checked Then
-                ThisUnit.Family = "YCAL"
-                My.Settings.LastFamily = "YCAL"
-            End If
-            If optChillerYLAA.Checked Then
-                ThisUnit.Family = "YLAA"
-                My.Settings.LastFamily = "YLAA"
-            End If
-            If optChillerYVAA.Checked Then
-                ThisUnit.Family = "YVAA"
-                My.Settings.LastFamily = "YVAA"
-            End If
-            If optChillerYCIV.Checked Then
-                ThisUnit.Family = "YCIV"
-                My.Settings.LastFamily = "YCIV"
-            End If
-            If optChillerYCAV.Checked Then
-                ThisUnit.Family = "YCAV"
-                My.Settings.LastFamily = "YCAV"
-            End If
-
-        End If
-
-        If optMisc.Checked Then
-            ThisUnit.Kingdom = "Misc"
-            My.Settings.LastKingdom = "Misc"
-            My.Settings.LastCabinet = "n/a"
-            If optMiscDS.Checked Then
-                ThisUnit.Family = "DS"
-                My.Settings.LastFamily = "DS"
-            End If
-            If optS20ODSplit.Checked Then
-                ThisUnit.Family = "Series20ODSplit"
-                My.Settings.LastFamily = "Series20ODSplit"
-            End If
-            If optS40ODSplit.Checked Then
-                ThisUnit.Family = "Series40ODSplit"
-                My.Settings.LastFamily = "Series40ODSplit"
-            End If
-            If optS20IDSplit.Checked Then
-                ThisUnit.Family = "Series20IDSplit"
-                My.Settings.LastFamily = "Series20IDSplit"
-            End If
-            If optYCULSplit.Checked Then
-                ThisUnit.Family = "YCUL"
-                My.Settings.LastFamily = "YCUL"
-            End If
-
-            If optDOAS.Checked Then
-                ThisUnit.Family = "DOAS"
-                My.Settings.LastFamily = "DOAS"
-            End If
-
-        End If
+        My.Settings.LastFamily = SetUnitFamily()
+        My.Settings.LastCabinet = SetUnitCabinet()
+        My.Settings.LastKingdom = SetUnitKingdom()
 
         If chkDebug.Checked = False Then
             chkDebug.Visible = False
-
         End If
 
         TSLabelFamily.Text = "Family: " & ThisUnit.Family
@@ -1074,6 +1004,8 @@ Public Class frmMain
         Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
         Dim YLAAFile As String = "S:\FUG\Resources\WordTemplates\YLAA Submittal Template "
 
+        Button1.Enabled = False
+
         locFamily = Me.ThisUnit.Family
 
         Call SaveTheXMLData()
@@ -1144,15 +1076,19 @@ Public Class frmMain
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
-        Dim jname, unit, ver, verdat, modlist As String
+        Dim jname, unit, ver, verdat, modelnum, modlist, CID As String
         Dim i As Integer
 
 
         Dim MySQL As String
+        Dim ExistingRecordID As String
+
         jname = txtProjectName.Text
         unit = txtJobNumber.Text & "-" & txtUnitNumber.Text
         ver = txtUnitVersion.Text
         verdat = dtpUnitDate.Value
+        modelnum = txtModelNumber.Text
+        CID = Environment.UserName
         modlist = ""
         For i = 0 To ThisUnitMods.Count - 1
             modlist = modlist & ThisUnitMods.Item(i) & " "
@@ -1163,22 +1099,30 @@ Public Class frmMain
         If ThisUnitCstmHVCodes.Count > 0 Then modlist = modlist & "CstmHV "
         If ThisUnitCstmCtrlCodes.Count > 0 Then modlist = modlist & "CstmCtrl "
         If ThisUnitGenCodes.Count > 0 Then modlist = modlist & "Common "
-
         Trim(modlist)
+
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
         con.ConnectionString = dbProvider
         con.Open()
 
-
-
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        MySQL = "INSERT INTO tblHistory (JobName, UnitID, Version, VersionDate, ModCodes) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & verdat & "','" & modlist & "')"
+        MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
 
-        con.Execute(MySQL)
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistory SET VersionDate='" & verdat & "', ModCodes='" & modlist & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistory (JobName, UnitID, Version, VersionDate, ModelNumber, ModCodes, CreatorID) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & verdat & "','" & modelnum & "','" & modlist & "','" & CID & "')"
+            con.Execute(MySQL)
+        End If
 
         con.Close()
         rs = Nothing
@@ -6371,25 +6315,21 @@ Public Class frmMain
     End Sub
     Private Sub btnDoneConstruction_Click(sender As Object, e As EventArgs) Handles btnDoneConstruction.Click
 
-        If optShippingNoShrink.Checked Then
+        If Not (optShippingNoNotes.Checked) Then
             ThisUnitMods.Add("Shipping")
             ThisUnitCodes.Add("910000")
-            ThisUnitCodes.Add("910001")
         End If
 
-        If optShippingFisenShrink.Checked Then
-            ThisUnitMods.Add("Shipping")
-            ThisUnitCodes.Add("910000")
-            ThisUnitCodes.Add("910002")
-        End If
+        If optShippingNoShrink.Checked Then ThisUnitCodes.Add("910001") 'No Shring Wrap
+        If optShippingFisenShrink.Checked Then ThisUnitCodes.Add("910002") 'shrink wrap
 
-        If optFieldWorkNoOnSiteSel.Checked Then
+        If Not (optFieldWorkNoNotes.Checked) Then
             ThisUnitMods.Add("FieldWork")
             ThisUnitCodes.Add("SDF000")
-            ThisUnitCodes.Add("SDF901")
         End If
 
-
+        If optFieldWorkNoOnSiteSel.Checked Then ThisUnitCodes.Add("SDF901") 'No Assistance
+        If optFieldWork1DayOnSiteSel.Checked Then ThisUnitCodes.Add("SDF902") '1 day assistance
 
         Select Case ThisUnit.Kingdom
             Case Is = "Chiller"
@@ -6723,6 +6663,47 @@ Public Class frmMain
         Dim i As Integer
         Dim temp As String
         Dim MyWeightBox As TextBox
+        Dim dummy As MsgBoxResult
+        Dim NewRow As String()
+
+        If Not (optMLBNone.Checked Or optMLB6126.Checked Or optMLB583.Checked Or optMLB812U.Checked Or optMLB560.Checked) Then
+            dummy = MsgBox("You must select a controller before continuing.", vbOKOnly, "Fisen Unit Generator")
+            Exit Sub
+        End If
+
+        'Add the controller
+        If optMLB6126.Checked Then
+            NewRow = {"MLB", "Fisen 6126 Main Logic Board", "Controller", "n/a", False}
+        End If
+        If optMLB583.Checked Then
+            NewRow = {"MLB", "Fisen 583 Main Logic Board", "Controller", "n/a", False}
+        End If
+        If optMLB812U.Checked Then
+            NewRow = {"MLB", "Fisen 812UPro Main Logic Board", "Controller", "n/a", False}
+        End If
+        If optMLB560.Checked Then
+            NewRow = {"MLB", "Fisen 560 Main Logic Board", "Controller", "n/a", False}
+        End If
+
+        If Not (optMLBNone.Checked) Then
+            dgvEndDevices.Rows.Add(NewRow)
+        End If
+
+        If chkMLBExpansion.Checked Then
+            If optMLB6126.Checked Then
+                NewRow = {"MLB", "Fisen EX8160 Expansion Board", "Controller", "n/a", False}
+                dgvEndDevices.Rows.Add(NewRow)
+            End If
+            If optMLB812U.Checked Then
+                dummy = MsgBox("To use the Ex816U choose yes.", vbYesNo, "Selection of Expansion Module")
+                If dummy = vbYes Then
+                    NewRow = {"MLB", "Fisen EX816U Expansion Logic Board", "Controller", "n/a", False}
+                Else
+                    NewRow = {"MLB", "Fisen EX48U Expansion Logic Board", "Controller", "n/a", False}
+                End If
+                dgvEndDevices.Rows.Add(NewRow)
+            End If
+        End If
 
         'Prep the weight page for use
         For i = 65 To 84
@@ -6796,7 +6777,8 @@ Public Class frmMain
                 chkSaveinProjDB.Checked = False
             End If
         End If
-        cmbJumpDest.Text = "Piping Package"
+        cmbJumpDest.Text = My.Settings.DebugLastModule
+
     End Sub
     Private Sub btnTranslate_Click(sender As Object, e As EventArgs) Handles btnTranslate.Click
         Call TranslateBrandModelNumber()
@@ -6891,6 +6873,8 @@ Public Class frmMain
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
                         Case = "ZK"
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZR" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZV"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
                     End Select
                 End If
 
@@ -8549,6 +8533,7 @@ Public Class frmMain
         cmbBrand.Text = xNodeRoot.SelectSingleNode("Brand").InnerText
         txtBrandModelNumber.Text = xNodeRoot.SelectSingleNode("BrandModelNum").InnerText
         txtModCodeImport.Text = xNodeRoot.SelectSingleNode("ModCodes").InnerText
+        If xNodeRoot.SelectSingleNode("ModCodes").InnerText = "True" Then chk65kASCCRBase.Checked = True
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/FIOPS")
         ThisUnitFactOpts.Clear()
@@ -8828,15 +8813,32 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdJumpButton_Click(sender As Object, e As EventArgs) Handles cmdJumpButton.Click
-        ThisUnit.Family = "Series100"
+
+        chkInhibitDigConditions.Checked = True
+        My.Settings.DebugLastModule = cmbJumpDest.Text
+        My.Settings.Save()
+
+        'ThisUnit.Family = "Series100"
+        ThisUnit.Family = "Series10"
         txtJobNumber.Text = "3993F"
         txtUnitNumber.Text = "01"
+        txtModelNumber.Text = "ZLG14"
         txtProjectDirectory.Text = "J:\3950-3999\3993F - Test YPAL Do Not Use\"
 
         Select Case cmbJumpDest.Text
+            Case Is = "100% Outdoor Air"
+                frm100OA.ShowDialog()
+            Case Is = "Custom Controls"
+                frmCstmCtrl.ShowDialog()
+            Case Is = "DWall"
+                frmDWall.ShowDialog()
             Case Is = "Filtration"
                 ThisUnitSFanPerf.Airflow = "3500"
                 frmFiltration.ShowDialog()
+            Case Is = "HGBP"
+                frmHGBP.ShowDialog()
+            Case Is = "LCVAV"
+                frmLCVAV.ShowDialog()
             Case Is = "Piping Package"
                 frmPipePkg.ShowDialog()
             Case Is = "Return Fan"
@@ -8844,9 +8846,7 @@ Public Class frmMain
                 frmNewFan.ShowDialog()
             Case Is = "Steam Coil"
                 frmSteamCoil.ShowDialog()
-            Case Is = "100% Outdoor Air"
 
-                frm100OA.ShowDialog()
 
         End Select
     End Sub
@@ -8950,11 +8950,14 @@ Public Class frmMain
     Private Sub CopyEndDeviceCusSheets()
         Dim FileBase As String
         Dim FileName As String
-        Dim SourcePath As String
+        Dim BaseSourcePath As String
         Dim ProjectPath As String
-        Dim TargetPath1 As String
-        Dim TargetPath2 As String
+        Dim BaseTargetPath1 As String
+        Dim BaseTargetPath2 As String
         Dim i As Integer
+        Dim FinalSourcePath As String
+        Dim FinalTargetPath1 As String
+        Dim FinalTargetPath2 As String
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -8979,25 +8982,56 @@ Public Class frmMain
         ProjectPath = txtProjectDirectory.Text
 
 
-        TargetPath1 = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
-        TargetPath2 = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Cut Sheets to Include with Submittal\"
-        SourcePath = FileBase & "CutSheets\EndDevices\"
+        BaseTargetPath1 = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
+        BaseTargetPath2 = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Cut Sheets to Include with Submittal\"
+        BaseSourcePath = FileBase & "CutSheets\EndDevices\"
 
         For i = 0 To ThisUnitEndDevices.Count - 1
             rs.MoveFirst()
             rs.Find("ID=#" & Val(ThisUnitEndDevices.Item(i)) & "#")
             If rs.Fields("EDCutSheetPath").Value <> "-" Then
-                SourcePath = SourcePath & rs.Fields("EDCutSheetPath").Value & rs.Fields("EDCutSheet").Value
-                FileName = "Cut Sheet-" & rs.Fields("EDName").Value
-                TargetPath1 = TargetPath1 & FileName
-                TargetPath2 = TargetPath2 & FileName
-                If chkEDMovetoCutSheets.Checked Then FileCopy(SourcePath, TargetPath1)
-                If chkEDMovetoCutSheets.Checked Then FileCopy(SourcePath, TargetPath2)
+                FinalSourcePath = BaseSourcePath & rs.Fields("EDCutSheetPath").Value & rs.Fields("EDCutSheet").Value
+                FileName = "Cut Sheet-" & rs.Fields("EDName").Value & ".pdf"
+                FinalTargetPath1 = BaseTargetPath1 & FileName
+                FinalTargetPath2 = BaseTargetPath2 & FileName
+                If chkEDMovetoDesign.Checked Then FileCopy(FinalSourcePath, FinalTargetPath1)
+                If chkEDMovetoCutSheets.Checked Then FileCopy(FinalSourcePath, FinalTargetPath2)
             End If
         Next
 
         con.Close()
         rs = Nothing
         con = Nothing
+    End Sub
+
+    Private Sub optMLB6126_CheckedChanged(sender As Object, e As EventArgs) Handles optMLB6126.CheckedChanged
+        If optMLB6126.Checked Or optMLB812U.Checked Then
+            chkMLBExpansion.Enabled = True
+        End If
+
+        If ((optMLB6126.Checked = False) And (optMLB812U.Checked = False)) Then
+            chkMLBExpansion.Checked = False
+            chkMLBExpansion.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optMLB812U_CheckedChanged(sender As Object, e As EventArgs) Handles optMLB812U.CheckedChanged
+        If optMLB6126.Checked Or optMLB812U.Checked Then
+            chkMLBExpansion.Enabled = True
+        End If
+
+        If ((optMLB6126.Checked = False) And (optMLB812U.Checked = False)) Then
+            chkMLBExpansion.Checked = False
+            chkMLBExpansion.Enabled = False
+        End If
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "Not Selected"
+        ThisUnit.Family = SetUnitFamily()
+        ThisUnit.Cabinet = SetUnitCabinet()
+        ThisUnit.Kingdom = SetUnitKingdom()
+
+        frmHistoryReport.ShowDialog()
     End Sub
 End Class

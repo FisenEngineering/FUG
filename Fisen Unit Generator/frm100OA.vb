@@ -891,10 +891,13 @@ Public Class frm100OA
     End Sub
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
         frmHistoryReport.MyModule = "100OA"
+        frmHistoryReport.cmbModCode.Text = "100OA"
         frmHistoryReport.Show()
     End Sub
 
     Private Sub WriteHistory()
+        'updated to version 2.0 28 Apr 2020
+
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -915,7 +918,7 @@ Public Class frm100OA
         con.Open()
 
         rs = New ADODB.Recordset With {
-            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
         Controller = "Unselected"
@@ -961,10 +964,10 @@ Public Class frm100OA
         MySQL = "Select * FROM tblHistory100OA WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
         rs.Open(MySQL, con)
 
-        If rs.RecordCount > 0 Then
+        If Not (rs.EOF And rs.BOF) Then
             'Update SQL
             ExistingRecordID = rs.Fields(0).Value
-            MySQL = "UPDATE tblHistory100OA SET Controller='" & Controller & "', HeatType=" & HeatType & ", " & "HeatCtrl='" & HeatCtrl & "', CoolCtrl='" & CoolCtrl & "', ModeCtrl='" & ModeCtrl & "', ZoneOverride='" & ZoneOverride & "' WHERE KeyID=" & ExistingRecordID
+            MySQL = "UPDATE tblHistory100OA SET Controller='" & Controller & "', HeatType=" & HeatType & ", " & "HeatCtrl='" & HeatCtrl & "', CoolCtrl='" & CoolCtrl & "', ModeCtrl='" & ModeCtrl & "', ZoneOverride='" & ZoneOverride & "' WHERE ID=" & ExistingRecordID
             con.Execute(MySQL)
         Else
             'Insert SQL

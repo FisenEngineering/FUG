@@ -43,6 +43,7 @@ Partial Class frmHWCoil
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtEAT = New System.Windows.Forms.TextBox()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
@@ -121,6 +122,8 @@ Partial Class frmHWCoil
         Me.Label16 = New System.Windows.Forms.Label()
         Me.btnDoneValve = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -331,6 +334,7 @@ Partial Class frmHWCoil
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.CheckBox1)
         Me.tpgOptions.Controls.Add(Me.CheckBox2)
@@ -347,6 +351,17 @@ Partial Class frmHWCoil
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(6, 225)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 47
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'fraAuxPanel
         '
@@ -396,7 +411,7 @@ Partial Class frmHWCoil
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(6, 203)
+        Me.CheckBox1.Location = New System.Drawing.Point(6, 150)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(149, 17)
         Me.CheckBox1.TabIndex = 32
@@ -407,7 +422,7 @@ Partial Class frmHWCoil
         '
         Me.CheckBox2.AutoSize = True
         Me.CheckBox2.Enabled = False
-        Me.CheckBox2.Location = New System.Drawing.Point(12, 224)
+        Me.CheckBox2.Location = New System.Drawing.Point(12, 171)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(165, 17)
         Me.CheckBox2.TabIndex = 33
@@ -1183,12 +1198,32 @@ Partial Class frmHWCoil
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(380, 291)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 16
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(416, 291)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 15
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
         'frmHWCoil
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 332)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
@@ -1324,4 +1359,7 @@ Partial Class frmHWCoil
     Friend WithEvents Label21 As Label
     Friend WithEvents txtActualAPD As TextBox
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

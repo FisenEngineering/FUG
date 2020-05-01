@@ -1,6 +1,8 @@
 ﻿Imports System.ComponentModel
 Public Class frmMHGRH_Conv
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -22,30 +24,33 @@ Public Class frmMHGRH_Conv
         frmMain.lstRequiredFactoryItems.Items.Add("Base Unit Comes with HGRH from JCI Factory")
     End Sub
     Private Sub UpdateCodeList()
+
+        ModuleCodeList.Clear()
+
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("725200") 'MHGRH Conv
-        frmMain.ThisUnitCodes.Add("725201") 'JCI Installed Coil
-        frmMain.ThisUnitCodes.Add("725202") 'Valves
-        frmMain.ThisUnitCodes.Add("725203") 'Parallel Coil Config
-        frmMain.ThisUnitCodes.Add("725207") 'Controls
+        ModuleCodeList.Add("725200") 'MHGRH Conv
+        ModuleCodeList.Add("725201") 'JCI Installed Coil
+        ModuleCodeList.Add("725202") 'Valves
+        ModuleCodeList.Add("725203") 'Parallel Coil Config
+        ModuleCodeList.Add("725207") 'Controls
         If optDHCompsByJCI.Checked = True Then
-            frmMain.ThisUnitCodes.Add("725215") 'JCI SE Enables Compressors
+            ModuleCodeList.Add("725215") 'JCI SE Enables Compressors
         Else
-            frmMain.ThisUnitCodes.Add("725210") 'GBAS Dehum Enable
+            ModuleCodeList.Add("725210") 'GBAS Dehum Enable
         End If
         If optRHSATCtrl.Checked = True Then
-            frmMain.ThisUnitCodes.Add("725220") 'HGRH SAT Control
+            ModuleCodeList.Add("725220") 'HGRH SAT Control
         Else
-            frmMain.ThisUnitCodes.Add("725225") 'HGRH GBAS Control
+            ModuleCodeList.Add("725225") 'HGRH GBAS Control
         End If
         If frmMain.ThisUnit.Family = "Series20" Then
-            frmMain.ThisUnitCodes.Add("725240") 'HPCO Relocation
+            ModuleCodeList.Add("725240") 'HPCO Relocation
         End If
-        If chkZTempReset.Checked = True Then frmMain.ThisUnitCodes.Add("725221")
-        If chkFisenZoneHum.Checked = True Then frmMain.ThisUnitCodes.Add("725230")
-        If chkFisenRAStat.Checked = True Then frmMain.ThisUnitCodes.Add("725230")
-        If chkFisenZoneSensor.Checked = True Then frmMain.ThisUnitCodes.Add("725230")
-        If chkFisenRASensor.Checked = True Then frmMain.ThisUnitCodes.Add("725230")
+        If chkZTempReset.Checked = True Then ModuleCodeList.Add("725221")
+        If chkFisenZoneHum.Checked = True Then ModuleCodeList.Add("725230")
+        If chkFisenRAStat.Checked = True Then ModuleCodeList.Add("725230")
+        If chkFisenZoneSensor.Checked = True Then ModuleCodeList.Add("725230")
+        If chkFisenRASensor.Checked = True Then ModuleCodeList.Add("725230")
 
         If chkIncludeEquipmentTouch.Checked = True Then
             If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
@@ -100,7 +105,95 @@ Public Class frmMHGRH_Conv
 
         frmMain.ThisUnit.CommNodes = "2"
         Call AssignReferSpecialties()
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("725F6A")
+        End If
+
+        Call PerformDesignCautionScan(False)
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+        Next i
+
     End Sub
+
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '725%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '725%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
+
     Private Sub AssignReferSpecialties()
         Dim stub As String
         Select Case frmMain.ThisUnit.Family
@@ -249,6 +342,8 @@ Public Class frmMHGRH_Conv
         Dim temp As Double
         pCancelled = False
 
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
         temp = Val(frmMain.ThisUnit.NominalTons) / 2 * 12 * 1.25
 
         txtHGRHCap.Text = Format(temp, "0.0")
@@ -286,6 +381,7 @@ Public Class frmMHGRH_Conv
 
         End Select
         lstControlStyle.SelectedIndex = 0
+        ModuleCodeList.Add("725000")
     End Sub
     Private Sub PopulateAuxPanelList()
         If optNoAux.Checked = True Then
@@ -389,5 +485,9 @@ Public Class frmMHGRH_Conv
 
     Private Sub optUseAux_CheckedChanged(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
         Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        PerformDesignCautionScan(True)
     End Sub
 End Class

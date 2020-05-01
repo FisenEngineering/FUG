@@ -73,7 +73,6 @@ Public Class frmFanVFD
             If optSFanFisenLCVAV.Checked Then frmMain.ThisUnitCodes.Add("301120")
             If optSFanSELCVAV.Checked Then frmMain.ThisUnitCodes.Add("301130")
             If optSFanBalanceOnly.Checked Then frmMain.ThisUnitCodes.Add("301125")
-            If chk65kInstall.Checked Then frmMain.ThisUnitCodes.Add("301250")
 
         End If
 
@@ -245,6 +244,8 @@ Public Class frmFanVFD
 
     Private Sub frmFanVFD_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pCancelled = False
+
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
         Select Case Me.FanType
             Case Is = "Supply Fan"

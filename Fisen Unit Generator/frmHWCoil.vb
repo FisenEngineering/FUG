@@ -4,6 +4,8 @@ Imports System.Xml
 Public Class frmHWCoil
 
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -27,48 +29,50 @@ Public Class frmHWCoil
         Dim tbblockadded As Boolean
 
         tbblockadded = False
+
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("513300")
+        ModuleCodeList.Add("513300")
 
         'Now handle the coil
-        frmMain.ThisUnitCodes.Add("513399")
+        ModuleCodeList.Add("513399")
 
         If Not (chkEpoxy.Checked) Then
             'Add the codes for the style of coil *Uncoated*
-            If optCoilCustom.Checked Then frmMain.ThisUnitCodes.Add("513309") 'Custom coil
-            If optCoil1Row.Checked Then frmMain.ThisUnitCodes.Add("513301") '1 row coil
-            If optCoil2Row.Checked Then frmMain.ThisUnitCodes.Add("513306") '2 row coil
+            If optCoilCustom.Checked Then ModuleCodeList.Add("513309") 'Custom coil
+            If optCoil1Row.Checked Then ModuleCodeList.Add("513301") '1 row coil
+            If optCoil2Row.Checked Then ModuleCodeList.Add("513306") '2 row coil
         Else
             'Add the codes for the style of coil *Coated*
-            If optCoilCustom.Checked Then frmMain.ThisUnitCodes.Add("513315") 'Custom Coated Coil
-            If optCoil1Row.Checked Then frmMain.ThisUnitCodes.Add("513307") 'Coated 1 Row Coil
-            If optCoil2Row.Checked Then frmMain.ThisUnitCodes.Add("513308") 'Coated 2 Row Coil
+            If optCoilCustom.Checked Then ModuleCodeList.Add("513315") 'Custom Coated Coil
+            If optCoil1Row.Checked Then ModuleCodeList.Add("513307") 'Coated 1 Row Coil
+            If optCoil2Row.Checked Then ModuleCodeList.Add("513308") 'Coated 2 Row Coil
         End If
 
-        If chkS40DrawThroughCoil.Checked Then frmMain.ThisUnitCodes.Add("513390") 'Draw through coil Series 40
+        If chkS40DrawThroughCoil.Checked Then ModuleCodeList.Add("513390") 'Draw through coil Series 40
 
         'Valves...
         If optValveNone.Checked = False Then
-            frmMain.ThisUnitCodes.Add("513302") 'Modulating Hot Water Valve
+            ModuleCodeList.Add("513302") 'Modulating Hot Water Valve
             'Valves Installed by Fisen
             If optValveFisenProvFisenInst.Checked = True Then
                 If optValve2Way.Checked Then
-                    frmMain.ThisUnitCodes.Add("513310") '2-Way Fisen Installed
+                    ModuleCodeList.Add("513310") '2-Way Fisen Installed
                     frmMain.ThisUnitHydro.Add("Hot Water Coil and 2 Way Valve")
                 End If
 
                 If optValve3Way.Checked Then
-                    frmMain.ThisUnitCodes.Add("513311") '3-Way Fisen Installed
+                    ModuleCodeList.Add("513311") '3-Way Fisen Installed
                     frmMain.ThisUnitHydro.Add("Hot Water Coil and 3 Way Valve")
                 End If
 
             Else
                 If optValve2Way.Checked Then
-                    frmMain.ThisUnitCodes.Add("513303") '2-Way Field Installed
+                    ModuleCodeList.Add("513303") '2-Way Field Installed
 
                 End If
                 If optValve3Way.Checked Then
-                    frmMain.ThisUnitCodes.Add("513304") '3-Way Field Installed
+                    ModuleCodeList.Add("513304") '3-Way Field Installed
 
                 End If
 
@@ -76,54 +80,54 @@ Public Class frmHWCoil
             End If
         Else
             If optValveNone.Checked Then
-                frmMain.ThisUnitCodes.Add("513330") 'Field provided and field installed valve
+                ModuleCodeList.Add("513330") 'Field provided and field installed valve
 
             End If
             frmMain.ThisUnitHydro.Add("Just Hot Water Coil")
         End If
 
         'Handle Freezestats
-        frmMain.ThisUnitCodes.Add("513305") 'Low Limit Thermostat
+        ModuleCodeList.Add("513305") 'Low Limit Thermostat
 
         If optLLUnwired.Checked Then
             If frmMain.ModBarn.UnitHas4StageBoard Then
-                frmMain.ThisUnitCodes.Add("513312") 'LLStat Unwired 513312
+                ModuleCodeList.Add("513312") 'LLStat Unwired 513312
             Else
-                frmMain.ThisUnitCodes.Add("51331A") 'LLStat Unwired 51331A No Stage 4 Board installed.
+                ModuleCodeList.Add("51331A") 'LLStat Unwired 51331A No Stage 4 Board installed.
             End If
         End If
         'LLStat Wired to Controller 513313
-        If optLLWired.Checked Then frmMain.ThisUnitCodes.Add("513313")
+        If optLLWired.Checked Then ModuleCodeList.Add("513313")
         'LLStat Breaks the Valve Power 513314
-        If chkBreakonLL.Checked Then frmMain.ThisUnitCodes.Add("513314")
-        If chkBreakonLL.Checked Then frmMain.ThisUnitCodes.Add("513323")
-        If chkBreakonLL.Checked Then frmMain.ThisUnitCodes.Add("513324")
-        If chkBreakonLL.Checked Then frmMain.ThisUnitCodes.Add("513325")
-        If chkBreakonLL.Checked Then frmMain.ThisUnitCodes.Add("513326")
+        If chkBreakonLL.Checked Then ModuleCodeList.Add("513314")
+        If chkBreakonLL.Checked Then ModuleCodeList.Add("513323")
+        If chkBreakonLL.Checked Then ModuleCodeList.Add("513324")
+        If chkBreakonLL.Checked Then ModuleCodeList.Add("513325")
+        If chkBreakonLL.Checked Then ModuleCodeList.Add("513326")
         If chkBreakonLL.Checked And Not (optValveFisenProvFisenInst.Checked) Then
-            frmMain.ThisUnitCodes.Add("513327")
+            ModuleCodeList.Add("513327")
             tbblockadded = True
         End If
 
         'Handle Controls
-        frmMain.ThisUnitCodes.Add("513320")
+        ModuleCodeList.Add("513320")
 
         'No Controls by Fisen
         If (optValveCtrlNone.Checked) Then
-            frmMain.ThisUnitCodes.Add("513328")
-            frmMain.ThisUnitCodes.Add("513316")
+            ModuleCodeList.Add("513328")
+            ModuleCodeList.Add("513316")
             If optBU_IPU_Unwired.Checked Then
-                frmMain.ThisUnitCodes.Add("513381")
+                ModuleCodeList.Add("513381")
 
             End If
             If optBU_SE_Fact_Unwired.Checked Then
-                frmMain.ThisUnitCodes.Add("513319") 'Fisen Provided SE Board
-                frmMain.ThisUnitCodes.Add("513380") 'SE Available for Wiring
+                ModuleCodeList.Add("513319") 'Fisen Provided SE Board
+                ModuleCodeList.Add("513380") 'SE Available for Wiring
 
             End If
             If optBU_SE_Fisen_Unwired.Checked Then
-                frmMain.ThisUnitCodes.Add("513319") 'Fisen Provided SE Board
-                frmMain.ThisUnitCodes.Add("513380") 'SE Available for Wiring
+                ModuleCodeList.Add("513319") 'Fisen Provided SE Board
+                ModuleCodeList.Add("513380") 'SE Available for Wiring
 
             End If
         End If
@@ -131,19 +135,19 @@ Public Class frmHWCoil
         'Base Unit Controls the Valve Position
         If optValveCtrlBaseUnit.Checked Then
             If optBU_SE_Fact_FisenWires.Checked Then
-                frmMain.ThisUnitCodes.Add("513317") 'Fisen Wired Valve Control
-                frmMain.ThisUnitCodes.Add("513398") 'SAT Sensor Relocate
+                ModuleCodeList.Add("513317") 'Fisen Wired Valve Control
+                ModuleCodeList.Add("513398") 'SAT Sensor Relocate
 
             End If
             If optBU_SE_Fisen_FisenWires.Checked Then
-                frmMain.ThisUnitCodes.Add("513317") 'Fisen Wired Valve Control
-                frmMain.ThisUnitCodes.Add("513398") 'SAT Sensor Relocate
-                frmMain.ThisUnitCodes.Add("513319") 'Fisen Provided SE Board
+                ModuleCodeList.Add("513317") 'Fisen Wired Valve Control
+                ModuleCodeList.Add("513398") 'SAT Sensor Relocate
+                ModuleCodeList.Add("513319") 'Fisen Provided SE Board
 
             End If
             If optBU_IPU_FisenWires.Checked Then
-                frmMain.ThisUnitCodes.Add("513329") 'Fisen Wired Valve Control - IPU
-                frmMain.ThisUnitCodes.Add("513398") 'SAT Sensor Relocate
+                ModuleCodeList.Add("513329") 'Fisen Wired Valve Control - IPU
+                ModuleCodeList.Add("513398") 'SAT Sensor Relocate
 
             End If
         End If
@@ -156,7 +160,7 @@ Public Class frmHWCoil
 
         'Field wires the valve we need a terminal block.
         If (((optValveFieldProvFieldInst.Checked) Or (optValveFisenProvFieldInst.Checked)) And Not (optValveCtrlNone.Checked)) Then
-            If Not (tbblockadded) Then frmMain.ThisUnitCodes.Add("513327")
+            If Not (tbblockadded) Then ModuleCodeList.Add("513327")
         End If
 
         'Fisen adds a 4 stage board
@@ -225,8 +229,96 @@ Public Class frmHWCoil
                     frmMain.ThisUnitGenCodes.Add("960023")
             End Select
         End If
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("513F6A")
+        End If
+
+
+        Call PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+        Next i
+
     End Sub
 
+    Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        Dim i As Integer
+        Dim dummy As MsgBoxResult
+        Dim startingcaution As String
+        Dim eachline As String
+        Dim totalmessage As String
+        Dim spacepos As Integer
+        Dim RecCount As Integer
+
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        For i = 0 To ModuleCodeList.Count - 1
+
+
+            If Prelim Then
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode LIKE '513%'"
+            Else
+                MySQL = "SELECT COUNT(*) as RowCount FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+            End If
+
+            rs.Open(MySQL, con)
+            RecCount = rs.Fields("RowCount").Value
+            rs.Close()
+
+            If RecCount > 0 Then
+                If Prelim Then
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode LIKE '513%'"
+                Else
+                    MySQL = "SELECT * FROM tblDesignCautions WHERE TriggerCode='" & ModuleCodeList.Item(i) & "'"
+                End If
+                rs.Open(MySQL, con)
+
+                rs.MoveFirst()
+                Do While Not (rs.EOF)
+                    dummy = MsgBox(rs.Fields("ShortName").Value & vbCrLf & "Do you wish to see details?", vbYesNo, "Design Caution")
+                    If dummy = vbYes Then
+                        totalmessage = ""
+                        startingcaution = rs.Fields("LongText").Value
+                        While Len(startingcaution) > 61
+                            spacepos = 61
+                            Do While ((Mid(startingcaution, spacepos, 1) <> " ") And (Mid(startingcaution, spacepos, 1) <> ",") And (Mid(startingcaution, spacepos, 1) <> "."))
+                                spacepos = spacepos - 1
+                            Loop
+
+                            eachline = Mid(startingcaution, 1, spacepos - 1)
+                            startingcaution = Mid(startingcaution, spacepos)
+                            totalmessage = totalmessage & vbCrLf & eachline
+                        End While
+                        totalmessage = totalmessage & vbCrLf & startingcaution
+                        dummy = MsgBox(totalmessage, vbOKOnly, "Design Caution")
+                    End If
+                    rs.MoveNext()
+                Loop
+                rs.Close()
+            End If
+        Next
+        con.Close()
+
+        rs = Nothing
+        con = Nothing
+    End Sub
     Private Sub UpdateWarrantyItems()
         frmMain.ThisUnitWarrTest.CoilTest = True
         If optValveFisenProvFisenInst.Checked = True Then
@@ -327,6 +419,9 @@ Public Class frmHWCoil
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         pCancelled = False
 
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+
         If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
 
         cmbFluidList.Items.Add("Water")
@@ -399,6 +494,7 @@ Public Class frmHWCoil
 
         End Select
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
+        ModuleCodeList.Add("513000")
 
     End Sub
 
@@ -849,30 +945,21 @@ Public Class frmHWCoil
     End Sub
 
     Private Sub WriteHWCoilHistory()
+        'Upgraded to Version 2.0 30 April 2020
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim jname, unit, ver, modnum As String
+        'Next dim the module specific
         Dim HeatAirflow, EAT, EFT, Flow, Fluid, Percent, LAT, LFT, CoilAPD, FPD, Capacity As String
 
-
         Dim MySQL As String
+        Dim ExistingRecordID As String
+
         jname = frmMain.txtProjectName.Text
         unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
         ver = frmMain.txtUnitVersion.Text
         modnum = frmMain.txtModelNumber.Text
-
-        HeatAirflow = txtHeatAF.Text
-        EAT = txtEAT.Text
-        EFT = txtEFT.Text
-        Flow = txtFluidFlow.Text
-        Fluid = cmbFluidList.Text
-        Percent = cmbFluidPer.Text
-        LAT = txtLAT.Text
-        LFT = txtLFT.Text
-        CoilAPD = txtActualAPD.Text
-        FPD = txtFPD.Text
-        Capacity = txtOutCap.Text
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -883,10 +970,34 @@ Public Class frmHWCoil
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        MySQL = "INSERT INTO tblHistoryHWCoil (JobName, UnitID, Version, ModelNumber, HeatAirflow, EAT, EFT, Flow, Fluid, FPercent, LAT, LFT, CoilAPD, FPD, Capacity) VALUES ('" _
-& jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HeatAirflow & "','" & EAT & "','" & EFT & "','" & Flow & "','" & Fluid & "','" & Percent & "','" & LAT & "','" & LFT & "','" & CoilAPD & "','" & FPD & "','" & Capacity & "')"
+        HeatAirflow = txtHeatAF.Text
+        HeatAirflow = HeatAirflow.PadRight(5, " ")
+        EAT = txtEAT.Text
+        EFT = txtEFT.Text
+        Flow = txtFluidFlow.Text
+        Flow = Flow.PadRight(5, " ")
+        Fluid = cmbFluidList.Text
+        Percent = cmbFluidPer.Text
+        LAT = txtLAT.Text
+        LFT = txtLFT.Text
+        CoilAPD = Format(Val(txtActualAPD.Text), "0.0")
+        FPD = txtFPD.Text
+        Capacity = txtOutCap.Text
 
-        con.Execute(MySQL)
+        MySQL = "Select * FROM tblHistoryHWCoil WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistoryHWCoil SET HeatAirFlow='" & HeatAirflow & "', EAT='" & EAT & "', " & "EFT='" & EFT & "', Flow='" & Flow & "', Fluid='" & Fluid & "', FPercent='" & Percent & "', LAT='" & LAT & "', LFT='" & LFT & "', CoilAPD='" & CoilAPD & "', FPD='" & FPD & "', Capacity='" & Capacity & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistoryHWCoil (JobName, UnitID, Version, ModelNumber, HeatAirflow, EAT, EFT, Flow, Fluid, FPercent, LAT, LFT, CoilAPD, FPD, Capacity) VALUES ('" _
+& jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HeatAirflow & "','" & EAT & "','" & EFT & "','" & Flow & "','" & Fluid & "','" & Percent & "','" & LAT & "','" & LFT & "','" & CoilAPD & "','" & FPD & "','" & Capacity & "')"
+            con.Execute(MySQL)
+        End If
 
         con.Close()
         rs = Nothing
@@ -900,5 +1011,15 @@ Public Class frmHWCoil
 
     Private Sub optNoAux_CheckedChanged_1(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
         Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        PerformDesignCautionScan(True)
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "HWCoil"
+        frmHistoryReport.cmbModCode.Text = "HWCoil"
+        frmHistoryReport.Show()
     End Sub
 End Class

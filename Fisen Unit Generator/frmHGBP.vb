@@ -23,6 +23,8 @@ Public Class frmHGBP
     End Sub
 
     Private Sub WriteHistory()
+        'Updated to version 2.0 24 Apr 2020
+
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -70,17 +72,15 @@ Public Class frmHGBP
         MySQL = "Select * FROM tblHistoryHGBP WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
         rs.Open(MySQL, con)
 
-        If rs.RecordCount > 0 Then
+        If Not (rs.EOF And rs.BOF) Then
             'Update SQL
             ExistingRecordID = rs.Fields(0).Value
-            MySQL = "UPDATE tblHistoryHGBP SET Circuit1='" & Ckt1 & "', Circuit2=" & Ckt2 & ", " & "Circuit3='" & Ckt3 & "', Circuit4='" & Ckt4 & "' WHERE KeyID=" & ExistingRecordID
+            MySQL = "UPDATE tblHistoryHGBP SET Circuit1='" & Ckt1 & "', Circuit2='" & Ckt2 & "', " & "Circuit3='" & Ckt3 & "', Circuit4='" & Ckt4 & "' WHERE ID=" & ExistingRecordID
             con.Execute(MySQL)
         Else
             'Insert SQL
-
             MySQL = "INSERT INTO tblHistoryHGBP (JobName,UnitID,Version,ModelNumber,Circuit1,Circuit2,Circuit3,Circuit4) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & Ckt1 & "','" & Ckt2 & "','" & Ckt3 & "','" & Ckt4 & "')"
             con.Execute(MySQL)
-
         End If
 
         con.Close()
@@ -149,10 +149,15 @@ Public Class frmHGBP
             ModuleCodeList.Add("705175")
         End If
 
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("705F6A")
+        End If
+
         Call PerformDesignCautionScan(False)
 
         For i = 0 To ModuleCodeList.Count - 1
             frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
 
     End Sub
@@ -178,6 +183,11 @@ Public Class frmHGBP
                 If chkStage3.Checked = True Then tempWeight = "75"
                 If chkStage4.Checked = True Then tempWeight = "100"
             Case Is = "Series10"
+                If chkStage1.Checked = True Then tempWeight = "25"
+                If chkStage2.Checked = True Then tempWeight = "50"
+                If chkStage3.Checked = True Then tempWeight = "75"
+                If chkStage4.Checked = True Then tempWeight = "100"
+            Case Is = "Series12"
                 If chkStage1.Checked = True Then tempWeight = "25"
                 If chkStage2.Checked = True Then tempWeight = "50"
                 If chkStage3.Checked = True Then tempWeight = "75"
@@ -222,6 +232,7 @@ Public Class frmHGBP
         'No Changes to performance
     End Sub
     Private Sub frmHGBP_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim i As Integer
         pCancelled = False
 
         'no obvious need for a famcase structure for this module at load time.
@@ -238,6 +249,16 @@ Public Class frmHGBP
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
 
         ModuleCodeList.Add("705100")
+
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+        'Scan the Factory Installed items for microchannel coils
+        For i = 0 To frmMain.ThisUnitFactOpts.Count - 1
+            If InStr(frmMain.ThisUnitFactOpts.Item(i), "Micro Channel") > 0 Then
+                chkDischargeTStat.Checked = True
+                Exit For
+            End If
+        Next
 
     End Sub
 
@@ -346,6 +367,7 @@ Public Class frmHGBP
 
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
         frmHistoryReport.MyModule = "HGBP"
+        frmHistoryReport.cmbModCode.Text = "HGBP"
         frmHistoryReport.Show()
     End Sub
 

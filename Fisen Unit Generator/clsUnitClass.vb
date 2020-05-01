@@ -503,6 +503,7 @@ Public Class clsUnitClass
         pResourcePath = My.Settings.ResourceDir
         pCabinet = "Not Applicable"
         pNotes = "-"
+
     End Sub
 
 

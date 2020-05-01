@@ -36,6 +36,7 @@ Partial Class frmCstmCtrl
         Me.lstTagAlongs = New System.Windows.Forms.ListBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
@@ -195,6 +196,7 @@ Partial Class frmCstmCtrl
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.GroupBox3)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
@@ -206,6 +208,17 @@ Partial Class frmCstmCtrl
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 55)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 30
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -477,4 +490,5 @@ Partial Class frmCstmCtrl
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

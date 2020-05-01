@@ -124,6 +124,10 @@ Public Class frmLowAF
         End If
         'use logic to step through the controls to determine the codes and use the above format...
 
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("398F6A")
+        End If
+
         Call PerformDesignCautionScan(False)
 
         For i = 0 To ModuleCodeList.Count - 1
@@ -281,7 +285,7 @@ Public Class frmLowAF
 
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
 
-
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
     End Sub
     Private Sub LoadDigConditions()

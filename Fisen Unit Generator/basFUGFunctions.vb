@@ -131,6 +131,10 @@
             End Select
         End If
 
+        If Mid(ModelNumber, 1, 3) = "ZLG" Then
+            TempFamily = "Series12"
+        End If
+
         If Mid(ModelNumber, 1, 2) = "AD" Then
             TempFamily = "Choice"
         End If

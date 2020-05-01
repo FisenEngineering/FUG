@@ -23,10 +23,10 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.btnDoneBU = New System.Windows.Forms.Button()
@@ -311,6 +311,15 @@ Partial Class frmMain
         Me.Label57 = New System.Windows.Forms.Label()
         Me.btnDonePoints = New System.Windows.Forms.Button()
         Me.pgEndDeviceSchedule = New System.Windows.Forms.TabPage()
+        Me.GroupBox13 = New System.Windows.Forms.GroupBox()
+        Me.optMLB560 = New System.Windows.Forms.RadioButton()
+        Me.chkMLBExpansion = New System.Windows.Forms.CheckBox()
+        Me.optMLB812U = New System.Windows.Forms.RadioButton()
+        Me.optMLB583 = New System.Windows.Forms.RadioButton()
+        Me.optMLB6126 = New System.Windows.Forms.RadioButton()
+        Me.optMLBNone = New System.Windows.Forms.RadioButton()
+        Me.chkEDMovetoDesign = New System.Windows.Forms.CheckBox()
+        Me.chkEDMovetoCutSheets = New System.Windows.Forms.CheckBox()
         Me.dgvEndDevices = New System.Windows.Forms.DataGridView()
         Me.EDevTag = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EDevName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -801,8 +810,8 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chkMoveCutsheets = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
-        Me.chkEDMovetoCutSheets = New System.Windows.Forms.CheckBox()
-        Me.chkEDMovetoDesign = New System.Windows.Forms.CheckBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.optFieldWork1DayOnSiteSel = New System.Windows.Forms.RadioButton()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -832,6 +841,7 @@ Partial Class frmMain
         Me.pgSequence.SuspendLayout
         Me.pgPoints.SuspendLayout
         Me.pgEndDeviceSchedule.SuspendLayout
+        Me.GroupBox13.SuspendLayout
         CType(Me.dgvEndDevices, System.ComponentModel.ISupportInitialize).BeginInit
         Me.pgWeights.SuspendLayout
         Me.pgConnections.SuspendLayout
@@ -911,6 +921,7 @@ Partial Class frmMain
         '
         'pgBaseUnit
         '
+        Me.pgBaseUnit.Controls.Add(Me.cmdViewHistory)
         Me.pgBaseUnit.Controls.Add(Me.btnDoneBU)
         Me.pgBaseUnit.Controls.Add(Me.fraMisc)
         Me.pgBaseUnit.Controls.Add(Me.GroupBox4)
@@ -947,7 +958,7 @@ Partial Class frmMain
         Me.fraMisc.Controls.Add(Me.optMiscDS)
         Me.fraMisc.Controls.Add(Me.optS20ODSplit)
         Me.fraMisc.Controls.Add(Me.RadioButton5)
-        Me.fraMisc.Location = New System.Drawing.Point(739, 73)
+        Me.fraMisc.Location = New System.Drawing.Point(460, 74)
         Me.fraMisc.Margin = New System.Windows.Forms.Padding(4)
         Me.fraMisc.Name = "fraMisc"
         Me.fraMisc.Padding = New System.Windows.Forms.Padding(4)
@@ -1072,7 +1083,7 @@ Partial Class frmMain
         Me.GroupBox4.Controls.Add(Me.optChiller)
         Me.GroupBox4.Controls.Add(Me.optAHU)
         Me.GroupBox4.Controls.Add(Me.optRTU)
-        Me.GroupBox4.Location = New System.Drawing.Point(287, 7)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 8)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
@@ -1135,7 +1146,7 @@ Partial Class frmMain
         Me.fraChiller.Controls.Add(Me.optChillerYVAA)
         Me.fraChiller.Controls.Add(Me.optChillerYCAL)
         Me.fraChiller.Controls.Add(Me.optChillerYLAA)
-        Me.fraChiller.Location = New System.Drawing.Point(588, 73)
+        Me.fraChiller.Location = New System.Drawing.Point(309, 74)
         Me.fraChiller.Margin = New System.Windows.Forms.Padding(4)
         Me.fraChiller.Name = "fraChiller"
         Me.fraChiller.Padding = New System.Windows.Forms.Padding(4)
@@ -1209,7 +1220,7 @@ Partial Class frmMain
         Me.fraAHU.Controls.Add(Me.optAHUYorkCustom)
         Me.fraAHU.Controls.Add(Me.optAHUXTI)
         Me.fraAHU.Controls.Add(Me.optAHUXTO)
-        Me.fraAHU.Location = New System.Drawing.Point(437, 73)
+        Me.fraAHU.Location = New System.Drawing.Point(158, 74)
         Me.fraAHU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraAHU.Name = "fraAHU"
         Me.fraAHU.Padding = New System.Windows.Forms.Padding(4)
@@ -1268,7 +1279,7 @@ Partial Class frmMain
         Me.fraRTU.Controls.Add(Me.optRTUSeries20)
         Me.fraRTU.Controls.Add(Me.optRTUSeries10)
         Me.fraRTU.Controls.Add(Me.optRTUSeries5)
-        Me.fraRTU.Location = New System.Drawing.Point(287, 73)
+        Me.fraRTU.Location = New System.Drawing.Point(8, 74)
         Me.fraRTU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraRTU.Name = "fraRTU"
         Me.fraRTU.Padding = New System.Windows.Forms.Padding(4)
@@ -4113,6 +4124,7 @@ Partial Class frmMain
         '
         'pgEndDeviceSchedule
         '
+        Me.pgEndDeviceSchedule.Controls.Add(Me.GroupBox13)
         Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoDesign)
         Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoCutSheets)
         Me.pgEndDeviceSchedule.Controls.Add(Me.dgvEndDevices)
@@ -4124,6 +4136,108 @@ Partial Class frmMain
         Me.pgEndDeviceSchedule.TabIndex = 25
         Me.pgEndDeviceSchedule.Text = "End Devices"
         Me.pgEndDeviceSchedule.UseVisualStyleBackColor = True
+        '
+        'GroupBox13
+        '
+        Me.GroupBox13.Controls.Add(Me.optMLB560)
+        Me.GroupBox13.Controls.Add(Me.chkMLBExpansion)
+        Me.GroupBox13.Controls.Add(Me.optMLB812U)
+        Me.GroupBox13.Controls.Add(Me.optMLB583)
+        Me.GroupBox13.Controls.Add(Me.optMLB6126)
+        Me.GroupBox13.Controls.Add(Me.optMLBNone)
+        Me.GroupBox13.Location = New System.Drawing.Point(629, 72)
+        Me.GroupBox13.Name = "GroupBox13"
+        Me.GroupBox13.Size = New System.Drawing.Size(175, 160)
+        Me.GroupBox13.TabIndex = 20
+        Me.GroupBox13.TabStop = False
+        Me.GroupBox13.Text = "Controller Required"
+        '
+        'optMLB560
+        '
+        Me.optMLB560.AutoSize = True
+        Me.optMLB560.Location = New System.Drawing.Point(6, 111)
+        Me.optMLB560.Name = "optMLB560"
+        Me.optMLB560.Size = New System.Drawing.Size(117, 17)
+        Me.optMLB560.TabIndex = 20
+        Me.optMLB560.TabStop = True
+        Me.optMLB560.Text = "560 - OEM Controls"
+        Me.optMLB560.UseVisualStyleBackColor = True
+        '
+        'chkMLBExpansion
+        '
+        Me.chkMLBExpansion.AutoSize = True
+        Me.chkMLBExpansion.Location = New System.Drawing.Point(6, 134)
+        Me.chkMLBExpansion.Name = "chkMLBExpansion"
+        Me.chkMLBExpansion.Size = New System.Drawing.Size(113, 17)
+        Me.chkMLBExpansion.TabIndex = 19
+        Me.chkMLBExpansion.Text = "Expansion Module"
+        Me.chkMLBExpansion.UseVisualStyleBackColor = True
+        '
+        'optMLB812U
+        '
+        Me.optMLB812U.AutoSize = True
+        Me.optMLB812U.Location = New System.Drawing.Point(6, 88)
+        Me.optMLB812U.Name = "optMLB812U"
+        Me.optMLB812U.Size = New System.Drawing.Size(144, 17)
+        Me.optMLB812U.TabIndex = 3
+        Me.optMLB812U.TabStop = True
+        Me.optMLB812U.Text = "812U Pro - OEM Controls"
+        Me.optMLB812U.UseVisualStyleBackColor = True
+        '
+        'optMLB583
+        '
+        Me.optMLB583.AutoSize = True
+        Me.optMLB583.Location = New System.Drawing.Point(6, 65)
+        Me.optMLB583.Name = "optMLB583"
+        Me.optMLB583.Size = New System.Drawing.Size(117, 17)
+        Me.optMLB583.TabIndex = 2
+        Me.optMLB583.TabStop = True
+        Me.optMLB583.Text = "583 - OEM Controls"
+        Me.optMLB583.UseVisualStyleBackColor = True
+        '
+        'optMLB6126
+        '
+        Me.optMLB6126.AutoSize = True
+        Me.optMLB6126.Location = New System.Drawing.Point(6, 42)
+        Me.optMLB6126.Name = "optMLB6126"
+        Me.optMLB6126.Size = New System.Drawing.Size(123, 17)
+        Me.optMLB6126.TabIndex = 1
+        Me.optMLB6126.TabStop = True
+        Me.optMLB6126.Text = "6126 - OEM Controls"
+        Me.optMLB6126.UseVisualStyleBackColor = True
+        '
+        'optMLBNone
+        '
+        Me.optMLBNone.AutoSize = True
+        Me.optMLBNone.Location = New System.Drawing.Point(6, 19)
+        Me.optMLBNone.Name = "optMLBNone"
+        Me.optMLBNone.Size = New System.Drawing.Size(51, 17)
+        Me.optMLBNone.TabIndex = 0
+        Me.optMLBNone.TabStop = True
+        Me.optMLBNone.Text = "None"
+        Me.optMLBNone.UseVisualStyleBackColor = True
+        '
+        'chkEDMovetoDesign
+        '
+        Me.chkEDMovetoDesign.AutoSize = True
+        Me.chkEDMovetoDesign.Checked = True
+        Me.chkEDMovetoDesign.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEDMovetoDesign.Location = New System.Drawing.Point(629, 37)
+        Me.chkEDMovetoDesign.Name = "chkEDMovetoDesign"
+        Me.chkEDMovetoDesign.Size = New System.Drawing.Size(297, 17)
+        Me.chkEDMovetoDesign.TabIndex = 19
+        Me.chkEDMovetoDesign.Text = "Move End Device Cut Sheets to 'Submittal Design' Folder"
+        Me.chkEDMovetoDesign.UseVisualStyleBackColor = True
+        '
+        'chkEDMovetoCutSheets
+        '
+        Me.chkEDMovetoCutSheets.AutoSize = True
+        Me.chkEDMovetoCutSheets.Location = New System.Drawing.Point(629, 14)
+        Me.chkEDMovetoCutSheets.Name = "chkEDMovetoCutSheets"
+        Me.chkEDMovetoCutSheets.Size = New System.Drawing.Size(332, 17)
+        Me.chkEDMovetoCutSheets.TabIndex = 18
+        Me.chkEDMovetoCutSheets.Text = "Move Cut Sheets to 'Cut Sheets to Include with Submittal ' Folder"
+        Me.chkEDMovetoCutSheets.UseVisualStyleBackColor = True
         '
         'dgvEndDevices
         '
@@ -4799,6 +4913,7 @@ Partial Class frmMain
         '
         'GroupBox11
         '
+        Me.GroupBox11.Controls.Add(Me.optFieldWork1DayOnSiteSel)
         Me.GroupBox11.Controls.Add(Me.optFieldWorkNoOnSiteSel)
         Me.GroupBox11.Controls.Add(Me.optFieldWorkNoNotes)
         Me.GroupBox11.Location = New System.Drawing.Point(285, 14)
@@ -7026,8 +7141,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7078,8 +7193,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.Name = "ElecLoadHP"
         Me.ElecLoadHP.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
@@ -7088,8 +7203,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
         Me.ElecLoadFLA.Width = 50
@@ -9772,7 +9887,7 @@ Partial Class frmMain
         'cmbJumpDest
         '
         Me.cmbJumpDest.FormattingEnabled = True
-        Me.cmbJumpDest.Items.AddRange(New Object() {"Filtration", "Piping Package", "Return Fan", "Steam Coil", "100% Outdoor Air"})
+        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "Piping Package", "Return Fan", "Steam Coil"})
         Me.cmbJumpDest.Location = New System.Drawing.Point(141, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
         Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)
@@ -9835,27 +9950,27 @@ Partial Class frmMain
         Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
-        'chkEDMovetoCutSheets
+        'cmdViewHistory
         '
-        Me.chkEDMovetoCutSheets.AutoSize = True
-        Me.chkEDMovetoCutSheets.Location = New System.Drawing.Point(629, 3)
-        Me.chkEDMovetoCutSheets.Name = "chkEDMovetoCutSheets"
-        Me.chkEDMovetoCutSheets.Size = New System.Drawing.Size(332, 17)
-        Me.chkEDMovetoCutSheets.TabIndex = 18
-        Me.chkEDMovetoCutSheets.Text = "Move Cut Sheets to 'Cut Sheets to Include with Submittal ' Folder"
-        Me.chkEDMovetoCutSheets.UseVisualStyleBackColor = True
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdViewHistory.Location = New System.Drawing.Point(648, 8)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(109, 29)
+        Me.cmdViewHistory.TabIndex = 11
+        Me.cmdViewHistory.Text = "History Report"
+        Me.cmdViewHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'chkEDMovetoDesign
+        'optFieldWork1DayOnSiteSel
         '
-        Me.chkEDMovetoDesign.AutoSize = True
-        Me.chkEDMovetoDesign.Checked = True
-        Me.chkEDMovetoDesign.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkEDMovetoDesign.Location = New System.Drawing.Point(629, 37)
-        Me.chkEDMovetoDesign.Name = "chkEDMovetoDesign"
-        Me.chkEDMovetoDesign.Size = New System.Drawing.Size(238, 17)
-        Me.chkEDMovetoDesign.TabIndex = 19
-        Me.chkEDMovetoDesign.Text = "Move Cut Sheets to 'Submittal Design' Folder"
-        Me.chkEDMovetoDesign.UseVisualStyleBackColor = True
+        Me.optFieldWork1DayOnSiteSel.AutoSize = True
+        Me.optFieldWork1DayOnSiteSel.Location = New System.Drawing.Point(6, 65)
+        Me.optFieldWork1DayOnSiteSel.Name = "optFieldWork1DayOnSiteSel"
+        Me.optFieldWork1DayOnSiteSel.Size = New System.Drawing.Size(136, 17)
+        Me.optFieldWork1DayOnSiteSel.TabIndex = 22
+        Me.optFieldWork1DayOnSiteSel.Text = "Insert No Startup Notes"
+        Me.optFieldWork1DayOnSiteSel.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -9934,6 +10049,8 @@ Partial Class frmMain
         Me.pgPoints.PerformLayout
         Me.pgEndDeviceSchedule.ResumeLayout(False)
         Me.pgEndDeviceSchedule.PerformLayout
+        Me.GroupBox13.ResumeLayout(False)
+        Me.GroupBox13.PerformLayout
         CType(Me.dgvEndDevices, System.ComponentModel.ISupportInitialize).EndInit
         Me.pgWeights.ResumeLayout(False)
         Me.pgWeights.PerformLayout
@@ -10821,4 +10938,13 @@ Partial Class frmMain
     Friend WithEvents EDevFieldInst As DataGridViewCheckBoxColumn
     Friend WithEvents chkEDMovetoDesign As CheckBox
     Friend WithEvents chkEDMovetoCutSheets As CheckBox
+    Friend WithEvents GroupBox13 As GroupBox
+    Friend WithEvents chkMLBExpansion As CheckBox
+    Friend WithEvents optMLB812U As RadioButton
+    Friend WithEvents optMLB583 As RadioButton
+    Friend WithEvents optMLB6126 As RadioButton
+    Friend WithEvents optMLBNone As RadioButton
+    Friend WithEvents optMLB560 As RadioButton
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents optFieldWork1DayOnSiteSel As RadioButton
 End Class

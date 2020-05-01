@@ -238,6 +238,7 @@ Partial Class frmNewFan
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -734,6 +735,7 @@ Partial Class frmNewFan
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkReliefHoodsShipLoose)
         Me.tpgOptions.Controls.Add(Me.grpReliefDampers)
@@ -2602,6 +2604,17 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(9, 390)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 98
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'frmNewFan
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2884,4 +2897,5 @@ Partial Class frmNewFan
     Friend WithEvents optIso2 As RadioButton
     Friend WithEvents optIso1 As RadioButton
     Friend WithEvents optIsoNone As RadioButton
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

@@ -36,7 +36,6 @@ Partial Class frmFanVFD
         Me.chkSFanVFD = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
-        Me.chk65kInstall = New System.Windows.Forms.CheckBox()
         Me.cmbVFDBrand = New System.Windows.Forms.ComboBox()
         Me.chkNEMA4xDrive = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -48,6 +47,8 @@ Partial Class frmFanVFD
         Me.chkRemotePad = New System.Windows.Forms.CheckBox()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.optSFanBalanceOnly = New System.Windows.Forms.RadioButton()
         Me.optSFanFisenLCVAV = New System.Windows.Forms.RadioButton()
@@ -63,8 +64,7 @@ Partial Class frmFanVFD
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
-        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -226,7 +226,7 @@ Partial Class frmFanVFD
         '
         'tpgOptions
         '
-        Me.tpgOptions.Controls.Add(Me.chk65kInstall)
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.cmbVFDBrand)
         Me.tpgOptions.Controls.Add(Me.chkNEMA4xDrive)
         Me.tpgOptions.Controls.Add(Me.GroupBox3)
@@ -241,17 +241,6 @@ Partial Class frmFanVFD
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
-        '
-        'chk65kInstall
-        '
-        Me.chk65kInstall.AutoSize = True
-        Me.chk65kInstall.Location = New System.Drawing.Point(5, 120)
-        Me.chk65kInstall.Margin = New System.Windows.Forms.Padding(2)
-        Me.chk65kInstall.Name = "chk65kInstall"
-        Me.chk65kInstall.Size = New System.Drawing.Size(107, 17)
-        Me.chk65kInstall.TabIndex = 33
-        Me.chk65kInstall.Text = "65kIA Installation"
-        Me.chk65kInstall.UseVisualStyleBackColor = True
         '
         'cmbVFDBrand
         '
@@ -374,6 +363,27 @@ Partial Class frmFanVFD
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'chkMountEquipmentTouch
+        '
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(214, 137)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 32
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        '
+        'chkIncludeEquipmentTouch
+        '
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(200, 118)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 31
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -537,26 +547,16 @@ Partial Class frmFanVFD
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chkMountEquipmentTouch
+        'chk65kASCCRBase
         '
-        Me.chkMountEquipmentTouch.AutoSize = True
-        Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(214, 137)
-        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
-        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
-        Me.chkMountEquipmentTouch.TabIndex = 32
-        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
-        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
-        '
-        'chkIncludeEquipmentTouch
-        '
-        Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(200, 118)
-        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
-        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
-        Me.chkIncludeEquipmentTouch.TabIndex = 31
-        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
-        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(5, 125)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 34
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'frmFanVFD
         '
@@ -628,10 +628,10 @@ Partial Class frmFanVFD
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
     Friend WithEvents cmbVFDBrand As ComboBox
-    Friend WithEvents chk65kInstall As CheckBox
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chkWriteHistory As CheckBox
     Friend WithEvents chkMountEquipmentTouch As CheckBox
     Friend WithEvents chkIncludeEquipmentTouch As CheckBox
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class
