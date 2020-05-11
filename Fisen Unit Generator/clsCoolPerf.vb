@@ -21,6 +21,14 @@ Public Class clsCoolPerf
     Private pRef As String
     Private pSuctionP As String
     Private pSuctionT As String
+    Private pNumRefCircuits As String
+
+    Public ReadOnly Property NumRefCircuits As String
+        Get
+            NumRefCircuits = RefCircuits()
+        End Get
+    End Property
+
 
     Public Property LCap
         Get
@@ -184,7 +192,84 @@ Public Class clsCoolPerf
         pRef = "R999Z"
         pSuctionP = "0.0"
         pSuctionT = "0.0"
+        pNumRefCircuits = "0"
     End Sub
+    Private Function RefCircuits() As String
+        Dim TempCkts As String
+        Dim ModelType As String
+        Dim TonType As String
+
+        TempCkts = "0"
+
+
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                TempCkts = "1"
+            Case Is = "Series10"
+                ModelType = Mid(frmMain.ThisUnit.ModelNumber, 4, 2)
+                Select Case ModelType
+                    Case Is = "JZ"
+                        TempCkts = "1"
+                        TonType = Mid(frmMain.ThisUnit.ModelNumber, 2, 2)
+                        If TonType = "06" Then TempCkts = 2
+                        If TonType = "07" Then TempCkts = 2
+                        If TonType = "08" Then TempCkts = 2
+                        If TonType = "10" Then TempCkts = 2
+                        If TonType = "12" Then TempCkts = 2
+                    Case Is = "ZH"
+                        TonType = Mid(frmMain.ThisUnit.ModelNumber, 2, 2)
+                        TempCkts = "1"
+                        If TonType = "06" Then TempCkts = 2
+                        If TonType = "07" Then TempCkts = 2
+                        If TonType = "08" Then TempCkts = 2
+                        If TonType = "10" Then TempCkts = 2
+                        If TonType = "12" Then TempCkts = 2
+                    Case Is = "ZF"
+                        TonType = Mid(frmMain.ThisUnit.ModelNumber, 2, 2)
+                        If TonType = "06" Then TempCkts = 2
+                        If TonType = "07" Then TempCkts = 2
+                        If TonType = "08" Then TempCkts = 2
+                        If TonType = "10" Then TempCkts = 2
+                        If TonType = "12" Then TempCkts = 2
+                    Case Is = "ZR"
+                        TempCkts = "1"
+                        TonType = Mid(frmMain.ThisUnit.ModelNumber, 2, 2)
+                        If TonType = "06" Then TempCkts = 2
+                        If TonType = "07" Then TempCkts = 2
+                        If TonType = "08" Then TempCkts = 2
+                        If TonType = "10" Then TempCkts = 2
+                        If TonType = "12" Then TempCkts = 2
+                    Case Is = "ZT"
+                        TempCkts = "1"
+                        TonType = Mid(frmMain.ThisUnit.ModelNumber, 2, 2)
+                        If TonType = "06" Then TempCkts = 2
+                        If TonType = "07" Then TempCkts = 2
+                        If TonType = "08" Then TempCkts = 2
+                        If TonType = "10" Then TempCkts = 2
+                        If TonType = "12" Then TempCkts = 2
+                    Case Is = "XP"
+                        TempCkts = "2"
+                End Select
+            Case Is = "Series12"
+
+            Case Is = "Series20"
+
+            Case Is = "Series40"
+                 'Depricated *Probably not going to be used*
+            Case Is = "Series100"
+
+            Case Is = "Premier"
+
+            Case Is = "Choice"
+
+            Case Is = "Select"
+
+            Case Else
+
+        End Select
+
+        Return TempCkts
+    End Function
     Public Sub ImportUPGData()
         Dim xdoc As XmlDocument = New XmlDocument
         xdoc.Load(frmMain.txtBaseUnitFile.Text)

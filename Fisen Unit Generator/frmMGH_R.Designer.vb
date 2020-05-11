@@ -74,6 +74,8 @@ Partial Class frmMGH_R
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.optASE = New System.Windows.Forms.RadioButton()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -411,11 +413,12 @@ Partial Class frmMGH_R
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.optASE)
         Me.GroupBox1.Controls.Add(Me.optIPU)
         Me.GroupBox1.Controls.Add(Me.optSE)
         Me.GroupBox1.Location = New System.Drawing.Point(302, 10)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(124, 67)
+        Me.GroupBox1.Size = New System.Drawing.Size(124, 87)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Base Unit Control"
@@ -424,7 +427,7 @@ Partial Class frmMGH_R
         '
         Me.optIPU.AutoSize = True
         Me.optIPU.Enabled = False
-        Me.optIPU.Location = New System.Drawing.Point(14, 46)
+        Me.optIPU.Location = New System.Drawing.Point(14, 43)
         Me.optIPU.Name = "optIPU"
         Me.optIPU.Size = New System.Drawing.Size(90, 17)
         Me.optIPU.TabIndex = 1
@@ -601,12 +604,36 @@ Partial Class frmMGH_R
         Me.cmdDesignCautions.TabIndex = 17
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
+        'optASE
+        '
+        Me.optASE.AutoSize = True
+        Me.optASE.Enabled = False
+        Me.optASE.Location = New System.Drawing.Point(14, 66)
+        Me.optASE.Name = "optASE"
+        Me.optASE.Size = New System.Drawing.Size(93, 17)
+        Me.optASE.TabIndex = 2
+        Me.optASE.Text = "ASE Controller"
+        Me.optASE.UseVisualStyleBackColor = True
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(168, 253)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 19
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
         'frmMGH_R
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 282)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
@@ -629,6 +656,7 @@ Partial Class frmMGH_R
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -682,4 +710,6 @@ Partial Class frmMGH_R
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents optASE As RadioButton
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

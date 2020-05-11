@@ -235,6 +235,9 @@ Public Class frmHGBP
         Dim i As Integer
         pCancelled = False
 
+        If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
+        If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
+
         'no obvious need for a famcase structure for this module at load time.
         cmbHGBPStyle1.Text = "To Suction Line"
         cmbHGBPStyle2.Text = "None"

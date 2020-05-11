@@ -78,12 +78,14 @@
 
 
 
-            MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') ORDER BY Version DESC"
+            'MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') ORDER BY Version DESC"
+            MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') ORDER BY Version DESC"
+
             rs.Open(MySQL, con)
 
             If Not (rs.EOF And rs.BOF) Then
                 HighVer = rs.Fields(3).Value
-                If Trim(HighVer) = Trim(ver) Then
+                If Val(HighVer) >= Val(ver) Then
                     tempver = Val(HighVer)
                     tempver = tempver + 0.1
                     errmsg = "You have already generated a submittal with the version of the submittal." & vbCrLf & "Yes to Auto Increment to " & Trim(Str(tempver)) & vbCrLf & "No to replace existing submittal record." & vbCrLf & "Cancel to change manually."

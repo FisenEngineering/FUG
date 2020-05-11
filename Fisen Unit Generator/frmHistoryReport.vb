@@ -467,6 +467,14 @@
         rs = Nothing
         con = Nothing
     End Sub
+
+    Private Sub LoadLowAFHistoryTable()
+
+    End Sub
+
+    Private Sub LoadMGH_RHistoryTable()
+
+    End Sub
     Private Sub LoadUnitReportTable()
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -553,6 +561,10 @@
                 Case Is = "LCVAV"
                     Call LoadLCVAVHistoryTable()
                     Me.Text = "Light Commercial VAV"
+                Case Is = "LowAF"
+                    Call LoadLowAFHistoryTable
+                Case Is = "MGH_R"
+                    Call LoadMGH_RHistoryTable
                 Case Is = "RFan"
                     'ToDo
                     Me.Text = "New Return Fan - History is Offline"

@@ -421,7 +421,7 @@ Public Class frmHWCoil
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
-
+        If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
         If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
 
         cmbFluidList.Items.Add("Water")

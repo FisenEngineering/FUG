@@ -25,12 +25,17 @@ Partial Class frmLowAmbient
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLowAmbient))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkChillerOnGrade = New System.Windows.Forms.CheckBox()
+        Me.chkSinglePointPower = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.optneg30Ambient = New System.Windows.Forms.RadioButton()
         Me.optneg20Ambient = New System.Windows.Forms.RadioButton()
         Me.optneg10Ambient = New System.Windows.Forms.RadioButton()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.chkSMBottom = New System.Windows.Forms.CheckBox()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.chkYCAVEmptyFanBlockoff = New System.Windows.Forms.CheckBox()
         Me.chkFieldHTbyFisen = New System.Windows.Forms.CheckBox()
         Me.lblFtOfHT = New System.Windows.Forms.Label()
@@ -39,7 +44,6 @@ Partial Class frmLowAmbient
         Me.chkYCAVTopBlockoff = New System.Windows.Forms.CheckBox()
         Me.lblLineVolts = New System.Windows.Forms.Label()
         Me.lstLineVoltage = New System.Windows.Forms.ListBox()
-        Me.chkSinglePointPower = New System.Windows.Forms.CheckBox()
         Me.chkBaseRailEnclosure = New System.Windows.Forms.CheckBox()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
@@ -48,6 +52,8 @@ Partial Class frmLowAmbient
         Me.optElectroMechanical = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.lblWatts = New System.Windows.Forms.Label()
         Me.lblAdditionalHT = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -58,6 +64,8 @@ Partial Class frmLowAmbient
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtFtofHeatTrace = New System.Windows.Forms.TextBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.optXFrmr15 = New System.Windows.Forms.RadioButton()
+        Me.optXFrmr10 = New System.Windows.Forms.RadioButton()
         Me.optXFrmrNA = New System.Windows.Forms.RadioButton()
         Me.optXFrmr7dot5 = New System.Windows.Forms.RadioButton()
         Me.optXFrmr5 = New System.Windows.Forms.RadioButton()
@@ -72,6 +80,9 @@ Partial Class frmLowAmbient
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -99,6 +110,8 @@ Partial Class frmLowAmbient
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkChillerOnGrade)
+        Me.tpgConditions.Controls.Add(Me.chkSinglePointPower)
         Me.tpgConditions.Controls.Add(Me.GroupBox1)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
@@ -109,6 +122,26 @@ Partial Class frmLowAmbient
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'chkChillerOnGrade
+        '
+        Me.chkChillerOnGrade.AutoSize = True
+        Me.chkChillerOnGrade.Location = New System.Drawing.Point(120, 39)
+        Me.chkChillerOnGrade.Name = "chkChillerOnGrade"
+        Me.chkChillerOnGrade.Size = New System.Drawing.Size(143, 17)
+        Me.chkChillerOnGrade.TabIndex = 28
+        Me.chkChillerOnGrade.Text = "Chiller Installed on Grade"
+        Me.chkChillerOnGrade.UseVisualStyleBackColor = True
+        '
+        'chkSinglePointPower
+        '
+        Me.chkSinglePointPower.AutoSize = True
+        Me.chkSinglePointPower.Location = New System.Drawing.Point(120, 16)
+        Me.chkSinglePointPower.Name = "chkSinglePointPower"
+        Me.chkSinglePointPower.Size = New System.Drawing.Size(115, 17)
+        Me.chkSinglePointPower.TabIndex = 27
+        Me.chkSinglePointPower.Text = "Single Point Power"
+        Me.chkSinglePointPower.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -166,6 +199,9 @@ Partial Class frmLowAmbient
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.Label7)
+        Me.tpgOptions.Controls.Add(Me.chkSMBottom)
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.chkYCAVEmptyFanBlockoff)
         Me.tpgOptions.Controls.Add(Me.chkFieldHTbyFisen)
         Me.tpgOptions.Controls.Add(Me.lblFtOfHT)
@@ -174,7 +210,6 @@ Partial Class frmLowAmbient
         Me.tpgOptions.Controls.Add(Me.chkYCAVTopBlockoff)
         Me.tpgOptions.Controls.Add(Me.lblLineVolts)
         Me.tpgOptions.Controls.Add(Me.lstLineVoltage)
-        Me.tpgOptions.Controls.Add(Me.chkSinglePointPower)
         Me.tpgOptions.Controls.Add(Me.chkBaseRailEnclosure)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
@@ -185,6 +220,37 @@ Partial Class frmLowAmbient
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Enabled = False
+        Me.Label7.Location = New System.Drawing.Point(161, 73)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(187, 13)
+        Me.Label7.TabIndex = 56
+        Me.Label7.Text = "This is total.  Consider multiple circuits."
+        '
+        'chkSMBottom
+        '
+        Me.chkSMBottom.AutoSize = True
+        Me.chkSMBottom.Location = New System.Drawing.Point(385, 76)
+        Me.chkSMBottom.Name = "chkSMBottom"
+        Me.chkSMBottom.Size = New System.Drawing.Size(119, 17)
+        Me.chkSMBottom.TabIndex = 55
+        Me.chkSMBottom.Text = "Sheet Metal Bottom"
+        Me.chkSMBottom.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(4, 169)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 54
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'chkYCAVEmptyFanBlockoff
         '
@@ -267,16 +333,6 @@ Partial Class frmLowAmbient
         Me.lstLineVoltage.Size = New System.Drawing.Size(42, 69)
         Me.lstLineVoltage.TabIndex = 27
         '
-        'chkSinglePointPower
-        '
-        Me.chkSinglePointPower.AutoSize = True
-        Me.chkSinglePointPower.Location = New System.Drawing.Point(7, 7)
-        Me.chkSinglePointPower.Name = "chkSinglePointPower"
-        Me.chkSinglePointPower.Size = New System.Drawing.Size(115, 17)
-        Me.chkSinglePointPower.TabIndex = 26
-        Me.chkSinglePointPower.Text = "Single Point Power"
-        Me.chkSinglePointPower.UseVisualStyleBackColor = True
-        '
         'chkBaseRailEnclosure
         '
         Me.chkBaseRailEnclosure.AutoSize = True
@@ -355,6 +411,8 @@ Partial Class frmLowAmbient
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.Label6)
+        Me.tpgPerformance.Controls.Add(Me.Label5)
         Me.tpgPerformance.Controls.Add(Me.lblWatts)
         Me.tpgPerformance.Controls.Add(Me.lblAdditionalHT)
         Me.tpgPerformance.Controls.Add(Me.Label4)
@@ -375,6 +433,24 @@ Partial Class frmLowAmbient
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(261, 12)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(55, 13)
+        Me.Label6.TabIndex = 38
+        Me.Label6.Text = "additional."
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(211, 12)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(13, 13)
+        Me.Label5.TabIndex = 37
+        Me.Label5.Text = "+"
+        '
         'lblWatts
         '
         Me.lblWatts.AutoSize = True
@@ -387,11 +463,11 @@ Partial Class frmLowAmbient
         'lblAdditionalHT
         '
         Me.lblAdditionalHT.AutoSize = True
-        Me.lblAdditionalHT.Location = New System.Drawing.Point(211, 14)
+        Me.lblAdditionalHT.Location = New System.Drawing.Point(230, 12)
         Me.lblAdditionalHT.Name = "lblAdditionalHT"
-        Me.lblAdditionalHT.Size = New System.Drawing.Size(71, 13)
+        Me.lblAdditionalHT.Size = New System.Drawing.Size(25, 13)
         Me.lblAdditionalHT.TabIndex = 35
-        Me.lblAdditionalHT.Text = "+ 0 Additional"
+        Me.lblAdditionalHT.Text = "888"
         '
         'Label4
         '
@@ -436,7 +512,7 @@ Partial Class frmLowAmbient
         'cmdSelectXFmr
         '
         Me.cmdSelectXFmr.Image = CType(resources.GetObject("cmdSelectXFmr.Image"), System.Drawing.Image)
-        Me.cmdSelectXFmr.Location = New System.Drawing.Point(336, 9)
+        Me.cmdSelectXFmr.Location = New System.Drawing.Point(322, 9)
         Me.cmdSelectXFmr.Name = "cmdSelectXFmr"
         Me.cmdSelectXFmr.Size = New System.Drawing.Size(22, 22)
         Me.cmdSelectXFmr.TabIndex = 30
@@ -460,6 +536,8 @@ Partial Class frmLowAmbient
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.optXFrmr15)
+        Me.GroupBox3.Controls.Add(Me.optXFrmr10)
         Me.GroupBox3.Controls.Add(Me.optXFrmrNA)
         Me.GroupBox3.Controls.Add(Me.optXFrmr7dot5)
         Me.GroupBox3.Controls.Add(Me.optXFrmr5)
@@ -469,18 +547,38 @@ Partial Class frmLowAmbient
         Me.GroupBox3.Controls.Add(Me.optXFrmr1)
         Me.GroupBox3.Controls.Add(Me.optXFrmrdot75)
         Me.GroupBox3.Controls.Add(Me.optXFrmrDot5)
-        Me.GroupBox3.Location = New System.Drawing.Point(364, 3)
+        Me.GroupBox3.Location = New System.Drawing.Point(350, 3)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(146, 136)
+        Me.GroupBox3.Size = New System.Drawing.Size(146, 158)
         Me.GroupBox3.TabIndex = 27
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Transformer"
+        '
+        'optXFrmr15
+        '
+        Me.optXFrmr15.AutoSize = True
+        Me.optXFrmr15.Location = New System.Drawing.Point(75, 111)
+        Me.optXFrmr15.Name = "optXFrmr15"
+        Me.optXFrmr15.Size = New System.Drawing.Size(69, 17)
+        Me.optXFrmr15.TabIndex = 39
+        Me.optXFrmr15.Text = "15.0 kVA"
+        Me.optXFrmr15.UseVisualStyleBackColor = True
+        '
+        'optXFrmr10
+        '
+        Me.optXFrmr10.AutoSize = True
+        Me.optXFrmr10.Location = New System.Drawing.Point(75, 88)
+        Me.optXFrmr10.Name = "optXFrmr10"
+        Me.optXFrmr10.Size = New System.Drawing.Size(69, 17)
+        Me.optXFrmr10.TabIndex = 38
+        Me.optXFrmr10.Text = "10.0 kVA"
+        Me.optXFrmr10.UseVisualStyleBackColor = True
         '
         'optXFrmrNA
         '
         Me.optXFrmrNA.AutoSize = True
         Me.optXFrmrNA.Checked = True
-        Me.optXFrmrNA.Location = New System.Drawing.Point(6, 111)
+        Me.optXFrmrNA.Location = New System.Drawing.Point(6, 134)
         Me.optXFrmrNA.Name = "optXFrmrNA"
         Me.optXFrmrNA.Size = New System.Drawing.Size(45, 17)
         Me.optXFrmrNA.TabIndex = 37
@@ -491,7 +589,7 @@ Partial Class frmLowAmbient
         'optXFrmr7dot5
         '
         Me.optXFrmr7dot5.AutoSize = True
-        Me.optXFrmr7dot5.Location = New System.Drawing.Point(75, 88)
+        Me.optXFrmr7dot5.Location = New System.Drawing.Point(75, 65)
         Me.optXFrmr7dot5.Name = "optXFrmr7dot5"
         Me.optXFrmr7dot5.Size = New System.Drawing.Size(63, 17)
         Me.optXFrmr7dot5.TabIndex = 36
@@ -501,7 +599,7 @@ Partial Class frmLowAmbient
         'optXFrmr5
         '
         Me.optXFrmr5.AutoSize = True
-        Me.optXFrmr5.Location = New System.Drawing.Point(75, 65)
+        Me.optXFrmr5.Location = New System.Drawing.Point(75, 42)
         Me.optXFrmr5.Name = "optXFrmr5"
         Me.optXFrmr5.Size = New System.Drawing.Size(63, 17)
         Me.optXFrmr5.TabIndex = 35
@@ -511,7 +609,7 @@ Partial Class frmLowAmbient
         'optXFrmr3
         '
         Me.optXFrmr3.AutoSize = True
-        Me.optXFrmr3.Location = New System.Drawing.Point(75, 42)
+        Me.optXFrmr3.Location = New System.Drawing.Point(75, 19)
         Me.optXFrmr3.Name = "optXFrmr3"
         Me.optXFrmr3.Size = New System.Drawing.Size(63, 17)
         Me.optXFrmr3.TabIndex = 34
@@ -521,7 +619,7 @@ Partial Class frmLowAmbient
         'optXFrmr2
         '
         Me.optXFrmr2.AutoSize = True
-        Me.optXFrmr2.Location = New System.Drawing.Point(75, 19)
+        Me.optXFrmr2.Location = New System.Drawing.Point(6, 111)
         Me.optXFrmr2.Name = "optXFrmr2"
         Me.optXFrmr2.Size = New System.Drawing.Size(63, 17)
         Me.optXFrmr2.TabIndex = 33
@@ -619,11 +717,44 @@ Partial Class frmLowAmbient
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(530, 245)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 18
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(566, 245)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 17
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(227, 260)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 19
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
         'frmLowAmbient
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(605, 283)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -633,6 +764,7 @@ Partial Class frmLowAmbient
         Me.Text = "Low Ambient Chiller"
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
+        Me.tpgConditions.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
@@ -646,6 +778,7 @@ Partial Class frmLowAmbient
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -668,7 +801,6 @@ Partial Class frmLowAmbient
     Friend WithEvents chkBaseRailEnclosure As CheckBox
     Friend WithEvents lblLineVolts As Label
     Friend WithEvents lstLineVoltage As ListBox
-    Friend WithEvents chkSinglePointPower As CheckBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents optDDC As RadioButton
     Friend WithEvents optElectroMechanical As RadioButton
@@ -698,4 +830,16 @@ Partial Class frmLowAmbient
     Friend WithEvents cmbWattsPerFoot As ComboBox
     Friend WithEvents lblAdditionalHT As Label
     Friend WithEvents lblWatts As Label
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents chkChillerOnGrade As CheckBox
+    Friend WithEvents chkSinglePointPower As CheckBox
+    Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents chkSMBottom As CheckBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents optXFrmr15 As RadioButton
+    Friend WithEvents optXFrmr10 As RadioButton
+    Friend WithEvents Label7 As Label
 End Class

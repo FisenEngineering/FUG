@@ -1,9 +1,16 @@
 ﻿Imports System.ComponentModel
 Imports System.Xml
+Imports Microsoft.Office.Interop
 
 Public Class frmLowAF
     Private pCancelled As Boolean
     Private ModuleCodeList As New ArrayList
+    Private LowerFlow As Double
+    Private UpperFlow As Double
+    Private LowerTCapVals(4) As Double
+    Private UpperTCapVals(4) As Double
+    Private LowerPowVals(4) As Double
+    Private UpperPowVals(4) As Double
 
     Public Property Cancelled As Boolean
         Get
@@ -19,55 +26,11 @@ Public Class frmLowAF
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("LowAF") 'Mod Code goes here!
         Call UpdateCodeList()
-        Call WriteLowAFHistory
+        If chkWriteHistory.Checked Then Call WriteHistory()
 
         Me.Hide()
     End Sub
-    Private Sub WriteLowAFHistory()
-        Dim con As ADODB.Connection
-        Dim rs As ADODB.Recordset
-        Dim dbProvider As String
-        Dim jname, unit, ver As String
-        Dim modnum, rqAF, RQStatic, Soln, NomAir, MinCatAir, BypassAir As String
-        Dim i As Integer
 
-
-        Dim MySQL As String
-        jname = frmMain.txtProjectName.Text
-        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
-        ver = frmMain.txtUnitVersion.Text
-
-        modnum = frmMain.txtModelNumber.Text
-        rqAF = txtAirflow.Text
-        RQStatic = txtESP.Text
-        NomAir = txtNominalAirflow.Text
-        MinCatAir = txtMinCatAirflow.Text
-        BypassAir = txtBypassAF.Text
-
-        If optExistingSheaves.Checked Then Soln = "Adjust Sheaves"
-        If optResheave.Checked Then Soln = "Resheave"
-        If optFanWallBypassExisting.Checked Then Soln = "FWBypass"
-        If optFanWallBypassNew.Checked Then Soln = "FWBypass-Resheave"
-        If optReplaceFan.Checked Then Soln = "Replace Fan"
-
-        con = New ADODB.Connection
-        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
-        con.ConnectionString = dbProvider
-        con.Open()
-
-        rs = New ADODB.Recordset With {
-            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
-        }
-
-        MySQL = "INSERT INTO tblHistoryLowAF (JobName, UnitID, Version, ModelNumber, RQAirflow, RQStatic, Solution, NominalAir, MinCatAir, BypassAir) VALUES ('" _
-& jname & "','" & unit & "','" & ver & "','" & modnum & "','" & rqAF & "','" & RQStatic & "','" & Soln & "','" & NomAir & "','" & MinCatAir & "','" & BypassAir & "')"
-
-        con.Execute(MySQL)
-
-        con.Close()
-        rs = Nothing
-        con = Nothing
-    End Sub
     Private Sub UpdateCodeList()
 
         ModuleCodeList.Clear()
@@ -243,6 +206,9 @@ Public Class frmLowAF
 
         pCancelled = False
 
+        If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
+        If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
+
         txtFanBHP.Text = frmMain.ThisUnitSFanPerf.BrakeHP
         txtFanRPM.Text = frmMain.ThisUnitSFanPerf.RPM
 
@@ -296,7 +262,7 @@ Public Class frmLowAF
         ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
         xDoc.Load(ModFilePath)
 
-        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/LCVAV")
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//ModFile/Modifications/LowAF")
 
         TempVal = xNodeRoot.SelectSingleNode("OA100Unit").InnerText
         If TempVal = "Yes" Then chk100OA.Checked = True Else chk100OA.Checked = False
@@ -333,18 +299,165 @@ Public Class frmLowAF
             dummy = MsgBox("Entering Air DB should equal Ambient DB.  Proceed Anyway?", vbYesNo)
             If dummy = vbNo Then Exit Sub
         End If
-        If frmMain.ThisUnit.Family <> "Series100" Then
-            txtNominalAirflow.Text = Trim(Str(400 * Val(frmMain.ThisUnit.NominalTons)))
-            txtMinCatAirflow.Text = MinCatalogedAirFlow()
-            txtMinCatHeatAF.Text = MinCatalogedHeatAF()
 
-        End If
 
         If frmMain.ThisUnit.Family = "Series100" Then
             Call UpdateStaticSummaryValues
-
         End If
+
+        Call CalculateCoolingPerf
+
         TabControl1.SelectTab("tpgOptions")
+    End Sub
+
+    Private Sub CalculateCoolingPerf()
+        Dim appXL As Excel.Application
+        Dim wbXL As Excel.Workbook
+        Dim wbsXL As Excel.Workbooks
+        Dim wsXL As Excel.Worksheet
+
+        Dim FileName As String
+
+        Dim LRBaseAtLowAmb, LRBaseAtHighAmb As Integer
+        Dim HRBaseAtLowAmb, HRBaseAtHighAmb As Integer
+        Dim i As Integer
+
+        Dim amb, lowamb, highamb As Double
+        Dim LowTCap, HighTCap As Double
+        Dim LowPow, HighPow As Double
+        Dim LowAF, HighAF As Double
+        Dim airflow As Double
+        Dim LowWB, HighWB As Double
+        Dim WB As Double
+        Dim LowWBBase, HighWBBase As Integer
+
+        TabControl1.SelectTab("tpgCoolCalc")
+
+        FileName = UnitDataFile(frmMain.ThisUnit.Family)
+
+        Me.Cursor = Cursors.WaitCursor
+        appXL = CreateObject("excel.application")
+        appXL.Visible = True
+        wbsXL = appXL.Workbooks
+        wbXL = wbsXL.Open(FileName)
+        wsXL = CType(wbXL.Sheets(UnitDataPage()), Excel.Worksheet)
+        'wsXL = wbXL.ActiveSheet
+        txtMinCatAirflow.Text = wsXL.Cells(58, 1).value
+        txtNominalAirflow.Text = Trim(Str(400 * Val(frmMain.ThisUnit.NominalTons)))
+        txtMinCatHeatAF.Text = MinCatalogedHeatAF()
+
+        'set up the cool perf pages
+        lblLowAmbient.Text = SetLowAmbient(txtAmbient.Text)
+        lblHighAmbient.Text = SetHighAmbient(txtAmbient.Text)
+
+        LRBaseAtLowAmb = SetLowRowBase(lblLowAmbient.Text)
+        LRBaseAtHighAmb = SetLowRowBase(lblHighAmbient.Text)
+        HRBaseAtLowAmb = SetHighRowBase(lblLowAmbient.Text)
+        HRBaseAtHighAmb = SetHighRowBase(lblHighAmbient.Text)
+
+        'setup the airflows
+        lblLAFatLowAmb.Text = wsXL.Cells(LRBaseAtLowAmb, 1).value
+        lblLAFatHighAmb.Text = wsXL.Cells(LRBaseAtHighAmb, 1).value
+        lblHAFatLowAmb.Text = wsXL.Cells(HRBaseAtLowAmb, 1).value
+        lblHAFatHighAmb.Text = wsXL.Cells(HRBaseAtHighAmb, 1).value
+
+        'Setup the wetbulb values
+        lstWBTempsLowAmbLowFlow.Items.Clear()
+        lstWBTempsLowAmbHighFlow.Items.Clear()
+        lstWBTempsHighAmbLowFlow.Items.Clear()
+        lstWBTempsHighAmbHighFlow.Items.Clear()
+        lstTCapLowAmbLowFlow.Items.Clear()
+        lstTCapLowAmbHighFlow.Items.Clear()
+        lstTCapHighAmbLowFlow.Items.Clear()
+        lstTCapHighAmbHighFlow.Items.Clear()
+        lstPowerLowAmbLowFlow.Items.Clear()
+        lstPowerLowAmbHighFlow.Items.Clear()
+        lstPowerHighAmbLowFlow.Items.Clear()
+        lstPowerHighAmbHighFlow.Items.Clear()
+        lstWBLowAF.Items.Clear()
+        lstWBHighAF.Items.Clear()
+        lstTCapLowAF.Items.Clear()
+        lstTCapHighAF.Items.Clear()
+        lstPowerLowAF.Items.Clear()
+        lstPowerHighAF.Items.Clear()
+        lstWBAct.Items.Clear()
+        lstTCapAct.Items.Clear()
+        lstPowAct.Items.Clear()
+
+        For i = 0 To 3
+            lstWBTempsLowAmbLowFlow.Items.Add(wsXL.Cells(LRBaseAtLowAmb + i, 2).value)
+            lstWBTempsLowAmbHighFlow.Items.Add(wsXL.Cells(HRBaseAtLowAmb + i, 2).value)
+            lstWBTempsHighAmbLowFlow.Items.Add(wsXL.Cells(LRBaseAtHighAmb + i, 2).value)
+            lstWBTempsHighAmbHighFlow.Items.Add(wsXL.Cells(HRBaseAtHighAmb + i, 2).value)
+
+            lstTCapLowAmbLowFlow.Items.Add(wsXL.Cells(LRBaseAtLowAmb + i, 3).value)
+            lstTCapLowAmbHighFlow.Items.Add(wsXL.Cells(HRBaseAtLowAmb + i, 3).value)
+            lstTCapHighAmbLowFlow.Items.Add(wsXL.Cells(LRBaseAtHighAmb + i, 3).value)
+            lstTCapHighAmbHighFlow.Items.Add(wsXL.Cells(HRBaseAtHighAmb + i, 3).value)
+
+            lstPowerLowAmbLowFlow.Items.Add(wsXL.Cells(LRBaseAtLowAmb + i, 4).value)
+            lstPowerLowAmbHighFlow.Items.Add(wsXL.Cells(HRBaseAtLowAmb + i, 4).value)
+            lstPowerHighAmbLowFlow.Items.Add(wsXL.Cells(LRBaseAtHighAmb + i, 4).value)
+            lstPowerHighAmbHighFlow.Items.Add(wsXL.Cells(HRBaseAtHighAmb + i, 4).value)
+        Next
+
+
+        wbsXL.Close()
+        appXL.Quit()
+        Me.Cursor = Cursors.Default
+
+        lblAmbient.Text = txtAmbient.Text
+        lblLowAF.Text = lblLAFatLowAmb.Text
+        lblHighAF.Text = lblHAFatLowAmb.Text
+        lowamb = Val(lblLowAmbient.Text)
+        highamb = Val(lblHighAmbient.Text)
+        amb = Val(txtAmbient.Text)
+        LowAF = Val(lblLowAF.Text)
+        HighAF = Val(lblHighAF.Text)
+        airflow = Val(txtAirflow.Text)
+
+
+        For i = 0 To 3
+            lstWBLowAF.Items.Add(lstWBTempsLowAmbLowFlow.Items(i))
+            lstWBHighAF.Items.Add(lstWBTempsLowAmbHighFlow.Items(i))
+            LowTCap = Val(lstTCapLowAmbLowFlow.Items(i))
+            HighTCap = Val(lstTCapHighAmbLowFlow.Items(i))
+            lstTCapLowAF.Items.Add(Format(LinearInterp(lowamb, LowTCap, highamb, HighTCap, amb), "0.0"))
+            LowTCap = Val(lstTCapLowAmbHighFlow.Items(i))
+            HighTCap = Val(lstTCapHighAmbHighFlow.Items(i))
+            lstTCapHighAF.Items.Add(Format(LinearInterp(lowamb, LowTCap, highamb, HighTCap, amb), "0.0"))
+            LowPow = Val(lstPowerLowAmbLowFlow.Items(i))
+            HighPow = Val(lstPowerHighAmbLowFlow.Items(i))
+            lstPowerLowAF.Items.Add(Format(LinearInterp(lowamb, LowPow, highamb, HighPow, amb), "0.0"))
+            LowPow = Val(lstPowerLowAmbHighFlow.Items(i))
+            HighPow = Val(lstPowerHighAmbHighFlow.Items(i))
+            lstPowerHighAF.Items.Add(Format(LinearInterp(lowamb, LowPow, highamb, HighPow, amb), "0.0"))
+        Next
+
+        lblAFact.Text = txtAirflow.Text
+        For i = 0 To 3
+            lstWBAct.Items.Add(lstWBLowAF.Items(i))
+            LowTCap = Val(lstTCapLowAF.Items(i))
+            HighTCap = Val(lstTCapHighAF.Items(i))
+            lstTCapAct.Items.Add(Format(LinearInterp(LowAF, LowTCap, HighAF, HighTCap, airflow), "0.0"))
+            LowPow = Val(lstPowerLowAF.Items(i))
+            HighPow = Val(lstPowerHighAF.Items(i))
+            lstPowAct.Items.Add(Format(LinearInterp(LowAF, LowPow, HighAF, HighPow, airflow), "0.0"))
+        Next
+
+        'Final Evolution
+        lblAmbFinal.Text = txtAmbient.Text
+        lblWBFinal.Text = txtEWB.Text
+        WB = Val(txtEWB.Text)
+        LowWBBase = SetLowWBBase(WB)
+        LowWB = Val(lstWBAct.Items(LowWBBase))
+        HighWBBase = SetHighWBBase(WB)
+        HighWB = Val(lstWBAct.Items(HighWBBase))
+        lblTCapFinal.Text = Format(LinearInterp(LowWB, lstTCapAct.Items(LowWBBase), HighWB, lstTCapAct.Items(HighWBBase), WB), "0.0")
+        lblPowerFinal.Text = Format(LinearInterp(LowWB, lstPowAct.Items(LowWBBase), HighWB, lstPowAct.Items(HighWBBase), WB), "0.0")
+
+        txtTCap.Text = lblTCapFinal.Text
+        txtPower.Text = lblPowerFinal.Text
     End Sub
 
     Private Sub UpdateStaticSummaryValues()
@@ -986,121 +1099,6 @@ Public Class frmLowAF
         tempflow = Val(lowflow)
         MinCatalogedHeatAF = tempflow
     End Function
-    Private Function MinCatalogedAirFlow() As String
-        Dim tempflow As String
-        Dim lowflow As Double
-        lowflow = 0
-        Select Case frmMain.ThisUnit.Family
-            Case Is = "Series5"
-                Select Case frmMain.ThisUnit.NominalTons
-                    Case Is = "3.0"
-                        lowflow = 800
-                    Case Is = "4.0"
-                        lowflow = 1000
-                    Case Is = "5.0"
-                        lowflow = 1200
-                    Case Is = "6.0"
-                        lowflow = 1600
-                    Case Else
-                        lowflow = -9999
-                End Select
-            Case Is = "Series10"
-                Select Case frmMain.ThisUnit.NominalTons
-                    Case Is = "3.0"
-                        lowflow = 900
-                    Case Is = "4.0"
-                        lowflow = 1200
-                    Case Is = "5.0"
-                        lowflow = 1500
-                    Case Is = "6.5"
-                        lowflow = 1800
-                    Case Is = "7.5"
-                        lowflow = 2000
-                    Case Is = "8.5"
-                        lowflow = 2200
-                    Case Is = "10.0"
-                        lowflow = 2600
-                    Case Is = "12.5"
-                        lowflow = 3200
-                    Case Else
-                        lowflow = -9999
-                End Select
-            Case Is = "Series20"
-                Select Case frmMain.ThisUnit.NominalTons
-                    Case Is = "15.0"
-                        lowflow = 4000
-                    Case Is = "17.5"
-                        lowflow = 4400
-                    Case Is = "20.0"
-                        lowflow = 5200
-                    Case Is = "25.0"
-                        lowflow = 6600
-                    Case Else
-                        lowflow = -9999
-                End Select
-            Case Is = "Series40"
-                Select Case frmMain.ThisUnit.NominalTons
-                    Case Is = "25.0"
-                        lowflow = 7500
-                    Case Is = "30.0"
-                        lowflow = 7500
-                    Case Is = "40.0"
-                        lowflow = 10000
-                    Case Else
-                        lowflow = -9999
-                End Select
-            Case Is = "Series100"
-                Select Case frmMain.ThisUnit.NominalTons
-                    Case Is = "50.0"
-                        lowflow = 12000
-                    Case Is = "55.0"
-                        lowflow = 12000
-                    Case Is = "60.0"
-                        lowflow = 12000
-                    Case Is = "65.0"
-                        lowflow = 12000
-                    Case Is = "70.0"
-                        lowflow = 14000
-                    Case Is = "75.0"
-                        lowflow = 15500
-                    Case Is = "80.0"
-                        lowflow = 15000
-                    Case Is = "90.0"
-                        lowflow = 17500
-                    Case Is = "105.0"
-                        lowflow = 21000
-                    Case Is = "120.0"
-                        lowflow = 32000
-                    Case Is = "130.0"
-                        lowflow = 32000
-                    Case Is = "150.0"
-                        lowflow = 32000
-                    Case Else
-                        lowflow = -9999
-                End Select
-            Case Is = "Choice"
-                Select Case frmMain.ThisUnit.NominalTons
-                    Case Is = "15.0"
-                        lowflow = 4500
-                    Case Is = "17.5"
-                        lowflow = 5400
-                    Case Is = "20.0"
-                        lowflow = 6000
-                    Case Is = "25.0"
-                        lowflow = 7500
-                    Case Is = "27.5"
-                        lowflow = 8000
-                    Case Else
-                        lowflow = -9999
-                End Select
-
-            Case Else
-                lowflow = -9999
-        End Select
-
-        tempflow = Val(lowflow)
-        MinCatalogedAirFlow = tempflow
-    End Function
 
     Private Sub optReplaceFan_CheckedChanged(sender As Object, e As EventArgs) Handles optReplaceFan.CheckedChanged
         If optReplaceFan.Checked Then
@@ -1281,9 +1279,14 @@ Public Class frmLowAF
 
     Private Sub chkSeriesConversion_CheckedChanged(sender As Object, e As EventArgs) Handles chkSeriesConversion.CheckedChanged
         If chkSeriesConversion.Checked = True Then
-            optRefDwg2Ckt.Checked = True
+            grpRefDrawings.Enabled = True
+            If frmMain.ThisUnitCoolPerf.NumRefCircuits = "1" Then optRefDwg1Ckt.Checked = True
+            If frmMain.ThisUnitCoolPerf.NumRefCircuits = "2" Then optRefDwg2Ckt.Checked = True
+            If frmMain.ThisUnitCoolPerf.NumRefCircuits = "3" Then optRefDwg3Ckt.Checked = True
+            If frmMain.ThisUnitCoolPerf.NumRefCircuits = "4" Then optRefDwg4Ckt.Checked = True
         End If
         If chkSeriesConversion.Checked = False Then
+            grpRefDrawings.Enabled = False
             optRefDwgNone.Checked = True
         End If
     End Sub
@@ -1294,8 +1297,7 @@ Public Class frmLowAF
         lblFanHeat.Text = Format(temp, "0.0")
 
     End Sub
-
-    Private Sub cmdMethodSuggest_Click(sender As Object, e As EventArgs) Handles cmdMethodSuggest.Click
+    Private Sub SuggestLowAFMethod()
         Dim nomAF, MinCatAF, SubAF As Double
         Dim dummy As MsgBoxResult
 
@@ -1323,17 +1325,13 @@ Public Class frmLowAF
         If ((SubAF < (MinCatAF * 0.9) And (SubAF >= (MinCatAF * 0.66)))) Then optFanWallBypassExisting.Checked = True
         If ((SubAF < (MinCatAF * 0.66))) Then optFanWallBypassNew.Checked = True
         If SubAF < (MinCatAF * 0.5) Then optReplaceFan.Checked = True
-
-
-
+    End Sub
+    Private Sub cmdMethodSuggest_Click(sender As Object, e As EventArgs) Handles cmdMethodSuggest.Click
+        Call SuggestLowAFMethod()
     End Sub
 
     Private Sub cmdCalcDehumCap_Click(sender As Object, e As EventArgs) Handles cmdCalcDehumCap.Click
         txtDehumCap.Text = Format(psyDehumCapacity(txtEDB.Text, txtEWB.Text, txtLADB.Text, txtLAWB.Text, txtAirflow.Text), "0.0")
-    End Sub
-
-    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
-        Call PerformDesignCautionScan(True)
     End Sub
 
     Private Sub PerformDesignCautionScan(Prelim As Boolean)
@@ -1411,5 +1409,230 @@ Public Class frmLowAF
         rs = Nothing
         con = Nothing
     End Sub
+
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+        Call PerformDesignCautionScan(True)
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "LowAF"
+        frmHistoryReport.cmbModCode.Text = "LowAF"
+        frmHistoryReport.Show()
+    End Sub
+    Private Sub WriteHistory()
+        'updated to version 2.0 1 May 2020
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver As String
+        Dim modnum, rqAF, RQStatic, Soln, NomAir, MinCatAir, BypassAir As String
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rqAF = txtAirflow.Text
+        RQStatic = txtESP.Text
+        NomAir = txtNominalAirflow.Text
+        MinCatAir = txtMinCatAirflow.Text
+        BypassAir = txtBypassAF.Text
+
+        If optExistingSheaves.Checked Then Soln = "Adjust Sheaves"
+        If optResheave.Checked Then Soln = "Resheave"
+        If optFanWallBypassExisting.Checked Then Soln = "FWBypass"
+        If optFanWallBypassNew.Checked Then Soln = "FWBypass-Resheave"
+        If optReplaceFan.Checked Then Soln = "Replace Fan"
+
+        MySQL = "Select * FROM tblHistoryLowAF WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistoryLowAF SET RQAirflow='" & rqAF & "', RQStatic='" & RQStatic & "', " & "Solution='" & Soln & "', NominalAir='" & NomAir & "', MinCatAir='" & MinCatAir & "', BypassAir='" & BypassAir & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistoryLowAF (JobName, UnitID, Version, ModelNumber, RQAirflow, RQStatic, Solution, NominalAir, MinCatAir, BypassAir) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & rqAF & "','" & RQStatic & "','" & Soln & "','" & NomAir & "','" & MinCatAir & "','" & BypassAir & "')"
+            con.Execute(MySQL)
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+    Private Sub cmdCalc_Click(sender As Object, e As EventArgs) Handles cmdCalc.Click
+        Call CalculateCoolingPerf()
+
+    End Sub
+
+    Private Function SetLowWBBase(wb As Double) As Integer
+        Dim tempwb As Integer
+
+        tempwb = 1 'typically 72
+        If wb <= Val(lstWBAct.Items(1)) Then tempwb = 2 'typically 67
+        If wb <= Val(lstWBAct.Items(2)) Then tempwb = 3 'typically 62
+
+        Return tempwb
+    End Function
+
+    Private Function SetHighWBBase(wb As Double) As Integer
+        Dim tempwb As Double
+
+        tempwb = 2 'typically 67
+        If wb >= Val(lstWBAct.Items(2)) Then tempwb = 1 'typically 72
+        If wb >= Val(lstWBAct.Items(1)) Then tempwb = 0 'typically 77
+
+        Return tempwb
+    End Function
+
+    Private Function LinearInterp(x1 As Double, y1 As Double, x3 As Double, y3 As Double, x2 As Double) As Double
+        Dim a, b, c, y2 As Double
+        If ((x1 = x3) And (y1 = y3)) Then
+            y2 = y1
+        Else
+            a = x2 - x1
+            b = y3 - y1
+            c = x3 - x1
+
+            y2 = (a * b / c) + y1
+        End If
+
+        Return y2
+    End Function
+
+    Private Function SetLowRowBase(ambval As String) As Integer
+        Dim lowcell As Integer
+
+        Select Case ambval
+            Case Is = "75.0"
+                lowcell = 58
+            Case Is = "85.0"
+                lowcell = 70
+            Case Is = "95.0"
+                lowcell = 81
+            Case Is = "105.0"
+                lowcell = 92
+            Case Is = "115.0"
+                lowcell = 103
+            Case Is = "125.0"
+                lowcell = 114
+        End Select
+
+        Return lowcell
+    End Function
+
+    Private Function SetHighRowBase(ambval As String) As Integer
+        Dim lowcell As Integer
+
+        Select Case ambval
+            Case Is = "75.0"
+                lowcell = 63
+            Case Is = "85.0"
+                lowcell = 74
+            Case Is = "95.0"
+                lowcell = 85
+            Case Is = "105.0"
+                lowcell = 96
+            Case Is = "115.0"
+                lowcell = 107
+            Case Is = "125.0"
+                lowcell = 118
+        End Select
+
+        Return lowcell
+    End Function
+
+    Private Function SetLowAmbient(strAmbient As String) As String
+        Dim dblAmb As Double
+        Dim Temp As String
+
+        dblAmb = Val(strAmbient)
+
+        Temp = "75.0"
+        If dblAmb >= 85.0 Then Temp = "85.0"
+        If dblAmb >= 95.0 Then Temp = "95.0"
+        If dblAmb >= 105.0 Then Temp = "105.0"
+        If dblAmb >= 115.0 Then Temp = "115.0"
+
+        Return Temp
+    End Function
+    Private Function SetHighAmbient(strAmbient As String) As String
+        Dim dblAmb As Double
+        Dim Temp As String
+
+        dblAmb = Val(strAmbient)
+
+        Temp = "125.0"
+        If dblAmb <= 115.0 Then Temp = "115.0"
+        If dblAmb <= 105.0 Then Temp = "105.0"
+        If dblAmb <= 95.0 Then Temp = "95.0"
+        If dblAmb <= 85.0 Then Temp = "85.0"
+
+        Return Temp
+    End Function
+    Private Function UnitDataPage() As String
+        Dim MyFamily, MyModel, MySnip As String
+
+        MyFamily = frmMain.ThisUnit.Family
+        MyModel = frmMain.ThisUnit.ModelNumber
+        MySnip = "Error"
+        Select Case MyFamily
+            Case Is = "Series5"
+                MySnip = Mid(MyModel, 1, 5)
+            Case Is = "Series10"
+                MySnip = Mid(MyModel, 1, 5)
+            Case Is = "Series20"
+                MySnip = Mid(MyModel, 1, 5)
+            Case Is = "Series40"
+                Stop
+            Case Is = "Series100"
+                Stop
+            Case Is = "Select"
+                Stop
+            Case Is = "Choice"
+                MySnip = Mid(MyModel, 1, 4)
+            Case Is = "Premier"
+                Stop
+        End Select
+
+        Return MySnip
+
+    End Function
+
+    Private Function UnitDataFile(MyFamily As String) As String
+        Dim TempFile, ThisFile, ThisPath As String
+
+        ThisPath = My.Settings.ResourceDir
+        ThisPath = ThisPath & "Mods\LowAF\Design\"
+        ThisPath = ThisPath & frmMain.ThisUnit.Family & "\"
+
+        ThisFile = "_100OACalculator.xlsm"
+        If MyFamily = "Series100" Then
+            ThisFile = frmMain.ThisUnit.Cabinet & ThisFile
+        Else
+            ThisFile = MyFamily & ThisFile
+        End If
+
+        TempFile = ThisPath & ThisFile
+
+        Return TempFile
+    End Function
+
 
 End Class

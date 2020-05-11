@@ -160,9 +160,9 @@ Public Class frmMain
             If ((chkS100ACabinet.Checked = False) And (chkS100BCabinet.Checked = False) And (chkS100CCabinet.Checked = False)) Then
                 dummy = MsgBox("Please Choose a Cabinet Size", vbOK)
             End If
-            If chkS100ACabinet.Checked Then TempCabinet = "S100A"
-            If chkS100BCabinet.Checked Then TempCabinet = "S100B"
-            If chkS100CCabinet.Checked Then TempCabinet = "S100C"
+            If chkS100ACabinet.Checked Then TempCabinet = "Series100A"
+            If chkS100BCabinet.Checked Then TempCabinet = "Series100B"
+            If chkS100CCabinet.Checked Then TempCabinet = "Series100C"
         End If
 
         Return TempCabinet
@@ -8820,10 +8820,12 @@ Public Class frmMain
 
         'ThisUnit.Family = "Series100"
         ThisUnit.Family = "Series10"
-        txtJobNumber.Text = "3993F"
+        txtJobNumber.Text = "3994F"
         txtUnitNumber.Text = "01"
-        txtModelNumber.Text = "ZLG14"
-        txtProjectDirectory.Text = "J:\3950-3999\3993F - Test YPAL Do Not Use\"
+        txtModelNumber.Text = "J12ZTS24G2D6BCD2E1"
+        ThisUnit.ModelNumber = "J12ZTS24G2D6BCD2E1"
+        txtProjectDirectory.Text = "J:\3950-3999\3994F - Test S10 MGH Do Not Use\"
+        ThisUnit.NominalTons = "12.5"
 
         Select Case cmbJumpDest.Text
             Case Is = "100% Outdoor Air"
@@ -8839,6 +8841,8 @@ Public Class frmMain
                 frmHGBP.ShowDialog()
             Case Is = "LCVAV"
                 frmLCVAV.ShowDialog()
+            Case Is = "LowAF"
+                frmLowAF.ShowDialog()
             Case Is = "Piping Package"
                 frmPipePkg.ShowDialog()
             Case Is = "Return Fan"
@@ -8846,8 +8850,6 @@ Public Class frmMain
                 frmNewFan.ShowDialog()
             Case Is = "Steam Coil"
                 frmSteamCoil.ShowDialog()
-
-
         End Select
     End Sub
 

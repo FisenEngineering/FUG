@@ -23,12 +23,13 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.btnDoneBU = New System.Windows.Forms.Button()
         Me.fraMisc = New System.Windows.Forms.GroupBox()
         Me.optYLUASplit = New System.Windows.Forms.RadioButton()
@@ -380,6 +381,7 @@ Partial Class frmMain
         Me.btnDoneConns = New System.Windows.Forms.Button()
         Me.pgShipping = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.optFieldWork1DayOnSiteSel = New System.Windows.Forms.RadioButton()
         Me.optFieldWorkNoOnSiteSel = New System.Windows.Forms.RadioButton()
         Me.optFieldWorkNoNotes = New System.Windows.Forms.RadioButton()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
@@ -810,8 +812,6 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chkMoveCutsheets = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
-        Me.cmdViewHistory = New System.Windows.Forms.Button()
-        Me.optFieldWork1DayOnSiteSel = New System.Windows.Forms.RadioButton()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -936,6 +936,18 @@ Partial Class frmMain
         Me.pgBaseUnit.TabIndex = 0
         Me.pgBaseUnit.Text = "Base Unit"
         Me.pgBaseUnit.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdViewHistory.Location = New System.Drawing.Point(648, 8)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(109, 29)
+        Me.cmdViewHistory.TabIndex = 11
+        Me.cmdViewHistory.Text = "History Report"
+        Me.cmdViewHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
         'btnDoneBU
         '
@@ -4922,6 +4934,16 @@ Partial Class frmMain
         Me.GroupBox11.TabIndex = 23
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Startup/Field Work"
+        '
+        'optFieldWork1DayOnSiteSel
+        '
+        Me.optFieldWork1DayOnSiteSel.AutoSize = True
+        Me.optFieldWork1DayOnSiteSel.Location = New System.Drawing.Point(6, 65)
+        Me.optFieldWork1DayOnSiteSel.Name = "optFieldWork1DayOnSiteSel"
+        Me.optFieldWork1DayOnSiteSel.Size = New System.Drawing.Size(136, 17)
+        Me.optFieldWork1DayOnSiteSel.TabIndex = 22
+        Me.optFieldWork1DayOnSiteSel.Text = "Insert No Startup Notes"
+        Me.optFieldWork1DayOnSiteSel.UseVisualStyleBackColor = True
         '
         'optFieldWorkNoOnSiteSel
         '
@@ -9887,7 +9909,7 @@ Partial Class frmMain
         'cmbJumpDest
         '
         Me.cmbJumpDest.FormattingEnabled = True
-        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "Piping Package", "Return Fan", "Steam Coil"})
+        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "Piping Package", "Return Fan", "Steam Coil"})
         Me.cmbJumpDest.Location = New System.Drawing.Point(141, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
         Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)
@@ -9949,28 +9971,6 @@ Partial Class frmMain
         Me.chk65kASCCRBase.TabIndex = 26
         Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
-        '
-        'cmdViewHistory
-        '
-        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
-        Me.cmdViewHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdViewHistory.Location = New System.Drawing.Point(648, 8)
-        Me.cmdViewHistory.Name = "cmdViewHistory"
-        Me.cmdViewHistory.Size = New System.Drawing.Size(109, 29)
-        Me.cmdViewHistory.TabIndex = 11
-        Me.cmdViewHistory.Text = "History Report"
-        Me.cmdViewHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.cmdViewHistory.UseVisualStyleBackColor = True
-        '
-        'optFieldWork1DayOnSiteSel
-        '
-        Me.optFieldWork1DayOnSiteSel.AutoSize = True
-        Me.optFieldWork1DayOnSiteSel.Location = New System.Drawing.Point(6, 65)
-        Me.optFieldWork1DayOnSiteSel.Name = "optFieldWork1DayOnSiteSel"
-        Me.optFieldWork1DayOnSiteSel.Size = New System.Drawing.Size(136, 17)
-        Me.optFieldWork1DayOnSiteSel.TabIndex = 22
-        Me.optFieldWork1DayOnSiteSel.Text = "Insert No Startup Notes"
-        Me.optFieldWork1DayOnSiteSel.UseVisualStyleBackColor = True
         '
         'frmMain
         '

@@ -34,7 +34,7 @@ Public Class frmMGH_R
             frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
             AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
-
+        If chkWriteHistory.Checked Then Call WriteHistory()
         Me.Hide()
     End Sub
 
@@ -310,6 +310,9 @@ Public Class frmMGH_R
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
+        If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
+        If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
+
         If frmMain.ThisUnitHeatPerf.Airflow > 0 Then
             txtHeatAF.Text = frmMain.ThisUnitHeatPerf.Airflow
         Else
@@ -525,5 +528,64 @@ Public Class frmMGH_R
         PerformDesignCautionScan(True)
     End Sub
 
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "MGH_R"
+        frmHistoryReport.cmbModCode.Text = "MGH_R"
+        frmHistoryReport.Show()
+    End Sub
 
+    Private Sub WriteHistory()
+        'Updated to version 2.0 24 Apr 2020
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific 
+        Dim CToPropane, Elevation, GBAS, CstmCtrl, Controller, DeltaT As String
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        If chkPropane.Checked Then CToPropane = "Yes" Else CToPropane = "No"
+        Elevation = txtElevation.Text
+        If optGBAS.Checked Then GBAS = "Yes" Else GBAS = "No"
+        If optCustomCtrl.Checked Then CstmCtrl = cmbCustomControls.Text Else CstmCtrl = "n/a"
+        Controller = "-"
+        If optSE.Checked Then Controller = "SE"
+        If optIPU.Checked Then Controller = "IPU"
+        If optASE.Checked Then Controller = "ASE"
+        DeltaT = txtDeltaT.Text
+
+        MySQL = "Select * FROM tblHistoryMGH_R WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistoryMGH_R SET ConvertToPropane='" & CToPropane & "', Elevation='" & Elevation & "', " & "GBAS='" & GBAS & "', CustomControl='" & CstmCtrl & "', Controller='" & Controller & "', DeltaT='" & DeltaT & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistoryMGH_R (JobName,UnitID,Version,ModelNumber,ConvertToPropane,Elevation,GBAS,CustomControl,Controller,DeltaT) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & CToPropane & "','" & Elevation & "','" & GBAS & "','" & CstmCtrl & "','" & Controller & "','" & DeltaT & "')"
+            con.Execute(MySQL)
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
 End Class
