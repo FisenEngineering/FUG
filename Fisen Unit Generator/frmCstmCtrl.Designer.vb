@@ -37,7 +37,7 @@ Partial Class frmCstmCtrl
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.grpAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
@@ -60,7 +60,7 @@ Partial Class frmCstmCtrl
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        Me.grpAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
@@ -197,7 +197,7 @@ Partial Class frmCstmCtrl
         'tpgOptions
         '
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
-        Me.tpgOptions.Controls.Add(Me.GroupBox3)
+        Me.tpgOptions.Controls.Add(Me.grpAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
@@ -220,17 +220,17 @@ Partial Class frmCstmCtrl
         Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'grpAuxPanel
         '
-        Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
-        Me.GroupBox3.Controls.Add(Me.optUseAux)
-        Me.GroupBox3.Controls.Add(Me.optNoAux)
-        Me.GroupBox3.Location = New System.Drawing.Point(7, 82)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
-        Me.GroupBox3.TabIndex = 29
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auxiliary Control Panel"
+        Me.grpAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.grpAuxPanel.Controls.Add(Me.optUseAux)
+        Me.grpAuxPanel.Controls.Add(Me.optNoAux)
+        Me.grpAuxPanel.Location = New System.Drawing.Point(7, 82)
+        Me.grpAuxPanel.Name = "grpAuxPanel"
+        Me.grpAuxPanel.Size = New System.Drawing.Size(214, 105)
+        Me.grpAuxPanel.TabIndex = 29
+        Me.grpAuxPanel.TabStop = False
+        Me.grpAuxPanel.Text = "Auxiliary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -447,8 +447,8 @@ Partial Class frmCstmCtrl
         Me.tpgConditions.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.grpAuxPanel.ResumeLayout(False)
+        Me.grpAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -482,7 +482,7 @@ Partial Class frmCstmCtrl
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents optIPU As RadioButton
     Friend WithEvents optSE As RadioButton
-    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents grpAuxPanel As GroupBox
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton

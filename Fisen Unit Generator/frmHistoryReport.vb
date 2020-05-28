@@ -469,11 +469,157 @@
     End Sub
 
     Private Sub LoadLowAFHistoryTable()
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
 
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        txtReport.Text = ""
+
+        MySQL = "SELECT * FROM tblHistorySFan"
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rs.Open(MySQL, con)
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        Me.Width = 1300
+
+        Do While Not (rs.EOF)
+            If Not (chkFilterByFamily.Checked) Or (frmMain.ThisUnit.Family = Model2Family(rs.Fields(4).Value)) Then
+                'next line contains 12 escape codes
+                OneLine = "\highlight1 " & rs.Fields(2).Value & " " & rs.Fields(3).Value & " " & rs.Fields(4).Value & " - " & rs.Fields(1).Value
+                OneLine = OneLine.PadRight(175 + 17, " ") & "\par "
+                AllLines.Append(OneLine)
+                OneLine = "\highlight0 \tab \b Airflow:\b0 " & rs.Fields(5).Value & " \tab \b TSP:\b0 " & rs.Fields(6).Value & "\tab \b1 Solution:\b0 " & rs.Fields(7).Value & " \tab \b Nominal Air:\b0 " & rs.Fields(8).Value & "\tab \b1 MinCatAir:\b0 " & rs.Fields(9).Value & "\tab \b BypasAir:\b0 " & rs.Fields(10).Value & "\par "
+                AllLines.Append(OneLine)
+            End If
+
+            rs.MoveNext()
+        Loop
+
+        AllLines.Append("}")
+        txtReport.Rtf = AllLines.ToString
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
     End Sub
 
     Private Sub LoadMGH_RHistoryTable()
+        'Upgraded to 2.0 style reporting
 
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        Me.Width = 710
+
+        txtReport.Text = ""
+
+        MySQL = "SELECT * FROM tblHistoryMGH_R"
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rs.Open(MySQL, con)
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        Do While Not (rs.EOF)
+            If Not (chkFilterByFamily.Checked) Or (frmMain.ThisUnit.Family = Model2Family(rs.Fields(4).Value)) Then
+                OneLine = "\highlight1 " & rs.Fields(2).Value & " " & rs.Fields(3).Value & " " & rs.Fields(4).Value & " - " & rs.Fields(1).Value
+                OneLine = OneLine.PadRight(110, " ") & "\par "
+                AllLines.Append(OneLine)
+                OneLine = "\highlight0 \tab \b Propane:\b0 " & rs.Fields(5).Value & " \tab\b Elevation:\b0 " & rs.Fields(6).Value & " \tab\b GBAS:\b0 " & rs.Fields(7).Value & " \tab\b CstmCtrl:\b0 " & rs.Fields(8).Value & " \tab\b Controller:\b0 " & rs.Fields(9).Value & " \tab\b DeltaT:\b0 " & rs.Fields(10).Value & " \par "
+                AllLines.Append(OneLine)
+            End If
+
+            rs.MoveNext()
+        Loop
+
+        AllLines.Append("}")
+        txtReport.Rtf = AllLines.ToString
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
+    Private Sub LoadMHGRH_ConvHistoryTable()
+        'Upgraded to 2.0 style reporting
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        Me.Width = 1000
+
+        txtReport.Text = ""
+
+        MySQL = "SELECT * FROM tblHistoryMHGRH_Conv"
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rs.Open(MySQL, con)
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        Do While Not (rs.EOF)
+            If Not (chkFilterByFamily.Checked) Or (frmMain.ThisUnit.Family = Model2Family(rs.Fields(4).Value)) Then
+                OneLine = "\highlight1 " & rs.Fields(2).Value & " " & rs.Fields(3).Value & " " & rs.Fields(4).Value & " - " & rs.Fields(1).Value
+                OneLine = OneLine.PadRight(160, " ") & "\par "
+                AllLines.Append(OneLine)
+                OneLine = "\highlight0 \tab \b RH Capacity:\b0 " & rs.Fields(5).Value & " \tab\b RH Airflow:\b0 " & rs.Fields(6).Value & " \tab\b EAT:\b0 " & rs.Fields(7).Value & " \tab\b Ckts of RH:\b0 " & rs.Fields(8).Value & " \tab\b DH Strat:\b0 " & rs.Fields(9).Value & " \tab\b RH Strat:\b0 " & rs.Fields(10).Value & " \tab\b DeltaT:\b0 " & rs.Fields(11).Value & " \par "
+                AllLines.Append(OneLine)
+            End If
+
+            rs.MoveNext()
+        Loop
+
+        AllLines.Append("}")
+        txtReport.Rtf = AllLines.ToString
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
     End Sub
     Private Sub LoadUnitReportTable()
         Dim con As ADODB.Connection
@@ -562,9 +708,11 @@
                     Call LoadLCVAVHistoryTable()
                     Me.Text = "Light Commercial VAV"
                 Case Is = "LowAF"
-                    Call LoadLowAFHistoryTable
-                Case Is = "MGH_R"
-                    Call LoadMGH_RHistoryTable
+                    Call LoadLowAFHistoryTable()
+                Case Is = "MGH(R)"
+                    Call LoadMGH_RHistoryTable()
+                Case Is = "MHGRH_Conv"
+                    Call LoadMHGRH_ConvHistoryTable
                 Case Is = "RFan"
                     'ToDo
                     Me.Text = "New Return Fan - History is Offline"

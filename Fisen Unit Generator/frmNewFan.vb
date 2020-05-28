@@ -192,58 +192,66 @@ Public Class frmNewFan
 
     End Sub
     Private Sub PopulateAuxPanelList()
-        'V1.0
-        If optNoAux.Checked = True Then
+        'V1.1 Added Check for it already existing
+        If frmMain.HasAuxillaryPanel = True Then
+            optUseAux.Checked = True
+            fraAuxPanel.Enabled = False
             cmbAuxPanelOpts.Items.Clear()
-            cmbAuxPanelOpts.Items.Add("None")
-            cmbAuxPanelOpts.Text = "None"
+            cmbAuxPanelOpts.Items.Add("Selected in Other Module")
+            cmbAuxPanelOpts.Text = "Selected in Other Module"
         Else
-            Select Case frmMain.ThisUnit.Family
-                Case Is = "Series5"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 5 Downflow")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Convertible")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 5 Downflow"
-                Case Is = "Series10"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 10 Downflow")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 10 Downflow"
-                Case Is = "Series20"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 20 Downflow")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 20 Downflow"
-                Case Is = "Series40"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 40 Custom Application"
-                Case Is = "Series100"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 100 Custom Application"
-                Case Is = "Premier"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
-                    cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
-                Case Is = "Choice"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
-                    cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
-                Case Is = "Select"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
-                    cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
-            End Select
+            If optNoAux.Checked = True Then
+                cmbAuxPanelOpts.Items.Clear()
+                cmbAuxPanelOpts.Items.Add("None")
+                cmbAuxPanelOpts.Text = "None"
+            Else
+                Select Case frmMain.ThisUnit.Family
+                    Case Is = "Series5"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 5 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 5 Downflow"
+                    Case Is = "Series10"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 10 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 10 Downflow"
+                    Case Is = "Series20"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 20 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 20 Downflow"
+                    Case Is = "Series40"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 40 Custom Application"
+                    Case Is = "Series100"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                    Case Is = "Premier"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
+                    Case Is = "Choice"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
+                    Case Is = "Select"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
+                End Select
+            End If
         End If
     End Sub
     Private Sub PerformDesignCautionScan()

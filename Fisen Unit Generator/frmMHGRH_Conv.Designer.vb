@@ -40,6 +40,7 @@ Partial Class frmMHGRH_Conv
         Me.txtHGRHCap = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
@@ -76,7 +77,7 @@ Partial Class frmMHGRH_Conv
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -264,18 +265,28 @@ Partial Class frmMHGRH_Conv
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 174)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 49
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'fraAuxPanel
         '
         Me.fraAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
         Me.fraAuxPanel.Controls.Add(Me.optUseAux)
         Me.fraAuxPanel.Controls.Add(Me.optNoAux)
-        Me.fraAuxPanel.Enabled = False
         Me.fraAuxPanel.Location = New System.Drawing.Point(433, 25)
         Me.fraAuxPanel.Name = "fraAuxPanel"
         Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
         Me.fraAuxPanel.TabIndex = 48
         Me.fraAuxPanel.TabStop = False
-        Me.fraAuxPanel.Text = "Auxillary Control Panel"
+        Me.fraAuxPanel.Text = "Auxiliary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -294,7 +305,7 @@ Partial Class frmMHGRH_Conv
         Me.optUseAux.Size = New System.Drawing.Size(151, 17)
         Me.optUseAux.TabIndex = 1
         Me.optUseAux.TabStop = True
-        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.Text = "Use Auxiliary Control Panel"
         Me.optUseAux.UseVisualStyleBackColor = True
         '
         'optNoAux
@@ -629,16 +640,17 @@ Partial Class frmMHGRH_Conv
         Me.cmdDesignCautions.TabIndex = 15
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'chk65kASCCRBase
+        'chkWriteHistory
         '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 174)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 49
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(170, 252)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 20
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frmMHGRH_Conv
         '
@@ -646,6 +658,7 @@ Partial Class frmMHGRH_Conv
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(672, 281)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
@@ -671,6 +684,7 @@ Partial Class frmMHGRH_Conv
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -728,4 +742,5 @@ Partial Class frmMHGRH_Conv
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

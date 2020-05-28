@@ -2,6 +2,8 @@
 Imports System.Xml
 Imports System.Xml.Serialization
 Imports System.IO
+Imports System.Drawing.Imaging
+Imports Microsoft.Office.Interop.Excel
 
 Public Class frmMain
     Public ThisUnit As clsUnitClass
@@ -13,7 +15,7 @@ Public Class frmMain
     Public ThisUnitIFilters As clsFilters
     Public ThisUnitFFilters As clsFilters
     Public ThisUnitJCIFilters As clsFilters
-    Public ThisUnitRXPerf As clsRXPerf
+    Public ThisUnitRXPerf As ClsRXPerf
     Public ThisChillerMainPerf As clsChillerMainPerf
     Public ThisUnitWarrTest As clsWarrTest
     Public ThisUnitPhysicalData As clsPhysicalData
@@ -26,6 +28,7 @@ Public Class frmMain
     Public ThisYPALPerf As ClsYPALMainPerf
     Public ModBarn As clsModPaddock
     Public JCICoolPerf As clsJCICoolPerfCalc
+    Public ThisUnitControls As clsControls
 
     Public ThisUnitMods As New ArrayList
     Public ThisUnitCodes As New ArrayList
@@ -48,11 +51,17 @@ Public Class frmMain
     Public ThisUnitAirflow As New ArrayList
 
 
+
     Public ThisUnitAirflowDiag As New ArrayList
 
     Private DwgDesc(100) As String
+    Public UnitWMFPAth As New ArrayList
+
     Private HydroDesc(50) As String
+
     Private ReferDesc(50) As String
+    Public ReferWMFPath As New ArrayList
+
     Private AirflowDesc(50) As String
     Private PipePkgDefined As Boolean
     Private ERWDefined As Boolean
@@ -316,8 +325,9 @@ Public Class frmMain
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
-        Dim i As Integer
-
+        Dim i, j As Integer
+        Dim FilterMatch As Boolean
+        Dim TempVar As String
         Dim MySQL As String
 
         con = New ADODB.Connection
@@ -326,36 +336,40 @@ Public Class frmMain
         con.Open()
 
         lstAvailDwgs.Items.Clear()
-
+        UnitWMFPAth.Clear()
 
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
+        If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
 
-        MySQL = "Select * FROM tblUnitDrawings WHERE " & ThisUnit.Family & "=True ORDER BY PlainName"
-
-        If lblHeatFilter.Text = "Gas" Then
-            MySQL = "Select * FROM tblUnitDrawings WHERE (" & ThisUnit.Family & "=True) AND (DrawingID LIKE '%GasHeat%') ORDER BY PlainName"
-        End If
-
-        If lblHeatFilter.Text = "None" Then
-            MySQL = "Select * FROM tblUnitDrawings WHERE (" & ThisUnit.Family & "=True) AND (DrawingID LIKE '%NoHeat%') ORDER BY PlainName"
-        End If
-
-        If lblHeatFilter.Text = "HWHeat" Then
-            MySQL = "Select * FROM tblUnitDrawings WHERE (" & ThisUnit.Family & "=True) AND (DrawingID LIKE '%HWHeat%') ORDER BY PlainName"
-        End If
+        MySQL = "Select * FROM tblUnitDrawings WHERE " & TempVar & "=True ORDER BY PlainName"
 
         rs.Open(MySQL, con)
 
         i = 0
         rs.MoveFirst()
+        FilterMatch = True
         Do While Not (rs.EOF)
-            lstAvailDwgs.Items.Add(rs.Fields("PlainName").Value)
-            DwgDesc(i) = rs.Fields("DrawingDescription").Value
-            i = i + 1
+            If lstUnitTagstoApply.SelectedItems.Count > 0 Then
+                For j = 0 To lstUnitTagstoApply.SelectedItems.Count - 1
+                    If InStr(rs.Fields("DrawingID").Value, lstUnitTagstoApply.SelectedItems(j)) > 0 Then
+                        FilterMatch = FilterMatch And True
+                    Else
+                        FilterMatch = False
+                    End If
+                Next
+            End If
+
+            If FilterMatch Then
+                lstAvailDwgs.Items.Add(rs.Fields("PlainName").Value)
+                DwgDesc(i) = rs.Fields("DrawingDescription").Value
+                UnitWMFPAth.Add(My.Settings.ResourceDir & "BaseUnit\Drawings" & rs.Fields("DrawingPath").Value & rs.Fields("WMFName").Value)
+                i = i + 1
+            End If
             rs.MoveNext()
+            FilterMatch = True
         Loop
 
         con.Close()
@@ -368,6 +382,7 @@ Public Class frmMain
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim i As Integer
+        Dim TempVar As String
 
         Dim MySQL As String
 
@@ -382,8 +397,9 @@ Public Class frmMain
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
+        If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
 
-        MySQL = "Select * FROM tblAirflowDiagrams WHERE " & ThisUnit.Family & "=True"
+        MySQL = "Select * FROM tblAirflowDiagrams WHERE " & TempVar & "=True"
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
@@ -405,6 +421,8 @@ Public Class frmMain
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim i As Integer
+        Dim TempVar As String
+        Dim FilterMatch As Boolean
 
         Dim MySQL As String
 
@@ -414,22 +432,45 @@ Public Class frmMain
         con.Open()
 
         lstAvailRefer.Items.Clear()
+        ReferWMFPath.Clear()
+        FilterMatch = False
 
 
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        MySQL = "Select * FROM tblReferDrawings WHERE " & ThisUnit.Family & "=True"
+        If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
+        MySQL = "Select * FROM tblReferDrawings WHERE " & TempVar & "=True"
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
         i = 0
         Do While Not (rs.EOF)
-            lstAvailRefer.Items.Add(rs.Fields("PlainName").Value)
-            ReferDesc(i) = rs.Fields("DrawingDescription").Value
-            i = i + 1
+            If lstReferTagstoApply.SelectedItems.count > 0 Then
+                For j = 0 To lstReferTagstoApply.SelectedItems.Count - 1
+                    If InStr(rs.Fields("DrawingID").Value, lstReferTagstoApply.SelectedItems(j)) > 0 Then
+                        FilterMatch = FilterMatch And True
+                    Else
+                        FilterMatch = False
+                    End If
+                Next
+            End If
+            If chkReferFilterOnStubb.Checked Then
+                If InStr(rs.Fields("DrawingID").Value, Mid(ThisUnit.ModelNumber, 1, 5)) > 0 Then
+                    FilterMatch = FilterMatch And True
+                Else
+                    filtermatch = False
+                End If
+            End If
+                If FilterMatch Then
+                lstAvailRefer.Items.Add(rs.Fields("PlainName").Value)
+                ReferDesc(i) = rs.Fields("DrawingDescription").Value
+                ReferWMFPath.Add(My.Settings.ResourceDir & "ReferDrawings" & rs.Fields("DrawingPath").Value & rs.Fields("WMFName").Value)
+                i = i + 1
+            End If
             rs.MoveNext()
+            FilterMatch = True
         Loop
         'End If
         con.Close()
@@ -442,6 +483,7 @@ Public Class frmMain
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim i As Integer
+        Dim TempVar As String
 
         Dim MySQL As String
 
@@ -456,8 +498,8 @@ Public Class frmMain
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
-
-        MySQL = "Select * FROM tblHydroDrawings WHERE " & ThisUnit.Family & "=True"
+        If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
+        MySQL = "Select * FROM tblHydroDrawings WHERE " & TempVar & "=True"
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
@@ -526,6 +568,13 @@ Public Class frmMain
         Dim OA100Present, LowAFPresent As Boolean
 
         Dim thisitem As String
+
+        'check for no selections
+        If lstSelectedMods.Items.Count = 0 Then
+            dummy = MsgBox("You haven't selected any modifications." & vbCrLf & "Are you certain?", vbYesNo, "Fisen Unit Generator")
+            If dummy = vbNo Then Exit Sub
+        End If
+
         'scan for 100% OA without low airflow
         OA100Present = False
         LowAFPresent = False
@@ -1003,6 +1052,7 @@ Public Class frmMain
         Dim UPGFile As String = "S:\FUG\Resources\WordTemplates\UPG Submittal Template "
         Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
         Dim YLAAFile As String = "S:\FUG\Resources\WordTemplates\YLAA Submittal Template "
+        Dim YVAAFile As String = "S:\FUG\Resources\WordTemplates\YVAA-YCIV Submittal Template "
 
         Button1.Enabled = False
 
@@ -1050,8 +1100,13 @@ Public Class frmMain
                     Process.Start(YPALFile)
                 Case Is = "YLAA"
                     YLAAFile = YLAAFile & Ver & ".dotm"
-                    Process.Start(YLAAFile)
+                Case Is = "YVAA"
+                    YVAAFile = YVAAFile & Ver & ".dotm"
+                    Process.Start(YVAAFile)
                 Case Is = "Choice"
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
+                Case Is = "Select"
                     UPGFile = UPGFile & Ver & ".dotm"
                     Process.Start(UPGFile)
                 Case Else
@@ -5388,9 +5443,9 @@ Public Class frmMain
     End Sub
     Private Sub UpdateGrossWeights()
         Dim i As Integer
-        Dim MyBaseWt As Label
-        Dim MyModWt As Label
-        Dim MyGrossWt As TextBox
+        Dim MyBaseWt As System.Windows.Forms.Label
+        Dim MyModWt As System.Windows.Forms.Label
+        Dim MyGrossWt As System.Windows.Forms.TextBox
         Dim intBaseWeight As Integer
         Dim intModWeight As Integer
         Dim intGrossWeight As Integer
@@ -5407,8 +5462,8 @@ Public Class frmMain
     End Sub
     Private Sub UpdateModPointWeights()
         Dim i As Integer
-        Dim MyModWeight As Label
-        Dim MyPointLoc As TextBox
+        Dim MyModWeight As System.Windows.Forms.Label
+        Dim MyPointLoc As System.Windows.Forms.TextBox
 
         Dim TopWeights As Double
         Dim BottomWeights As Double
@@ -5555,9 +5610,9 @@ Public Class frmMain
 
     End Sub
     Private Sub btnDoneElec_Click(sender As Object, e As EventArgs) Handles btnDoneElec.Click
-        Dim myobj As TextBox
-        Dim mylbl As Label
-        Dim MyPointBox As TextBox
+        Dim myobj As System.Windows.Forms.TextBox
+        Dim mylbl As System.Windows.Forms.Label
+        Dim MyPointBox As System.Windows.Forms.TextBox
 
         Dim MassAdds As Integer
         Dim MassSF As Integer
@@ -5705,7 +5760,7 @@ Public Class frmMain
     End Sub
     Private Sub btnDonePhysical_Click(sender As Object, e As EventArgs) Handles btnDonePhysical.Click
         Dim i As Integer
-        Dim myobj As TextBox
+        Dim myobj As System.Windows.Forms.TextBox
 
         ThisUnitPhysicalData.Length = txtLength.Text
         ThisUnitPhysicalData.Width = txtWidth.Text
@@ -5768,6 +5823,13 @@ Public Class frmMain
                 chkCSA_C_US.Checked = True
                 chkAHRICert.Checked = True
                 chkISO9001.Checked = True
+            Case Is = "Choice"
+                chkAmericanQ.Checked = True
+                chkAHRICert.Checked = True
+                chkASHRAE90_1.Checked = True
+                chkCSA_C_US.Checked = True
+                chkISO9001.Checked = True
+                chkCSADesign.Checked = True
         End Select
 
         If ((ThisUnit.Kingdom = "RTU") And (ThisUnit.Family <> "Series100")) Then
@@ -6237,14 +6299,14 @@ Public Class frmMain
         If txtNewFieldInst.Text <> "" Then
             If lstFieldInst.Items.Count = 0 Then lstFieldInst.Items.Add(txtNewFieldInst.Text)
             If lstFieldInst.Items.Item(0) = "None" Then
-                    lstFieldInst.Items.Clear()
-                    lstFieldInst.Items.Add(txtNewFieldInst.Text)
-                    txtNewFactOpt.Text = ""
-                Else
-                    lstFieldInst.Items.Add(txtNewFieldInst.Text)
-                    txtNewFieldInst.Text = ""
-                End If
+                lstFieldInst.Items.Clear()
+                lstFieldInst.Items.Add(txtNewFieldInst.Text)
+                txtNewFactOpt.Text = ""
+            Else
+                lstFieldInst.Items.Add(txtNewFieldInst.Text)
+                txtNewFieldInst.Text = ""
             End If
+        End If
 
 
     End Sub
@@ -6260,6 +6322,20 @@ Public Class frmMain
         If optTwoNodeComms.Checked = True Then ThisUnit.CommNodes = "2"
         tabMain.SelectTab("pgShipping")
 
+    End Sub
+
+    Private Sub PrepUnitFilter()
+        Dim SugTags As String
+        Dim ArrTags() As String
+        Dim i, TargetID As Integer
+
+        If txtUnitSuggestedTags.Text = "" Then Exit Sub
+        SugTags = Trim(txtUnitSuggestedTags.Text)
+        ArrTags = SugTags.Split(" ")
+        For i = 0 To ArrTags.Length - 1
+            TargetID = lstUnitTagstoApply.FindString(ArrTags(i))
+            lstUnitTagstoApply.SetSelected(TargetID, True)
+        Next
     End Sub
     Private Sub btnDoneWarranty_Click(sender As Object, e As EventArgs) Handles btnDoneWarranty.Click
         ThisUnitWarrTest.Parts1yr = opt1YrParts.Checked
@@ -6304,6 +6380,7 @@ Public Class frmMain
         Dim i As Integer
 
         Call LoadApplicableDrawings()
+        Call PrepUnitFilter()
 
         If ThisUnitUnitDrawings.Count <> 0 Then
             For i = 0 To ThisUnitUnitDrawings.Count - 1
@@ -6341,9 +6418,14 @@ Public Class frmMain
 
     End Sub
     Private Sub lstAvailDwgs_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAvailDwgs.SelectedIndexChanged
+        Dim TempVar As String
         If lstAvailDwgs.SelectedIndex >= 0 Then
             txtDwgDesc.Text = DwgDesc(lstAvailDwgs.SelectedIndex)
+            TempVar = UnitWMFPAth.Item(lstAvailDwgs.SelectedIndex)
+            picUnitPreview.LoadAsync(TempVar)
         End If
+
+
     End Sub
     Private Sub btnUnitDwgAdd_Click(sender As Object, e As EventArgs) Handles btnUnitDwgAdd.Click
         Dim i As Integer
@@ -6377,8 +6459,15 @@ Public Class frmMain
     Private Sub btnDoneUnitDwg_Click(sender As Object, e As EventArgs) Handles btnDoneUnitDwg.Click
         Dim i As Integer
         Dim NextShouldBeHydro As Boolean
-        NextShouldBeHydro = False
+        Dim Dummy As MsgBoxResult
 
+
+        If lstUsingDwgs.Items.Count = 0 Then
+            Dummy = MsgBox("Are you certain you don't want a unit drawing?", vbYesNo, "Fisen Unit Generator")
+            If Dummy = vbNo Then Exit Sub
+        End If
+
+        NextShouldBeHydro = False
         ThisUnitUnitDrawings.Clear()
 
         If optCopyUnitDwgNow.Checked = True Then
@@ -6586,8 +6675,23 @@ Public Class frmMain
                 tabMain.SelectTab("pgSequence")
             Case Else
                 Call LoadApplicableRefer()
+                Call PrepReferFilter()
                 tabMain.SelectTab("pgRefrigeration")
         End Select
+    End Sub
+    Private Sub PrepReferFilter()
+        Dim SugTags As String
+        Dim ArrTags() As String
+        Dim i, TargetID As Integer
+
+        If txtReferSuggestedTags.Text = "" Then Exit Sub
+        SugTags = Trim(txtReferSuggestedTags.Text)
+        ArrTags = SugTags.Split(" ")
+        For i = 0 To ArrTags.Length - 1
+            TargetID = lstReferTagstoApply.FindString(ArrTags(i))
+            lstReferTagstoApply.SetSelected(TargetID, True)
+        Next
+
     End Sub
     Private Sub btnDoneAirflow_Click(sender As Object, e As EventArgs) Handles btnDoneAirflow.Click
         Call DoneAirflowTab()
@@ -6662,7 +6766,7 @@ Public Class frmMain
     Private Sub btnDoneEndDev_Click(sender As Object, e As EventArgs) Handles btnDoneEndDev.Click
         Dim i As Integer
         Dim temp As String
-        Dim MyWeightBox As TextBox
+        Dim MyWeightBox As System.Windows.Forms.TextBox
         Dim dummy As MsgBoxResult
         Dim NewRow As String()
 
@@ -6724,7 +6828,7 @@ Public Class frmMain
     Private Sub btnDoneWeights_Click(sender As Object, e As EventArgs) Handles btnDoneWeights.Click
         Dim i As Integer
         Dim temp As String
-        Dim MyWeightBox As TextBox
+        Dim MyWeightBox As System.Windows.Forms.TextBox
         Dim PointLoadCount
 
 
@@ -7018,8 +7122,16 @@ Public Class frmMain
     End Sub
 
     Private Sub btnDoneRefrigeration_Click(sender As Object, e As EventArgs) Handles btnDoneRefrigeration.Click
+        Dim Dummy As MsgBoxResult
+
+        If ((txtReferSuggestedTags.Text <> "") And (lstUsingRefer.Items.Count = 0)) Then
+            Dummy = MsgBox("Are you certain you don't want a refrigeration drawing?", vbYesNo, "Fisen Unit Generator")
+            If Dummy = vbNo Then Exit Sub
+        End If
+
         Call DoneRefrigerationTab()
         Call LoadApplicableAirflow()
+
         tabMain.SelectTab("pgAirflow")
     End Sub
 
@@ -8162,8 +8274,12 @@ Public Class frmMain
     End Sub
 
     Private Sub lstAvailRefer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAvailRefer.SelectedIndexChanged
+        Dim tempvar As String
         If lstAvailRefer.SelectedIndex >= 0 Then
             txtReferDesc.Text = ReferDesc(lstAvailRefer.SelectedIndex)
+            tempvar = ReferWMFPath.Item(lstAvailRefer.SelectedIndex)
+            picReferPreview.LoadAsync(tempvar)
+
         End If
     End Sub
 
@@ -8183,11 +8299,11 @@ Public Class frmMain
     End Sub
 
     Private Sub nudPointLoads_ValueChanged(sender As Object, e As EventArgs) Handles nudPointLoads.ValueChanged
-        Dim MyWeightBox As TextBox
-        Dim MyDistBox As TextBox
-        Dim MyLabel As Label
-        Dim BaseWeight As Label
-        Dim ModWeight As Label
+        Dim MyWeightBox As System.Windows.Forms.TextBox
+        Dim MyDistBox As System.Windows.Forms.TextBox
+        Dim MyLabel As System.Windows.Forms.Label
+        Dim BaseWeight As System.Windows.Forms.Label
+        Dim ModWeight As System.Windows.Forms.Label
 
         Dim i As Integer
         Dim PointCount As Integer
@@ -8301,54 +8417,6 @@ Public Class frmMain
 
 
         xdoc = Nothing
-    End Sub
-
-    Private Sub cmdGasHeatOnly_Click(sender As Object, e As EventArgs) Handles cmdGasHeatOnly.Click
-        lblHeatFilter.Text = "Gas"
-
-        Call LoadApplicableDrawings()
-
-        If ThisUnitUnitDrawings.Count <> 0 Then
-            For i = 0 To ThisUnitUnitDrawings.Count - 1
-                lstUsingDwgs.Items.Add(ThisUnitUnitDrawings.Item(i))
-            Next i
-        End If
-    End Sub
-
-    Private Sub cmdAllHeatOnly_Click(sender As Object, e As EventArgs) Handles cmdAllHeatOnly.Click
-        lblHeatFilter.Text = "All"
-
-        Call LoadApplicableDrawings()
-
-        If ThisUnitUnitDrawings.Count <> 0 Then
-            For i = 0 To ThisUnitUnitDrawings.Count - 1
-                lstUsingDwgs.Items.Add(ThisUnitUnitDrawings.Item(i))
-            Next i
-        End If
-    End Sub
-
-    Private Sub cmdNoHeatOnly_Click(sender As Object, e As EventArgs) Handles cmdNoHeatOnly.Click
-        lblHeatFilter.Text = "None"
-
-        Call LoadApplicableDrawings()
-
-        If ThisUnitUnitDrawings.Count <> 0 Then
-            For i = 0 To ThisUnitUnitDrawings.Count - 1
-                lstUsingDwgs.Items.Add(ThisUnitUnitDrawings.Item(i))
-            Next i
-        End If
-    End Sub
-
-    Private Sub cmdHWHeatOnly_Click(sender As Object, e As EventArgs) Handles cmdHWHeatOnly.Click
-        lblHeatFilter.Text = "HWHeat"
-
-        Call LoadApplicableDrawings()
-
-        If ThisUnitUnitDrawings.Count <> 0 Then
-            For i = 0 To ThisUnitUnitDrawings.Count - 1
-                lstUsingDwgs.Items.Add(ThisUnitUnitDrawings.Item(i))
-            Next i
-        End If
     End Sub
 
     Private Sub cmdMakeSide_Click(sender As Object, e As EventArgs) Handles cmdMakeSide.Click
@@ -8822,8 +8890,8 @@ Public Class frmMain
         ThisUnit.Family = "Series10"
         txtJobNumber.Text = "3994F"
         txtUnitNumber.Text = "01"
-        txtModelNumber.Text = "J12ZTS24G2D6BCD2E1"
-        ThisUnit.ModelNumber = "J12ZTS24G2D6BCD2E1"
+        txtModelNumber.Text = "J12ZJS24G2D6BCD2E1"
+        ThisUnit.ModelNumber = "J12ZJS24G2D6BCD2E1"
         txtProjectDirectory.Text = "J:\3950-3999\3994F - Test S10 MGH Do Not Use\"
         ThisUnit.NominalTons = "12.5"
 
@@ -8850,6 +8918,9 @@ Public Class frmMain
                 frmNewFan.ShowDialog()
             Case Is = "Steam Coil"
                 frmSteamCoil.ShowDialog()
+            Case Is = "Supply Fan"
+                frmNewFan.FanStyle = "Supply Fan"
+                frmNewFan.ShowDialog()
         End Select
     End Sub
 
@@ -9035,5 +9106,43 @@ Public Class frmMain
         ThisUnit.Kingdom = SetUnitKingdom()
 
         frmHistoryReport.ShowDialog()
+    End Sub
+
+    Private Sub picReferPreview_Click(sender As Object, e As EventArgs) Handles picReferPreview.Click
+        Dim tempvar As String
+
+        tempvar = ReferWMFPath.Item(lstAvailRefer.SelectedIndex)
+        frmWMFZoom.ImagePath = tempvar
+        frmWMFZoom.ShowDialog()
+
+    End Sub
+
+    Private Sub cmdReferApplyFilter_Click(sender As Object, e As EventArgs) Handles cmdReferApplyFilter.Click
+        Call LoadApplicableRefer()
+    End Sub
+
+    Private Sub cmdClearFilter_Click(sender As Object, e As EventArgs) Handles cmdClearFilter.Click
+        lstReferTagstoApply.SelectedItems.Clear()
+        chkReferFilterOnStubb.Checked = False
+        Call LoadApplicableRefer()
+    End Sub
+
+    Private Sub picUnitPreview_Click(sender As Object, e As EventArgs) Handles picUnitPreview.Click
+        Dim tempvar As String
+
+        tempvar = UnitWMFPAth.Item(lstAvailDwgs.SelectedIndex)
+        frmWMFZoom.ImagePath = tempvar
+        frmWMFZoom.ShowDialog()
+
+    End Sub
+
+    Private Sub cmdDwgApplyFilter_Click(sender As Object, e As EventArgs) Handles cmdDwgApplyFilter.Click
+        Call LoadApplicableDrawings()
+    End Sub
+
+    Private Sub cmdDwgClearFilter_Click(sender As Object, e As EventArgs) Handles cmdDwgClearFilter.Click
+        lstUnitTagstoApply.SelectedItems.Clear()
+        chkUnitFilterOnStubbs.Checked = False
+        Call LoadApplicableDrawings()
     End Sub
 End Class

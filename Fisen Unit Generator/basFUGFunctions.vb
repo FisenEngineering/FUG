@@ -146,4 +146,79 @@
         Return TempFamily
     End Function
 
+    Public Function S10AuxPanelRqd() As Boolean
+        Dim TempBool As Boolean
+        Dim TallCase As Boolean
+        Dim ShortCase As Boolean
+
+        TempBool = False
+        If S10CabinetHeightTorS() = "Tall" Then TallCase = True Else TallCase = False
+        ShortCase = Not (TallCase)
+
+
+
+
+
+        If frmMain.optMLB6126.Checked Then TempBool = True
+        If frmMain.optMLB812U.Checked Then TempBool = True
+
+
+        Return TempBool
+    End Function
+
+    Public Function S10CabinetHeightTorS() As String
+        Dim CabHeight As String
+        Dim ModelNum As String
+        Dim Stubb3 As String
+        Dim StubbEff As String
+
+        CabHeight = "Short"
+        ModelNum = frmMain.ThisUnit.ModelNumber
+        Stubb3 = Mid(ModelNum, 1, 3)
+        StubbEff = Mid(ModelNum, 4, 2)
+
+        Select Case StubbEff
+            Case Is = "ZT"
+                Select Case Stubb3
+                    Case Is = "JA3", Is = "JA4", Is = "JA5"
+                        CabHeight = "Short"
+                    Case Is = "J06", Is = "J07", Is = "J08"
+                        CabHeight = "Short"
+                    Case Is = "J10", Is = "J12"
+                        CabHeight = "Tall"
+                End Select
+            Case Is = "ZH"
+                Select Case Stubb3
+                    Case Is = "JA3", Is = "JA4", Is = "JA5", Is = "J06", Is = "J07"
+                        CabHeight = "Short"
+                    Case Is = "J08", Is = "J10", Is = "J12"
+                        CabHeight = "Tall"
+                End Select
+            Case Is = "ZR"
+                Select Case Stubb3
+                    Case Is = "JA3", Is = "JA4", Is = "JA5", Is = "J06", Is = "J07"
+                        CabHeight = "Short"
+                    Case Is = "J08", Is = "J10", Is = "J12"
+                        CabHeight = "Tall"
+                End Select
+            Case Is = "ZJ"
+                Select Case Stubb3
+                    Case Is = "JA3", Is = "JA4", Is = "JA5"
+                        CabHeight = "Short"
+                    Case Is = "J06", Is = "J07", Is = "J08", Is = "J10", Is = "J12"
+                        CabHeight = "Tall"
+                End Select
+            Case Is = "ZF"
+                Select Case Stubb3
+                    Case Is = "J06", Is = "J07"
+                        CabHeight = "Short"
+                    Case Is = "J08", Is = "J10", Is = "J12"
+                        CabHeight = "Tall"
+                End Select
+        End Select
+
+        Return CabHeight
+
+    End Function
+
 End Module

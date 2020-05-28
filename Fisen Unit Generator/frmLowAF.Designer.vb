@@ -27,6 +27,8 @@ Partial Class frmLowAF
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtHeatingAF = New System.Windows.Forms.TextBox()
         Me.lblsqftevap = New System.Windows.Forms.Label()
         Me.chk100OA = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -44,14 +46,23 @@ Partial Class frmLowAF
         Me.txtAirflow = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtMinCatHeatAF = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtMinCatAirflow = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtNominalAirflow = New System.Windows.Forms.TextBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.grpRefDrawings = New System.Windows.Forms.GroupBox()
+        Me.optRefDwg4Ckt = New System.Windows.Forms.RadioButton()
+        Me.optRefDwg3Ckt = New System.Windows.Forms.RadioButton()
         Me.optRefDwg2Ckt = New System.Windows.Forms.RadioButton()
         Me.optRefDwg1Ckt = New System.Windows.Forms.RadioButton()
         Me.optRefDwgNone = New System.Windows.Forms.RadioButton()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.chkSeriesConversion = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.cmdMethodSuggest = New System.Windows.Forms.Button()
         Me.optReplaceFan = New System.Windows.Forms.RadioButton()
         Me.optFanWallBypassNew = New System.Windows.Forms.RadioButton()
@@ -120,6 +131,34 @@ Partial Class frmLowAF
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.tpgCoolCalc = New System.Windows.Forms.TabPage()
+        Me.cmdCalc = New System.Windows.Forms.Button()
+        Me.lblPowerFinal = New System.Windows.Forms.Label()
+        Me.lblTCapFinal = New System.Windows.Forms.Label()
+        Me.lblWBFinal = New System.Windows.Forms.Label()
+        Me.lblAmbFinal = New System.Windows.Forms.Label()
+        Me.Label52 = New System.Windows.Forms.Label()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.lblAmbAct = New System.Windows.Forms.Label()
+        Me.lblAFact = New System.Windows.Forms.Label()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label51 = New System.Windows.Forms.Label()
+        Me.lstPowAct = New System.Windows.Forms.ListBox()
+        Me.lstTCapAct = New System.Windows.Forms.ListBox()
+        Me.lstWBAct = New System.Windows.Forms.ListBox()
+        Me.lblAmbient = New System.Windows.Forms.Label()
+        Me.lblHighAF = New System.Windows.Forms.Label()
+        Me.lblLowAF = New System.Windows.Forms.Label()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.lstPowerHighAF = New System.Windows.Forms.ListBox()
+        Me.lstTCapHighAF = New System.Windows.Forms.ListBox()
+        Me.lstWBHighAF = New System.Windows.Forms.ListBox()
+        Me.lstPowerLowAF = New System.Windows.Forms.ListBox()
+        Me.lstTCapLowAF = New System.Windows.Forms.ListBox()
+        Me.lstWBLowAF = New System.Windows.Forms.ListBox()
         Me.lblHighAmbient = New System.Windows.Forms.Label()
         Me.lblLowAmbient = New System.Windows.Forms.Label()
         Me.lblHAFatHighAmb = New System.Windows.Forms.Label()
@@ -152,45 +191,8 @@ Partial Class frmLowAF
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.cmdCalc = New System.Windows.Forms.Button()
-        Me.lblAmbient = New System.Windows.Forms.Label()
-        Me.lblHighAF = New System.Windows.Forms.Label()
-        Me.lblLowAF = New System.Windows.Forms.Label()
-        Me.Label47 = New System.Windows.Forms.Label()
-        Me.Label48 = New System.Windows.Forms.Label()
-        Me.Label49 = New System.Windows.Forms.Label()
-        Me.lstPowerHighAF = New System.Windows.Forms.ListBox()
-        Me.lstTCapHighAF = New System.Windows.Forms.ListBox()
-        Me.lstWBHighAF = New System.Windows.Forms.ListBox()
-        Me.lstPowerLowAF = New System.Windows.Forms.ListBox()
-        Me.lstTCapLowAF = New System.Windows.Forms.ListBox()
-        Me.lstWBLowAF = New System.Windows.Forms.ListBox()
-        Me.lblAmbAct = New System.Windows.Forms.Label()
-        Me.lblAFact = New System.Windows.Forms.Label()
-        Me.Label46 = New System.Windows.Forms.Label()
-        Me.Label50 = New System.Windows.Forms.Label()
-        Me.Label51 = New System.Windows.Forms.Label()
-        Me.lstPowAct = New System.Windows.Forms.ListBox()
-        Me.lstTCapAct = New System.Windows.Forms.ListBox()
-        Me.lstWBAct = New System.Windows.Forms.ListBox()
-        Me.lblAmbFinal = New System.Windows.Forms.Label()
-        Me.Label52 = New System.Windows.Forms.Label()
-        Me.Label53 = New System.Windows.Forms.Label()
-        Me.Label54 = New System.Windows.Forms.Label()
-        Me.lblPowerFinal = New System.Windows.Forms.Label()
-        Me.lblTCapFinal = New System.Windows.Forms.Label()
-        Me.lblWBFinal = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.txtMinCatHeatAF = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.txtMinCatAirflow = New System.Windows.Forms.TextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.txtNominalAirflow = New System.Windows.Forms.TextBox()
-        Me.Label39 = New System.Windows.Forms.Label()
-        Me.txtHeatingAF = New System.Windows.Forms.TextBox()
-        Me.optRefDwg3Ckt = New System.Windows.Forms.RadioButton()
-        Me.optRefDwg4Ckt = New System.Windows.Forms.RadioButton()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.txtInitialEnth = New System.Windows.Forms.TextBox()
+        Me.Label44 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -267,6 +269,24 @@ Partial Class frmLowAF
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(368, 18)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(78, 13)
+        Me.Label39.TabIndex = 66
+        Me.Label39.Text = "Heating Airflow"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtHeatingAF
+        '
+        Me.txtHeatingAF.Location = New System.Drawing.Point(299, 15)
+        Me.txtHeatingAF.Name = "txtHeatingAF"
+        Me.txtHeatingAF.Size = New System.Drawing.Size(63, 20)
+        Me.txtHeatingAF.TabIndex = 5
+        Me.txtHeatingAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblsqftevap
         '
@@ -364,7 +384,7 @@ Partial Class frmLowAF
         Me.txtHeatEAT.Location = New System.Drawing.Point(299, 131)
         Me.txtHeatEAT.Name = "txtHeatEAT"
         Me.txtHeatEAT.Size = New System.Drawing.Size(63, 20)
-        Me.txtHeatEAT.TabIndex = 5
+        Me.txtHeatEAT.TabIndex = 6
         Me.txtHeatEAT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtEWB
@@ -412,7 +432,7 @@ Partial Class frmLowAF
         Me.btnDoneConditions.Location = New System.Drawing.Point(544, 305)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(41, 23)
-        Me.btnDoneConditions.TabIndex = 6
+        Me.btnDoneConditions.TabIndex = 8
         Me.btnDoneConditions.Text = ">"
         Me.btnDoneConditions.UseVisualStyleBackColor = True
         '
@@ -437,6 +457,57 @@ Partial Class frmLowAF
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(336, 256)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(138, 13)
+        Me.Label36.TabIndex = 70
+        Me.Label36.Text = "Min. Heat Cataloged Airflow"
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtMinCatHeatAF
+        '
+        Me.txtMinCatHeatAF.Location = New System.Drawing.Point(475, 253)
+        Me.txtMinCatHeatAF.Name = "txtMinCatHeatAF"
+        Me.txtMinCatHeatAF.Size = New System.Drawing.Size(63, 20)
+        Me.txtMinCatHeatAF.TabIndex = 69
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(336, 308)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(133, 13)
+        Me.Label24.TabIndex = 68
+        Me.Label24.Text = "Minimum Cataloged Airflow"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtMinCatAirflow
+        '
+        Me.txtMinCatAirflow.Location = New System.Drawing.Point(475, 305)
+        Me.txtMinCatAirflow.Name = "txtMinCatAirflow"
+        Me.txtMinCatAirflow.Size = New System.Drawing.Size(63, 20)
+        Me.txtMinCatAirflow.TabIndex = 66
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(368, 282)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(101, 13)
+        Me.Label23.TabIndex = 67
+        Me.Label23.Text = "Unit Nominal Airflow"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtNominalAirflow
+        '
+        Me.txtNominalAirflow.Location = New System.Drawing.Point(475, 279)
+        Me.txtNominalAirflow.Name = "txtNominalAirflow"
+        Me.txtNominalAirflow.Size = New System.Drawing.Size(63, 20)
+        Me.txtNominalAirflow.TabIndex = 65
         '
         'chk65kASCCRBase
         '
@@ -463,6 +534,26 @@ Partial Class frmLowAF
         Me.grpRefDrawings.TabIndex = 52
         Me.grpRefDrawings.TabStop = False
         Me.grpRefDrawings.Text = "Refrigeration Drawings"
+        '
+        'optRefDwg4Ckt
+        '
+        Me.optRefDwg4Ckt.AutoSize = True
+        Me.optRefDwg4Ckt.Location = New System.Drawing.Point(6, 111)
+        Me.optRefDwg4Ckt.Name = "optRefDwg4Ckt"
+        Me.optRefDwg4Ckt.Size = New System.Drawing.Size(181, 17)
+        Me.optRefDwg4Ckt.TabIndex = 4
+        Me.optRefDwg4Ckt.Text = "Series Conversion (4 Ckt System)"
+        Me.optRefDwg4Ckt.UseVisualStyleBackColor = True
+        '
+        'optRefDwg3Ckt
+        '
+        Me.optRefDwg3Ckt.AutoSize = True
+        Me.optRefDwg3Ckt.Location = New System.Drawing.Point(6, 88)
+        Me.optRefDwg3Ckt.Name = "optRefDwg3Ckt"
+        Me.optRefDwg3Ckt.Size = New System.Drawing.Size(181, 17)
+        Me.optRefDwg3Ckt.TabIndex = 3
+        Me.optRefDwg3Ckt.Text = "Series Conversion (3 Ckt System)"
+        Me.optRefDwg3Ckt.UseVisualStyleBackColor = True
         '
         'optRefDwg2Ckt
         '
@@ -532,6 +623,15 @@ Partial Class frmLowAF
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Airflow Reduction Method"
+        '
+        'Button1
+        '
+        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
+        Me.Button1.Location = New System.Drawing.Point(204, 109)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(26, 26)
+        Me.Button1.TabIndex = 32
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'cmdMethodSuggest
         '
@@ -703,6 +803,8 @@ Partial Class frmLowAF
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.txtInitialEnth)
+        Me.tpgPerformance.Controls.Add(Me.Label44)
         Me.tpgPerformance.Controls.Add(Me.cmdCalcDehumCap)
         Me.tpgPerformance.Controls.Add(Me.Label37)
         Me.tpgPerformance.Controls.Add(Me.txtDehumCap)
@@ -1257,6 +1359,264 @@ Partial Class frmLowAF
         Me.tpgCoolCalc.Text = "Cool Perf"
         Me.tpgCoolCalc.UseVisualStyleBackColor = True
         '
+        'cmdCalc
+        '
+        Me.cmdCalc.Location = New System.Drawing.Point(491, 12)
+        Me.cmdCalc.Name = "cmdCalc"
+        Me.cmdCalc.Size = New System.Drawing.Size(96, 36)
+        Me.cmdCalc.TabIndex = 17
+        Me.cmdCalc.Text = "ReCalc"
+        Me.cmdCalc.UseVisualStyleBackColor = True
+        '
+        'lblPowerFinal
+        '
+        Me.lblPowerFinal.AutoSize = True
+        Me.lblPowerFinal.Location = New System.Drawing.Point(538, 198)
+        Me.lblPowerFinal.Name = "lblPowerFinal"
+        Me.lblPowerFinal.Size = New System.Drawing.Size(37, 13)
+        Me.lblPowerFinal.TabIndex = 51
+        Me.lblPowerFinal.Text = "Power"
+        '
+        'lblTCapFinal
+        '
+        Me.lblTCapFinal.AutoSize = True
+        Me.lblTCapFinal.Location = New System.Drawing.Point(490, 198)
+        Me.lblTCapFinal.Name = "lblTCapFinal"
+        Me.lblTCapFinal.Size = New System.Drawing.Size(33, 13)
+        Me.lblTCapFinal.TabIndex = 50
+        Me.lblTCapFinal.Text = "TCap"
+        '
+        'lblWBFinal
+        '
+        Me.lblWBFinal.AutoSize = True
+        Me.lblWBFinal.Location = New System.Drawing.Point(444, 198)
+        Me.lblWBFinal.Name = "lblWBFinal"
+        Me.lblWBFinal.Size = New System.Drawing.Size(25, 13)
+        Me.lblWBFinal.TabIndex = 49
+        Me.lblWBFinal.Text = "WB"
+        '
+        'lblAmbFinal
+        '
+        Me.lblAmbFinal.AutoSize = True
+        Me.lblAmbFinal.Location = New System.Drawing.Point(469, 169)
+        Me.lblAmbFinal.Name = "lblAmbFinal"
+        Me.lblAmbFinal.Size = New System.Drawing.Size(45, 13)
+        Me.lblAmbFinal.TabIndex = 48
+        Me.lblAmbFinal.Text = "Label44"
+        Me.lblAmbFinal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label52
+        '
+        Me.Label52.AutoSize = True
+        Me.Label52.Location = New System.Drawing.Point(538, 182)
+        Me.Label52.Name = "Label52"
+        Me.Label52.Size = New System.Drawing.Size(37, 13)
+        Me.Label52.TabIndex = 46
+        Me.Label52.Text = "Power"
+        '
+        'Label53
+        '
+        Me.Label53.AutoSize = True
+        Me.Label53.Location = New System.Drawing.Point(490, 182)
+        Me.Label53.Name = "Label53"
+        Me.Label53.Size = New System.Drawing.Size(33, 13)
+        Me.Label53.TabIndex = 45
+        Me.Label53.Text = "TCap"
+        '
+        'Label54
+        '
+        Me.Label54.AutoSize = True
+        Me.Label54.Location = New System.Drawing.Point(444, 182)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(25, 13)
+        Me.Label54.TabIndex = 44
+        Me.Label54.Text = "WB"
+        '
+        'lblAmbAct
+        '
+        Me.lblAmbAct.AutoSize = True
+        Me.lblAmbAct.Location = New System.Drawing.Point(306, 169)
+        Me.lblAmbAct.Name = "lblAmbAct"
+        Me.lblAmbAct.Size = New System.Drawing.Size(45, 13)
+        Me.lblAmbAct.TabIndex = 43
+        Me.lblAmbAct.Text = "Label44"
+        Me.lblAmbAct.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblAFact
+        '
+        Me.lblAFact.AutoSize = True
+        Me.lblAFact.Location = New System.Drawing.Point(216, 198)
+        Me.lblAFact.Name = "lblAFact"
+        Me.lblAFact.Size = New System.Drawing.Size(45, 13)
+        Me.lblAFact.TabIndex = 42
+        Me.lblAFact.Text = "Label45"
+        Me.lblAFact.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(375, 182)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(37, 13)
+        Me.Label46.TabIndex = 41
+        Me.Label46.Text = "Power"
+        '
+        'Label50
+        '
+        Me.Label50.AutoSize = True
+        Me.Label50.Location = New System.Drawing.Point(327, 182)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(33, 13)
+        Me.Label50.TabIndex = 40
+        Me.Label50.Text = "TCap"
+        '
+        'Label51
+        '
+        Me.Label51.AutoSize = True
+        Me.Label51.Location = New System.Drawing.Point(281, 182)
+        Me.Label51.Name = "Label51"
+        Me.Label51.Size = New System.Drawing.Size(25, 13)
+        Me.Label51.TabIndex = 39
+        Me.Label51.Text = "WB"
+        '
+        'lstPowAct
+        '
+        Me.lstPowAct.FormattingEnabled = True
+        Me.lstPowAct.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstPowAct.Location = New System.Drawing.Point(371, 198)
+        Me.lstPowAct.Name = "lstPowAct"
+        Me.lstPowAct.Size = New System.Drawing.Size(44, 56)
+        Me.lstPowAct.TabIndex = 38
+        '
+        'lstTCapAct
+        '
+        Me.lstTCapAct.FormattingEnabled = True
+        Me.lstTCapAct.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstTCapAct.Location = New System.Drawing.Point(321, 198)
+        Me.lstTCapAct.Name = "lstTCapAct"
+        Me.lstTCapAct.Size = New System.Drawing.Size(44, 56)
+        Me.lstTCapAct.TabIndex = 37
+        '
+        'lstWBAct
+        '
+        Me.lstWBAct.FormattingEnabled = True
+        Me.lstWBAct.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstWBAct.Location = New System.Drawing.Point(271, 198)
+        Me.lstWBAct.Name = "lstWBAct"
+        Me.lstWBAct.Size = New System.Drawing.Size(44, 56)
+        Me.lstWBAct.TabIndex = 36
+        '
+        'lblAmbient
+        '
+        Me.lblAmbient.AutoSize = True
+        Me.lblAmbient.Location = New System.Drawing.Point(306, 12)
+        Me.lblAmbient.Name = "lblAmbient"
+        Me.lblAmbient.Size = New System.Drawing.Size(45, 13)
+        Me.lblAmbient.TabIndex = 35
+        Me.lblAmbient.Text = "Label44"
+        Me.lblAmbient.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblHighAF
+        '
+        Me.lblHighAF.AutoSize = True
+        Me.lblHighAF.Location = New System.Drawing.Point(216, 103)
+        Me.lblHighAF.Name = "lblHighAF"
+        Me.lblHighAF.Size = New System.Drawing.Size(52, 13)
+        Me.lblHighAF.TabIndex = 34
+        Me.lblHighAF.Text = "lblHighAF"
+        Me.lblHighAF.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblLowAF
+        '
+        Me.lblLowAF.AutoSize = True
+        Me.lblLowAF.Location = New System.Drawing.Point(216, 41)
+        Me.lblLowAF.Name = "lblLowAF"
+        Me.lblLowAF.Size = New System.Drawing.Size(50, 13)
+        Me.lblLowAF.TabIndex = 33
+        Me.lblLowAF.Text = "lblLowAF"
+        Me.lblLowAF.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(375, 25)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(37, 13)
+        Me.Label47.TabIndex = 32
+        Me.Label47.Text = "Power"
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Location = New System.Drawing.Point(327, 25)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(33, 13)
+        Me.Label48.TabIndex = 31
+        Me.Label48.Text = "TCap"
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(281, 25)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(25, 13)
+        Me.Label49.TabIndex = 30
+        Me.Label49.Text = "WB"
+        '
+        'lstPowerHighAF
+        '
+        Me.lstPowerHighAF.FormattingEnabled = True
+        Me.lstPowerHighAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstPowerHighAF.Location = New System.Drawing.Point(371, 103)
+        Me.lstPowerHighAF.Name = "lstPowerHighAF"
+        Me.lstPowerHighAF.Size = New System.Drawing.Size(44, 56)
+        Me.lstPowerHighAF.TabIndex = 29
+        '
+        'lstTCapHighAF
+        '
+        Me.lstTCapHighAF.FormattingEnabled = True
+        Me.lstTCapHighAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstTCapHighAF.Location = New System.Drawing.Point(321, 103)
+        Me.lstTCapHighAF.Name = "lstTCapHighAF"
+        Me.lstTCapHighAF.Size = New System.Drawing.Size(44, 56)
+        Me.lstTCapHighAF.TabIndex = 28
+        '
+        'lstWBHighAF
+        '
+        Me.lstWBHighAF.FormattingEnabled = True
+        Me.lstWBHighAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstWBHighAF.Location = New System.Drawing.Point(271, 103)
+        Me.lstWBHighAF.Name = "lstWBHighAF"
+        Me.lstWBHighAF.Size = New System.Drawing.Size(44, 56)
+        Me.lstWBHighAF.TabIndex = 27
+        '
+        'lstPowerLowAF
+        '
+        Me.lstPowerLowAF.FormattingEnabled = True
+        Me.lstPowerLowAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstPowerLowAF.Location = New System.Drawing.Point(371, 41)
+        Me.lstPowerLowAF.Name = "lstPowerLowAF"
+        Me.lstPowerLowAF.Size = New System.Drawing.Size(44, 56)
+        Me.lstPowerLowAF.TabIndex = 26
+        '
+        'lstTCapLowAF
+        '
+        Me.lstTCapLowAF.FormattingEnabled = True
+        Me.lstTCapLowAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstTCapLowAF.Location = New System.Drawing.Point(321, 41)
+        Me.lstTCapLowAF.Name = "lstTCapLowAF"
+        Me.lstTCapLowAF.Size = New System.Drawing.Size(44, 56)
+        Me.lstTCapLowAF.TabIndex = 25
+        '
+        'lstWBLowAF
+        '
+        Me.lstWBLowAF.FormattingEnabled = True
+        Me.lstWBLowAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
+        Me.lstWBLowAF.Location = New System.Drawing.Point(271, 41)
+        Me.lstWBLowAF.Name = "lstWBLowAF"
+        Me.lstWBLowAF.Size = New System.Drawing.Size(44, 56)
+        Me.lstWBLowAF.TabIndex = 24
+        '
         'lblHighAmbient
         '
         Me.lblHighAmbient.AutoSize = True
@@ -1548,361 +1908,21 @@ Partial Class frmLowAF
         Me.cmdDesignCautions.TabIndex = 15
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'cmdCalc
-        '
-        Me.cmdCalc.Location = New System.Drawing.Point(491, 12)
-        Me.cmdCalc.Name = "cmdCalc"
-        Me.cmdCalc.Size = New System.Drawing.Size(96, 36)
-        Me.cmdCalc.TabIndex = 17
-        Me.cmdCalc.Text = "ReCalc"
-        Me.cmdCalc.UseVisualStyleBackColor = True
-        '
-        'lblAmbient
-        '
-        Me.lblAmbient.AutoSize = True
-        Me.lblAmbient.Location = New System.Drawing.Point(306, 12)
-        Me.lblAmbient.Name = "lblAmbient"
-        Me.lblAmbient.Size = New System.Drawing.Size(45, 13)
-        Me.lblAmbient.TabIndex = 35
-        Me.lblAmbient.Text = "Label44"
-        Me.lblAmbient.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblHighAF
-        '
-        Me.lblHighAF.AutoSize = True
-        Me.lblHighAF.Location = New System.Drawing.Point(216, 103)
-        Me.lblHighAF.Name = "lblHighAF"
-        Me.lblHighAF.Size = New System.Drawing.Size(52, 13)
-        Me.lblHighAF.TabIndex = 34
-        Me.lblHighAF.Text = "lblHighAF"
-        Me.lblHighAF.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblLowAF
-        '
-        Me.lblLowAF.AutoSize = True
-        Me.lblLowAF.Location = New System.Drawing.Point(216, 41)
-        Me.lblLowAF.Name = "lblLowAF"
-        Me.lblLowAF.Size = New System.Drawing.Size(50, 13)
-        Me.lblLowAF.TabIndex = 33
-        Me.lblLowAF.Text = "lblLowAF"
-        Me.lblLowAF.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label47
-        '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(375, 25)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(37, 13)
-        Me.Label47.TabIndex = 32
-        Me.Label47.Text = "Power"
-        '
-        'Label48
-        '
-        Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(327, 25)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(33, 13)
-        Me.Label48.TabIndex = 31
-        Me.Label48.Text = "TCap"
-        '
-        'Label49
-        '
-        Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(281, 25)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(25, 13)
-        Me.Label49.TabIndex = 30
-        Me.Label49.Text = "WB"
-        '
-        'lstPowerHighAF
-        '
-        Me.lstPowerHighAF.FormattingEnabled = True
-        Me.lstPowerHighAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstPowerHighAF.Location = New System.Drawing.Point(371, 103)
-        Me.lstPowerHighAF.Name = "lstPowerHighAF"
-        Me.lstPowerHighAF.Size = New System.Drawing.Size(44, 56)
-        Me.lstPowerHighAF.TabIndex = 29
-        '
-        'lstTCapHighAF
-        '
-        Me.lstTCapHighAF.FormattingEnabled = True
-        Me.lstTCapHighAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstTCapHighAF.Location = New System.Drawing.Point(321, 103)
-        Me.lstTCapHighAF.Name = "lstTCapHighAF"
-        Me.lstTCapHighAF.Size = New System.Drawing.Size(44, 56)
-        Me.lstTCapHighAF.TabIndex = 28
-        '
-        'lstWBHighAF
-        '
-        Me.lstWBHighAF.FormattingEnabled = True
-        Me.lstWBHighAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstWBHighAF.Location = New System.Drawing.Point(271, 103)
-        Me.lstWBHighAF.Name = "lstWBHighAF"
-        Me.lstWBHighAF.Size = New System.Drawing.Size(44, 56)
-        Me.lstWBHighAF.TabIndex = 27
-        '
-        'lstPowerLowAF
-        '
-        Me.lstPowerLowAF.FormattingEnabled = True
-        Me.lstPowerLowAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstPowerLowAF.Location = New System.Drawing.Point(371, 41)
-        Me.lstPowerLowAF.Name = "lstPowerLowAF"
-        Me.lstPowerLowAF.Size = New System.Drawing.Size(44, 56)
-        Me.lstPowerLowAF.TabIndex = 26
-        '
-        'lstTCapLowAF
-        '
-        Me.lstTCapLowAF.FormattingEnabled = True
-        Me.lstTCapLowAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstTCapLowAF.Location = New System.Drawing.Point(321, 41)
-        Me.lstTCapLowAF.Name = "lstTCapLowAF"
-        Me.lstTCapLowAF.Size = New System.Drawing.Size(44, 56)
-        Me.lstTCapLowAF.TabIndex = 25
-        '
-        'lstWBLowAF
-        '
-        Me.lstWBLowAF.FormattingEnabled = True
-        Me.lstWBLowAF.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstWBLowAF.Location = New System.Drawing.Point(271, 41)
-        Me.lstWBLowAF.Name = "lstWBLowAF"
-        Me.lstWBLowAF.Size = New System.Drawing.Size(44, 56)
-        Me.lstWBLowAF.TabIndex = 24
-        '
-        'lblAmbAct
-        '
-        Me.lblAmbAct.AutoSize = True
-        Me.lblAmbAct.Location = New System.Drawing.Point(306, 169)
-        Me.lblAmbAct.Name = "lblAmbAct"
-        Me.lblAmbAct.Size = New System.Drawing.Size(45, 13)
-        Me.lblAmbAct.TabIndex = 43
-        Me.lblAmbAct.Text = "Label44"
-        Me.lblAmbAct.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblAFact
-        '
-        Me.lblAFact.AutoSize = True
-        Me.lblAFact.Location = New System.Drawing.Point(216, 198)
-        Me.lblAFact.Name = "lblAFact"
-        Me.lblAFact.Size = New System.Drawing.Size(45, 13)
-        Me.lblAFact.TabIndex = 42
-        Me.lblAFact.Text = "Label45"
-        Me.lblAFact.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label46
-        '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(375, 182)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(37, 13)
-        Me.Label46.TabIndex = 41
-        Me.Label46.Text = "Power"
-        '
-        'Label50
-        '
-        Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(327, 182)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(33, 13)
-        Me.Label50.TabIndex = 40
-        Me.Label50.Text = "TCap"
-        '
-        'Label51
-        '
-        Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(281, 182)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(25, 13)
-        Me.Label51.TabIndex = 39
-        Me.Label51.Text = "WB"
-        '
-        'lstPowAct
-        '
-        Me.lstPowAct.FormattingEnabled = True
-        Me.lstPowAct.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstPowAct.Location = New System.Drawing.Point(371, 198)
-        Me.lstPowAct.Name = "lstPowAct"
-        Me.lstPowAct.Size = New System.Drawing.Size(44, 56)
-        Me.lstPowAct.TabIndex = 38
-        '
-        'lstTCapAct
-        '
-        Me.lstTCapAct.FormattingEnabled = True
-        Me.lstTCapAct.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstTCapAct.Location = New System.Drawing.Point(321, 198)
-        Me.lstTCapAct.Name = "lstTCapAct"
-        Me.lstTCapAct.Size = New System.Drawing.Size(44, 56)
-        Me.lstTCapAct.TabIndex = 37
-        '
-        'lstWBAct
-        '
-        Me.lstWBAct.FormattingEnabled = True
-        Me.lstWBAct.Items.AddRange(New Object() {"1", "2", "3", "4"})
-        Me.lstWBAct.Location = New System.Drawing.Point(271, 198)
-        Me.lstWBAct.Name = "lstWBAct"
-        Me.lstWBAct.Size = New System.Drawing.Size(44, 56)
-        Me.lstWBAct.TabIndex = 36
-        '
-        'lblAmbFinal
-        '
-        Me.lblAmbFinal.AutoSize = True
-        Me.lblAmbFinal.Location = New System.Drawing.Point(469, 169)
-        Me.lblAmbFinal.Name = "lblAmbFinal"
-        Me.lblAmbFinal.Size = New System.Drawing.Size(45, 13)
-        Me.lblAmbFinal.TabIndex = 48
-        Me.lblAmbFinal.Text = "Label44"
-        Me.lblAmbFinal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Location = New System.Drawing.Point(538, 182)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(37, 13)
-        Me.Label52.TabIndex = 46
-        Me.Label52.Text = "Power"
-        '
-        'Label53
-        '
-        Me.Label53.AutoSize = True
-        Me.Label53.Location = New System.Drawing.Point(490, 182)
-        Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(33, 13)
-        Me.Label53.TabIndex = 45
-        Me.Label53.Text = "TCap"
-        '
-        'Label54
-        '
-        Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(444, 182)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(25, 13)
-        Me.Label54.TabIndex = 44
-        Me.Label54.Text = "WB"
-        '
-        'lblPowerFinal
-        '
-        Me.lblPowerFinal.AutoSize = True
-        Me.lblPowerFinal.Location = New System.Drawing.Point(538, 198)
-        Me.lblPowerFinal.Name = "lblPowerFinal"
-        Me.lblPowerFinal.Size = New System.Drawing.Size(37, 13)
-        Me.lblPowerFinal.TabIndex = 51
-        Me.lblPowerFinal.Text = "Power"
-        '
-        'lblTCapFinal
-        '
-        Me.lblTCapFinal.AutoSize = True
-        Me.lblTCapFinal.Location = New System.Drawing.Point(490, 198)
-        Me.lblTCapFinal.Name = "lblTCapFinal"
-        Me.lblTCapFinal.Size = New System.Drawing.Size(33, 13)
-        Me.lblTCapFinal.TabIndex = 50
-        Me.lblTCapFinal.Text = "TCap"
-        '
-        'lblWBFinal
-        '
-        Me.lblWBFinal.AutoSize = True
-        Me.lblWBFinal.Location = New System.Drawing.Point(444, 198)
-        Me.lblWBFinal.Name = "lblWBFinal"
-        Me.lblWBFinal.Size = New System.Drawing.Size(25, 13)
-        Me.lblWBFinal.TabIndex = 49
-        Me.lblWBFinal.Text = "WB"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(336, 256)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(138, 13)
-        Me.Label36.TabIndex = 70
-        Me.Label36.Text = "Min. Heat Cataloged Airflow"
-        Me.Label36.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtMinCatHeatAF
-        '
-        Me.txtMinCatHeatAF.Location = New System.Drawing.Point(475, 253)
-        Me.txtMinCatHeatAF.Name = "txtMinCatHeatAF"
-        Me.txtMinCatHeatAF.Size = New System.Drawing.Size(63, 20)
-        Me.txtMinCatHeatAF.TabIndex = 69
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(336, 308)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(133, 13)
-        Me.Label24.TabIndex = 68
-        Me.Label24.Text = "Minimum Cataloged Airflow"
-        Me.Label24.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtMinCatAirflow
-        '
-        Me.txtMinCatAirflow.Location = New System.Drawing.Point(475, 305)
-        Me.txtMinCatAirflow.Name = "txtMinCatAirflow"
-        Me.txtMinCatAirflow.Size = New System.Drawing.Size(63, 20)
-        Me.txtMinCatAirflow.TabIndex = 66
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(368, 282)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(101, 13)
-        Me.Label23.TabIndex = 67
-        Me.Label23.Text = "Unit Nominal Airflow"
-        Me.Label23.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtNominalAirflow
-        '
-        Me.txtNominalAirflow.Location = New System.Drawing.Point(475, 279)
-        Me.txtNominalAirflow.Name = "txtNominalAirflow"
-        Me.txtNominalAirflow.Size = New System.Drawing.Size(63, 20)
-        Me.txtNominalAirflow.TabIndex = 65
-        '
-        'Label39
-        '
-        Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(368, 18)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(78, 13)
-        Me.Label39.TabIndex = 66
-        Me.Label39.Text = "Heating Airflow"
-        Me.Label39.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtHeatingAF
-        '
-        Me.txtHeatingAF.Location = New System.Drawing.Point(299, 15)
-        Me.txtHeatingAF.Name = "txtHeatingAF"
-        Me.txtHeatingAF.Size = New System.Drawing.Size(63, 20)
-        Me.txtHeatingAF.TabIndex = 65
-        Me.txtHeatingAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'optRefDwg3Ckt
-        '
-        Me.optRefDwg3Ckt.AutoSize = True
-        Me.optRefDwg3Ckt.Location = New System.Drawing.Point(6, 88)
-        Me.optRefDwg3Ckt.Name = "optRefDwg3Ckt"
-        Me.optRefDwg3Ckt.Size = New System.Drawing.Size(181, 17)
-        Me.optRefDwg3Ckt.TabIndex = 3
-        Me.optRefDwg3Ckt.Text = "Series Conversion (3 Ckt System)"
-        Me.optRefDwg3Ckt.UseVisualStyleBackColor = True
-        '
-        'optRefDwg4Ckt
-        '
-        Me.optRefDwg4Ckt.AutoSize = True
-        Me.optRefDwg4Ckt.Location = New System.Drawing.Point(6, 111)
-        Me.optRefDwg4Ckt.Name = "optRefDwg4Ckt"
-        Me.optRefDwg4Ckt.Size = New System.Drawing.Size(181, 17)
-        Me.optRefDwg4Ckt.TabIndex = 4
-        Me.optRefDwg4Ckt.Text = "Series Conversion (4 Ckt System)"
-        Me.optRefDwg4Ckt.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(204, 109)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(26, 26)
-        Me.Button1.TabIndex = 32
-        Me.Button1.UseVisualStyleBackColor = True
+        'txtInitialEnth
+        '
+        Me.txtInitialEnth.Location = New System.Drawing.Point(133, 305)
+        Me.txtInitialEnth.Name = "txtInitialEnth"
+        Me.txtInitialEnth.Size = New System.Drawing.Size(54, 20)
+        Me.txtInitialEnth.TabIndex = 93
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(27, 309)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(75, 13)
+        Me.Label44.TabIndex = 94
+        Me.Label44.Text = "Initial Enthalpy"
         '
         'frmLowAF
         '
@@ -2113,4 +2133,6 @@ Partial Class frmLowAF
     Friend WithEvents optRefDwg4Ckt As RadioButton
     Friend WithEvents optRefDwg3Ckt As RadioButton
     Friend WithEvents Button1 As Button
+    Friend WithEvents txtInitialEnth As TextBox
+    Friend WithEvents Label44 As Label
 End Class

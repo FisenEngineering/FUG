@@ -105,6 +105,7 @@
     <Compile Include="BasPsychrometrics.vb" />
     <Compile Include="basTabValidation.vb" />
     <Compile Include="clsChillerMainPerf.vb" />
+    <Compile Include="clsControls.vb" />
     <Compile Include="clsCoolPerf.vb" />
     <Compile Include="ClsCustomCoil.vb" />
     <Compile Include="clsDSUnitClass.vb" />
@@ -252,6 +253,12 @@
     <Compile Include="frmFiltration.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFIOPPreview.Designer.vb">
+      <DependentUpon>frmFIOPPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFIOPPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmHGRH.Designer.vb">
       <DependentUpon>frmHGRH.vb</DependentUpon>
     </Compile>
@@ -379,6 +386,12 @@
     <Compile Include="frmHGBP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmWMFZoom.Designer.vb">
+      <DependentUpon>frmWMFZoom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmWMFZoom.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -465,6 +478,9 @@
     <EmbeddedResource Include="frmFiltration.resx">
       <DependentUpon>frmFiltration.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmFIOPPreview.resx">
+      <DependentUpon>frmFIOPPreview.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmHGRH.resx">
       <DependentUpon>frmHGRH.vb</DependentUpon>
     </EmbeddedResource>
@@ -527,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHGBP.resx">
       <DependentUpon>frmHGBP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWMFZoom.resx">
+      <DependentUpon>frmWMFZoom.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

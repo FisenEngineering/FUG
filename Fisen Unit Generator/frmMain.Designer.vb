@@ -243,11 +243,13 @@ Partial Class frmMain
         Me.clbTestList = New System.Windows.Forms.CheckedListBox()
         Me.btnDoneWarranty = New System.Windows.Forms.Button()
         Me.pgUnitDrawing = New System.Windows.Forms.TabPage()
-        Me.lblHeatFilter = New System.Windows.Forms.Label()
-        Me.cmdAllHeatOnly = New System.Windows.Forms.Button()
-        Me.cmdHWHeatOnly = New System.Windows.Forms.Button()
-        Me.cmdNoHeatOnly = New System.Windows.Forms.Button()
-        Me.cmdGasHeatOnly = New System.Windows.Forms.Button()
+        Me.picUnitPreview = New System.Windows.Forms.PictureBox()
+        Me.cmdDwgClearFilter = New System.Windows.Forms.Button()
+        Me.chkUnitFilterOnStubbs = New System.Windows.Forms.CheckBox()
+        Me.cmdDwgApplyFilter = New System.Windows.Forms.Button()
+        Me.lstUnitTagstoApply = New System.Windows.Forms.ListBox()
+        Me.Label115 = New System.Windows.Forms.Label()
+        Me.txtUnitSuggestedTags = New System.Windows.Forms.TextBox()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.optFlagUnitDrawing = New System.Windows.Forms.RadioButton()
         Me.optCopyUnitDwgNow = New System.Windows.Forms.RadioButton()
@@ -279,6 +281,13 @@ Partial Class frmMain
         Me.Label55 = New System.Windows.Forms.Label()
         Me.btnDoneValves = New System.Windows.Forms.Button()
         Me.pgRefrigeration = New System.Windows.Forms.TabPage()
+        Me.cmdClearFilter = New System.Windows.Forms.Button()
+        Me.picReferPreview = New System.Windows.Forms.PictureBox()
+        Me.chkReferFilterOnStubb = New System.Windows.Forms.CheckBox()
+        Me.cmdReferApplyFilter = New System.Windows.Forms.Button()
+        Me.lstReferTagstoApply = New System.Windows.Forms.ListBox()
+        Me.Label114 = New System.Windows.Forms.Label()
+        Me.txtReferSuggestedTags = New System.Windows.Forms.TextBox()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
         Me.optReferInsertOnly = New System.Windows.Forms.RadioButton()
         Me.optReferCopyNow = New System.Windows.Forms.RadioButton()
@@ -830,11 +839,13 @@ Partial Class frmMain
         Me.grpCompEHeatWarrText.SuspendLayout
         Me.GroupBox1.SuspendLayout
         Me.pgUnitDrawing.SuspendLayout
+        CType(Me.picUnitPreview, System.ComponentModel.ISupportInitialize).BeginInit
         Me.GroupBox6.SuspendLayout
         Me.pgHydronics.SuspendLayout
         Me.GroupBox9.SuspendLayout
         Me.pgValveSchedule.SuspendLayout
         Me.pgRefrigeration.SuspendLayout
+        CType(Me.picReferPreview, System.ComponentModel.ISupportInitialize).BeginInit
         Me.GroupBox10.SuspendLayout
         Me.pgAirflow.SuspendLayout
         Me.GroupBox12.SuspendLayout
@@ -3368,11 +3379,13 @@ Partial Class frmMain
         '
         'pgUnitDrawing
         '
-        Me.pgUnitDrawing.Controls.Add(Me.lblHeatFilter)
-        Me.pgUnitDrawing.Controls.Add(Me.cmdAllHeatOnly)
-        Me.pgUnitDrawing.Controls.Add(Me.cmdHWHeatOnly)
-        Me.pgUnitDrawing.Controls.Add(Me.cmdNoHeatOnly)
-        Me.pgUnitDrawing.Controls.Add(Me.cmdGasHeatOnly)
+        Me.pgUnitDrawing.Controls.Add(Me.picUnitPreview)
+        Me.pgUnitDrawing.Controls.Add(Me.cmdDwgClearFilter)
+        Me.pgUnitDrawing.Controls.Add(Me.chkUnitFilterOnStubbs)
+        Me.pgUnitDrawing.Controls.Add(Me.cmdDwgApplyFilter)
+        Me.pgUnitDrawing.Controls.Add(Me.lstUnitTagstoApply)
+        Me.pgUnitDrawing.Controls.Add(Me.Label115)
+        Me.pgUnitDrawing.Controls.Add(Me.txtUnitSuggestedTags)
         Me.pgUnitDrawing.Controls.Add(Me.GroupBox6)
         Me.pgUnitDrawing.Controls.Add(Me.txtDwgDesc)
         Me.pgUnitDrawing.Controls.Add(Me.btnUnitDwgDelAll)
@@ -3389,65 +3402,84 @@ Partial Class frmMain
         Me.pgUnitDrawing.Text = "Unit Drawing"
         Me.pgUnitDrawing.UseVisualStyleBackColor = True
         '
-        'lblHeatFilter
+        'picUnitPreview
         '
-        Me.lblHeatFilter.AutoSize = True
-        Me.lblHeatFilter.Location = New System.Drawing.Point(328, 321)
-        Me.lblHeatFilter.Name = "lblHeatFilter"
-        Me.lblHeatFilter.Size = New System.Drawing.Size(18, 13)
-        Me.lblHeatFilter.TabIndex = 28
-        Me.lblHeatFilter.Text = "All"
+        Me.picUnitPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picUnitPreview.ImageLocation = ""
+        Me.picUnitPreview.Location = New System.Drawing.Point(475, 159)
+        Me.picUnitPreview.Name = "picUnitPreview"
+        Me.picUnitPreview.Size = New System.Drawing.Size(633, 318)
+        Me.picUnitPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picUnitPreview.TabIndex = 72
+        Me.picUnitPreview.TabStop = False
         '
-        'cmdAllHeatOnly
+        'cmdDwgClearFilter
         '
-        Me.cmdAllHeatOnly.Location = New System.Drawing.Point(251, 315)
-        Me.cmdAllHeatOnly.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdAllHeatOnly.Name = "cmdAllHeatOnly"
-        Me.cmdAllHeatOnly.Size = New System.Drawing.Size(70, 25)
-        Me.cmdAllHeatOnly.TabIndex = 27
-        Me.cmdAllHeatOnly.Text = "All"
-        Me.cmdAllHeatOnly.UseVisualStyleBackColor = True
+        Me.cmdDwgClearFilter.Location = New System.Drawing.Point(223, 292)
+        Me.cmdDwgClearFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdDwgClearFilter.Name = "cmdDwgClearFilter"
+        Me.cmdDwgClearFilter.Size = New System.Drawing.Size(57, 28)
+        Me.cmdDwgClearFilter.TabIndex = 71
+        Me.cmdDwgClearFilter.Text = "Clear"
+        Me.cmdDwgClearFilter.UseVisualStyleBackColor = True
         '
-        'cmdHWHeatOnly
+        'chkUnitFilterOnStubbs
         '
-        Me.cmdHWHeatOnly.Location = New System.Drawing.Point(173, 315)
-        Me.cmdHWHeatOnly.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdHWHeatOnly.Name = "cmdHWHeatOnly"
-        Me.cmdHWHeatOnly.Size = New System.Drawing.Size(70, 25)
-        Me.cmdHWHeatOnly.TabIndex = 26
-        Me.cmdHWHeatOnly.Text = "HW Heat"
-        Me.cmdHWHeatOnly.UseVisualStyleBackColor = True
+        Me.chkUnitFilterOnStubbs.AutoSize = True
+        Me.chkUnitFilterOnStubbs.Location = New System.Drawing.Point(17, 357)
+        Me.chkUnitFilterOnStubbs.Name = "chkUnitFilterOnStubbs"
+        Me.chkUnitFilterOnStubbs.Size = New System.Drawing.Size(126, 17)
+        Me.chkUnitFilterOnStubbs.TabIndex = 70
+        Me.chkUnitFilterOnStubbs.Text = "Filter on Model Stubb"
+        Me.chkUnitFilterOnStubbs.UseVisualStyleBackColor = True
         '
-        'cmdNoHeatOnly
+        'cmdDwgApplyFilter
         '
-        Me.cmdNoHeatOnly.Location = New System.Drawing.Point(95, 315)
-        Me.cmdNoHeatOnly.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdNoHeatOnly.Name = "cmdNoHeatOnly"
-        Me.cmdNoHeatOnly.Size = New System.Drawing.Size(70, 25)
-        Me.cmdNoHeatOnly.TabIndex = 25
-        Me.cmdNoHeatOnly.Text = "No Heat"
-        Me.cmdNoHeatOnly.UseVisualStyleBackColor = True
+        Me.cmdDwgApplyFilter.Location = New System.Drawing.Point(223, 256)
+        Me.cmdDwgApplyFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdDwgApplyFilter.Name = "cmdDwgApplyFilter"
+        Me.cmdDwgApplyFilter.Size = New System.Drawing.Size(57, 28)
+        Me.cmdDwgApplyFilter.TabIndex = 69
+        Me.cmdDwgApplyFilter.Text = "Apply"
+        Me.cmdDwgApplyFilter.UseVisualStyleBackColor = True
         '
-        'cmdGasHeatOnly
+        'lstUnitTagstoApply
         '
-        Me.cmdGasHeatOnly.Location = New System.Drawing.Point(17, 315)
-        Me.cmdGasHeatOnly.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdGasHeatOnly.Name = "cmdGasHeatOnly"
-        Me.cmdGasHeatOnly.Size = New System.Drawing.Size(70, 25)
-        Me.cmdGasHeatOnly.TabIndex = 24
-        Me.cmdGasHeatOnly.Text = "Gas Heat"
-        Me.cmdGasHeatOnly.UseVisualStyleBackColor = True
+        Me.lstUnitTagstoApply.FormattingEnabled = True
+        Me.lstUnitTagstoApply.Items.AddRange(New Object() {"GasHeat", "HWHeat", "Heatco", "NoHeat", "SteamHeat", "Aux", "LeftAux", "RearAux", "48Extend", "Extend", "Filters", "Final_Filters", "HGRH", "OAFMS", "OAFMSLowFlow", "OAFMSHiFlow", "ReclaimCoil", "RFan", "RFWall", "SFWall", "XFan", "Disconnect", "Bottom_Bottom", "Bottom_NoReturn", "Bottom_End", "Bottom_Rear", "Bottom_Side", "Convertible", "Front_Bottom", "Front_End", "Left_Front(End)", "Rear_Bottom", "Rear_End", "Rear_Rear", "Side_NoReturn", "Side_Side", "TOHumid"})
+        Me.lstUnitTagstoApply.Location = New System.Drawing.Point(17, 256)
+        Me.lstUnitTagstoApply.Name = "lstUnitTagstoApply"
+        Me.lstUnitTagstoApply.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
+        Me.lstUnitTagstoApply.Size = New System.Drawing.Size(199, 95)
+        Me.lstUnitTagstoApply.TabIndex = 68
+        '
+        'Label115
+        '
+        Me.Label115.AutoSize = True
+        Me.Label115.Location = New System.Drawing.Point(14, 214)
+        Me.Label115.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label115.Name = "Label115"
+        Me.Label115.Size = New System.Drawing.Size(110, 13)
+        Me.Label115.TabIndex = 67
+        Me.Label115.Text = "Suggested Filter Tags"
+        '
+        'txtUnitSuggestedTags
+        '
+        Me.txtUnitSuggestedTags.Location = New System.Drawing.Point(17, 230)
+        Me.txtUnitSuggestedTags.Name = "txtUnitSuggestedTags"
+        Me.txtUnitSuggestedTags.Size = New System.Drawing.Size(400, 20)
+        Me.txtUnitSuggestedTags.TabIndex = 66
         '
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.optFlagUnitDrawing)
         Me.GroupBox6.Controls.Add(Me.optCopyUnitDwgNow)
         Me.GroupBox6.Controls.Add(Me.optInsertUnitDrawing)
-        Me.GroupBox6.Location = New System.Drawing.Point(657, 366)
+        Me.GroupBox6.Location = New System.Drawing.Point(540, 106)
         Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox6.Size = New System.Drawing.Size(450, 108)
+        Me.GroupBox6.Size = New System.Drawing.Size(450, 46)
         Me.GroupBox6.TabIndex = 23
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "File Action"
@@ -3456,7 +3488,7 @@ Partial Class frmMain
         '
         Me.optFlagUnitDrawing.AutoSize = True
         Me.optFlagUnitDrawing.Checked = True
-        Me.optFlagUnitDrawing.Location = New System.Drawing.Point(8, 23)
+        Me.optFlagUnitDrawing.Location = New System.Drawing.Point(8, 19)
         Me.optFlagUnitDrawing.Margin = New System.Windows.Forms.Padding(4)
         Me.optFlagUnitDrawing.Name = "optFlagUnitDrawing"
         Me.optFlagUnitDrawing.Size = New System.Drawing.Size(151, 17)
@@ -3468,7 +3500,7 @@ Partial Class frmMain
         'optCopyUnitDwgNow
         '
         Me.optCopyUnitDwgNow.AutoSize = True
-        Me.optCopyUnitDwgNow.Location = New System.Drawing.Point(8, 52)
+        Me.optCopyUnitDwgNow.Location = New System.Drawing.Point(167, 19)
         Me.optCopyUnitDwgNow.Margin = New System.Windows.Forms.Padding(4)
         Me.optCopyUnitDwgNow.Name = "optCopyUnitDwgNow"
         Me.optCopyUnitDwgNow.Size = New System.Drawing.Size(124, 17)
@@ -3479,7 +3511,7 @@ Partial Class frmMain
         'optInsertUnitDrawing
         '
         Me.optInsertUnitDrawing.AutoSize = True
-        Me.optInsertUnitDrawing.Location = New System.Drawing.Point(8, 80)
+        Me.optInsertUnitDrawing.Location = New System.Drawing.Point(299, 19)
         Me.optInsertUnitDrawing.Margin = New System.Windows.Forms.Padding(4)
         Me.optInsertUnitDrawing.Name = "optInsertUnitDrawing"
         Me.optInsertUnitDrawing.Size = New System.Drawing.Size(118, 17)
@@ -3489,18 +3521,18 @@ Partial Class frmMain
         '
         'txtDwgDesc
         '
-        Me.txtDwgDesc.Enabled = False
-        Me.txtDwgDesc.Location = New System.Drawing.Point(17, 366)
+        Me.txtDwgDesc.Location = New System.Drawing.Point(17, 103)
         Me.txtDwgDesc.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDwgDesc.Multiline = True
         Me.txtDwgDesc.Name = "txtDwgDesc"
+        Me.txtDwgDesc.ReadOnly = True
         Me.txtDwgDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtDwgDesc.Size = New System.Drawing.Size(450, 107)
         Me.txtDwgDesc.TabIndex = 22
         '
         'btnUnitDwgDelAll
         '
-        Me.btnUnitDwgDelAll.Location = New System.Drawing.Point(593, 217)
+        Me.btnUnitDwgDelAll.Location = New System.Drawing.Point(475, 105)
         Me.btnUnitDwgDelAll.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUnitDwgDelAll.Name = "btnUnitDwgDelAll"
         Me.btnUnitDwgDelAll.Size = New System.Drawing.Size(57, 37)
@@ -3510,7 +3542,7 @@ Partial Class frmMain
         '
         'btnUnitDwgDel
         '
-        Me.btnUnitDwgDel.Location = New System.Drawing.Point(593, 173)
+        Me.btnUnitDwgDel.Location = New System.Drawing.Point(475, 61)
         Me.btnUnitDwgDel.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUnitDwgDel.Name = "btnUnitDwgDel"
         Me.btnUnitDwgDel.Size = New System.Drawing.Size(57, 37)
@@ -3520,7 +3552,7 @@ Partial Class frmMain
         '
         'btnUnitDwgAdd
         '
-        Me.btnUnitDwgAdd.Location = New System.Drawing.Point(593, 129)
+        Me.btnUnitDwgAdd.Location = New System.Drawing.Point(475, 17)
         Me.btnUnitDwgAdd.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUnitDwgAdd.Name = "btnUnitDwgAdd"
         Me.btnUnitDwgAdd.Size = New System.Drawing.Size(57, 37)
@@ -3531,10 +3563,10 @@ Partial Class frmMain
         'lstUsingDwgs
         '
         Me.lstUsingDwgs.FormattingEnabled = True
-        Me.lstUsingDwgs.Location = New System.Drawing.Point(658, 17)
+        Me.lstUsingDwgs.Location = New System.Drawing.Point(540, 16)
         Me.lstUsingDwgs.Margin = New System.Windows.Forms.Padding(4)
         Me.lstUsingDwgs.Name = "lstUsingDwgs"
-        Me.lstUsingDwgs.Size = New System.Drawing.Size(450, 290)
+        Me.lstUsingDwgs.Size = New System.Drawing.Size(450, 82)
         Me.lstUsingDwgs.TabIndex = 18
         '
         'lstAvailDwgs
@@ -3543,7 +3575,7 @@ Partial Class frmMain
         Me.lstAvailDwgs.Location = New System.Drawing.Point(17, 17)
         Me.lstAvailDwgs.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailDwgs.Name = "lstAvailDwgs"
-        Me.lstAvailDwgs.Size = New System.Drawing.Size(450, 290)
+        Me.lstAvailDwgs.Size = New System.Drawing.Size(450, 82)
         Me.lstAvailDwgs.TabIndex = 17
         '
         'btnDoneUnitDwg
@@ -3769,6 +3801,13 @@ Partial Class frmMain
         '
         'pgRefrigeration
         '
+        Me.pgRefrigeration.Controls.Add(Me.cmdClearFilter)
+        Me.pgRefrigeration.Controls.Add(Me.picReferPreview)
+        Me.pgRefrigeration.Controls.Add(Me.chkReferFilterOnStubb)
+        Me.pgRefrigeration.Controls.Add(Me.cmdReferApplyFilter)
+        Me.pgRefrigeration.Controls.Add(Me.lstReferTagstoApply)
+        Me.pgRefrigeration.Controls.Add(Me.Label114)
+        Me.pgRefrigeration.Controls.Add(Me.txtReferSuggestedTags)
         Me.pgRefrigeration.Controls.Add(Me.GroupBox10)
         Me.pgRefrigeration.Controls.Add(Me.txtReferOutletSize)
         Me.pgRefrigeration.Controls.Add(Me.Label105)
@@ -3788,16 +3827,85 @@ Partial Class frmMain
         Me.pgRefrigeration.Text = "Refrigeration"
         Me.pgRefrigeration.UseVisualStyleBackColor = True
         '
+        'cmdClearFilter
+        '
+        Me.cmdClearFilter.Location = New System.Drawing.Point(227, 345)
+        Me.cmdClearFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdClearFilter.Name = "cmdClearFilter"
+        Me.cmdClearFilter.Size = New System.Drawing.Size(57, 28)
+        Me.cmdClearFilter.TabIndex = 65
+        Me.cmdClearFilter.Text = "Clear"
+        Me.cmdClearFilter.UseVisualStyleBackColor = True
+        '
+        'picReferPreview
+        '
+        Me.picReferPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picReferPreview.ImageLocation = ""
+        Me.picReferPreview.Location = New System.Drawing.Point(450, 156)
+        Me.picReferPreview.Name = "picReferPreview"
+        Me.picReferPreview.Size = New System.Drawing.Size(658, 321)
+        Me.picReferPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picReferPreview.TabIndex = 64
+        Me.picReferPreview.TabStop = False
+        '
+        'chkReferFilterOnStubb
+        '
+        Me.chkReferFilterOnStubb.AutoSize = True
+        Me.chkReferFilterOnStubb.Location = New System.Drawing.Point(21, 410)
+        Me.chkReferFilterOnStubb.Name = "chkReferFilterOnStubb"
+        Me.chkReferFilterOnStubb.Size = New System.Drawing.Size(126, 17)
+        Me.chkReferFilterOnStubb.TabIndex = 63
+        Me.chkReferFilterOnStubb.Text = "Filter on Model Stubb"
+        Me.chkReferFilterOnStubb.UseVisualStyleBackColor = True
+        '
+        'cmdReferApplyFilter
+        '
+        Me.cmdReferApplyFilter.Location = New System.Drawing.Point(227, 309)
+        Me.cmdReferApplyFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdReferApplyFilter.Name = "cmdReferApplyFilter"
+        Me.cmdReferApplyFilter.Size = New System.Drawing.Size(57, 28)
+        Me.cmdReferApplyFilter.TabIndex = 62
+        Me.cmdReferApplyFilter.Text = "Apply"
+        Me.cmdReferApplyFilter.UseVisualStyleBackColor = True
+        '
+        'lstReferTagstoApply
+        '
+        Me.lstReferTagstoApply.FormattingEnabled = True
+        Me.lstReferTagstoApply.Items.AddRange(New Object() {"1Ckt", "2Ckt", "3Ckt", "4Ckt", "nCkt", "Ckt1CC1", "Ckt1CC2", "Ckt1CC3", "Ckt2CC1", "Ckt2CC2", "Ckt2CC3", "Ckt3CC1", "Ckt3CC2", "Ckt3CC3", "Ckt4CC1", "Ckt4CC2", "Ckt4CC3", "MHGRH(R)1", "MHGRH(R)2", "MHGRH(R)3", "HGBP1", "HGBP2", "HGBP3", "HGBP4", "BaseHGBP1"})
+        Me.lstReferTagstoApply.Location = New System.Drawing.Point(21, 309)
+        Me.lstReferTagstoApply.Name = "lstReferTagstoApply"
+        Me.lstReferTagstoApply.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
+        Me.lstReferTagstoApply.Size = New System.Drawing.Size(199, 95)
+        Me.lstReferTagstoApply.TabIndex = 61
+        '
+        'Label114
+        '
+        Me.Label114.AutoSize = True
+        Me.Label114.Location = New System.Drawing.Point(18, 267)
+        Me.Label114.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label114.Name = "Label114"
+        Me.Label114.Size = New System.Drawing.Size(110, 13)
+        Me.Label114.TabIndex = 60
+        Me.Label114.Text = "Suggested Filter Tags"
+        '
+        'txtReferSuggestedTags
+        '
+        Me.txtReferSuggestedTags.Location = New System.Drawing.Point(21, 283)
+        Me.txtReferSuggestedTags.Name = "txtReferSuggestedTags"
+        Me.txtReferSuggestedTags.ReadOnly = True
+        Me.txtReferSuggestedTags.Size = New System.Drawing.Size(400, 20)
+        Me.txtReferSuggestedTags.TabIndex = 59
+        '
         'GroupBox10
         '
         Me.GroupBox10.Controls.Add(Me.optReferInsertOnly)
         Me.GroupBox10.Controls.Add(Me.optReferCopyNow)
         Me.GroupBox10.Controls.Add(Me.optReferFlagforCopy)
-        Me.GroupBox10.Location = New System.Drawing.Point(536, 156)
+        Me.GroupBox10.Location = New System.Drawing.Point(536, 106)
         Me.GroupBox10.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox10.Name = "GroupBox10"
         Me.GroupBox10.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox10.Size = New System.Drawing.Size(400, 108)
+        Me.GroupBox10.Size = New System.Drawing.Size(400, 42)
         Me.GroupBox10.TabIndex = 58
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "File Action"
@@ -3805,7 +3913,7 @@ Partial Class frmMain
         'optReferInsertOnly
         '
         Me.optReferInsertOnly.AutoSize = True
-        Me.optReferInsertOnly.Location = New System.Drawing.Point(21, 71)
+        Me.optReferInsertOnly.Location = New System.Drawing.Point(262, 21)
         Me.optReferInsertOnly.Margin = New System.Windows.Forms.Padding(4)
         Me.optReferInsertOnly.Name = "optReferInsertOnly"
         Me.optReferInsertOnly.Size = New System.Drawing.Size(75, 17)
@@ -3816,7 +3924,7 @@ Partial Class frmMain
         'optReferCopyNow
         '
         Me.optReferCopyNow.AutoSize = True
-        Me.optReferCopyNow.Location = New System.Drawing.Point(21, 46)
+        Me.optReferCopyNow.Location = New System.Drawing.Point(180, 21)
         Me.optReferCopyNow.Margin = New System.Windows.Forms.Padding(4)
         Me.optReferCopyNow.Name = "optReferCopyNow"
         Me.optReferCopyNow.Size = New System.Drawing.Size(74, 17)
@@ -3877,13 +3985,13 @@ Partial Class frmMain
         '
         'txtReferDesc
         '
-        Me.txtReferDesc.Enabled = False
-        Me.txtReferDesc.Location = New System.Drawing.Point(21, 156)
+        Me.txtReferDesc.Location = New System.Drawing.Point(21, 106)
         Me.txtReferDesc.Margin = New System.Windows.Forms.Padding(4)
         Me.txtReferDesc.Multiline = True
         Me.txtReferDesc.Name = "txtReferDesc"
+        Me.txtReferDesc.ReadOnly = True
         Me.txtReferDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtReferDesc.Size = New System.Drawing.Size(400, 107)
+        Me.txtReferDesc.Size = New System.Drawing.Size(400, 157)
         Me.txtReferDesc.TabIndex = 53
         '
         'btnReferDelAll
@@ -9909,7 +10017,7 @@ Partial Class frmMain
         'cmbJumpDest
         '
         Me.cmbJumpDest.FormattingEnabled = True
-        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "Piping Package", "Return Fan", "Steam Coil"})
+        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
         Me.cmbJumpDest.Location = New System.Drawing.Point(141, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
         Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)
@@ -10028,6 +10136,7 @@ Partial Class frmMain
         Me.GroupBox1.PerformLayout
         Me.pgUnitDrawing.ResumeLayout(False)
         Me.pgUnitDrawing.PerformLayout
+        CType(Me.picUnitPreview, System.ComponentModel.ISupportInitialize).EndInit
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout
         Me.pgHydronics.ResumeLayout(False)
@@ -10038,6 +10147,7 @@ Partial Class frmMain
         Me.pgValveSchedule.PerformLayout
         Me.pgRefrigeration.ResumeLayout(False)
         Me.pgRefrigeration.PerformLayout
+        CType(Me.picReferPreview, System.ComponentModel.ISupportInitialize).EndInit
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout
         Me.pgAirflow.ResumeLayout(False)
@@ -10872,11 +10982,6 @@ Partial Class frmMain
     Friend WithEvents optMCAReportB As RadioButton
     Friend WithEvents optMCAReportA As RadioButton
     Friend WithEvents cmdFactOptImport As Button
-    Friend WithEvents cmdAllHeatOnly As Button
-    Friend WithEvents cmdHWHeatOnly As Button
-    Friend WithEvents cmdNoHeatOnly As Button
-    Friend WithEvents cmdGasHeatOnly As Button
-    Friend WithEvents lblHeatFilter As Label
     Friend WithEvents ElecLoadInclude As DataGridViewCheckBoxColumn
     Friend WithEvents EHeat As DataGridViewCheckBoxColumn
     Friend WithEvents LoadMode As DataGridViewTextBoxColumn
@@ -10947,4 +11052,18 @@ Partial Class frmMain
     Friend WithEvents optMLB560 As RadioButton
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents optFieldWork1DayOnSiteSel As RadioButton
+    Friend WithEvents picReferPreview As PictureBox
+    Friend WithEvents chkReferFilterOnStubb As CheckBox
+    Friend WithEvents cmdReferApplyFilter As Button
+    Friend WithEvents lstReferTagstoApply As ListBox
+    Friend WithEvents Label114 As Label
+    Friend WithEvents txtReferSuggestedTags As TextBox
+    Friend WithEvents cmdClearFilter As Button
+    Friend WithEvents picUnitPreview As PictureBox
+    Friend WithEvents cmdDwgClearFilter As Button
+    Friend WithEvents chkUnitFilterOnStubbs As CheckBox
+    Friend WithEvents cmdDwgApplyFilter As Button
+    Friend WithEvents lstUnitTagstoApply As ListBox
+    Friend WithEvents Label115 As Label
+    Friend WithEvents txtUnitSuggestedTags As TextBox
 End Class

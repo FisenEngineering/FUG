@@ -1,4 +1,7 @@
-﻿Public Class frmPipePkg
+﻿Imports System.Reflection
+Imports Microsoft.Office.Interop.Excel
+
+Public Class frmPipePkg
     Private pCancelled As Boolean
     Private HydroDesc(25) As String
     Private HydroWMF(25) As String
@@ -91,10 +94,10 @@
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()
-        Call UpdateWeightTable
+        Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("PipePkg") 'Mod Code goes here!
-        Call UpdateCodeList()
+        Call UpdateCodeList(False)
 
         Call PerformDesignCautionScan(False)
         Me.Hide()
@@ -201,7 +204,7 @@
     Private Sub UpdatePerformance()
         'This needs to be done obviously
     End Sub
-    Private Sub UpdateCodeList()
+    Private Sub UpdateCodeList(Preview As Boolean)
         Dim i As Integer
         Dim dummy As MsgBoxResult
 
@@ -209,20 +212,142 @@
         ModuleCodeList.Clear()
         ModuleCodeList.Add("800000") 'Hydronic Piping Package
 
-        'Handle the codes for the pumps
-        If chkScopePumps.Checked Then Call HandleCodesPumps()
+        'Handle type of piping package
+        If optPkgSkid.Checked Then
+            ModuleCodeList.Add("800001")
+        Else
+            If optExtDeetBaseRail.Checked Then ModuleCodeList.Add("800002")
+            If optExtDeetFootprint.Checked Then ModuleCodeList.Add("800003")
+            If optExtDeetCommonBR.Checked Then ModuleCodeList.Add("800004")
+        End If
 
+            Call HandlePipingCodes()
         'Handle the codes for each of the installed specialties
+        If chkScopePumps.Checked Then Call HandleCodesPumps()
         If chkScopeTDV.Checked Then Call HandleCodesTDV()
         If chkScopeSuctionDiff.Checked Then Call HandleCodesSucDiff()
-        If chkScopeBufferTank.Checked Then Call HandleCodesBuffTank
+        If chkScopeBufferTank.Checked Then Call HandleCodesBuffTank()
+        If chkScopeExpansionTank.Checked Then Call HandleCodesExpansionTank()
+        If chkScopeAirSeparator.Checked Then Call HandleCodesAirSeparator()
+        If chkScopeStrainer.Checked Then Call HandleCodesStrainer()
+        If chkScopeGMU.Checked Then Call HandleCodesGMU()
+        If chkScopePotFeed.Checked Then HandleCodesPotFeed()
+        If chkScopeInsulation.Checked Or Not (chkScopeInsulation.Checked) Then HandleCodesInsulation()
 
         Call PerformDesignCautionScan(False)
 
-        For i = 0 To ModuleCodeList.Count - 1
-            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
-        Next i
+        If Not (Preview) Then
+            For i = 0 To ModuleCodeList.Count - 1
+                frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            Next i
+        End If
 
+    End Sub
+    Private Sub HandlePipingCodes()
+        ModuleCodeList.Add("800K00")
+        If optPipeConsSingle.Checked Then ModuleCodeList.Add("800K01") Else ModuleCodeList.Add("800K02")
+        If optPipeBaseVic.Checked Then
+            ModuleCodeList.Add("800K03")
+            ModuleCodeList.Add("800K06")
+        End If
+        If optPipeBaseWeld.Checked Then
+            ModuleCodeList.Add("800K04")
+            ModuleCodeList.Add("800K06")
+        End If
+        If optPipeBaseNPT.Checked Then
+            ModuleCodeList.Add("800K05")
+        End If
+    End Sub
+    Private Sub HandleCodesInsulation()
+        ModuleCodeList.Add("800J00")
+        Select Case cmbInsSpec.Text
+            Case Is = "Use Standard"
+                ModuleCodeList.Add("800J01")
+            Case Is = "Elastomeric 3/4 inch"
+                ModuleCodeList.Add("800J01")
+            Case Is = "Elastomeric 1-1/2 inch"
+                ModuleCodeList.Add("800J02")
+            Case Is = "Fiberglass 2 inch"
+                ModuleCodeList.Add("800J03")
+            Case Is = "Mineral Wool 2 inch"
+                ModuleCodeList.Add("800J04")
+            Case Is = "Not Required"
+                ModuleCodeList.Add("800J05")
+        End Select
+    End Sub
+    Private Sub HandleCodesPotFeed()
+        ModuleCodeList.Add("800I00")
+        Select Case cmbPotFeedStyle.Text
+            Case Is = "Use Standard", Is = "2 Gallon Capacity"
+                ModuleCodeList.Add("800I01")
+            Case Is = "5 Gallon Capacity"
+                ModuleCodeList.Add("800I02")
+        End Select
+
+    End Sub
+    Private Sub HandleCodesGMU()
+        ModuleCodeList.Add("800H00")
+        Select Case cmbGMUStyle.Text
+            Case Is = "15 Gal. Internal"
+                ModuleCodeList.Add("800H01")
+            Case Is = "30 Gal. Internal"
+                ModuleCodeList.Add("800H02")
+            Case Is = "55 Gal. Internal"
+                ModuleCodeList.Add("800H03")
+            Case Is = "100 Gal. Internal"
+                ModuleCodeList.Add("800H04")
+            Case Is = "30 Gal. External"
+                ModuleCodeList.Add("800H05")
+            Case Is = "55 Gal. External"
+                ModuleCodeList.Add("800H06")
+            Case Is = "100 Gal. External"
+                ModuleCodeList.Add("800H07")
+        End Select
+    End Sub
+    Private Sub HandleCodesStrainer()
+        ModuleCodeList.Add("800G00")
+        Select Case cmbAirSepSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                ModuleCodeList.Add("800G01")
+            Case Is = "Taco"
+                ModuleCodeList.Add("800G02")
+            Case Is = "Bell and Gossett"
+                ModuleCodeList.Add("800G03")
+            Case Is = "Watts"
+                ModuleCodeList.Add("800G04")
+        End Select
+    End Sub
+    Private Sub HandleCodesAirSeparator()
+        ModuleCodeList.Add("800F00")
+        Select Case cmbAirSepSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                ModuleCodeList.Add("800F01")
+            Case Is = "Taco"
+                ModuleCodeList.Add("800F03")
+            Case Is = "Bell and Gossett"
+                ModuleCodeList.Add("800F02")
+            Case Is = "Honeywell"
+                ModuleCodeList.Add("800F04")
+        End Select
+    End Sub
+
+    Private Sub HandleCodesExpansionTank()
+        ModuleCodeList.Add("800E00")
+        Select Case cmbExpTankSpec.Text
+            Case Is = "Use Standard", Is = "Armstrong"
+                ModuleCodeList.Add("800E01")
+            Case Is = "Taco"
+                ModuleCodeList.Add("800E02")
+            Case Is = "Bell and Gossett"
+                ModuleCodeList.Add("800E03")
+        End Select
+
+        Select Case cmbExpTankStyle.Text
+            Case Is = "Use Standard", Is = "Diaphram Tank"
+                ModuleCodeList.Add("800E04")
+            Case Is = "Bladder Tank"
+                ModuleCodeList.Add("800E05")
+        End Select
     End Sub
 
     Private Sub HandleCodesBuffTank()
@@ -265,6 +390,35 @@
         'Now handle the options for the specialty
         If chkBuffTankOptionsCstmNozzles.Checked Then ModuleCodeList.Add("800DA1")
 
+        'Insulation Codes
+        If optBTUninsulated.Checked Then ModuleCodeList.Add("800DB1")
+        If optBTArmaflex.Checked Then ModuleCodeList.Add("800DB2")
+        If optBTSprayFoam.Checked Then ModuleCodeList.Add("800DB3")
+
+        'Aux Heat Codes
+        If optBTHTNone.Checked Then
+            ModuleCodeList.Add("800DC1")
+        End If
+
+        If optBTHTHeatTrace.Checked Then
+            ModuleCodeList.Add("800DC2")
+            If chkBTHTUnitPowered.Checked Then ModuleCodeList.Add("800DC5") Else ModuleCodeList.Add("800DC4")
+        End If
+
+        If optBTHTImmersion.Checked Then
+            ModuleCodeList.Add("800DC3")
+            If chkBTHTUnitPowered.Checked Then ModuleCodeList.Add("800DC5") Else ModuleCodeList.Add("800DC4")
+        End If
+
+        'VentingCodes
+        If optBTVentNone.Checked Then ModuleCodeList.Add("800DD1")
+        If optBTVentManual.Checked Then ModuleCodeList.Add("800DD2")
+        If optBTVentAuto.Checked Then ModuleCodeList.Add("800DD3")
+
+        'DrainCodes
+        If optBTDrainNone.Checked Then ModuleCodeList.Add("800DE1")
+        If optBTDrainValve.Checked Then ModuleCodeList.Add("800DE2")
+        If optBTDrainChainCap.Checked Then ModuleCodeList.Add("800DE3")
 
     End Sub
     Private Sub HandleCodesSucDiff()
@@ -353,7 +507,31 @@
         If optTEFCPumpMotor.Checked Then
             ModuleCodeList.Add("800A72")
         End If
+
+        'System design for the pumps
+        If nudPumpCount.Value = 1 Then
+            ModuleCodeList.Add("800AY3")
+        Else
+            If optPumpSystemPriStby.Checked Then ModuleCodeList.Add("800AY1")
+            If optPumpSystemParallel.Checked Then ModuleCodeList.Add("800AY2")
+        End If
+
+        'Pump Drives or Contactors
+        If optPCtrlIVSonPump.Checked Then ModuleCodeList.Add("800AX1")
+        If optPCtrlIVSRemote.Checked Then ModuleCodeList.Add("800AX2")
+        If optPCtrlStdRemote.Checked Then
+            ModuleCodeList.Add("800AX3")
+            ModuleCodeList.Add("800AV1")
+        End If
+        If optPCtrlSpecificRemote.Checked Then
+            ModuleCodeList.Add("800AX4")
+            If cmbPCtrlSpecDrive.Text = "Danfoss HVAC" Then ModuleCodeList.Add("800AV2")
+            If cmbPCtrlSpecDrive.Text = "ABB ACH550" Then ModuleCodeList.Add("800AV3")
+        End If
+        If optPCtrlCVPumps.Checked Then ModuleCodeList.Add("800AX5")
+
     End Sub
+
     Private Function ChillerWidth(family As String, fans As String) As String
         Dim tempwidth As String
         tempwidth = -99
@@ -522,10 +700,30 @@
         If chkScopePotFeed.Checked Then PotFeedDone = False
         If chkScopeInsulation.Checked Then InsDone = False
 
-        Call LoadApplicableHydroDrawings()
-
-        tbcPipePkg.SelectTab("pgHydronicDWG")
+        txtPRptCountAndStyle.Text = PumpCountandStyle
+        tbcPipePkg.SelectTab("pgPumps")
     End Sub
+
+    Private Function PumpCountandStyle() As String
+        Dim TempSTR As String
+        Dim TempBrand As String
+        Dim TempCtrl As String
+
+        TempSTR = Trim(Str(nudPumpCount.Value))
+        TempBrand = cmbPumpSpec.Text
+        TempCtrl = ""
+        If TempBrand = "Standard" Then TempBrand = "Armstrong"
+        If optPCtrlIVSonPump.Checked Then TempCtrl = "with IVS Drive(s) on Pumps"
+        If optPCtrlIVSRemote.Checked Then TempCtrl = "with IVS Drive(s) Remotely Mounted"
+        If optPCtrlStdRemote.Checked Then TempCtrl = "with Standard Drive(s) Remotely Mounted"
+        If optPCtrlSpecificRemote.Checked Then
+            TempCtrl = "with " & cmbPCtrlSpecDrive.Text & " Remotely Mounted"
+        End If
+        If optPCtrlIVSonPump.Checked Then TempCtrl = "CV application with Motor Contactors"
+        TempSTR = TempSTR & " " & TempBrand & " " & cmbPumpStyle.Text & " " & TempCtrl
+
+        Return TempSTR
+    End Function
 
     Private Sub LoadApplicableHydroDrawings()
         Dim con As ADODB.Connection
@@ -1519,10 +1717,25 @@
             cmbPumpStyle.Enabled = True
             chkScopeTDV.Checked = True
             chkScopeSuctionDiff.Checked = True
-            optODPPumpMotor.Enabled = True
-            optTEFCPumpMotor.Enabled = True
-            optPumpMotorNA.Enabled = False
-            optTEFCPumpMotor.Checked = True
+            grpPumpMotorStyle.Enabled = True
+            grpPumpCtrl.Visible = True
+            optPCtrlIVSonPump.Checked = True
+            optPCtrlNA.Enabled = False
+            grpPumpSystem.Visible = True
+            optPumpSystemPriStby.Checked = True
+
+            If chkScopeEnclosure.Checked Then
+                optODPPumpMotor.Enabled = True
+                optODPPumpMotor.Checked = True
+                optTEFCPumpMotor.Enabled = True
+                optPumpMotorNA.Enabled = False
+            Else
+                optODPPumpMotor.Enabled = False
+                optTEFCPumpMotor.Enabled = True
+                optPumpMotorNA.Enabled = False
+                optTEFCPumpMotor.Checked = True
+            End If
+
         Else
             cmbPumpSpec.Enabled = False
             cmbPumpSpec.Text = "Not Required"
@@ -1530,11 +1743,17 @@
             nudPumpCount.Minimum = 0
             nudPumpCount.Value = 0
             cmbPumpStyle.Enabled = False
+            grpPumpMotorStyle.Enabled = False
             optODPPumpMotor.Enabled = False
             optTEFCPumpMotor.Enabled = False
             optPumpMotorNA.Enabled = True
             optPumpMotorNA.Checked = True
+            grpPumpCtrl.Visible = False
+            optPCtrlNA.Checked = True
+            optPCtrlNA.Enabled = True
 
+            grpPumpSystem.Visible = False
+            optPumpSystemNA.Checked = True
         End If
     End Sub
 
@@ -1607,6 +1826,96 @@
 
         End If
     End Sub
+    Private Sub chkScopeBufferTank_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeBufferTank.CheckedChanged
+        If chkScopeBufferTank.Checked Then
+            cmbBuffTankSpec.Enabled = True
+            cmbBuffTankSpec.Text = "Use Standard"
+            grpBufferTankOpts.Enabled = True
+            optBTSprayFoam.Checked = True
+            optBTHTNone.Checked = True
+            txtBTkWofHeat.Text = "n/a"
+            optBTVentManual.Checked = True
+            optBTDrainValve.Checked = True
+            cmbBuffTankStyle.Enabled = True
+            txtBTCapacity.Enabled = True
+        Else
+            cmbBuffTankSpec.Enabled = False
+            cmbBuffTankSpec.Text = "Not Required"
+            grpBufferTankOpts.Enabled = False
+            optBTInsNA.Checked = True
+            optBTHTNA.Checked = True
+            txtBTkWofHeat.Text = "n/a"
+            optBTVentNA.Checked = True
+            optBTDrainNA.Checked = True
+            cmbBuffTankStyle.SelectedIndex = False
+            txtBTCapacity.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkScopeExpansionTank_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeExpansionTank.CheckedChanged
+        If chkScopeExpansionTank.Checked Then
+            cmbExpTankSpec.Enabled = True
+            cmbExpTankSpec.Text = "Use Standard"
+            cmbExpTankStyle.Enabled = True
+
+        Else
+            cmbExpTankSpec.Enabled = False
+            cmbExpTankSpec.Text = "Not Required"
+            cmbExpTankStyle.Enabled = False
+
+        End If
+    End Sub
+    Private Sub chkScopeAirSeparator_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeAirSeparator.CheckedChanged
+        If chkScopeAirSeparator.Checked Then
+            cmbAirSepSpec.Enabled = True
+            cmbAirSepSpec.Text = "Use Standard"
+        Else
+            cmbAirSepSpec.Enabled = False
+            cmbAirSepSpec.Text = "Not Required"
+        End If
+    End Sub
+
+    Private Sub chkScopeStrainer_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeStrainer.CheckedChanged
+        If chkScopeStrainer.Checked Then
+            cmbStrainSpec.Enabled = True
+            cmbStrainSpec.Text = "Use Standard"
+        Else
+            cmbStrainSpec.Enabled = False
+            cmbStrainSpec.Text = "Not Required"
+        End If
+    End Sub
+    Private Sub chkScopeGMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeGMU.CheckedChanged
+        If chkScopeGMU.Checked Then
+            cmbGMUSpec.Enabled = True
+            If chkScopeEnclosure.Checked Then cmbGMUSpec.Text = "GTP" Else cmbGMUSpec.Text = "John Wood"
+            cmbGMUStyle.Enabled = True
+        Else
+            cmbGMUSpec.Enabled = False
+            cmbGMUSpec.Text = "Not Required"
+            cmbGMUStyle.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkScopePotFeed_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopePotFeed.CheckedChanged
+        If chkScopePotFeed.Checked Then
+            cmbPotFeedSpec.Enabled = True
+            cmbPotFeedSpec.Text = "Use Standard"
+            cmbPotFeedStyle.Enabled = True
+        Else
+            cmbPotFeedSpec.Enabled = False
+            cmbPotFeedSpec.Text = "Not Required"
+            cmbPotFeedStyle.Enabled = False
+        End If
+    End Sub
+    Private Sub chkScopeInsulation_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeInsulation.CheckedChanged
+        If chkScopeInsulation.Checked Then
+            cmbInsSpec.Enabled = True
+            cmbInsSpec.Text = "Use Standard"
+        Else
+            cmbInsSpec.Enabled = False
+            cmbInsSpec.Text = "Not Required"
+        End If
+    End Sub
     Public Sub New()
 
         ' This call is required by the designer.
@@ -1657,5 +1966,207 @@
                 cmbBuffTankStyle.Items.Add("Not Required")
                 cmbBuffTankStyle.Text = "Not Required"
         End Select
+    End Sub
+
+    Private Sub optBTHTNone_CheckedChanged(sender As Object, e As EventArgs) Handles optBTHTNone.CheckedChanged
+        If optBTHTNone.Checked Then
+            txtBTkWofHeat.Text = "n/a"
+            txtBTkWofHeat.Enabled = False
+            chkBTHTUnitPowered.Checked = False
+            chkBTHTUnitPowered.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optBTHTNA_CheckedChanged(sender As Object, e As EventArgs) Handles optBTHTNA.CheckedChanged
+        If optBTHTNA.Checked Then
+            txtBTkWofHeat.Text = "n/a"
+            txtBTkWofHeat.Enabled = False
+            chkBTHTUnitPowered.Checked = False
+            chkBTHTUnitPowered.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optBTHTHeatTrace_CheckedChanged(sender As Object, e As EventArgs) Handles optBTHTHeatTrace.CheckedChanged
+        If optBTHTHeatTrace.Checked Then
+            txtBTkWofHeat.Text = "0.0"
+            txtBTkWofHeat.Enabled = True
+            chkBTHTUnitPowered.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optBTHTImmersion_CheckedChanged(sender As Object, e As EventArgs) Handles optBTHTImmersion.CheckedChanged
+        txtBTkWofHeat.Text = "0.0"
+        txtBTkWofHeat.Enabled = True
+        chkBTHTUnitPowered.Enabled = True
+    End Sub
+
+    Private Sub cmbBuffTankStyle_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBuffTankStyle.SelectedIndexChanged
+        Select Case cmbBuffTankStyle.Text
+            Case Is = "Custom Capacity Tank"
+                txtBTCapacity.Text = "0"
+                txtBTCapacity.ReadOnly = False
+            Case Is = "Unselected"
+                txtBTCapacity.Text = "-"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "Not Required"
+                txtBTCapacity.Text = "-"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "130 gal. CBT-24-072"
+                txtBTCapacity.Text = "130"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "210 gal. CBT-30-075"
+                txtBTCapacity.Text = "210"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "300 gal. CBT-36-072"
+                txtBTCapacity.Text = "300"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "400 gal. CBT-36-094"
+                txtBTCapacity.Text = "400"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "460 gal. CBT-42-084"
+                txtBTCapacity.Text = "460"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "528 gal. CBT-48-077"
+                txtBTCapacity.Text = "528"
+                txtBTCapacity.ReadOnly = True
+            Case Is = "1000 gal. CBT-48-141"
+                txtBTCapacity.Text = "1000"
+                txtBTCapacity.ReadOnly = True
+        End Select
+    End Sub
+
+    Private Sub cmbExpTankSpec_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbExpTankSpec.SelectedIndexChanged
+        If cmbExpTankSpec.Text = "Not Required" Then
+            cmbExpTankStyle.Text = "Not Required"
+        Else
+            cmbExpTankStyle.Text = "Use Standard"
+        End If
+
+    End Sub
+
+
+
+    Private Sub cmbGMUSpec_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGMUSpec.SelectedIndexChanged
+
+
+        Select Case cmbGMUSpec.Text
+            Case Is = "Use Standard"
+                If chkScopeEnclosure.Checked Then
+                    cmbGMUStyle.Items.Clear()
+                    cmbGMUStyle.Items.Add("15 Gal. Internal")
+                    cmbGMUStyle.Items.Add("30 Gal. Internal")
+                    cmbGMUStyle.Items.Add("55 Gal. Internal")
+                    cmbGMUStyle.Items.Add("100 Gal. Internal")
+                    cmbGMUStyle.Text = "15 Gal. Internal"
+                Else
+                    cmbGMUStyle.Items.Clear()
+                    cmbGMUStyle.Items.Add("30 Gal. External")
+                    cmbGMUStyle.Items.Add("55 Gal. External")
+                    cmbGMUStyle.Items.Add("100 Gal. External")
+                    cmbGMUStyle.Text = "30 Gal. External"
+                End If
+            Case Is = "John Wood"
+                cmbGMUStyle.Items.Clear()
+                cmbGMUStyle.Items.Add("30 Gal. External")
+                cmbGMUStyle.Items.Add("55 Gal. External")
+                cmbGMUStyle.Items.Add("100 Gal. External")
+                cmbGMUStyle.Text = "30 Gal. External"
+            Case Is = "GTP"
+                cmbGMUStyle.Items.Clear()
+                cmbGMUStyle.Items.Add("15 Gal. Internal")
+                cmbGMUStyle.Items.Add("30 Gal. Internal")
+                cmbGMUStyle.Items.Add("55 Gal. Internal")
+                cmbGMUStyle.Items.Add("100 Gal. Internal")
+                cmbGMUStyle.Text = "15 Gal. Internal"
+            Case Is = "Not Required"
+                cmbGMUStyle.Items.Clear()
+                cmbGMUStyle.Items.Add("Not Required")
+                cmbGMUStyle.Text = "Not Required"
+        End Select
+    End Sub
+
+    Private Sub cmbPotFeedSpec_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPotFeedSpec.SelectedIndexChanged
+        Select Case cmbPotFeedSpec.Text
+            Case Is = "Use Standard"
+                cmbPotFeedStyle.Items.Clear()
+                cmbPotFeedStyle.Items.Add("Use Standard")
+                cmbPotFeedStyle.Items.Add("2 Gallon Capacity")
+                cmbPotFeedStyle.Items.Add("5 Gallon Capacity")
+                cmbPotFeedStyle.Text = "Use Standard"
+            Case Is = "Not Required"
+                cmbPotFeedStyle.Items.Clear()
+                cmbPotFeedStyle.Items.Add("Not Required")
+                cmbPotFeedStyle.Text = "Not Required"
+        End Select
+    End Sub
+
+    Private Sub cmdFIOPPreview_Click(sender As Object, e As EventArgs) Handles cmdFIOPPreview.Click
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim i, j As Integer
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        Call UpdateCodeList(True)
+
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT * FROM tblFisenInstalledOptions WHERE FIOpCode LIKE '800%'"
+        rs.Open(MySQL, con)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            rs.MoveFirst()
+            rs.Find("FIOpCode='" & ModuleCodeList(i) & "'")
+            OneLine = ""
+            For j = 1 To Val(rs.Fields("Level").Value)
+                OneLine = OneLine & "\tab "
+            Next
+            OneLine = OneLine & rs.Fields("Description").Value & " - " & rs.Fields("FIopCode").Value & "\par "
+            AllLines.Append(OneLine)
+        Next
+            AllLines.Append("}")
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+        frmFIOPPreview.ReportData = AllLines.ToString
+        frmFIOPPreview.Show()
+
+    End Sub
+
+    Private Sub cmdDoneSpecOpt_Click(sender As Object, e As EventArgs) Handles cmdDoneSpecOpt.Click
+        Call LoadApplicableHydroDrawings()
+        tbcPipePkg.SelectTab("pgHydronicDWG")
+    End Sub
+
+    Private Sub chkScopeEnclosure_CheckedChanged(sender As Object, e As EventArgs) Handles chkScopeEnclosure.CheckedChanged
+        If chkScopeEnclosure.Checked Then
+            If grpPumpMotorStyle.Enabled = True Then optODPPumpMotor.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optPCtrlSpecificRemote_CheckedChanged(sender As Object, e As EventArgs) Handles optPCtrlSpecificRemote.CheckedChanged
+        If optPCtrlSpecificRemote.Checked Then
+            cmbPCtrlSpecDrive.Enabled = True
+            cmbPCtrlSpecDrive.Text = "Unselected"
+        Else
+            cmbPCtrlSpecDrive.Enabled = False
+            cmbPCtrlSpecDrive.Text = "Not Required"
+        End If
     End Sub
 End Class

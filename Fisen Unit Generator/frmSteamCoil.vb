@@ -249,9 +249,13 @@ Public Class frmSteamCoil
                 If optCoil1Row.Checked = True Then tempWeight = "170"
                 If optCoil2Row.Checked = True Then tempWeight = "215"
                 If optCoilCustom.Checked = True Then tempWeight = "215"
+            Case Is = "Select"
+                If optCoil1Row.Checked = True Then tempWeight = "170"
+                If optCoil2Row.Checked = True Then tempWeight = "215"
+                If optCoilCustom.Checked = True Then tempWeight = "215"
             Case Else
                 tempWeight = "9999"
-                Dummy = MsgBox("Error in Weight Selection for HWCoil Module.", vbOKOnly)
+                Dummy = MsgBox("Error in Weight Selection for Steam Module.", vbOKOnly)
         End Select
         If Not (optValveNone.Checked) Then tempWeight = tempWeight + 10
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)

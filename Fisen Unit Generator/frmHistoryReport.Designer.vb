@@ -118,7 +118,7 @@ Partial Class frmHistoryReport
         '
         Me.cmbModCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbModCode.FormattingEnabled = True
-        Me.cmbModCode.Items.AddRange(New Object() {"Unit Report", "100OA", "CstmCtrl", "DWall", "Filters", "HGBP", "HWCoil", "LCVAV", "RFan", "SFan", "XFan", "Not Selected"})
+        Me.cmbModCode.Items.AddRange(New Object() {"Unit Report", "100OA", "CstmCtrl", "DWall", "Filters", "HGBP", "HWCoil", "LCVAV", "MGH(R)", "MHGRH_Conv", "RFan", "SFan", "XFan", "Not Selected"})
         Me.cmbModCode.Location = New System.Drawing.Point(12, 47)
         Me.cmbModCode.Name = "cmbModCode"
         Me.cmbModCode.Size = New System.Drawing.Size(174, 21)

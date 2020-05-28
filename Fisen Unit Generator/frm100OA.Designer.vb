@@ -52,9 +52,10 @@ Partial Class frm100OA
         Me.chkLowAF = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.chkYPALtoVAV = New System.Windows.Forms.CheckBox()
         Me.chkIntellispeed = New System.Windows.Forms.CheckBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.grpAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
@@ -103,7 +104,6 @@ Partial Class frm100OA
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpReturn.SuspendLayout()
@@ -111,7 +111,7 @@ Partial Class frm100OA
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        Me.grpAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.grp100OACapable.SuspendLayout()
@@ -452,7 +452,7 @@ Partial Class frm100OA
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.chkYPALtoVAV)
         Me.tpgOptions.Controls.Add(Me.chkIntellispeed)
-        Me.tpgOptions.Controls.Add(Me.GroupBox3)
+        Me.tpgOptions.Controls.Add(Me.grpAuxPanel)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
@@ -461,6 +461,17 @@ Partial Class frm100OA
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(6, 49)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 45
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'chkYPALtoVAV
         '
@@ -484,17 +495,17 @@ Partial Class frm100OA
         Me.chkIntellispeed.Text = "Convert Intellispeed to Constant Volume"
         Me.chkIntellispeed.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'grpAuxPanel
         '
-        Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
-        Me.GroupBox3.Controls.Add(Me.optUseAux)
-        Me.GroupBox3.Controls.Add(Me.optNoAux)
-        Me.GroupBox3.Location = New System.Drawing.Point(6, 112)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
-        Me.GroupBox3.TabIndex = 28
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auxiliary Control Panel"
+        Me.grpAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.grpAuxPanel.Controls.Add(Me.optUseAux)
+        Me.grpAuxPanel.Controls.Add(Me.optNoAux)
+        Me.grpAuxPanel.Location = New System.Drawing.Point(6, 112)
+        Me.grpAuxPanel.Name = "grpAuxPanel"
+        Me.grpAuxPanel.Size = New System.Drawing.Size(214, 105)
+        Me.grpAuxPanel.TabIndex = 28
+        Me.grpAuxPanel.TabStop = False
+        Me.grpAuxPanel.Text = "Auxiliary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -1033,17 +1044,6 @@ Partial Class frm100OA
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chk65kASCCRBase
-        '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(6, 49)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 45
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
-        '
         'frm100OA
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1072,8 +1072,8 @@ Partial Class frm100OA
         Me.GroupBox9.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.grpAuxPanel.ResumeLayout(False)
+        Me.grpAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -1143,7 +1143,7 @@ Partial Class frm100OA
     Friend WithEvents optCoolCtrlDAByFisen As RadioButton
     Friend WithEvents chkZoneOvrSensor As CheckBox
     Friend WithEvents optHeatcoGas As RadioButton
-    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents grpAuxPanel As GroupBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
     Friend WithEvents cmbAuxPanelOpts As ComboBox

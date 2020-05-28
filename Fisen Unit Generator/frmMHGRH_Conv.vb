@@ -17,9 +17,98 @@ Public Class frmMHGRH_Conv
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("MHGRH_Conv") 'Mod Code goes here!
         Call UpdateCodeList()
-        Call UpdateBaseUnitRequiredItems
+
+        Call UpdateBaseUnitRequiredItems()
+        'Call UpdateBaseUnitDrawingTags
+        Call SetSuggestedReferFilters()
+        'Call UpdateAFTags
+        'Call HydroTags
+
+        Call PerformDesignCautionScan(False)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+        Next i
+
+        If chkWriteHistory.Checked Then Call WriteHistory()
         Me.Hide()
     End Sub
+
+    Private Sub WriteHistory()
+        'Updated to version 2.0 20 May 2020
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific 
+        Dim RHCap, RHAF, EAT, Ckts, DHStrat, RHStrat, DeltaT As String
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        RHCap = txtHGRHCap.Text
+        RHAF = txtHGRHAFlow.Text
+        EAT = txtEATDB.Text
+        Ckts = Trim(Str(nudCircuitsofRH.Value))
+        If optDHCompsByJCI.Checked Then DHStrat = "By JCI" Else DHStrat = "GBAS Enab"
+        If optRHSATCtrl.Checked Then RHStrat = "SAT by Fisen" Else RHStrat = "GBAS SAT"
+        DeltaT = txtDeltaT.Text
+
+        MySQL = "Select * FROM tblHistoryMHGRH_Conv WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            MySQL = "UPDATE tblHistoryMHGRH_Conv SET MaxRHCap='" & RHCap & "', RHAirFlow='" & RHAF & "', " & "EATDB='" & EAT & "', Ckts='" & Ckts & "', DehumStrat='" & DHStrat & "', RHStrat='" & RHStrat & "', DeltaT='" & DeltaT & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            MySQL = "INSERT INTO tblHistoryMHGRH_Conv (JobName,UnitID,Version,ModelNumber,MaxRHCap,RHAirFlow,EATDB,Ckts,DehumStrat,RHStrat,DeltaT) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & RHCap & "','" & RHAF & "','" & EAT & "','" & Ckts & "','" & DHStrat & "','" & RHStrat & "','" & DeltaT & "')"
+            con.Execute(MySQL)
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+    Private Sub SetSuggestedReferFilters()
+        Dim TempVar As String
+
+        TempVar = ""
+        If nudCircuitsofRH.Value = 1 Then TempVar = "MHGRH(R)1 "
+        If nudCircuitsofRH.Value = 2 Then TempVar = "MHGRH(R)2 "
+        If nudCircuitsofRH.Value = 3 Then TempVar = "MHGRH(R)3 "
+
+        Select Case frmMain.ThisUnitCoolPerf.NumRefCircuits
+            Case Is = "1"
+                TempVar = TempVar & "1Ckt "
+            Case Is = "2"
+                TempVar = TempVar & "2Ckt "
+            Case Is = "3"
+                TempVar = TempVar & "3Ckt "
+        End Select
+
+        frmMain.txtReferSuggestedTags.Text = Trim(frmMain.txtReferSuggestedTags.Text & " " & TempVar)
+
+    End Sub
+
     Private Sub UpdateBaseUnitRequiredItems()
         frmMain.lstRequiredFactoryItems.Items.Add("Base Unit Comes with HGRH from JCI Factory")
     End Sub
@@ -62,6 +151,20 @@ Public Class frmMHGRH_Conv
         End If
 
         'Add Auxillary Panel if selected
+        Call AuxPanelCodeInsert
+
+        frmMain.ThisUnit.CommNodes = "2"
+        Call AssignReferSpecialties()
+
+        If chk65kASCCRBase.Checked Then
+            ModuleCodeList.Add("725F6A")
+        End If
+
+
+
+    End Sub
+    Private Sub AuxPanelCodeInsert()
+        'V1.0
         If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
             If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
             frmMain.HasAuxillaryPanel = True
@@ -100,22 +203,14 @@ Public Class frmMHGRH_Conv
                     frmMain.ThisUnitGenCodes.Add("960022")
                 Case Is = "Series 100 Custom Application"
                     frmMain.ThisUnitGenCodes.Add("960023")
+                Case Is = "Premier Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960024")
+                Case Is = "Choice Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960025")
+                Case Is = "Select Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960026")
             End Select
         End If
-
-        frmMain.ThisUnit.CommNodes = "2"
-        Call AssignReferSpecialties()
-
-        If chk65kASCCRBase.Checked Then
-            ModuleCodeList.Add("725F6A")
-        End If
-
-        Call PerformDesignCautionScan(False)
-        For i = 0 To ModuleCodeList.Count - 1
-            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
-            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
-        Next i
-
     End Sub
 
     Private Sub PerformDesignCautionScan(Prelim As Boolean)
@@ -196,6 +291,8 @@ Public Class frmMHGRH_Conv
 
     Private Sub AssignReferSpecialties()
         Dim stub As String
+        Dim dummy As MsgBoxResult
+
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series40"
                 stub = Mid(frmMain.ThisUnit.ModelNumber, 1, 2)
@@ -203,58 +300,65 @@ Public Class frmMHGRH_Conv
                 stub = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
             Case Is = "Series20"
                 stub = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
+            Case Is = "Select"
+                stub = ""
+            Case Is = "Choice"
+                stub = ""
+            Case Is = "Premier"
+                stub = ""
         End Select
         Select Case stub
             Case Is = ""
                 frmMain.ThisUnitReferSpecs.Add("")
+                dummy = MsgBox("Refer specialties undefined for this unit." & vbCrLf & "Please add manually", vbOKOnly)
             Case Is = "JA3ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "JA4ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "JA5ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J06ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J07ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J08ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J10ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J10ZT"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R5-02")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J12ZR"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R6-04")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J12ZT"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R6-04")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "J15ZR"
@@ -278,7 +382,7 @@ Public Class frmMHGRH_Conv
                 frmMain.ThisUnitReferSpecsTag.Add("BHB1")
             Case Is = "V2"
                 frmMain.ThisUnitReferSpecs.Add("CDST-4")
-                frmMain.ThisUnitReferSpecsTag.Add("MTWV-1")
+                frmMain.ThisUnitReferSpecsTag.Add("MV1/2")
                 frmMain.ThisUnitReferSpecs.Add("R6-04")
                 frmMain.ThisUnitReferSpecsTag.Add("RCVR1")
             Case Is = "V3"
@@ -322,6 +426,12 @@ Public Class frmMHGRH_Conv
             Case Is = "Series40"
                 'We should never execute this line!
                 tempWeight = "-9999"
+            Case Is = "Select"
+                tempWeight = "155"
+            Case Is = "Permier"
+                tempWeight = "175"
+            Case Is = "Choice"
+                tempWeight = "115"
             Case Else
                 tempWeight = "9999"
         End Select
@@ -359,72 +469,94 @@ Public Class frmMHGRH_Conv
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
+
         Call PopulateAuxPanelList()
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
-                fraAuxPanel.Enabled = True
+                optUseAux.Checked = True
             Case Is = "Series10"
-                fraAuxPanel.Enabled = True
-            Case Is = "Series12"
-                fraAuxPanel.Enabled = True
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Series20"
-                fraAuxPanel.Enabled = True
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Series40"
-                 'Depricated *Probably not going to be used*
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Series100"
-
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Premier"
-
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Select"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Choice"
-
-            Case Else
-
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
         End Select
+
         lstControlStyle.SelectedIndex = 0
         ModuleCodeList.Add("725000")
     End Sub
     Private Sub PopulateAuxPanelList()
-        If optNoAux.Checked = True Then
+        'V1.1 Added Check for it already existing
+        If frmMain.HasAuxillaryPanel = True Then
+            optUseAux.Checked = True
+            fraAuxPanel.Enabled = False
             cmbAuxPanelOpts.Items.Clear()
-            cmbAuxPanelOpts.Items.Add("None")
-            cmbAuxPanelOpts.Text = "None"
+            cmbAuxPanelOpts.Items.Add("Selected in Other Module")
+            cmbAuxPanelOpts.Text = "Selected in Other Module"
         Else
-            Select Case frmMain.ThisUnit.Family
-                Case Is = "Series5"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 5 Downflow")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Convertible")
-                    cmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 5 Downflow"
-                Case Is = "Series10"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 10 Downflow")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
-                    cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 10 Downflow"
-                Case Is = "Series20"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 20 Downflow")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
-                    cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 20 Downflow"
-                Case Is = "Series40"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 40 Custom Application"
-                Case Is = "Series100"
-                    cmbAuxPanelOpts.Items.Clear()
-                    cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
-                    cmbAuxPanelOpts.Text = "Series 100 Custom Application"
-            End Select
+            If optNoAux.Checked = True Then
+                cmbAuxPanelOpts.Items.Clear()
+                cmbAuxPanelOpts.Items.Add("None")
+                cmbAuxPanelOpts.Text = "None"
+            Else
+                Select Case frmMain.ThisUnit.Family
+                    Case Is = "Series5"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 5 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 5 Downflow"
+                    Case Is = "Series10"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 10 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 10 Downflow"
+                    Case Is = "Series20"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 20 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 20 Downflow"
+                    Case Is = "Series40"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 40 Custom Application"
+                    Case Is = "Series100"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                    Case Is = "Premier"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
+                    Case Is = "Choice"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
+                    Case Is = "Select"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
+                End Select
+            End If
         End If
     End Sub
+
 
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
         TabControl1.SelectTab("tpgOptions")
@@ -489,5 +621,11 @@ Public Class frmMHGRH_Conv
 
     Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
         PerformDesignCautionScan(True)
+    End Sub
+
+    Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
+        frmHistoryReport.MyModule = "MHGRH_Conv"
+        frmHistoryReport.cmbModCode.Text = "MHGRH_Conv"
+        frmHistoryReport.Show()
     End Sub
 End Class

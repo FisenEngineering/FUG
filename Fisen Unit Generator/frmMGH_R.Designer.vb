@@ -55,6 +55,7 @@ Partial Class frmMGH_R
         Me.opt100OACtrls = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optASE = New System.Windows.Forms.RadioButton()
         Me.optIPU = New System.Windows.Forms.RadioButton()
         Me.optSE = New System.Windows.Forms.RadioButton()
         Me.chkTempering = New System.Windows.Forms.CheckBox()
@@ -74,7 +75,6 @@ Partial Class frmMGH_R
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.optASE = New System.Windows.Forms.RadioButton()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -270,7 +270,6 @@ Partial Class frmMGH_R
         Me.fraAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
         Me.fraAuxPanel.Controls.Add(Me.optUseAux)
         Me.fraAuxPanel.Controls.Add(Me.optNoAux)
-        Me.fraAuxPanel.Enabled = False
         Me.fraAuxPanel.Location = New System.Drawing.Point(3, 57)
         Me.fraAuxPanel.Name = "fraAuxPanel"
         Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
@@ -422,6 +421,17 @@ Partial Class frmMGH_R
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Base Unit Control"
+        '
+        'optASE
+        '
+        Me.optASE.AutoSize = True
+        Me.optASE.Enabled = False
+        Me.optASE.Location = New System.Drawing.Point(14, 66)
+        Me.optASE.Name = "optASE"
+        Me.optASE.Size = New System.Drawing.Size(93, 17)
+        Me.optASE.TabIndex = 2
+        Me.optASE.Text = "ASE Controller"
+        Me.optASE.UseVisualStyleBackColor = True
         '
         'optIPU
         '
@@ -603,17 +613,6 @@ Partial Class frmMGH_R
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 17
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
-        '
-        'optASE
-        '
-        Me.optASE.AutoSize = True
-        Me.optASE.Enabled = False
-        Me.optASE.Location = New System.Drawing.Point(14, 66)
-        Me.optASE.Name = "optASE"
-        Me.optASE.Size = New System.Drawing.Size(93, 17)
-        Me.optASE.TabIndex = 2
-        Me.optASE.Text = "ASE Controller"
-        Me.optASE.UseVisualStyleBackColor = True
         '
         'chkWriteHistory
         '

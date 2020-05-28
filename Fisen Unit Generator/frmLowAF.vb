@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Reflection
 Imports System.Xml
 Imports Microsoft.Office.Interop
 
@@ -21,8 +22,8 @@ Public Class frmLowAF
         End Set
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        Call UpdatePerformance
-        Call UpdateWeightTable
+        Call UpdatePerformance()
+        Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("LowAF") 'Mod Code goes here!
         Call UpdateCodeList()
@@ -302,10 +303,10 @@ Public Class frmLowAF
 
 
         If frmMain.ThisUnit.Family = "Series100" Then
-            Call UpdateStaticSummaryValues
+            Call UpdateStaticSummaryValues()
         End If
 
-        Call CalculateCoolingPerf
+        Call CalculateCoolingPerf()
 
         TabControl1.SelectTab("tpgOptions")
     End Sub
@@ -458,6 +459,7 @@ Public Class frmLowAF
 
         txtTCap.Text = lblTCapFinal.Text
         txtPower.Text = lblPowerFinal.Text
+
     End Sub
 
     Private Sub UpdateStaticSummaryValues()
@@ -803,6 +805,7 @@ Public Class frmLowAF
         Dim aflow As Double
         Dim btuout As Double
         Dim sqft As Double
+        Dim h1, h2, deltah As Double
 
         btuout = Val(frmMain.ThisUnitHeatPerf.OutputCapacity) * 1000
         aflow = Val(txtAirflow.Text)
@@ -815,6 +818,14 @@ Public Class frmLowAF
         Else
             txtFaceVelocity.Text = "-"
         End If
+
+        h1 = psyEnthalpy_db_wb(Val(txtEDB.Text), Val(txtEWB.Text), psyAtmosphericPressure(Val(frmMain.ThisUnitCoolPerf.Elevation)))
+        deltah = (Val(txtTCap.Text) * 1000) / (4.5 * Val(txtAirflow.Text))
+        h2 = h1 - deltah
+        txtFinalEnth.Text = Format(h2, "0.0")
+        txtInitialEnth.Text = Format(h1, "0.0")
+
+
         TabControl1.SelectTab("tpgPerformance")
     End Sub
 
@@ -1634,5 +1645,10 @@ Public Class frmLowAF
         Return TempFile
     End Function
 
+    Private Sub txtLADB_Leave(sender As Object, e As EventArgs) Handles txtLADB.Leave
+        Dim temp As Double
+        temp = Format(Val(txtAirflow.Text) * 1.085 * (Val(txtEDB.Text) - Val(txtLADB.Text)), "0.0")
+        txtSCap.Text = temp
 
+    End Sub
 End Class

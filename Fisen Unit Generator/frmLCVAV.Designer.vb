@@ -43,7 +43,7 @@ Partial Class frmLCVAV
         Me.optJustECMotor = New System.Windows.Forms.RadioButton()
         Me.optReplaceFanAndMotor = New System.Windows.Forms.RadioButton()
         Me.optNot1Phase = New System.Windows.Forms.RadioButton()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.grpAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
@@ -73,7 +73,7 @@ Partial Class frmLCVAV
         Me.GroupBox1.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.grpSinglePhaseSFan.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        Me.grpAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
@@ -238,7 +238,7 @@ Partial Class frmLCVAV
         '
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.grpSinglePhaseSFan)
-        Me.tpgOptions.Controls.Add(Me.GroupBox3)
+        Me.tpgOptions.Controls.Add(Me.grpAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
@@ -304,17 +304,17 @@ Partial Class frmLCVAV
         Me.optNot1Phase.Text = "Not a Single Phase SFan"
         Me.optNot1Phase.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'grpAuxPanel
         '
-        Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
-        Me.GroupBox3.Controls.Add(Me.optUseAux)
-        Me.GroupBox3.Controls.Add(Me.optNoAux)
-        Me.GroupBox3.Location = New System.Drawing.Point(5, 42)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
-        Me.GroupBox3.TabIndex = 29
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auxilary Control Panel"
+        Me.grpAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.grpAuxPanel.Controls.Add(Me.optUseAux)
+        Me.grpAuxPanel.Controls.Add(Me.optNoAux)
+        Me.grpAuxPanel.Location = New System.Drawing.Point(5, 42)
+        Me.grpAuxPanel.Name = "grpAuxPanel"
+        Me.grpAuxPanel.Size = New System.Drawing.Size(214, 105)
+        Me.grpAuxPanel.TabIndex = 29
+        Me.grpAuxPanel.TabStop = False
+        Me.grpAuxPanel.Text = "Auxilary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -602,8 +602,8 @@ Partial Class frmLCVAV
         Me.tpgOptions.PerformLayout()
         Me.grpSinglePhaseSFan.ResumeLayout(False)
         Me.grpSinglePhaseSFan.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.grpAuxPanel.ResumeLayout(False)
+        Me.grpAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -634,7 +634,7 @@ Partial Class frmLCVAV
     Friend WithEvents chkUnitisHeatPump As CheckBox
     Friend WithEvents chkHSFaninRH As CheckBox
     Friend WithEvents chkIntellispeed As CheckBox
-    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents grpAuxPanel As GroupBox
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
