@@ -7021,6 +7021,11 @@ Public Class frmMain
 
                     End Select
                 End If
+
+            Case Is = "Select"
+                If cmbBrand.Text = "TMP" Then
+                    txtModelNumber.Text = "JV" & Mid(txtBrandModelNumber.Text, 3)
+                End If
         End Select
 
 
