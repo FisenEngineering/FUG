@@ -1,4 +1,15 @@
 ﻿Module basFUGFunctions
+    Public Function Ver2FileVer(lVersionNum As String) As String
+        Dim MyVer As String
+        Dim dotloc As Integer
+
+        MyVer = lVersionNum
+        MyVer = "V" & MyVer
+        dotloc = InStr(MyVer, ".")
+        MyVer = Mid(MyVer, 1, dotloc - 1) & "_" & Mid(MyVer, dotloc + 1)
+        Return MyVer
+
+    End Function
     Public Sub AddUniqueEndDeviceRequirements(ModCodeLocal As String)
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -219,6 +230,296 @@
 
         Return CabHeight
 
+    End Function
+
+    Public Function NEMAMotorFLA(hp As String, Volts As String) As String
+        Dim FLA As String
+
+        Select Case hp
+            Case Is = "-"
+                FLA = ""
+            Case Is = "0.25"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "5.8"
+                    Case Is = "230-1"
+                        FLA = "2.9"
+                    Case Is = "208-3"
+                        FLA = "1.11"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "0.33"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "7.2"
+                    Case Is = "230-1"
+                        FLA = "3.6"
+                    Case Is = "208-3"
+                        FLA = 1.34
+
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "0.5"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "9.8"
+                    Case Is = "230-1"
+                        FLA = "4.9"
+                    Case Is = "208-3"
+                        FLA = "2.2"
+                    Case Is = "230-3"
+                        FLA = "2.2"
+                    Case Is = "460-3"
+                        FLA = "1.1"
+                    Case Is = "575-3"
+                        FLA = "0.9"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "0.75"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "13.8"
+                    Case Is = "230-1"
+                        FLA = "6.9"
+                    Case Is = "208-3"
+                        FLA = "3.1"
+                    Case Is = "230-3"
+                        FLA = "3.2"
+                    Case Is = "460-3"
+                        FLA = "1.6"
+                    Case Is = "575-3"
+                        FLA = "1.3"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "1"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "16"
+                    Case Is = "230-1"
+                        FLA = "8.0"
+                    Case Is = "208-3"
+                        FLA = "4.0"
+                    Case Is = "230-3"
+                        FLA = "4.2"
+                    Case Is = "460-3"
+                        FLA = "2.1"
+                    Case Is = "575-3"
+                        FLA = "1.7"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "1.5"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "20.0"
+                    Case Is = "230-1"
+                        FLA = "10.0"
+                    Case Is = "208-3"
+                        FLA = "5.7"
+                    Case Is = "230-3"
+                        FLA = "6.0"
+                    Case Is = "460-3"
+                        FLA = "3.0"
+                    Case Is = "575-3"
+                        FLA = "2.4"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "2"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "24.0"
+                    Case Is = "230-1"
+                        FLA = "12.0"
+                    Case Is = "208-3"
+                        FLA = "7.5"
+                    Case Is = "230-3"
+                        FLA = "6.8"
+                    Case Is = "460-3"
+                        FLA = "3.4"
+                    Case Is = "575-3"
+                        FLA = "2.7"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "3"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "34.0"
+                    Case Is = "230-1"
+                        FLA = "17.0"
+                    Case Is = "208-3"
+                        FLA = "10.6"
+                    Case Is = "230-3"
+                        FLA = "9.6"
+                    Case Is = "460-3"
+                        FLA = "4.8"
+                    Case Is = "575-3"
+                        FLA = "3.9"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "5"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "56.0"
+                    Case Is = "230-1"
+                        FLA = "28.0"
+                    Case Is = "208-3"
+                        FLA = "16.7"
+                    Case Is = "230-3"
+                        FLA = "15.2"
+                    Case Is = "460-3"
+                        FLA = "7.6"
+                    Case Is = "575-3"
+                        FLA = "6.1"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "7.5"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "80.0"
+                    Case Is = "230-1"
+                        FLA = "40.0"
+                    Case Is = "208-3"
+                        FLA = "24.0"
+                    Case Is = "230-3"
+                        FLA = "22.0"
+                    Case Is = "460-3"
+                        FLA = "11.0"
+                    Case Is = "575-3"
+                        FLA = "9.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "10"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "100.0"
+                    Case Is = "230-1"
+                        FLA = "50.0"
+                    Case Is = "208-3"
+                        FLA = "31.0"
+                    Case Is = "230-3"
+                        FLA = "28.0"
+                    Case Is = "460-3"
+                        FLA = "14.0"
+                    Case Is = "575-3"
+                        FLA = "11.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "15"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = "135.0"
+                    Case Is = "230-1"
+                        FLA = "68.0"
+                    Case Is = "208-3"
+                        FLA = "46.0"
+                    Case Is = "230-3"
+                        FLA = "42.0"
+                    Case Is = "460-3"
+                        FLA = "21.0"
+                    Case Is = "575-3"
+                        FLA = "17.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "20"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = "88.0"
+                    Case Is = "208-3"
+                        FLA = "59.0"
+                    Case Is = "230-3"
+                        FLA = "54.0"
+                    Case Is = "460-3"
+                        FLA = "27.0"
+                    Case Is = "575-3"
+                        FLA = "22.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "25"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = "110.0"
+                    Case Is = "208-3"
+                        FLA = "75.0"
+                    Case Is = "230-3"
+                        FLA = "68.0"
+                    Case Is = "460-3"
+                        FLA = "34.0"
+                    Case Is = "575-3"
+                        FLA = "27.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "30"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = "136.0"
+                    Case Is = "208-3"
+                        FLA = "88.0"
+                    Case Is = "230-3"
+                        FLA = "80.0"
+                    Case Is = "460-3"
+                        FLA = "40.0"
+                    Case Is = "575-3"
+                        FLA = "32.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "40"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = "176.0"
+                    Case Is = "208-3"
+                        FLA = "114.0"
+                    Case Is = "230-3"
+                        FLA = "104.0"
+                    Case Is = "460-3"
+                        FLA = "52.0"
+                    Case Is = "575-3"
+                        FLA = "41.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "50"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = "216.0"
+                    Case Is = "208-3"
+                        FLA = "143.0"
+                    Case Is = "230-3"
+                        FLA = "130.0"
+                    Case Is = "460-3"
+                        FLA = "65.0"
+                    Case Is = "575-3"
+                        FLA = "52.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Else
+                FLA = ""
+        End Select
+        NEMAMotorFLA = FLA
     End Function
 
 End Module

@@ -70,6 +70,7 @@ Public Class frmMain
     Public UseCustomMCA As Boolean
     Public HasAuxillaryPanel As Boolean
 
+    Public UserID As String
 
     Public Function HasHMI() As Boolean
         Dim i As Integer
@@ -1171,7 +1172,8 @@ Public Class frmMain
         If Not (rs.EOF And rs.BOF) Then
             'Update SQL
             ExistingRecordID = rs.Fields(0).Value
-            MySQL = "UPDATE tblHistory SET VersionDate='" & verdat & "', ModCodes='" & modlist & "' WHERE ID=" & ExistingRecordID
+            MySQL = "UPDATE tblHistory SET CreatorID='" & CID & "', VersionDate='" & verdat & "', ModCodes='" & modlist & "' WHERE ID=" & ExistingRecordID
+
             con.Execute(MySQL)
         Else
             'Insert SQL
@@ -2402,7 +2404,7 @@ Public Class frmMain
         Dim tempstr As String
         Dim i As Integer
 
-        tempfilename = txtProjectDirectory.Text & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\" & "Submittal Source (Do not Distribute)\Submittal Design\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - " & "MCA Calculation Report.txt"
+        tempfilename = txtProjectDirectory.Text & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\" & "Submittal Source (Do not Distribute)\Submittal Design\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - " & "MCA Calculation Report " & Ver2FileVer(txtUnitVersion.Text) & ".txt"
 
         mcareport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
         mcareport.WriteLine("MCA Calculation Report")
@@ -2926,8 +2928,10 @@ Public Class frmMain
         myXMLSettings.Indent = True
         myXMLSettings.NewLineOnAttributes = True
 
+
+
         TargetPath = txtProjectDirectory.Text
-        TargetPath = TargetPath & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & " - FUG-" & ThisUnit.Kingdom & ".xml"
+        TargetPath = TargetPath & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & " - FUG-" & ThisUnit.Kingdom & "_" & Ver2FileVer(txtUnitVersion.Text) & ".xml"
         Clipboard.SetText("""" & TargetPath & """")
 
         UnitWriter = XmlWriter.Create(TargetPath, myXMLSettings)
@@ -5183,7 +5187,39 @@ Public Class frmMain
             Dummy = MsgBox("Sales entered modification conditions file missing." & vbCrLf & "Conditions will need to be manually entered.", vbOKOnly, "Fisen Unit Generator")
         End If
 
+        Call ArchiveOldSubmittalFiles
+
         My.Settings.Save()
+
+    End Sub
+    Private Sub ArchiveOldSubmittalFiles()
+        Dim ProjectDir As String
+        Dim UnitDir As String
+        Dim ArchiveDir As String
+        Dim TargetDir As String
+        Dim NewVersion, OldVersion As String
+        Dim FileList As String()
+        Dim JustFile As String
+        Dim LastSlash As Integer
+
+        'First Create the new archive directory.
+        ProjectDir = txtProjectDirectory.Text
+        UnitDir = ProjectDir & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\"
+        ArchiveDir = UnitDir & "Archive\"
+        NewVersion = txtUnitVersion.Text
+        OldVersion = "V" & Trim(Str(Val(NewVersion) - 1))
+        My.Computer.FileSystem.CreateDirectory(ArchiveDir & OldVersion)
+        TargetDir = ArchiveDir & OldVersion & "\"
+        FileList = Directory.GetFiles(Mid(UnitDir, 1, Len(UnitDir) - 1))
+
+        For i = 0 To FileList.Length - 1
+            If FileList(i) <> UnitDir & "BaseUnitFile.xml" Then
+                LastSlash = InStrRev(FileList(i), "\")
+                JustFile = Mid(FileList(i), LastSlash + 1)
+                Directory.Move(FileList(i), TargetDir & JustFile)
+            End If
+        Next
+
 
     End Sub
     Private Sub cmbHeatType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbHeatType.SelectedIndexChanged
@@ -6554,7 +6590,7 @@ Public Class frmMain
         FileName = FileName & rs.Fields("DrawingName").Value
         SourcePath = FileBase & "\BaseUnit\Drawings" & FileName
         TargetPath = txtProjectDirectory.Text
-        TargetPath = TargetPath & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & " - Submittal Drawing.dwg"
+        TargetPath = TargetPath & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & " - Submittal Drawing " & Ver2FileVer(txtUnitVersion.Text) & ".dwg"
         FileCopy(SourcePath, TargetPath)
 
         con.Close()
@@ -6601,6 +6637,7 @@ Public Class frmMain
         Dim SourcePath As String
         Dim ProjectPath As String
         Dim TargetPath As String
+        Dim TargetName As String
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -6622,6 +6659,7 @@ Public Class frmMain
 
         FileBase = ThisUnit.ResourcePath
 
+
         ProjectPath = txtProjectDirectory.Text
         TargetPath = ProjectPath & "\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
         For i = 0 To ThisUnitHydro.Count - 1
@@ -6629,7 +6667,10 @@ Public Class frmMain
             FileName = rs.Fields("DrawingPath").Value
             FileName = FileName & rs.Fields("DrawingName").Value
             SourcePath = FileBase & "\HydroDrawings" & FileName
-            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Hydronics Drawing Basis-" & Trim(Str(i)) & " - " & rs.Fields("DrawingName").Value
+            TargetName = rs.Fields("DrawingName").Value
+            TargetName = Mid(TargetName, 1, InStr(TargetName, ".") - 1) & " " & Ver2FileVer(txtUnitVersion.Text) & Mid(TargetName, InStr(TargetName, "."))
+            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Hydronics Drawing Basis-" & Trim(Str(i)) & " - " & TargetName
+
             FileCopy(SourcePath, TargetPath)
         Next
 
@@ -6670,11 +6711,14 @@ Public Class frmMain
     End Sub
 
     Private Sub btnDoneValves_Click(sender As Object, e As EventArgs) Handles btnDoneValves.Click
+        Dim Dummy As MsgBoxResult
         Select Case ThisUnit.Kingdom
             Case Is = "Chiller"
                 tabMain.SelectTab("pgSequence")
             Case Else
+                If chkDebug.Checked Then Dummy = MsgBox("LoadApplicableReferNext") 'RemoveMe 
                 Call LoadApplicableRefer()
+                If chkDebug.Checked Then Dummy = MsgBox("PrepReferFilterNext") 'RemoveMe 
                 Call PrepReferFilter()
                 tabMain.SelectTab("pgRefrigeration")
         End Select
@@ -6868,8 +6912,12 @@ Public Class frmMain
         Dim Answer As String
 
         If chkDebug.Checked = True Then
-            'Answer = InputBox("Enter Admin Password:", "Fisen Unit Generator")
-            Answer = "bruno"
+            If UserID <> "jlevine" Then
+                Answer = InputBox("Enter Admin Password:", "Fisen Unit Generator")
+            Else
+                Answer = "bruno"
+            End If
+
             If Answer <> "bruno" Then
                 chkDebug.Checked = False
                 dummy = MsgBox("Incorrect Password.")
@@ -6880,7 +6928,12 @@ Public Class frmMain
                 cmdDebug.Visible = True
                 chkSaveinProjDB.Checked = False
             End If
+            chkInhibitDigConditions.Checked = False
+            chkSaveinProjDB.Checked = False
+            chkMoveCutsheets.Checked = False
+
         End If
+
         cmbJumpDest.Text = My.Settings.DebugLastModule
 
     End Sub
@@ -7200,7 +7253,7 @@ Public Class frmMain
             FileName = rs.Fields("DrawingPath").Value
             FileName = FileName & rs.Fields("DrawingName").Value
             SourcePath = FileBase & "\AirflowDiagrams" & FileName
-            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Airflow Diagram" & Trim(Str(i)) & ".dwg"
+            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Airflow Diagram " & Trim(Str(i)) & " " & Ver2FileVer(txtUnitVersion.Text) & ".dwg"
             FileCopy(SourcePath, TargetPath)
         Next
 
@@ -7246,7 +7299,7 @@ Public Class frmMain
             FileName = rs.Fields("DrawingPath").Value
             FileName = FileName & rs.Fields("DrawingName").Value
             SourcePath = FileBase & "\ReferDrawings" & FileName
-            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Refrigeration Drawing" & Trim(Str(i)) & ".dwg"
+            TargetPath = TargetPath & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - Refrigeration Drawing" & Trim(Str(i)) & " " & Ver2FileVer(txtUnitVersion.Text) & ".dwg"
             FileCopy(SourcePath, TargetPath)
         Next
 
@@ -7840,295 +7893,7 @@ Public Class frmMain
 
 
     End Sub
-    Public Function NEMAMotorFLA(hp As String, Volts As String) As String
-        Dim FLA As String
 
-        Select Case hp
-            Case Is = "-"
-                FLA = ""
-            Case Is = "0.25"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "5.8"
-                    Case Is = "230-1"
-                        FLA = "2.9"
-                    Case Is = "208-3"
-                        FLA = "1.11"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "0.33"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "7.2"
-                    Case Is = "230-1"
-                        FLA = "3.6"
-                    Case Is = "208-3"
-                        FLA = 1.34
-
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "0.5"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "9.8"
-                    Case Is = "230-1"
-                        FLA = "4.9"
-                    Case Is = "208-3"
-                        FLA = "2.2"
-                    Case Is = "230-3"
-                        FLA = "2.2"
-                    Case Is = "460-3"
-                        FLA = "1.1"
-                    Case Is = "575-3"
-                        FLA = "0.9"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "0.75"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "13.8"
-                    Case Is = "230-1"
-                        FLA = "6.9"
-                    Case Is = "208-3"
-                        FLA = "3.1"
-                    Case Is = "230-3"
-                        FLA = "3.2"
-                    Case Is = "460-3"
-                        FLA = "1.6"
-                    Case Is = "575-3"
-                        FLA = "1.3"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "1"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "16"
-                    Case Is = "230-1"
-                        FLA = "8.0"
-                    Case Is = "208-3"
-                        FLA = "4.0"
-                    Case Is = "230-3"
-                        FLA = "4.2"
-                    Case Is = "460-3"
-                        FLA = "2.1"
-                    Case Is = "575-3"
-                        FLA = "1.7"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "1.5"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "20.0"
-                    Case Is = "230-1"
-                        FLA = "10.0"
-                    Case Is = "208-3"
-                        FLA = "5.7"
-                    Case Is = "230-3"
-                        FLA = "6.0"
-                    Case Is = "460-3"
-                        FLA = "3.0"
-                    Case Is = "575-3"
-                        FLA = "2.4"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "2"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "24.0"
-                    Case Is = "230-1"
-                        FLA = "12.0"
-                    Case Is = "208-3"
-                        FLA = "7.5"
-                    Case Is = "230-3"
-                        FLA = "6.8"
-                    Case Is = "460-3"
-                        FLA = "3.4"
-                    Case Is = "575-3"
-                        FLA = "2.7"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "3"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "34.0"
-                    Case Is = "230-1"
-                        FLA = "17.0"
-                    Case Is = "208-3"
-                        FLA = "10.6"
-                    Case Is = "230-3"
-                        FLA = "9.6"
-                    Case Is = "460-3"
-                        FLA = "4.8"
-                    Case Is = "575-3"
-                        FLA = "3.9"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "5"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "56.0"
-                    Case Is = "230-1"
-                        FLA = "28.0"
-                    Case Is = "208-3"
-                        FLA = "16.7"
-                    Case Is = "230-3"
-                        FLA = "15.2"
-                    Case Is = "460-3"
-                        FLA = "7.6"
-                    Case Is = "575-3"
-                        FLA = "6.1"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "7.5"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "80.0"
-                    Case Is = "230-1"
-                        FLA = "40.0"
-                    Case Is = "208-3"
-                        FLA = "24.0"
-                    Case Is = "230-3"
-                        FLA = "22.0"
-                    Case Is = "460-3"
-                        FLA = "11.0"
-                    Case Is = "575-3"
-                        FLA = "9.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "10"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "100.0"
-                    Case Is = "230-1"
-                        FLA = "50.0"
-                    Case Is = "208-3"
-                        FLA = "31.0"
-                    Case Is = "230-3"
-                        FLA = "28.0"
-                    Case Is = "460-3"
-                        FLA = "14.0"
-                    Case Is = "575-3"
-                        FLA = "11.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "15"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = "135.0"
-                    Case Is = "230-1"
-                        FLA = "68.0"
-                    Case Is = "208-3"
-                        FLA = "46.0"
-                    Case Is = "230-3"
-                        FLA = "42.0"
-                    Case Is = "460-3"
-                        FLA = "21.0"
-                    Case Is = "575-3"
-                        FLA = "17.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "20"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = ""
-                    Case Is = "230-1"
-                        FLA = "88.0"
-                    Case Is = "208-3"
-                        FLA = "59.0"
-                    Case Is = "230-3"
-                        FLA = "54.0"
-                    Case Is = "460-3"
-                        FLA = "27.0"
-                    Case Is = "575-3"
-                        FLA = "22.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "25"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = ""
-                    Case Is = "230-1"
-                        FLA = "110.0"
-                    Case Is = "208-3"
-                        FLA = "75.0"
-                    Case Is = "230-3"
-                        FLA = "68.0"
-                    Case Is = "460-3"
-                        FLA = "34.0"
-                    Case Is = "575-3"
-                        FLA = "27.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "30"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = ""
-                    Case Is = "230-1"
-                        FLA = "136.0"
-                    Case Is = "208-3"
-                        FLA = "88.0"
-                    Case Is = "230-3"
-                        FLA = "80.0"
-                    Case Is = "460-3"
-                        FLA = "40.0"
-                    Case Is = "575-3"
-                        FLA = "32.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "40"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = ""
-                    Case Is = "230-1"
-                        FLA = "176.0"
-                    Case Is = "208-3"
-                        FLA = "114.0"
-                    Case Is = "230-3"
-                        FLA = "104.0"
-                    Case Is = "460-3"
-                        FLA = "52.0"
-                    Case Is = "575-3"
-                        FLA = "41.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Is = "50"
-                Select Case Volts
-                    Case Is = "115-1"
-                        FLA = ""
-                    Case Is = "230-1"
-                        FLA = "216.0"
-                    Case Is = "208-3"
-                        FLA = "143.0"
-                    Case Is = "230-3"
-                        FLA = "130.0"
-                    Case Is = "460-3"
-                        FLA = "65.0"
-                    Case Is = "575-3"
-                        FLA = "52.0"
-                    Case Else
-                        FLA = ""
-                End Select
-            Case Else
-                FLA = ""
-        End Select
-        NEMAMotorFLA = FLA
-    End Function
     Private Sub cmbMotorHPList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMotorHPList.SelectedIndexChanged
         txtElecLoadFLA.Text = NEMAMotorFLA(cmbMotorHPList.Text, Mid(cmbLoadVoltsPhFreq.Text, 1, 5))
     End Sub
@@ -8574,8 +8339,28 @@ Public Class frmMain
         End Select
         txtYPALUnitSize.Text = ThisYPALPerf.UnitSize
         Me.btnTranslate.PerformClick()
-    End Sub
+        Call GuessUnitVersion
 
+    End Sub
+    Private Sub GuessUnitVersion()
+        Dim SubDir As String
+        Dim SubName As String
+        Dim NewVerNum, OldVerNum As String
+        Dim FileList() As String
+
+        SubDir = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\"
+        SubName = txtJobNumber.Text & "-" & txtUnitNumber.Text & " - Submittal V*"
+
+        FileList = Directory.GetFiles(SubDir, SubName)
+
+
+        If FileList.Length > 0 Then
+            OldVerNum = Mid(FileList(0), InStr(FileList(0), "V") + 1, 1)
+            NewVerNum = Trim(Str(Val(OldVerNum) + 1)) & ".0"
+            txtUnitVersion.Text = NewVerNum
+        End If
+
+    End Sub
     Private Sub FSTImportProjectData(lFSTFile As String)
         Dim xDoc As XmlDocument = New XmlDocument
         Dim i As Integer
@@ -8931,8 +8716,8 @@ Public Class frmMain
 
     Private Sub cmdDebug_Click(sender As Object, e As EventArgs) Handles cmdDebug.Click
 
+        Call ArchiveOldSubmittalFiles()
 
-        Debug.Print(psyDehumCapacity(78, 65, 50.5, 49.5, 5000))
     End Sub
 
     Private Sub txtJobNumber_ModifiedChanged(sender As Object, e As EventArgs) Handles txtJobNumber.ModifiedChanged
@@ -9069,7 +8854,7 @@ Public Class frmMain
             rs.Find("ID=#" & Val(ThisUnitEndDevices.Item(i)) & "#")
             If rs.Fields("EDCutSheetPath").Value <> "-" Then
                 FinalSourcePath = BaseSourcePath & rs.Fields("EDCutSheetPath").Value & rs.Fields("EDCutSheet").Value
-                FileName = "Cut Sheet-" & rs.Fields("EDName").Value & ".pdf"
+                FileName = txtJobNumber.Text & "-" & txtUnitNumber.Text & " - Cut Sheet-" & rs.Fields("EDName").Value & " " & Ver2FileVer(txtUnitVersion.Text) & ".pdf"
                 FinalTargetPath1 = BaseTargetPath1 & FileName
                 FinalTargetPath2 = BaseTargetPath2 & FileName
                 If chkEDMovetoDesign.Checked Then FileCopy(FinalSourcePath, FinalTargetPath1)

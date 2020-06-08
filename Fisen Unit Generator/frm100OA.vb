@@ -269,6 +269,7 @@ Public Class frm100OA
 
         For i = 0 To ModuleCodeList.Count - 1
             frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
 
     End Sub
@@ -726,7 +727,7 @@ Public Class frm100OA
 
 
             End If
-        Else
+        Else 'This means 100OA Capable  
             If optModeGBAS.Checked = True Then
 
                 'handle the zone override sensor
@@ -822,6 +823,9 @@ Public Class frm100OA
 
             End If
         Else
+
+            chkZoneOvrSensor.Enabled = False
+            chkZoneOvrSensor.Checked = False
 
             'handle the cool options
             optCoolCtrlStagedOA.Enabled = False
@@ -990,7 +994,7 @@ Public Class frm100OA
         If Not (rs.EOF And rs.BOF) Then
             'Update SQL
             ExistingRecordID = rs.Fields(0).Value
-            MySQL = "UPDATE tblHistory100OA SET Controller='" & Controller & "', HeatType=" & HeatType & ", " & "HeatCtrl='" & HeatCtrl & "', CoolCtrl='" & CoolCtrl & "', ModeCtrl='" & ModeCtrl & "', ZoneOverride='" & ZoneOverride & "' WHERE ID=" & ExistingRecordID
+            MySQL = "UPDATE tblHistory100OA SET Controller='" & Controller & "', HeatType='" & HeatType & "', " & "HeatCtrl='" & HeatCtrl & "', CoolCtrl='" & CoolCtrl & "', ModeCtrl='" & ModeCtrl & "', ZoneOverride='" & ZoneOverride & "' WHERE ID=" & ExistingRecordID
             con.Execute(MySQL)
         Else
             'Insert SQL
@@ -1117,11 +1121,6 @@ Public Class frm100OA
 
             chkOADamperSwitch.Checked = False
             chkOADamperSwitch.Enabled = False
-            If Val(frmMain.ThisUnitSFanPerf.MotorHP) > 5.0 Then
-                chkOADamperSwitch.Checked = True
-            Else
-                chkOADamperSwitch.Checked = False
-            End If
 
             optModeAuto.Enabled = True
             optModeGBAS.Enabled = True

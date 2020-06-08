@@ -10228,6 +10228,7 @@ Partial Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+        UserID = Environment.UserName
 
         ThisUnit = New clsUnitClass
         ThisUnitDS = New clsDSUnitClass
@@ -10268,8 +10269,10 @@ Partial Class frmMain
         ERWDefined = False
         UseCustomMCA = False
 
+
         Call SetupLastKingdomAndFamily()
-        Me.Text = Application.ProductName & "-" & Application.ProductVersion
+        Me.Text = Application.ProductName & "-" & Application.ProductVersion & " Logged in as: " & UserID
+
 
     End Sub
     Friend WithEvents tabMain As TabControl

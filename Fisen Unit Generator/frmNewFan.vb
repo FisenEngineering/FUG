@@ -1245,7 +1245,7 @@ Public Class frmNewFan
                 End If
 
                 ElecChar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
-                MotorFLA = frmMain.NEMAMotorFLA(cmbNewMotorHP.Text, frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase)
+                MotorFLA = NEMAMotorFLA(cmbNewMotorHP.Text, frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase)
 
                 NewRow = {True, False, "All", True, "RETURN FAN", ElecChar, cmbNewMotorHP.Text, MotorFLA, False, "NEMA"}
                 frmMain.dgvElecLoads.Rows.Add(NewRow)

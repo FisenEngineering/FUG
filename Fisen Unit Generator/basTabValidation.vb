@@ -1,4 +1,6 @@
-﻿Module basTabValidation
+﻿Imports System.IO
+
+Module basTabValidation
     Private glbNoBlanks = " must not be blank."
     Private glbProjName = "Fisen Unit Generator"
 
@@ -6,8 +8,8 @@
         Dim tabOK As Boolean
         tabOK = True
 
-        tabOK = tabOK And JobNumberOK() And ProjectNameOK() And UnitTagOK() And UnitNumberOK And QtyOK And UnitVersionOK()
-        tabOK = tabOK And BrandModNumOK() And NomTonsOK
+        tabOK = tabOK And JobNumberOK() And ProjectNameOK() And UnitTagOK() And UnitNumberOK() And QtyOK() And UnitVersionOK()
+        tabOK = tabOK And BrandModNumOK() And NomTonsOK()
 
         ProjectDataValid = tabOK
     End Function
@@ -100,9 +102,26 @@
             con = Nothing
 
         End If
-
+        Call MoveOldSubmittal()
         UnitVersionOK = ok
     End Function
+    Private Sub MoveOldSubmittal()
+        Dim SubDir As String
+        Dim SubName As String
+        Dim NewVerNum, OldVerNum As String
+
+        SubDir = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\"
+
+        SubName = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - Submittal V"
+        NewVerNum = frmMain.txtUnitVersion.Text
+        OldVerNum = Trim(Int(Val(NewVerNum)) - 1)
+        SubName = SubName & OldVerNum & "_0.docx"
+        If File.Exists(SubDir & SubName) Then
+            File.Move(SubDir & SubName, SubDir & "Archives\" & SubName)
+        End If
+
+
+    End Sub
     Private Function QtyOK() As Boolean
         Dim dummy As MsgBoxResult
         Dim ok As Boolean

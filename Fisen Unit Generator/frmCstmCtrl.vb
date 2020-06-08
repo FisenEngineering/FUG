@@ -728,4 +728,13 @@ Public Class frmCstmCtrl
     Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
         Call PerformDesignCautionScan(True)
     End Sub
+
+    Private Sub chkIncludeEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeEquipmentTouch.CheckedChanged
+        If chkIncludeEquipmentTouch.Checked Then
+            chkMountEquipmentTouch.Enabled = True
+        Else
+            chkMountEquipmentTouch.Enabled = False
+            chkMountEquipmentTouch.Checked = False
+        End If
+    End Sub
 End Class

@@ -2,6 +2,7 @@
 Imports System.Reflection
 Imports System.Xml
 Imports Microsoft.Office.Interop
+Imports Microsoft.Office.Interop.Excel
 
 Public Class frmLowAF
     Private pCancelled As Boolean
@@ -316,6 +317,7 @@ Public Class frmLowAF
         Dim wbXL As Excel.Workbook
         Dim wbsXL As Excel.Workbooks
         Dim wsXL As Excel.Worksheet
+        Dim Dummy As MsgBoxResult
 
         Dim FileName As String
 
@@ -337,7 +339,9 @@ Public Class frmLowAF
         FileName = UnitDataFile(frmMain.ThisUnit.Family)
 
         Me.Cursor = Cursors.WaitCursor
+        If frmMain.chkDebug.Checked Then Dummy = MsgBox("About to run excel.application") 'RemoveMe
         appXL = CreateObject("excel.application")
+        If frmMain.chkDebug.Checked Then Dummy = MsgBox("just ran excel.application") 'RemoveMe
         appXL.Visible = True
         wbsXL = appXL.Workbooks
         wbXL = wbsXL.Open(FileName)

@@ -31,6 +31,8 @@ Partial Class frmPipePkg
         Me.optPumpSystemPriStby = New System.Windows.Forms.RadioButton()
         Me.optPumpSystemNA = New System.Windows.Forms.RadioButton()
         Me.grpPumpCtrl = New System.Windows.Forms.GroupBox()
+        Me.chkPCtrlDisc = New System.Windows.Forms.CheckBox()
+        Me.chkPCtrlBypass = New System.Windows.Forms.CheckBox()
         Me.cmbPCtrlSpecDrive = New System.Windows.Forms.ComboBox()
         Me.optPCtrlCVPumps = New System.Windows.Forms.RadioButton()
         Me.optPCtrlSpecificRemote = New System.Windows.Forms.RadioButton()
@@ -78,6 +80,7 @@ Partial Class frmPipePkg
         Me.optPipeBaseWeld = New System.Windows.Forms.RadioButton()
         Me.optPipeBaseVic = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.optExtDeetNA = New System.Windows.Forms.RadioButton()
         Me.optExtDeetFootprint = New System.Windows.Forms.RadioButton()
         Me.optExtDeetCommonBR = New System.Windows.Forms.RadioButton()
         Me.optExtDeetBaseRail = New System.Windows.Forms.RadioButton()
@@ -117,6 +120,26 @@ Partial Class frmPipePkg
         Me.chkScopePumps = New System.Windows.Forms.CheckBox()
         Me.chkScopeBufferTank = New System.Windows.Forms.CheckBox()
         Me.pgPumps = New System.Windows.Forms.TabPage()
+        Me.grpPumpBypass = New System.Windows.Forms.GroupBox()
+        Me.optPumpBypass3ContactorAuto = New System.Windows.Forms.RadioButton()
+        Me.optPumpBypassNA = New System.Windows.Forms.RadioButton()
+        Me.optPumpBypass2ContactorAuto = New System.Windows.Forms.RadioButton()
+        Me.optPumpBypass2Contactor = New System.Windows.Forms.RadioButton()
+        Me.grpPumpDisconnects = New System.Windows.Forms.GroupBox()
+        Me.optPMDna = New System.Windows.Forms.RadioButton()
+        Me.optPMDFusedDisc = New System.Windows.Forms.RadioButton()
+        Me.optPMDIECDisc = New System.Windows.Forms.RadioButton()
+        Me.optPMDSafeSwitch = New System.Windows.Forms.RadioButton()
+        Me.txtPumpDryMass = New System.Windows.Forms.TextBox()
+        Me.txtPumpWetMass = New System.Windows.Forms.TextBox()
+        Me.txtImpellerDia = New System.Windows.Forms.TextBox()
+        Me.txtPumpHP = New System.Windows.Forms.TextBox()
+        Me.cmbPumpVolts = New System.Windows.Forms.ComboBox()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.cmbPumpMotorSpeed = New System.Windows.Forms.ComboBox()
+        Me.txtPumpMotorType = New System.Windows.Forms.TextBox()
+        Me.txtPumpMotorFLA = New System.Windows.Forms.TextBox()
+        Me.cmbPumpMotorHP = New System.Windows.Forms.ComboBox()
         Me.txtPRptCountAndStyle = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.Label36 = New System.Windows.Forms.Label()
@@ -161,6 +184,7 @@ Partial Class frmPipePkg
         Me.optBTUninsulated = New System.Windows.Forms.RadioButton()
         Me.optBTArmaflex = New System.Windows.Forms.RadioButton()
         Me.optBTSprayFoam = New System.Windows.Forms.RadioButton()
+        Me.pgWSEcon = New System.Windows.Forms.TabPage()
         Me.pgHydronicDwg = New System.Windows.Forms.TabPage()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
         Me.txtAvailDescription = New System.Windows.Forms.TextBox()
@@ -329,6 +353,7 @@ Partial Class frmPipePkg
         Me.chkEnclosure = New System.Windows.Forms.CheckBox()
         Me.lstPkgStructure = New System.Windows.Forms.ListBox()
         Me.pgElectrical = New System.Windows.Forms.TabPage()
+        Me.pgMassAudit = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -347,10 +372,6 @@ Partial Class frmPipePkg
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.cmdFIOPPreview = New System.Windows.Forms.Button()
-        Me.optExtDeetNA = New System.Windows.Forms.RadioButton()
-        Me.pgWSEcon = New System.Windows.Forms.TabPage()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.tbcPipePkg.SuspendLayout()
         Me.pgProposal.SuspendLayout()
         Me.grpPumpSystem.SuspendLayout()
@@ -363,6 +384,8 @@ Partial Class frmPipePkg
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.pgPumps.SuspendLayout()
+        Me.grpPumpBypass.SuspendLayout()
+        Me.grpPumpDisconnects.SuspendLayout()
         Me.pgSpecOpt.SuspendLayout()
         Me.grpSucDiffOptions.SuspendLayout()
         Me.grpTDVOptions.SuspendLayout()
@@ -414,6 +437,7 @@ Partial Class frmPipePkg
         Me.tbcPipePkg.Controls.Add(Me.pgCouplings)
         Me.tbcPipePkg.Controls.Add(Me.pgStructure)
         Me.tbcPipePkg.Controls.Add(Me.pgElectrical)
+        Me.tbcPipePkg.Controls.Add(Me.pgMassAudit)
         Me.tbcPipePkg.Location = New System.Drawing.Point(16, 15)
         Me.tbcPipePkg.Margin = New System.Windows.Forms.Padding(4)
         Me.tbcPipePkg.Name = "tbcPipePkg"
@@ -526,8 +550,8 @@ Partial Class frmPipePkg
         '
         'grpPumpCtrl
         '
-        Me.grpPumpCtrl.Controls.Add(Me.CheckBox2)
-        Me.grpPumpCtrl.Controls.Add(Me.CheckBox1)
+        Me.grpPumpCtrl.Controls.Add(Me.chkPCtrlDisc)
+        Me.grpPumpCtrl.Controls.Add(Me.chkPCtrlBypass)
         Me.grpPumpCtrl.Controls.Add(Me.cmbPCtrlSpecDrive)
         Me.grpPumpCtrl.Controls.Add(Me.optPCtrlCVPumps)
         Me.grpPumpCtrl.Controls.Add(Me.optPCtrlSpecificRemote)
@@ -542,6 +566,28 @@ Partial Class frmPipePkg
         Me.grpPumpCtrl.TabStop = False
         Me.grpPumpCtrl.Text = "Pump Control"
         Me.grpPumpCtrl.Visible = False
+        '
+        'chkPCtrlDisc
+        '
+        Me.chkPCtrlDisc.AutoSize = True
+        Me.chkPCtrlDisc.Enabled = False
+        Me.chkPCtrlDisc.Location = New System.Drawing.Point(188, 42)
+        Me.chkPCtrlDisc.Name = "chkPCtrlDisc"
+        Me.chkPCtrlDisc.Size = New System.Drawing.Size(133, 17)
+        Me.chkPCtrlDisc.TabIndex = 92
+        Me.chkPCtrlDisc.Text = "Individual Disconnects"
+        Me.chkPCtrlDisc.UseVisualStyleBackColor = True
+        '
+        'chkPCtrlBypass
+        '
+        Me.chkPCtrlBypass.AutoSize = True
+        Me.chkPCtrlBypass.Enabled = False
+        Me.chkPCtrlBypass.Location = New System.Drawing.Point(188, 66)
+        Me.chkPCtrlBypass.Name = "chkPCtrlBypass"
+        Me.chkPCtrlBypass.Size = New System.Drawing.Size(60, 17)
+        Me.chkPCtrlBypass.TabIndex = 91
+        Me.chkPCtrlBypass.Text = "Bypass"
+        Me.chkPCtrlBypass.UseVisualStyleBackColor = True
         '
         'cmbPCtrlSpecDrive
         '
@@ -1056,6 +1102,16 @@ Partial Class frmPipePkg
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Extention Detail"
         '
+        'optExtDeetNA
+        '
+        Me.optExtDeetNA.AutoSize = True
+        Me.optExtDeetNA.Location = New System.Drawing.Point(7, 88)
+        Me.optExtDeetNA.Name = "optExtDeetNA"
+        Me.optExtDeetNA.Size = New System.Drawing.Size(42, 17)
+        Me.optExtDeetNA.TabIndex = 6
+        Me.optExtDeetNA.Text = "n/a"
+        Me.optExtDeetNA.UseVisualStyleBackColor = True
+        '
         'optExtDeetFootprint
         '
         Me.optExtDeetFootprint.AutoSize = True
@@ -1436,6 +1492,18 @@ Partial Class frmPipePkg
         '
         'pgPumps
         '
+        Me.pgPumps.Controls.Add(Me.grpPumpBypass)
+        Me.pgPumps.Controls.Add(Me.grpPumpDisconnects)
+        Me.pgPumps.Controls.Add(Me.txtPumpDryMass)
+        Me.pgPumps.Controls.Add(Me.txtPumpWetMass)
+        Me.pgPumps.Controls.Add(Me.txtImpellerDia)
+        Me.pgPumps.Controls.Add(Me.txtPumpHP)
+        Me.pgPumps.Controls.Add(Me.cmbPumpVolts)
+        Me.pgPumps.Controls.Add(Me.Label54)
+        Me.pgPumps.Controls.Add(Me.cmbPumpMotorSpeed)
+        Me.pgPumps.Controls.Add(Me.txtPumpMotorType)
+        Me.pgPumps.Controls.Add(Me.txtPumpMotorFLA)
+        Me.pgPumps.Controls.Add(Me.cmbPumpMotorHP)
         Me.pgPumps.Controls.Add(Me.txtPRptCountAndStyle)
         Me.pgPumps.Controls.Add(Me.Label35)
         Me.pgPumps.Controls.Add(Me.Label36)
@@ -1456,18 +1524,222 @@ Partial Class frmPipePkg
         Me.pgPumps.Text = "Pumps"
         Me.pgPumps.UseVisualStyleBackColor = True
         '
+        'grpPumpBypass
+        '
+        Me.grpPumpBypass.Controls.Add(Me.optPumpBypass3ContactorAuto)
+        Me.grpPumpBypass.Controls.Add(Me.optPumpBypassNA)
+        Me.grpPumpBypass.Controls.Add(Me.optPumpBypass2ContactorAuto)
+        Me.grpPumpBypass.Controls.Add(Me.optPumpBypass2Contactor)
+        Me.grpPumpBypass.Location = New System.Drawing.Point(226, 167)
+        Me.grpPumpBypass.Name = "grpPumpBypass"
+        Me.grpPumpBypass.Size = New System.Drawing.Size(212, 89)
+        Me.grpPumpBypass.TabIndex = 108
+        Me.grpPumpBypass.TabStop = False
+        Me.grpPumpBypass.Text = "Pump Drive Bypass"
+        '
+        'optPumpBypass3ContactorAuto
+        '
+        Me.optPumpBypass3ContactorAuto.AutoSize = True
+        Me.optPumpBypass3ContactorAuto.Location = New System.Drawing.Point(6, 65)
+        Me.optPumpBypass3ContactorAuto.Name = "optPumpBypass3ContactorAuto"
+        Me.optPumpBypass3ContactorAuto.Size = New System.Drawing.Size(130, 17)
+        Me.optPumpBypass3ContactorAuto.TabIndex = 114
+        Me.optPumpBypass3ContactorAuto.Text = "3 Contactor Automatic"
+        Me.optPumpBypass3ContactorAuto.UseVisualStyleBackColor = True
+        '
+        'optPumpBypassNA
+        '
+        Me.optPumpBypassNA.AutoSize = True
+        Me.optPumpBypassNA.Checked = True
+        Me.optPumpBypassNA.Location = New System.Drawing.Point(161, 19)
+        Me.optPumpBypassNA.Name = "optPumpBypassNA"
+        Me.optPumpBypassNA.Size = New System.Drawing.Size(42, 17)
+        Me.optPumpBypassNA.TabIndex = 112
+        Me.optPumpBypassNA.TabStop = True
+        Me.optPumpBypassNA.Text = "n/a"
+        Me.optPumpBypassNA.UseVisualStyleBackColor = True
+        '
+        'optPumpBypass2ContactorAuto
+        '
+        Me.optPumpBypass2ContactorAuto.AutoSize = True
+        Me.optPumpBypass2ContactorAuto.Location = New System.Drawing.Point(6, 42)
+        Me.optPumpBypass2ContactorAuto.Name = "optPumpBypass2ContactorAuto"
+        Me.optPumpBypass2ContactorAuto.Size = New System.Drawing.Size(130, 17)
+        Me.optPumpBypass2ContactorAuto.TabIndex = 113
+        Me.optPumpBypass2ContactorAuto.Text = "2 Contactor Automatic"
+        Me.optPumpBypass2ContactorAuto.UseVisualStyleBackColor = True
+        '
+        'optPumpBypass2Contactor
+        '
+        Me.optPumpBypass2Contactor.AutoSize = True
+        Me.optPumpBypass2Contactor.Location = New System.Drawing.Point(6, 19)
+        Me.optPumpBypass2Contactor.Name = "optPumpBypass2Contactor"
+        Me.optPumpBypass2Contactor.Size = New System.Drawing.Size(132, 17)
+        Me.optPumpBypass2Contactor.TabIndex = 112
+        Me.optPumpBypass2Contactor.Text = "Manual Bypass Switch"
+        Me.optPumpBypass2Contactor.UseVisualStyleBackColor = True
+        '
+        'grpPumpDisconnects
+        '
+        Me.grpPumpDisconnects.Controls.Add(Me.optPMDna)
+        Me.grpPumpDisconnects.Controls.Add(Me.optPMDFusedDisc)
+        Me.grpPumpDisconnects.Controls.Add(Me.optPMDIECDisc)
+        Me.grpPumpDisconnects.Controls.Add(Me.optPMDSafeSwitch)
+        Me.grpPumpDisconnects.Enabled = False
+        Me.grpPumpDisconnects.Location = New System.Drawing.Point(10, 167)
+        Me.grpPumpDisconnects.Name = "grpPumpDisconnects"
+        Me.grpPumpDisconnects.Size = New System.Drawing.Size(210, 89)
+        Me.grpPumpDisconnects.TabIndex = 107
+        Me.grpPumpDisconnects.TabStop = False
+        Me.grpPumpDisconnects.Text = "Pump Motor Disconnects"
+        '
+        'optPMDna
+        '
+        Me.optPMDna.AutoSize = True
+        Me.optPMDna.Checked = True
+        Me.optPMDna.Location = New System.Drawing.Point(161, 19)
+        Me.optPMDna.Name = "optPMDna"
+        Me.optPMDna.Size = New System.Drawing.Size(42, 17)
+        Me.optPMDna.TabIndex = 111
+        Me.optPMDna.TabStop = True
+        Me.optPMDna.Text = "n/a"
+        Me.optPMDna.UseVisualStyleBackColor = True
+        '
+        'optPMDFusedDisc
+        '
+        Me.optPMDFusedDisc.AutoSize = True
+        Me.optPMDFusedDisc.Location = New System.Drawing.Point(6, 65)
+        Me.optPMDFusedDisc.Name = "optPMDFusedDisc"
+        Me.optPMDFusedDisc.Size = New System.Drawing.Size(122, 17)
+        Me.optPMDFusedDisc.TabIndex = 110
+        Me.optPMDFusedDisc.Text = "Fused Disconnect(s)"
+        Me.optPMDFusedDisc.UseVisualStyleBackColor = True
+        '
+        'optPMDIECDisc
+        '
+        Me.optPMDIECDisc.AutoSize = True
+        Me.optPMDIECDisc.Location = New System.Drawing.Point(6, 42)
+        Me.optPMDIECDisc.Name = "optPMDIECDisc"
+        Me.optPMDIECDisc.Size = New System.Drawing.Size(140, 17)
+        Me.optPMDIECDisc.TabIndex = 109
+        Me.optPMDIECDisc.Text = "IEC Motor Disconnect(s)"
+        Me.optPMDIECDisc.UseVisualStyleBackColor = True
+        '
+        'optPMDSafeSwitch
+        '
+        Me.optPMDSafeSwitch.AutoSize = True
+        Me.optPMDSafeSwitch.Location = New System.Drawing.Point(6, 19)
+        Me.optPMDSafeSwitch.Name = "optPMDSafeSwitch"
+        Me.optPMDSafeSwitch.Size = New System.Drawing.Size(149, 17)
+        Me.optPMDSafeSwitch.TabIndex = 108
+        Me.optPMDSafeSwitch.Text = "Individual Safety Switches"
+        Me.optPMDSafeSwitch.UseVisualStyleBackColor = True
+        '
+        'txtPumpDryMass
+        '
+        Me.txtPumpDryMass.Location = New System.Drawing.Point(107, 141)
+        Me.txtPumpDryMass.Name = "txtPumpDryMass"
+        Me.txtPumpDryMass.ReadOnly = True
+        Me.txtPumpDryMass.Size = New System.Drawing.Size(113, 20)
+        Me.txtPumpDryMass.TabIndex = 106
+        Me.txtPumpDryMass.Text = "0"
+        '
+        'txtPumpWetMass
+        '
+        Me.txtPumpWetMass.Location = New System.Drawing.Point(10, 141)
+        Me.txtPumpWetMass.Name = "txtPumpWetMass"
+        Me.txtPumpWetMass.ReadOnly = True
+        Me.txtPumpWetMass.Size = New System.Drawing.Size(91, 20)
+        Me.txtPumpWetMass.TabIndex = 105
+        Me.txtPumpWetMass.Text = "0"
+        '
+        'txtImpellerDia
+        '
+        Me.txtImpellerDia.Location = New System.Drawing.Point(107, 102)
+        Me.txtImpellerDia.Name = "txtImpellerDia"
+        Me.txtImpellerDia.ReadOnly = True
+        Me.txtImpellerDia.Size = New System.Drawing.Size(113, 20)
+        Me.txtImpellerDia.TabIndex = 104
+        Me.txtImpellerDia.Text = "n/a"
+        '
+        'txtPumpHP
+        '
+        Me.txtPumpHP.Location = New System.Drawing.Point(10, 102)
+        Me.txtPumpHP.Name = "txtPumpHP"
+        Me.txtPumpHP.ReadOnly = True
+        Me.txtPumpHP.Size = New System.Drawing.Size(91, 20)
+        Me.txtPumpHP.TabIndex = 103
+        Me.txtPumpHP.Text = "n/a"
+        '
+        'cmbPumpVolts
+        '
+        Me.cmbPumpVolts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPumpVolts.Enabled = False
+        Me.cmbPumpVolts.FormattingEnabled = True
+        Me.cmbPumpVolts.Items.AddRange(New Object() {"Unselected", "200-3", "208-3", "230-3", "460-3", "575-3", "Not Required"})
+        Me.cmbPumpVolts.Location = New System.Drawing.Point(10, 62)
+        Me.cmbPumpVolts.Name = "cmbPumpVolts"
+        Me.cmbPumpVolts.Size = New System.Drawing.Size(91, 21)
+        Me.cmbPumpVolts.TabIndex = 102
+        '
+        'Label54
+        '
+        Me.Label54.AutoSize = True
+        Me.Label54.Location = New System.Drawing.Point(7, 45)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(73, 13)
+        Me.Label54.TabIndex = 101
+        Me.Label54.Text = "Pump Voltage"
+        '
+        'cmbPumpMotorSpeed
+        '
+        Me.cmbPumpMotorSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPumpMotorSpeed.FormattingEnabled = True
+        Me.cmbPumpMotorSpeed.Items.AddRange(New Object() {"Unselected", "1800", "3600", "Not Required"})
+        Me.cmbPumpMotorSpeed.Location = New System.Drawing.Point(402, 62)
+        Me.cmbPumpMotorSpeed.Name = "cmbPumpMotorSpeed"
+        Me.cmbPumpMotorSpeed.Size = New System.Drawing.Size(177, 21)
+        Me.cmbPumpMotorSpeed.TabIndex = 100
+        '
+        'txtPumpMotorType
+        '
+        Me.txtPumpMotorType.Location = New System.Drawing.Point(226, 63)
+        Me.txtPumpMotorType.Name = "txtPumpMotorType"
+        Me.txtPumpMotorType.ReadOnly = True
+        Me.txtPumpMotorType.Size = New System.Drawing.Size(170, 20)
+        Me.txtPumpMotorType.TabIndex = 99
+        '
+        'txtPumpMotorFLA
+        '
+        Me.txtPumpMotorFLA.Location = New System.Drawing.Point(585, 63)
+        Me.txtPumpMotorFLA.Name = "txtPumpMotorFLA"
+        Me.txtPumpMotorFLA.ReadOnly = True
+        Me.txtPumpMotorFLA.Size = New System.Drawing.Size(72, 20)
+        Me.txtPumpMotorFLA.TabIndex = 98
+        '
+        'cmbPumpMotorHP
+        '
+        Me.cmbPumpMotorHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPumpMotorHP.Enabled = False
+        Me.cmbPumpMotorHP.FormattingEnabled = True
+        Me.cmbPumpMotorHP.Items.AddRange(New Object() {"0.5", "1", "1.5", "2", "3", "5", "7.5", "10", "15", "20", "25", "30", "40", "50", "Unselected", "Not Required"})
+        Me.cmbPumpMotorHP.Location = New System.Drawing.Point(107, 62)
+        Me.cmbPumpMotorHP.Name = "cmbPumpMotorHP"
+        Me.cmbPumpMotorHP.Size = New System.Drawing.Size(113, 21)
+        Me.cmbPumpMotorHP.TabIndex = 97
+        '
         'txtPRptCountAndStyle
         '
         Me.txtPRptCountAndStyle.Location = New System.Drawing.Point(10, 20)
         Me.txtPRptCountAndStyle.Name = "txtPRptCountAndStyle"
         Me.txtPRptCountAndStyle.ReadOnly = True
-        Me.txtPRptCountAndStyle.Size = New System.Drawing.Size(640, 20)
+        Me.txtPRptCountAndStyle.Size = New System.Drawing.Size(647, 20)
         Me.txtPRptCountAndStyle.TabIndex = 32
         '
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(217, 204)
+        Me.Label35.Location = New System.Drawing.Point(107, 125)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(60, 13)
         Me.Label35.TabIndex = 31
@@ -1476,7 +1748,7 @@ Partial Class frmPipePkg
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(7, 204)
+        Me.Label36.Location = New System.Drawing.Point(7, 125)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(64, 13)
         Me.Label36.TabIndex = 30
@@ -1485,7 +1757,7 @@ Partial Class frmPipePkg
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(559, 83)
+        Me.Label34.Location = New System.Drawing.Point(586, 44)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(71, 13)
         Me.Label34.TabIndex = 29
@@ -1494,7 +1766,7 @@ Partial Class frmPipePkg
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(217, 141)
+        Me.Label33.Location = New System.Drawing.Point(107, 86)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(88, 13)
         Me.Label33.TabIndex = 28
@@ -1503,7 +1775,7 @@ Partial Class frmPipePkg
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(408, 83)
+        Me.Label32.Location = New System.Drawing.Point(399, 45)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(68, 13)
         Me.Label32.TabIndex = 27
@@ -1512,7 +1784,7 @@ Partial Class frmPipePkg
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(217, 83)
+        Me.Label31.Location = New System.Drawing.Point(226, 44)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(61, 13)
         Me.Label31.TabIndex = 26
@@ -1521,7 +1793,7 @@ Partial Class frmPipePkg
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(7, 141)
+        Me.Label30.Location = New System.Drawing.Point(7, 86)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(94, 13)
         Me.Label30.TabIndex = 25
@@ -1530,7 +1802,7 @@ Partial Class frmPipePkg
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(7, 83)
+        Me.Label29.Location = New System.Drawing.Point(107, 45)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(94, 13)
         Me.Label29.TabIndex = 24
@@ -1916,6 +2188,16 @@ Partial Class frmPipePkg
         Me.optBTSprayFoam.TabIndex = 0
         Me.optBTSprayFoam.Text = "Spray Foam Insulation"
         Me.optBTSprayFoam.UseVisualStyleBackColor = True
+        '
+        'pgWSEcon
+        '
+        Me.pgWSEcon.Location = New System.Drawing.Point(4, 22)
+        Me.pgWSEcon.Name = "pgWSEcon"
+        Me.pgWSEcon.Padding = New System.Windows.Forms.Padding(3)
+        Me.pgWSEcon.Size = New System.Drawing.Size(1161, 518)
+        Me.pgWSEcon.TabIndex = 10
+        Me.pgWSEcon.Text = "WS Econ"
+        Me.pgWSEcon.UseVisualStyleBackColor = True
         '
         'pgHydronicDwg
         '
@@ -3639,6 +3921,16 @@ Partial Class frmPipePkg
         Me.pgElectrical.Text = "Electrical"
         Me.pgElectrical.UseVisualStyleBackColor = True
         '
+        'pgMassAudit
+        '
+        Me.pgMassAudit.Location = New System.Drawing.Point(4, 22)
+        Me.pgMassAudit.Name = "pgMassAudit"
+        Me.pgMassAudit.Padding = New System.Windows.Forms.Padding(3)
+        Me.pgMassAudit.Size = New System.Drawing.Size(1161, 518)
+        Me.pgMassAudit.TabIndex = 11
+        Me.pgMassAudit.Text = "Mass Audit"
+        Me.pgMassAudit.UseVisualStyleBackColor = True
+        '
         'Cancel
         '
         Me.Cancel.Location = New System.Drawing.Point(120, 566)
@@ -3803,46 +4095,6 @@ Partial Class frmPipePkg
         Me.cmdFIOPPreview.TabIndex = 62
         Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
-        'optExtDeetNA
-        '
-        Me.optExtDeetNA.AutoSize = True
-        Me.optExtDeetNA.Location = New System.Drawing.Point(7, 88)
-        Me.optExtDeetNA.Name = "optExtDeetNA"
-        Me.optExtDeetNA.Size = New System.Drawing.Size(42, 17)
-        Me.optExtDeetNA.TabIndex = 6
-        Me.optExtDeetNA.Text = "n/a"
-        Me.optExtDeetNA.UseVisualStyleBackColor = True
-        '
-        'pgWSEcon
-        '
-        Me.pgWSEcon.Location = New System.Drawing.Point(4, 22)
-        Me.pgWSEcon.Name = "pgWSEcon"
-        Me.pgWSEcon.Padding = New System.Windows.Forms.Padding(3)
-        Me.pgWSEcon.Size = New System.Drawing.Size(1161, 518)
-        Me.pgWSEcon.TabIndex = 10
-        Me.pgWSEcon.Text = "WS Econ"
-        Me.pgWSEcon.UseVisualStyleBackColor = True
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(188, 66)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(60, 17)
-        Me.CheckBox1.TabIndex = 91
-        Me.CheckBox1.Text = "Bypass"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(188, 42)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(133, 17)
-        Me.CheckBox2.TabIndex = 92
-        Me.CheckBox2.Text = "Individual Disconnects"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
         'frmPipePkg
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -3893,6 +4145,10 @@ Partial Class frmPipePkg
         Me.GroupBox3.PerformLayout()
         Me.pgPumps.ResumeLayout(False)
         Me.pgPumps.PerformLayout()
+        Me.grpPumpBypass.ResumeLayout(False)
+        Me.grpPumpBypass.PerformLayout()
+        Me.grpPumpDisconnects.ResumeLayout(False)
+        Me.grpPumpDisconnects.PerformLayout()
         Me.pgSpecOpt.ResumeLayout(False)
         Me.grpSucDiffOptions.ResumeLayout(False)
         Me.grpSucDiffOptions.PerformLayout()
@@ -4272,7 +4528,28 @@ Partial Class frmPipePkg
     Friend WithEvents optPCtrlNA As RadioButton
     Friend WithEvents txtPRptCountAndStyle As TextBox
     Friend WithEvents optExtDeetNA As RadioButton
-    Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents chkPCtrlDisc As CheckBox
+    Friend WithEvents chkPCtrlBypass As CheckBox
     Friend WithEvents pgWSEcon As TabPage
+    Friend WithEvents cmbPumpMotorHP As ComboBox
+    Friend WithEvents cmbPumpVolts As ComboBox
+    Friend WithEvents Label54 As Label
+    Friend WithEvents cmbPumpMotorSpeed As ComboBox
+    Friend WithEvents txtPumpMotorType As TextBox
+    Friend WithEvents txtPumpMotorFLA As TextBox
+    Friend WithEvents txtPumpDryMass As TextBox
+    Friend WithEvents txtPumpWetMass As TextBox
+    Friend WithEvents txtImpellerDia As TextBox
+    Friend WithEvents txtPumpHP As TextBox
+    Friend WithEvents pgMassAudit As TabPage
+    Friend WithEvents grpPumpDisconnects As GroupBox
+    Friend WithEvents optPMDna As RadioButton
+    Friend WithEvents optPMDFusedDisc As RadioButton
+    Friend WithEvents optPMDIECDisc As RadioButton
+    Friend WithEvents optPMDSafeSwitch As RadioButton
+    Friend WithEvents grpPumpBypass As GroupBox
+    Friend WithEvents optPumpBypass3ContactorAuto As RadioButton
+    Friend WithEvents optPumpBypassNA As RadioButton
+    Friend WithEvents optPumpBypass2ContactorAuto As RadioButton
+    Friend WithEvents optPumpBypass2Contactor As RadioButton
 End Class

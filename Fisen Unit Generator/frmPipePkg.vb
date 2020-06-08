@@ -53,6 +53,14 @@ Public Class frmPipePkg
         'Prime the pump for Design Cautions
         ModuleCodeList.Add("800000")
 
+        'Prepare the Pumps Tab
+        cmbPumpVolts.Text = "Not Required"
+        cmbPumpMotorHP.Text = "Not Required"
+        txtPumpMotorType.Text = "Not Required"
+        cmbPumpMotorSpeed.Text = "Not Required"
+        txtPumpMotorFLA.Text = "n/a"
+
+
         'Old stuff follows - Should eventually be deleted or migrated out of here.
         txtFlow.Text = frmMain.ThisChillerMainPerf.Flow
         cmbFluid.Text = frmMain.ThisChillerMainPerf.Fluid
@@ -206,7 +214,6 @@ Public Class frmPipePkg
     End Sub
     Private Sub UpdateCodeList(Preview As Boolean)
         Dim i As Integer
-        Dim dummy As MsgBoxResult
 
         'Add the level 0 code
         ModuleCodeList.Clear()
@@ -527,8 +534,22 @@ Public Class frmPipePkg
             ModuleCodeList.Add("800AX4")
             If cmbPCtrlSpecDrive.Text = "Danfoss HVAC" Then ModuleCodeList.Add("800AV2")
             If cmbPCtrlSpecDrive.Text = "ABB ACH550" Then ModuleCodeList.Add("800AV3")
+            If cmbPCtrlSpecDrive.Text = "Eaton HMax" Then ModuleCodeList.Add("800AV4")
         End If
         If optPCtrlCVPumps.Checked Then ModuleCodeList.Add("800AX5")
+
+
+
+        If optPMDna.Checked Then ModuleCodeList.Add("800AW1")
+        If optPMDSafeSwitch.Checked Then ModuleCodeList.Add("800AW2")
+        If optPMDIECDisc.Checked Then ModuleCodeList.Add("800AW3")
+        If optPMDFusedDisc.Checked Then ModuleCodeList.Add("800AW4")
+
+        If Not ((optPCtrlCVPumps.Checked) And (optPumpBypassNA.Checked)) Then ModuleCodeList.Add("800AVZ")
+        If optPumpBypass2Contactor.Checked Then ModuleCodeList.Add("800AVY")
+        If optPumpBypass2ContactorAuto.Checked Then ModuleCodeList.Add("800AVX")
+        If optPumpBypass3ContactorAuto.Checked Then ModuleCodeList.Add("800AVW")
+
 
     End Sub
 
@@ -771,7 +792,7 @@ Public Class frmPipePkg
     Private Sub btnDoneSpecialties_Click(sender As Object, e As EventArgs) Handles btnDoneSpecialties.Click
         Dim Dummy As MsgBoxResult
         Dim SpecDone As Boolean
-        SpecDone = False
+
 
         SpecDone = TDVDone And SucDiffDone And BTankDone And XTankDone And ASepDone And StrainDone And GMUDone And PotFeedDone
         If Not SpecDone Then
@@ -940,7 +961,7 @@ Public Class frmPipePkg
     Private Function PackagePD() As String
         Dim tempPD As Double
 
-        tempPD = -999.666
+
         tempPD = SpecialtysPD + ValvesPD + FittingsPD + PipesPD
 
         PackagePD = tempPD
@@ -980,7 +1001,7 @@ Public Class frmPipePkg
     Private Function PipesPD() As Double
         Dim tempPD As Double
 
-        tempPD = -999.666
+
         tempPD = Val(txtPDper100ft.Text) / 100.0 * Val(txtPipeLength.Text)
         PipesPD = tempPD
     End Function
@@ -1020,15 +1041,13 @@ Public Class frmPipePkg
     End Function
     Private Function PackageVolume() As String
         Dim tempvol As Double
-        tempvol = -9999.666
-        tempvol = SpecialtyVolumes() + ValveVolumes() + FittingVolumes + PipeVolumes
+        tempvol = SpecialtyVolumes() + ValveVolumes() + FittingVolumes() + PipeVolumes()
 
         PackageVolume = Format(tempvol, "0")
     End Function
 
     Private Function PackageWeight() As String
         Dim tempweight As Double
-        tempweight = -9999.666
         tempweight = SpecialtyWeights() + ValveWeights() + FittingWeights() + PipeWeights() + CouplingWeights()
 
         PackageWeight = Format(tempweight, "0.0")
@@ -1063,7 +1082,6 @@ Public Class frmPipePkg
         Dim Ell90Weight As Double
         Dim TeeWeight As Double
         Dim BTeeWeight As Double
-        tempweight = 0
         Ell225Weight = Val(lbl225Mass.Text) * nud225.Value
         Ell90Weight = Val(lbl90Mass.Text) * nud90.Value
         Ell45Weight = Val(lbl45Mass.Text) * nud45.Value
@@ -1075,7 +1093,6 @@ Public Class frmPipePkg
     End Function
     Private Function CouplingWeights() As Double
         Dim tempweight As Double
-        tempweight = 0
 
         Dim RigidWeight As Double
         Dim FlexWeight As Double
@@ -1133,7 +1150,7 @@ Public Class frmPipePkg
         Dim Ell90Vol As Double
         Dim TeeVol As Double
         Dim BTeeVol As Double
-        tempvol = 0
+
         Ell225Vol = Val(lbl225Vol.Text) * nud225.Value
         Ell90Vol = Val(lbl90Vol.Text) * nud90.Value
         Ell45Vol = Val(lbl45Vol.Text) * nud45.Value
@@ -1736,6 +1753,22 @@ Public Class frmPipePkg
                 optTEFCPumpMotor.Checked = True
             End If
 
+            cmbPumpVolts.Enabled = True
+            cmbPumpVolts.Text = "Unselected"
+            cmbPumpMotorHP.Enabled = True
+            cmbPumpMotorHP.Text = "Unselected"
+            txtPumpMotorType.Text = "TEFC"
+            cmbPumpMotorSpeed.Enabled = True
+            cmbPumpMotorSpeed.Text = "Unselected"
+            txtPumpMotorFLA.Text = "nan"
+            txtPumpHP.ReadOnly = False
+            txtPumpHP.Text = "Unselected"
+            txtImpellerDia.ReadOnly = False
+            txtImpellerDia.Text = "Unselected"
+            txtPumpWetMass.ReadOnly = False
+            txtPumpDryMass.ReadOnly = False
+            txtPumpWetMass.Text = "Unselected"
+            txtPumpDryMass.Text = "Unselected"
         Else
             cmbPumpSpec.Enabled = False
             cmbPumpSpec.Text = "Not Required"
@@ -1754,6 +1787,23 @@ Public Class frmPipePkg
 
             grpPumpSystem.Visible = False
             optPumpSystemNA.Checked = True
+
+            cmbPumpVolts.Enabled = False
+            cmbPumpVolts.Text = "Not Required"
+            cmbPumpMotorHP.Enabled = False
+            cmbPumpMotorHP.Text = "Not Required"
+            txtPumpMotorType.Text = "Not Required"
+            cmbPumpMotorSpeed.Enabled = False
+            cmbPumpMotorSpeed.Text = "Not Required"
+            txtPumpMotorFLA.Text = "n/a"
+            txtPumpHP.ReadOnly = True
+            txtPumpHP.Text = "n/a"
+            txtImpellerDia.ReadOnly = True
+            txtImpellerDia.Text = "n/a"
+            txtPumpWetMass.ReadOnly = True
+            txtPumpDryMass.ReadOnly = True
+            txtPumpWetMass.Text = "0.0"
+            txtPumpDryMass.Text = "0.0"
         End If
     End Sub
 
@@ -2164,9 +2214,92 @@ Public Class frmPipePkg
         If optPCtrlSpecificRemote.Checked Then
             cmbPCtrlSpecDrive.Enabled = True
             cmbPCtrlSpecDrive.Text = "Unselected"
+            chkPCtrlBypass.Enabled = True
+            chkPCtrlDisc.Enabled = True
         Else
             cmbPCtrlSpecDrive.Enabled = False
             cmbPCtrlSpecDrive.Text = "Not Required"
+        End If
+    End Sub
+
+    Private Sub cmbPumpMotorHP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPumpMotorHP.SelectedIndexChanged
+        If cmbPumpMotorHP.Text = "Unselected" Then txtPumpMotorFLA.Text = "nan"
+        If cmbPumpMotorHP.Text = "Not Required" Then txtPumpMotorFLA.Text = "nan"
+        If ((cmbPumpMotorHP.Text <> "Unselected") And (cmbPumpMotorHP.Text <> "Not Required")) Then
+            txtPumpMotorFLA.Text = NEMAMotorFLA(cmbPumpMotorHP.Text, cmbPumpVolts.Text)
+        End If
+    End Sub
+
+    Private Sub optTEFCPumpMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optTEFCPumpMotor.CheckedChanged
+        If optTEFCPumpMotor.Checked Then txtPumpMotorType.Text = "TEFC"
+    End Sub
+
+    Private Sub optODPPumpMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optODPPumpMotor.CheckedChanged
+        If optODPPumpMotor.Checked Then txtPumpMotorType.Text = "ODP"
+    End Sub
+
+    Private Sub optPumpMotorNA_CheckedChanged(sender As Object, e As EventArgs) Handles optPumpMotorNA.CheckedChanged
+        If optPumpMotorNA.Checked Then txtPumpMotorType.Text = "Not Required"
+    End Sub
+
+    Private Sub optPCtrlNA_CheckedChanged(sender As Object, e As EventArgs) Handles optPCtrlNA.CheckedChanged
+        If optPCtrlNA.Checked Then
+            chkPCtrlBypass.Checked = False
+            chkPCtrlDisc.Checked = False
+            chkPCtrlBypass.Enabled = False
+            chkPCtrlDisc.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optPCtrlIVSonPump_CheckedChanged(sender As Object, e As EventArgs) Handles optPCtrlIVSonPump.CheckedChanged
+        If optPCtrlIVSonPump.Checked Then
+            chkPCtrlBypass.Checked = False
+            chkPCtrlDisc.Checked = False
+            chkPCtrlBypass.Enabled = False
+            chkPCtrlDisc.Enabled = False
+        End If
+    End Sub
+
+    Private Sub optPCtrlIVSRemote_CheckedChanged(sender As Object, e As EventArgs) Handles optPCtrlIVSRemote.CheckedChanged
+        If optPCtrlIVSRemote.Checked Then
+            chkPCtrlBypass.Enabled = True
+            chkPCtrlDisc.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optPCtrlStdRemote_CheckedChanged(sender As Object, e As EventArgs) Handles optPCtrlStdRemote.CheckedChanged
+        If optPCtrlStdRemote.Checked Then
+            chkPCtrlBypass.Enabled = True
+            chkPCtrlDisc.Enabled = True
+        End If
+    End Sub
+
+    Private Sub optPCtrlCVPumps_CheckedChanged(sender As Object, e As EventArgs) Handles optPCtrlCVPumps.CheckedChanged
+        chkPCtrlDisc.Enabled = True
+    End Sub
+
+    Private Sub chkPCtrlDisc_CheckedChanged(sender As Object, e As EventArgs) Handles chkPCtrlDisc.CheckedChanged
+        If chkPCtrlDisc.Checked Then
+            grpPumpDisconnects.Enabled = True
+            optPMDSafeSwitch.Checked = True
+            optPMDna.Enabled = False
+
+        Else
+            grpPumpDisconnects.Enabled = True
+            optPMDna.Checked = True
+            optPMDna.Enabled = True
+        End If
+    End Sub
+
+    Private Sub chkPCtrlBypass_CheckedChanged(sender As Object, e As EventArgs) Handles chkPCtrlBypass.CheckedChanged
+        If chkPCtrlBypass.Checked Then
+            grpPumpBypass.Enabled = True
+            optPumpBypass2Contactor.Checked = True
+            optPumpBypassNA.Enabled = False
+        Else
+            grpPumpBypass.Enabled = False
+            optPumpBypassNA.Enabled = True
+            optPumpBypassNA.Checked = True
         End If
     End Sub
 End Class

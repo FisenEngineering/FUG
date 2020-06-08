@@ -1,5 +1,7 @@
 ﻿Public Class frmMEHeat_R
     Private pCancelled As Boolean
+    Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -48,6 +50,7 @@
         End If
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        ModuleCodeList.Add("501100")
     End Sub
 
 
@@ -61,49 +64,54 @@
         'frmMain.ThisUnitMods.Add("Common")
         'End If
         Call UpdateCodeList()
-        Call UpdateBaseUnitRequiredItems
+        Call UpdateBaseUnitRequiredItems()
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+        Next i
         Me.Hide()
     End Sub
     Private Sub UpdateCodeList()
+        ModuleCodeList.Clear()
         'Add the level 0 code
-        frmMain.ThisUnitCodes.Add("501100")
-        If chkFisenInstallsJCI.Checked Then frmMain.ThisUnitCodes.Add("501101")
+        ModuleCodeList.Add("501100")
+        If chkFisenInstallsJCI.Checked Then ModuleCodeList.Add("501101")
         If optFisenSCR.Checked Then
-            frmMain.ThisUnitCodes.Add("501105") 'Fisen SCR
-            If chk65kASCCRBase.Checked Then frmMain.ThisUnitCodes.Add("501106")
+            ModuleCodeList.Add("501105") 'Fisen SCR
+            If chk65kASCCRBase.Checked Then ModuleCodeList.Add("501106")
         Else
-            frmMain.ThisUnitCodes.Add("501110") 'Field SCR
+            ModuleCodeList.Add("501110") 'Field SCR
         End If
 
         'now the controls
-        frmMain.ThisUnitCodes.Add("501120")
+        ModuleCodeList.Add("501120")
 
         If optCustomCtrl.Checked Then
-            frmMain.ThisUnitCodes.Add("501140")
+            ModuleCodeList.Add("501140")
         End If
 
         If optSATCtrl.Checked = True Then 'Normal SAT Controls
 
             If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                 If optSE.Checked = True Then
-                    frmMain.ThisUnitCodes.Add("501125") 'SE 4Stage Board
+                    ModuleCodeList.Add("501125") 'SE 4Stage Board
                 Else
-                    frmMain.ThisUnitCodes.Add("501128") 'IPU
+                    ModuleCodeList.Add("501128") 'IPU
                 End If
             Else 'This should mean S20, S10, S5
-                frmMain.ThisUnitCodes.Add("501121") 'SE Single board
+                ModuleCodeList.Add("501121") 'SE Single board
             End If
 
             If chkTempering.Checked = True Then
-                frmMain.ThisUnitCodes.Add("501126")
+                ModuleCodeList.Add("501126")
                 If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                     If optSE.Checked = True Then
-                        frmMain.ThisUnitCodes.Add("501127") 'SE 4Stage Board
+                        ModuleCodeList.Add("501127") 'SE 4Stage Board
                     Else
-                        frmMain.ThisUnitCodes.Add("501129") 'IPU
+                        ModuleCodeList.Add("501129") 'IPU
                     End If
                 Else 'This should mean S20, S10, S5
-                    frmMain.ThisUnitCodes.Add("501131") 'SE Single board
+                    ModuleCodeList.Add("501131") 'SE Single board
                 End If
 
             End If
@@ -113,31 +121,31 @@
 
             If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                 If optSE.Checked = True Then
-                    frmMain.ThisUnitCodes.Add("501136") 'SE 100% Outdoor Air
+                    ModuleCodeList.Add("501136") 'SE 100% Outdoor Air
                 Else
-                    frmMain.ThisUnitCodes.Add("501137") 'IPU 100% Outdoor Air
+                    ModuleCodeList.Add("501137") 'IPU 100% Outdoor Air
                 End If
             Else 'This should mean S20, S10, S5
-                frmMain.ThisUnitCodes.Add("501138") 'SE Single board
+                ModuleCodeList.Add("501138") 'SE Single board
             End If
         End If
 
         If opt100OACapable.Checked Then
-            frmMain.ThisUnitCodes.Add("501151")
+            ModuleCodeList.Add("501151")
             If ((frmMain.ThisUnit.Family = "Series40") Or (frmMain.ThisUnit.Family = "Series100")) Then
                 If optSE.Checked = True Then
-                    frmMain.ThisUnitCodes.Add("501153") 'SE 100% Outdoor Air Capable four stage board
+                    ModuleCodeList.Add("501153") 'SE 100% Outdoor Air Capable four stage board
 
                 Else
-                    frmMain.ThisUnitCodes.Add("501154") 'IPU 100% Outdoor Air Capable
+                    ModuleCodeList.Add("501154") 'IPU 100% Outdoor Air Capable
                 End If
             Else 'This should mean S20, S10, S5
-                frmMain.ThisUnitCodes.Add("501152") 'SE Single board
+                ModuleCodeList.Add("501152") 'SE Single board
             End If
         End If
 
         If optGBAS.Checked = True Then
-            frmMain.ThisUnitCodes.Add("501130") 'GBAS Interface
+            ModuleCodeList.Add("501130") 'GBAS Interface
         End If
 
         If chkIncludeEquipmentTouch.Checked = True Then
