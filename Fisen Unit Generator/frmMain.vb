@@ -4,6 +4,8 @@ Imports System.Xml.Serialization
 Imports System.IO
 Imports System.Drawing.Imaging
 Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.Vbe.Interop
+Imports System.Xml.Schema
 
 Public Class frmMain
     Public ThisUnit As clsUnitClass
@@ -50,7 +52,7 @@ Public Class frmMain
     Public ThisUnitReferSpecsTag As New ArrayList
     Public ThisUnitAirflow As New ArrayList
 
-
+    Public UserOptions As New clsUserOptions
 
     Public ThisUnitAirflowDiag As New ArrayList
 
@@ -448,7 +450,7 @@ Public Class frmMain
         rs.MoveFirst()
         i = 0
         Do While Not (rs.EOF)
-            If lstReferTagstoApply.SelectedItems.count > 0 Then
+            If lstReferTagstoApply.SelectedItems.Count > 0 Then
                 For j = 0 To lstReferTagstoApply.SelectedItems.Count - 1
                     If InStr(rs.Fields("DrawingID").Value, lstReferTagstoApply.SelectedItems(j)) > 0 Then
                         FilterMatch = FilterMatch And True
@@ -461,10 +463,10 @@ Public Class frmMain
                 If InStr(rs.Fields("DrawingID").Value, Mid(ThisUnit.ModelNumber, 1, 5)) > 0 Then
                     FilterMatch = FilterMatch And True
                 Else
-                    filtermatch = False
+                    FilterMatch = False
                 End If
             End If
-                If FilterMatch Then
+            If FilterMatch Then
                 lstAvailRefer.Items.Add(rs.Fields("PlainName").Value)
                 ReferDesc(i) = rs.Fields("DrawingDescription").Value
                 ReferWMFPath.Add(My.Settings.ResourceDir & "ReferDrawings" & rs.Fields("DrawingPath").Value & rs.Fields("WMFName").Value)
@@ -996,6 +998,15 @@ Public Class frmMain
                         frmNewFan.Dispose()
                     End If
 
+                Case Is = "Ultraviolet Lights"
+                    frmUVLights.ShowDialog()
+                    If frmUVLights.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmUVLights.Dispose()
+                    End If
+
                 Case Else
                     dummy = MsgBox("Undefined modification type: " & thisitem)
             End Select
@@ -1079,7 +1090,7 @@ Public Class frmMain
         rs.Open(MySQL, con)
         Ver = rs.Fields("TemplateVer").Value
 
-        If chkAutoLaunchTemplate.Checked Then
+        If My.Settings.UOWordLaunch Then
             Select Case locFamily
                 Case Is = "Series5"
                     UPGFile = UPGFile & Ver & ".dotm"
@@ -3147,7 +3158,7 @@ Public Class frmMain
         End If
 
         'Now handle moving the end device cutsheets as needed.
-        If (chkEDMovetoCutSheets.Checked Or chkEDMovetoDesign.Checked) Then Call CopyEndDeviceCusSheets
+        If (chkEDMovetoCutSheets.Checked Or My.Settings.UOMoveCuts2SD) Then Call CopyEndDeviceCusSheets()
 
         UnitWriter.WriteEndElement() 'EndDevices Required
 
@@ -5187,7 +5198,7 @@ Public Class frmMain
             Dummy = MsgBox("Sales entered modification conditions file missing." & vbCrLf & "Conditions will need to be manually entered.", vbOKOnly, "Fisen Unit Generator")
         End If
 
-        Call ArchiveOldSubmittalFiles
+        Call ArchiveOldSubmittalFiles()
 
         My.Settings.Save()
 
@@ -6301,6 +6312,39 @@ Public Class frmMain
                 opt5YrComps.Checked = True
                 grpGasHeatWarrType.Visible = False
                 grpCompEHeatWarrText.Visible = False
+            Case Is = "Select"
+                opt5YrComps.Checked = True
+                If Mid(ThisUnit.ModelNumber, 5, 1) = "C" Then
+                    optNoGasHx.Checked = True
+                Else
+                    If Mid(ThisUnit.ModelNumber, 5, 1) = "S" Then
+                        opt15YrSSHx.Checked = True
+                    Else
+                        opt10YrAlHX.Checked = True
+                    End If
+                End If
+            Case Is = "Choice"
+                opt5YrComps.Checked = True
+                If Mid(ThisUnit.ModelNumber, 5, 1) = "C" Then
+                    optNoGasHx.Checked = True
+                Else
+                    If ((Mid(ThisUnit.ModelNumber, 5, 1) = "S") Or (Mid(ThisUnit.ModelNumber, 5, 1) = "T")) Then
+                        opt15YrSSHx.Checked = True
+                    Else
+                        opt10YrAlHX.Checked = True
+                    End If
+                End If
+            Case Is = "Premier"
+                opt5YrComps.Checked = True
+                If Mid(ThisUnit.ModelNumber, 5, 1) = "A" Then
+                    optNoGasHx.Checked = True
+                Else
+                    If ((Mid(ThisUnit.ModelNumber, 5, 1) = "C") Or (Mid(ThisUnit.ModelNumber, 5, 1) = "G")) Then
+                        opt15YrSSHx.Checked = True
+                    Else
+                        opt10YrAlHX.Checked = True
+                    End If
+                End If
         End Select
 
         If ThisUnit.Kingdom = "Chiller" Then
@@ -6930,7 +6974,7 @@ Public Class frmMain
             End If
             chkInhibitDigConditions.Checked = False
             chkSaveinProjDB.Checked = False
-            chkMoveCutsheets.Checked = False
+            My.Settings.UOMoveCuts2SD = False
 
         End If
 
@@ -7122,9 +7166,8 @@ Public Class frmMain
         If chkCSAGas.Checked Then ThisUnit.UPGCertifications.Add("CSA Gas")
 
         btnDoneCerts.Enabled = False
-        If chkMoveCutsheets.Checked Then
+        If My.Settings.UOMoveCuts2SD Then
             tabMain.SelectTab("pgCutSheets")
-
         Else
             tabMain.Enabled = False
             Button1.Enabled = True
@@ -7595,7 +7638,19 @@ Public Class frmMain
         End Select
         RoundDowntoFuseSize = fusesize
     End Function
+    Private Sub LoadModLoads()
+        Dim i As Integer
+        Dim NewRow As String()
 
+        If ThisUnitElecData.ModLoad.Count > 0 Then
+            For i = 0 To ThisUnitElecData.ModLoad.Count - 1
+
+                NewRow = ThisUnitElecData.ModLoad(i)
+                dgvElecLoads.Rows.Add(NewRow)
+            Next
+        End If
+
+    End Sub
     Private Sub chkUseCustomMCA_CheckedChanged(sender As Object, e As EventArgs) Handles chkUseCustomMCA.CheckedChanged
         Dim NewRow As String()
         Dim ElecChar As String
@@ -7636,6 +7691,7 @@ Public Class frmMain
                 Case Else
                     Call LoadStandardLoads()
             End Select
+            Call LoadModLoads
 
 
 
@@ -7770,6 +7826,9 @@ Public Class frmMain
         Snipet = Mid(ThisUnit.ModelNumber, 1, 5)
         If Mid(Snipet, 1, 1) = "V" Then Snipet = Mid(Snipet, 1, 2) & "XXX"
         If Mid(Snipet, 1, 1) = "Y" Then Snipet = Mid(ThisUnit.ModelNumber, 1, 7)
+        If ThisUnit.Family = "Select" Then
+            Snipet = Mid(ThisUnit.ModelNumber, 1, 4) & "-2"
+        End If
 
         MySQL = "SELECT * FROM tblElectricalInfo WHERE (JCISnipit='" & Snipet & "') AND (Voltage='" & txtCommVolts.Text & "')"
 
@@ -8857,7 +8916,7 @@ Public Class frmMain
                 FileName = txtJobNumber.Text & "-" & txtUnitNumber.Text & " - Cut Sheet-" & rs.Fields("EDName").Value & " " & Ver2FileVer(txtUnitVersion.Text) & ".pdf"
                 FinalTargetPath1 = BaseTargetPath1 & FileName
                 FinalTargetPath2 = BaseTargetPath2 & FileName
-                If chkEDMovetoDesign.Checked Then FileCopy(FinalSourcePath, FinalTargetPath1)
+                If My.Settings.UOMoveCuts2SD Then FileCopy(FinalSourcePath, FinalTargetPath1)
                 If chkEDMovetoCutSheets.Checked Then FileCopy(FinalSourcePath, FinalTargetPath2)
             End If
         Next
@@ -8935,4 +8994,10 @@ Public Class frmMain
         chkUnitFilterOnStubbs.Checked = False
         Call LoadApplicableDrawings()
     End Sub
+
+    Private Sub cmdUserOptions_Click(sender As Object, e As EventArgs) Handles cmdUserOptions.Click
+        frmUserOptions.ShowDialog()
+    End Sub
+
+
 End Class

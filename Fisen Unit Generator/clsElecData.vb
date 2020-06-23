@@ -59,6 +59,16 @@ Public Class clsElecData
 
     Private pCommLoad As New ArrayList
     Private pEmerLoad As New ArrayList
+    Private pModLoad As New ArrayList
+
+    Public Property ModLoad As ArrayList
+        Get
+            ModLoad = pModLoad
+        End Get
+        Set(value As ArrayList)
+            pModLoad = value
+        End Set
+    End Property
 
     Public Property CommLoad As ArrayList
         Get

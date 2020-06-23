@@ -83,13 +83,24 @@ Public Class frmNewFan
             End Select
 
             Select Case frmMain.ThisUnitHeatPerf.HeatType
-                Case Is = "Gas"
+                Case Is = "Gas Heat"
                     cmbHeatBox.Text = "Gas"
                 Case Is = "Electric"
                     cmbHeatBox.Text = "72kW"
                 Case Is = "None"
                     cmbHeatBox.Text = "CoolOnly"
+                Case Else
+                    cmbHeatBox.Text = "Not Selected"
             End Select
+
+            For i = 0 To frmMain.ThisUnitFactOpts.Count - 1
+
+                Debug.Print(frmMain.ThisUnitFactOpts.Item(i))
+                Debug.Print("4" & """" & "  MERV 13 Filters")
+                If frmMain.ThisUnitFactOpts.Item(i) = "4" & """" & " MERV 13 Filters" Then opt4InchFilters.Checked = True
+                If InStr(frmMain.ThisUnitFactOpts.Item(i), "Economizer") > 0 Then chkEconPresent.Checked = True
+                If InStr(frmMain.ThisUnitFactOpts.Item(i), "Exhaust") > 0 Then chkPwrExhaustPresent.Checked = True
+            Next i
 
             ModuleCodeList.Add("320100")
         End If
@@ -99,7 +110,7 @@ Public Class frmNewFan
 
                 Case Is = "Series10"
                     cmdS10BottomReturn.Visible = True
-                    lblNote1.Text = "DNE fan is a Continental AFK 16in Fan (2hp max).  14in fan is preferred (2hp max)."
+                    lblNote1.Text = "DNE fan Is a Continental AFK 16In Fan (2hp max).  14In fan Is preferred (2hp max)."
                     chkS10BottomRAMonitor.Visible = True
                     chkInletMeasuringStationOnly.Visible = True
                     chkInletMeasuringStationWithXMit.Visible = True
@@ -109,7 +120,7 @@ Public Class frmNewFan
                 Case Is = "Series20"
                     cmdS20BottomReturn.Visible = True
                     cmdS20SideReturn.Visible = True
-                    lblNote1.Text = "DNE fan is a Continental AFK 27in Fan (5hp max).  24in is preferred (2hp max)."
+                    lblNote1.Text = "DNE fan Is a Continental AFK 27In Fan (5hp max).  24In Is preferred (2hp max)."
                 Case Is = "Series40"
                     'Depricated *Probably not going to be used*
                     cmdS40EndReturn.Visible = True
@@ -1506,7 +1517,7 @@ Public Class frmNewFan
         dgvStaticSummary.Rows.Add(NewRow)
         frmMain.ThisUnitRXPerf.DuctLoc = "End"
         cmdS40EndReturn.Enabled = False
-
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub chkMultipleFans_CheckedChanged(sender As Object, e As EventArgs) Handles chkMultipleFans.CheckedChanged
@@ -1551,6 +1562,7 @@ Public Class frmNewFan
         frmMain.ThisUnitRXPerf.DuctLoc = "Bottom"
         chkReliefHoodsShipLoose.Checked = True
         cmdS20BottomReturn.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdS20SideReturn_Click(sender As Object, e As EventArgs) Handles cmdS20SideReturn.Click
@@ -1582,6 +1594,7 @@ Public Class frmNewFan
         NewRow = {"Exhaust Air Hoods", Format(Hood, "0.00"), Format(Val(lblKFactor.Text) ^ -1 * Hood, "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         frmMain.ThisUnitRXPerf.DuctLoc = "Side"
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdS40BottomReturn_Click(sender As Object, e As EventArgs) Handles cmdS40BottomReturn.Click
@@ -1610,6 +1623,7 @@ Public Class frmNewFan
         dgvStaticSummary.Rows.Add(NewRow)
         frmMain.ThisUnitRXPerf.DuctLoc = "Bottom"
         cmdS40BottomReturn.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdS10BottomReturn_Click(sender As Object, e As EventArgs) Handles cmdS10BottomReturn.Click
@@ -1652,6 +1666,7 @@ Public Class frmNewFan
 
         frmMain.ThisUnitRXPerf.DuctLoc = "Bottom"
         cmdS10BottomReturn.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdS10BottomSupply_Click(sender As Object, e As EventArgs) Handles cmdS10BottomSupply.Click
@@ -1687,9 +1702,7 @@ Public Class frmNewFan
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         cmdS10BottomSupply.Enabled = False
-
-
-
+        btnReturn.Enabled = True
     End Sub
 
 
@@ -1732,6 +1745,8 @@ Public Class frmNewFan
                     temp = 0.000000124168 * localAirflow ^ 2 - 0.000010597484 * localAirflow
                 Case Is = "J12ZH"
                     temp = 0.000000119120125705 * localAirflow ^ 2 + 0.000013904963053223 * localAirflow
+                Case Is = "J12ZB"
+                    temp = 0.000000124168 * localAirflow ^ 2 - 0.000010597484 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
@@ -1799,6 +1814,8 @@ Public Class frmNewFan
                         temp = -0.000000015137607 * localAirflow ^ 2 + 0.000000933427427 * localAirflow
                     Case Is = "J12ZH"
                         temp = -0.000000015137607 * localAirflow ^ 2 + 0.000000933427427 * localAirflow
+                    Case Is = "J12ZB"
+                        temp = -0.000000016071428571 * localAirflow ^ 2 + 0.000009009034443817 * localAirflow - 0.0158819169960459
                     Case Is = "J10ZR"
                         temp = -0.000000016071428571 * localAirflow ^ 2 + 0.000009009034443817 * localAirflow - 0.0158819169960459
                     Case Is = "J10ZJ"
@@ -1965,6 +1982,8 @@ Public Class frmNewFan
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J12ZF"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
+                Case Is = "J12ZB"
+                    temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J12ZH"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J10ZR"
@@ -2015,6 +2034,8 @@ Public Class frmNewFan
                     temp = -0.000000019882834557 * localAirflow ^ 2 + 0.000399254658385093 * localAirflow - 0.646415513833994
                 Case Is = "J12ZF"
                     temp = -0.00000002100701087 * localAirflow ^ 2 + 0.000416422272434739 * localAirflow - 0.768013952863524
+                Case Is = "J12ZB"
+                    temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J10ZR"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J10ZJ"
@@ -2080,6 +2101,7 @@ Public Class frmNewFan
 
         frmMain.ThisUnitRXPerf.DuctLoc = "Side"
         cmdS100BEndReturn.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub txtFanRPM_LostFocus(sender As Object, e As EventArgs) Handles txtFanRPM.LostFocus
@@ -2122,6 +2144,7 @@ Public Class frmNewFan
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         cmdS20SideSupply.Enabled = False
+        btnReturn.Enabled = True
     End Sub
     Private Function EconAdjustmentS20(localAirflow As Double, EconPresent As Boolean)
         Dim temp As Double
@@ -2371,6 +2394,7 @@ Public Class frmNewFan
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         cmdS10SideSupply.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdS40Supply_Click(sender As Object, e As EventArgs) Handles cmdS40Supply.Click
@@ -2415,6 +2439,7 @@ Public Class frmNewFan
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         cmdS40Supply.Enabled = False
+        btnReturn.Enabled = True
     End Sub
     Private Function UnitStaticPressureS40(localairflow As Double) As Double
         Dim temp As Double
@@ -2524,6 +2549,7 @@ Public Class frmNewFan
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         cmdS20BottomSupply.Enabled = False
+        btnReturn.Enabled = True
     End Sub
     Private Sub BOMCodesSupplyFan()
         Dim dummy As MsgBoxResult
@@ -3077,6 +3103,8 @@ Public Class frmNewFan
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
         cmdS5BottomSupply.Enabled = False
+        btnReturn.Enabled = True
+
 
     End Sub
     Private Function UnitStaticPressureS5(localAirflow As Double, BottomD As Boolean)
@@ -3177,4 +3205,15 @@ Public Class frmNewFan
         Return temp
     End Function
 
+    Private Sub cmdGenericStatic_Click(sender As Object, e As EventArgs) Handles cmdGenericStatic.Click
+
+        Dim NewRow As String()
+
+        NewRow = {"Base Unit Static", "???", "0.00"}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Factory Installed Options", "???", "0.00"}
+        dgvStaticSummary.Rows.Add(NewRow)
+
+        btnReturn.Enabled = True
+    End Sub
 End Class

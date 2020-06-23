@@ -29,6 +29,7 @@ Public Class clsUnitClass
     Private pCabinet As String
     Private pNotes As String
 
+
     Public Property Notes As String
         Get
             Return pNotes

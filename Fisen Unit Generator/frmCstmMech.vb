@@ -13,6 +13,8 @@
         End Set
     End Property
     Private Sub frmCstmMech_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
         Call LoadPermittedMechMods()
     End Sub
     Private Sub LoadPermittedMechMods()
@@ -326,6 +328,10 @@
                 frmMain.ThisUnitCstmMechCodes.Add(pTagALongsSelected.Item(i))
             End If
         Next
+        'handle base SCCR Unit Code
+        If chk65kASCCRBase.Checked Then
+            frmMain.ThisUnitCstmMechCodes.Add("940F6A")
+        End If
     End Sub
 
 End Class

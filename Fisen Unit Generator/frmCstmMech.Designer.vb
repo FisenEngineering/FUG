@@ -46,6 +46,7 @@ Partial Class frmCstmMech
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -168,6 +169,7 @@ Partial Class frmCstmMech
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
@@ -327,6 +329,17 @@ Partial Class frmCstmMech
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(4, 170)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 31
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'frmCstmMech
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -377,4 +390,5 @@ Partial Class frmCstmMech
     Friend WithEvents lblCurrentCstmMod As Label
     Friend WithEvents lblCount As Label
     Friend WithEvents lblCurrentCode As Label
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

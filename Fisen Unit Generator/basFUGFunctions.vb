@@ -522,4 +522,12 @@
         NEMAMotorFLA = FLA
     End Function
 
+    Public Function XfmrPrimaryAmps(PVolts As Double, VA As Double) As Double
+        Dim TempAmps As Double
+
+        TempAmps = VA / PVolts
+
+        Return TempAmps
+    End Function
+
 End Module

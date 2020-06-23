@@ -23,9 +23,9 @@ Partial Class frmNewFan
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNewFan))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -69,6 +69,7 @@ Partial Class frmNewFan
         Me.txtAirflow = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
@@ -238,7 +239,7 @@ Partial Class frmNewFan
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.cmdGenericStatic = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -754,6 +755,17 @@ Partial Class frmNewFan
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(9, 390)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 98
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'fraAuxPanel
         '
@@ -2206,6 +2218,7 @@ Partial Class frmNewFan
         '
         'tpgStaticSum
         '
+        Me.tpgStaticSum.Controls.Add(Me.cmdGenericStatic)
         Me.tpgStaticSum.Controls.Add(Me.cmdS5BottomSupply)
         Me.tpgStaticSum.Controls.Add(Me.cmdS20BottomSupply)
         Me.tpgStaticSum.Controls.Add(Me.chkPwrExhaustPresent)
@@ -2259,8 +2272,6 @@ Partial Class frmNewFan
         'chkPwrExhaustPresent
         '
         Me.chkPwrExhaustPresent.AutoSize = True
-        Me.chkPwrExhaustPresent.Checked = True
-        Me.chkPwrExhaustPresent.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkPwrExhaustPresent.Location = New System.Drawing.Point(391, 143)
         Me.chkPwrExhaustPresent.Name = "chkPwrExhaustPresent"
         Me.chkPwrExhaustPresent.Size = New System.Drawing.Size(136, 17)
@@ -2316,8 +2327,6 @@ Partial Class frmNewFan
         'chkEconPresent
         '
         Me.chkEconPresent.AutoSize = True
-        Me.chkEconPresent.Checked = True
-        Me.chkEconPresent.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkEconPresent.Location = New System.Drawing.Point(391, 120)
         Me.chkEconPresent.Name = "chkEconPresent"
         Me.chkEconPresent.Size = New System.Drawing.Size(120, 17)
@@ -2407,7 +2416,7 @@ Partial Class frmNewFan
         '
         Me.cmbHeatBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbHeatBox.FormattingEnabled = True
-        Me.cmbHeatBox.Items.AddRange(New Object() {"Gas", "267 MBH Gas", "512 MBH Gas", "800 MBH Gas", "CoolOnly", "5kW", "7kW", "9kW", "10kW", "15kW", "18kW", "20kW", "24kW", "30kW", "36kW", "40kW", "54kW", "72kW"})
+        Me.cmbHeatBox.Items.AddRange(New Object() {"Gas", "267 MBH Gas", "512 MBH Gas", "800 MBH Gas", "CoolOnly", "5kW", "7kW", "9kW", "10kW", "15kW", "18kW", "20kW", "24kW", "30kW", "36kW", "40kW", "54kW", "72kW", "Not Selected"})
         Me.cmbHeatBox.Location = New System.Drawing.Point(451, 17)
         Me.cmbHeatBox.Name = "cmbHeatBox"
         Me.cmbHeatBox.Size = New System.Drawing.Size(121, 21)
@@ -2482,6 +2491,7 @@ Partial Class frmNewFan
         '
         'btnReturn
         '
+        Me.btnReturn.Enabled = False
         Me.btnReturn.Location = New System.Drawing.Point(771, 383)
         Me.btnReturn.Margin = New System.Windows.Forms.Padding(4)
         Me.btnReturn.Name = "btnReturn"
@@ -2504,8 +2514,8 @@ Partial Class frmNewFan
         'colItem
         '
         Me.colItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colItem.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colItem.DefaultCellStyle = DataGridViewCellStyle10
         Me.colItem.HeaderText = "Item"
         Me.colItem.MinimumWidth = 6
         Me.colItem.Name = "colItem"
@@ -2514,8 +2524,8 @@ Partial Class frmNewFan
         'colSTPStatic
         '
         Me.colSTPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle11
         Me.colSTPStatic.HeaderText = "Static(std)"
         Me.colSTPStatic.MinimumWidth = 6
         Me.colSTPStatic.Name = "colSTPStatic"
@@ -2524,8 +2534,8 @@ Partial Class frmNewFan
         'colATPStatic
         '
         Me.colATPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle12
         Me.colATPStatic.HeaderText = "Static(elev)"
         Me.colATPStatic.MinimumWidth = 6
         Me.colATPStatic.Name = "colATPStatic"
@@ -2604,16 +2614,16 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'chk65kASCCRBase
+        'cmdGenericStatic
         '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(9, 390)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 98
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        Me.cmdGenericStatic.Location = New System.Drawing.Point(391, 167)
+        Me.cmdGenericStatic.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdGenericStatic.Name = "cmdGenericStatic"
+        Me.cmdGenericStatic.Size = New System.Drawing.Size(94, 28)
+        Me.cmdGenericStatic.TabIndex = 28
+        Me.cmdGenericStatic.Text = "Generic"
+        Me.cmdGenericStatic.UseVisualStyleBackColor = True
+        Me.cmdGenericStatic.Visible = False
         '
         'frmNewFan
         '
@@ -2898,4 +2908,5 @@ Partial Class frmNewFan
     Friend WithEvents optIso1 As RadioButton
     Friend WithEvents optIsoNone As RadioButton
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents cmdGenericStatic As Button
 End Class

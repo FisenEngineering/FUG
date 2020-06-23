@@ -328,7 +328,6 @@ Partial Class frmMain
         Me.optMLB583 = New System.Windows.Forms.RadioButton()
         Me.optMLB6126 = New System.Windows.Forms.RadioButton()
         Me.optMLBNone = New System.Windows.Forms.RadioButton()
-        Me.chkEDMovetoDesign = New System.Windows.Forms.CheckBox()
         Me.chkEDMovetoCutSheets = New System.Windows.Forms.CheckBox()
         Me.dgvEndDevices = New System.Windows.Forms.DataGridView()
         Me.EDevTag = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -817,10 +816,9 @@ Partial Class frmMain
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.cmbJumpDest = New System.Windows.Forms.ComboBox()
         Me.cmdDebug = New System.Windows.Forms.Button()
-        Me.chkAutoLaunchTemplate = New System.Windows.Forms.CheckBox()
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
-        Me.chkMoveCutsheets = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.cmdUserOptions = New System.Windows.Forms.Button()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -4245,7 +4243,6 @@ Partial Class frmMain
         'pgEndDeviceSchedule
         '
         Me.pgEndDeviceSchedule.Controls.Add(Me.GroupBox13)
-        Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoDesign)
         Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoCutSheets)
         Me.pgEndDeviceSchedule.Controls.Add(Me.dgvEndDevices)
         Me.pgEndDeviceSchedule.Controls.Add(Me.btnDoneEndDev)
@@ -4336,18 +4333,6 @@ Partial Class frmMain
         Me.optMLBNone.TabStop = True
         Me.optMLBNone.Text = "None"
         Me.optMLBNone.UseVisualStyleBackColor = True
-        '
-        'chkEDMovetoDesign
-        '
-        Me.chkEDMovetoDesign.AutoSize = True
-        Me.chkEDMovetoDesign.Checked = True
-        Me.chkEDMovetoDesign.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkEDMovetoDesign.Location = New System.Drawing.Point(629, 37)
-        Me.chkEDMovetoDesign.Name = "chkEDMovetoDesign"
-        Me.chkEDMovetoDesign.Size = New System.Drawing.Size(297, 17)
-        Me.chkEDMovetoDesign.TabIndex = 19
-        Me.chkEDMovetoDesign.Text = "Move End Device Cut Sheets to 'Submittal Design' Folder"
-        Me.chkEDMovetoDesign.UseVisualStyleBackColor = True
         '
         'chkEDMovetoCutSheets
         '
@@ -9951,7 +9936,7 @@ Partial Class frmMain
         'chkDebug
         '
         Me.chkDebug.AutoSize = True
-        Me.chkDebug.Location = New System.Drawing.Point(20, 545)
+        Me.chkDebug.Location = New System.Drawing.Point(58, 545)
         Me.chkDebug.Margin = New System.Windows.Forms.Padding(4)
         Me.chkDebug.Name = "chkDebug"
         Me.chkDebug.Size = New System.Drawing.Size(55, 17)
@@ -9962,7 +9947,7 @@ Partial Class frmMain
         'cmdJumpButton
         '
         Me.cmdJumpButton.Enabled = False
-        Me.cmdJumpButton.Location = New System.Drawing.Point(82, 540)
+        Me.cmdJumpButton.Location = New System.Drawing.Point(120, 540)
         Me.cmdJumpButton.Name = "cmdJumpButton"
         Me.cmdJumpButton.Size = New System.Drawing.Size(53, 25)
         Me.cmdJumpButton.TabIndex = 16
@@ -10018,7 +10003,7 @@ Partial Class frmMain
         '
         Me.cmbJumpDest.FormattingEnabled = True
         Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
-        Me.cmbJumpDest.Location = New System.Drawing.Point(141, 543)
+        Me.cmbJumpDest.Location = New System.Drawing.Point(179, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
         Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)
         Me.cmbJumpDest.TabIndex = 20
@@ -10026,26 +10011,13 @@ Partial Class frmMain
         '
         'cmdDebug
         '
-        Me.cmdDebug.Location = New System.Drawing.Point(325, 543)
+        Me.cmdDebug.Location = New System.Drawing.Point(363, 543)
         Me.cmdDebug.Name = "cmdDebug"
         Me.cmdDebug.Size = New System.Drawing.Size(53, 25)
         Me.cmdDebug.TabIndex = 21
         Me.cmdDebug.Text = "Debug"
         Me.cmdDebug.UseVisualStyleBackColor = True
         Me.cmdDebug.Visible = False
-        '
-        'chkAutoLaunchTemplate
-        '
-        Me.chkAutoLaunchTemplate.AutoSize = True
-        Me.chkAutoLaunchTemplate.Checked = True
-        Me.chkAutoLaunchTemplate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkAutoLaunchTemplate.Location = New System.Drawing.Point(961, 560)
-        Me.chkAutoLaunchTemplate.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkAutoLaunchTemplate.Name = "chkAutoLaunchTemplate"
-        Me.chkAutoLaunchTemplate.Size = New System.Drawing.Size(163, 17)
-        Me.chkAutoLaunchTemplate.TabIndex = 22
-        Me.chkAutoLaunchTemplate.Text = "Auto Word Launch Template"
-        Me.chkAutoLaunchTemplate.UseVisualStyleBackColor = True
         '
         'chkInhibitDigConditions
         '
@@ -10058,17 +10030,6 @@ Partial Class frmMain
         Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
         Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
         '
-        'chkMoveCutsheets
-        '
-        Me.chkMoveCutsheets.AutoSize = True
-        Me.chkMoveCutsheets.Location = New System.Drawing.Point(806, 560)
-        Me.chkMoveCutsheets.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkMoveCutsheets.Name = "chkMoveCutsheets"
-        Me.chkMoveCutsheets.Size = New System.Drawing.Size(151, 17)
-        Me.chkMoveCutsheets.TabIndex = 24
-        Me.chkMoveCutsheets.Text = "Move Cutsheets to Project"
-        Me.chkMoveCutsheets.UseVisualStyleBackColor = True
-        '
         'chk65kASCCRBase
         '
         Me.chk65kASCCRBase.AutoSize = True
@@ -10080,14 +10041,22 @@ Partial Class frmMain
         Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
+        'cmdUserOptions
+        '
+        Me.cmdUserOptions.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.GearIcon24
+        Me.cmdUserOptions.Location = New System.Drawing.Point(20, 536)
+        Me.cmdUserOptions.Name = "cmdUserOptions"
+        Me.cmdUserOptions.Size = New System.Drawing.Size(31, 33)
+        Me.cmdUserOptions.TabIndex = 27
+        Me.cmdUserOptions.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
+        Me.Controls.Add(Me.cmdUserOptions)
         Me.Controls.Add(Me.chk65kASCCRBase)
-        Me.Controls.Add(Me.chkMoveCutsheets)
         Me.Controls.Add(Me.chkInhibitDigConditions)
-        Me.Controls.Add(Me.chkAutoLaunchTemplate)
         Me.Controls.Add(Me.cmdDebug)
         Me.Controls.Add(Me.cmbJumpDest)
         Me.Controls.Add(Me.chkSaveinProjDB)
@@ -10250,6 +10219,8 @@ Partial Class frmMain
         ThisUnitFFilters = New clsFilters
         ThisUnitIFilters = New clsFilters
         ThisUnitJCIFilters = New clsFilters
+
+        UserOptions = New clsUserOptions
 
         ModBarn = New clsModPaddock
 
@@ -11030,13 +11001,11 @@ Partial Class frmMain
     Friend WithEvents cmbJumpDest As ComboBox
     Friend WithEvents cmdDebug As Button
     Friend WithEvents cmdPasteProjectDir As Button
-    Friend WithEvents chkAutoLaunchTemplate As CheckBox
     Friend WithEvents optRTUPremier As RadioButton
     Friend WithEvents optRTUChoice As RadioButton
     Friend WithEvents chkInhibitDigConditions As CheckBox
     Friend WithEvents optRTUSelect As RadioButton
     Friend WithEvents cmdUPGERVModule As Button
-    Friend WithEvents chkMoveCutsheets As CheckBox
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents optYLUASplit As RadioButton
     Friend WithEvents EDevTag As DataGridViewTextBoxColumn
@@ -11044,7 +11013,6 @@ Partial Class frmMain
     Friend WithEvents EDevType As DataGridViewTextBoxColumn
     Friend WithEvents EDevIO As DataGridViewTextBoxColumn
     Friend WithEvents EDevFieldInst As DataGridViewCheckBoxColumn
-    Friend WithEvents chkEDMovetoDesign As CheckBox
     Friend WithEvents chkEDMovetoCutSheets As CheckBox
     Friend WithEvents GroupBox13 As GroupBox
     Friend WithEvents chkMLBExpansion As CheckBox
@@ -11069,4 +11037,5 @@ Partial Class frmMain
     Friend WithEvents lstUnitTagstoApply As ListBox
     Friend WithEvents Label115 As Label
     Friend WithEvents txtUnitSuggestedTags As TextBox
+    Friend WithEvents cmdUserOptions As Button
 End Class

@@ -26,7 +26,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -131,6 +131,7 @@
     <Compile Include="ClsSpecialPerf.vb" />
     <Compile Include="clsSupplyPerf.vb" />
     <Compile Include="clsUnitClass.vb" />
+    <Compile Include="clsUserOptions.vb" />
     <Compile Include="clsWarrTest.vb" />
     <Compile Include="ClsYPALMainPerf.vb" />
     <Compile Include="frmAcoustic.Designer.vb">
@@ -392,6 +393,18 @@
     <Compile Include="frmHGBP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUserOptions.Designer.vb">
+      <DependentUpon>frmUserOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserOptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUVLights.Designer.vb">
+      <DependentUpon>frmUVLights.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUVLights.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmWMFZoom.Designer.vb">
       <DependentUpon>frmWMFZoom.vb</DependentUpon>
     </Compile>
@@ -550,6 +563,12 @@
     <EmbeddedResource Include="frmHGBP.resx">
       <DependentUpon>frmHGBP.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUserOptions.resx">
+      <DependentUpon>frmUserOptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUVLights.resx">
+      <DependentUpon>frmUVLights.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmWMFZoom.resx">
       <DependentUpon>frmWMFZoom.vb</DependentUpon>
     </EmbeddedResource>
@@ -647,6 +666,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GearIcon24.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
