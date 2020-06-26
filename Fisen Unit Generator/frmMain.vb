@@ -5198,12 +5198,12 @@ Public Class frmMain
             Dummy = MsgBox("Sales entered modification conditions file missing." & vbCrLf & "Conditions will need to be manually entered.", vbOKOnly, "Fisen Unit Generator")
         End If
 
-        Call ArchiveOldSubmittalFiles()
+        Call ArchiveOldSubDesignFiles()
 
         My.Settings.Save()
 
     End Sub
-    Private Sub ArchiveOldSubmittalFiles()
+    Private Sub ArchiveOldSubDesignFiles()
         Dim ProjectDir As String
         Dim UnitDir As String
         Dim ArchiveDir As String
@@ -5223,14 +5223,23 @@ Public Class frmMain
         TargetDir = ArchiveDir & OldVersion & "\"
         FileList = Directory.GetFiles(Mid(UnitDir, 1, Len(UnitDir) - 1))
 
+
+        frmArchiver.localTargetDir = TargetDir
+        frmArchiver.txtTargetDir.Text = TargetDir
         For i = 0 To FileList.Length - 1
+            LastSlash = InStrRev(FileList(i), "\")
+            JustFile = Mid(FileList(i), LastSlash + 1)
             If FileList(i) <> UnitDir & "BaseUnitFile.xml" Then
-                LastSlash = InStrRev(FileList(i), "\")
-                JustFile = Mid(FileList(i), LastSlash + 1)
-                Directory.Move(FileList(i), TargetDir & JustFile)
+                frmArchiver.lstFilesToArchive.Items.Add(JustFile)
+                frmArchiver.lstFilesToArchive.SetItemChecked(i, True)
+                frmArchiver.FileAndPath.Add(FileList(i))
             End If
         Next
 
+        If frmArchiver.lstFilesToArchive.Items.Count > 0 Then
+            frmArchiver.ShowDialog()
+        End If
+        frmArchiver.Close()
 
     End Sub
     Private Sub cmbHeatType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbHeatType.SelectedIndexChanged
@@ -8775,7 +8784,7 @@ Public Class frmMain
 
     Private Sub cmdDebug_Click(sender As Object, e As EventArgs) Handles cmdDebug.Click
 
-        Call ArchiveOldSubmittalFiles()
+        Call ArchiveOldSubDesignFiles()
 
     End Sub
 

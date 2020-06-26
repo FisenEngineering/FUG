@@ -10022,6 +10022,8 @@ Partial Class frmMain
         'chkInhibitDigConditions
         '
         Me.chkInhibitDigConditions.AutoSize = True
+        Me.chkInhibitDigConditions.Checked = True
+        Me.chkInhibitDigConditions.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkInhibitDigConditions.Location = New System.Drawing.Point(806, 540)
         Me.chkInhibitDigConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.chkInhibitDigConditions.Name = "chkInhibitDigConditions"

@@ -152,6 +152,12 @@
     <Compile Include="frmAFlowMod.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmArchiver.Designer.vb">
+      <DependentUpon>frmArchiver.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmArchiver.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCHWCoil.Designer.vb">
       <DependentUpon>frmCHWCoil.vb</DependentUpon>
     </Compile>
@@ -442,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAFlowMod.resx">
       <DependentUpon>frmAFlowMod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmArchiver.resx">
+      <DependentUpon>frmArchiver.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCHWCoil.resx">
       <DependentUpon>frmCHWCoil.vb</DependentUpon>

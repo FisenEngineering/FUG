@@ -22,6 +22,7 @@ Partial Class frmAFlowMod
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAFlowMod))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgSelection = New System.Windows.Forms.TabPage()
         Me.lstItemsInDB = New System.Windows.Forms.ListBox()
@@ -37,6 +38,9 @@ Partial Class frmAFlowMod
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -75,7 +79,6 @@ Partial Class frmAFlowMod
         'lstItemsInDB
         '
         Me.lstItemsInDB.FormattingEnabled = True
-        Me.lstItemsInDB.Items.AddRange(New Object() {"Return Air Blockoff", "S40 Bottom Return to Rear Return (No Exhaust Fan)", "S40 Bottom Return to Rear Return (Factory Exhaust Fans)", "S40 Bottom Supply to Rear Supply (Factory Electric Heat)"})
         Me.lstItemsInDB.Location = New System.Drawing.Point(6, 6)
         Me.lstItemsInDB.Name = "lstItemsInDB"
         Me.lstItemsInDB.ScrollAlwaysVisible = True
@@ -117,6 +120,7 @@ Partial Class frmAFlowMod
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Margin = New System.Windows.Forms.Padding(4)
@@ -212,11 +216,43 @@ Partial Class frmAFlowMod
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(4, 173)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 32
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Enabled = False
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(530, 249)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 18
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(566, 249)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 17
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
         'frmAFlowMod
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(612, 290)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -228,6 +264,7 @@ Partial Class frmAFlowMod
         Me.tpgSelection.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
         Me.tpgOptions.ResumeLayout(False)
+        Me.tpgOptions.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgPerformance.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -249,4 +286,7 @@ Partial Class frmAFlowMod
     Friend WithEvents DebugPage As TabPage
     Friend WithEvents Cancel As Button
     Friend WithEvents btnOK As Button
+    Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
 End Class
