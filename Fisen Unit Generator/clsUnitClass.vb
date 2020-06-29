@@ -254,7 +254,7 @@ Public Class clsUnitClass
                     Case Is = "Series5"
                         pBrandFamily = "OmniCore 100"
                     Case Is = "Series10"
-                        pBrandFamily = "OmniCore 300"
+                        pBrandFamily = "OmniPro"
                     Case Is = "Series12"
                         pBrandFamily = "OmniCore 200"
                     Case Is = "Series20"

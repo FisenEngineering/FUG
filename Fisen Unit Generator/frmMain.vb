@@ -3122,7 +3122,7 @@ Public Class frmMain
         UnitWriter.WriteStartElement("EndDevicesRqd")
 
         UnitWriter.WriteStartElement("ProcessEndDeviceTable")
-        If dgvEndDevices.Rows.Count > 0 Then
+        If dgvEndDevices.Rows.Count > 1 Then
             UnitWriter.WriteString("Yes")
             UnitWriter.WriteEndElement() 'Process Device Table
             UnitWriter.WriteStartElement("EndDeviceList")
@@ -5212,6 +5212,8 @@ Public Class frmMain
         Dim FileList As String()
         Dim JustFile As String
         Dim LastSlash As Integer
+        Dim i, j
+
 
         'First Create the new archive directory.
         ProjectDir = txtProjectDirectory.Text
@@ -5226,12 +5228,15 @@ Public Class frmMain
 
         frmArchiver.localTargetDir = TargetDir
         frmArchiver.txtTargetDir.Text = TargetDir
+        j = 0
         For i = 0 To FileList.Length - 1
             LastSlash = InStrRev(FileList(i), "\")
             JustFile = Mid(FileList(i), LastSlash + 1)
+
             If FileList(i) <> UnitDir & "BaseUnitFile.xml" Then
                 frmArchiver.lstFilesToArchive.Items.Add(JustFile)
-                frmArchiver.lstFilesToArchive.SetItemChecked(i, True)
+                frmArchiver.lstFilesToArchive.SetItemChecked(j, True)
+                j = j + 1
                 frmArchiver.FileAndPath.Add(FileList(i))
             End If
         Next
@@ -6233,6 +6238,17 @@ Public Class frmMain
 
         For i = 0 To ThisUnitCstmMechCodes.Count - 1
             ThisCode = ThisUnitCstmMechCodes.Item(i)
+            MySQL = "SELECT tblShipWithsRequired.FIOpCode, tblShipWiths.ShipWithItem FROM tblShipWithsRequired INNER JOIN tblShipWiths ON tblShipWithsRequired.FIOpID = tblShipWiths.ID WHERE (((tblShipWithsRequired.FIOpCode)='" & ThisCode & "'))"
+            rs.Open(MySQL, con)
+            Do While Not (rs.EOF)
+                ThisUnitFieldInst.Add(rs.Fields("ShipWithItem").Value & "- (" & ThisCode & ")")
+                rs.MoveNext()
+            Loop
+            rs.Close()
+        Next i
+
+        For i = 0 To ThisUnitCstmRefCodes.Count - 1
+            ThisCode = ThisUnitCstmRefCodes.Item(i)
             MySQL = "SELECT tblShipWithsRequired.FIOpCode, tblShipWiths.ShipWithItem FROM tblShipWithsRequired INNER JOIN tblShipWiths ON tblShipWithsRequired.FIOpID = tblShipWiths.ID WHERE (((tblShipWithsRequired.FIOpCode)='" & ThisCode & "'))"
             rs.Open(MySQL, con)
             Do While Not (rs.EOF)

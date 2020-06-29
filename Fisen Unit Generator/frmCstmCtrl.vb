@@ -721,7 +721,7 @@ Public Class frmCstmCtrl
     End Sub
 
     Private Sub cmdViewHistory_Click(sender As Object, e As EventArgs) Handles cmdViewHistory.Click
-        frmHistoryReport.MyModule = "100OA"
+        frmHistoryReport.MyModule = "CstmCtrl"
         frmHistoryReport.Show()
     End Sub
 
@@ -737,4 +737,6 @@ Public Class frmCstmCtrl
             chkMountEquipmentTouch.Checked = False
         End If
     End Sub
+
+
 End Class

@@ -260,7 +260,7 @@
                     Case Else
                         mass = -9999
                 End Select
-            Case Is = "Series 100"
+            Case Is = "Series100"
                 Select Case locMod
                     Case Is = "Return Air Blockoff"
                         mass = 74

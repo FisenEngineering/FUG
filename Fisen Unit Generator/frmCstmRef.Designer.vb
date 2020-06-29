@@ -22,37 +22,49 @@ Partial Class frmCstmRef
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCstmRef))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgSelection = New System.Windows.Forms.TabPage()
         Me.lstItemsInDB = New System.Windows.Forms.ListBox()
         Me.btnDoneSelection = New System.Windows.Forms.Button()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.lblCount = New System.Windows.Forms.Label()
+        Me.lblCurrentCode = New System.Windows.Forms.Label()
+        Me.lblCurrentCstmMod = New System.Windows.Forms.Label()
+        Me.lstTagAlongs = New System.Windows.Forms.ListBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.grpAuxPanel = New System.Windows.Forms.GroupBox()
+        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
+        Me.optUseAux = New System.Windows.Forms.RadioButton()
+        Me.optNoAux = New System.Windows.Forms.RadioButton()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optIPU = New System.Windows.Forms.RadioButton()
+        Me.optSE = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.lstTagAlongs = New System.Windows.Forms.ListBox()
-        Me.lblCurrentCstmMod = New System.Windows.Forms.Label()
-        Me.lblCurrentCode = New System.Windows.Forms.Label()
-        Me.lblCount = New System.Windows.Forms.Label()
-        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
-        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.optIPU = New System.Windows.Forms.RadioButton()
-        Me.optSE = New System.Windows.Forms.RadioButton()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.optASE = New System.Windows.Forms.RadioButton()
+        Me.chk30kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.grpAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
-        Me.tpgPerformance.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.tpgPerformance.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -118,6 +130,44 @@ Partial Class frmCstmRef
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
+        'lblCount
+        '
+        Me.lblCount.AutoSize = True
+        Me.lblCount.Location = New System.Drawing.Point(517, 142)
+        Me.lblCount.Name = "lblCount"
+        Me.lblCount.Size = New System.Drawing.Size(35, 13)
+        Me.lblCount.TabIndex = 27
+        Me.lblCount.Text = "Count"
+        Me.lblCount.Visible = False
+        '
+        'lblCurrentCode
+        '
+        Me.lblCurrentCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentCode.Location = New System.Drawing.Point(7, 15)
+        Me.lblCurrentCode.Name = "lblCurrentCode"
+        Me.lblCurrentCode.Size = New System.Drawing.Size(504, 21)
+        Me.lblCurrentCode.TabIndex = 26
+        Me.lblCurrentCode.Text = "Current Code"
+        '
+        'lblCurrentCstmMod
+        '
+        Me.lblCurrentCstmMod.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentCstmMod.Location = New System.Drawing.Point(7, 47)
+        Me.lblCurrentCstmMod.Name = "lblCurrentCstmMod"
+        Me.lblCurrentCstmMod.Size = New System.Drawing.Size(504, 42)
+        Me.lblCurrentCstmMod.TabIndex = 25
+        Me.lblCurrentCstmMod.Text = "Current Option"
+        '
+        'lstTagAlongs
+        '
+        Me.lstTagAlongs.FormattingEnabled = True
+        Me.lstTagAlongs.Location = New System.Drawing.Point(7, 92)
+        Me.lstTagAlongs.Name = "lstTagAlongs"
+        Me.lstTagAlongs.ScrollAlwaysVisible = True
+        Me.lstTagAlongs.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
+        Me.lstTagAlongs.Size = New System.Drawing.Size(504, 95)
+        Me.lstTagAlongs.TabIndex = 24
+        '
         'btnDoneConditions
         '
         Me.btnDoneConditions.Location = New System.Drawing.Point(517, 159)
@@ -130,6 +180,9 @@ Partial Class frmCstmRef
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk30kASCCRBase)
+        Me.tpgOptions.Controls.Add(Me.grpAuxPanel)
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
@@ -141,6 +194,84 @@ Partial Class frmCstmRef
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'grpAuxPanel
+        '
+        Me.grpAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.grpAuxPanel.Controls.Add(Me.optUseAux)
+        Me.grpAuxPanel.Controls.Add(Me.optNoAux)
+        Me.grpAuxPanel.Location = New System.Drawing.Point(8, 55)
+        Me.grpAuxPanel.Name = "grpAuxPanel"
+        Me.grpAuxPanel.Size = New System.Drawing.Size(214, 105)
+        Me.grpAuxPanel.TabIndex = 33
+        Me.grpAuxPanel.TabStop = False
+        Me.grpAuxPanel.Text = "Auxilary Control Panel"
+        '
+        'cmbAuxPanelOpts
+        '
+        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAuxPanelOpts.FormattingEnabled = True
+        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
+        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
+        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
+        Me.cmbAuxPanelOpts.TabIndex = 29
+        '
+        'optUseAux
+        '
+        Me.optUseAux.AutoSize = True
+        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
+        Me.optUseAux.Name = "optUseAux"
+        Me.optUseAux.Size = New System.Drawing.Size(149, 17)
+        Me.optUseAux.TabIndex = 1
+        Me.optUseAux.TabStop = True
+        Me.optUseAux.Text = "Use Auxilary Control Panel"
+        Me.optUseAux.UseVisualStyleBackColor = True
+        '
+        'optNoAux
+        '
+        Me.optNoAux.AutoSize = True
+        Me.optNoAux.Checked = True
+        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
+        Me.optNoAux.Name = "optNoAux"
+        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
+        Me.optNoAux.TabIndex = 0
+        Me.optNoAux.TabStop = True
+        Me.optNoAux.Text = "None"
+        Me.optNoAux.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(8, 173)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 32
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
+        'chkMountEquipmentTouch
+        '
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(27, 31)
+        Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 26
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        '
+        'chkIncludeEquipmentTouch
+        '
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(8, 8)
+        Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 25
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'btnDoneOptions
         '
@@ -164,6 +295,46 @@ Partial Class frmCstmRef
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.optASE)
+        Me.GroupBox1.Controls.Add(Me.optIPU)
+        Me.GroupBox1.Controls.Add(Me.optSE)
+        Me.GroupBox1.Location = New System.Drawing.Point(451, 8)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(120, 93)
+        Me.GroupBox1.TabIndex = 26
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Base Unit Control"
+        '
+        'optIPU
+        '
+        Me.optIPU.AutoSize = True
+        Me.optIPU.Enabled = False
+        Me.optIPU.Location = New System.Drawing.Point(8, 46)
+        Me.optIPU.Margin = New System.Windows.Forms.Padding(4)
+        Me.optIPU.Name = "optIPU"
+        Me.optIPU.Size = New System.Drawing.Size(90, 17)
+        Me.optIPU.TabIndex = 1
+        Me.optIPU.Text = "IPU Controller"
+        Me.optIPU.UseVisualStyleBackColor = True
+        '
+        'optSE
+        '
+        Me.optSE.AutoSize = True
+        Me.optSE.Checked = True
+        Me.optSE.Enabled = False
+        Me.optSE.Location = New System.Drawing.Point(8, 21)
+        Me.optSE.Margin = New System.Windows.Forms.Padding(4)
+        Me.optSE.Name = "optSE"
+        Me.optSE.Size = New System.Drawing.Size(86, 17)
+        Me.optSE.TabIndex = 0
+        Me.optSE.TabStop = True
+        Me.optSE.Text = "SE Controller"
+        Me.optSE.UseVisualStyleBackColor = True
         '
         'btnDoneControls
         '
@@ -228,110 +399,67 @@ Partial Class frmCstmRef
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'lstTagAlongs
+        'chkWriteHistory
         '
-        Me.lstTagAlongs.FormattingEnabled = True
-        Me.lstTagAlongs.Location = New System.Drawing.Point(7, 92)
-        Me.lstTagAlongs.Name = "lstTagAlongs"
-        Me.lstTagAlongs.ScrollAlwaysVisible = True
-        Me.lstTagAlongs.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
-        Me.lstTagAlongs.Size = New System.Drawing.Size(504, 95)
-        Me.lstTagAlongs.TabIndex = 24
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(438, 261)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 20
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'lblCurrentCstmMod
+        'cmdViewHistory
         '
-        Me.lblCurrentCstmMod.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCurrentCstmMod.Location = New System.Drawing.Point(7, 47)
-        Me.lblCurrentCstmMod.Name = "lblCurrentCstmMod"
-        Me.lblCurrentCstmMod.Size = New System.Drawing.Size(504, 42)
-        Me.lblCurrentCstmMod.TabIndex = 25
-        Me.lblCurrentCstmMod.Text = "Current Option"
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(530, 248)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 19
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
-        'lblCurrentCode
+        'cmdDesignCautions
         '
-        Me.lblCurrentCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCurrentCode.Location = New System.Drawing.Point(7, 15)
-        Me.lblCurrentCode.Name = "lblCurrentCode"
-        Me.lblCurrentCode.Size = New System.Drawing.Size(504, 21)
-        Me.lblCurrentCode.TabIndex = 26
-        Me.lblCurrentCode.Text = "Current Code"
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(566, 248)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 18
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'lblCount
+        'optASE
         '
-        Me.lblCount.AutoSize = True
-        Me.lblCount.Location = New System.Drawing.Point(517, 142)
-        Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(35, 13)
-        Me.lblCount.TabIndex = 27
-        Me.lblCount.Text = "Count"
-        Me.lblCount.Visible = False
+        Me.optASE.AutoSize = True
+        Me.optASE.Enabled = False
+        Me.optASE.Location = New System.Drawing.Point(8, 71)
+        Me.optASE.Margin = New System.Windows.Forms.Padding(4)
+        Me.optASE.Name = "optASE"
+        Me.optASE.Size = New System.Drawing.Size(93, 17)
+        Me.optASE.TabIndex = 3
+        Me.optASE.Text = "ASE Controller"
+        Me.optASE.UseVisualStyleBackColor = True
         '
-        'chkMountEquipmentTouch
+        'chk30kASCCRBase
         '
-        Me.chkMountEquipmentTouch.AutoSize = True
-        Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(27, 31)
-        Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
-        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
-        Me.chkMountEquipmentTouch.TabIndex = 26
-        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
-        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
-        '
-        'chkIncludeEquipmentTouch
-        '
-        Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(8, 8)
-        Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
-        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
-        Me.chkIncludeEquipmentTouch.TabIndex = 25
-        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
-        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.optIPU)
-        Me.GroupBox1.Controls.Add(Me.optSE)
-        Me.GroupBox1.Location = New System.Drawing.Point(406, 8)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(165, 82)
-        Me.GroupBox1.TabIndex = 26
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Base Unit Control"
-        '
-        'optIPU
-        '
-        Me.optIPU.AutoSize = True
-        Me.optIPU.Enabled = False
-        Me.optIPU.Location = New System.Drawing.Point(19, 57)
-        Me.optIPU.Margin = New System.Windows.Forms.Padding(4)
-        Me.optIPU.Name = "optIPU"
-        Me.optIPU.Size = New System.Drawing.Size(90, 17)
-        Me.optIPU.TabIndex = 1
-        Me.optIPU.Text = "IPU Controller"
-        Me.optIPU.UseVisualStyleBackColor = True
-        '
-        'optSE
-        '
-        Me.optSE.AutoSize = True
-        Me.optSE.Checked = True
-        Me.optSE.Location = New System.Drawing.Point(19, 25)
-        Me.optSE.Margin = New System.Windows.Forms.Padding(4)
-        Me.optSE.Name = "optSE"
-        Me.optSE.Size = New System.Drawing.Size(86, 17)
-        Me.optSE.TabIndex = 0
-        Me.optSE.TabStop = True
-        Me.optSE.Text = "SE Controller"
-        Me.optSE.UseVisualStyleBackColor = True
+        Me.chk30kASCCRBase.AutoSize = True
+        Me.chk30kASCCRBase.Location = New System.Drawing.Point(231, 173)
+        Me.chk30kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk30kASCCRBase.Name = "chk30kASCCRBase"
+        Me.chk30kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk30kASCCRBase.TabIndex = 34
+        Me.chk30kASCCRBase.Text = "Base\Fisen Modified Unit is 30kA SCCR"
+        Me.chk30kASCCRBase.UseVisualStyleBackColor = True
         '
         'frmCstmRef
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(612, 290)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -345,11 +473,14 @@ Partial Class frmCstmRef
         Me.tpgConditions.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.grpAuxPanel.ResumeLayout(False)
+        Me.grpAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
-        Me.tpgPerformance.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.tpgPerformance.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -377,4 +508,14 @@ Partial Class frmCstmRef
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents optIPU As RadioButton
     Friend WithEvents optSE As RadioButton
+    Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents grpAuxPanel As GroupBox
+    Friend WithEvents cmbAuxPanelOpts As ComboBox
+    Friend WithEvents optUseAux As RadioButton
+    Friend WithEvents optNoAux As RadioButton
+    Friend WithEvents optASE As RadioButton
+    Friend WithEvents chk30kASCCRBase As CheckBox
 End Class
