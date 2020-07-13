@@ -86,6 +86,8 @@ Public Class frmLCVAV
         End If
 
         If chkIncludeEquipmentTouch.Checked = True Then
+            If frmMain.ThisUnit.GenCodesPresent = False Then frmMain.ThisUnitGenCodes.Add("960000")
+            frmMain.ThisUnit.GenCodesPresent = True
             If chkMountEquipmentTouch.Checked = True Then
                 If frmMain.HasUMHMI = False Then
                     frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI

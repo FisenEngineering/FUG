@@ -2,3 +2,6 @@
 
 # IDE0054: Use compound assignment
 dotnet_style_prefer_compound_assignment = true:none
+
+# IDE0044: Add readonly modifier
+dotnet_style_readonly_field = true:none

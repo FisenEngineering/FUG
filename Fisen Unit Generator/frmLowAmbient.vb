@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Office.Interop.Excel
+﻿Imports System.Reflection
+Imports Microsoft.Office.Interop.Excel
 
 Public Class frmLowAmbient
     Private pCancelled As Boolean
@@ -14,22 +15,37 @@ Public Class frmLowAmbient
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()
-        'none presently for this modification - MCA/MOP in the future.
-
         Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("LowAmbient") 'Mod Code goes here!
-        If frmMain.ThisUnit.GenCodesPresent = False Then
-            frmMain.ThisUnit.GenCodesPresent = True
-            'frmMain.ThisUnitMods.Add("Common")
-        End If
+
+        'If frmMain.ThisUnit.GenCodesPresent = False Then
+        'frmMain.ThisUnit.GenCodesPresent = True
+        'frmMain.ThisUnitMods.Add("Common")
+        'End If
+
         Call UpdateCodeList()
+        Call UpdateBaseUnitRequiredItems()
+        'Call UpdateBaseUnitDrawingTags
+        'Call UpdateReferTags
+        'Call UpdateAFTags
+        'Call HydroTags
 
         If chkWriteHistory.Checked = True Then Call WriteHistory()
         Me.Hide()
 
     End Sub
+    Private Sub UpdateBaseUnitRequiredItems()
 
+        If frmMain.ThisUnit.Family = "Series100" Then
+            frmMain.lstRequiredFactoryItems.Items.Add("Compressor Sound Blankets")
+            frmMain.lstRequiredFactoryItems.Items.Add("Hot Gas Bypass")
+            frmMain.lstRequiredFactoryItems.Items.Add("Head Pressure Control - All Circuits")
+            frmMain.lstRequiredFactoryItems.Items.Add("Discharge Pressure Transducer")
+            frmMain.lstRequiredFactoryItems.Items.Add("Louvered Panels for Condenser Section")
+        End If
+
+    End Sub
     Private Sub WriteHistory()
         'Updated to version 2.0 7 May 2020
 
@@ -166,6 +182,8 @@ Public Class frmLowAmbient
                 If optXFrmr3.Checked Then LowAmbientSize = "(3kVA)"
                 If optXFrmr5.Checked Then LowAmbientSize = "(5kVA)"
                 If optXFrmr7dot5.Checked Then LowAmbientSize = "(7.5kVA)"
+                If optXFrmr7dot5.Checked Then LowAmbientSize = "(10kVA)"
+                If optXFrmr7dot5.Checked Then LowAmbientSize = "(15kVA)"
 
                 If frmMain.ThisUnitElecData.FisenLoad01 = " " Then
                     frmMain.ThisUnitElecData.FisenLoad01 = "Low Ambient Power " & LowAmbientSize
@@ -180,63 +198,52 @@ Public Class frmLowAmbient
         ModuleCodeList.Clear()
         'Add the level 0 code
         ModuleCodeList.Add("890100")
-        If frmMain.ThisUnit.Kingdom = "Chiller" Then
-            If optneg10Ambient.Checked Then
-                ModuleCodeList.Add("890101")
-            End If
 
-            If optneg20Ambient.Checked Then
-                ModuleCodeList.Add("890102")
-            End If
+        'Conditions page requirements
+        'Handle Level of heat trace
+        Select Case frmMain.ThisUnit.Kingdom
+            Case Is = "Chiller"
+                If optneg10Ambient.Checked Then ModuleCodeList.Add("890101")
+                If optneg20Ambient.Checked Then ModuleCodeList.Add("890102")
+                If optneg30Ambient.Checked Then ModuleCodeList.Add("890103")
+            Case Is = "RTU"
+                If optneg10Ambient.Checked Then ModuleCodeList.Add("89010A")
+                If optneg20Ambient.Checked Then ModuleCodeList.Add("89010B")
+                If optneg30Ambient.Checked Then ModuleCodeList.Add("89010C")
+            Case Is = "Misc"
+                If optneg10Ambient.Checked Then ModuleCodeList.Add("890105")
+                If optneg20Ambient.Checked Then ModuleCodeList.Add("890106")
+                If optneg30Ambient.Checked Then ModuleCodeList.Add("890107")
+        End Select
 
-            If optneg30Ambient.Checked Then
-                ModuleCodeList.Add("890103")
-            End If
+        If ((chkRTUUseHT.Checked) Or (frmMain.ThisUnit.Kingdom = "Chiller")) Then
+            ModuleCodeList.Add("890110")
+            ModuleCodeList.Add("890120")
         End If
 
-        If frmMain.ThisUnit.Kingdom = "Misc" Then
-            If optneg10Ambient.Checked Then
-                ModuleCodeList.Add("890105")
-            End If
-
-            If optneg20Ambient.Checked Then
-                ModuleCodeList.Add("890106")
-            End If
-
-            If optneg30Ambient.Checked Then
-                ModuleCodeList.Add("890107")
-            End If
-        End If
-
-        ModuleCodeList.Add("890110")
-        ModuleCodeList.Add("890120")
-        ModuleCodeList.Add("890130")
-        ModuleCodeList.Add("890140")
-        If Not (chkSinglePointPower.Checked) Then
-            ModuleCodeList.Add("890141")
-        Else
-            If (Val(lstLineVoltage.Text) > 230) Then
-                ModuleCodeList.Add("890143")
-                If optXFrmrDot5.Checked Then ModuleCodeList.Add("890201")
-                If optXFrmrdot75.Checked Then ModuleCodeList.Add("890202")
-                If optXFrmr1.Checked Then ModuleCodeList.Add("890203")
-                If optXFrmr1dot5.Checked Then ModuleCodeList.Add("890204")
-                If optXFrmr2.Checked Then ModuleCodeList.Add("890205")
-                If optXFrmr3.Checked Then ModuleCodeList.Add("890206")
-                If optXFrmr5.Checked Then ModuleCodeList.Add("890207")
-                If optXFrmr7dot5.Checked Then ModuleCodeList.Add("890208")
-                If optXFrmr10.Checked Then ModuleCodeList.Add("890208")
-                If optXFrmr15.Checked Then ModuleCodeList.Add("890208")
-            Else
-                ModuleCodeList.Add("890142")
-            End If
-        End If
+        'Options page requirements
+        'Mounting notes/requirements
         ModuleCodeList.Add("890150")
-        If chkBaseRailEnclosure.Checked Then
-            ModuleCodeList.Add("890152")
-        Else
-            ModuleCodeList.Add("890151")
+
+        If chkChillerOnGrade.Checked Then ModuleCodeList.Add("890151")
+        If chkRTUOnGrade.Checked Then ModuleCodeList.Add("890154")
+
+        If chkSMBottom.Checked Then
+            If frmMain.ThisUnit.Kingdom = "RTU" Then
+                ModuleCodeList.Add("890153")
+            Else
+                ModuleCodeList.Add("890152")
+            End If
         End If
+
+        If chkBaseRailEnclosure.Checked Then
+            If frmMain.ThisUnit.Kingdom = "RTU" Then
+                ModuleCodeList.Add("890159")
+            Else
+                ModuleCodeList.Add("890158")
+            End If
+        End If
+
         If chkYCAVTopBlockoff.Checked Then
             ModuleCodeList.Add("890155")
             ModuleCodeList.Add("890156")
@@ -244,6 +251,7 @@ Public Class frmLowAmbient
                 ModuleCodeList.Add("890157")
             End If
         End If
+
         If chkRemoteEvap.Checked Then
             ModuleCodeList.Add("890180")
             If chkFieldHTbyFisen.Checked Then
@@ -265,15 +273,63 @@ Public Class frmLowAmbient
                 If nudFtOfHT.Value = "175" Then ModuleCodeList.Add("890187")
                 If nudFtOfHT.Value = "200" Then ModuleCodeList.Add("890188")
             End If
+        End If
+
+        'Controls page requirements
+        ModuleCodeList.Add("890130")
+        If optElectroMechanical.Checked Then ModuleCodeList.Add("890131")
+        If optDDC.Checked Then ModuleCodeList.Add("890132")
+        If chkOATempSpoof.Checked Then ModuleCodeList.Add("890139")
+
+
+        'Performance page requirements
+        ModuleCodeList.Add("890140")
+        If chkSinglePointPower.Checked Then
+            If ((chkRTUUseHT.Checked) Or (frmMain.ThisUnit.Kingdom <> "RTU")) Then
+                If (Val(lstLineVoltage.Text) > 230) Then
+                    ModuleCodeList.Add("890143")
+                    If optXFrmrDot5.Checked Then ModuleCodeList.Add("890201")
+                    If optXFrmrdot75.Checked Then ModuleCodeList.Add("890202")
+                    If optXFrmr1.Checked Then ModuleCodeList.Add("890203")
+                    If optXFrmr1dot5.Checked Then ModuleCodeList.Add("890204")
+                    If optXFrmr2.Checked Then ModuleCodeList.Add("890205")
+                    If optXFrmr3.Checked Then ModuleCodeList.Add("890206")
+                    If optXFrmr5.Checked Then ModuleCodeList.Add("890207")
+                    If optXFrmr7dot5.Checked Then ModuleCodeList.Add("890208")
+                    If optXFrmr10.Checked Then ModuleCodeList.Add("890208")
+                    If optXFrmr15.Checked Then ModuleCodeList.Add("890208")
+                Else
+                    ModuleCodeList.Add("890142")
+                End If
+            End If
+        End If
+
+        If (Not (chkRTUUseHT.Checked) And (frmMain.ThisUnit.Kingdom = "RTU")) Then
+            ModuleCodeList.Add("890144")
+        End If
+
+
+        If Not (chkDedicatedPower.Checked) Then
+            ModuleCodeList.Add("890141")
+        Else
 
         End If
+
+        'final items/requirements
         If frmMain.ThisUnit.Family = "YVAA" Then ModuleCodeList.Add("890170") 'Adds a hidden code to configure the sequence for YVAA.
+
+        If frmMain.ThisUnit.Family = "Series100" Then
+            ModuleCodeList.Add("890901")
+            ModuleCodeList.Add("890902")
+            ModuleCodeList.Add("890903")
+            ModuleCodeList.Add("890904")
+            ModuleCodeList.Add("890905")
+        End If
+
 
         If chk65kASCCRBase.Checked Then
             ModuleCodeList.Add("8906FA")
         End If
-
-
 
         Call PerformDesignCautionScan(False)
         For i = 0 To ModuleCodeList.Count - 1
@@ -380,11 +436,28 @@ Public Class frmLowAmbient
     Private Sub frmLowAmbient_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim ChilSize As String
+        Dim dummy As MsgBoxResult
 
         If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
         If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+        If frmMain.ThisUnit.Kingdom = "Chiller" Then
+            grpCondChill.Enabled = True
+            grpOptChill.Enabled = True
+            grpCtrlChill.Enabled = True
+            grpPerfChill.Enabled = True
+        End If
+
+        If frmMain.ThisUnit.Kingdom = "RTU" Then
+            grpCondRTU.Enabled = True
+            grpOptRTU.Enabled = True
+            grpCtrlRTU.Enabled = True
+            grpPerfRTU.Enabled = True
+
+            chkRemoteEvap.Enabled = False
+        End If
 
         ChilSize = "0000"
 
@@ -393,7 +466,6 @@ Public Class frmLowAmbient
         Select Case frmMain.ThisUnit.Family
             Case Is = "YCAL"
                 ChilSize = Mid(frmMain.ThisUnit.ModelNumber, 5, 4)
-
             Case Is = "YLAA"
                 ChilSize = Mid(frmMain.ThisUnit.ModelNumber, 5, 4)
             Case Is = "YVAA"
@@ -404,7 +476,10 @@ Public Class frmLowAmbient
                 ChilSize = Mid(frmMain.ThisUnit.ModelNumber, 5, 4)
             Case Is = "YVFA"
                 ChilSize = Mid(frmMain.ThisUnit.ModelNumber, 5, 3)
-
+            Case Is = "Series100"
+                ChilSize = Mid(frmMain.ThisUnit.ModelNumber, 5, 3)
+            Case Else
+                dummy = MsgBox("This module doesn't support this unit yet.", vbOKOnly, "Fisen Unit Generator")
         End Select
         txtFtofHeatTrace.Text = FeetTraceNeeded(frmMain.ThisUnit.Family, ChilSize)
 
@@ -828,10 +903,39 @@ Public Class frmLowAmbient
             lstLineVoltage.Enabled = True
 
             lstLineVoltage.Text = frmMain.ThisUnitElecData.CommVolts
+            chkDedicatedPower.Checked = False
         Else
             lblLineVolts.Enabled = False
             lstLineVoltage.Enabled = False
 
         End If
+    End Sub
+
+    Private Sub chkChillerOnGrade_CheckedChanged(sender As Object, e As EventArgs) Handles chkChillerOnGrade.CheckedChanged
+        If Not (chkChillerOnGrade.Checked) Then
+            chkBaseRailEnclosure.Enabled = True
+            chkSMBottom.Enabled = True
+        Else
+            chkBaseRailEnclosure.Enabled = False
+            chkSMBottom.Enabled = False
+            chkBaseRailEnclosure.Checked = False
+            chkSMBottom.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkRTUOnGrade_CheckedChanged(sender As Object, e As EventArgs) Handles chkRTUOnGrade.CheckedChanged
+        If Not (chkRTUOnGrade.Checked) Then
+            chkBaseRailEnclosure.Enabled = True
+            chkSMBottom.Enabled = True
+        Else
+            chkBaseRailEnclosure.Enabled = False
+            chkSMBottom.Enabled = False
+            chkBaseRailEnclosure.Checked = False
+            chkSMBottom.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkDedicatedPower_CheckedChanged(sender As Object, e As EventArgs) Handles chkDedicatedPower.CheckedChanged
+        chkSinglePointPower.Checked = False
     End Sub
 End Class

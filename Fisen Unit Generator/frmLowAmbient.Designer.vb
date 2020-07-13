@@ -25,6 +25,12 @@ Partial Class frmLowAmbient
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLowAmbient))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.lblLineVolts = New System.Windows.Forms.Label()
+        Me.lstLineVoltage = New System.Windows.Forms.ListBox()
+        Me.grpCondRTU = New System.Windows.Forms.GroupBox()
+        Me.chkRTUOnGrade = New System.Windows.Forms.CheckBox()
+        Me.chkRTUUseHT = New System.Windows.Forms.CheckBox()
+        Me.grpCondChill = New System.Windows.Forms.GroupBox()
         Me.chkChillerOnGrade = New System.Windows.Forms.CheckBox()
         Me.chkSinglePointPower = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -33,25 +39,29 @@ Partial Class frmLowAmbient
         Me.optneg10Ambient = New System.Windows.Forms.RadioButton()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.chkSMBottom = New System.Windows.Forms.CheckBox()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.chkBaseRailEnclosure = New System.Windows.Forms.CheckBox()
+        Me.grpOptRTU = New System.Windows.Forms.GroupBox()
+        Me.grpOptChill = New System.Windows.Forms.GroupBox()
+        Me.chkYCAVTopBlockoff = New System.Windows.Forms.CheckBox()
         Me.chkYCAVEmptyFanBlockoff = New System.Windows.Forms.CheckBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.chkFieldHTbyFisen = New System.Windows.Forms.CheckBox()
         Me.lblFtOfHT = New System.Windows.Forms.Label()
         Me.chkRemoteEvap = New System.Windows.Forms.CheckBox()
         Me.nudFtOfHT = New System.Windows.Forms.NumericUpDown()
-        Me.chkYCAVTopBlockoff = New System.Windows.Forms.CheckBox()
-        Me.lblLineVolts = New System.Windows.Forms.Label()
-        Me.lstLineVoltage = New System.Windows.Forms.ListBox()
-        Me.chkBaseRailEnclosure = New System.Windows.Forms.CheckBox()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.grpCtrlRTU = New System.Windows.Forms.GroupBox()
+        Me.grpCtrlChill = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.optDDC = New System.Windows.Forms.RadioButton()
         Me.optElectroMechanical = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.grpPerfRTU = New System.Windows.Forms.GroupBox()
+        Me.grpPerfChill = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblWatts = New System.Windows.Forms.Label()
@@ -83,10 +93,15 @@ Partial Class frmLowAmbient
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.chkOATempSpoof = New System.Windows.Forms.CheckBox()
+        Me.chkDedicatedPower = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
+        Me.grpCondRTU.SuspendLayout()
+        Me.grpCondChill.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.grpOptChill.SuspendLayout()
         CType(Me.nudFtOfHT, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -105,12 +120,16 @@ Partial Class frmLowAmbient
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(587, 220)
+        Me.TabControl1.Size = New System.Drawing.Size(587, 335)
         Me.TabControl1.TabIndex = 5
         '
         'tpgConditions
         '
-        Me.tpgConditions.Controls.Add(Me.chkChillerOnGrade)
+        Me.tpgConditions.Controls.Add(Me.chkDedicatedPower)
+        Me.tpgConditions.Controls.Add(Me.lblLineVolts)
+        Me.tpgConditions.Controls.Add(Me.lstLineVoltage)
+        Me.tpgConditions.Controls.Add(Me.grpCondRTU)
+        Me.tpgConditions.Controls.Add(Me.grpCondChill)
         Me.tpgConditions.Controls.Add(Me.chkSinglePointPower)
         Me.tpgConditions.Controls.Add(Me.GroupBox1)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
@@ -118,15 +137,78 @@ Partial Class frmLowAmbient
         Me.tpgConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgConditions.Size = New System.Drawing.Size(579, 194)
+        Me.tpgConditions.Size = New System.Drawing.Size(579, 309)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
+        'lblLineVolts
+        '
+        Me.lblLineVolts.AutoSize = True
+        Me.lblLineVolts.Enabled = False
+        Me.lblLineVolts.Location = New System.Drawing.Point(10, 112)
+        Me.lblLineVolts.Name = "lblLineVolts"
+        Me.lblLineVolts.Size = New System.Drawing.Size(88, 13)
+        Me.lblLineVolts.TabIndex = 32
+        Me.lblLineVolts.Text = "Unit Line Voltage"
+        '
+        'lstLineVoltage
+        '
+        Me.lstLineVoltage.Enabled = False
+        Me.lstLineVoltage.FormattingEnabled = True
+        Me.lstLineVoltage.Items.AddRange(New Object() {"200", "208", "230", "460", "575"})
+        Me.lstLineVoltage.Location = New System.Drawing.Point(32, 128)
+        Me.lstLineVoltage.Name = "lstLineVoltage"
+        Me.lstLineVoltage.Size = New System.Drawing.Size(42, 69)
+        Me.lstLineVoltage.TabIndex = 31
+        '
+        'grpCondRTU
+        '
+        Me.grpCondRTU.Controls.Add(Me.chkRTUOnGrade)
+        Me.grpCondRTU.Controls.Add(Me.chkRTUUseHT)
+        Me.grpCondRTU.Enabled = False
+        Me.grpCondRTU.Location = New System.Drawing.Point(372, 65)
+        Me.grpCondRTU.Name = "grpCondRTU"
+        Me.grpCondRTU.Size = New System.Drawing.Size(200, 162)
+        Me.grpCondRTU.TabIndex = 30
+        Me.grpCondRTU.TabStop = False
+        Me.grpCondRTU.Text = "RTU Only Conditions"
+        '
+        'chkRTUOnGrade
+        '
+        Me.chkRTUOnGrade.AutoSize = True
+        Me.chkRTUOnGrade.Location = New System.Drawing.Point(8, 23)
+        Me.chkRTUOnGrade.Name = "chkRTUOnGrade"
+        Me.chkRTUOnGrade.Size = New System.Drawing.Size(175, 17)
+        Me.chkRTUOnGrade.TabIndex = 30
+        Me.chkRTUOnGrade.Text = "On Grade or Full Perimeter Curb"
+        Me.chkRTUOnGrade.UseVisualStyleBackColor = True
+        '
+        'chkRTUUseHT
+        '
+        Me.chkRTUUseHT.AutoSize = True
+        Me.chkRTUUseHT.Location = New System.Drawing.Point(8, 46)
+        Me.chkRTUUseHT.Name = "chkRTUUseHT"
+        Me.chkRTUUseHT.Size = New System.Drawing.Size(186, 17)
+        Me.chkRTUUseHT.TabIndex = 29
+        Me.chkRTUUseHT.Text = "Heat Trace on Comps/Suc./etc..."
+        Me.chkRTUUseHT.UseVisualStyleBackColor = True
+        '
+        'grpCondChill
+        '
+        Me.grpCondChill.Controls.Add(Me.chkChillerOnGrade)
+        Me.grpCondChill.Enabled = False
+        Me.grpCondChill.Location = New System.Drawing.Point(372, 7)
+        Me.grpCondChill.Name = "grpCondChill"
+        Me.grpCondChill.Size = New System.Drawing.Size(200, 52)
+        Me.grpCondChill.TabIndex = 29
+        Me.grpCondChill.TabStop = False
+        Me.grpCondChill.Text = "Chiller Only Conditions"
+        '
         'chkChillerOnGrade
         '
         Me.chkChillerOnGrade.AutoSize = True
-        Me.chkChillerOnGrade.Location = New System.Drawing.Point(120, 39)
+        Me.chkChillerOnGrade.Location = New System.Drawing.Point(8, 19)
         Me.chkChillerOnGrade.Name = "chkChillerOnGrade"
         Me.chkChillerOnGrade.Size = New System.Drawing.Size(143, 17)
         Me.chkChillerOnGrade.TabIndex = 28
@@ -189,7 +271,7 @@ Partial Class frmLowAmbient
         '
         'btnDoneConditions
         '
-        Me.btnDoneConditions.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneConditions.Location = New System.Drawing.Point(520, 273)
         Me.btnDoneConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDoneConditions.Name = "btnDoneConditions"
         Me.btnDoneConditions.Size = New System.Drawing.Size(55, 28)
@@ -199,52 +281,102 @@ Partial Class frmLowAmbient
         '
         'tpgOptions
         '
-        Me.tpgOptions.Controls.Add(Me.Label7)
         Me.tpgOptions.Controls.Add(Me.chkSMBottom)
+        Me.tpgOptions.Controls.Add(Me.chkBaseRailEnclosure)
+        Me.tpgOptions.Controls.Add(Me.grpOptRTU)
+        Me.tpgOptions.Controls.Add(Me.grpOptChill)
+        Me.tpgOptions.Controls.Add(Me.Label7)
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
-        Me.tpgOptions.Controls.Add(Me.chkYCAVEmptyFanBlockoff)
         Me.tpgOptions.Controls.Add(Me.chkFieldHTbyFisen)
         Me.tpgOptions.Controls.Add(Me.lblFtOfHT)
         Me.tpgOptions.Controls.Add(Me.chkRemoteEvap)
         Me.tpgOptions.Controls.Add(Me.nudFtOfHT)
-        Me.tpgOptions.Controls.Add(Me.chkYCAVTopBlockoff)
-        Me.tpgOptions.Controls.Add(Me.lblLineVolts)
-        Me.tpgOptions.Controls.Add(Me.lstLineVoltage)
-        Me.tpgOptions.Controls.Add(Me.chkBaseRailEnclosure)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgOptions.Name = "tpgOptions"
         Me.tpgOptions.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgOptions.Size = New System.Drawing.Size(579, 194)
+        Me.tpgOptions.Size = New System.Drawing.Size(579, 309)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chkSMBottom
+        '
+        Me.chkSMBottom.AutoSize = True
+        Me.chkSMBottom.Location = New System.Drawing.Point(10, 147)
+        Me.chkSMBottom.Name = "chkSMBottom"
+        Me.chkSMBottom.Size = New System.Drawing.Size(119, 17)
+        Me.chkSMBottom.TabIndex = 60
+        Me.chkSMBottom.Text = "Sheet Metal Bottom"
+        Me.chkSMBottom.UseVisualStyleBackColor = True
+        '
+        'chkBaseRailEnclosure
+        '
+        Me.chkBaseRailEnclosure.AutoSize = True
+        Me.chkBaseRailEnclosure.Location = New System.Drawing.Point(10, 124)
+        Me.chkBaseRailEnclosure.Name = "chkBaseRailEnclosure"
+        Me.chkBaseRailEnclosure.Size = New System.Drawing.Size(113, 17)
+        Me.chkBaseRailEnclosure.TabIndex = 59
+        Me.chkBaseRailEnclosure.Text = "Baserail Enclosure"
+        Me.chkBaseRailEnclosure.UseVisualStyleBackColor = True
+        '
+        'grpOptRTU
+        '
+        Me.grpOptRTU.Enabled = False
+        Me.grpOptRTU.Location = New System.Drawing.Point(368, 76)
+        Me.grpOptRTU.Name = "grpOptRTU"
+        Me.grpOptRTU.Size = New System.Drawing.Size(200, 52)
+        Me.grpOptRTU.TabIndex = 58
+        Me.grpOptRTU.TabStop = False
+        Me.grpOptRTU.Text = "RTU Only Options"
+        '
+        'grpOptChill
+        '
+        Me.grpOptChill.Controls.Add(Me.chkYCAVTopBlockoff)
+        Me.grpOptChill.Controls.Add(Me.chkYCAVEmptyFanBlockoff)
+        Me.grpOptChill.Enabled = False
+        Me.grpOptChill.Location = New System.Drawing.Point(368, 7)
+        Me.grpOptChill.Name = "grpOptChill"
+        Me.grpOptChill.Size = New System.Drawing.Size(200, 63)
+        Me.grpOptChill.TabIndex = 57
+        Me.grpOptChill.TabStop = False
+        Me.grpOptChill.Text = "Chiller Only Options"
+        '
+        'chkYCAVTopBlockoff
+        '
+        Me.chkYCAVTopBlockoff.AutoSize = True
+        Me.chkYCAVTopBlockoff.Location = New System.Drawing.Point(6, 19)
+        Me.chkYCAVTopBlockoff.Name = "chkYCAVTopBlockoff"
+        Me.chkYCAVTopBlockoff.Size = New System.Drawing.Size(166, 17)
+        Me.chkYCAVTopBlockoff.TabIndex = 29
+        Me.chkYCAVTopBlockoff.Text = "YCAV Top Ctrl Panel Blockoff"
+        Me.chkYCAVTopBlockoff.UseVisualStyleBackColor = True
+        '
+        'chkYCAVEmptyFanBlockoff
+        '
+        Me.chkYCAVEmptyFanBlockoff.AutoSize = True
+        Me.chkYCAVEmptyFanBlockoff.Location = New System.Drawing.Point(6, 42)
+        Me.chkYCAVEmptyFanBlockoff.Name = "chkYCAVEmptyFanBlockoff"
+        Me.chkYCAVEmptyFanBlockoff.Size = New System.Drawing.Size(149, 17)
+        Me.chkYCAVEmptyFanBlockoff.TabIndex = 34
+        Me.chkYCAVEmptyFanBlockoff.Text = "YCAV Empty Fan Blockoff"
+        Me.chkYCAVEmptyFanBlockoff.UseVisualStyleBackColor = True
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Enabled = False
-        Me.Label7.Location = New System.Drawing.Point(161, 73)
+        Me.Label7.Location = New System.Drawing.Point(28, 73)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(187, 13)
         Me.Label7.TabIndex = 56
         Me.Label7.Text = "This is total.  Consider multiple circuits."
         '
-        'chkSMBottom
-        '
-        Me.chkSMBottom.AutoSize = True
-        Me.chkSMBottom.Location = New System.Drawing.Point(385, 76)
-        Me.chkSMBottom.Name = "chkSMBottom"
-        Me.chkSMBottom.Size = New System.Drawing.Size(119, 17)
-        Me.chkSMBottom.TabIndex = 55
-        Me.chkSMBottom.Text = "Sheet Metal Bottom"
-        Me.chkSMBottom.UseVisualStyleBackColor = True
-        '
         'chk65kASCCRBase
         '
         Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(4, 169)
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(10, 284)
         Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
         Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
         Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
@@ -252,21 +384,11 @@ Partial Class frmLowAmbient
         Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
-        'chkYCAVEmptyFanBlockoff
-        '
-        Me.chkYCAVEmptyFanBlockoff.AutoSize = True
-        Me.chkYCAVEmptyFanBlockoff.Location = New System.Drawing.Point(385, 30)
-        Me.chkYCAVEmptyFanBlockoff.Name = "chkYCAVEmptyFanBlockoff"
-        Me.chkYCAVEmptyFanBlockoff.Size = New System.Drawing.Size(149, 17)
-        Me.chkYCAVEmptyFanBlockoff.TabIndex = 34
-        Me.chkYCAVEmptyFanBlockoff.Text = "YCAV Empty Fan Blockoff"
-        Me.chkYCAVEmptyFanBlockoff.UseVisualStyleBackColor = True
-        '
         'chkFieldHTbyFisen
         '
         Me.chkFieldHTbyFisen.AutoSize = True
         Me.chkFieldHTbyFisen.Enabled = False
-        Me.chkFieldHTbyFisen.Location = New System.Drawing.Point(164, 53)
+        Me.chkFieldHTbyFisen.Location = New System.Drawing.Point(31, 53)
         Me.chkFieldHTbyFisen.Name = "chkFieldHTbyFisen"
         Me.chkFieldHTbyFisen.Size = New System.Drawing.Size(96, 17)
         Me.chkFieldHTbyFisen.TabIndex = 33
@@ -277,7 +399,7 @@ Partial Class frmLowAmbient
         '
         Me.lblFtOfHT.AutoSize = True
         Me.lblFtOfHT.Enabled = False
-        Me.lblFtOfHT.Location = New System.Drawing.Point(235, 29)
+        Me.lblFtOfHT.Location = New System.Drawing.Point(102, 29)
         Me.lblFtOfHT.Name = "lblFtOfHT"
         Me.lblFtOfHT.Size = New System.Drawing.Size(127, 13)
         Me.lblFtOfHT.TabIndex = 32
@@ -286,7 +408,7 @@ Partial Class frmLowAmbient
         'chkRemoteEvap
         '
         Me.chkRemoteEvap.AutoSize = True
-        Me.chkRemoteEvap.Location = New System.Drawing.Point(143, 7)
+        Me.chkRemoteEvap.Location = New System.Drawing.Point(10, 7)
         Me.chkRemoteEvap.Name = "chkRemoteEvap"
         Me.chkRemoteEvap.Size = New System.Drawing.Size(180, 17)
         Me.chkRemoteEvap.TabIndex = 31
@@ -297,55 +419,15 @@ Partial Class frmLowAmbient
         '
         Me.nudFtOfHT.Enabled = False
         Me.nudFtOfHT.Increment = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.nudFtOfHT.Location = New System.Drawing.Point(164, 27)
+        Me.nudFtOfHT.Location = New System.Drawing.Point(31, 27)
         Me.nudFtOfHT.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.nudFtOfHT.Name = "nudFtOfHT"
         Me.nudFtOfHT.Size = New System.Drawing.Size(60, 20)
         Me.nudFtOfHT.TabIndex = 30
         '
-        'chkYCAVTopBlockoff
-        '
-        Me.chkYCAVTopBlockoff.AutoSize = True
-        Me.chkYCAVTopBlockoff.Location = New System.Drawing.Point(385, 7)
-        Me.chkYCAVTopBlockoff.Name = "chkYCAVTopBlockoff"
-        Me.chkYCAVTopBlockoff.Size = New System.Drawing.Size(166, 17)
-        Me.chkYCAVTopBlockoff.TabIndex = 29
-        Me.chkYCAVTopBlockoff.Text = "YCAV Top Ctrl Panel Blockoff"
-        Me.chkYCAVTopBlockoff.UseVisualStyleBackColor = True
-        '
-        'lblLineVolts
-        '
-        Me.lblLineVolts.AutoSize = True
-        Me.lblLineVolts.Enabled = False
-        Me.lblLineVolts.Location = New System.Drawing.Point(25, 27)
-        Me.lblLineVolts.Name = "lblLineVolts"
-        Me.lblLineVolts.Size = New System.Drawing.Size(88, 13)
-        Me.lblLineVolts.TabIndex = 28
-        Me.lblLineVolts.Text = "Unit Line Voltage"
-        '
-        'lstLineVoltage
-        '
-        Me.lstLineVoltage.Enabled = False
-        Me.lstLineVoltage.FormattingEnabled = True
-        Me.lstLineVoltage.Items.AddRange(New Object() {"200", "208", "230", "460", "575"})
-        Me.lstLineVoltage.Location = New System.Drawing.Point(47, 43)
-        Me.lstLineVoltage.Name = "lstLineVoltage"
-        Me.lstLineVoltage.Size = New System.Drawing.Size(42, 69)
-        Me.lstLineVoltage.TabIndex = 27
-        '
-        'chkBaseRailEnclosure
-        '
-        Me.chkBaseRailEnclosure.AutoSize = True
-        Me.chkBaseRailEnclosure.Location = New System.Drawing.Point(385, 53)
-        Me.chkBaseRailEnclosure.Name = "chkBaseRailEnclosure"
-        Me.chkBaseRailEnclosure.Size = New System.Drawing.Size(113, 17)
-        Me.chkBaseRailEnclosure.TabIndex = 25
-        Me.chkBaseRailEnclosure.Text = "Baserail Enclosure"
-        Me.chkBaseRailEnclosure.UseVisualStyleBackColor = True
-        '
         'btnDoneOptions
         '
-        Me.btnDoneOptions.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneOptions.Location = New System.Drawing.Point(520, 273)
         Me.btnDoneOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDoneOptions.Name = "btnDoneOptions"
         Me.btnDoneOptions.Size = New System.Drawing.Size(55, 28)
@@ -355,16 +437,39 @@ Partial Class frmLowAmbient
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.chkOATempSpoof)
+        Me.tpgControls.Controls.Add(Me.grpCtrlRTU)
+        Me.tpgControls.Controls.Add(Me.grpCtrlChill)
         Me.tpgControls.Controls.Add(Me.GroupBox2)
         Me.tpgControls.Controls.Add(Me.btnDoneControls)
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgControls.Size = New System.Drawing.Size(579, 194)
+        Me.tpgControls.Size = New System.Drawing.Size(579, 309)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'grpCtrlRTU
+        '
+        Me.grpCtrlRTU.Enabled = False
+        Me.grpCtrlRTU.Location = New System.Drawing.Point(372, 138)
+        Me.grpCtrlRTU.Name = "grpCtrlRTU"
+        Me.grpCtrlRTU.Size = New System.Drawing.Size(200, 52)
+        Me.grpCtrlRTU.TabIndex = 60
+        Me.grpCtrlRTU.TabStop = False
+        Me.grpCtrlRTU.Text = "RTU Only Controls"
+        '
+        'grpCtrlChill
+        '
+        Me.grpCtrlChill.Enabled = False
+        Me.grpCtrlChill.Location = New System.Drawing.Point(372, 7)
+        Me.grpCtrlChill.Name = "grpCtrlChill"
+        Me.grpCtrlChill.Size = New System.Drawing.Size(200, 125)
+        Me.grpCtrlChill.TabIndex = 59
+        Me.grpCtrlChill.TabStop = False
+        Me.grpCtrlChill.Text = "Chiller Only Controls"
         '
         'GroupBox2
         '
@@ -401,7 +506,7 @@ Partial Class frmLowAmbient
         '
         'btnDoneControls
         '
-        Me.btnDoneControls.Location = New System.Drawing.Point(513, 153)
+        Me.btnDoneControls.Location = New System.Drawing.Point(520, 273)
         Me.btnDoneControls.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDoneControls.Name = "btnDoneControls"
         Me.btnDoneControls.Size = New System.Drawing.Size(55, 28)
@@ -411,6 +516,8 @@ Partial Class frmLowAmbient
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.grpPerfRTU)
+        Me.tpgPerformance.Controls.Add(Me.grpPerfChill)
         Me.tpgPerformance.Controls.Add(Me.Label6)
         Me.tpgPerformance.Controls.Add(Me.Label5)
         Me.tpgPerformance.Controls.Add(Me.lblWatts)
@@ -428,10 +535,30 @@ Partial Class frmLowAmbient
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Size = New System.Drawing.Size(579, 194)
+        Me.tpgPerformance.Size = New System.Drawing.Size(579, 309)
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
+        '
+        'grpPerfRTU
+        '
+        Me.grpPerfRTU.Enabled = False
+        Me.grpPerfRTU.Location = New System.Drawing.Point(372, 140)
+        Me.grpPerfRTU.Name = "grpPerfRTU"
+        Me.grpPerfRTU.Size = New System.Drawing.Size(200, 52)
+        Me.grpPerfRTU.TabIndex = 62
+        Me.grpPerfRTU.TabStop = False
+        Me.grpPerfRTU.Text = "RTU Only Controls"
+        '
+        'grpPerfChill
+        '
+        Me.grpPerfChill.Enabled = False
+        Me.grpPerfChill.Location = New System.Drawing.Point(372, 9)
+        Me.grpPerfChill.Name = "grpPerfChill"
+        Me.grpPerfChill.Size = New System.Drawing.Size(200, 125)
+        Me.grpPerfChill.TabIndex = 61
+        Me.grpPerfChill.TabStop = False
+        Me.grpPerfChill.Text = "Chiller Only Controls"
         '
         'Label6
         '
@@ -547,7 +674,7 @@ Partial Class frmLowAmbient
         Me.GroupBox3.Controls.Add(Me.optXFrmr1)
         Me.GroupBox3.Controls.Add(Me.optXFrmrdot75)
         Me.GroupBox3.Controls.Add(Me.optXFrmrDot5)
-        Me.GroupBox3.Location = New System.Drawing.Point(350, 3)
+        Me.GroupBox3.Location = New System.Drawing.Point(9, 98)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(146, 158)
         Me.GroupBox3.TabIndex = 27
@@ -669,7 +796,7 @@ Partial Class frmLowAmbient
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 168)
+        Me.Label2.Location = New System.Drawing.Point(3, 296)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(174, 13)
         Me.Label2.TabIndex = 26
@@ -677,7 +804,7 @@ Partial Class frmLowAmbient
         '
         'btnDonePerformance
         '
-        Me.btnDonePerformance.Location = New System.Drawing.Point(513, 153)
+        Me.btnDonePerformance.Location = New System.Drawing.Point(520, 273)
         Me.btnDonePerformance.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDonePerformance.Name = "btnDonePerformance"
         Me.btnDonePerformance.Size = New System.Drawing.Size(55, 28)
@@ -691,14 +818,14 @@ Partial Class frmLowAmbient
         Me.DebugPage.Margin = New System.Windows.Forms.Padding(4)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(4)
-        Me.DebugPage.Size = New System.Drawing.Size(579, 194)
+        Me.DebugPage.Size = New System.Drawing.Size(579, 309)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(124, 241)
+        Me.Cancel.Location = New System.Drawing.Point(117, 351)
         Me.Cancel.Margin = New System.Windows.Forms.Padding(4)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(96, 36)
@@ -709,7 +836,7 @@ Partial Class frmLowAmbient
         'btnOK
         '
         Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(20, 241)
+        Me.btnOK.Location = New System.Drawing.Point(13, 351)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(4)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(96, 36)
@@ -720,7 +847,7 @@ Partial Class frmLowAmbient
         'cmdViewHistory
         '
         Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
-        Me.cmdViewHistory.Location = New System.Drawing.Point(530, 245)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(523, 355)
         Me.cmdViewHistory.Name = "cmdViewHistory"
         Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
         Me.cmdViewHistory.TabIndex = 18
@@ -729,7 +856,7 @@ Partial Class frmLowAmbient
         'cmdDesignCautions
         '
         Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
-        Me.cmdDesignCautions.Location = New System.Drawing.Point(566, 245)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(559, 355)
         Me.cmdDesignCautions.Name = "cmdDesignCautions"
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 17
@@ -740,17 +867,38 @@ Partial Class frmLowAmbient
         Me.chkWriteHistory.AutoSize = True
         Me.chkWriteHistory.Checked = True
         Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkWriteHistory.Location = New System.Drawing.Point(227, 260)
+        Me.chkWriteHistory.Location = New System.Drawing.Point(220, 370)
         Me.chkWriteHistory.Name = "chkWriteHistory"
         Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
         Me.chkWriteHistory.TabIndex = 19
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'chkOATempSpoof
+        '
+        Me.chkOATempSpoof.AutoSize = True
+        Me.chkOATempSpoof.Location = New System.Drawing.Point(13, 90)
+        Me.chkOATempSpoof.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOATempSpoof.Name = "chkOATempSpoof"
+        Me.chkOATempSpoof.Size = New System.Drawing.Size(148, 17)
+        Me.chkOATempSpoof.TabIndex = 61
+        Me.chkOATempSpoof.Text = "OA Temp Spoof Required"
+        Me.chkOATempSpoof.UseVisualStyleBackColor = True
+        '
+        'chkDedicatedPower
+        '
+        Me.chkDedicatedPower.AutoSize = True
+        Me.chkDedicatedPower.Location = New System.Drawing.Point(120, 39)
+        Me.chkDedicatedPower.Name = "chkDedicatedPower"
+        Me.chkDedicatedPower.Size = New System.Drawing.Size(168, 17)
+        Me.chkDedicatedPower.TabIndex = 33
+        Me.chkDedicatedPower.Text = "Dedicated 240V Power Circuit"
+        Me.chkDedicatedPower.UseVisualStyleBackColor = True
+        '
         'frmLowAmbient
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(605, 283)
+        Me.ClientSize = New System.Drawing.Size(605, 391)
         Me.ControlBox = False
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
@@ -765,12 +913,19 @@ Partial Class frmLowAmbient
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
         Me.tpgConditions.PerformLayout()
+        Me.grpCondRTU.ResumeLayout(False)
+        Me.grpCondRTU.PerformLayout()
+        Me.grpCondChill.ResumeLayout(False)
+        Me.grpCondChill.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.grpOptChill.ResumeLayout(False)
+        Me.grpOptChill.PerformLayout()
         CType(Me.nudFtOfHT, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpgControls.ResumeLayout(False)
+        Me.tpgControls.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
@@ -798,9 +953,6 @@ Partial Class frmLowAmbient
     Friend WithEvents optneg30Ambient As RadioButton
     Friend WithEvents optneg20Ambient As RadioButton
     Friend WithEvents optneg10Ambient As RadioButton
-    Friend WithEvents chkBaseRailEnclosure As CheckBox
-    Friend WithEvents lblLineVolts As Label
-    Friend WithEvents lstLineVoltage As ListBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents optDDC As RadioButton
     Friend WithEvents optElectroMechanical As RadioButton
@@ -836,10 +988,25 @@ Partial Class frmLowAmbient
     Friend WithEvents chkChillerOnGrade As CheckBox
     Friend WithEvents chkSinglePointPower As CheckBox
     Friend WithEvents chkWriteHistory As CheckBox
-    Friend WithEvents chkSMBottom As CheckBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents optXFrmr15 As RadioButton
     Friend WithEvents optXFrmr10 As RadioButton
     Friend WithEvents Label7 As Label
+    Friend WithEvents grpCondRTU As GroupBox
+    Friend WithEvents grpCondChill As GroupBox
+    Friend WithEvents grpOptRTU As GroupBox
+    Friend WithEvents grpOptChill As GroupBox
+    Friend WithEvents grpCtrlRTU As GroupBox
+    Friend WithEvents grpCtrlChill As GroupBox
+    Friend WithEvents grpPerfRTU As GroupBox
+    Friend WithEvents grpPerfChill As GroupBox
+    Friend WithEvents chkRTUUseHT As CheckBox
+    Friend WithEvents lblLineVolts As Label
+    Friend WithEvents lstLineVoltage As ListBox
+    Friend WithEvents chkSMBottom As CheckBox
+    Friend WithEvents chkBaseRailEnclosure As CheckBox
+    Friend WithEvents chkRTUOnGrade As CheckBox
+    Friend WithEvents chkOATempSpoof As CheckBox
+    Friend WithEvents chkDedicatedPower As CheckBox
 End Class

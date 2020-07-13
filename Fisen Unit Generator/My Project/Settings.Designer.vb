@@ -183,6 +183,18 @@ Namespace My
                 Me("UOMoveCuts2SD") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property UOResearchMode() As Boolean
+            Get
+                Return CType(Me("UOResearchMode"),Boolean)
+            End Get
+            Set
+                Me("UOResearchMode") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

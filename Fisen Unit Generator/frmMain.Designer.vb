@@ -29,6 +29,7 @@ Partial Class frmMain
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
+        Me.cmdReloadOldFile = New System.Windows.Forms.Button()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.btnDoneBU = New System.Windows.Forms.Button()
         Me.fraMisc = New System.Windows.Forms.GroupBox()
@@ -198,6 +199,7 @@ Partial Class frmMain
         Me.txtBCNetCoolCap = New System.Windows.Forms.TextBox()
         Me.lblBCNetCoolCap = New System.Windows.Forms.Label()
         Me.pgModifications = New System.Windows.Forms.TabPage()
+        Me.cmdModsLoadMods = New System.Windows.Forms.Button()
         Me.cmdAutoAddMods = New System.Windows.Forms.Button()
         Me.txtModCodeImport = New System.Windows.Forms.TextBox()
         Me.btnDoneModSel = New System.Windows.Forms.Button()
@@ -316,6 +318,10 @@ Partial Class frmMain
         Me.lstAvailAirflow = New System.Windows.Forms.ListBox()
         Me.btnDoneAirflow = New System.Windows.Forms.Button()
         Me.pgSequence = New System.Windows.Forms.TabPage()
+        Me.cmdSoOLoadMods = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.lstSoOFiles = New System.Windows.Forms.ListBox()
+        Me.lstModsForSoO = New System.Windows.Forms.ListBox()
         Me.btnDoneSequence = New System.Windows.Forms.Button()
         Me.pgPoints = New System.Windows.Forms.TabPage()
         Me.Label57 = New System.Windows.Forms.Label()
@@ -930,6 +936,7 @@ Partial Class frmMain
         '
         'pgBaseUnit
         '
+        Me.pgBaseUnit.Controls.Add(Me.cmdReloadOldFile)
         Me.pgBaseUnit.Controls.Add(Me.cmdViewHistory)
         Me.pgBaseUnit.Controls.Add(Me.btnDoneBU)
         Me.pgBaseUnit.Controls.Add(Me.fraMisc)
@@ -946,11 +953,24 @@ Partial Class frmMain
         Me.pgBaseUnit.Text = "Base Unit"
         Me.pgBaseUnit.UseVisualStyleBackColor = True
         '
+        'cmdReloadOldFile
+        '
+        Me.cmdReloadOldFile.Enabled = False
+        Me.cmdReloadOldFile.Image = CType(resources.GetObject("cmdReloadOldFile.Image"), System.Drawing.Image)
+        Me.cmdReloadOldFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdReloadOldFile.Location = New System.Drawing.Point(625, 109)
+        Me.cmdReloadOldFile.Name = "cmdReloadOldFile"
+        Me.cmdReloadOldFile.Size = New System.Drawing.Size(109, 29)
+        Me.cmdReloadOldFile.TabIndex = 12
+        Me.cmdReloadOldFile.Text = "Reload File"
+        Me.cmdReloadOldFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdReloadOldFile.UseVisualStyleBackColor = True
+        '
         'cmdViewHistory
         '
         Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
         Me.cmdViewHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdViewHistory.Location = New System.Drawing.Point(648, 8)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(625, 74)
         Me.cmdViewHistory.Name = "cmdViewHistory"
         Me.cmdViewHistory.Size = New System.Drawing.Size(109, 29)
         Me.cmdViewHistory.TabIndex = 11
@@ -2872,6 +2892,7 @@ Partial Class frmMain
         '
         'pgModifications
         '
+        Me.pgModifications.Controls.Add(Me.cmdModsLoadMods)
         Me.pgModifications.Controls.Add(Me.cmdAutoAddMods)
         Me.pgModifications.Controls.Add(Me.txtModCodeImport)
         Me.pgModifications.Controls.Add(Me.btnDoneModSel)
@@ -2890,6 +2911,16 @@ Partial Class frmMain
         Me.pgModifications.TabIndex = 1
         Me.pgModifications.Text = "Modifications"
         Me.pgModifications.UseVisualStyleBackColor = True
+        '
+        'cmdModsLoadMods
+        '
+        Me.cmdModsLoadMods.Location = New System.Drawing.Point(3, 452)
+        Me.cmdModsLoadMods.Name = "cmdModsLoadMods"
+        Me.cmdModsLoadMods.Size = New System.Drawing.Size(53, 25)
+        Me.cmdModsLoadMods.TabIndex = 21
+        Me.cmdModsLoadMods.Text = "Load"
+        Me.cmdModsLoadMods.UseVisualStyleBackColor = True
+        Me.cmdModsLoadMods.Visible = False
         '
         'cmdAutoAddMods
         '
@@ -4188,6 +4219,10 @@ Partial Class frmMain
         '
         'pgSequence
         '
+        Me.pgSequence.Controls.Add(Me.cmdSoOLoadMods)
+        Me.pgSequence.Controls.Add(Me.TextBox1)
+        Me.pgSequence.Controls.Add(Me.lstSoOFiles)
+        Me.pgSequence.Controls.Add(Me.lstModsForSoO)
         Me.pgSequence.Controls.Add(Me.btnDoneSequence)
         Me.pgSequence.Location = New System.Drawing.Point(4, 22)
         Me.pgSequence.Margin = New System.Windows.Forms.Padding(4)
@@ -4196,6 +4231,41 @@ Partial Class frmMain
         Me.pgSequence.TabIndex = 16
         Me.pgSequence.Text = "Sequence"
         Me.pgSequence.UseVisualStyleBackColor = True
+        '
+        'cmdSoOLoadMods
+        '
+        Me.cmdSoOLoadMods.Location = New System.Drawing.Point(3, 452)
+        Me.cmdSoOLoadMods.Name = "cmdSoOLoadMods"
+        Me.cmdSoOLoadMods.Size = New System.Drawing.Size(53, 25)
+        Me.cmdSoOLoadMods.TabIndex = 20
+        Me.cmdSoOLoadMods.Text = "Load"
+        Me.cmdSoOLoadMods.UseVisualStyleBackColor = True
+        Me.cmdSoOLoadMods.Visible = False
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(858, 18)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(333, 119)
+        Me.TextBox1.TabIndex = 19
+        '
+        'lstSoOFiles
+        '
+        Me.lstSoOFiles.FormattingEnabled = True
+        Me.lstSoOFiles.Location = New System.Drawing.Point(269, 18)
+        Me.lstSoOFiles.Name = "lstSoOFiles"
+        Me.lstSoOFiles.Size = New System.Drawing.Size(583, 121)
+        Me.lstSoOFiles.TabIndex = 18
+        '
+        'lstModsForSoO
+        '
+        Me.lstModsForSoO.FormattingEnabled = True
+        Me.lstModsForSoO.Location = New System.Drawing.Point(12, 17)
+        Me.lstModsForSoO.Name = "lstModsForSoO"
+        Me.lstModsForSoO.Size = New System.Drawing.Size(251, 121)
+        Me.lstModsForSoO.TabIndex = 17
         '
         'btnDoneSequence
         '
@@ -10126,6 +10196,7 @@ Partial Class frmMain
         Me.GroupBox12.ResumeLayout(False)
         Me.GroupBox12.PerformLayout
         Me.pgSequence.ResumeLayout(False)
+        Me.pgSequence.PerformLayout
         Me.pgPoints.ResumeLayout(False)
         Me.pgPoints.PerformLayout
         Me.pgEndDeviceSchedule.ResumeLayout(False)
@@ -11040,4 +11111,10 @@ Partial Class frmMain
     Friend WithEvents Label115 As Label
     Friend WithEvents txtUnitSuggestedTags As TextBox
     Friend WithEvents cmdUserOptions As Button
+    Friend WithEvents cmdReloadOldFile As Button
+    Friend WithEvents lstModsForSoO As ListBox
+    Friend WithEvents lstSoOFiles As ListBox
+    Friend WithEvents cmdSoOLoadMods As Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents cmdModsLoadMods As Button
 End Class

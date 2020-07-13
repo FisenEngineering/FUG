@@ -51,7 +51,7 @@
     End Sub
 
     Private Sub btnDoneSelection_Click(sender As Object, e As EventArgs) Handles btnDoneSelection.Click
-        Call PerformDesignCautionScan
+        Call PerformDesignCautionScan()
         lblCount.Text = Str(lstItemsInDB.SelectedItems.Count - 1)
         lblCurrentCstmMod.Text = lstItemsInDB.SelectedItems.Item(Val(lblCount.Text))
         Call TagALongPopulate(lblCurrentCstmMod.Text)

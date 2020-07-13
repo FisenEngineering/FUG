@@ -129,7 +129,6 @@ Public Class frmMain
         If optChiller.Checked Then optChillerYVAA.Checked = True
     End Sub
     Private Function SetUnitFamily() As String
-        Dim dummy As MsgBoxResult
         Dim TempFamily
 
         TempFamily = "Error in SetUnitFamily()"
@@ -856,7 +855,7 @@ Public Class frmMain
                         frmLCVAV.Dispose()
                     End If
 
-                Case Is = "Low Ambient Chiller"
+                Case Is = "Low Ambient Start"
                     frmLowAmbient.ShowDialog()
                     If frmLowAmbient.Cancelled = True Then
                         dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
@@ -5106,7 +5105,6 @@ Public Class frmMain
         tabMain.SelectTab("pgReheat")
     End Sub
     Private Sub btnDonePD_Click(sender As Object, e As EventArgs) Handles btnDonePD.Click
-        Dim LastProjectFile As System.IO.StreamWriter
         Dim Dummy As MsgBoxResult
 
         Dim TempFileName As String
@@ -5155,15 +5153,6 @@ Public Class frmMain
         End If
 
         Call loadPermittedMods()
-
-        TempFileName = My.Settings.ResourceDir & "LastProjectData.dat"
-        LastProjectFile = My.Computer.FileSystem.OpenTextFileWriter(TempFileName, False)
-        LastProjectFile.WriteLine(Trim(txtJobNumber.Text))
-        LastProjectFile.WriteLine(txtUnitNumber.Text)
-        LastProjectFile.WriteLine(txtProjectDirectory.Text)
-
-        LastProjectFile.Close()
-
 
         Select Case ThisUnit.Kingdom
             Case Is = "Chiller"
@@ -6181,9 +6170,6 @@ Public Class frmMain
         GuessJobNumber = totaljob
     End Function
 
-
-
-
     Private Sub btnDoneFactOpts_Click(sender As Object, e As EventArgs) Handles btnDoneFactOpts.Click
         Dim i As Integer
         Dim dummy As MsgBoxResult
@@ -6197,6 +6183,7 @@ Public Class frmMain
             ThisUnitFactOpts.Add(lstFactOpts.Items.Item(i))
         Next i
 
+        'After this point sets up the Field Installed Items on the next page
         Call PopulateModGenFieldInstalleds()
 
         If ThisUnitFieldInst.Count > 0 Then
@@ -6808,8 +6795,26 @@ Public Class frmMain
     End Sub
     Private Sub btnDoneAirflow_Click(sender As Object, e As EventArgs) Handles btnDoneAirflow.Click
         Call DoneAirflowTab()
+        Call PrepSequenceTab
 
         tabMain.SelectTab("pgSequence")
+    End Sub
+
+    Private Sub PrepSequenceTab()
+        Dim i As Integer
+
+        If My.Settings.UOResearchMode = False Then
+            For i = 0 To ThisUnitMods.Count - 1
+                lstModsForSoO.Items.Add(ThisUnitMods(i))
+            Next
+        Else
+            Call SetResearchMode()
+        End If
+    End Sub
+
+    Public Sub SetResearchMode()
+        cmdSoOLoadMods.Visible = True
+        cmdModsLoadMods.Visible = True
     End Sub
 
     Private Sub DoneAirflowTab()
@@ -6996,7 +7001,11 @@ Public Class frmMain
                 cmbJumpDest.Visible = True
                 cmdDebug.Visible = True
                 chkSaveinProjDB.Checked = False
+
+                cmdReloadOldFile.Enabled = True
+
             End If
+
             chkInhibitDigConditions.Checked = False
             chkSaveinProjDB.Checked = False
             My.Settings.UOMoveCuts2SD = False
@@ -7148,6 +7157,9 @@ Public Class frmMain
                 If cmbBrand.Text = "TMP" Then
                     txtModelNumber.Text = "JV" & Mid(txtBrandModelNumber.Text, 3)
                 End If
+
+            Case Is = "Choice"
+                txtModelNumber.Text = "AD" & Mid(txtBrandModelNumber.Text, 3)
         End Select
 
 
@@ -7713,6 +7725,8 @@ Public Class frmMain
                     Call LoadYVAAChillerLoads()
                 Case Is = "YCIV"
                     Call LoadYVAAChillerLoads()
+                Case Is = "Series100"
+                    Call LoadYPALLoads
                 Case Else
                     Call LoadStandardLoads()
             End Select
@@ -7815,6 +7829,72 @@ Public Class frmMain
         Next
 
 
+
+    End Sub
+    Private Sub LoadYPALLoads()
+        Dim ElecChar As String
+        Dim i As Integer
+        Dim j As Integer
+        Dim NewRow As String()
+        Dim ThisFLA As String
+        Dim FanCount As Integer
+
+        Select Case ThisUnit.Cabinet
+            Case Is = "Series100A"
+                FanCount = 4
+            Case Is = "Series100B"
+                FanCount = 6
+            Case Is = "Series100C"
+                FanCount = 9
+        End Select
+
+        ElecChar = txtCommVolts.Text & "-" & txtCommPhase.Text & "-" & txtCommFreq.Text
+
+        ThisFLA = ThisUnitElecData.YPALLoadCC1A
+        NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisFLA, False}
+        dgvElecLoads.Rows.Add(NewRow)
+        ThisFLA = ThisUnitElecData.YPALLoadCC1B
+        NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisFLA, False}
+        dgvElecLoads.Rows.Add(NewRow)
+        ThisFLA = ThisUnitElecData.YPALLoadCC2A
+        NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisFLA, False}
+        dgvElecLoads.Rows.Add(NewRow)
+        ThisFLA = ThisUnitElecData.YPALLoadCC2B
+        NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisFLA, False}
+        dgvElecLoads.Rows.Add(NewRow)
+        ThisFLA = ThisUnitElecData.YPALLoadCC3A
+        If IsNumeric(ThisFLA) Then
+            NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisFLA, False}
+            dgvElecLoads.Rows.Add(NewRow)
+        End If
+        ThisFLA = ThisUnitElecData.YPALLoadCC3B
+        If IsNumeric(ThisFLA) Then
+            NewRow = {True, False, "Cool", True, "COMPRESSOR", ElecChar, "-", ThisFLA, False}
+            dgvElecLoads.Rows.Add(NewRow)
+        End If
+
+        ThisFLA = ThisUnitElecData.YPALLoadCFans
+        ThisFLA = Format(Val(ThisFLA) / FanCount, "0.0")
+        For i = 1 To FanCount
+            NewRow = {True, False, "Cool", True, "CONDENSER FAN", ElecChar, "-", ThisFLA, False}
+            dgvElecLoads.Rows.Add(NewRow)
+        Next
+
+        ThisFLA = NEMAMotorFLA(ThisUnitSFanPerf.MotorHP, txtCommVolts.Text & "-" & txtCommPhase.Text)
+        NewRow = {True, False, "All", True, "SUPPLY FAN", ElecChar, ThisUnitSFanPerf.MotorHP, ThisFLA, False}
+        dgvElecLoads.Rows.Add(NewRow)
+
+        If IsNumeric(ThisUnitRXPerf.MotorHP) Then
+            ThisFLA = NEMAMotorFLA(ThisUnitRXPerf.MotorHP, txtCommVolts.Text)
+            NewRow = {True, False, "All", True, UCase(ThisUnitRXPerf.FanStyle), ElecChar, ThisUnitRXPerf.MotorHP, ThisFLA, False}
+            dgvElecLoads.Rows.Add(NewRow)
+        End If
+
+        If IsNumeric(ThisUnitElecData.YPALLoadCtrlXfmr) Then
+            ThisFLA = ThisUnitElecData.YPALLoadCtrlXfmr
+            NewRow = {True, False, "All", True, "Controls Transformer", ElecChar, "-", ThisFLA, False}
+            dgvElecLoads.Rows.Add(NewRow)
+        End If
 
     End Sub
     Private Sub LoadStandardLoads()
@@ -8632,6 +8712,8 @@ Public Class frmMain
         Dim modcount As Integer
         Dim myindex As Integer
         Dim NotFound As Boolean
+        Dim dummy As MsgBoxResult
+        Dim myMessage As String
 
         i = 0
         ModString = Trim(txtModCodeImport.Text)
@@ -8660,6 +8742,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Airflow Path Reconfiguration")
                 Case Is = "CFan"
                     myindex = lstAvailableMods.FindString("Condenser Fan")
+                Case Is = "CHWCoil"
+                    myindex = lstAvailableMods.FindString("Chilled Water Coil")
                 Case Is = "CPCtrl"
                     myindex = lstAvailableMods.FindString("Customer Provided Controls")
                 Case Is = "CstmCoil"
@@ -8676,6 +8760,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Custom Refrigeration")
                 Case Is = "CstmSM"
                     myindex = lstAvailableMods.FindString("Custom Sheetmetal")
+                Case Is = "DigScroll"
+                    myindex = lstAvailableMods.FindString("Digital Scroll Compressor")
                 Case Is = "DPP"
                     myindex = lstAvailableMods.FindString("Dual Point Power")
                 Case Is = "DWall"
@@ -8684,6 +8770,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Energy Recovery Wheel")
                 Case Is = "Extend"
                     myindex = lstAvailableMods.FindString("Extended Cabinet")
+                Case Is = "FanWall"
+                    myindex = lstAvailableMods.FindString("Supply Fan Wall")
                 Case Is = "FanVFD"
                     myindex = lstAvailableMods.FindString("Fan VFD")
                 Case Is = "SFVFD"
@@ -8709,6 +8797,10 @@ Public Class frmMain
                 Case Is = "LowAF"
                     myindex = lstAvailableMods.FindString("Reduced Air Flow")
                 Case Is = "LowAmbient-20"
+                    myindex = lstAvailableMods.FindString("Low Ambient Chiller")
+                Case Is = "LowAmbient-30"
+                    myindex = lstAvailableMods.FindString("Low Ambient Chiller")
+                Case Is = "LowAmbient-40"
                     myindex = lstAvailableMods.FindString("Low Ambient Chiller")
                 Case Is = "MEHeat(I)"
                     myindex = lstAvailableMods.FindString("Modulating Electric Heat Fisen Provided")
@@ -8740,6 +8832,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Supply Fan")
                 Case Is = "SteamCoil"
                     myindex = lstAvailableMods.FindString("Steam Coil")
+                Case Is = "UVLights"
+                    myindex = lstAvailableMods.FindString("Ultraviolet Lights")
                 Case Is = "XFan"
                     myindex = lstAvailableMods.FindString("Exhaust Fan")
                 Case Else
@@ -8748,6 +8842,10 @@ Public Class frmMain
             If Not (NotFound) Then
                 lstAvailableMods.SelectedIndex = myindex
                 btnAddItem.PerformClick()
+            End If
+            If NotFound Then
+                myMessage = "Unable to automatically add:" & ModList(i) & vbCrLf & "Please add manually or correct the spelling."
+                dummy = MsgBox(myMessage, vbOKOnly, "Fisen Unit Generator")
             End If
         Next
 
@@ -9024,5 +9122,76 @@ Public Class frmMain
         frmUserOptions.ShowDialog()
     End Sub
 
+    Private Sub cmdReloadOldFile_Click(sender As Object, e As EventArgs) Handles cmdReloadOldFile.Click
+        Dim FiletoLoad As String
 
+        OpenFileDialog1.InitialDirectory = "J:\"
+        OpenFileDialog1.ShowDialog()
+
+        FiletoLoad = OpenFileDialog1.FileName
+        Debug.Print(FiletoLoad)
+
+    End Sub
+
+    Private Sub cmdSoOLoadMods_Click(sender As Object, e As EventArgs) Handles cmdSoOLoadMods.Click
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+        lstAvailableMods.Items.Clear()
+        lstSelectedMods.Items.Clear()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "Select * FROM tblModCodes ORDER BY ModPlainName"
+        rs.Open(MySQL, con)
+
+        rs.MoveFirst()
+        Do While Not (rs.EOF)
+            lstModsForSoO.Items.Add(rs.Fields("ModPlainName").Value)
+            rs.MoveNext()
+        Loop
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
+
+    Private Sub cmdModsLoadMods_Click(sender As Object, e As EventArgs) Handles cmdModsLoadMods.Click
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+        lstAvailableMods.Items.Clear()
+        lstSelectedMods.Items.Clear()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "Select * FROM tblModCodes ORDER BY ModPlainName"
+        rs.Open(MySQL, con)
+
+        rs.MoveFirst()
+        Do While Not (rs.EOF)
+            lstAvailableMods.Items.Add(rs.Fields("ModPlainName").Value)
+            rs.MoveNext()
+        Loop
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
 End Class

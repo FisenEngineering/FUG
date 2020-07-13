@@ -239,6 +239,8 @@ Public Class clsUnitClass
                         pBrandFamily = "Millennium"
                     Case Is = "Series100"
                         pBrandFamily = "YPAL"
+                    Case Is = "Choice"
+                        pBrandFamily = "Sun Choice"
                     Case Is = "YLAA"
                         pBrandFamily = "YLAA"
                     Case Is = "YCAV"

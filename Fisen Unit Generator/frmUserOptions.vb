@@ -4,6 +4,8 @@ Public Class frmUserOptions
     Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOK.Click
         Call ReconcileOptions()
         My.Settings.Save()
+        If optResearch.Checked Then Call frmMain.SetResearchMode()
+
         Me.Close()
     End Sub
 
@@ -16,9 +18,21 @@ Public Class frmUserOptions
     Private Sub InitializeOptions()
         chkUOAutoLaunchWord.Checked = My.Settings.UOWordLaunch
         chkUOMoveCutstoSD.Checked = My.Settings.UOMoveCuts2SD
+        If My.Settings.UOResearchMode Then
+            optResearch.Checked = True
+        Else
+            optSubGen.Checked = True
+        End If
     End Sub
     Private Sub ReconcileOptions()
         My.Settings.UOWordLaunch = chkUOAutoLaunchWord.Checked
         My.Settings.UOMoveCuts2SD = chkUOMoveCutstoSD.Checked
+
+        If optResearch.Checked Then
+            My.Settings.UOResearchMode = True
+        Else
+            My.Settings.UOResearchMode = False
+        End If
+
     End Sub
 End Class

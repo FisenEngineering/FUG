@@ -160,6 +160,12 @@
     <Compile Include="frmArchiver.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmBiPolar.Designer.vb">
+      <DependentUpon>frmBiPolar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBiPolar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCHWCoil.Designer.vb">
       <DependentUpon>frmCHWCoil.vb</DependentUpon>
     </Compile>
@@ -419,6 +425,7 @@
     <Compile Include="frmWMFZoom.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -453,6 +460,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmArchiver.resx">
       <DependentUpon>frmArchiver.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBiPolar.resx">
+      <DependentUpon>frmBiPolar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCHWCoil.resx">
       <DependentUpon>frmCHWCoil.vb</DependentUpon>

@@ -25,6 +25,10 @@ Partial Class frmUserOptions
         Me.chkUOAutoLaunchWord = New System.Windows.Forms.CheckBox()
         Me.cmdOK = New System.Windows.Forms.Button()
         Me.chkUOMoveCutstoSD = New System.Windows.Forms.CheckBox()
+        Me.fraRunMode = New System.Windows.Forms.GroupBox()
+        Me.optSubGen = New System.Windows.Forms.RadioButton()
+        Me.optResearch = New System.Windows.Forms.RadioButton()
+        Me.fraRunMode.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkUOAutoLaunchWord
@@ -56,12 +60,46 @@ Partial Class frmUserOptions
         Me.chkUOMoveCutstoSD.Text = "Move Cutsheets to Submittal Design Folder"
         Me.chkUOMoveCutstoSD.UseVisualStyleBackColor = True
         '
+        'fraRunMode
+        '
+        Me.fraRunMode.Controls.Add(Me.optResearch)
+        Me.fraRunMode.Controls.Add(Me.optSubGen)
+        Me.fraRunMode.Location = New System.Drawing.Point(559, 302)
+        Me.fraRunMode.Name = "fraRunMode"
+        Me.fraRunMode.Size = New System.Drawing.Size(229, 66)
+        Me.fraRunMode.TabIndex = 3
+        Me.fraRunMode.TabStop = False
+        Me.fraRunMode.Text = "Run Mode"
+        '
+        'optSubGen
+        '
+        Me.optSubGen.AutoSize = True
+        Me.optSubGen.Checked = True
+        Me.optSubGen.Location = New System.Drawing.Point(6, 19)
+        Me.optSubGen.Name = "optSubGen"
+        Me.optSubGen.Size = New System.Drawing.Size(123, 17)
+        Me.optSubGen.TabIndex = 0
+        Me.optSubGen.TabStop = True
+        Me.optSubGen.Text = "Submittal Generation"
+        Me.optSubGen.UseVisualStyleBackColor = True
+        '
+        'optResearch
+        '
+        Me.optResearch.AutoSize = True
+        Me.optResearch.Location = New System.Drawing.Point(6, 42)
+        Me.optResearch.Name = "optResearch"
+        Me.optResearch.Size = New System.Drawing.Size(71, 17)
+        Me.optResearch.TabIndex = 1
+        Me.optResearch.Text = "Research"
+        Me.optResearch.UseVisualStyleBackColor = True
+        '
         'frmUserOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.ControlBox = False
+        Me.Controls.Add(Me.fraRunMode)
         Me.Controls.Add(Me.chkUOMoveCutstoSD)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.chkUOAutoLaunchWord)
@@ -69,6 +107,8 @@ Partial Class frmUserOptions
         Me.Name = "frmUserOptions"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Fisen Unit Generator - User Options"
+        Me.fraRunMode.ResumeLayout(False)
+        Me.fraRunMode.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -77,4 +117,7 @@ Partial Class frmUserOptions
     Friend WithEvents chkUOAutoLaunchWord As CheckBox
     Friend WithEvents cmdOK As Button
     Friend WithEvents chkUOMoveCutstoSD As CheckBox
+    Friend WithEvents fraRunMode As GroupBox
+    Friend WithEvents optResearch As RadioButton
+    Friend WithEvents optSubGen As RadioButton
 End Class

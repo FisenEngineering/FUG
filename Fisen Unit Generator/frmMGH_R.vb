@@ -198,12 +198,19 @@ Public Class frmMGH_R
                 ModuleCodeList.Add("523155")
         End Select
 
+
+
         If chkIncludeEquipmentTouch.Checked = True Then
-            If ModuleCodeList.Count = 0 Then ModuleCodeList.Add("960000")
+            If frmMain.ThisUnit.GenCodesPresent = False Then frmMain.ThisUnitGenCodes.Add("960000")
+            frmMain.ThisUnit.GenCodesPresent = True
             If chkMountEquipmentTouch.Checked = True Then
-                ModuleCodeList.Add("960002")
+                If frmMain.HasUMHMI = False Then
+                    frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+                End If
             Else
-                ModuleCodeList.Add("960001")
+                If frmMain.HasHMI = False Then
+                    frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+                End If
             End If
         End If
 
