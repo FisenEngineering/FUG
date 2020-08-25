@@ -257,6 +257,13 @@
                 If optEmerFisenMCDS.Checked Then tempWeight = tempWeight + 56
                 If optEmerFisenMLO.Checked Then tempWeight = tempWeight + 8
                 If optEmerFisenSS.Checked Then tempWeight = tempWeight + 125
+            Case Is = "Select"
+                If optCommFisenMCDS.Checked Then tempWeight = tempWeight + 20
+                If optCommFisenMLO.Checked Then tempWeight = tempWeight + 10
+                If optCommFisenSS.Checked Then tempWeight = tempWeight + 23
+                If optEmerFisenMCDS.Checked Then tempWeight = tempWeight + 20
+                If optEmerFisenMLO.Checked Then tempWeight = tempWeight + 10
+                If optEmerFisenSS.Checked Then tempWeight = tempWeight + 23
             Case Else
                 tempWeight = 9999
         End Select

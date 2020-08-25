@@ -407,6 +407,12 @@
     <Compile Include="frmHGBP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUpdateWeightTables.Designer.vb">
+      <DependentUpon>frmUpdateWeightTables.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateWeightTables.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmUserOptions.Designer.vb">
       <DependentUpon>frmUserOptions.vb</DependentUpon>
     </Compile>
@@ -583,6 +589,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHGBP.resx">
       <DependentUpon>frmHGBP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateWeightTables.resx">
+      <DependentUpon>frmUpdateWeightTables.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUserOptions.resx">
       <DependentUpon>frmUserOptions.vb</DependentUpon>

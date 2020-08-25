@@ -565,4 +565,5 @@ Public Class frmLCVAV
         rs = Nothing
         con = Nothing
     End Sub
+
 End Class

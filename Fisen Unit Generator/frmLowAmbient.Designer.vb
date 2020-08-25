@@ -25,6 +25,7 @@ Partial Class frmLowAmbient
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLowAmbient))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkDedicatedPower = New System.Windows.Forms.CheckBox()
         Me.lblLineVolts = New System.Windows.Forms.Label()
         Me.lstLineVoltage = New System.Windows.Forms.ListBox()
         Me.grpCondRTU = New System.Windows.Forms.GroupBox()
@@ -42,6 +43,9 @@ Partial Class frmLowAmbient
         Me.chkSMBottom = New System.Windows.Forms.CheckBox()
         Me.chkBaseRailEnclosure = New System.Windows.Forms.CheckBox()
         Me.grpOptRTU = New System.Windows.Forms.GroupBox()
+        Me.optNoWraps = New System.Windows.Forms.RadioButton()
+        Me.optJCIWraps = New System.Windows.Forms.RadioButton()
+        Me.optFisenWraps = New System.Windows.Forms.RadioButton()
         Me.grpOptChill = New System.Windows.Forms.GroupBox()
         Me.chkYCAVTopBlockoff = New System.Windows.Forms.CheckBox()
         Me.chkYCAVEmptyFanBlockoff = New System.Windows.Forms.CheckBox()
@@ -53,6 +57,7 @@ Partial Class frmLowAmbient
         Me.nudFtOfHT = New System.Windows.Forms.NumericUpDown()
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.chkOATempSpoof = New System.Windows.Forms.CheckBox()
         Me.grpCtrlRTU = New System.Windows.Forms.GroupBox()
         Me.grpCtrlChill = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -93,14 +98,16 @@ Partial Class frmLowAmbient
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chkOATempSpoof = New System.Windows.Forms.CheckBox()
-        Me.chkDedicatedPower = New System.Windows.Forms.CheckBox()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpCondRTU.SuspendLayout()
         Me.grpCondChill.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.grpOptRTU.SuspendLayout()
         Me.grpOptChill.SuspendLayout()
         CType(Me.nudFtOfHT, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgControls.SuspendLayout()
@@ -141,6 +148,16 @@ Partial Class frmLowAmbient
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'chkDedicatedPower
+        '
+        Me.chkDedicatedPower.AutoSize = True
+        Me.chkDedicatedPower.Location = New System.Drawing.Point(120, 39)
+        Me.chkDedicatedPower.Name = "chkDedicatedPower"
+        Me.chkDedicatedPower.Size = New System.Drawing.Size(168, 17)
+        Me.chkDedicatedPower.TabIndex = 33
+        Me.chkDedicatedPower.Text = "Dedicated 240V Power Circuit"
+        Me.chkDedicatedPower.UseVisualStyleBackColor = True
         '
         'lblLineVolts
         '
@@ -323,13 +340,48 @@ Partial Class frmLowAmbient
         '
         'grpOptRTU
         '
+        Me.grpOptRTU.Controls.Add(Me.optNoWraps)
+        Me.grpOptRTU.Controls.Add(Me.optJCIWraps)
+        Me.grpOptRTU.Controls.Add(Me.optFisenWraps)
         Me.grpOptRTU.Enabled = False
         Me.grpOptRTU.Location = New System.Drawing.Point(368, 76)
         Me.grpOptRTU.Name = "grpOptRTU"
-        Me.grpOptRTU.Size = New System.Drawing.Size(200, 52)
+        Me.grpOptRTU.Size = New System.Drawing.Size(200, 88)
         Me.grpOptRTU.TabIndex = 58
         Me.grpOptRTU.TabStop = False
         Me.grpOptRTU.Text = "RTU Only Options"
+        '
+        'optNoWraps
+        '
+        Me.optNoWraps.AutoSize = True
+        Me.optNoWraps.Checked = True
+        Me.optNoWraps.Location = New System.Drawing.Point(6, 65)
+        Me.optNoWraps.Name = "optNoWraps"
+        Me.optNoWraps.Size = New System.Drawing.Size(131, 17)
+        Me.optNoWraps.TabIndex = 2
+        Me.optNoWraps.TabStop = True
+        Me.optNoWraps.Text = "No Compressor Wraps"
+        Me.optNoWraps.UseVisualStyleBackColor = True
+        '
+        'optJCIWraps
+        '
+        Me.optJCIWraps.AutoSize = True
+        Me.optJCIWraps.Location = New System.Drawing.Point(6, 42)
+        Me.optJCIWraps.Name = "optJCIWraps"
+        Me.optJCIWraps.Size = New System.Drawing.Size(132, 17)
+        Me.optJCIWraps.TabIndex = 1
+        Me.optJCIWraps.Text = "JCI Compressor Wraps"
+        Me.optJCIWraps.UseVisualStyleBackColor = True
+        '
+        'optFisenWraps
+        '
+        Me.optFisenWraps.AutoSize = True
+        Me.optFisenWraps.Location = New System.Drawing.Point(6, 19)
+        Me.optFisenWraps.Name = "optFisenWraps"
+        Me.optFisenWraps.Size = New System.Drawing.Size(142, 17)
+        Me.optFisenWraps.TabIndex = 0
+        Me.optFisenWraps.Text = "Fisen Compressor Wraps"
+        Me.optFisenWraps.UseVisualStyleBackColor = True
         '
         'grpOptChill
         '
@@ -437,6 +489,8 @@ Partial Class frmLowAmbient
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.chkMountEquipmentTouch)
+        Me.tpgControls.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgControls.Controls.Add(Me.chkOATempSpoof)
         Me.tpgControls.Controls.Add(Me.grpCtrlRTU)
         Me.tpgControls.Controls.Add(Me.grpCtrlChill)
@@ -450,6 +504,17 @@ Partial Class frmLowAmbient
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'chkOATempSpoof
+        '
+        Me.chkOATempSpoof.AutoSize = True
+        Me.chkOATempSpoof.Location = New System.Drawing.Point(13, 90)
+        Me.chkOATempSpoof.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOATempSpoof.Name = "chkOATempSpoof"
+        Me.chkOATempSpoof.Size = New System.Drawing.Size(148, 17)
+        Me.chkOATempSpoof.TabIndex = 61
+        Me.chkOATempSpoof.Text = "OA Temp Spoof Required"
+        Me.chkOATempSpoof.UseVisualStyleBackColor = True
         '
         'grpCtrlRTU
         '
@@ -874,32 +939,42 @@ Partial Class frmLowAmbient
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chkOATempSpoof
+        'cmdFIOPPreview
         '
-        Me.chkOATempSpoof.AutoSize = True
-        Me.chkOATempSpoof.Location = New System.Drawing.Point(13, 90)
-        Me.chkOATempSpoof.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkOATempSpoof.Name = "chkOATempSpoof"
-        Me.chkOATempSpoof.Size = New System.Drawing.Size(148, 17)
-        Me.chkOATempSpoof.TabIndex = 61
-        Me.chkOATempSpoof.Text = "OA Temp Spoof Required"
-        Me.chkOATempSpoof.UseVisualStyleBackColor = True
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(487, 355)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 64
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
-        'chkDedicatedPower
+        'chkMountEquipmentTouch
         '
-        Me.chkDedicatedPower.AutoSize = True
-        Me.chkDedicatedPower.Location = New System.Drawing.Point(120, 39)
-        Me.chkDedicatedPower.Name = "chkDedicatedPower"
-        Me.chkDedicatedPower.Size = New System.Drawing.Size(168, 17)
-        Me.chkDedicatedPower.TabIndex = 33
-        Me.chkDedicatedPower.Text = "Dedicated 240V Power Circuit"
-        Me.chkDedicatedPower.UseVisualStyleBackColor = True
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(13, 284)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 63
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        '
+        'chkIncludeEquipmentTouch
+        '
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(7, 262)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 62
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'frmLowAmbient
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(605, 391)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
@@ -921,6 +996,8 @@ Partial Class frmLowAmbient
         Me.GroupBox1.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.grpOptRTU.ResumeLayout(False)
+        Me.grpOptRTU.PerformLayout()
         Me.grpOptChill.ResumeLayout(False)
         Me.grpOptChill.PerformLayout()
         CType(Me.nudFtOfHT, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1009,4 +1086,10 @@ Partial Class frmLowAmbient
     Friend WithEvents chkRTUOnGrade As CheckBox
     Friend WithEvents chkOATempSpoof As CheckBox
     Friend WithEvents chkDedicatedPower As CheckBox
+    Friend WithEvents optNoWraps As RadioButton
+    Friend WithEvents optJCIWraps As RadioButton
+    Friend WithEvents optFisenWraps As RadioButton
+    Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents chkMountEquipmentTouch As CheckBox
+    Friend WithEvents chkIncludeEquipmentTouch As CheckBox
 End Class

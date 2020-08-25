@@ -6,6 +6,7 @@ Imports System.Drawing.Imaging
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.Vbe.Interop
 Imports System.Xml.Schema
+Imports System.Windows.Markup
 
 Public Class frmMain
     Public ThisUnit As clsUnitClass
@@ -607,6 +608,19 @@ Public Class frmMain
             End If
         Next
 
+        'this block of codes processes/moves mods that should be processed last to the end of the list.
+
+        'Add Dual Point Power to the Very End of the list!
+        For i = 0 To lstSelectedMods.Items.Count - 1
+            If lstSelectedMods.Items(i) = "Dual Point Power" Then
+                lstSelectedMods.Items.Add("Dual Point Power")
+                lstSelectedMods.Items.RemoveAt(i)
+                ThisUnitElecData.DPPPresent = True
+                Exit For
+            End If
+        Next
+
+
         Do While lstSelectedMods.Items.Count > 0
 
             thisitem = lstSelectedMods.Items(0)
@@ -637,6 +651,15 @@ Public Class frmMain
                         End
                     Else
                         frmAFlowMod.Dispose()
+                    End If
+
+                Case Is = "Bipolar Ionization Array"
+                    frmBiPolar.ShowDialog()
+                    If frmBiPolar.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmBiPolar.Dispose()
                     End If
 
                 Case Is = "Chilled Water Coil"
@@ -2472,6 +2495,33 @@ Public Class frmMain
         End If
 
         mcareport.Close()
+    End Sub
+
+    Private Sub WriteCOPUseReport()
+        Dim copreport As System.IO.StreamWriter
+        Dim tempfilename As String
+        Dim LoadItem, LoadVA As String
+        Dim commaloc As Integer
+        Dim i As Integer
+
+        tempfilename = txtProjectDirectory.Text & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\" & "Submittal Source (Do not Distribute)\Submittal Design\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - " & "COP Use Report " & Ver2FileVer(txtUnitVersion.Text) & ".txt"
+
+        copreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
+        copreport.WriteLine("Powered Convenience Outlet Use Report")
+        copreport.WriteLine(" ")
+        If ThisUnitElecData.COPLoadsPresent = False Then
+            copreport.WriteLine("FISEN MODIFICATIONS HAVE NO IMPACT ON POWERED CONVENIENCE OUTLET USE")
+        Else
+            copreport.WriteLine("FISEN MODIFICATIONS HAVE THE FOLLOWING IMPACT ON POWERED CONVENIENCE OUTLET USE:")
+            For i = 0 To ThisUnitElecData.COPLoad.Count - 1
+                commaloc = InStr(ThisUnitElecData.COPLoad(i), ",")
+                LoadItem = Mid(ThisUnitElecData.COPLoad(i), 1, commaloc - 1)
+                LoadVA = Mid(ThisUnitElecData.COPLoad(i), commaloc + 1)
+                copreport.WriteLine("     " & LoadItem & " - " & LoadVA & " VA")
+            Next
+        End If
+        copreport.Close()
+
     End Sub
     Private Sub WriteElectricalData(lUnitWriter As XmlWriter, lsettings As XmlWriterSettings)
         Call WriteMCAReport()
@@ -5187,7 +5237,9 @@ Public Class frmMain
             Dummy = MsgBox("Sales entered modification conditions file missing." & vbCrLf & "Conditions will need to be manually entered.", vbOKOnly, "Fisen Unit Generator")
         End If
 
-        Call ArchiveOldSubDesignFiles()
+        If chkDebug.Checked And Not (My.Settings.UOSkipArchive) Then
+            Call ArchiveOldSubDesignFiles()
+        End If
 
         My.Settings.Save()
 
@@ -7088,6 +7140,7 @@ Public Class frmMain
                             txtModelNumber.Text = "J" & btu & "ZR" & Mid(txtBrandModelNumber.Text, 6)
                         Case = "ZF"
                             txtModelNumber.Text = "J" & btu & "ZF" & Mid(txtBrandModelNumber.Text, 6)
+
                     End Select
                 End If
                 If cmbBrand.Text = "FRJ" Then
@@ -7110,6 +7163,8 @@ Public Class frmMain
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZR" & Mid(txtBrandModelNumber.Text, 6)
                         Case = "ZV"
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZS"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZT" & Mid(txtBrandModelNumber.Text, 6)
                     End Select
                 End If
 
@@ -7551,6 +7606,8 @@ Public Class frmMain
             If EmerLoad And IncludeinCalc Then
                 CurrentMode = dgvElecLoads.Rows(i).Cells.Item(2).Value
 
+                Debug.Print(dgvElecLoads.Rows(i).Cells.Item(4).Value)
+
                 If ((CurrentMode = "All") Or (CurrentMode = "Cool")) Then
                     If dgvElecLoads.Rows(i).Cells.Item(7).Value > maxloadcool Then maxloadcool = dgvElecLoads.Rows(i).Cells.Item(7).Value
                     loadsumcool = loadsumcool + dgvElecLoads.Rows(i).Cells.Item(7).Value
@@ -7693,7 +7750,12 @@ Public Class frmMain
         Dim ElecChar As String
         Dim FLA As String
 
+
+
         FLA = "0.0"
+
+        txtCommVolts.Text = ThisUnitElecData.CommVolts
+
 
         If chkUseCustomMCA.Checked Then
             lblBaseUnitMCA.Text = txtCommMCA.Text
@@ -7912,6 +7974,8 @@ Public Class frmMain
         Dim Temphp As String
         Dim Tempfla As String
         Dim ConvLabel As String
+        Dim Suffix As String
+        Dim OACode As String
 
         Temphp = "-"
         Tempfla = "-"
@@ -7928,11 +7992,17 @@ Public Class frmMain
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
+
+
         Snipet = Mid(ThisUnit.ModelNumber, 1, 5)
         If Mid(Snipet, 1, 1) = "V" Then Snipet = Mid(Snipet, 1, 2) & "XXX"
         If Mid(Snipet, 1, 1) = "Y" Then Snipet = Mid(ThisUnit.ModelNumber, 1, 7)
         If ThisUnit.Family = "Select" Then
-            Snipet = Mid(ThisUnit.ModelNumber, 1, 4) & "-2"
+            Suffix = "-2"
+            For i = 0 To ThisUnitFactOpts.Count - 1
+                If ThisUnitFactOpts.Item(i) = "VAV Controller with VFD" Then Suffix = "-4"
+            Next
+            Snipet = Mid(ThisUnit.ModelNumber, 1, 4) & Suffix
         End If
 
         MySQL = "SELECT * FROM tblElectricalInfo WHERE (JCISnipit='" & Snipet & "') AND (Voltage='" & txtCommVolts.Text & "')"
@@ -8032,9 +8102,78 @@ Public Class frmMain
                             Tempfla = "5.0"
                         Case Is = "208"
                             Tempfla = "5.0"
+
+
                     End Select
                     xfhp = "3/4"
-                Case Else
+                Case Is = "Select"
+                    OACode = Mid(txtModelNumber.Text, 10, 1)
+                    If ((Mid(txtModelNumber.Text, 2, 2) = "40") Or (Mid(txtModelNumber.Text, 2, 2) = "50")) Then
+
+
+                        If ((OACode = "D") Or (OACode = "G") Or (OACode = "K") Or (OACode = "R")) Then
+                            'It's Modulating and a big unit
+                            Select Case txtCommVolts.Text
+                                Case Is = "575"
+                                    Tempfla = "6.1"
+                                Case Is = "460"
+                                    Tempfla = "8.2"
+                                Case Is = "230"
+                                    Tempfla = "15.2"
+                                Case Is = "208"
+                                    Tempfla = "15.2"
+                                Case Else
+                            End Select
+                            xfhp = "5"
+                        Else
+                            'its on/off and a big unit
+                            Select Case txtCommVolts.Text
+                                Case Is = "575"
+                                    Tempfla = "2.7"
+                                Case Is = "460"
+                                    Tempfla = "3.4"
+                                Case Is = "230"
+                                    Tempfla = "6.8"
+                                Case Is = "208"
+                                    Tempfla = "7.2"
+                                Case Else
+                            End Select
+                            xfhp = "2"
+                        End If
+
+                    Else
+                        If ((OACode = "D") Or (OACode = "G") Or (OACode = "K") Or (OACode = "R")) Then
+                            'its modulating and a small unit
+                            Select Case txtCommVolts.Text
+                                Case Is = "575"
+                                    Tempfla = "4.9"
+                                Case Is = "460"
+                                    Tempfla = "4.8"
+                                Case Is = "230"
+                                    Tempfla = "9.6"
+                                Case Is = "208"
+                                    Tempfla = "9.6"
+                                Case Else
+                            End Select
+                            xfhp = "3"
+                        Else
+                            'its on off and a small unit
+                            Select Case txtCommVolts.Text
+                                Case Is = "575"
+                                    Tempfla = "1.6"
+                                Case Is = "460"
+                                    Tempfla = "2.1"
+                                Case Is = "230"
+                                    Tempfla = "4.2"
+                                Case Is = "208"
+                                    Tempfla = "4.0"
+                                Case Else
+                            End Select
+                            xfhp = "1"
+                        End If
+
+                    End If
+
                     'Do Nothing
             End Select
             NewRow = {True, False, "All", True, "EXHAUST FAN", ElecChar, xfhp, Tempfla, False, "Tech Guide - Hard Code"}
@@ -8883,6 +9022,8 @@ Public Class frmMain
                 frmLCVAV.ShowDialog()
             Case Is = "LowAF"
                 frmLowAF.ShowDialog()
+            Case Is = "MGH Heatco"
+                frmMGH_H.ShowDialog()
             Case Is = "Piping Package"
                 frmPipePkg.ShowDialog()
             Case Is = "Return Fan"

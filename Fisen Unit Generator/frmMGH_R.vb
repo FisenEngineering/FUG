@@ -372,6 +372,18 @@ Public Class frmMGH_R
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
         End Select
 
+        If frmMain.HasHMI Then
+            chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+        End If
+
+        If frmMain.HasUMHMI Then
+            chkMountEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+            chkMountEquipmentTouch.Enabled = False
+        End If
+
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
         ModuleCodeList.Add("523100")
     End Sub
@@ -632,4 +644,5 @@ Public Class frmMGH_R
         rs = Nothing
         con = Nothing
     End Sub
+
 End Class

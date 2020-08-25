@@ -10072,7 +10072,7 @@ Partial Class frmMain
         'cmbJumpDest
         '
         Me.cmbJumpDest.FormattingEnabled = True
-        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
+        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
         Me.cmbJumpDest.Location = New System.Drawing.Point(179, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
         Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)

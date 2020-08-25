@@ -19,6 +19,7 @@ Public Class clsElecData
     Private pEmerDisconnect As Boolean
     Private pEmerFusedDisc As Boolean
     Private pEmerCircuit As Boolean
+    Private pDPPPresent As Boolean
     Private pConvOutlet As Boolean
 
     Private pYPALLoadCC1A As String
@@ -61,6 +62,34 @@ Public Class clsElecData
     Private pEmerLoad As New ArrayList
     Private pModLoad As New ArrayList
 
+    Private pCOPLoadsPresent As Boolean
+    Private pCOPLoad As New ArrayList
+
+    Public Property COPLoadsPresent
+        Get
+            COPLoadsPresent = pCOPLoadsPresent
+        End Get
+        Set(value)
+            pCOPLoadsPresent = value
+        End Set
+    End Property
+    Public Property COPLoad As ArrayList
+        Get
+            COPLoad = pCOPLoad
+        End Get
+        Set(value As ArrayList)
+            pCOPLoad = value
+        End Set
+    End Property
+
+    Public Property DPPPresent As Boolean
+        Get
+            DPPPresent = pDPPPresent
+        End Get
+        Set(value As Boolean)
+            pDPPPresent = value
+        End Set
+    End Property
     Public Property ModLoad As ArrayList
         Get
             ModLoad = pModLoad
@@ -672,5 +701,6 @@ Public Class clsElecData
         pConvOutlet = False
         pFisenLoad01 = " "
         pFisenLoadFLA01 = " "
+        pDPPPresent = False
     End Sub
 End Class

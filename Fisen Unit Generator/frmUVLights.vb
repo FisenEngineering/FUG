@@ -18,7 +18,7 @@ Public Class frmUVLights
         Call UpdateWarrantyItems()
 
         Call UpdateCodeList()
-        'Call UpdateBaseUnitRequiredItems()
+        Call UpdateBaseUnitRequiredItems()
         'Call UpdateBaseUnitDrawingTags
         'Call UpdateReferTags
         'Call UpdateAFTags
@@ -32,6 +32,9 @@ Public Class frmUVLights
 
         If chkWriteHistory.Checked = True Then Call WriteHistory()
         Me.Hide()
+    End Sub
+    Private Sub UpdateBaseUnitRequiredItems()
+        If optPwrConvOutlet.Checked Then frmMain.lstRequiredFactoryItems.Items.Add("Powered Convenience Outlet")
     End Sub
 
     Private Sub UpdateCodeList()
@@ -203,23 +206,39 @@ Public Class frmUVLights
 
     Private Sub UpdatePerformance()
         Dim NewRow As String()
-        Dim XfmrVA As Double
+        Dim RqdVA, XfmrVA As Double
         Dim PriVolts As Double
         Dim PrimeAmps As Double
         Dim ElecChar As String
+        Dim dummy As MsgBoxResult
 
         PriVolts = Val(frmMain.ThisUnitElecData.CommVolts)
         ElecChar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
         If optPwrUnitPower.Checked Then
             Select Case frmMain.ThisUnit.Family
                 Case Is = "Series5"
+                    RqdVA = 66
                     XfmrVA = 100
                 Case Is = "Series10"
                     XfmrVA = 100
+                    RqdVA = 84
                 Case Is = "Series20"
                     XfmrVA = 250
+                    RqdVA = 170
                 Case Is = "Select"
                     XfmrVA = 500
+                    RqdVA = 340
+                Case Is = "Series100"
+                    If frmMain.ThisUnit.Cabinet = "Series100A" Then RqdVA = 340
+                    If frmMain.ThisUnit.Cabinet = "Series100B" Then RqdVA = 340
+                    If frmMain.ThisUnit.Cabinet = "Series100C" Then RqdVA = 680
+                    XfmrVA = 500
+                    If frmMain.ThisUnit.Cabinet = "Series100C" Then XfmrVA = 750
+                Case Else
+                    RqdVA = 2000
+                    XfmrVA = 2000
+                    dummy = MsgBox("Unit type undefined in 'BiPolar:Update Performance'" & vbCrLf & "Using Bogus Value.", vbOKCancel, "Fisen Unit Generator")
+                    If dummy = vbCancel Then Stop
             End Select
 
             PrimeAmps = XfmrPrimaryAmps(PriVolts, XfmrVA)
@@ -229,6 +248,11 @@ Public Class frmUVLights
                 frmMain.ThisUnitElecData.ModLoad.Add(NewRow)
                 frmMain.chkUseCustomMCA.Checked = True
             End If
+        End If
+
+        If optPwrConvOutlet.Checked Then
+            frmMain.ThisUnitElecData.COPLoadsPresent = True
+            frmMain.ThisUnitElecData.COPLoad.Add("Ultraviolet Lights," & Format(RqdVA, "0.0"))
         End If
 
     End Sub
@@ -408,6 +432,8 @@ Public Class frmUVLights
     End Sub
 
     Private Sub PerformDesignCautionScan(Prelim As Boolean)
+        'Version 1.0 - Requires specificity to be performed when inserted.
+
         Dim i As Integer
         Dim dummy As MsgBoxResult
         Dim startingcaution As String
@@ -508,5 +534,9 @@ Public Class frmUVLights
         btnOK.Enabled = True
         btnDonePerf.Enabled = False
         TabControl1.Enabled = False
+    End Sub
+
+    Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
+
     End Sub
 End Class

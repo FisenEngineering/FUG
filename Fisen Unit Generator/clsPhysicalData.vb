@@ -347,6 +347,8 @@ Public Class clsPhysicalData
     End Sub
     Public Sub ImportPointLoadsUPG()
         Dim ModStub As String
+        Dim UserID As String
+        Dim dummy As MsgBoxResult
 
         ModStub = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
 
@@ -358,6 +360,8 @@ Public Class clsPhysicalData
         Dim Denom As String
         Dim Numer As String
 
+        UserID = Environment.UserName
+
         'con = New ADODB.Connection
         dbProvider = "FIL= MS ACCESS;DSN=FUGenerator"
         con.ConnectionString = dbProvider
@@ -368,6 +372,26 @@ Public Class clsPhysicalData
 
         MySQL = "Select * FROM tblUPGWeights WHERE ModelStub='" & ModStub & "'"
         rs.Open(MySQL, con)
+        If rs.EOF And rs.BOF Then
+            'This means the record is missing
+            If ((UserID = "jlevine") Or (UserID = "jmucinski") Or (UserID = "jruemenapp")) Then
+                frmUpdateWeightTables.Stubb = ModStub
+                frmUpdateWeightTables.ShowDialog()
+                frmUpdateWeightTables.Close()
+
+                If frmUpdateWeightTables.Cancelled Then
+                    dummy = MsgBox("Unit Weight Missing from tblUPGWeights" & vbCrLf & "Program User Aborted", vbOKOnly, "FUG Database Error")
+                    Stop
+                End If
+            Else
+                dummy = MsgBox("Unit Weight Missing from tblUPGWeights" & vbCrLf & "Please have Joe, Jonathan, or Josh Add the Unit.", vbOKOnly, "FUG Database Error")
+                Stop
+            End If
+        End If
+
+        'rs.Open(MySQL, con)
+        con.Execute(MySQL)
+
         Denom = rs.Fields("BaseWeight").Value
         If IsNumeric(pBaseUnitWeight) Then
             For i = 0 To 3
@@ -378,7 +402,8 @@ Public Class clsPhysicalData
             For i = 0 To 3
                 pBasePointLoad.Add("-1")
             Next
-        End if
+        End If
+
 
         con.Close()
         rs = Nothing

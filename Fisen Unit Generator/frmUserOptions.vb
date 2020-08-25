@@ -12,12 +12,15 @@ Public Class frmUserOptions
 
 
     Private Sub frmUserOptions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        grpAdminOptions.Enabled = frmMain.chkDebug.Checked
         Call InitializeOptions()
     End Sub
 
     Private Sub InitializeOptions()
         chkUOAutoLaunchWord.Checked = My.Settings.UOWordLaunch
         chkUOMoveCutstoSD.Checked = My.Settings.UOMoveCuts2SD
+        chkSkipAutoArchive.Checked = My.Settings.UOSkipArchive
+
         If My.Settings.UOResearchMode Then
             optResearch.Checked = True
         Else
@@ -27,6 +30,7 @@ Public Class frmUserOptions
     Private Sub ReconcileOptions()
         My.Settings.UOWordLaunch = chkUOAutoLaunchWord.Checked
         My.Settings.UOMoveCuts2SD = chkUOMoveCutstoSD.Checked
+        My.Settings.UOSkipArchive = chkSkipAutoArchive.Checked
 
         If optResearch.Checked Then
             My.Settings.UOResearchMode = True

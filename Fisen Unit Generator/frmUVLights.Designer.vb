@@ -26,8 +26,6 @@ Partial Class frmUVLights
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.cmdViewHistory = New System.Windows.Forms.Button()
-        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -64,6 +62,8 @@ Partial Class frmUVLights
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -105,24 +105,6 @@ Partial Class frmUVLights
         Me.btnOK.TabIndex = 20
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
-        '
-        'cmdViewHistory
-        '
-        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
-        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 240)
-        Me.cmdViewHistory.Name = "cmdViewHistory"
-        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
-        Me.cmdViewHistory.TabIndex = 23
-        Me.cmdViewHistory.UseVisualStyleBackColor = True
-        '
-        'cmdDesignCautions
-        '
-        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
-        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 240)
-        Me.cmdDesignCautions.Name = "cmdDesignCautions"
-        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
-        Me.cmdDesignCautions.TabIndex = 22
-        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
         'TabControl1
         '
@@ -530,6 +512,24 @@ Partial Class frmUVLights
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(381, 240)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 23
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(417, 240)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 22
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
         'frmUVLights
         '

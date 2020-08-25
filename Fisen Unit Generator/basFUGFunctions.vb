@@ -516,6 +516,40 @@
                     Case Else
                         FLA = ""
                 End Select
+            Case Is = "60"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = ""
+                    Case Is = "208-3"
+                        FLA = "169.0"
+                    Case Is = "230-3"
+                        FLA = "154.0"
+                    Case Is = "460-3"
+                        FLA = "77.0"
+                    Case Is = "575-3"
+                        FLA = "62.0"
+                    Case Else
+                        FLA = ""
+                End Select
+            Case Is = "75"
+                Select Case Volts
+                    Case Is = "115-1"
+                        FLA = ""
+                    Case Is = "230-1"
+                        FLA = ""
+                    Case Is = "208-3"
+                        FLA = "211.0"
+                    Case Is = "230-3"
+                        FLA = "192.0"
+                    Case Is = "460-3"
+                        FLA = "96.0"
+                    Case Is = "575-3"
+                        FLA = "77"
+                    Case Else
+                        FLA = ""
+                End Select
             Case Else
                 FLA = ""
         End Select

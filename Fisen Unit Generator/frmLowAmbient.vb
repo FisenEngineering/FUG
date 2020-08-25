@@ -24,7 +24,7 @@ Public Class frmLowAmbient
         'frmMain.ThisUnitMods.Add("Common")
         'End If
 
-        Call UpdateCodeList()
+        Call UpdateCodeList(False)
         Call UpdateBaseUnitRequiredItems()
         'Call UpdateBaseUnitDrawingTags
         'Call UpdateReferTags
@@ -38,7 +38,7 @@ Public Class frmLowAmbient
     Private Sub UpdateBaseUnitRequiredItems()
 
         If frmMain.ThisUnit.Family = "Series100" Then
-            frmMain.lstRequiredFactoryItems.Items.Add("Compressor Sound Blankets")
+            If optJCIWraps.Checked Then frmMain.lstRequiredFactoryItems.Items.Add("Compressor Sound Blankets")
             frmMain.lstRequiredFactoryItems.Items.Add("Hot Gas Bypass")
             frmMain.lstRequiredFactoryItems.Items.Add("Head Pressure Control - All Circuits")
             frmMain.lstRequiredFactoryItems.Items.Add("Discharge Pressure Transducer")
@@ -170,7 +170,7 @@ Public Class frmLowAmbient
             End If
 
 
-            NewRow = {True, False, "All", True, "Low Ambient Xfrmr", ElecChar, "-", Format(PrimaryAmps, "0.0"), False, "Math"}
+            NewRow = {True, False, "All", True, "Low Ambient Xfmr", ElecChar, "-", Format(PrimaryAmps, "0.0"), False, "Math"}
             frmMain.dgvElecLoads.Rows.Add(NewRow)
 
             If optXFrmrNA.Checked = False Then
@@ -194,7 +194,7 @@ Public Class frmLowAmbient
             End If
         End If
     End Sub
-    Private Sub UpdateCodeList()
+    Private Sub UpdateCodeList(Preview As Boolean)
         ModuleCodeList.Clear()
         'Add the level 0 code
         ModuleCodeList.Add("890100")
@@ -275,6 +275,20 @@ Public Class frmLowAmbient
             End If
         End If
 
+        If frmMain.ThisUnit.Kingdom = "RTU" Then
+            ModuleCodeList.Add("890850")
+            If optJCIWraps.Checked Then ModuleCodeList.Add("890852")
+            If optNoWraps.Checked Then ModuleCodeList.Add("890851")
+            If optFisenWraps.Checked Then ModuleCodeList.Add("890853")
+            Select Case frmMain.ThisUnit.Family
+                Case Is = "Series100"
+                    If Mid(frmMain.ThisUnit.ModelNumber, 1, 7) = "YPAL070" Then ModuleCodeList.Add("890860")
+                Case Else
+
+            End Select
+        End If
+
+
         'Controls page requirements
         ModuleCodeList.Add("890130")
         If optElectroMechanical.Checked Then ModuleCodeList.Add("890131")
@@ -319,7 +333,7 @@ Public Class frmLowAmbient
         If frmMain.ThisUnit.Family = "YVAA" Then ModuleCodeList.Add("890170") 'Adds a hidden code to configure the sequence for YVAA.
 
         If frmMain.ThisUnit.Family = "Series100" Then
-            ModuleCodeList.Add("890901")
+            If optJCIWraps.Checked Then ModuleCodeList.Add("890901")
             ModuleCodeList.Add("890902")
             ModuleCodeList.Add("890903")
             ModuleCodeList.Add("890904")
@@ -331,11 +345,26 @@ Public Class frmLowAmbient
             ModuleCodeList.Add("8906FA")
         End If
 
-        Call PerformDesignCautionScan(False)
-        For i = 0 To ModuleCodeList.Count - 1
-            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
-            AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
-        Next i
+        If Not (Preview) Then
+
+            If chkIncludeEquipmentTouch.Checked = True Then
+                If chkMountEquipmentTouch.Checked = True Then
+                    If frmMain.HasUMHMI = False Then
+                        frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+                    End If
+                Else
+                    If frmMain.HasHMI = False Then
+                        frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+                    End If
+                End If
+            End If
+
+            Call PerformDesignCautionScan(False)
+            For i = 0 To ModuleCodeList.Count - 1
+                frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+                AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
+            Next i
+        End If
 
     End Sub
     Private Sub UpdateWarrantyItems()
@@ -346,6 +375,8 @@ Public Class frmLowAmbient
         Dim tempWeight As String
         Dim traceweight As Double
         Dim baserailmass As Double
+        Dim WrapMass As Double
+
         Dim singlepointmass As Double
 
         'next line is the mod code i.e. HWCoil...
@@ -366,8 +397,12 @@ Public Class frmLowAmbient
                 singlepointmass = 15
             End If
         End If
+        WrapMass = 0
+        If optFisenWraps.Checked Then
+            WrapMass = 52
+        End If
         traceweight = Val(txtFtofHeatTrace.Text) / 16
-        tempWeight = Str(traceweight + singlepointmass + baserailmass + 54)
+        tempWeight = Str(WrapMass + traceweight + singlepointmass + baserailmass + 54)
         tempWeight = Format(Val(tempWeight), "0")
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
@@ -937,5 +972,58 @@ Public Class frmLowAmbient
 
     Private Sub chkDedicatedPower_CheckedChanged(sender As Object, e As EventArgs) Handles chkDedicatedPower.CheckedChanged
         chkSinglePointPower.Checked = False
+    End Sub
+
+    Private Sub cmdFIOPPreview_Click(sender As Object, e As EventArgs) Handles cmdFIOPPreview.Click
+
+        'version 1.0
+        'Modify: Code XXX in SQL declaration below.
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim i, j As Integer
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        Call UpdateCodeList(True)
+
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        MySQL = "SELECT * FROM tblFisenInstalledOptions WHERE FIOpCode LIKE '890%'"
+        rs.Open(MySQL, con)
+
+        For i = 0 To ModuleCodeList.Count - 1
+            rs.MoveFirst()
+            rs.Find("FIOpCode='" & ModuleCodeList(i) & "'")
+            OneLine = ""
+            For j = 1 To Val(rs.Fields("Level").Value)
+                OneLine = OneLine & "\tab "
+            Next
+            OneLine = OneLine & rs.Fields("Description").Value & " - " & rs.Fields("FIopCode").Value & "\par "
+            AllLines.Append(OneLine)
+        Next
+        AllLines.Append("}")
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+        frmFIOPPreview.ReportData = AllLines.ToString
+        frmFIOPPreview.Show()
+
     End Sub
 End Class

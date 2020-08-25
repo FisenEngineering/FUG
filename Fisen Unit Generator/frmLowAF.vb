@@ -334,6 +334,8 @@ Public Class frmLowAF
         Dim WB As Double
         Dim LowWBBase, HighWBBase As Integer
 
+        If frmMain.ThisUnit.Family = "Select" Then Exit Sub
+
         TabControl1.SelectTab("tpgCoolCalc")
 
         FileName = UnitDataFile(frmMain.ThisUnit.Family)

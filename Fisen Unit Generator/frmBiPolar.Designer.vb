@@ -25,6 +25,11 @@ Partial Class frmBiPolar
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBiPolar))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.cmbBipolarStyle = New System.Windows.Forms.ComboBox()
+        Me.grpDPPCkt = New System.Windows.Forms.GroupBox()
+        Me.optDPPEmergency = New System.Windows.Forms.RadioButton()
+        Me.optDPPCommercial = New System.Windows.Forms.RadioButton()
+        Me.optDPPNA = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.optPwrDedicated = New System.Windows.Forms.RadioButton()
         Me.optPwrConvOutlet = New System.Windows.Forms.RadioButton()
@@ -45,7 +50,6 @@ Partial Class frmBiPolar
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.chkEMControlsOnly = New System.Windows.Forms.CheckBox()
-        Me.chkDoorSafetySwitch = New System.Windows.Forms.CheckBox()
         Me.cmbCustomControls = New System.Windows.Forms.ComboBox()
         Me.optCtrlCustom = New System.Windows.Forms.RadioButton()
         Me.optCtrlWithSupplyFan = New System.Windows.Forms.RadioButton()
@@ -55,8 +59,9 @@ Partial Class frmBiPolar
         Me.optIPU = New System.Windows.Forms.RadioButton()
         Me.optSE = New System.Windows.Forms.RadioButton()
         Me.optCtrl247 = New System.Windows.Forms.RadioButton()
-        Me.optCtrlWithComps = New System.Windows.Forms.RadioButton()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
@@ -67,6 +72,7 @@ Partial Class frmBiPolar
         Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
+        Me.grpDPPCkt.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -91,6 +97,8 @@ Partial Class frmBiPolar
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.cmbBipolarStyle)
+        Me.tpgConditions.Controls.Add(Me.grpDPPCkt)
         Me.tpgConditions.Controls.Add(Me.GroupBox2)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
@@ -100,6 +108,61 @@ Partial Class frmBiPolar
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'cmbBipolarStyle
+        '
+        Me.cmbBipolarStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBipolarStyle.FormattingEnabled = True
+        Me.cmbBipolarStyle.Items.AddRange(New Object() {"Use Standard", "CP Plasma Bar #PB-066"})
+        Me.cmbBipolarStyle.Location = New System.Drawing.Point(6, 112)
+        Me.cmbBipolarStyle.Name = "cmbBipolarStyle"
+        Me.cmbBipolarStyle.Size = New System.Drawing.Size(200, 21)
+        Me.cmbBipolarStyle.TabIndex = 9
+        '
+        'grpDPPCkt
+        '
+        Me.grpDPPCkt.Controls.Add(Me.optDPPEmergency)
+        Me.grpDPPCkt.Controls.Add(Me.optDPPCommercial)
+        Me.grpDPPCkt.Controls.Add(Me.optDPPNA)
+        Me.grpDPPCkt.Location = New System.Drawing.Point(212, 6)
+        Me.grpDPPCkt.Name = "grpDPPCkt"
+        Me.grpDPPCkt.Size = New System.Drawing.Size(119, 100)
+        Me.grpDPPCkt.TabIndex = 8
+        Me.grpDPPCkt.TabStop = False
+        Me.grpDPPCkt.Text = "DPP Power Circuit"
+        Me.grpDPPCkt.Visible = False
+        '
+        'optDPPEmergency
+        '
+        Me.optDPPEmergency.AutoSize = True
+        Me.optDPPEmergency.Location = New System.Drawing.Point(6, 19)
+        Me.optDPPEmergency.Name = "optDPPEmergency"
+        Me.optDPPEmergency.Size = New System.Drawing.Size(110, 17)
+        Me.optDPPEmergency.TabIndex = 13
+        Me.optDPPEmergency.Text = "Emergency Circuit"
+        Me.optDPPEmergency.UseVisualStyleBackColor = True
+        '
+        'optDPPCommercial
+        '
+        Me.optDPPCommercial.AutoSize = True
+        Me.optDPPCommercial.Location = New System.Drawing.Point(6, 42)
+        Me.optDPPCommercial.Name = "optDPPCommercial"
+        Me.optDPPCommercial.Size = New System.Drawing.Size(111, 17)
+        Me.optDPPCommercial.TabIndex = 12
+        Me.optDPPCommercial.Text = "Commercial Circuit"
+        Me.optDPPCommercial.UseVisualStyleBackColor = True
+        '
+        'optDPPNA
+        '
+        Me.optDPPNA.AutoSize = True
+        Me.optDPPNA.Checked = True
+        Me.optDPPNA.Location = New System.Drawing.Point(6, 65)
+        Me.optDPPNA.Name = "optDPPNA"
+        Me.optDPPNA.Size = New System.Drawing.Size(45, 17)
+        Me.optDPPNA.TabIndex = 11
+        Me.optDPPNA.TabStop = True
+        Me.optDPPNA.Text = "N/A"
+        Me.optDPPNA.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -194,6 +257,7 @@ Partial Class frmBiPolar
         'optInstUSEvap
         '
         Me.optInstUSEvap.AutoSize = True
+        Me.optInstUSEvap.Checked = True
         Me.optInstUSEvap.Location = New System.Drawing.Point(6, 20)
         Me.optInstUSEvap.Name = "optInstUSEvap"
         Me.optInstUSEvap.Size = New System.Drawing.Size(137, 17)
@@ -205,12 +269,10 @@ Partial Class frmBiPolar
         'optInstDSEvap
         '
         Me.optInstDSEvap.AutoSize = True
-        Me.optInstDSEvap.Checked = True
         Me.optInstDSEvap.Location = New System.Drawing.Point(6, 43)
         Me.optInstDSEvap.Name = "optInstDSEvap"
         Me.optInstDSEvap.Size = New System.Drawing.Size(151, 17)
         Me.optInstDSEvap.TabIndex = 1
-        Me.optInstDSEvap.TabStop = True
         Me.optInstDSEvap.Text = "Downstream of Evaporator"
         Me.optInstDSEvap.UseVisualStyleBackColor = True
         '
@@ -302,14 +364,12 @@ Partial Class frmBiPolar
         'tpgControls
         '
         Me.tpgControls.Controls.Add(Me.chkEMControlsOnly)
-        Me.tpgControls.Controls.Add(Me.chkDoorSafetySwitch)
         Me.tpgControls.Controls.Add(Me.cmbCustomControls)
         Me.tpgControls.Controls.Add(Me.optCtrlCustom)
         Me.tpgControls.Controls.Add(Me.optCtrlWithSupplyFan)
         Me.tpgControls.Controls.Add(Me.btnDoneControls)
         Me.tpgControls.Controls.Add(Me.GroupBox1)
         Me.tpgControls.Controls.Add(Me.optCtrl247)
-        Me.tpgControls.Controls.Add(Me.optCtrlWithComps)
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
@@ -324,24 +384,12 @@ Partial Class frmBiPolar
         Me.chkEMControlsOnly.Checked = True
         Me.chkEMControlsOnly.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkEMControlsOnly.Enabled = False
-        Me.chkEMControlsOnly.Location = New System.Drawing.Point(6, 149)
+        Me.chkEMControlsOnly.Location = New System.Drawing.Point(6, 102)
         Me.chkEMControlsOnly.Name = "chkEMControlsOnly"
         Me.chkEMControlsOnly.Size = New System.Drawing.Size(107, 17)
         Me.chkEMControlsOnly.TabIndex = 13
         Me.chkEMControlsOnly.Text = "EM Controls Only"
         Me.chkEMControlsOnly.UseVisualStyleBackColor = True
-        '
-        'chkDoorSafetySwitch
-        '
-        Me.chkDoorSafetySwitch.AutoSize = True
-        Me.chkDoorSafetySwitch.Checked = True
-        Me.chkDoorSafetySwitch.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkDoorSafetySwitch.Location = New System.Drawing.Point(6, 126)
-        Me.chkDoorSafetySwitch.Name = "chkDoorSafetySwitch"
-        Me.chkDoorSafetySwitch.Size = New System.Drawing.Size(200, 17)
-        Me.chkDoorSafetySwitch.TabIndex = 12
-        Me.chkDoorSafetySwitch.Text = "Cabinet Door Safety Switch Interlock"
-        Me.chkDoorSafetySwitch.UseVisualStyleBackColor = True
         '
         'cmbCustomControls
         '
@@ -349,7 +397,7 @@ Partial Class frmBiPolar
         Me.cmbCustomControls.Enabled = False
         Me.cmbCustomControls.FormattingEnabled = True
         Me.cmbCustomControls.Items.AddRange(New Object() {"Not Required"})
-        Me.cmbCustomControls.Location = New System.Drawing.Point(25, 99)
+        Me.cmbCustomControls.Location = New System.Drawing.Point(25, 75)
         Me.cmbCustomControls.Name = "cmbCustomControls"
         Me.cmbCustomControls.Size = New System.Drawing.Size(266, 21)
         Me.cmbCustomControls.TabIndex = 11
@@ -358,7 +406,7 @@ Partial Class frmBiPolar
         '
         Me.optCtrlCustom.AutoSize = True
         Me.optCtrlCustom.Enabled = False
-        Me.optCtrlCustom.Location = New System.Drawing.Point(6, 76)
+        Me.optCtrlCustom.Location = New System.Drawing.Point(6, 52)
         Me.optCtrlCustom.Name = "optCtrlCustom"
         Me.optCtrlCustom.Size = New System.Drawing.Size(101, 17)
         Me.optCtrlCustom.TabIndex = 9
@@ -368,6 +416,7 @@ Partial Class frmBiPolar
         'optCtrlWithSupplyFan
         '
         Me.optCtrlWithSupplyFan.AutoSize = True
+        Me.optCtrlWithSupplyFan.Checked = True
         Me.optCtrlWithSupplyFan.Location = New System.Drawing.Point(6, 29)
         Me.optCtrlWithSupplyFan.Name = "optCtrlWithSupplyFan"
         Me.optCtrlWithSupplyFan.Size = New System.Drawing.Size(146, 17)
@@ -434,27 +483,17 @@ Partial Class frmBiPolar
         'optCtrl247
         '
         Me.optCtrl247.AutoSize = True
-        Me.optCtrl247.Checked = True
         Me.optCtrl247.Location = New System.Drawing.Point(6, 6)
         Me.optCtrl247.Name = "optCtrl247"
         Me.optCtrl247.Size = New System.Drawing.Size(97, 17)
         Me.optCtrl247.TabIndex = 1
-        Me.optCtrl247.TabStop = True
         Me.optCtrl247.Text = "24/7 Operation"
         Me.optCtrl247.UseVisualStyleBackColor = True
         '
-        'optCtrlWithComps
-        '
-        Me.optCtrlWithComps.AutoSize = True
-        Me.optCtrlWithComps.Location = New System.Drawing.Point(6, 52)
-        Me.optCtrlWithComps.Name = "optCtrlWithComps"
-        Me.optCtrlWithComps.Size = New System.Drawing.Size(159, 17)
-        Me.optCtrlWithComps.TabIndex = 0
-        Me.optCtrlWithComps.Text = "Operates with Compressor(s)"
-        Me.optCtrlWithComps.UseVisualStyleBackColor = True
-        '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.Label1)
+        Me.tpgPerformance.Controls.Add(Me.TextBox1)
         Me.tpgPerformance.Controls.Add(Me.btnDonePerf)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
@@ -463,6 +502,24 @@ Partial Class frmBiPolar
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 3)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(101, 13)
+        Me.Label1.TabIndex = 16
+        Me.Label1.Text = "Performance Notes:"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(6, 19)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(420, 145)
+        Me.TextBox1.TabIndex = 15
         '
         'btnDonePerf
         '
@@ -497,6 +554,7 @@ Partial Class frmBiPolar
         '
         'Cancel
         '
+        Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel.Location = New System.Drawing.Point(90, 243)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(72, 29)
@@ -545,7 +603,9 @@ Partial Class frmBiPolar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(457, 281)
+        Me.ControlBox = False
         Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
@@ -553,10 +613,14 @@ Partial Class frmBiPolar
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.TabControl1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmBiPolar"
-        Me.Text = "frmBiPolar"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Bipolar Ionization Subsystem"
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
+        Me.grpDPPCkt.ResumeLayout(False)
+        Me.grpDPPCkt.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
@@ -570,6 +634,7 @@ Partial Class frmBiPolar
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
+        Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -597,7 +662,6 @@ Partial Class frmBiPolar
     Friend WithEvents cmdDoneOptions As Button
     Friend WithEvents tpgControls As TabPage
     Friend WithEvents chkEMControlsOnly As CheckBox
-    Friend WithEvents chkDoorSafetySwitch As CheckBox
     Friend WithEvents cmbCustomControls As ComboBox
     Friend WithEvents optCtrlCustom As RadioButton
     Friend WithEvents optCtrlWithSupplyFan As RadioButton
@@ -607,7 +671,6 @@ Partial Class frmBiPolar
     Friend WithEvents optIPU As RadioButton
     Friend WithEvents optSE As RadioButton
     Friend WithEvents optCtrl247 As RadioButton
-    Friend WithEvents optCtrlWithComps As RadioButton
     Friend WithEvents tpgPerformance As TabPage
     Friend WithEvents btnDonePerf As Button
     Friend WithEvents DebugPage As TabPage
@@ -617,4 +680,11 @@ Partial Class frmBiPolar
     Friend WithEvents Cancel As Button
     Friend WithEvents btnOK As Button
     Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents grpDPPCkt As GroupBox
+    Friend WithEvents optDPPEmergency As RadioButton
+    Friend WithEvents optDPPCommercial As RadioButton
+    Friend WithEvents optDPPNA As RadioButton
+    Friend WithEvents cmbBipolarStyle As ComboBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TextBox1 As TextBox
 End Class

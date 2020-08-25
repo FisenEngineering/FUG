@@ -129,6 +129,8 @@ Public Class frmDWall
                 tempWeight = "115"
             Case Is = "Series12"
                 tempWeight = "128"
+            Case Is = "Choice"
+                tempWeight = "190"
             Case Else
                 tempWeight = "9999"
         End Select

@@ -26,9 +26,13 @@ Partial Class frmUserOptions
         Me.cmdOK = New System.Windows.Forms.Button()
         Me.chkUOMoveCutstoSD = New System.Windows.Forms.CheckBox()
         Me.fraRunMode = New System.Windows.Forms.GroupBox()
-        Me.optSubGen = New System.Windows.Forms.RadioButton()
         Me.optResearch = New System.Windows.Forms.RadioButton()
+        Me.optSubGen = New System.Windows.Forms.RadioButton()
+        Me.grpAdminOptions = New System.Windows.Forms.GroupBox()
+        Me.chkSkipAutoArchive = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.fraRunMode.SuspendLayout()
+        Me.grpAdminOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkUOAutoLaunchWord
@@ -71,6 +75,16 @@ Partial Class frmUserOptions
         Me.fraRunMode.TabStop = False
         Me.fraRunMode.Text = "Run Mode"
         '
+        'optResearch
+        '
+        Me.optResearch.AutoSize = True
+        Me.optResearch.Location = New System.Drawing.Point(6, 42)
+        Me.optResearch.Name = "optResearch"
+        Me.optResearch.Size = New System.Drawing.Size(71, 17)
+        Me.optResearch.TabIndex = 1
+        Me.optResearch.Text = "Research"
+        Me.optResearch.UseVisualStyleBackColor = True
+        '
         'optSubGen
         '
         Me.optSubGen.AutoSize = True
@@ -83,15 +97,35 @@ Partial Class frmUserOptions
         Me.optSubGen.Text = "Submittal Generation"
         Me.optSubGen.UseVisualStyleBackColor = True
         '
-        'optResearch
+        'grpAdminOptions
         '
-        Me.optResearch.AutoSize = True
-        Me.optResearch.Location = New System.Drawing.Point(6, 42)
-        Me.optResearch.Name = "optResearch"
-        Me.optResearch.Size = New System.Drawing.Size(71, 17)
-        Me.optResearch.TabIndex = 1
-        Me.optResearch.Text = "Research"
-        Me.optResearch.UseVisualStyleBackColor = True
+        Me.grpAdminOptions.Controls.Add(Me.Label1)
+        Me.grpAdminOptions.Controls.Add(Me.chkSkipAutoArchive)
+        Me.grpAdminOptions.Location = New System.Drawing.Point(12, 12)
+        Me.grpAdminOptions.Name = "grpAdminOptions"
+        Me.grpAdminOptions.Size = New System.Drawing.Size(332, 168)
+        Me.grpAdminOptions.TabIndex = 4
+        Me.grpAdminOptions.TabStop = False
+        Me.grpAdminOptions.Text = "Admin Only Options"
+        '
+        'chkSkipAutoArchive
+        '
+        Me.chkSkipAutoArchive.AutoSize = True
+        Me.chkSkipAutoArchive.Location = New System.Drawing.Point(6, 37)
+        Me.chkSkipAutoArchive.Name = "chkSkipAutoArchive"
+        Me.chkSkipAutoArchive.Size = New System.Drawing.Size(111, 17)
+        Me.chkSkipAutoArchive.TabIndex = 5
+        Me.chkSkipAutoArchive.Text = "Skip Auto Archive"
+        Me.chkSkipAutoArchive.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 18)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(171, 13)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "Only Active in Debug/Admin Mode"
         '
         'frmUserOptions
         '
@@ -99,6 +133,7 @@ Partial Class frmUserOptions
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.ControlBox = False
+        Me.Controls.Add(Me.grpAdminOptions)
         Me.Controls.Add(Me.fraRunMode)
         Me.Controls.Add(Me.chkUOMoveCutstoSD)
         Me.Controls.Add(Me.cmdOK)
@@ -109,6 +144,8 @@ Partial Class frmUserOptions
         Me.Text = "Fisen Unit Generator - User Options"
         Me.fraRunMode.ResumeLayout(False)
         Me.fraRunMode.PerformLayout()
+        Me.grpAdminOptions.ResumeLayout(False)
+        Me.grpAdminOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -120,4 +157,7 @@ Partial Class frmUserOptions
     Friend WithEvents fraRunMode As GroupBox
     Friend WithEvents optResearch As RadioButton
     Friend WithEvents optSubGen As RadioButton
+    Friend WithEvents grpAdminOptions As GroupBox
+    Friend WithEvents chkSkipAutoArchive As CheckBox
+    Friend WithEvents Label1 As Label
 End Class

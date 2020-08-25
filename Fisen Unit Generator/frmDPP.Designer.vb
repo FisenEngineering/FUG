@@ -26,6 +26,8 @@ Partial Class frmDPP
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.lblXFan = New System.Windows.Forms.Label()
+        Me.lblConv = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -62,8 +64,6 @@ Partial Class frmDPP
         Me.chkNoPerformance = New System.Windows.Forms.CheckBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.lblConv = New System.Windows.Forms.Label()
-        Me.lblXFan = New System.Windows.Forms.Label()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -128,6 +128,26 @@ Partial Class frmDPP
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'lblXFan
+        '
+        Me.lblXFan.AutoSize = True
+        Me.lblXFan.Location = New System.Drawing.Point(170, 142)
+        Me.lblXFan.Name = "lblXFan"
+        Me.lblXFan.Size = New System.Drawing.Size(42, 13)
+        Me.lblXFan.TabIndex = 35
+        Me.lblXFan.Text = "lblXFan"
+        Me.lblXFan.Visible = False
+        '
+        'lblConv
+        '
+        Me.lblConv.AutoSize = True
+        Me.lblConv.Location = New System.Drawing.Point(170, 129)
+        Me.lblConv.Name = "lblConv"
+        Me.lblConv.Size = New System.Drawing.Size(42, 13)
+        Me.lblConv.TabIndex = 34
+        Me.lblConv.Text = "lblConv"
+        Me.lblConv.Visible = False
         '
         'Label3
         '
@@ -204,7 +224,7 @@ Partial Class frmDPP
         'lstNoCircuit
         '
         Me.lstNoCircuit.FormattingEnabled = True
-        Me.lstNoCircuit.Items.AddRange(New Object() {"Exhaust Fan", "Return Fan", "Gas Heat", "Electric Heat", "Convenience Outlet"})
+        Me.lstNoCircuit.Items.AddRange(New Object() {"Exhaust Fan", "Return Fan", "Gas Heat", "Electric Heat", "Convenience Outlet", "UV Light Transformer", "Bipolar Ionization Transformer"})
         Me.lstNoCircuit.Location = New System.Drawing.Point(163, 19)
         Me.lstNoCircuit.Name = "lstNoCircuit"
         Me.lstNoCircuit.Size = New System.Drawing.Size(108, 95)
@@ -502,26 +522,6 @@ Partial Class frmDPP
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
-        '
-        'lblConv
-        '
-        Me.lblConv.AutoSize = True
-        Me.lblConv.Location = New System.Drawing.Point(170, 129)
-        Me.lblConv.Name = "lblConv"
-        Me.lblConv.Size = New System.Drawing.Size(42, 13)
-        Me.lblConv.TabIndex = 34
-        Me.lblConv.Text = "lblConv"
-        Me.lblConv.Visible = False
-        '
-        'lblXFan
-        '
-        Me.lblXFan.AutoSize = True
-        Me.lblXFan.Location = New System.Drawing.Point(170, 142)
-        Me.lblXFan.Name = "lblXFan"
-        Me.lblXFan.Size = New System.Drawing.Size(42, 13)
-        Me.lblXFan.TabIndex = 35
-        Me.lblXFan.Text = "lblXFan"
-        Me.lblXFan.Visible = False
         '
         'cmdDesignCautions
         '
