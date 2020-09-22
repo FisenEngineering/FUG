@@ -20,10 +20,11 @@
             Label1.Visible = True
             Label1.Text = Me.Width
         End If
-        Call InitializeQuery()
+        Call InitializeQuery(False)
     End Sub
 
-    Private Sub Load100OAHistoryTable()
+    Private Sub Load100OAHistoryTable(XL As Boolean)
+        'Upgraded to 3.0 Excel File to Desktop
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -32,6 +33,18 @@
 
         Dim OneLine As String
         Dim AllLines As New System.Text.StringBuilder
+
+        Dim historyreport As System.IO.StreamWriter
+        Dim tempfilename As String
+
+        If XL Then
+            tempfilename = XLSavePath("FUG - LCVAVHistoryReport.csv")
+            historyreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
+            OneLine = "UnitID" & "," & "Version" & "," & "ModelNumber" & "," & "JobName" & ","
+            OneLine = OneLine & "Controller" & "," & "HeatType" & "," & "HeatCtrl" & ", " & "CoolCtrl" & "," & "ModeCtrl" & "," & "ZoneOverride"
+            historyreport.WriteLine(OneLine)
+        End If
+
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -62,6 +75,11 @@
                 AllLines.Append(OneLine)
                 OneLine = "\highlight0 \tab " & rs.Fields(5).Value & " Controller" & "\tab " & rs.Fields(6).Value & " Heat" & "\tab " & rs.Fields(7).Value & " Heat Control" & "\tab " & rs.Fields(8).Value & " Cool Control" & "\tab " & rs.Fields(9).Value & " Mode Control" & "\tab \b " & "Zone Override:\b0  " & rs.Fields(10).Value & "\par"
                 AllLines.Append(OneLine)
+                If XL Then
+                    OneLine = rs.Fields(2).Value & "," & rs.Fields(3).Value & "," & rs.Fields(4).Value & "," & rs.Fields(1).Value & "," & rs.Fields(5).Value & "," & rs.Fields(6).Value & "," & rs.Fields(7).Value & ", " & rs.Fields(8).Value & "," & rs.Fields(9).Value & "," & rs.Fields(10).Value
+                    historyreport.WriteLine(OneLine)
+                End If
+
             End If
 
             rs.MoveNext()
@@ -70,11 +88,15 @@
         AllLines.Append("}")
         txtReport.Rtf = AllLines.ToString
 
+        If XL Then
+            historyreport.Close()
+        End If
+
         con.Close()
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadFilterHistoryTable()
+    Private Sub LoadFilterHistoryTable(XL As Boolean)
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -160,7 +182,7 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadSupplyFanHistoryTable()
+    Private Sub LoadSupplyFanHistoryTable(XL As Boolean)
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -213,8 +235,12 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadLCVAVHistoryTable()
+    Private Sub LoadLCVAVHistoryTable(XL As Boolean)
+        'Upgraded to 3.0 Excel File to Desktop
         'Upgraded to 2.0 style reporting
+        Dim historyreport As System.IO.StreamWriter
+        Dim tempfilename As String
+
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -223,6 +249,14 @@
 
         Dim OneLine As String
         Dim AllLines As New System.Text.StringBuilder
+
+        If XL Then
+            tempfilename = XLSavePath("FUG - LCVAVHistoryReport.csv")
+            historyreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
+            OneLine = "UnitID" & "," & "Version" & "," & "ModelNumber" & "," & "JobName" & ","
+            OneLine = OneLine & "Style" & "," & "DSPC" & "," & "SATCooling" & ", " & "MWU" & "," & "HSFanReheat" & "," & "HeatPump" & "," & "ECMStaged" & "," & "UpgradeBoard"
+            historyreport.WriteLine(OneLine)
+        End If
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -252,6 +286,10 @@
                 AllLines.Append(OneLine)
                 OneLine = "\highlight0 \tab \b" & rs.Fields(5).Value & " \tab DSPC:\b0 " & rs.Fields(6).Value & " \tab \b SAT Ctrl:\b0 " & rs.Fields(7).Value & " \tab \b MWU: \b0 " & rs.Fields(8).Value & " \tab \b HSFan for Reheat: \b0 " & rs.Fields(9).Value & " \tab \b Heat Pump: \b0" & rs.Fields(10).Value & " \tab \b ECM Staging: \b0" & rs.Fields(11).Value & " \tab \b Board Upgrade: \b0" & rs.Fields(12).Value & "\par "
                 AllLines.Append(OneLine)
+                If XL Then
+                    OneLine = rs.Fields(2).Value & "," & rs.Fields(3).Value & "," & rs.Fields(4).Value & "," & rs.Fields(1).Value & "," & rs.Fields(5).Value & "," & rs.Fields(6).Value & "," & rs.Fields(7).Value & ", " & rs.Fields(8).Value & "," & rs.Fields(9).Value & "," & rs.Fields(10).Value & "," & rs.Fields(11).Value & "," & rs.Fields(12).Value
+                    historyreport.WriteLine(OneLine)
+                End If
             End If
             rs.MoveNext()
         Loop
@@ -259,11 +297,15 @@
         AllLines.Append("}")
         txtReport.Rtf = AllLines.ToString
 
+        If XL Then
+            historyreport.Close()
+        End If
+
         con.Close()
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadDWallHistoryTable()
+    Private Sub LoadDWallHistoryTable(XL As Boolean)
         'Upgraded to 2.0 style reporting
 
         Dim con As ADODB.Connection
@@ -314,7 +356,7 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadHGBPHistoryTable()
+    Private Sub LoadHGBPHistoryTable(XL As Boolean)
         'Upgraded to 2.0 style reporting
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -365,7 +407,7 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadHWCoilHistoryTable()
+    Private Sub LoadHWCoilHistoryTable(XL As Boolean)
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -416,7 +458,7 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadCustomControlsTable()
+    Private Sub LoadCustomControlsTable(XL As Boolean)
         'Upgraded to 2.0 style reporting
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -468,7 +510,7 @@
         con = Nothing
     End Sub
 
-    Private Sub LoadLowAFHistoryTable()
+    Private Sub LoadLowAFHistoryTable(XL As Boolean)
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -519,7 +561,7 @@
         con = Nothing
     End Sub
 
-    Private Sub LoadMGH_RHistoryTable()
+    Private Sub LoadMGH_RHistoryTable(XL As Boolean)
         'Upgraded to 2.0 style reporting
 
         Dim con As ADODB.Connection
@@ -570,7 +612,7 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadMHGRH_ConvHistoryTable()
+    Private Sub LoadMHGRH_ConvHistoryTable(XL As Boolean)
         'Upgraded to 2.0 style reporting
 
         Dim con As ADODB.Connection
@@ -621,7 +663,10 @@
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub LoadUnitReportTable()
+    Private Sub LoadCustomCoilTable(XL As Boolean)
+
+    End Sub
+    Private Sub LoadUnitReportTable(XL As Boolean)
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -680,55 +725,62 @@
         con = Nothing
     End Sub
 
-    Private Sub InitializeQuery()
+    Private Sub InitializeQuery(ExcelNeed As Boolean)
+        Dim dummy As MsgBoxResult
+
         If Not (cmbModCode.Text = "Not Selected") Then
 
             Select Case pMyModule
                 Case Is = "Unit Report"
-                    Call LoadUnitReportTable()
+                    Call LoadUnitReportTable(ExcelNeed)
                 Case Is = "100OA"
-                    Call Load100OAHistoryTable()
+                    Call Load100OAHistoryTable(ExcelNeed)
                     Me.Text = "100% Outdoor Air History"
                 Case Is = "CstmCtrl"
-                    Call LoadCustomControlsTable()
+                    Call LoadCustomControlsTable(ExcelNeed)
                     Me.Text = "Custom Controls History"
+                Case Is = "CustomCoil"
+                    Call LoadCustomCoilTable(ExcelNeed)
+                    Me.Text = "Custom Coil History"
                 Case Is = "DWall"
-                    Call LoadDWallHistoryTable()
+                    Call LoadDWallHistoryTable(ExcelNeed)
                     Me.Text = "Double Wall History"
                 Case Is = "Filters"
-                    Call LoadFilterHistoryTable()
+                    Call LoadFilterHistoryTable(ExcelNeed)
                     Me.Text = "Filter History"
                 Case Is = "HGBP"
-                    Call LoadHGBPHistoryTable()
+                    Call LoadHGBPHistoryTable(ExcelNeed)
                     Me.Text = "Hot Gas Bypass History"
                 Case Is = "HWCoil"
-                    Call LoadHWCoilHistoryTable()
+                    Call LoadHWCoilHistoryTable(ExcelNeed)
                     Me.Text = "Hot Water Coil History"
                 Case Is = "LCVAV"
-                    Call LoadLCVAVHistoryTable()
+                    Call LoadLCVAVHistoryTable(ExcelNeed)
                     Me.Text = "Light Commercial VAV"
                 Case Is = "LowAF"
-                    Call LoadLowAFHistoryTable()
+                    Call LoadLowAFHistoryTable(ExcelNeed)
                 Case Is = "MGH(R)"
-                    Call LoadMGH_RHistoryTable()
+                    Call LoadMGH_RHistoryTable(ExcelNeed)
                 Case Is = "MHGRH_Conv"
-                    Call LoadMHGRH_ConvHistoryTable
+                    Call LoadMHGRH_ConvHistoryTable(ExcelNeed)
                 Case Is = "RFan"
                     'ToDo
                     Me.Text = "New Return Fan - History is Offline"
                 Case Is = "SFan"
-                    Call LoadSupplyFanHistoryTable()
+                    Call LoadSupplyFanHistoryTable(ExcelNeed)
                     Me.Text = "New Supply Fan"
                 Case Is = "XFan"
                     'ToDo
                     Me.Text = "New Exhaust Fan - History is Offline"
+                Case Else
+                    dummy = MsgBox("Reporting for that module is not yet available." & vbCrLf & "The development team may be able to provide you with a data file.", vbOKOnly, "Incomplete Report Detected")
             End Select
         Else
 
         End If
     End Sub
     Private Sub chkFilterByFamily_CheckedChanged(sender As Object, e As EventArgs) Handles chkFilterByFamily.CheckedChanged
-        Call InitializeQuery()
+        Call InitializeQuery(False)
     End Sub
 
     Private Sub frmHistoryReport_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -737,6 +789,12 @@
 
         txtReport.Width = Me.Width - 40
         txtReport.Height = Me.Height - 144
+
+        TabControl1.Width = Me.Width - 30
+        TabControl1.Height = Me.Height - 135
+
+        DataGridView1.Width = Me.Width - 40
+        DataGridView1.Height = Me.Height - 144
 
         If frmMain.chkDebug.Checked Then
             Label1.Text = Me.Width
@@ -757,6 +815,24 @@
         Else
             pMyModule = cmbModCode.Text
         End If
-        Call InitializeQuery()
+        Call InitializeQuery(False)
     End Sub
+
+    Private Sub cmdExcelNeed_Click(sender As Object, e As EventArgs) Handles cmdExcelNeed.Click
+        Call InitializeQuery(True)
+    End Sub
+
+    Private Function XLSavePath(FileName As String) As String
+        Dim temp As String
+
+        temp = My.Settings.LastHistoryPath
+
+        FolderBrowserDialog1.SelectedPath = temp
+        FolderBrowserDialog1.ShowDialog()
+        temp = FolderBrowserDialog1.SelectedPath & "\"
+        My.Settings.LastHistoryPath = temp
+        My.Settings.Save()
+        temp = temp & FileName
+        Return temp
+    End Function
 End Class

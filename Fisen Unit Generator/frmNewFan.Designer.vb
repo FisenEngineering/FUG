@@ -22,14 +22,19 @@ Partial Class frmNewFan
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNewFan))
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.grpDPPCkt = New System.Windows.Forms.GroupBox()
+        Me.optDPPEmergency = New System.Windows.Forms.RadioButton()
+        Me.optDPPCommercial = New System.Windows.Forms.RadioButton()
+        Me.optDPPNA = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.optIso2 = New System.Windows.Forms.RadioButton()
         Me.optIso1 = New System.Windows.Forms.RadioButton()
@@ -69,6 +74,13 @@ Partial Class frmNewFan
         Me.txtAirflow = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.grpNewMotorType = New System.Windows.Forms.GroupBox()
+        Me.optMotorTypena = New System.Windows.Forms.RadioButton()
+        Me.optMotorTypeIP54 = New System.Windows.Forms.RadioButton()
+        Me.optMotorTypeTEFC = New System.Windows.Forms.RadioButton()
+        Me.optMotorTypeODP = New System.Windows.Forms.RadioButton()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.fraAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
@@ -145,8 +157,15 @@ Partial Class frmNewFan
         Me.optNoControls = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.lblIECMotorFLA = New System.Windows.Forms.Label()
+        Me.lblIECNote2 = New System.Windows.Forms.Label()
+        Me.txtIECMotorFLA = New System.Windows.Forms.TextBox()
+        Me.lblIECMotorkW = New System.Windows.Forms.Label()
+        Me.lblIECNote1 = New System.Windows.Forms.Label()
+        Me.txtIECMotorkW = New System.Windows.Forms.TextBox()
+        Me.cmdRefreshFanList = New System.Windows.Forms.Button()
+        Me.lblHPNote1 = New System.Windows.Forms.Label()
+        Me.lblNEMAMotorhp = New System.Windows.Forms.Label()
         Me.cmbNewMotorHP = New System.Windows.Forms.ComboBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.txtFanbhpeach = New System.Windows.Forms.TextBox()
@@ -203,6 +222,15 @@ Partial Class frmNewFan
         Me.txtFanRPM = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.tpgStaticSum = New System.Windows.Forms.TabPage()
+        Me.cmdLXRearSupply = New System.Windows.Forms.Button()
+        Me.cmdLXBottomSupply = New System.Windows.Forms.Button()
+        Me.cmdPremierRearSupply = New System.Windows.Forms.Button()
+        Me.cmdSelectRearSupply = New System.Windows.Forms.Button()
+        Me.cmdChoiceRearSupply = New System.Windows.Forms.Button()
+        Me.cmdPremierBottomSupply = New System.Windows.Forms.Button()
+        Me.cmdSelectBottomSupply = New System.Windows.Forms.Button()
+        Me.cmdChoiceBottomSupply = New System.Windows.Forms.Button()
+        Me.cmdGenericStatic = New System.Windows.Forms.Button()
         Me.cmdS5BottomSupply = New System.Windows.Forms.Button()
         Me.cmdS20BottomSupply = New System.Windows.Forms.Button()
         Me.chkPwrExhaustPresent = New System.Windows.Forms.CheckBox()
@@ -239,12 +267,15 @@ Partial Class frmNewFan
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.cmdGenericStatic = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.chkReheatCoil = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
+        Me.grpDPPCkt.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.grpFlowConfig.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
+        Me.grpNewMotorType.SuspendLayout()
         Me.fraAuxPanel.SuspendLayout()
         Me.grpReliefDampers.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -305,6 +336,7 @@ Partial Class frmNewFan
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.grpDPPCkt)
         Me.tpgConditions.Controls.Add(Me.GroupBox5)
         Me.tpgConditions.Controls.Add(Me.chkS10BottomRAMonitor)
         Me.tpgConditions.Controls.Add(Me.grpFlowConfig)
@@ -346,6 +378,51 @@ Partial Class frmNewFan
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'grpDPPCkt
+        '
+        Me.grpDPPCkt.Controls.Add(Me.optDPPEmergency)
+        Me.grpDPPCkt.Controls.Add(Me.optDPPCommercial)
+        Me.grpDPPCkt.Controls.Add(Me.optDPPNA)
+        Me.grpDPPCkt.Location = New System.Drawing.Point(707, 11)
+        Me.grpDPPCkt.Name = "grpDPPCkt"
+        Me.grpDPPCkt.Size = New System.Drawing.Size(119, 100)
+        Me.grpDPPCkt.TabIndex = 76
+        Me.grpDPPCkt.TabStop = False
+        Me.grpDPPCkt.Text = "DPP Power Circuit"
+        Me.grpDPPCkt.Visible = False
+        '
+        'optDPPEmergency
+        '
+        Me.optDPPEmergency.AutoSize = True
+        Me.optDPPEmergency.Location = New System.Drawing.Point(6, 19)
+        Me.optDPPEmergency.Name = "optDPPEmergency"
+        Me.optDPPEmergency.Size = New System.Drawing.Size(110, 17)
+        Me.optDPPEmergency.TabIndex = 13
+        Me.optDPPEmergency.Text = "Emergency Circuit"
+        Me.optDPPEmergency.UseVisualStyleBackColor = True
+        '
+        'optDPPCommercial
+        '
+        Me.optDPPCommercial.AutoSize = True
+        Me.optDPPCommercial.Location = New System.Drawing.Point(6, 42)
+        Me.optDPPCommercial.Name = "optDPPCommercial"
+        Me.optDPPCommercial.Size = New System.Drawing.Size(111, 17)
+        Me.optDPPCommercial.TabIndex = 12
+        Me.optDPPCommercial.Text = "Commercial Circuit"
+        Me.optDPPCommercial.UseVisualStyleBackColor = True
+        '
+        'optDPPNA
+        '
+        Me.optDPPNA.AutoSize = True
+        Me.optDPPNA.Checked = True
+        Me.optDPPNA.Location = New System.Drawing.Point(6, 65)
+        Me.optDPPNA.Name = "optDPPNA"
+        Me.optDPPNA.Size = New System.Drawing.Size(45, 17)
+        Me.optDPPNA.TabIndex = 11
+        Me.optDPPNA.TabStop = True
+        Me.optDPPNA.Text = "N/A"
+        Me.optDPPNA.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -517,7 +594,7 @@ Partial Class frmNewFan
         '
         Me.cmbExistingMotor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbExistingMotor.FormattingEnabled = True
-        Me.cmbExistingMotor.Items.AddRange(New Object() {"0.5", "1", "2", "3", "5", "7.5", "10", "15", "20", "25", "30", "40", "50", "None"})
+        Me.cmbExistingMotor.Items.AddRange(New Object() {"0.5", "1", "2", "3", "5", "7.5", "10", "12", "15", "20", "25", "30", "40", "50", "None"})
         Me.cmbExistingMotor.Location = New System.Drawing.Point(166, 34)
         Me.cmbExistingMotor.Name = "cmbExistingMotor"
         Me.cmbExistingMotor.Size = New System.Drawing.Size(111, 21)
@@ -736,6 +813,9 @@ Partial Class frmNewFan
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.grpNewMotorType)
+        Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
+        Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkReliefHoodsShipLoose)
@@ -755,6 +835,85 @@ Partial Class frmNewFan
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'grpNewMotorType
+        '
+        Me.grpNewMotorType.Controls.Add(Me.optMotorTypena)
+        Me.grpNewMotorType.Controls.Add(Me.optMotorTypeIP54)
+        Me.grpNewMotorType.Controls.Add(Me.optMotorTypeTEFC)
+        Me.grpNewMotorType.Controls.Add(Me.optMotorTypeODP)
+        Me.grpNewMotorType.Enabled = False
+        Me.grpNewMotorType.Location = New System.Drawing.Point(3, 324)
+        Me.grpNewMotorType.Name = "grpNewMotorType"
+        Me.grpNewMotorType.Size = New System.Drawing.Size(503, 49)
+        Me.grpNewMotorType.TabIndex = 101
+        Me.grpNewMotorType.TabStop = False
+        Me.grpNewMotorType.Text = "New Motor Type"
+        '
+        'optMotorTypena
+        '
+        Me.optMotorTypena.AutoSize = True
+        Me.optMotorTypena.Checked = True
+        Me.optMotorTypena.Location = New System.Drawing.Point(259, 19)
+        Me.optMotorTypena.Name = "optMotorTypena"
+        Me.optMotorTypena.Size = New System.Drawing.Size(42, 17)
+        Me.optMotorTypena.TabIndex = 21
+        Me.optMotorTypena.TabStop = True
+        Me.optMotorTypena.Text = "n/a"
+        Me.optMotorTypena.UseVisualStyleBackColor = True
+        '
+        'optMotorTypeIP54
+        '
+        Me.optMotorTypeIP54.AutoSize = True
+        Me.optMotorTypeIP54.Location = New System.Drawing.Point(186, 19)
+        Me.optMotorTypeIP54.Name = "optMotorTypeIP54"
+        Me.optMotorTypeIP54.Size = New System.Drawing.Size(67, 17)
+        Me.optMotorTypeIP54.TabIndex = 20
+        Me.optMotorTypeIP54.Text = "IEC IP54"
+        Me.optMotorTypeIP54.UseVisualStyleBackColor = True
+        '
+        'optMotorTypeTEFC
+        '
+        Me.optMotorTypeTEFC.AutoSize = True
+        Me.optMotorTypeTEFC.Location = New System.Drawing.Point(94, 19)
+        Me.optMotorTypeTEFC.Name = "optMotorTypeTEFC"
+        Me.optMotorTypeTEFC.Size = New System.Drawing.Size(86, 17)
+        Me.optMotorTypeTEFC.TabIndex = 19
+        Me.optMotorTypeTEFC.Text = "NEMA TEFC"
+        Me.optMotorTypeTEFC.UseVisualStyleBackColor = True
+        '
+        'optMotorTypeODP
+        '
+        Me.optMotorTypeODP.AutoSize = True
+        Me.optMotorTypeODP.Location = New System.Drawing.Point(6, 19)
+        Me.optMotorTypeODP.Name = "optMotorTypeODP"
+        Me.optMotorTypeODP.Size = New System.Drawing.Size(82, 17)
+        Me.optMotorTypeODP.TabIndex = 18
+        Me.optMotorTypeODP.Text = "NEMA ODP"
+        Me.optMotorTypeODP.UseVisualStyleBackColor = True
+        '
+        'chkMountEquipmentTouch
+        '
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(618, 356)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 100
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.ToolTip1.SetToolTip(Me.chkMountEquipmentTouch, "Typically not provided for fan related modifications.")
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
+        '
+        'chkIncludeEquipmentTouch
+        '
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(612, 334)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 99
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.ToolTip1.SetToolTip(Me.chkIncludeEquipmentTouch, "Typically not provided for fan related modifications.")
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'chk65kASCCRBase
         '
@@ -778,7 +937,7 @@ Partial Class frmNewFan
         Me.fraAuxPanel.Size = New System.Drawing.Size(214, 93)
         Me.fraAuxPanel.TabIndex = 97
         Me.fraAuxPanel.TabStop = False
-        Me.fraAuxPanel.Text = "Auxillary Control Panel"
+        Me.fraAuxPanel.Text = "Auxiliary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -797,7 +956,7 @@ Partial Class frmNewFan
         Me.optUseAux.Size = New System.Drawing.Size(151, 17)
         Me.optUseAux.TabIndex = 1
         Me.optUseAux.TabStop = True
-        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.Text = "Use Auxiliary Control Panel"
         Me.optUseAux.UseVisualStyleBackColor = True
         '
         'optNoAux
@@ -1601,8 +1760,15 @@ Partial Class frmNewFan
         '
         'tpgPerformance
         '
-        Me.tpgPerformance.Controls.Add(Me.Label36)
-        Me.tpgPerformance.Controls.Add(Me.Label21)
+        Me.tpgPerformance.Controls.Add(Me.lblIECMotorFLA)
+        Me.tpgPerformance.Controls.Add(Me.lblIECNote2)
+        Me.tpgPerformance.Controls.Add(Me.txtIECMotorFLA)
+        Me.tpgPerformance.Controls.Add(Me.lblIECMotorkW)
+        Me.tpgPerformance.Controls.Add(Me.lblIECNote1)
+        Me.tpgPerformance.Controls.Add(Me.txtIECMotorkW)
+        Me.tpgPerformance.Controls.Add(Me.cmdRefreshFanList)
+        Me.tpgPerformance.Controls.Add(Me.lblHPNote1)
+        Me.tpgPerformance.Controls.Add(Me.lblNEMAMotorhp)
         Me.tpgPerformance.Controls.Add(Me.cmbNewMotorHP)
         Me.tpgPerformance.Controls.Add(Me.Label35)
         Me.tpgPerformance.Controls.Add(Me.txtFanbhpeach)
@@ -1667,31 +1833,104 @@ Partial Class frmNewFan
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
-        'Label36
+        'lblIECMotorFLA
         '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(335, 245)
-        Me.Label36.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(136, 13)
-        Me.Label36.TabIndex = 98
-        Me.Label36.Text = "(Total in Multi-Fan Systems)"
+        Me.lblIECMotorFLA.AutoSize = True
+        Me.lblIECMotorFLA.Location = New System.Drawing.Point(164, 301)
+        Me.lblIECMotorFLA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblIECMotorFLA.Name = "lblIECMotorFLA"
+        Me.lblIECMotorFLA.Size = New System.Drawing.Size(76, 13)
+        Me.lblIECMotorFLA.TabIndex = 105
+        Me.lblIECMotorFLA.Text = "IEC Motor FLA"
+        Me.lblIECMotorFLA.Visible = False
         '
-        'Label21
+        'lblIECNote2
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(135, 245)
-        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(104, 13)
-        Me.Label21.TabIndex = 97
-        Me.Label21.Text = "New Motor/Drive hp"
+        Me.lblIECNote2.AutoSize = True
+        Me.lblIECNote2.Location = New System.Drawing.Point(335, 301)
+        Me.lblIECNote2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblIECNote2.Name = "lblIECNote2"
+        Me.lblIECNote2.Size = New System.Drawing.Size(147, 13)
+        Me.lblIECNote2.TabIndex = 104
+        Me.lblIECNote2.Text = "(Each Fan Multi-Fan Systems)"
+        Me.lblIECNote2.Visible = False
+        '
+        'txtIECMotorFLA
+        '
+        Me.txtIECMotorFLA.Location = New System.Drawing.Point(247, 298)
+        Me.txtIECMotorFLA.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtIECMotorFLA.Name = "txtIECMotorFLA"
+        Me.txtIECMotorFLA.Size = New System.Drawing.Size(81, 20)
+        Me.txtIECMotorFLA.TabIndex = 103
+        Me.txtIECMotorFLA.Visible = False
+        '
+        'lblIECMotorkW
+        '
+        Me.lblIECMotorkW.AutoSize = True
+        Me.lblIECMotorkW.Location = New System.Drawing.Point(164, 273)
+        Me.lblIECMotorkW.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblIECMotorkW.Name = "lblIECMotorkW"
+        Me.lblIECMotorkW.Size = New System.Drawing.Size(74, 13)
+        Me.lblIECMotorkW.TabIndex = 102
+        Me.lblIECMotorkW.Text = "IEC Motor kW"
+        Me.lblIECMotorkW.Visible = False
+        '
+        'lblIECNote1
+        '
+        Me.lblIECNote1.AutoSize = True
+        Me.lblIECNote1.Location = New System.Drawing.Point(335, 273)
+        Me.lblIECNote1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblIECNote1.Name = "lblIECNote1"
+        Me.lblIECNote1.Size = New System.Drawing.Size(147, 13)
+        Me.lblIECNote1.TabIndex = 101
+        Me.lblIECNote1.Text = "(Each Fan Multi-Fan Systems)"
+        Me.lblIECNote1.Visible = False
+        '
+        'txtIECMotorkW
+        '
+        Me.txtIECMotorkW.Location = New System.Drawing.Point(247, 270)
+        Me.txtIECMotorkW.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtIECMotorkW.Name = "txtIECMotorkW"
+        Me.txtIECMotorkW.Size = New System.Drawing.Size(81, 20)
+        Me.txtIECMotorkW.TabIndex = 100
+        Me.txtIECMotorkW.Visible = False
+        '
+        'cmdRefreshFanList
+        '
+        Me.cmdRefreshFanList.BackColor = System.Drawing.Color.LightCoral
+        Me.cmdRefreshFanList.Location = New System.Drawing.Point(617, 11)
+        Me.cmdRefreshFanList.Name = "cmdRefreshFanList"
+        Me.cmdRefreshFanList.Size = New System.Drawing.Size(75, 23)
+        Me.cmdRefreshFanList.TabIndex = 99
+        Me.cmdRefreshFanList.Text = "Refresh"
+        Me.cmdRefreshFanList.UseVisualStyleBackColor = False
+        Me.cmdRefreshFanList.Visible = False
+        '
+        'lblHPNote1
+        '
+        Me.lblHPNote1.AutoSize = True
+        Me.lblHPNote1.Location = New System.Drawing.Point(335, 245)
+        Me.lblHPNote1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblHPNote1.Name = "lblHPNote1"
+        Me.lblHPNote1.Size = New System.Drawing.Size(136, 13)
+        Me.lblHPNote1.TabIndex = 98
+        Me.lblHPNote1.Text = "(Total in Multi-Fan Systems)"
+        '
+        'lblNEMAMotorhp
+        '
+        Me.lblNEMAMotorhp.AutoSize = True
+        Me.lblNEMAMotorhp.Location = New System.Drawing.Point(135, 245)
+        Me.lblNEMAMotorhp.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblNEMAMotorhp.Name = "lblNEMAMotorhp"
+        Me.lblNEMAMotorhp.Size = New System.Drawing.Size(104, 13)
+        Me.lblNEMAMotorhp.TabIndex = 97
+        Me.lblNEMAMotorhp.Text = "New Motor/Drive hp"
         '
         'cmbNewMotorHP
         '
         Me.cmbNewMotorHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbNewMotorHP.FormattingEnabled = True
-        Me.cmbNewMotorHP.Items.AddRange(New Object() {"0.5", "1", "1.5", "2", "3", "5", "7.5", "10", "15", "20", "25", "30", "40", "50", "n/a"})
+        Me.cmbNewMotorHP.Items.AddRange(New Object() {"0.5", "1", "1.5", "2", "3", "5", "7.5", "10", "15", "20", "25", "30", "40", "50", "n/a", "Unselected", "IEC"})
         Me.cmbNewMotorHP.Location = New System.Drawing.Point(247, 242)
         Me.cmbNewMotorHP.Name = "cmbNewMotorHP"
         Me.cmbNewMotorHP.Size = New System.Drawing.Size(81, 21)
@@ -2218,6 +2457,15 @@ Partial Class frmNewFan
         '
         'tpgStaticSum
         '
+        Me.tpgStaticSum.Controls.Add(Me.chkReheatCoil)
+        Me.tpgStaticSum.Controls.Add(Me.cmdLXRearSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdLXBottomSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdPremierRearSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdSelectRearSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdChoiceRearSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdPremierBottomSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdSelectBottomSupply)
+        Me.tpgStaticSum.Controls.Add(Me.cmdChoiceBottomSupply)
         Me.tpgStaticSum.Controls.Add(Me.cmdGenericStatic)
         Me.tpgStaticSum.Controls.Add(Me.cmdS5BottomSupply)
         Me.tpgStaticSum.Controls.Add(Me.cmdS20BottomSupply)
@@ -2246,6 +2494,104 @@ Partial Class frmNewFan
         Me.tpgStaticSum.TabIndex = 3
         Me.tpgStaticSum.Text = "Static Summary"
         Me.tpgStaticSum.UseVisualStyleBackColor = True
+        '
+        'cmdLXRearSupply
+        '
+        Me.cmdLXRearSupply.Location = New System.Drawing.Point(8, 379)
+        Me.cmdLXRearSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdLXRearSupply.Name = "cmdLXRearSupply"
+        Me.cmdLXRearSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdLXRearSupply.TabIndex = 36
+        Me.cmdLXRearSupply.Text = "LX SA-Rear"
+        Me.cmdLXRearSupply.UseVisualStyleBackColor = True
+        Me.cmdLXRearSupply.Visible = False
+        '
+        'cmdLXBottomSupply
+        '
+        Me.cmdLXBottomSupply.Location = New System.Drawing.Point(8, 343)
+        Me.cmdLXBottomSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdLXBottomSupply.Name = "cmdLXBottomSupply"
+        Me.cmdLXBottomSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdLXBottomSupply.TabIndex = 35
+        Me.cmdLXBottomSupply.Text = "LX SA-Bot."
+        Me.cmdLXBottomSupply.UseVisualStyleBackColor = True
+        Me.cmdLXBottomSupply.Visible = False
+        '
+        'cmdPremierRearSupply
+        '
+        Me.cmdPremierRearSupply.Location = New System.Drawing.Point(720, 247)
+        Me.cmdPremierRearSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdPremierRearSupply.Name = "cmdPremierRearSupply"
+        Me.cmdPremierRearSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdPremierRearSupply.TabIndex = 34
+        Me.cmdPremierRearSupply.Text = "Premier SA-Rear"
+        Me.cmdPremierRearSupply.UseVisualStyleBackColor = True
+        Me.cmdPremierRearSupply.Visible = False
+        '
+        'cmdSelectRearSupply
+        '
+        Me.cmdSelectRearSupply.Location = New System.Drawing.Point(618, 247)
+        Me.cmdSelectRearSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdSelectRearSupply.Name = "cmdSelectRearSupply"
+        Me.cmdSelectRearSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdSelectRearSupply.TabIndex = 33
+        Me.cmdSelectRearSupply.Text = "Select SA-Rear"
+        Me.cmdSelectRearSupply.UseVisualStyleBackColor = True
+        Me.cmdSelectRearSupply.Visible = False
+        '
+        'cmdChoiceRearSupply
+        '
+        Me.cmdChoiceRearSupply.Location = New System.Drawing.Point(516, 247)
+        Me.cmdChoiceRearSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdChoiceRearSupply.Name = "cmdChoiceRearSupply"
+        Me.cmdChoiceRearSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdChoiceRearSupply.TabIndex = 32
+        Me.cmdChoiceRearSupply.Text = "Choice SA-Rear"
+        Me.cmdChoiceRearSupply.UseVisualStyleBackColor = True
+        Me.cmdChoiceRearSupply.Visible = False
+        '
+        'cmdPremierBottomSupply
+        '
+        Me.cmdPremierBottomSupply.Location = New System.Drawing.Point(720, 211)
+        Me.cmdPremierBottomSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdPremierBottomSupply.Name = "cmdPremierBottomSupply"
+        Me.cmdPremierBottomSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdPremierBottomSupply.TabIndex = 31
+        Me.cmdPremierBottomSupply.Text = "Premier SA-Bot."
+        Me.cmdPremierBottomSupply.UseVisualStyleBackColor = True
+        Me.cmdPremierBottomSupply.Visible = False
+        '
+        'cmdSelectBottomSupply
+        '
+        Me.cmdSelectBottomSupply.Location = New System.Drawing.Point(618, 211)
+        Me.cmdSelectBottomSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdSelectBottomSupply.Name = "cmdSelectBottomSupply"
+        Me.cmdSelectBottomSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdSelectBottomSupply.TabIndex = 30
+        Me.cmdSelectBottomSupply.Text = "Select SA-Bot."
+        Me.cmdSelectBottomSupply.UseVisualStyleBackColor = True
+        Me.cmdSelectBottomSupply.Visible = False
+        '
+        'cmdChoiceBottomSupply
+        '
+        Me.cmdChoiceBottomSupply.Location = New System.Drawing.Point(516, 211)
+        Me.cmdChoiceBottomSupply.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdChoiceBottomSupply.Name = "cmdChoiceBottomSupply"
+        Me.cmdChoiceBottomSupply.Size = New System.Drawing.Size(94, 28)
+        Me.cmdChoiceBottomSupply.TabIndex = 29
+        Me.cmdChoiceBottomSupply.Text = "Choice SA-Bot."
+        Me.cmdChoiceBottomSupply.UseVisualStyleBackColor = True
+        Me.cmdChoiceBottomSupply.Visible = False
+        '
+        'cmdGenericStatic
+        '
+        Me.cmdGenericStatic.Location = New System.Drawing.Point(391, 167)
+        Me.cmdGenericStatic.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdGenericStatic.Name = "cmdGenericStatic"
+        Me.cmdGenericStatic.Size = New System.Drawing.Size(94, 28)
+        Me.cmdGenericStatic.TabIndex = 28
+        Me.cmdGenericStatic.Text = "Generic"
+        Me.cmdGenericStatic.UseVisualStyleBackColor = True
         '
         'cmdS5BottomSupply
         '
@@ -2416,7 +2762,7 @@ Partial Class frmNewFan
         '
         Me.cmbHeatBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbHeatBox.FormattingEnabled = True
-        Me.cmbHeatBox.Items.AddRange(New Object() {"Gas", "267 MBH Gas", "512 MBH Gas", "800 MBH Gas", "CoolOnly", "5kW", "7kW", "9kW", "10kW", "15kW", "18kW", "20kW", "24kW", "30kW", "36kW", "40kW", "54kW", "72kW", "Not Selected"})
+        Me.cmbHeatBox.Items.AddRange(New Object() {"Gas", "267 MBH Gas", "512 MBH Gas", "800 MBH Gas", "CoolOnly", "5kW", "7kW", "9kW", "10kW", "15kW", "18kW", "20kW", "24kW", "25kW", "30kW", "36kW", "40kW", "50kW", "54kW", "72kW", "75kW", "Not Selected"})
         Me.cmbHeatBox.Location = New System.Drawing.Point(451, 17)
         Me.cmbHeatBox.Name = "cmbHeatBox"
         Me.cmbHeatBox.Size = New System.Drawing.Size(121, 21)
@@ -2514,8 +2860,8 @@ Partial Class frmNewFan
         'colItem
         '
         Me.colItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colItem.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colItem.DefaultCellStyle = DataGridViewCellStyle7
         Me.colItem.HeaderText = "Item"
         Me.colItem.MinimumWidth = 6
         Me.colItem.Name = "colItem"
@@ -2524,8 +2870,8 @@ Partial Class frmNewFan
         'colSTPStatic
         '
         Me.colSTPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle8
         Me.colSTPStatic.HeaderText = "Static(std)"
         Me.colSTPStatic.MinimumWidth = 6
         Me.colSTPStatic.Name = "colSTPStatic"
@@ -2534,8 +2880,8 @@ Partial Class frmNewFan
         'colATPStatic
         '
         Me.colATPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle9
         Me.colATPStatic.HeaderText = "Static(elev)"
         Me.colATPStatic.MinimumWidth = 6
         Me.colATPStatic.Name = "colATPStatic"
@@ -2614,16 +2960,16 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'cmdGenericStatic
+        'chkReheatCoil
         '
-        Me.cmdGenericStatic.Location = New System.Drawing.Point(391, 167)
-        Me.cmdGenericStatic.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdGenericStatic.Name = "cmdGenericStatic"
-        Me.cmdGenericStatic.Size = New System.Drawing.Size(94, 28)
-        Me.cmdGenericStatic.TabIndex = 28
-        Me.cmdGenericStatic.Text = "Generic"
-        Me.cmdGenericStatic.UseVisualStyleBackColor = True
-        Me.cmdGenericStatic.Visible = False
+        Me.chkReheatCoil.AutoSize = True
+        Me.chkReheatCoil.Location = New System.Drawing.Point(517, 120)
+        Me.chkReheatCoil.Name = "chkReheatCoil"
+        Me.chkReheatCoil.Size = New System.Drawing.Size(120, 17)
+        Me.chkReheatCoil.TabIndex = 37
+        Me.chkReheatCoil.Text = "Reheat Coil Present"
+        Me.chkReheatCoil.UseVisualStyleBackColor = True
+        Me.chkReheatCoil.Visible = False
         '
         'frmNewFan
         '
@@ -2645,12 +2991,16 @@ Partial Class frmNewFan
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
         Me.tpgConditions.PerformLayout()
+        Me.grpDPPCkt.ResumeLayout(False)
+        Me.grpDPPCkt.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.grpFlowConfig.ResumeLayout(False)
         Me.grpFlowConfig.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.grpNewMotorType.ResumeLayout(False)
+        Me.grpNewMotorType.PerformLayout()
         Me.fraAuxPanel.ResumeLayout(False)
         Me.fraAuxPanel.PerformLayout()
         Me.grpReliefDampers.ResumeLayout(False)
@@ -2898,8 +3248,8 @@ Partial Class frmNewFan
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
-    Friend WithEvents Label36 As Label
-    Friend WithEvents Label21 As Label
+    Friend WithEvents lblHPNote1 As Label
+    Friend WithEvents lblNEMAMotorhp As Label
     Friend WithEvents cmbNewMotorHP As ComboBox
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
@@ -2909,4 +3259,32 @@ Partial Class frmNewFan
     Friend WithEvents optIsoNone As RadioButton
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents cmdGenericStatic As Button
+    Friend WithEvents cmdRefreshFanList As Button
+    Friend WithEvents cmdPremierBottomSupply As Button
+    Friend WithEvents cmdSelectBottomSupply As Button
+    Friend WithEvents cmdChoiceBottomSupply As Button
+    Friend WithEvents cmdChoiceRearSupply As Button
+    Friend WithEvents cmdSelectRearSupply As Button
+    Friend WithEvents cmdPremierRearSupply As Button
+    Friend WithEvents cmdLXRearSupply As Button
+    Friend WithEvents cmdLXBottomSupply As Button
+    Friend WithEvents chkMountEquipmentTouch As CheckBox
+    Friend WithEvents chkIncludeEquipmentTouch As CheckBox
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents grpDPPCkt As GroupBox
+    Friend WithEvents optDPPEmergency As RadioButton
+    Friend WithEvents optDPPCommercial As RadioButton
+    Friend WithEvents optDPPNA As RadioButton
+    Friend WithEvents grpNewMotorType As GroupBox
+    Friend WithEvents optMotorTypena As RadioButton
+    Friend WithEvents optMotorTypeIP54 As RadioButton
+    Friend WithEvents optMotorTypeTEFC As RadioButton
+    Friend WithEvents optMotorTypeODP As RadioButton
+    Friend WithEvents lblIECMotorFLA As Label
+    Friend WithEvents lblIECNote2 As Label
+    Friend WithEvents txtIECMotorFLA As TextBox
+    Friend WithEvents lblIECMotorkW As Label
+    Friend WithEvents lblIECNote1 As Label
+    Friend WithEvents txtIECMotorkW As TextBox
+    Friend WithEvents chkReheatCoil As CheckBox
 End Class

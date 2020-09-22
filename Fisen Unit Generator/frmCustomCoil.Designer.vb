@@ -25,6 +25,7 @@ Partial Class frmCustomCoil
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomCoil))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.cmbRefType = New System.Windows.Forms.ComboBox()
         Me.lblFluidFlowUnits = New System.Windows.Forms.Label()
         Me.lblFluidFlow = New System.Windows.Forms.Label()
         Me.txtFluidFlow = New System.Windows.Forms.TextBox()
@@ -49,6 +50,10 @@ Partial Class frmCustomCoil
         Me.txtReclaimCap = New System.Windows.Forms.TextBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.grpAuxPanel = New System.Windows.Forms.GroupBox()
+        Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
+        Me.optUseAux = New System.Windows.Forms.RadioButton()
+        Me.optNoAux = New System.Windows.Forms.RadioButton()
         Me.chkPumpedCoil = New System.Windows.Forms.CheckBox()
         Me.chkFilterBankRelocation = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -109,11 +114,16 @@ Partial Class frmCustomCoil
         Me.btnDoneValves = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.cmbRefType = New System.Windows.Forms.ComboBox()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgOptions.SuspendLayout()
+        Me.grpAuxPanel.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.nudRows, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tpgControls.SuspendLayout()
@@ -134,7 +144,7 @@ Partial Class frmCustomCoil
         Me.TabControl1.Location = New System.Drawing.Point(2, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(464, 217)
+        Me.TabControl1.Size = New System.Drawing.Size(464, 307)
         Me.TabControl1.TabIndex = 8
         '
         'tpgConditions
@@ -166,10 +176,19 @@ Partial Class frmCustomCoil
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgConditions.Size = New System.Drawing.Size(456, 191)
+        Me.tpgConditions.Size = New System.Drawing.Size(456, 281)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'cmbRefType
+        '
+        Me.cmbRefType.FormattingEnabled = True
+        Me.cmbRefType.Items.AddRange(New Object() {"Unselected", "R-448A"})
+        Me.cmbRefType.Location = New System.Drawing.Point(166, 32)
+        Me.cmbRefType.Name = "cmbRefType"
+        Me.cmbRefType.Size = New System.Drawing.Size(121, 21)
+        Me.cmbRefType.TabIndex = 1
         '
         'lblFluidFlowUnits
         '
@@ -371,6 +390,8 @@ Partial Class frmCustomCoil
         '
         'tpgOptions
         '
+        Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
+        Me.tpgOptions.Controls.Add(Me.grpAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkPumpedCoil)
         Me.tpgOptions.Controls.Add(Me.chkFilterBankRelocation)
         Me.tpgOptions.Controls.Add(Me.GroupBox4)
@@ -380,10 +401,54 @@ Partial Class frmCustomCoil
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
-        Me.tpgOptions.Size = New System.Drawing.Size(456, 191)
+        Me.tpgOptions.Size = New System.Drawing.Size(456, 281)
         Me.tpgOptions.TabIndex = 4
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'grpAuxPanel
+        '
+        Me.grpAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.grpAuxPanel.Controls.Add(Me.optUseAux)
+        Me.grpAuxPanel.Controls.Add(Me.optNoAux)
+        Me.grpAuxPanel.Location = New System.Drawing.Point(6, 173)
+        Me.grpAuxPanel.Name = "grpAuxPanel"
+        Me.grpAuxPanel.Size = New System.Drawing.Size(214, 105)
+        Me.grpAuxPanel.TabIndex = 44
+        Me.grpAuxPanel.TabStop = False
+        Me.grpAuxPanel.Text = "Auxilary Control Panel"
+        '
+        'cmbAuxPanelOpts
+        '
+        Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAuxPanelOpts.FormattingEnabled = True
+        Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(6, 65)
+        Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
+        Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(202, 21)
+        Me.cmbAuxPanelOpts.TabIndex = 29
+        '
+        'optUseAux
+        '
+        Me.optUseAux.AutoSize = True
+        Me.optUseAux.Location = New System.Drawing.Point(6, 42)
+        Me.optUseAux.Name = "optUseAux"
+        Me.optUseAux.Size = New System.Drawing.Size(149, 17)
+        Me.optUseAux.TabIndex = 1
+        Me.optUseAux.TabStop = True
+        Me.optUseAux.Text = "Use Auxilary Control Panel"
+        Me.optUseAux.UseVisualStyleBackColor = True
+        '
+        'optNoAux
+        '
+        Me.optNoAux.AutoSize = True
+        Me.optNoAux.Checked = True
+        Me.optNoAux.Location = New System.Drawing.Point(6, 19)
+        Me.optNoAux.Name = "optNoAux"
+        Me.optNoAux.Size = New System.Drawing.Size(51, 17)
+        Me.optNoAux.TabIndex = 0
+        Me.optNoAux.TabStop = True
+        Me.optNoAux.Text = "None"
+        Me.optNoAux.UseVisualStyleBackColor = True
         '
         'chkPumpedCoil
         '
@@ -399,7 +464,7 @@ Partial Class frmCustomCoil
         'chkFilterBankRelocation
         '
         Me.chkFilterBankRelocation.AutoSize = True
-        Me.chkFilterBankRelocation.Location = New System.Drawing.Point(12, 164)
+        Me.chkFilterBankRelocation.Location = New System.Drawing.Point(12, 150)
         Me.chkFilterBankRelocation.Name = "chkFilterBankRelocation"
         Me.chkFilterBankRelocation.Size = New System.Drawing.Size(176, 17)
         Me.chkFilterBankRelocation.TabIndex = 42
@@ -492,7 +557,7 @@ Partial Class frmCustomCoil
         '
         'cmdDoneOptions
         '
-        Me.cmdDoneOptions.Location = New System.Drawing.Point(386, 164)
+        Me.cmdDoneOptions.Location = New System.Drawing.Point(408, 255)
         Me.cmdDoneOptions.Name = "cmdDoneOptions"
         Me.cmdDoneOptions.Size = New System.Drawing.Size(41, 23)
         Me.cmdDoneOptions.TabIndex = 13
@@ -508,7 +573,7 @@ Partial Class frmCustomCoil
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgControls.Size = New System.Drawing.Size(456, 191)
+        Me.tpgControls.Size = New System.Drawing.Size(456, 281)
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -678,7 +743,7 @@ Partial Class frmCustomCoil
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
         Me.tpgPerformance.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgPerformance.Size = New System.Drawing.Size(456, 191)
+        Me.tpgPerformance.Size = New System.Drawing.Size(456, 281)
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
@@ -860,7 +925,7 @@ Partial Class frmCustomCoil
         Me.tpgValves.Location = New System.Drawing.Point(4, 22)
         Me.tpgValves.Name = "tpgValves"
         Me.tpgValves.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpgValves.Size = New System.Drawing.Size(456, 191)
+        Me.tpgValves.Size = New System.Drawing.Size(456, 281)
         Me.tpgValves.TabIndex = 3
         Me.tpgValves.Text = "Valves"
         Me.tpgValves.UseVisualStyleBackColor = True
@@ -977,7 +1042,7 @@ Partial Class frmCustomCoil
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(90, 249)
+        Me.Cancel.Location = New System.Drawing.Point(90, 325)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(72, 29)
         Me.Cancel.TabIndex = 10
@@ -987,27 +1052,72 @@ Partial Class frmCustomCoil
         'btnOK
         '
         Me.btnOK.Enabled = False
-        Me.btnOK.Location = New System.Drawing.Point(12, 249)
+        Me.btnOK.Location = New System.Drawing.Point(12, 325)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(72, 29)
         Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'cmbRefType
+        'chkWriteHistory
         '
-        Me.cmbRefType.FormattingEnabled = True
-        Me.cmbRefType.Items.AddRange(New Object() {"Unselected", "R-448A"})
-        Me.cmbRefType.Location = New System.Drawing.Point(166, 32)
-        Me.cmbRefType.Name = "cmbRefType"
-        Me.cmbRefType.Size = New System.Drawing.Size(121, 21)
-        Me.cmbRefType.TabIndex = 1
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(185, 336)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 20
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(396, 325)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 19
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(432, 325)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 18
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(360, 325)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 63
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(233, 231)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 45
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'frmCustomCoil
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(467, 290)
+        Me.ClientSize = New System.Drawing.Size(467, 366)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdFIOPPreview)
+        Me.Controls.Add(Me.chkWriteHistory)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.TabControl1)
@@ -1021,6 +1131,8 @@ Partial Class frmCustomCoil
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
+        Me.grpAuxPanel.ResumeLayout(False)
+        Me.grpAuxPanel.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.nudRows, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1036,6 +1148,7 @@ Partial Class frmCustomCoil
         Me.tpgValves.ResumeLayout(False)
         Me.tpgValves.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -1126,4 +1239,13 @@ Partial Class frmCustomCoil
     Friend WithEvents lblFluidFlow As Label
     Friend WithEvents txtFluidFlow As TextBox
     Friend WithEvents cmbRefType As ComboBox
+    Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents grpAuxPanel As GroupBox
+    Friend WithEvents cmbAuxPanelOpts As ComboBox
+    Friend WithEvents optUseAux As RadioButton
+    Friend WithEvents optNoAux As RadioButton
+    Friend WithEvents chk65kASCCRBase As CheckBox
 End Class

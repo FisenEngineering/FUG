@@ -75,6 +75,16 @@ Public Class frmMain
 
     Public UserID As String
 
+    Public ReadOnly Property SU As Boolean
+        Get
+            SU = False
+            If chkDebug.Checked Then SU = True
+            If UserID = "jlevine" Then SU = True
+            If UserID = "jmucinski" Then SU = True
+            If UserID = "jruemenapp" Then SU = True
+        End Get
+    End Property
+
     Public Function HasHMI() As Boolean
         Dim i As Integer
         Dim ListTop As Integer
@@ -143,6 +153,7 @@ Public Class frmMain
         If optRTUChoice.Checked Then TempFamily = "Choice"
         If optRTUPremier.Checked Then TempFamily = "Premier"
         If optRTUSelect.Checked Then TempFamily = "Select"
+        If optRTUSeriesLX.Checked Then TempFamily = "SeriesLX"
 
         If optAHUXTI.Checked Then TempFamily = "XTI"
         If optAHUXTO.Checked Then TempFamily = "XTO"
@@ -773,6 +784,16 @@ Public Class frmMain
                         frmERW.Dispose()
                     End If
 
+                Case Is = "Energy Recovery Wheel"
+                    frmERVIntegration.ShowDialog()
+                    If frmERVIntegration.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation In ERV Integration Module.  Exiting Program.")
+                        End
+                    Else
+                        ERWDefined = True
+                        frmERVIntegration.Dispose()
+                    End If
+
                 Case Is = "Exhaust Fan"
                     frmNewFan.FanStyle = "Exhaust Fan"
                     frmNewFan.ShowDialog()
@@ -1129,6 +1150,9 @@ Public Class frmMain
                 Case Is = "Series40"
                     UPGFile = UPGFile & Ver & ".dotm"
                     Process.Start(UPGFile)
+                Case Is = "SeriesLX"
+                    UPGFile = UPGFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Is = "Series100"
                     YPALFile = YPALFile & Ver & ".dotm"
                     Process.Start(YPALFile)
@@ -1393,6 +1417,8 @@ Public Class frmMain
                 lUnitWriter.WriteString("Fraser-Johnston")
             Case Is = "LUX"
                 lUnitWriter.WriteString("Luxaire")
+            Case Is = "Gua"
+                lUnitWriter.WriteString("Guardian")
         End Select
 
         lUnitWriter.WriteEndElement()
@@ -1823,8 +1849,20 @@ Public Class frmMain
         lUnitWriter.WriteString(ThisUnitSFanPerf.MotorHP)
         lUnitWriter.WriteEndElement()
 
+        lUnitWriter.WriteStartElement("MotorHPUnit")
+        lUnitWriter.WriteString(ThisUnitSFanPerf.MhpUnits)
+        lUnitWriter.WriteEndElement()
+
         lUnitWriter.WriteStartElement("BrakeHP")
         lUnitWriter.WriteString(ThisUnitSFanPerf.BrakeHP)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("BrakeHPUnit")
+        lUnitWriter.WriteString(ThisUnitSFanPerf.BhpUnits)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("MotorFLA")
+        lUnitWriter.WriteString(ThisUnitSFanPerf.MFLA)
         lUnitWriter.WriteEndElement()
 
         lUnitWriter.WriteStartElement("kWPower")
@@ -2175,8 +2213,20 @@ Public Class frmMain
         lUnitWriter.WriteString(ThisUnitRXPerf.MotorHP)
         lUnitWriter.WriteEndElement()
 
+        lUnitWriter.WriteStartElement("MotorHPUnit")
+        lUnitWriter.WriteString(ThisUnitSFanPerf.MhpUnits)
+        lUnitWriter.WriteEndElement()
+
         lUnitWriter.WriteStartElement("BrakeHP")
         lUnitWriter.WriteString(ThisUnitRXPerf.BrakeHP)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("BrakeHPUnit")
+        lUnitWriter.WriteString(ThisUnitSFanPerf.BhpUnits)
+        lUnitWriter.WriteEndElement()
+
+        lUnitWriter.WriteStartElement("MotorFLA")
+        lUnitWriter.WriteString(ThisUnitSFanPerf.MFLA)
         lUnitWriter.WriteEndElement()
 
         lUnitWriter.WriteStartElement("kWPower")
@@ -7212,7 +7262,9 @@ Public Class frmMain
                 If cmbBrand.Text = "TMP" Then
                     txtModelNumber.Text = "JV" & Mid(txtBrandModelNumber.Text, 3)
                 End If
-
+                If cmbBrand.Text = "York" Then
+                    txtModelNumber.Text = "JV" & Mid(txtBrandModelNumber.Text, 3)
+                End If
             Case Is = "Choice"
                 txtModelNumber.Text = "AD" & Mid(txtBrandModelNumber.Text, 3)
         End Select
@@ -8015,7 +8067,7 @@ Public Class frmMain
         Do While Not (rs.EOF)
             'lstAvailableMods.Items.Add(rs.Fields("ModPlainName").Value)
             ElecChar = txtCommVolts.Text & "-" & txtCommPhase.Text & "-" & txtCommFreq.Text
-            If ThisUnitSFanPerf.MotorHP <> " " Then
+            If ((ThisUnitSFanPerf.MotorHP <> " ") And (ThisUnitSFanPerf.MhpUnits <> "kW")) Then
                 NewRow = {True, False, "All", True, "SUPPLY FAN", ElecChar, ThisUnitSFanPerf.MotorHP, NEMAMotorFLA(ThisUnitSFanPerf.MotorHP, txtCommVolts.Text & "-" & txtCommPhase.Text), False, "NEMA"}
                 dgvElecLoads.Rows.Add(NewRow)
             End If
@@ -9334,5 +9386,21 @@ Public Class frmMain
         con.Close()
         rs = Nothing
         con = Nothing
+    End Sub
+
+    Private Sub cmdResearchMode_Click(sender As Object, e As EventArgs) Handles cmdResearchMode.Click
+        Dim RQData As String
+        ThisUnit.Family = SetUnitFamily()
+
+        Select Case cmbResearchTarget.Text
+
+            Case Is = "Supply Fan"
+                frmNewFan.FanStyle = "Supply Fan"
+                RQData = InputBox("Please enter at least the first 5 digits of the model number you want to research.", "Fisen Unit Generator Research Mode", ThisUnit.ModelNumber)
+                ThisUnit.ModelNumber = RQData
+                frmNewFan.ResearchMode = True
+                frmNewFan.ShowDialog()
+                frmNewFan.ResearchMode = False
+        End Select
     End Sub
 End Class

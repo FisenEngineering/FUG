@@ -176,6 +176,7 @@ Partial Class frmUpdateWeightTables
         Me.Controls.Add(Me.btnOK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmUpdateWeightTables"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Update UPG Unit Weight"
         Me.ResumeLayout(False)
         Me.PerformLayout()

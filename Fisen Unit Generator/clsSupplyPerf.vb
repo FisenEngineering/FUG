@@ -2,6 +2,8 @@
 Imports System.Xml
 Imports System.Xml.Serialization
 Imports System.IO
+Imports System.Drawing.Imaging
+
 Public Class clsSupplyPerf
     Private pAirflow As String
     Private pFanCount As String
@@ -12,8 +14,11 @@ Public Class clsSupplyPerf
     Private pTSP As String
     Private pRPM As String
     Private pMhp As String
+    Private pMhpUnits As String
     Private pBhp As String
+    Private pBhpUnits As String
     Private pPower As String
+    Private pMFLA As String
     Private pDriveType As String
     Private pMotorText As String
     Private pDuctLoc As String
@@ -39,6 +44,33 @@ Public Class clsSupplyPerf
     Private pStaticDataYPal As ArrayList = New ArrayList
 
     Private pSFanVFDPresent As Boolean
+
+    Public Property MhpUnits As String
+        Get
+            MhpUnits = pMhpUnits
+        End Get
+        Set(value As String)
+            pMhpUnits = value
+        End Set
+    End Property
+    Public Property BhpUnits As String
+        Get
+            BhpUnits = pBhpUnits
+        End Get
+        Set(value As String)
+            pBhpUnits = value
+        End Set
+    End Property
+    Public Property MFLA As String
+        Get
+            MFLA = pMFLA
+        End Get
+        Set(value As String)
+            pMFLA = value
+        End Set
+    End Property
+
+
 
     Public Property FanCount As String
         Get
@@ -361,6 +393,10 @@ Public Class clsSupplyPerf
         pCabEffects = " "
         pCabEffectsElev = " "
         pSFanVFDPresent = False
+
+        pMFLA = "-"
+        pMhpUnits = "hp"
+        pBhpUnits = "bhp"
     End Sub
     Public Sub ImportUPGData()
         Dim xdoc As XmlDocument = New XmlDocument

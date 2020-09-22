@@ -66,6 +66,8 @@ Public Class frmUVLights
                 snippet = Mid(frmMain.ThisUnit.ModelNumber, 3, 2)
                 If snippet = "35" Then ModuleCodeList.Add("420Z01")
                 If snippet = "50" Then ModuleCodeList.Add("420Z02")
+            Case Is = "SeriesLX"
+                ModuleCodeList.Add("420Z07")
             Case Else
 
         End Select
@@ -85,6 +87,7 @@ Public Class frmUVLights
             If frmMain.ThisUnit.Family = "Series10" Then ModuleCodeList.Add("420X01")
             If frmMain.ThisUnit.Family = "Series5" Then ModuleCodeList.Add("420X01")
             If frmMain.ThisUnit.Family = "Series20" Then ModuleCodeList.Add("420X02")
+            If frmMain.ThisUnit.Family = "SeriesLX" Then ModuleCodeList.Add("420X01")
 
         End If
         If optPwrDedicated.Checked Then ModuleCodeList.Add("420103")
@@ -103,6 +106,7 @@ Public Class frmUVLights
 
         ModuleCodeList.Add("420300")
         ModuleCodeList.Add("420301")
+
 
         If chkIncludeEquipmentTouch.Checked = True Then
             If chkMountEquipmentTouch.Checked = True Then
@@ -195,6 +199,8 @@ Public Class frmUVLights
                 tempWeight = "120"
             Case Is = "Select"
                 tempWeight = "125"
+            Case Is = "SeriesLX"
+                tempWeight = "65"
             Case Else
                 tempWeight = "9999"
         End Select
@@ -220,6 +226,9 @@ Public Class frmUVLights
                     RqdVA = 66
                     XfmrVA = 100
                 Case Is = "Series10"
+                    XfmrVA = 100
+                    RqdVA = 84
+                Case Is = "SeriesLX"
                     XfmrVA = 100
                     RqdVA = 84
                 Case Is = "Series20"
@@ -336,6 +345,8 @@ Public Class frmUVLights
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Choice"
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "SeriesLX"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
         End Select
 
         ModuleCodeList.Add("420000")
@@ -383,6 +394,10 @@ Public Class frmUVLights
                         cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
                         cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
                         cmbAuxPanelOpts.Text = "Series 20 Downflow"
+                    Case Is = "SeriesLX"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("LX Series Custom Application")
+                        cmbAuxPanelOpts.Text = "LX Series Custom Application"
                     Case Is = "Series40"
                         cmbAuxPanelOpts.Items.Clear()
                         cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")

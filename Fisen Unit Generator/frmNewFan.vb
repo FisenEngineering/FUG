@@ -3,6 +3,7 @@ Public Class frmNewFan
     Private pCancelled As Boolean
     Private pFanStyle As String
     Private ModuleCodeList As New ArrayList
+    Private pResearchMode
 
     Public Property FanStyle As String
         Get
@@ -20,11 +21,43 @@ Public Class frmNewFan
             pCancelled = value
         End Set
     End Property
+    Public Property ResearchMode As Boolean
+        Get
+            Return pResearchMode
+        End Get
+        Set(value As Boolean)
+            pResearchMode = value
+        End Set
+    End Property
 
     Private Sub frmNewFan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim lFamily As String
+        Dim dummy As MsgBoxResult
+
+        'If the user is SUPER! then alow mid operation fan list refreshes.
+        If frmMain.SU Then cmdRefreshFanList.Visible = True
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+
+        If frmMain.HasHMI Then
+            chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+        End If
+
+        If frmMain.HasUMHMI Then
+            chkMountEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+            chkMountEquipmentTouch.Enabled = False
+        End If
+
+        If frmMain.ThisUnitElecData.DPPPresent Then
+            grpDPPCkt.Visible = True
+            optDPPNA.Enabled = False
+            optDPPEmergency.Checked = True
+        End If
+
 
         lFamily = frmMain.ThisUnit.Family
 
@@ -46,6 +79,7 @@ Public Class frmNewFan
             cmbHeatBox.Visible = True
             grpFilterStyle.Visible = True
             chkEconPresent.Visible = True
+            chkReheatCoil.Visible = True
             chkPwrExhaustPresent.Visible = True
             optAFFan.Checked = True
             chkReliefHoodsShipLoose.Visible = False
@@ -73,13 +107,25 @@ Public Class frmNewFan
                 Case Is = "Series100"
 
                 Case Is = "Premier"
+                    cmdPremierBottomSupply.Visible = True
+                    cmdPremierRearSupply.Visible = True
 
                 Case Is = "Choice"
+                    cmdChoiceBottomSupply.Visible = True
+                    cmdChoiceRearSupply.Visible = True
+                    lblNote1.Text = "Preferred Size is 18-18 for 25+ Tons and 15-15 for 20- Tons"
 
                 Case Is = "Select"
+                    cmdSelectBottomSupply.Visible = True
+                    cmdSelectRearSupply.Visible = True
+
+                Case Is = "SeriesLX"
+                    cmdLXBottomSupply.Visible = True
+                    cmdLXRearSupply.Visible = True
 
                 Case Else
-
+                    dummy = MsgBox("The Family " & frmMain.ThisUnit.Family & " is not recognized in this module.  Aborting.", vbOKOnly, "Fisen Unit Generator")
+                    Stop
             End Select
 
             Select Case frmMain.ThisUnitHeatPerf.HeatType
@@ -173,6 +219,8 @@ Public Class frmNewFan
         tslblESP.Text = "ESP: " & txtESP.Text
         tslblElevation.Text = "Elevation: " & txtElevation.Text
 
+        cmbNewMotorHP.Text = "n/a"
+
     End Sub
 
     Private Sub LoadDigConditions()
@@ -203,6 +251,7 @@ Public Class frmNewFan
 
     End Sub
     Private Sub PopulateAuxPanelList()
+        'Added Initial LX Series Support
         'V1.1 Added Check for it already existing
         If frmMain.HasAuxillaryPanel = True Then
             optUseAux.Checked = True
@@ -241,6 +290,10 @@ Public Class frmNewFan
                         cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
                         cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
                         cmbAuxPanelOpts.Text = "Series 20 Downflow"
+                    Case Is = "SeriesLX"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("LX Series Custom Application")
+                        cmbAuxPanelOpts.Text = "LX Series Custom Application"
                     Case Is = "Series40"
                         cmbAuxPanelOpts.Items.Clear()
                         cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
@@ -332,7 +385,6 @@ Public Class frmNewFan
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
-        Dim i As Integer
 
         Dim MySQL As String
 
@@ -346,15 +398,13 @@ Public Class frmNewFan
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
-        If pFanStyle = "Supply Fan" Then
-            MySQL = "SELECT * FROM tblFanCurves WHERE SupplyFan=TRUE ORDER BY FanID"
-        Else
-            MySQL = "SELECT * FROM tblFanCurves WHERE ReturnFan=TRUE ORDER BY FanID"
-        End If
+        MySQL = ""
+        If pFanStyle = "Supply Fan" Then MySQL = "SELECT * FROM tblFanCurves WHERE SupplyFan=TRUE ORDER BY FanID"
+        If pFanStyle = "Return Fan" Then MySQL = "SELECT * FROM tblFanCurves WHERE ReturnFan=TRUE ORDER BY FanID"
+        If pFanStyle = "Exhaust Fan" Then MySQL = "SELECT * FROM tblFanCurves WHERE ExhaustFan=TRUE ORDER BY FanID"
 
         rs.Open(MySQL, con)
 
-        i = 0
         rs.MoveFirst()
         Do While Not (rs.EOF)
             cmbFanSelected.Items.Add(rs.Fields("FanID").Value)
@@ -364,7 +414,6 @@ Public Class frmNewFan
         con.Close()
         rs = Nothing
         con = Nothing
-
     End Sub
     Private Sub LoadConditions()
 
@@ -397,6 +446,10 @@ Public Class frmNewFan
             optBaroRelief.Checked = True
 
         End If
+        If pFanStyle = "Exhaust Fan" Then
+
+        End If
+
     End Sub
     Private Function CabinetStatic(lAirflow As String, DF As Boolean) As String
         Dim AF As Double
@@ -445,13 +498,38 @@ Public Class frmNewFan
             frmMain.ThisUnitMods.Add("XFan") 'Mod Code goes here!
             Call UpdateCodeListXFan()
         End If
-        'If frmMain.ThisUnit.GenCodesPresent = False Then
-        'frmMain.ThisUnit.GenCodesPresent = True
-        'frmMain.ThisUnitMods.Add("Common")
-        'End If
+
+
+
+        If chkIncludeEquipmentTouch.Checked = True Then
+            If chkMountEquipmentTouch.Checked = True Then
+                If frmMain.HasUMHMI = False Then
+                    frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+                End If
+            Else
+                If frmMain.HasHMI = False Then
+                    frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+                End If
+            End If
+        End If
 
         'Add Auxillary Panel if selected
+        Call AuxPanelCodeInsert
+
+        Call PerformDesignCautionScan()
+
+        For i = 0 To ModuleCodeList.Count - 1
+            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
+        Next i
+
+        Me.Hide()
+    End Sub
+
+    Private Sub AuxPanelCodeInsert() 'Called from near the end of UpdateCode()
+        'V1.1 - Added Custom Option for LX Series Units.
+        'V1.0
         If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
+            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
             frmMain.HasAuxillaryPanel = True
             Select Case cmbAuxPanelOpts.Text
                 Case Is = "Series 5 Downflow"
@@ -486,19 +564,20 @@ Public Class frmNewFan
                     frmMain.ThisUnitGenCodes.Add("960012")
                 Case Is = "Series 40 Custom Application"
                     frmMain.ThisUnitGenCodes.Add("960022")
+                Case Is = "LX Series Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960027")
                 Case Is = "Series 100 Custom Application"
                     frmMain.ThisUnitGenCodes.Add("960023")
+                Case Is = "Premier Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960024")
+                Case Is = "Choice Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960025")
+                Case Is = "Select Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960026")
             End Select
         End If
-
-        Call PerformDesignCautionScan()
-
-        For i = 0 To ModuleCodeList.Count - 1
-            frmMain.ThisUnitCodes.Add(ModuleCodeList.Item(i))
-        Next i
-
-        Me.Hide()
     End Sub
+
     Private Sub WriteSFanHistory()
         'Updated to version 2.0 29 April 2020
         Dim con As ADODB.Connection
@@ -1144,18 +1223,46 @@ Public Class frmNewFan
             frmMain.ThisUnitCoolPerf.Elevation = Format(Val(txtElevation.Text), "0")
             frmMain.ThisUnitSFanPerf.BrakeHP = Format(Val(txtFanbhp.Text), "0.0")
             frmMain.ThisUnitSFanPerf.MaxRPM = Format(Val(txtMaxFanSpeed.Text), "0")
+
+            motorhp = "1"
             If optReuseMotor.Checked Then
                 motorhp = cmbExistingMotor.Text
-            Else
+            End If
+
+            If optMotorTypeODP.Checked Or optMotorTypeTEFC.Checked Then
                 motorhp = cmbNewMotorHP.Text
             End If
+
+            If optMotorTypeIP54.Checked Then
+                motorhp = txtIECMotorkW.Text
+                frmMain.ThisUnitSFanPerf.MhpUnits = "kW"
+                frmMain.ThisUnitSFanPerf.BhpUnits = "kW"
+                frmMain.ThisUnitSFanPerf.MFLA = txtIECMotorFLA.Text
+                If frmMain.UseCustomMCA = False Then
+                    frmMain.UseCustomMCA = True
+                    Call frmMain.PreLoadElec()
+                End If
+
+                ElecChar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
+                MotorFLA = Format(txtIECMotorFLA.Text, "0.0")
+                If optDPPCommercial.Checked Then
+                    NewRow = {True, False, "All", True, "EC Motor Supply Fan", ElecChar, cmbNewMotorHP.Text, MotorFLA, False, "IEC Motor"}
+                Else
+                    NewRow = {True, False, "All", False, "EC Motor Supply Fan", ElecChar, cmbNewMotorHP.Text, MotorFLA, True, "IEC Motor"}
+                End If
+                frmMain.dgvElecLoads.Rows.Add(NewRow)
+            End If
+
             frmMain.ThisUnitSFanPerf.MotorHP = motorhp
             frmMain.ThisUnitSFanPerf.kWPower = Format(Val(txtFanbhp.Text) * 0.94, "0.0")
+
+
             If optBeltDrive.Checked Then
                 frmMain.ThisUnitSFanPerf.DriveType = "Belt"
             Else
                 frmMain.ThisUnitSFanPerf.DriveType = "Direct"
             End If
+
             frmMain.ThisUnitSFanPerf.InletPWL(0) = txtInPWL63.Text
             frmMain.ThisUnitSFanPerf.InletPWL(1) = txtInPWL125.Text
             frmMain.ThisUnitSFanPerf.InletPWL(2) = txtInPWL250.Text
@@ -1195,6 +1302,7 @@ Public Class frmNewFan
             End If
 
         End If
+
         If cmbFanType.Text = "Return Fan" Then
 
             frmMain.ThisUnitRXPerf.FanStyle = "Return"
@@ -1337,8 +1445,13 @@ Public Class frmNewFan
             End If
         End If
 
+        If cmbNewMotorHP.Text = "Unselected" Then
+            dummy = MsgBox("You must select a new motor/drive horsepower.")
+            Exit Sub
+        End If
+
         btnDonePerf.Enabled = False
-        btnOK.Enabled = True
+        If Not (pResearchMode) Then btnOK.Enabled = True
     End Sub
 
     Private Sub optCVSystem_CheckedChanged(sender As Object, e As EventArgs) Handles optCVSystem.CheckedChanged
@@ -1364,12 +1477,10 @@ Public Class frmNewFan
             optTEFC.Enabled = True
             optODP.Enabled = True
             cmbNewMotorHP.Enabled = True
-            cmbNewMotorHP.Text = "5"
+            cmbNewMotorHP.Text = "Unselected"
         Else
             optTEFC.Enabled = False
             optODP.Enabled = False
-            cmbNewMotorHP.Enabled = False
-            cmbNewMotorHP.Text = "n/a"
         End If
     End Sub
 
@@ -1562,6 +1673,47 @@ Public Class frmNewFan
         frmMain.ThisUnitRXPerf.DuctLoc = "Bottom"
         chkReliefHoodsShipLoose.Checked = True
         cmdS20BottomReturn.Enabled = False
+        btnReturn.Enabled = True
+    End Sub
+
+    Private Sub cmdChoiceBottomSupply_Click(sender As Object, e As EventArgs) Handles cmdChoiceBottomSupply.Click
+        Dim BaseUnit As Double
+        Dim GasHeatMod As Double
+        Dim FilterMod As Double
+        Dim EconMod As Double
+        Dim reheatmod As Double
+        Dim FactoryOptions As Double
+
+        Dim econyesno, reheatyesno As Boolean
+
+        Dim airflow As Double
+
+        Dim NewRow As String()
+
+        airflow = Val(txtAirflow.Text)
+        'first the Base Unit
+        BaseUnit = UnitStaticPressureChoice(airflow, True)
+
+        'now the heatAdjustment
+        GasHeatMod = HeatAdjustmentChoice(airflow, cmbHeatBox.Text)
+
+        'now the FilterAdjustment
+        'Nothing on a series 20 !!!
+
+        'finally the EconMod
+        econyesno = chkEconPresent.Checked
+        EconMod = EconAdjustmentChoice(airflow, econyesno)
+
+        reheatyesno = chkReheatCoil.Checked
+        reheatmod = ReheatAdjustmentChoice(airflow, reheatyesno)
+
+        FactoryOptions = GasHeatMod + FilterMod + EconMod + reheatmod
+
+        NewRow = {"Base Unit Static Pressure", Format(BaseUnit, "0.00"), Format(BaseUnit / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        cmdChoiceBottomSupply.Enabled = False
         btnReturn.Enabled = True
     End Sub
 
@@ -2146,6 +2298,74 @@ Public Class frmNewFan
         cmdS20SideSupply.Enabled = False
         btnReturn.Enabled = True
     End Sub
+    Private Function ReheatAdjustmentChoice(localAirflow As Double, EconPresent As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        If EconPresent Then
+            Select Case Snippet
+                Case Is = "AD15"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD18"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD20"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD25"
+                    temp = 0.000000000527988161 * localAirflow * localAirflow + 0.000002891529555149 * localAirflow
+                Case Is = "AD28"
+                    temp = 0.000000000527988161 * localAirflow * localAirflow + 0.000002891529555149 * localAirflow
+                Case Else
+                    dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-reheat Adjustment. Snippet: " & Snippet)
+                    Stop
+
+            End Select
+        Else
+            temp = 0
+        End If
+
+        Return temp
+    End Function
+    Private Function EconAdjustmentChoice(localAirflow As Double, EconPresent As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        If EconPresent Then
+            Select Case Snippet
+                Case Is = "AD15"
+                    dummy = MsgBox("That size and configuration of econ performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD18"
+                    dummy = MsgBox("That size and configuration of econ performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD20"
+                    dummy = MsgBox("That size and configuration of econ performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD25"
+                    temp = 0.000000002278228 * localAirflow * localAirflow - 0.000002849307913 * localAirflow
+                Case Is = "AD28"
+                    temp = 0.000000002278228 * localAirflow * localAirflow - 0.000002849307913 * localAirflow
+                Case Else
+                    dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-econ Adjustment. Snippet: " & Snippet)
+                    Stop
+
+            End Select
+        Else
+            temp = 0
+        End If
+
+        Return temp
+    End Function
     Private Function EconAdjustmentS20(localAirflow As Double, EconPresent As Boolean)
         Dim temp As Double
         Dim Snippet As String
@@ -2193,7 +2413,59 @@ Public Class frmNewFan
 
         Return temp
     End Function
+    Private Function UnitStaticPressureChoice(localAirflow As Double, BottomD As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim Dummy As MsgBoxResult
 
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        If BottomD Then
+            Select Case Snippet
+                Case Is = "AD15"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD18"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD20"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD25"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD28"
+                    temp = 0.0000000026707484 * localAirflow * localAirflow + 0.000144459630343065 * localAirflow
+                Case Else
+                    Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
+                    Stop
+            End Select
+        Else
+            Select Case Snippet
+                Case Is = "AD15"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD18"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD20"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD25"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "AD28"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Else
+                    Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
+                    Stop
+            End Select
+        End If
+
+        Return temp
+    End Function
     Private Function UnitStaticPressureS20(localAirflow As Double, BottomD As Boolean)
         Dim temp As Double
         Dim Snippet As String
@@ -2262,6 +2534,103 @@ Public Class frmNewFan
 
         Return temp
     End Function
+
+    Private Function HeatAdjustmentChoice(localAirflow As Double, HeatCode As String)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        Select Case HeatCode
+            Case Is = "Gas"
+                temp = 0
+            Case Is = "CoolOnly"
+                Select Case Snippet
+                    Case Is = "AD15"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD18"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD20"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD25"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD28"
+                        temp = 0.000000003797771 * localAirflow * localAirflow + 0.000008489596936 * localAirflow
+                        temp = temp * -1
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-Gas Heat Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+            Case Is = "25kW"
+                Select Case Snippet
+                    Case Is = "AD15"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD18"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD20"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD25"
+                        temp = 0.000000003378167 * localAirflow * localAirflow + 0.000009183424741 * localAirflow
+                    Case Is = "AD28"
+                        temp = 0.000000003378167 * localAirflow * localAirflow + 0.000009183424741 * localAirflow
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+
+            Case Is = "50kW"
+                Select Case Snippet
+                    Case Is = "AD15"
+                        dummy = MsgBox("That size and configuration of 50kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD18"
+                        dummy = MsgBox("That size and configuration of 50kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD20"
+                        dummy = MsgBox("That size and configuration of 50kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD25"
+                        temp = 0.000000003237572909 * localAirflow * localAirflow + 0.000008239749281796 * localAirflow
+                    Case Is = "AD28"
+                        temp = 0.000000003237572909 * localAirflow * localAirflow + 0.000008239749281796 * localAirflow
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-50kw elec Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+
+            Case Is = "75kW"
+                Select Case Snippet
+                    Case Is = "AD15"
+                        dummy = MsgBox("That size and configuration of 75 kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD18"
+                        dummy = MsgBox("That size and configuration of 75 kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD20"
+                        dummy = MsgBox("That size and configuration of 75 kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "AD25"
+                        temp = 0.00000000299708366 * localAirflow * localAirflow + 0.000008624314442413 * localAirflow
+                    Case Is = "AD28"
+                        temp = 0.00000000299708366 * localAirflow * localAirflow + 0.000008624314442413 * localAirflow
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-75 kw elec Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+
+        End Select
+        Return temp
+    End Function
+
     Private Function HeatAdjustmentS20(localAirflow As Double, HeatCode As String)
         Dim temp As Double
         Dim Snippet As String
@@ -2576,6 +2945,8 @@ Public Class frmNewFan
                 frmMain.ThisUnitCodes.Add("320A0A")
             Case Is = "ComefriATLI9-7_R"
                 frmMain.ThisUnitCodes.Add("320B01")
+            Case Is = "ComefriATLI15-11_T2"
+                frmMain.ThisUnitCodes.Add("320B02")
             Case Else
                 dummy = MsgBox("Fan not defined for BOM.  Please Add and Rerun.")
                 Stop
@@ -3215,5 +3586,134 @@ Public Class frmNewFan
         dgvStaticSummary.Rows.Add(NewRow)
 
         btnReturn.Enabled = True
+    End Sub
+
+    Private Sub optNewVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optNewVFD.CheckedChanged
+        If optNewVFD.Checked Then
+            cmbNewMotorHP.Text = "Unselected"
+        End If
+    End Sub
+
+    Private Sub optReplaceVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optReplaceVFD.CheckedChanged
+        If optReplaceVFD.Checked Then
+            cmbNewMotorHP.Text = "Unselected"
+        End If
+    End Sub
+
+    Private Sub optNewMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optNewMotor.CheckedChanged
+        If optNewMotor.Checked Then
+            grpNewMotorType.Enabled = True
+            optMotorTypeODP.Checked = True
+            optMotorTypena.Enabled = False
+            cmbNewMotorHP.Text = "Unselected"
+
+        End If
+
+
+
+    End Sub
+
+    Private Sub cmdRefreshFanList_Click(sender As Object, e As EventArgs) Handles cmdRefreshFanList.Click
+        Call LoadTheFanList()
+    End Sub
+
+    Private Sub optNoAux_CheckedChanged_1(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
+        Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub optUseAux_CheckedChanged_1(sender As Object, e As EventArgs) Handles optUseAux.CheckedChanged
+        Call PopulateAuxPanelList()
+    End Sub
+
+    Private Sub cmdLXBottomSupply_Click(sender As Object, e As EventArgs) Handles cmdLXBottomSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+    Private Sub cmdLXRearSupply_Click(sender As Object, e As EventArgs) Handles cmdLXRearSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+
+
+    Private Sub cmdChoiceRearSupply_Click(sender As Object, e As EventArgs) Handles cmdChoiceRearSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+    Private Sub cmdSelectBottomSupply_Click(sender As Object, e As EventArgs) Handles cmdSelectBottomSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+    Private Sub cmdSelectRearSupply_Click(sender As Object, e As EventArgs) Handles cmdSelectRearSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+    Private Sub cmdPremierBottomSupply_Click(sender As Object, e As EventArgs) Handles cmdPremierBottomSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+    Private Sub cmdPremierRearSupply_Click(sender As Object, e As EventArgs) Handles cmdPremierRearSupply.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+    End Sub
+
+    Private Sub optMotorTypeODP_CheckedChanged(sender As Object, e As EventArgs) Handles optMotorTypeODP.CheckedChanged
+        If optMotorTypeODP.Checked Then
+            lblHPNote1.Visible = True
+            lblIECNote1.Visible = False
+            lblIECNote2.Visible = False
+            lblNEMAMotorhp.Visible = True
+            lblIECMotorkW.Visible = False
+            lblIECMotorFLA.Visible = False
+            cmbNewMotorHP.Visible = True
+            cmbNewMotorHP.Text = "Unselected"
+            txtIECMotorkW.Visible = False
+            txtIECMotorFLA.Visible = False
+            txtIECMotorFLA.Text = ""
+            txtIECMotorkW.Text = ""
+        End If
+    End Sub
+
+    Private Sub optMotorTypeTEFC_CheckedChanged(sender As Object, e As EventArgs) Handles optMotorTypeTEFC.CheckedChanged
+        If optMotorTypeTEFC.Checked Then
+            lblHPNote1.Visible = True
+            lblIECNote1.Visible = False
+            lblIECNote2.Visible = False
+            lblNEMAMotorhp.Visible = True
+            lblIECMotorkW.Visible = False
+            lblIECMotorFLA.Visible = False
+            cmbNewMotorHP.Visible = True
+            cmbNewMotorHP.Text = "Unselected"
+            txtIECMotorkW.Visible = False
+            txtIECMotorFLA.Visible = False
+            txtIECMotorFLA.Text = ""
+            txtIECMotorkW.Text = ""
+        End If
+    End Sub
+
+    Private Sub optMotorTypeIP54_CheckedChanged(sender As Object, e As EventArgs) Handles optMotorTypeIP54.CheckedChanged
+        If optMotorTypeIP54.Checked Then
+            lblHPNote1.Visible = False
+            lblIECNote1.Visible = True
+            lblIECNote2.Visible = True
+            lblNEMAMotorhp.Visible = False
+            lblIECMotorkW.Visible = True
+            lblIECMotorFLA.Visible = True
+            cmbNewMotorHP.Visible = False
+            cmbNewMotorHP.Text = "IEC"
+            txtIECMotorkW.Visible = True
+            txtIECMotorFLA.Visible = True
+            txtIECMotorFLA.Text = ""
+            txtIECMotorkW.Text = ""
+        End If
+    End Sub
+
+    Private Sub frmNewFan_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+        If pResearchMode Then Me.Text = Me.Text & "***Research Mode***" Else Me.Text = "Add or Replace a " & pFanStyle
     End Sub
 End Class

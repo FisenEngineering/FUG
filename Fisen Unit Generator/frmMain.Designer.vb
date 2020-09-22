@@ -23,10 +23,10 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmdReloadOldFile = New System.Windows.Forms.Button()
@@ -58,6 +58,7 @@ Partial Class frmMain
         Me.optAHUXTI = New System.Windows.Forms.RadioButton()
         Me.optAHUXTO = New System.Windows.Forms.RadioButton()
         Me.fraRTU = New System.Windows.Forms.GroupBox()
+        Me.optRTUSeriesLX = New System.Windows.Forms.RadioButton()
         Me.optRTUSelect = New System.Windows.Forms.RadioButton()
         Me.optRTUPremier = New System.Windows.Forms.RadioButton()
         Me.optRTUChoice = New System.Windows.Forms.RadioButton()
@@ -825,6 +826,8 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
+        Me.cmdResearchMode = New System.Windows.Forms.Button()
+        Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -936,6 +939,8 @@ Partial Class frmMain
         '
         'pgBaseUnit
         '
+        Me.pgBaseUnit.Controls.Add(Me.cmbResearchTarget)
+        Me.pgBaseUnit.Controls.Add(Me.cmdResearchMode)
         Me.pgBaseUnit.Controls.Add(Me.cmdReloadOldFile)
         Me.pgBaseUnit.Controls.Add(Me.cmdViewHistory)
         Me.pgBaseUnit.Controls.Add(Me.btnDoneBU)
@@ -1308,6 +1313,7 @@ Partial Class frmMain
         '
         'fraRTU
         '
+        Me.fraRTU.Controls.Add(Me.optRTUSeriesLX)
         Me.fraRTU.Controls.Add(Me.optRTUSelect)
         Me.fraRTU.Controls.Add(Me.optRTUPremier)
         Me.fraRTU.Controls.Add(Me.optRTUChoice)
@@ -1324,10 +1330,21 @@ Partial Class frmMain
         Me.fraRTU.Margin = New System.Windows.Forms.Padding(4)
         Me.fraRTU.Name = "fraRTU"
         Me.fraRTU.Padding = New System.Windows.Forms.Padding(4)
-        Me.fraRTU.Size = New System.Drawing.Size(143, 318)
+        Me.fraRTU.Size = New System.Drawing.Size(143, 354)
         Me.fraRTU.TabIndex = 0
         Me.fraRTU.TabStop = False
         Me.fraRTU.Text = "Rooftop Unit"
+        '
+        'optRTUSeriesLX
+        '
+        Me.optRTUSeriesLX.AutoSize = True
+        Me.optRTUSeriesLX.Location = New System.Drawing.Point(8, 317)
+        Me.optRTUSeriesLX.Margin = New System.Windows.Forms.Padding(4)
+        Me.optRTUSeriesLX.Name = "optRTUSeriesLX"
+        Me.optRTUSeriesLX.Size = New System.Drawing.Size(70, 17)
+        Me.optRTUSeriesLX.TabIndex = 14
+        Me.optRTUSeriesLX.Text = "LX Series"
+        Me.optRTUSeriesLX.UseVisualStyleBackColor = True
         '
         'optRTUSelect
         '
@@ -7326,8 +7343,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7378,8 +7395,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.Name = "ElecLoadHP"
         Me.ElecLoadHP.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
@@ -7388,8 +7405,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
         Me.ElecLoadFLA.Width = 50
@@ -10122,6 +10139,27 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
+        'cmdResearchMode
+        '
+        Me.cmdResearchMode.Image = CType(resources.GetObject("cmdResearchMode.Image"), System.Drawing.Image)
+        Me.cmdResearchMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdResearchMode.Location = New System.Drawing.Point(625, 144)
+        Me.cmdResearchMode.Name = "cmdResearchMode"
+        Me.cmdResearchMode.Size = New System.Drawing.Size(109, 29)
+        Me.cmdResearchMode.TabIndex = 13
+        Me.cmdResearchMode.Text = "Research Mode"
+        Me.cmdResearchMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdResearchMode.UseVisualStyleBackColor = True
+        '
+        'cmbResearchTarget
+        '
+        Me.cmbResearchTarget.FormattingEnabled = True
+        Me.cmbResearchTarget.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
+        Me.cmbResearchTarget.Location = New System.Drawing.Point(740, 150)
+        Me.cmbResearchTarget.Name = "cmbResearchTarget"
+        Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 21)
+        Me.cmbResearchTarget.TabIndex = 21
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -11117,4 +11155,7 @@ Partial Class frmMain
     Friend WithEvents cmdSoOLoadMods As Button
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents cmdModsLoadMods As Button
+    Friend WithEvents optRTUSeriesLX As RadioButton
+    Friend WithEvents cmbResearchTarget As ComboBox
+    Friend WithEvents cmdResearchMode As Button
 End Class

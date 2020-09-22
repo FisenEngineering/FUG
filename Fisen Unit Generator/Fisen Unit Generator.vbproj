@@ -250,6 +250,12 @@
     <Compile Include="frmDSUnitBase.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmERVIntegration.Designer.vb">
+      <DependentUpon>frmERVIntegration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmERVIntegration.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmERW.Designer.vb">
       <DependentUpon>frmERW.vb</DependentUpon>
     </Compile>
@@ -511,6 +517,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDSUnitBase.resx">
       <DependentUpon>frmDSUnitBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmERVIntegration.resx">
+      <DependentUpon>frmERVIntegration.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmERW.resx">
       <DependentUpon>frmERW.vb</DependentUpon>
