@@ -360,7 +360,10 @@ Public Class frmHWCoil
                 If optCoil1Row.Checked = True Then tempWeight = "175"
                 If optCoil2Row.Checked = True Then tempWeight = "195"
                 If optCoilCustom.Checked = True Then tempWeight = "195"
-
+            Case Is = "Select"
+                If optCoil1Row.Checked = True Then tempWeight = "170"
+                If optCoil2Row.Checked = True Then tempWeight = "215"
+                If optCoilCustom.Checked = True Then tempWeight = "215"
             Case Else
                 tempWeight = "9999"
                 Dummy = MsgBox("Error in Weight Selection for HWCoil Module.", vbOKOnly)

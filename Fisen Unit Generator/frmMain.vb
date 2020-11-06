@@ -139,6 +139,14 @@ Public Class frmMain
         fraMisc.Enabled = False
         If optChiller.Checked Then optChillerYVAA.Checked = True
     End Sub
+
+    Private Sub optBlankFamily_CheckedChanged(sender As Object, e As EventArgs) Handles optBlankFamily.CheckedChanged
+        fraRTU.Enabled = False
+        fraAHU.Enabled = False
+        fraChiller.Enabled = False
+        fraMisc.Enabled = False
+    End Sub
+
     Private Function SetUnitFamily() As String
         Dim TempFamily
 
@@ -173,6 +181,8 @@ Public Class frmMain
         If optYCULSplit.Checked Then TempFamily = "YCUL"
         If optDOAS.Checked Then TempFamily = "DOAS"
 
+        If optBlankFamily.Checked Then TempFamily = "Blank"
+
         Return TempFamily
     End Function
     Private Function SetUnitCabinet() As String
@@ -198,6 +208,7 @@ Public Class frmMain
         If optAHU.Checked Then TempKing = "AHU"
         If optChiller.Checked Then TempKing = "Chiller"
         If optMisc.Checked Then TempKing = "Misc"
+        If optBlankFamily.Checked Then TempKing = "Blank"
 
         Return TempKing
     End Function
@@ -576,6 +587,20 @@ Public Class frmMain
     Private Sub btnClearItem_Click(sender As Object, e As EventArgs) Handles btnClearItem.Click
         Call loadPermittedMods()
     End Sub
+
+    Private Function MZBaseRequired() As Boolean
+        Dim i As Integer
+        Dim TempRQ As Boolean
+        TempRQ = False
+        For i = 0 To lstSelectedMods.Items.Count - 1
+            If lstSelectedMods.Items(i) = "Multizone - Adapter Curb" Then
+                TempRQ = True
+                lstSelectedMods.Items.RemoveAt(i)
+                Exit For
+            End If
+        Next
+        MZBaseRequired = TempRQ
+    End Function
     Private Sub btnDoneModSel_Click(sender As Object, e As EventArgs) Handles btnDoneModSel.Click
         Dim i As Integer
         Dim dummy As MsgBoxResult
@@ -974,6 +999,50 @@ Public Class frmMain
                         frmMHGRH_Conv.Dispose()
                     End If
 
+                Case Is = "Multizone - Packaged VAV"
+                    frmMZ.MZStyle = "MZ-VAV"
+                    frmMZ.MZCurbPresent = MZBaseRequired()
+                    frmMZ.ShowDialog()
+                    If frmMZ.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMZ.Dispose()
+                    End If
+
+                Case Is = "Multizone - Dual Deck"
+                    frmMZ.MZStyle = "MZ-DD"
+                    frmMZ.MZCurbPresent = MZBaseRequired()
+                    frmMZ.ShowDialog()
+                    If frmMZ.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMZ.Dispose()
+                    End If
+
+                Case Is = "Multizone - Triple Deck"
+                    frmMZ.MZStyle = "MZ-TD"
+                    frmMZ.MZCurbPresent = MZBaseRequired()
+                    frmMZ.ShowDialog()
+                    If frmMZ.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMZ.Dispose()
+                    End If
+
+                Case Is = "Multizone - Changeover Bypass"
+                    frmMZ.MZStyle = "MZ-COBP"
+                    frmMZ.MZCurbPresent = MZBaseRequired()
+                    frmMZ.ShowDialog()
+                    If frmMZ.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmMZ.Dispose()
+                    End If
+
                 Case Is = "Outdoor Airflow Monitoring Station"
                     frmOAFMS.ShowDialog()
                     If frmOAFMS.Cancelled = True Then
@@ -1013,6 +1082,16 @@ Public Class frmMain
                         frmNewFan.Dispose()
                     End If
 
+                Case Is = "Return Fan Wall"
+                    frmFanWall.FanWallStyle = "Return Fan Wall"
+                    frmFanWall.ShowDialog()
+                    If frmFanWall.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmFanWall.Dispose()
+                    End If
+
                 Case Is = "Short Circuit Current Rating"
                     frmSCCR.ShowDialog()
                     If frmSCCR.Cancelled = True Then
@@ -1039,6 +1118,16 @@ Public Class frmMain
                         End
                     Else
                         frmNewFan.Dispose()
+                    End If
+
+                Case Is = "Supply Fan Wall"
+                    frmFanWall.FanWallStyle = "Supply Fan Wall"
+                    frmFanWall.ShowDialog()
+                    If frmFanWall.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmFanWall.Dispose()
                     End If
 
                 Case Is = "Ultraviolet Lights"
@@ -7080,6 +7169,10 @@ Public Class frmMain
             Case Is = "2"
                 optTwoNodeComms.Checked = True
         End Select
+
+        If HasHMI() Then optHMIShipLoose.Checked = True
+        If HasUMHMI() Then optHMIInstalled.Checked = True
+
         tabMain.SelectTab("pgConnections")
     End Sub
 
@@ -7212,9 +7305,10 @@ Public Class frmMain
                         Case = "ZK"
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZR" & Mid(txtBrandModelNumber.Text, 6)
                         Case = "ZV"
-                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
-                        Case = "ZS"
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZT" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZS"
+                            txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZF" & Mid(txtBrandModelNumber.Text, 6)
+
                     End Select
                 End If
 
@@ -8931,6 +9025,8 @@ Public Class frmMain
                     myindex = lstAvailableMods.FindString("Acoustic Package")
                 Case Is = "AFlowMod"
                     myindex = lstAvailableMods.FindString("Airflow Path Reconfiguration")
+                Case Is = "BiPolar"
+                    myindex = lstAvailableMods.FindString("Bipolar Ionization Array")
                 Case Is = "CFan"
                     myindex = lstAvailableMods.FindString("Condenser Fan")
                 Case Is = "CHWCoil"
@@ -9011,6 +9107,16 @@ Public Class frmMain
                     Else
                         myindex = lstAvailableMods.FindString("Modulating Hot Gas Reheat Conversion")
                     End If
+                Case Is = "MZ-VAV"
+                    myindex = lstAvailableMods.FindString("Multizone - Packaged VAV")
+                Case Is = "MZ-DD"
+                    myindex = lstAvailableMods.FindString("Multizone - Dual Deck")
+                Case Is = "MZ-TD"
+                    myindex = lstAvailableMods.FindString("Multizone - Triple Deck")
+                Case Is = "MZ-COBP"
+                    myindex = lstAvailableMods.FindString("Multizone - Changeover Bypass")
+                Case Is = "MZ-Curb"
+                    myindex = lstAvailableMods.FindString("Multizone - Adapter Curb")
                 Case Is = "OAFMS"
                     myindex = lstAvailableMods.FindString("Outdoor Airflow Monitoring Station")
                 Case Is = "PipePkg"
@@ -9403,4 +9509,44 @@ Public Class frmMain
                 frmNewFan.ResearchMode = False
         End Select
     End Sub
+
+    Private Sub optHMINone_CheckedChanged(sender As Object, e As EventArgs) Handles optHMINone.CheckedChanged
+        Dim i As Integer
+        If optHMINone.Checked Then
+            For i = 0 To ThisUnitGenCodes.Count - 1
+                If ((ThisUnitGenCodes.Item(i) = "960001") Or (ThisUnitGenCodes.Item(i) = "960002")) Then
+                    ThisUnitGenCodes.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub optHMIShipLoose_CheckedChanged(sender As Object, e As EventArgs) Handles optHMIShipLoose.CheckedChanged
+        Dim i As Integer
+        If optHMINone.Checked Then
+            For i = 0 To ThisUnitGenCodes.Count - 1
+                If ((ThisUnitGenCodes.Item(i) = "960001") Or (ThisUnitGenCodes.Item(i) = "960002")) Then
+                    ThisUnitGenCodes.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+        End If
+        ThisUnitGenCodes.Add("960001")
+    End Sub
+
+    Private Sub optHMIInstalled_CheckedChanged(sender As Object, e As EventArgs) Handles optHMIInstalled.CheckedChanged
+        Dim i As Integer
+        If optHMINone.Checked Then
+            For i = 0 To ThisUnitGenCodes.Count - 1
+                If ((ThisUnitGenCodes.Item(i) = "960001") Or (ThisUnitGenCodes.Item(i) = "960002")) Then
+                    ThisUnitGenCodes.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+        End If
+        ThisUnitGenCodes.Add("960002")
+    End Sub
+
+
 End Class

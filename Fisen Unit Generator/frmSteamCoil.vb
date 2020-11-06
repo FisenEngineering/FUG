@@ -347,6 +347,9 @@ Public Class frmSteamCoil
 
         End Select
 
+        'Set the lengthy tool tips!
+        ToolTip1.SetToolTip(sciConnections, "Recommended Velocity: 99-131fps")
+
     End Sub
 
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click

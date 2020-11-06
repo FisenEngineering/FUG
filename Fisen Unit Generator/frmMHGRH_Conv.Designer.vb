@@ -78,6 +78,8 @@ Partial Class frmMHGRH_Conv
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -652,12 +654,34 @@ Partial Class frmMHGRH_Conv
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'cmdScience
+        '
+        Me.cmdScience.Enabled = False
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(522, 240)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 73
+        Me.cmdScience.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Enabled = False
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(558, 240)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 72
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
+        '
         'frmMHGRH_Conv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(672, 281)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
@@ -743,4 +767,6 @@ Partial Class frmMHGRH_Conv
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
 End Class

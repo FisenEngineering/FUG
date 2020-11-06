@@ -410,6 +410,8 @@ Public Class frmMHGRH_Conv
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As String
+        Dim BlankInput As String
+
         'next line is the mod code i.e. HWCoil...
         frmMain.ThisUnitPhysicalData.ModLoadMod.Add("MHGRH_Conv")
         'Next Line is the line item description i.e. Hot Water Description
@@ -432,6 +434,12 @@ Public Class frmMHGRH_Conv
                 tempWeight = "175"
             Case Is = "Choice"
                 tempWeight = "115"
+            Case Is = "SeriesLX"
+                tempWeight = "115"
+            Case Is = "Blank"
+                BlankInput = InputBox("What weight for the HGRH conversion?", "HGRHConv:UpdateWeightTable", "175")
+                tempWeight = BlankInput
+
             Case Else
                 tempWeight = "9999"
         End Select
@@ -488,6 +496,10 @@ Public Class frmMHGRH_Conv
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Choice"
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "SeriesLX"
+
+            Case Is = "Blank"
+
         End Select
 
         lstControlStyle.SelectedIndex = 0

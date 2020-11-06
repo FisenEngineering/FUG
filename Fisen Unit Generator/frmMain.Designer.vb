@@ -23,12 +23,14 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
+        Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
+        Me.cmdResearchMode = New System.Windows.Forms.Button()
         Me.cmdReloadOldFile = New System.Windows.Forms.Button()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.btnDoneBU = New System.Windows.Forms.Button()
@@ -43,6 +45,7 @@ Partial Class frmMain
         Me.optS20ODSplit = New System.Windows.Forms.RadioButton()
         Me.RadioButton5 = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.optBlankFamily = New System.Windows.Forms.RadioButton()
         Me.optMisc = New System.Windows.Forms.RadioButton()
         Me.optChiller = New System.Windows.Forms.RadioButton()
         Me.optAHU = New System.Windows.Forms.RadioButton()
@@ -389,6 +392,10 @@ Partial Class frmMain
         Me.txtBaseWtC = New System.Windows.Forms.TextBox()
         Me.btnDoneWeights = New System.Windows.Forms.Button()
         Me.pgConnections = New System.Windows.Forms.TabPage()
+        Me.GroupBox14 = New System.Windows.Forms.GroupBox()
+        Me.optHMIInstalled = New System.Windows.Forms.RadioButton()
+        Me.optHMIShipLoose = New System.Windows.Forms.RadioButton()
+        Me.optHMINone = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.optTwoNodeComms = New System.Windows.Forms.RadioButton()
         Me.optOneNodeComms = New System.Windows.Forms.RadioButton()
@@ -826,8 +833,6 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
-        Me.cmdResearchMode = New System.Windows.Forms.Button()
-        Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -863,6 +868,7 @@ Partial Class frmMain
         CType(Me.dgvEndDevices, System.ComponentModel.ISupportInitialize).BeginInit
         Me.pgWeights.SuspendLayout
         Me.pgConnections.SuspendLayout
+        Me.GroupBox14.SuspendLayout
         Me.GroupBox5.SuspendLayout
         Me.pgShipping.SuspendLayout
         Me.GroupBox11.SuspendLayout
@@ -957,6 +963,27 @@ Partial Class frmMain
         Me.pgBaseUnit.TabIndex = 0
         Me.pgBaseUnit.Text = "Base Unit"
         Me.pgBaseUnit.UseVisualStyleBackColor = True
+        '
+        'cmbResearchTarget
+        '
+        Me.cmbResearchTarget.FormattingEnabled = True
+        Me.cmbResearchTarget.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
+        Me.cmbResearchTarget.Location = New System.Drawing.Point(740, 150)
+        Me.cmbResearchTarget.Name = "cmbResearchTarget"
+        Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 21)
+        Me.cmbResearchTarget.TabIndex = 21
+        '
+        'cmdResearchMode
+        '
+        Me.cmdResearchMode.Image = CType(resources.GetObject("cmdResearchMode.Image"), System.Drawing.Image)
+        Me.cmdResearchMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdResearchMode.Location = New System.Drawing.Point(625, 144)
+        Me.cmdResearchMode.Name = "cmdResearchMode"
+        Me.cmdResearchMode.Size = New System.Drawing.Size(109, 29)
+        Me.cmdResearchMode.TabIndex = 13
+        Me.cmdResearchMode.Text = "Research Mode"
+        Me.cmdResearchMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdResearchMode.UseVisualStyleBackColor = True
         '
         'cmdReloadOldFile
         '
@@ -1125,6 +1152,7 @@ Partial Class frmMain
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.optBlankFamily)
         Me.GroupBox4.Controls.Add(Me.optMisc)
         Me.GroupBox4.Controls.Add(Me.optChiller)
         Me.GroupBox4.Controls.Add(Me.optAHU)
@@ -1133,10 +1161,21 @@ Partial Class frmMain
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox4.Size = New System.Drawing.Size(610, 58)
+        Me.GroupBox4.Size = New System.Drawing.Size(770, 58)
         Me.GroupBox4.TabIndex = 2
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Unit Type"
+        '
+        'optBlankFamily
+        '
+        Me.optBlankFamily.AutoSize = True
+        Me.optBlankFamily.Location = New System.Drawing.Point(617, 23)
+        Me.optBlankFamily.Margin = New System.Windows.Forms.Padding(4)
+        Me.optBlankFamily.Name = "optBlankFamily"
+        Me.optBlankFamily.Size = New System.Drawing.Size(74, 17)
+        Me.optBlankFamily.TabIndex = 4
+        Me.optBlankFamily.Text = "Blank Unit"
+        Me.optBlankFamily.UseVisualStyleBackColor = True
         '
         'optMisc
         '
@@ -3917,7 +3956,7 @@ Partial Class frmMain
         'lstReferTagstoApply
         '
         Me.lstReferTagstoApply.FormattingEnabled = True
-        Me.lstReferTagstoApply.Items.AddRange(New Object() {"1Ckt", "2Ckt", "3Ckt", "4Ckt", "nCkt", "Ckt1CC1", "Ckt1CC2", "Ckt1CC3", "Ckt2CC1", "Ckt2CC2", "Ckt2CC3", "Ckt3CC1", "Ckt3CC2", "Ckt3CC3", "Ckt4CC1", "Ckt4CC2", "Ckt4CC3", "MHGRH(R)1", "MHGRH(R)2", "MHGRH(R)3", "HGBP1", "HGBP2", "HGBP3", "HGBP4", "BaseHGBP1"})
+        Me.lstReferTagstoApply.Items.AddRange(New Object() {"1Ckt", "2Ckt", "3Ckt", "4Ckt", "nCkt", "Ckt1CC1", "Ckt1CC2", "Ckt1CC3", "Ckt2CC1", "Ckt2CC2", "Ckt2CC3", "Ckt3CC1", "Ckt3CC2", "Ckt3CC3", "Ckt4CC1", "Ckt4CC2", "Ckt4CC3", "MHGRH(R)1", "MHGRH(R)2", "MHGRH(R)3", "HGBP1", "HGBP2", "HGBP3", "HGBP4", "BaseHGBP1", "Rawal"})
         Me.lstReferTagstoApply.Location = New System.Drawing.Point(21, 309)
         Me.lstReferTagstoApply.Name = "lstReferTagstoApply"
         Me.lstReferTagstoApply.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
@@ -5021,6 +5060,7 @@ Partial Class frmMain
         '
         'pgConnections
         '
+        Me.pgConnections.Controls.Add(Me.GroupBox14)
         Me.pgConnections.Controls.Add(Me.GroupBox5)
         Me.pgConnections.Controls.Add(Me.btnDoneConns)
         Me.pgConnections.Location = New System.Drawing.Point(4, 22)
@@ -5031,6 +5071,55 @@ Partial Class frmMain
         Me.pgConnections.Text = "Connections"
         Me.pgConnections.UseVisualStyleBackColor = True
         '
+        'GroupBox14
+        '
+        Me.GroupBox14.Controls.Add(Me.optHMIInstalled)
+        Me.GroupBox14.Controls.Add(Me.optHMIShipLoose)
+        Me.GroupBox14.Controls.Add(Me.optHMINone)
+        Me.GroupBox14.Location = New System.Drawing.Point(25, 128)
+        Me.GroupBox14.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox14.Name = "GroupBox14"
+        Me.GroupBox14.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox14.Size = New System.Drawing.Size(173, 97)
+        Me.GroupBox14.TabIndex = 18
+        Me.GroupBox14.TabStop = False
+        Me.GroupBox14.Text = "HMI"
+        '
+        'optHMIInstalled
+        '
+        Me.optHMIInstalled.AutoSize = True
+        Me.optHMIInstalled.Location = New System.Drawing.Point(8, 71)
+        Me.optHMIInstalled.Margin = New System.Windows.Forms.Padding(4)
+        Me.optHMIInstalled.Name = "optHMIInstalled"
+        Me.optHMIInstalled.Size = New System.Drawing.Size(115, 17)
+        Me.optHMIInstalled.TabIndex = 2
+        Me.optHMIInstalled.Text = "HMI Fisen Installed"
+        Me.optHMIInstalled.UseVisualStyleBackColor = True
+        '
+        'optHMIShipLoose
+        '
+        Me.optHMIShipLoose.AutoSize = True
+        Me.optHMIShipLoose.Location = New System.Drawing.Point(8, 46)
+        Me.optHMIShipLoose.Margin = New System.Windows.Forms.Padding(4)
+        Me.optHMIShipLoose.Name = "optHMIShipLoose"
+        Me.optHMIShipLoose.Size = New System.Drawing.Size(78, 17)
+        Me.optHMIShipLoose.TabIndex = 1
+        Me.optHMIShipLoose.Text = "Ship Loose"
+        Me.optHMIShipLoose.UseVisualStyleBackColor = True
+        '
+        'optHMINone
+        '
+        Me.optHMINone.AutoSize = True
+        Me.optHMINone.Checked = True
+        Me.optHMINone.Location = New System.Drawing.Point(8, 21)
+        Me.optHMINone.Margin = New System.Windows.Forms.Padding(4)
+        Me.optHMINone.Name = "optHMINone"
+        Me.optHMINone.Size = New System.Drawing.Size(51, 17)
+        Me.optHMINone.TabIndex = 0
+        Me.optHMINone.TabStop = True
+        Me.optHMINone.Text = "None"
+        Me.optHMINone.UseVisualStyleBackColor = True
+        '
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.optTwoNodeComms)
@@ -5040,7 +5129,7 @@ Partial Class frmMain
         Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox5.Size = New System.Drawing.Size(216, 114)
+        Me.GroupBox5.Size = New System.Drawing.Size(173, 97)
         Me.GroupBox5.TabIndex = 17
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Communications Connections"
@@ -5049,7 +5138,7 @@ Partial Class frmMain
         '
         Me.optTwoNodeComms.AutoSize = True
         Me.optTwoNodeComms.Checked = True
-        Me.optTwoNodeComms.Location = New System.Drawing.Point(8, 80)
+        Me.optTwoNodeComms.Location = New System.Drawing.Point(8, 71)
         Me.optTwoNodeComms.Margin = New System.Windows.Forms.Padding(4)
         Me.optTwoNodeComms.Name = "optTwoNodeComms"
         Me.optTwoNodeComms.Size = New System.Drawing.Size(75, 17)
@@ -5061,7 +5150,7 @@ Partial Class frmMain
         'optOneNodeComms
         '
         Me.optOneNodeComms.AutoSize = True
-        Me.optOneNodeComms.Location = New System.Drawing.Point(8, 52)
+        Me.optOneNodeComms.Location = New System.Drawing.Point(8, 46)
         Me.optOneNodeComms.Margin = New System.Windows.Forms.Padding(4)
         Me.optOneNodeComms.Name = "optOneNodeComms"
         Me.optOneNodeComms.Size = New System.Drawing.Size(74, 17)
@@ -5072,7 +5161,7 @@ Partial Class frmMain
         'optNoComms
         '
         Me.optNoComms.AutoSize = True
-        Me.optNoComms.Location = New System.Drawing.Point(8, 23)
+        Me.optNoComms.Location = New System.Drawing.Point(8, 21)
         Me.optNoComms.Margin = New System.Windows.Forms.Padding(4)
         Me.optNoComms.Name = "optNoComms"
         Me.optNoComms.Size = New System.Drawing.Size(51, 17)
@@ -10139,27 +10228,6 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
-        'cmdResearchMode
-        '
-        Me.cmdResearchMode.Image = CType(resources.GetObject("cmdResearchMode.Image"), System.Drawing.Image)
-        Me.cmdResearchMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdResearchMode.Location = New System.Drawing.Point(625, 144)
-        Me.cmdResearchMode.Name = "cmdResearchMode"
-        Me.cmdResearchMode.Size = New System.Drawing.Size(109, 29)
-        Me.cmdResearchMode.TabIndex = 13
-        Me.cmdResearchMode.Text = "Research Mode"
-        Me.cmdResearchMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.cmdResearchMode.UseVisualStyleBackColor = True
-        '
-        'cmbResearchTarget
-        '
-        Me.cmbResearchTarget.FormattingEnabled = True
-        Me.cmbResearchTarget.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Steam Coil", "Supply Fan"})
-        Me.cmbResearchTarget.Location = New System.Drawing.Point(740, 150)
-        Me.cmbResearchTarget.Name = "cmbResearchTarget"
-        Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 21)
-        Me.cmbResearchTarget.TabIndex = 21
-        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -10245,6 +10313,8 @@ Partial Class frmMain
         Me.pgWeights.ResumeLayout(False)
         Me.pgWeights.PerformLayout
         Me.pgConnections.ResumeLayout(False)
+        Me.GroupBox14.ResumeLayout(False)
+        Me.GroupBox14.PerformLayout
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout
         Me.pgShipping.ResumeLayout(False)
@@ -11158,4 +11228,9 @@ Partial Class frmMain
     Friend WithEvents optRTUSeriesLX As RadioButton
     Friend WithEvents cmbResearchTarget As ComboBox
     Friend WithEvents cmdResearchMode As Button
+    Friend WithEvents optBlankFamily As RadioButton
+    Friend WithEvents GroupBox14 As GroupBox
+    Friend WithEvents optHMIInstalled As RadioButton
+    Friend WithEvents optHMIShipLoose As RadioButton
+    Friend WithEvents optHMINone As RadioButton
 End Class

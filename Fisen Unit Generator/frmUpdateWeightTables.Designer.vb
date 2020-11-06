@@ -22,6 +22,7 @@ Partial Class frmUpdateWeightTables
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.txtStubb = New System.Windows.Forms.TextBox()
@@ -36,6 +37,7 @@ Partial Class frmUpdateWeightTables
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Cancel
@@ -153,6 +155,10 @@ Partial Class frmUpdateWeightTables
         Me.Label6.TabIndex = 19
         Me.Label6.Text = "D Weight"
         '
+        'Timer1
+        '
+        Me.Timer1.Interval = 3000
+        '
         'frmUpdateWeightTables
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -197,4 +203,5 @@ Partial Class frmUpdateWeightTables
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents Timer1 As Timer
 End Class

@@ -83,6 +83,7 @@ Public Class frmNewFan
             chkPwrExhaustPresent.Visible = True
             optAFFan.Checked = True
             chkReliefHoodsShipLoose.Visible = False
+            chkHeatBaffles.Visible = True
 
             Select Case frmMain.ThisUnit.Family
                 Case Is = "Series5"
@@ -113,6 +114,7 @@ Public Class frmNewFan
                 Case Is = "Choice"
                     cmdChoiceBottomSupply.Visible = True
                     cmdChoiceRearSupply.Visible = True
+                    chkFisen2Rear.Visible = True
                     lblNote1.Text = "Preferred Size is 18-18 for 25+ Tons and 15-15 for 20- Tons"
 
                 Case Is = "Select"
@@ -140,9 +142,6 @@ Public Class frmNewFan
             End Select
 
             For i = 0 To frmMain.ThisUnitFactOpts.Count - 1
-
-                Debug.Print(frmMain.ThisUnitFactOpts.Item(i))
-                Debug.Print("4" & """" & "  MERV 13 Filters")
                 If frmMain.ThisUnitFactOpts.Item(i) = "4" & """" & " MERV 13 Filters" Then opt4InchFilters.Checked = True
                 If InStr(frmMain.ThisUnitFactOpts.Item(i), "Economizer") > 0 Then chkEconPresent.Checked = True
                 If InStr(frmMain.ThisUnitFactOpts.Item(i), "Exhaust") > 0 Then chkPwrExhaustPresent.Checked = True
@@ -689,96 +688,96 @@ Public Class frmNewFan
         If optPlenumFan.Checked Then ModuleCodeList.Add("350103")
         If optPropFan.Checked Then ModuleCodeList.Add("350104")
 
-        'handle the drive
-        If optBeltDrive.Checked Then
-            ModuleCodeList.Add("330120") ' belt drive spec
-            If optCVSystem.Checked Then
-                ModuleCodeList.Add("330121") 'sheaves for motorstarter
-            Else
-                ModuleCodeList.Add("330122") 'sheaves for VFD
-            End If
-        Else
-            ModuleCodeList.Add("330110") 'direct drive spec
-        End If
+        ''handle the drive
+        'If optBeltDrive.Checked Then
+        '    ModuleCodeList.Add("330120") ' belt drive spec
+        '    If optCVSystem.Checked Then
+        '        ModuleCodeList.Add("330121") 'sheaves for motorstarter
+        '    Else
+        '        ModuleCodeList.Add("330122") 'sheaves for VFD
+        '    End If
+        'Else
+        '    ModuleCodeList.Add("330110") 'direct drive spec
+        'End If
 
-        If chkMultipleFans.Checked Then ModuleCodeList.Add("330119")
+        'If chkMultipleFans.Checked Then ModuleCodeList.Add("330119")
 
-        'handle the isolation
-        If optIsoNone.Checked Then ModuleCodeList.Add("330130")
-        If optIso1.Checked Then ModuleCodeList.Add("330131")
-        If optIso2.Checked Then ModuleCodeList.Add("330132")
+        ''handle the isolation
+        'If optIsoNone.Checked Then ModuleCodeList.Add("330130")
+        'If optIso1.Checked Then ModuleCodeList.Add("330131")
+        'If optIso2.Checked Then ModuleCodeList.Add("330132")
 
-        'handle the starter type
-        If optCVSystem.Checked Then
-            ModuleCodeList.Add("330140") 'motorstarter discussion code / ol relay
-        Else
-            If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
-                ModuleCodeList.Add("330141") 'vfd rplace
-                If frmMain.ThisUnit.Family = "Series100" Then
-                    ModuleCodeList.Add("330201")
-                Else
-                    ModuleCodeList.Add("330202")
-                End If
-            Else
-                ModuleCodeList.Add("330142") 'reuse vfd
-            End If
+        ''handle the starter type
+        'If optCVSystem.Checked Then
+        '    ModuleCodeList.Add("330140") 'motorstarter discussion code / ol relay
+        'Else
+        '    If ((optReplaceVFD.Checked) Or (optNewVFD.Checked)) Then
+        '        ModuleCodeList.Add("330141") 'vfd rplace
+        '        If frmMain.ThisUnit.Family = "Series100" Then
+        '            ModuleCodeList.Add("330201")
+        '        Else
+        '            ModuleCodeList.Add("330202")
+        '        End If
+        '    Else
+        '        ModuleCodeList.Add("330142") 'reuse vfd
+        '    End If
 
-            If optNoBypass.Checked Then ModuleCodeList.Add("330145")
-            If optReuseBypass.Checked Then ModuleCodeList.Add("330146")
-            If optNewBypass.Checked Then ModuleCodeList.Add("330147")
-            If chkRemoteVFDKeypad.Checked Then
-                ModuleCodeList.Add("330148")
-            End If
-        End If
+        '    If optNoBypass.Checked Then ModuleCodeList.Add("330145")
+        '    If optReuseBypass.Checked Then ModuleCodeList.Add("330146")
+        '    If optNewBypass.Checked Then ModuleCodeList.Add("330147")
+        '    If chkRemoteVFDKeypad.Checked Then
+        '        ModuleCodeList.Add("330148")
+        '    End If
+        'End If
 
-        'handle the motor
-        If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
-            ModuleCodeList.Add("330150") 'provide new motor
+        ''handle the motor
+        'If ((optReplaceMotor.Checked) Or (optNewMotor.Checked)) Then
+        '    ModuleCodeList.Add("330150") 'provide new motor
 
-            If optTEFC.Checked Then ModuleCodeList.Add("330152")
-            If optODP.Checked Then ModuleCodeList.Add("330151")
-        Else
-            ModuleCodeList.Add("330155") 'reuse existing motor
-        End If
+        '    If optTEFC.Checked Then ModuleCodeList.Add("330152")
+        '    If optODP.Checked Then ModuleCodeList.Add("330151")
+        'Else
+        '    ModuleCodeList.Add("330155") 'reuse existing motor
+        'End If
 
-        If chkMultipleFans.Checked Then ModuleCodeList.Add("330159")
+        'If chkMultipleFans.Checked Then ModuleCodeList.Add("330159")
 
-        ModuleCodeList.Add("330160") 'Return Fan Controls
-        If optNoControls.Checked Then
-            ModuleCodeList.Add("330161") 'Return Fan NO Controls
-            ModuleCodeList.Add("330162") 'On/Off Only
-        Else
-            If optTrackSupplyFan.Checked Then ModuleCodeList.Add("330165")
-            If optGBASRFan.Checked Then
-                ModuleCodeList.Add("330170") 'GBAS Return Fan
-                ModuleCodeList.Add("330171") 'GBAS Actuated Dampers
-            End If
-            If optBldgStaticPressureCtrl.Checked Then
-                ModuleCodeList.Add("330180") 'General Building Static PRessure Control Statement
-                If optBSPbySE.Checked Then ModuleCodeList.Add("330181") 'SE Econ Return Fan
-                If optBSPbyFisen.Checked Then ModuleCodeList.Add("330182") 'Fisen Ctrl Return Fan
-                If optBSPbyIPU.Checked Then
-                    ModuleCodeList.Add("330185") 'IPU Ctrl of Return Fan
-                    If chkIPUModulateDamper.Checked Then
-                        ModuleCodeList.Add("330186") 'IPU modulate relief damper
-                    End If
-                End If
-            End If
+        'ModuleCodeList.Add("330160") 'Return Fan Controls
+        'If optNoControls.Checked Then
+        '    ModuleCodeList.Add("330161") 'Return Fan NO Controls
+        '    ModuleCodeList.Add("330162") 'On/Off Only
+        'Else
+        '    If optTrackSupplyFan.Checked Then ModuleCodeList.Add("330165")
+        '    If optGBASRFan.Checked Then
+        '        ModuleCodeList.Add("330170") 'GBAS Return Fan
+        '        ModuleCodeList.Add("330171") 'GBAS Actuated Dampers
+        '    End If
+        '    If optBldgStaticPressureCtrl.Checked Then
+        '        ModuleCodeList.Add("330180") 'General Building Static PRessure Control Statement
+        '        If optBSPbySE.Checked Then ModuleCodeList.Add("330181") 'SE Econ Return Fan
+        '        If optBSPbyFisen.Checked Then ModuleCodeList.Add("330182") 'Fisen Ctrl Return Fan
+        '        If optBSPbyIPU.Checked Then
+        '            ModuleCodeList.Add("330185") 'IPU Ctrl of Return Fan
+        '            If chkIPUModulateDamper.Checked Then
+        '                ModuleCodeList.Add("330186") 'IPU modulate relief damper
+        '            End If
+        '        End If
+        '    End If
 
-        End If
-        If optNoRelief.Checked Then ModuleCodeList.Add("330190")
-        If optBaroRelief.Checked Then
-            ModuleCodeList.Add("330191")
-            If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
-        End If
-        If optControlRelief.Checked Then
-            ModuleCodeList.Add("330192")
-            If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
-        End If
+        'End If
+        'If optNoRelief.Checked Then ModuleCodeList.Add("330190")
+        'If optBaroRelief.Checked Then
+        '    ModuleCodeList.Add("330191")
+        '    If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
+        'End If
+        'If optControlRelief.Checked Then
+        '    ModuleCodeList.Add("330192")
+        '    If chkReliefHoodsShipLoose.Checked Then ModuleCodeList.Add("330194") Else ModuleCodeList.Add("330193")
+        'End If
 
-        If chk65kASCCRBase.Checked Then
-            ModuleCodeList.Add("350F6A")
-        End If
+        'If chk65kASCCRBase.Checked Then
+        '    ModuleCodeList.Add("350F6A")
+        'End If
 
     End Sub
     Private Sub UpdateCodeListRFan()
@@ -1088,6 +1087,9 @@ Public Class frmNewFan
             ModuleCodeList.Add("320F6A")
         End If
 
+        If chkHeatBaffles.Checked Then
+            ModuleCodeList.Add("320C01")
+        End If
 
     End Sub
     Private Sub UpdateWeightTable()
@@ -1109,6 +1111,10 @@ Public Class frmNewFan
                     tempWeight = "205"
                 Case Is = "Series 100"
                     tempWeight = "145"
+                Case Is = "Choice"
+                    tempWeight = "51"
+                Case Is = "Select"
+                Case Is = "Premier"
                 Case Else
                     tempWeight = "9999"
             End Select
@@ -1683,6 +1689,7 @@ Public Class frmNewFan
         Dim EconMod As Double
         Dim reheatmod As Double
         Dim FactoryOptions As Double
+        Dim HeatBaffles As Double
 
         Dim econyesno, reheatyesno As Boolean
 
@@ -1713,6 +1720,11 @@ Public Class frmNewFan
         dgvStaticSummary.Rows.Add(NewRow)
         NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
         dgvStaticSummary.Rows.Add(NewRow)
+        If chkHeatBaffles.Checked Then
+            HeatBaffles = 0.000000001331941323 * airflow * airflow - 0.000000563361120313 * airflow
+            NewRow = {"Standard Heat Baffles", Format(HeatBaffles, "0.00"), Format(HeatBaffles / Val(lblKFactor.Text), "0.00")}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
         cmdChoiceBottomSupply.Enabled = False
         btnReturn.Enabled = True
     End Sub
@@ -2424,17 +2436,13 @@ Public Class frmNewFan
         If BottomD Then
             Select Case Snippet
                 Case Is = "AD15"
-                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000016479818338 * localAirflow * localAirflow + 0.000021670973147619 * localAirflow
                 Case Is = "AD18"
-                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000014559366969 * localAirflow * localAirflow + 0.000034955393655571 * localAirflow
                 Case Is = "AD20"
-                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000013842003837 * localAirflow * localAirflow + 0.000040791751160522 * localAirflow
                 Case Is = "AD25"
-                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.0000000000441146 * localAirflow * localAirflow + 0.000135164829143736 * localAirflow
                 Case Is = "AD28"
                     temp = 0.0000000026707484 * localAirflow * localAirflow + 0.000144459630343065 * localAirflow
                 Case Else
@@ -3638,8 +3646,57 @@ Public Class frmNewFan
 
 
     Private Sub cmdChoiceRearSupply_Click(sender As Object, e As EventArgs) Handles cmdChoiceRearSupply.Click
-        Dim dummy As MsgBoxResult
-        dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
+        Dim BaseUnit As Double
+        Dim GasHeatMod As Double
+        Dim FilterMod As Double
+        Dim EconMod As Double
+        Dim reheatmod As Double
+        Dim FactoryOptions As Double
+        Dim HeatBaffles As Double
+
+        Dim econyesno, reheatyesno As Boolean
+
+        Dim airflow As Double
+
+        Dim NewRow As String()
+
+        airflow = Val(txtAirflow.Text)
+        'first the Base Unit
+        BaseUnit = UnitStaticPressureChoice(airflow, True)
+
+        'now the heatAdjustment
+        GasHeatMod = HeatAdjustmentChoice(airflow, cmbHeatBox.Text)
+
+        'now the FilterAdjustment
+        'Nothing on a series 20 !!!
+
+        'finally the EconMod
+        econyesno = chkEconPresent.Checked
+        EconMod = EconAdjustmentChoice(airflow, econyesno)
+
+        reheatyesno = chkReheatCoil.Checked
+        reheatmod = ReheatAdjustmentChoice(airflow, reheatyesno)
+
+        FactoryOptions = GasHeatMod + FilterMod + EconMod + reheatmod
+
+        NewRow = {"Base Unit Static Pressure", Format(BaseUnit, "0.00"), Format(BaseUnit / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        If chkHeatBaffles.Checked Then
+            HeatBaffles = 0.000000001331941323 * airflow * airflow - 0.000000563361120313 * airflow
+            NewRow = {"Standard Heat Baffles", Format(HeatBaffles, "0.00"), Format(HeatBaffles / Val(lblKFactor.Text), "0.00")}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
+
+        If chkFisen2Rear.Checked Then
+            HeatBaffles = 0.000000009564935065 * airflow * airflow - 0.000006064832535891 * airflow + 0.0270664217361984
+            NewRow = {"Rear Discharge Reconfiguration", Format(HeatBaffles, "0.00"), Format(HeatBaffles / Val(lblKFactor.Text), "0.00")}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
+
+        cmdChoiceRearSupply.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdSelectBottomSupply_Click(sender As Object, e As EventArgs) Handles cmdSelectBottomSupply.Click

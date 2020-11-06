@@ -73,6 +73,7 @@ Partial Class frmHGRH
         Me.optIPU = New System.Windows.Forms.RadioButton()
         Me.optSE = New System.Windows.Forms.RadioButton()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
         Me.optParallelPiping = New System.Windows.Forms.RadioButton()
         Me.optSeriesPiping = New System.Windows.Forms.RadioButton()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -86,7 +87,7 @@ Partial Class frmHGRH
         Me.txtLAT = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
+        Me.chkSelectHGRH = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         CType(Me.nudCircuitsofRH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -132,6 +133,7 @@ Partial Class frmHGRH
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkSelectHGRH)
         Me.tpgConditions.Controls.Add(Me.Label5)
         Me.tpgConditions.Controls.Add(Me.txtRHCoilAPD)
         Me.tpgConditions.Controls.Add(Me.Label15)
@@ -640,6 +642,15 @@ Partial Class frmHGRH
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'cmdCalcDehumCap
+        '
+        Me.cmdCalcDehumCap.Image = CType(resources.GetObject("cmdCalcDehumCap.Image"), System.Drawing.Image)
+        Me.cmdCalcDehumCap.Location = New System.Drawing.Point(206, 55)
+        Me.cmdCalcDehumCap.Name = "cmdCalcDehumCap"
+        Me.cmdCalcDehumCap.Size = New System.Drawing.Size(22, 22)
+        Me.cmdCalcDehumCap.TabIndex = 93
+        Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
+        '
         'optParallelPiping
         '
         Me.optParallelPiping.AutoSize = True
@@ -756,14 +767,16 @@ Partial Class frmHGRH
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
-        'cmdCalcDehumCap
+        'chkSelectHGRH
         '
-        Me.cmdCalcDehumCap.Image = CType(resources.GetObject("cmdCalcDehumCap.Image"), System.Drawing.Image)
-        Me.cmdCalcDehumCap.Location = New System.Drawing.Point(206, 55)
-        Me.cmdCalcDehumCap.Name = "cmdCalcDehumCap"
-        Me.cmdCalcDehumCap.Size = New System.Drawing.Size(22, 22)
-        Me.cmdCalcDehumCap.TabIndex = 93
-        Me.cmdCalcDehumCap.UseVisualStyleBackColor = True
+        Me.chkSelectHGRH.AutoSize = True
+        Me.chkSelectHGRH.Location = New System.Drawing.Point(9, 164)
+        Me.chkSelectHGRH.Name = "chkSelectHGRH"
+        Me.chkSelectHGRH.Size = New System.Drawing.Size(155, 17)
+        Me.chkSelectHGRH.TabIndex = 56
+        Me.chkSelectHGRH.Text = "JCI MHGRH on Select Unit"
+        Me.chkSelectHGRH.UseVisualStyleBackColor = True
+        Me.chkSelectHGRH.Visible = False
         '
         'frmHGRH
         '
@@ -861,4 +874,5 @@ Partial Class frmHGRH
     Friend WithEvents chkModbusPoints As CheckBox
     Friend WithEvents chkECoat As CheckBox
     Friend WithEvents cmdCalcDehumCap As Button
+    Friend WithEvents chkSelectHGRH As CheckBox
 End Class

@@ -117,7 +117,12 @@ Module basTabValidation
         OldVerNum = Trim(Int(Val(NewVerNum)) - 1)
         SubName = SubName & OldVerNum & "_0.docx"
         If File.Exists(SubDir & SubName) Then
-            File.Move(SubDir & SubName, SubDir & "Archives\" & SubName)
+            If Directory.Exists(SubDir & "Archives\") Then
+                File.Move(SubDir & SubName, SubDir & "Archives\" & SubName)
+            Else
+                Directory.CreateDirectory(SubDir & "Archives")
+                File.Move(SubDir & SubName, SubDir & "Archives\" & SubName)
+            End If
         End If
 
 

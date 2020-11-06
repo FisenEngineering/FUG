@@ -40,7 +40,7 @@ Public Class frmBiPolar
         Dim dummy As MsgBoxResult
         Dim snippet As String
 
-        frmMain.ThisUnitMods.Add("BiPolar") 'Mod Code goes here!
+        If Not (Preview) Then frmMain.ThisUnitMods.Add("BiPolar") 'Mod Code goes here!
         ModuleCodeList.Clear()
         ModuleCodeList.Add("430000")
 
@@ -94,34 +94,41 @@ Public Class frmBiPolar
             ModuleCodeList.Add("430102")
         End If
         If optPwrUnitPower.Checked Then
-            ModuleCodeList.Add("430104")
-            Select Case frmMain.ThisUnit.Family
-                Case Is = "Series5"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Series10"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Series12"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Series20"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Series40"
+            If Not (chkShareXfmr.Checked) Then
+                ModuleCodeList.Add("430104")
+                Select Case frmMain.ThisUnit.Family
+                    Case Is = "Series5"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Series10"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Series12"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Series20"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Series40"
                  'Depricated *Probably not going to be used*
-                Case Is = "Series100"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Premier"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Choice"
-                    ModuleCodeList.Add("430X01")
-                Case Is = "Select"
-                    ModuleCodeList.Add("430X01")
-                Case Else
-                    errmsg = "Error assigning Transformer Size in Bipolar:UpdateCodeList." & vbCrLf & optPwrUnitPower.Checked & " is undefined.  Continue or cancel?"
-                    dummy = MsgBox(errmsg, vbOKCancel, "Fisen Unit Generator")
-                    If dummy = vbCancel Then Stop
-            End Select
+                    Case Is = "Series100"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Premier"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Choice"
+                        ModuleCodeList.Add("430X01")
+                    Case Is = "Select"
+                        ModuleCodeList.Add("430X01")
+                    Case Else
+                        errmsg = "Error assigning Transformer Size in Bipolar:UpdateCodeList." & vbCrLf & optPwrUnitPower.Checked & " is undefined.  Continue or cancel?"
+                        dummy = MsgBox(errmsg, vbOKCancel, "Fisen Unit Generator")
+                        If dummy = vbCancel Then Stop
+                End Select
+            Else
+                ModuleCodeList.Add("430105")
+                If frmMain.ThisUnit.Family = "Series12" Then ModuleCodeList.Add("430X03")
+                If frmMain.ThisUnit.Family = "Series20" Then ModuleCodeList.Add("430X04")
+            End If
         End If
-        If optPwrDedicated.Checked Then ModuleCodeList.Add("430103")
+            If optPwrDedicated.Checked Then ModuleCodeList.Add("430103")
 
+        'Handle the controls
         ModuleCodeList.Add("430200")
         If chkEMControlsOnly.Checked Then ModuleCodeList.Add("430210")
         If optCtrl247.Checked Then ModuleCodeList.Add("430201")
@@ -130,6 +137,18 @@ Public Class frmBiPolar
             ModuleCodeList.Add("430205")
             'Code for custom controls.
         End If
+
+        'Handle the MnA Panel
+        If Not (optNoMnA.Checked) Then
+            If optRemoteMnA.Checked Then ModuleCodeList.Add("4302A1") 'Remote Mounted panel
+            If optLocalMnA.Checked Then ModuleCodeList.Add("4302A2") 'Local Mounted Panel
+            If optBACnetOnlyMnA.Checked Then ModuleCodeList.Add("4302A3") 'Bacnet Only No Panel
+            If chkBACnetMnA.Checked Then ModuleCodeList.Add("4302A4") 'Backnet package/points are required.
+        Else
+            ModuleCodeList.Add("4302AZ") 'No MnA Panel
+        End If
+
+
 
         If Not (Preview) Then
             If chkIncludeEquipmentTouch.Checked = True Then
@@ -143,6 +162,8 @@ Public Class frmBiPolar
                     End If
                 End If
             End If
+
+
             'Add Auxillary Panel if selected
             If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
                 frmMain.HasAuxillaryPanel = True
@@ -282,6 +303,8 @@ Public Class frmBiPolar
                 tempWeight = "2"
             Case Is = "Series10"
                 tempWeight = "2"
+            Case Is = "Series12"
+                tempWeight = "5"
             Case Is = "Series20"
                 tempWeight = "4"
             Case Is = "Series40"
@@ -328,24 +351,27 @@ Public Class frmBiPolar
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
                 RqdVA = 3
-                XFmrVA = 50
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 150
             Case Is = "Series10"
                 RqdVA = 4
-                XFmrVA = 50
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 150
+            Case Is = "Series12"
+                RqdVA = 4
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 150
             Case Is = "Series20"
                 RqdVA = 8
-                XFmrVA = 50
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 250
             Case Is = "Select"
                 RqdVA = 15
-                XFmrVA = 50
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 500 Else XFmrVA = 500
             Case Is = "Choice"
                 RqdVA = 8
-                XFmrVA = 50
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 250 Else XFmrVA = 250
             Case Is = "Series100"
                 If frmMain.ThisUnit.Cabinet = "Series100A" Then RqdVA = 15
                 If frmMain.ThisUnit.Cabinet = "Series100B" Then RqdVA = 35
                 If frmMain.ThisUnit.Cabinet = "Series100C" Then RqdVA = 49
-                XFmrVA = 50
+                XFmrVA = 75
             Case Else
                 RqdVA = 2000
                 XFmrVA = 2000
@@ -379,6 +405,9 @@ Public Class frmBiPolar
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Series10"
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Series12"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+                optInstDSEvap.Checked = True
             Case Is = "Series20"
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Series40"
@@ -674,5 +703,27 @@ Public Class frmBiPolar
 
     Private Sub chkMountEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs) Handles chkMountEquipmentTouch.CheckedChanged
 
+    End Sub
+
+    Private Sub chkEMControlsOnly_CheckedChanged(sender As Object, e As EventArgs) Handles chkEMControlsOnly.CheckedChanged
+        If chkEMControlsOnly.Checked Then
+            grpMnAOptions.Enabled = False
+            chkBACnetMnA.Checked = False
+            optNoMnA.Checked = True
+        Else
+            grpMnAOptions.Enabled = True
+            chkBACnetMnA.Checked = True
+            optRemoteMnA.Checked = True
+
+        End If
+    End Sub
+
+    Private Sub chkBACnetMnA_CheckedChanged(sender As Object, e As EventArgs) Handles chkBACnetMnA.CheckedChanged
+        If chkBACnetMnA.Checked Then
+            optBACnetOnlyMnA.Enabled = True
+        Else
+            optBACnetOnlyMnA.Enabled = False
+            optNoMnA.Checked = True
+        End If
     End Sub
 End Class

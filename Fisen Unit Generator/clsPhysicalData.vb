@@ -345,7 +345,7 @@ Public Class clsPhysicalData
         pBasePointLoad.Add("1004")
 
     End Sub
-    Public Sub ImportPointLoadsUPG()
+    Private Sub CheckPointLoadsUPG()
         Dim ModStub As String
         Dim UserID As String
         Dim dummy As MsgBoxResult
@@ -357,8 +357,6 @@ Public Class clsPhysicalData
         Dim dbProvider As String
 
         Dim MySQL As String
-        Dim Denom As String
-        Dim Numer As String
 
         UserID = Environment.UserName
 
@@ -374,6 +372,7 @@ Public Class clsPhysicalData
         rs.Open(MySQL, con)
         If rs.EOF And rs.BOF Then
             'This means the record is missing
+
             If ((UserID = "jlevine") Or (UserID = "jmucinski") Or (UserID = "jruemenapp")) Then
                 frmUpdateWeightTables.Stubb = ModStub
                 frmUpdateWeightTables.ShowDialog()
@@ -387,10 +386,40 @@ Public Class clsPhysicalData
                 dummy = MsgBox("Unit Weight Missing from tblUPGWeights" & vbCrLf & "Please have Joe, Jonathan, or Josh Add the Unit.", vbOKOnly, "FUG Database Error")
                 Stop
             End If
+        Else
+
         End If
 
-        'rs.Open(MySQL, con)
-        con.Execute(MySQL)
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+    End Sub
+    Public Sub ImportPointLoadsUPG()
+        Dim ModStub As String
+
+        ModStub = Mid(frmMain.ThisUnit.ModelNumber, 1, 5)
+
+        Dim con As ADODB.Connection = New ADODB.Connection
+        Dim rs As ADODB.Recordset = New ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+        Dim Denom As String
+        Dim Numer As String
+
+        Call CheckPointLoadsUPG()
+
+        'con = New ADODB.Connection
+        dbProvider = "FIL= MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        'rs = New ADODB.Recordset
+        rs.CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+
+        MySQL = "Select * FROM tblUPGWeights WHERE ModelStub='" & ModStub & "'"
+        rs.Open(MySQL, con)
 
         Denom = rs.Fields("BaseWeight").Value
         If IsNumeric(pBaseUnitWeight) Then
@@ -411,3 +440,6 @@ Public Class clsPhysicalData
 
     End Sub
 End Class
+
+
+

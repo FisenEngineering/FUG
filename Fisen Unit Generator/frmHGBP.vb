@@ -18,8 +18,26 @@ Public Class frmHGBP
         Call UpdateWarrantyItems()
         frmMain.ThisUnitMods.Add("HGBP") 'Mod Code goes here!
         Call UpdateCodeList()
+
+        'Call UpdateBaseUnitRequiredItems()
+        'Call UpdateBaseUnitDrawingTags
+        Call SetSuggestedReferFilters()
+        'Call UpdateAFTags
+        'Call HydroTags
+
         If chkWriteHistory.Checked = True Then Call WriteHistory()
         Me.Hide()
+    End Sub
+
+    Private Sub SetSuggestedReferFilters()
+        Dim TempVar As String
+
+        TempVar = "HGBP "
+
+        If cmbHGBPStyle1.Text = "Rawal" Then TempVar = TempVar & "Rawal "
+
+        frmMain.txtReferSuggestedTags.Text = Trim(frmMain.txtReferSuggestedTags.Text & " " & TempVar)
+
     End Sub
 
     Private Sub WriteHistory()

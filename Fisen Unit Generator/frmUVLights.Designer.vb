@@ -64,6 +64,7 @@ Partial Class frmUVLights
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkShareXfmr = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -121,6 +122,7 @@ Partial Class frmUVLights
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkShareXfmr)
         Me.tpgConditions.Controls.Add(Me.GroupBox2)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
@@ -531,6 +533,17 @@ Partial Class frmUVLights
         Me.cmdDesignCautions.TabIndex = 22
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
+        'chkShareXfmr
+        '
+        Me.chkShareXfmr.AutoSize = True
+        Me.chkShareXfmr.Location = New System.Drawing.Point(7, 113)
+        Me.chkShareXfmr.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkShareXfmr.Name = "chkShareXfmr"
+        Me.chkShareXfmr.Size = New System.Drawing.Size(170, 17)
+        Me.chkShareXfmr.TabIndex = 49
+        Me.chkShareXfmr.Text = "Share Transformer with Bipolar"
+        Me.chkShareXfmr.UseVisualStyleBackColor = True
+        '
         'frmUVLights
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -549,6 +562,7 @@ Partial Class frmUVLights
         Me.Text = "Ultraviolet Lights"
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
+        Me.tpgConditions.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
@@ -608,4 +622,5 @@ Partial Class frmUVLights
     Friend WithEvents optInstUSEvap As RadioButton
     Friend WithEvents optInstDSEvap As RadioButton
     Friend WithEvents chkEMControlsOnly As CheckBox
+    Friend WithEvents chkShareXfmr As CheckBox
 End Class

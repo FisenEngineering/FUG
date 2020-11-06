@@ -1,21 +1,25 @@
-﻿Public Class frmUpdateWeightTables
+﻿Imports Microsoft.Office.Interop.Excel
+
+
+Public Class frmUpdateWeightTables
     Private pStubb As String
     Private pcancelled As Boolean
+    Private pAOK As Boolean
 
     Public Property Stubb As String
         Get
             Stubb = pStubb
         End Get
         Set(value As String)
-            pstubb = value
+            pStubb = value
         End Set
     End Property
     Public Property Cancelled As Boolean
         Get
-            Return pCancelled
+            Return pcancelled
         End Get
         Set(value As Boolean)
-            pCancelled = value
+            pcancelled = value
         End Set
     End Property
 
@@ -24,10 +28,12 @@
     End Sub
 
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
-        pCancelled = True
+        pcancelled = True
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+        Dim dummy As MsgBoxResult
+        Dim msgstring As String
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -35,6 +41,8 @@
         Dim MySQL As String
 
         Dim Stubb, Mass, AMass, BMass, CMass, DMass As String
+
+        Dim i As Integer
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -58,8 +66,35 @@
         con.Close()
         rs = Nothing
         con = Nothing
+
+        msgstring = "Program will pause for up to 3 seconds for database update."
+        dummy = MsgBox(msgstring, vbOKOnly, "Fisen Unit Generator")
+
+        Timer1.Enabled = True
+        Timer1.Interval = 1000
+        Timer1.Start()
+        Do While Not (pAOK)
+            'do nothing
+            My.Application.DoEvents()
+        Loop
         Me.Hide()
 
 
+
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Timer1.Stop()
+        pAOK = True
+
+    End Sub
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        pAOK = False
     End Sub
 End Class

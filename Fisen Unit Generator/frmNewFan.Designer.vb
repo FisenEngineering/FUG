@@ -222,6 +222,8 @@ Partial Class frmNewFan
         Me.txtFanRPM = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.tpgStaticSum = New System.Windows.Forms.TabPage()
+        Me.chkHeatBaffles = New System.Windows.Forms.CheckBox()
+        Me.chkReheatCoil = New System.Windows.Forms.CheckBox()
         Me.cmdLXRearSupply = New System.Windows.Forms.Button()
         Me.cmdLXBottomSupply = New System.Windows.Forms.Button()
         Me.cmdPremierRearSupply = New System.Windows.Forms.Button()
@@ -268,7 +270,7 @@ Partial Class frmNewFan
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkReheatCoil = New System.Windows.Forms.CheckBox()
+        Me.chkFisen2Rear = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -2457,6 +2459,8 @@ Partial Class frmNewFan
         '
         'tpgStaticSum
         '
+        Me.tpgStaticSum.Controls.Add(Me.chkFisen2Rear)
+        Me.tpgStaticSum.Controls.Add(Me.chkHeatBaffles)
         Me.tpgStaticSum.Controls.Add(Me.chkReheatCoil)
         Me.tpgStaticSum.Controls.Add(Me.cmdLXRearSupply)
         Me.tpgStaticSum.Controls.Add(Me.cmdLXBottomSupply)
@@ -2494,6 +2498,28 @@ Partial Class frmNewFan
         Me.tpgStaticSum.TabIndex = 3
         Me.tpgStaticSum.Text = "Static Summary"
         Me.tpgStaticSum.UseVisualStyleBackColor = True
+        '
+        'chkHeatBaffles
+        '
+        Me.chkHeatBaffles.AutoSize = True
+        Me.chkHeatBaffles.Location = New System.Drawing.Point(592, 19)
+        Me.chkHeatBaffles.Name = "chkHeatBaffles"
+        Me.chkHeatBaffles.Size = New System.Drawing.Size(179, 17)
+        Me.chkHeatBaffles.TabIndex = 38
+        Me.chkHeatBaffles.Text = "Standard  Heat Baffles Required"
+        Me.chkHeatBaffles.UseVisualStyleBackColor = True
+        Me.chkHeatBaffles.Visible = False
+        '
+        'chkReheatCoil
+        '
+        Me.chkReheatCoil.AutoSize = True
+        Me.chkReheatCoil.Location = New System.Drawing.Point(517, 120)
+        Me.chkReheatCoil.Name = "chkReheatCoil"
+        Me.chkReheatCoil.Size = New System.Drawing.Size(120, 17)
+        Me.chkReheatCoil.TabIndex = 37
+        Me.chkReheatCoil.Text = "Reheat Coil Present"
+        Me.chkReheatCoil.UseVisualStyleBackColor = True
+        Me.chkReheatCoil.Visible = False
         '
         'cmdLXRearSupply
         '
@@ -2960,16 +2986,16 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'chkReheatCoil
+        'chkFisen2Rear
         '
-        Me.chkReheatCoil.AutoSize = True
-        Me.chkReheatCoil.Location = New System.Drawing.Point(517, 120)
-        Me.chkReheatCoil.Name = "chkReheatCoil"
-        Me.chkReheatCoil.Size = New System.Drawing.Size(120, 17)
-        Me.chkReheatCoil.TabIndex = 37
-        Me.chkReheatCoil.Text = "Reheat Coil Present"
-        Me.chkReheatCoil.UseVisualStyleBackColor = True
-        Me.chkReheatCoil.Visible = False
+        Me.chkFisen2Rear.AutoSize = True
+        Me.chkFisen2Rear.Location = New System.Drawing.Point(517, 187)
+        Me.chkFisen2Rear.Name = "chkFisen2Rear"
+        Me.chkFisen2Rear.Size = New System.Drawing.Size(185, 17)
+        Me.chkFisen2Rear.TabIndex = 39
+        Me.chkFisen2Rear.Text = "Fisen Converts to Rear Discharge"
+        Me.chkFisen2Rear.UseVisualStyleBackColor = True
+        Me.chkFisen2Rear.Visible = False
         '
         'frmNewFan
         '
@@ -3287,4 +3313,6 @@ Partial Class frmNewFan
     Friend WithEvents lblIECNote1 As Label
     Friend WithEvents txtIECMotorkW As TextBox
     Friend WithEvents chkReheatCoil As CheckBox
+    Friend WithEvents chkHeatBaffles As CheckBox
+    Friend WithEvents chkFisen2Rear As CheckBox
 End Class

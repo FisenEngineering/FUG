@@ -15,7 +15,9 @@
         End If
         Call LoadConditions()
         txtDehumCap.Text = Format(psyDehumCapacity(frmMain.ThisUnitCoolPerf.EnteringDB, frmMain.ThisUnitCoolPerf.EnteringWB, frmMain.ThisUnitCoolPerf.LeavingDB, frmMain.ThisUnitCoolPerf.LeavingWB, frmMain.ThisUnitSFanPerf.Airflow), "0.0")
-
+        If frmMain.ThisUnit.Family = "Select" Then
+            chkSelectHGRH.Visible = True
+        End If
     End Sub
     Private Sub LoadConditions()
         Dim temp As Double
@@ -111,6 +113,7 @@
         frmMain.ThisUnitRHPerf.RHAirflow = txtHGRHAFlow.Text
         frmMain.ThisUnitRHPerf.CircuitsRH = nudCircuitsofRH.Value
         frmMain.ThisUnitRHPerf.ControlType = "On/Off"
+        If chkSelectHGRH.Checked Then frmMain.ThisUnitRHPerf.ControlType = "Modulating"
         If chkModulatingCtrl.Checked Then
             frmMain.ThisUnitRHPerf.ControlType = "Modulating"
         End If
@@ -171,6 +174,7 @@
             Case Else
                 tempWeight = "9999"
         End Select
+        If chkSelectHGRH.Checked Then tempWeight = "0"
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub UpdateWarrantyItems()
@@ -183,170 +187,175 @@
         'Add the level 0 code(s)
 
         frmMain.ThisUnitCodes.Add("720500") 'Hot Gas Reheat
-
-        If nudCircuitsofRH.Value = 1 Then
-            If Not (chkECoat.Checked) Then
-                frmMain.ThisUnitCodes.Add("720501") '1 Circuit HGRH Coil
-            Else
-                frmMain.ThisUnitCodes.Add("720581") '1 Circuit HGRH Coil
-            End If
-            frmMain.ThisUnitCodes.Add("720511") 'Circuit of HGRH
-
+        If chkSelectHGRH.Checked Then
+            frmMain.ThisUnitCodes.Add("720ZZ0") 'Hot Gas Reheat for select units.
         Else
-            If Not (chkECoat.Checked) Then
-                frmMain.ThisUnitCodes.Add("720502") '1 Circuit HGRH Coil
-            Else
-                frmMain.ThisUnitCodes.Add("720582") '1 Circuit HGRH Coil
-            End If
-            frmMain.ThisUnitCodes.Add("720510") '2 circuits of reheat
-        End If
-        If Not (chkModulatingCtrl.Checked) Then
-            frmMain.ThisUnitCodes.Add("720503") ' On Off Hot Gas reheat valves 3-way
-        Else
-            frmMain.ThisUnitCodes.Add("720535") 'Modulating reheat valves
-            If nudCircuitsofRH.Value = 2 Then
-                frmMain.ThisUnitCodes.Add("720536") 'Second circuit on off valves.
-            End If
-        End If
 
-        If optParallelPiping.Checked = True Then
-            frmMain.ThisUnitCodes.Add("720504")
-        Else
-            frmMain.ThisUnitCodes.Add("720505")
-        End If
 
-        frmMain.ThisUnitCodes.Add("720506") 'Hot Gas Reheat Controls
-        If (chkModulatingCtrl.Checked) Then
-            frmMain.ThisUnitCodes.Add("720537") 'Modulating Hot Gas Reheat Controls
-        End If
-
-        'Handle the compressor controls
-        If optSE.Checked = True Then
-            'SE Controller
-            If optDHCompsByJCI.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720512") 'SE Controller handles enabling the compressors
-            End If
-            If optDHGBASEnab.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720509") 'SE Conroller based, GBAS compressor SS
-            End If
-            If optDHThermostat.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720514") 'SE Controller based, Thermostat Control for Compressor SS
-            End If
-            If optMODBUSDH.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720544") 'SE Controller MODBUS
-            End If
-        Else
-            'IPU Controller
-            If optDHCompsByJCI.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720513") 'IPU Controller handles enabling the compressors
-            End If
-            If optDHGBASEnab.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720516") 'IPU Conroller based, GBAS compressor SS
-            End If
-            If optDHThermostat.Checked = True Then
-                frmMain.ThisUnitCodes.Add("720515") 'IPU Controller based, Thermostat Control for Compressor SS
-            End If
-        End If
-
-        'handle the reheat controls
-        If optTempPriority.Checked Then
-            frmMain.ThisUnitCodes.Add("720507") 'Temperature Priority Reheat Controls
-        End If
-        If optHumPriority.Checked Then
-            frmMain.ThisUnitCodes.Add("720508") 'Humidity Priority Reheat Controls
-        End If
-        If optMODBUSRH.Checked Then
-            frmMain.ThisUnitCodes.Add("720545") 'Modbus control of reheat
-        End If
-
-        If nudCircuitsofRH.Value = 1 Then
-            If optRHGBAS.Checked Then
-                frmMain.ThisUnitCodes.Add("720518")
-            End If
-            If ((optRHNetworkOnly.Checked) And (optDHCompsByJCI.Checked)) Then
-                frmMain.ThisUnitCodes.Add("720519")
-            End If
-        Else
-            If optRHGBAS.Checked Then
-                frmMain.ThisUnitCodes.Add("720538")
-            End If
-            If ((optRHNetworkOnly.Checked) And (optDHCompsByJCI.Checked)) Then
-                frmMain.ThisUnitCodes.Add("720543")
-            End If
-        End If
-
-        If opt100OARH.Checked Then
-            frmMain.ThisUnitCodes.Add("720520")
-        End If
-
-        If (chkModulatingCtrl.Checked) Then
-            If ((optTempPriority.Checked) Or (optHumPriority.Checked) Or (opt100OARH.Checked)) Then
-                frmMain.ThisUnitCodes.Add("720517") 'SAT for MHGRH
-            Else
-                If optRHGBAS.Checked Then
-                    frmMain.ThisUnitCodes.Add("720539")
-                    frmMain.ThisUnitCodes.Add("720540")
+            If nudCircuitsofRH.Value = 1 Then
+                If Not (chkECoat.Checked) Then
+                    frmMain.ThisUnitCodes.Add("720501") '1 Circuit HGRH Coil
                 Else
-                    frmMain.ThisUnitCodes.Add("720541")
-                    frmMain.ThisUnitCodes.Add("720542")
+                    frmMain.ThisUnitCodes.Add("720581") '1 Circuit HGRH Coil
+                End If
+                frmMain.ThisUnitCodes.Add("720511") 'Circuit of HGRH
+
+            Else
+                If Not (chkECoat.Checked) Then
+                    frmMain.ThisUnitCodes.Add("720502") '1 Circuit HGRH Coil
+                Else
+                    frmMain.ThisUnitCodes.Add("720582") '1 Circuit HGRH Coil
+                End If
+                frmMain.ThisUnitCodes.Add("720510") '2 circuits of reheat
+            End If
+            If Not (chkModulatingCtrl.Checked) Then
+                frmMain.ThisUnitCodes.Add("720503") ' On Off Hot Gas reheat valves 3-way
+            Else
+                frmMain.ThisUnitCodes.Add("720535") 'Modulating reheat valves
+                If nudCircuitsofRH.Value = 2 Then
+                    frmMain.ThisUnitCodes.Add("720536") 'Second circuit on off valves.
                 End If
             End If
-        End If
 
-        If optFisenZoneHum.Checked = True Then
-            frmMain.ThisUnitCodes.Add("720521")
-        End If
-        If optFisenRAStat.Checked = True Then
-            frmMain.ThisUnitCodes.Add("720522")
-        End If
-        If optFisenZoneSensor.Checked = True Then
-            frmMain.ThisUnitCodes.Add("720523")
-        End If
-        If optFisenRASensor.Checked = True Then
-            frmMain.ThisUnitCodes.Add("720524")
-        End If
-
-        If optFieldStat.Checked = True Then
-            frmMain.ThisUnitCodes.Add("720599")
-        End If
-
-        If Not (optRHNetworkOnly.Checked) Then
-            If ((optRHGBAS.Checked = True) And (chkModulatingCtrl.Checked = False) And (nudCircuitsofRH.Value = 2)) Then
-                frmMain.ThisUnitCodes.Add("720526") '2 rh pairs.
+            If optParallelPiping.Checked = True Then
+                frmMain.ThisUnitCodes.Add("720504")
             Else
-                If ((chkModulatingCtrl.Checked) And optRHGBAS.Checked) Then
-                    frmMain.ThisUnitCodes.Add("720527") '1 rh pair and 1level pair
+                frmMain.ThisUnitCodes.Add("720505")
+            End If
+
+            frmMain.ThisUnitCodes.Add("720506") 'Hot Gas Reheat Controls
+            If (chkModulatingCtrl.Checked) Then
+                frmMain.ThisUnitCodes.Add("720537") 'Modulating Hot Gas Reheat Controls
+            End If
+
+            'Handle the compressor controls
+            If optSE.Checked = True Then
+                'SE Controller
+                If optDHCompsByJCI.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720512") 'SE Controller handles enabling the compressors
+                End If
+                If optDHGBASEnab.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720509") 'SE Conroller based, GBAS compressor SS
+                End If
+                If optDHThermostat.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720514") 'SE Controller based, Thermostat Control for Compressor SS
+                End If
+                If optMODBUSDH.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720544") 'SE Controller MODBUS
+                End If
+            Else
+                'IPU Controller
+                If optDHCompsByJCI.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720513") 'IPU Controller handles enabling the compressors
+                End If
+                If optDHGBASEnab.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720516") 'IPU Conroller based, GBAS compressor SS
+                End If
+                If optDHThermostat.Checked = True Then
+                    frmMain.ThisUnitCodes.Add("720515") 'IPU Controller based, Thermostat Control for Compressor SS
+                End If
+            End If
+
+            'handle the reheat controls
+            If optTempPriority.Checked Then
+                frmMain.ThisUnitCodes.Add("720507") 'Temperature Priority Reheat Controls
+            End If
+            If optHumPriority.Checked Then
+                frmMain.ThisUnitCodes.Add("720508") 'Humidity Priority Reheat Controls
+            End If
+            If optMODBUSRH.Checked Then
+                frmMain.ThisUnitCodes.Add("720545") 'Modbus control of reheat
+            End If
+
+            If nudCircuitsofRH.Value = 1 Then
+                If optRHGBAS.Checked Then
+                    frmMain.ThisUnitCodes.Add("720518")
+                End If
+                If ((optRHNetworkOnly.Checked) And (optDHCompsByJCI.Checked)) Then
+                    frmMain.ThisUnitCodes.Add("720519")
+                End If
+            Else
+                If optRHGBAS.Checked Then
+                    frmMain.ThisUnitCodes.Add("720538")
+                End If
+                If ((optRHNetworkOnly.Checked) And (optDHCompsByJCI.Checked)) Then
+                    frmMain.ThisUnitCodes.Add("720543")
+                End If
+            End If
+
+            If opt100OARH.Checked Then
+                frmMain.ThisUnitCodes.Add("720520")
+            End If
+
+            If (chkModulatingCtrl.Checked) Then
+                If ((optTempPriority.Checked) Or (optHumPriority.Checked) Or (opt100OARH.Checked)) Then
+                    frmMain.ThisUnitCodes.Add("720517") 'SAT for MHGRH
                 Else
-                    If nudCircuitsofRH.Value = 2 Then
-                        frmMain.ThisUnitCodes.Add("720526") '2 rh pair
+                    If optRHGBAS.Checked Then
+                        frmMain.ThisUnitCodes.Add("720539")
+                        frmMain.ThisUnitCodes.Add("720540")
                     Else
-                        frmMain.ThisUnitCodes.Add("720525") '1 rh pair
+                        frmMain.ThisUnitCodes.Add("720541")
+                        frmMain.ThisUnitCodes.Add("720542")
                     End If
                 End If
             End If
-        End If
 
-        If chkIncludeEquipmentTouch.Checked = True Then
-            If chkMountEquipmentTouch.Checked = True Then
-                If frmMain.HasUMHMI = False Then
+            If optFisenZoneHum.Checked = True Then
+                frmMain.ThisUnitCodes.Add("720521")
+            End If
+            If optFisenRAStat.Checked = True Then
+                frmMain.ThisUnitCodes.Add("720522")
+            End If
+            If optFisenZoneSensor.Checked = True Then
+                frmMain.ThisUnitCodes.Add("720523")
+            End If
+            If optFisenRASensor.Checked = True Then
+                frmMain.ThisUnitCodes.Add("720524")
+            End If
 
-                    frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
-                End If
+            If optFieldStat.Checked = True Then
+                frmMain.ThisUnitCodes.Add("720599")
+            End If
 
-            Else
-                If frmMain.HasHMI = False Then
-
-                    frmMain.ThisUnitGenCodes.Add("960001")
+            If Not (optRHNetworkOnly.Checked) Then
+                If ((optRHGBAS.Checked = True) And (chkModulatingCtrl.Checked = False) And (nudCircuitsofRH.Value = 2)) Then
+                    frmMain.ThisUnitCodes.Add("720526") '2 rh pairs.
+                Else
+                    If ((chkModulatingCtrl.Checked) And optRHGBAS.Checked) Then
+                        frmMain.ThisUnitCodes.Add("720527") '1 rh pair and 1level pair
+                    Else
+                        If nudCircuitsofRH.Value = 2 Then
+                            frmMain.ThisUnitCodes.Add("720526") '2 rh pair
+                        Else
+                            frmMain.ThisUnitCodes.Add("720525") '1 rh pair
+                        End If
+                    End If
                 End If
             End If
-        End If
 
-        If chkModbusPoints.Checked = True Then
-            frmMain.ThisUnitGenCodes.Add("960004")
-        End If
+            If chkIncludeEquipmentTouch.Checked = True Then
+                If chkMountEquipmentTouch.Checked = True Then
+                    If frmMain.HasUMHMI = False Then
 
-        frmMain.ThisUnit.CommNodes = "2"
-        Call AssignReferSpecialties()
+                        frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+                    End If
+
+                Else
+                    If frmMain.HasHMI = False Then
+
+                        frmMain.ThisUnitGenCodes.Add("960001")
+                    End If
+                End If
+            End If
+
+            If chkModbusPoints.Checked = True Then
+                frmMain.ThisUnitGenCodes.Add("960004")
+            End If
+
+            frmMain.ThisUnit.CommNodes = "2"
+            Call AssignReferSpecialties()
+        End If
     End Sub
     Private Sub AssignReferSpecialties()
         Dim stub As String
@@ -543,5 +552,18 @@
     Private Sub cmdCalcDehumCap_Click(sender As Object, e As EventArgs) Handles cmdCalcDehumCap.Click
         txtDehumCap.Text = Format(psyDehumCapacity(frmMain.ThisUnitCoolPerf.EnteringDB, frmMain.ThisUnitCoolPerf.EnteringWB, frmMain.ThisUnitCoolPerf.LeavingDB, frmMain.ThisUnitCoolPerf.LeavingWB, frmMain.ThisUnitSFanPerf.Airflow), "0.0")
 
+    End Sub
+
+    Private Sub chkSelectHGRH_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectHGRH.CheckedChanged
+        If chkSelectHGRH.Checked Then
+            txtHGRHCap.Text = "-"
+            txtHGRHAFlow.Text = "-"
+            txtEATDB.Text = "-"
+            nudCircuitsofRH.Value = 1
+            txtRHCoilAPD.Text = "-"
+            txtLAT.Text = "-"
+            txtDeltaT.Text = "-"
+            txtDehumCap.Text = "-"
+        End If
     End Sub
 End Class

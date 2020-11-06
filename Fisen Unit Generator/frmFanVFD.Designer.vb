@@ -36,9 +36,10 @@ Partial Class frmFanVFD
         Me.chkSFanVFD = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmbVFDBrand = New System.Windows.Forms.ComboBox()
         Me.chkNEMA4xDrive = New System.Windows.Forms.CheckBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.grpAuxPanel = New System.Windows.Forms.GroupBox()
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
@@ -64,11 +65,12 @@ Partial Class frmFanVFD
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        Me.grpAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
@@ -229,7 +231,7 @@ Partial Class frmFanVFD
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.cmbVFDBrand)
         Me.tpgOptions.Controls.Add(Me.chkNEMA4xDrive)
-        Me.tpgOptions.Controls.Add(Me.GroupBox3)
+        Me.tpgOptions.Controls.Add(Me.grpAuxPanel)
         Me.tpgOptions.Controls.Add(Me.chkBACnet)
         Me.tpgOptions.Controls.Add(Me.chkSpecificVFD)
         Me.tpgOptions.Controls.Add(Me.chkRemotePad)
@@ -241,6 +243,17 @@ Partial Class frmFanVFD
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
+        '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(5, 125)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 34
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
         '
         'cmbVFDBrand
         '
@@ -264,17 +277,17 @@ Partial Class frmFanVFD
         Me.chkNEMA4xDrive.Text = "NEMA 4x Drive"
         Me.chkNEMA4xDrive.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'grpAuxPanel
         '
-        Me.GroupBox3.Controls.Add(Me.cmbAuxPanelOpts)
-        Me.GroupBox3.Controls.Add(Me.optUseAux)
-        Me.GroupBox3.Controls.Add(Me.optNoAux)
-        Me.GroupBox3.Location = New System.Drawing.Point(212, 6)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(214, 105)
-        Me.GroupBox3.TabIndex = 31
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auxillary Control Panel"
+        Me.grpAuxPanel.Controls.Add(Me.cmbAuxPanelOpts)
+        Me.grpAuxPanel.Controls.Add(Me.optUseAux)
+        Me.grpAuxPanel.Controls.Add(Me.optNoAux)
+        Me.grpAuxPanel.Location = New System.Drawing.Point(212, 6)
+        Me.grpAuxPanel.Name = "grpAuxPanel"
+        Me.grpAuxPanel.Size = New System.Drawing.Size(214, 105)
+        Me.grpAuxPanel.TabIndex = 31
+        Me.grpAuxPanel.TabStop = False
+        Me.grpAuxPanel.Text = "Auxiliary Control Panel"
         '
         'cmbAuxPanelOpts
         '
@@ -293,7 +306,7 @@ Partial Class frmFanVFD
         Me.optUseAux.Size = New System.Drawing.Size(151, 17)
         Me.optUseAux.TabIndex = 1
         Me.optUseAux.TabStop = True
-        Me.optUseAux.Text = "Use Auxillary Control Panel"
+        Me.optUseAux.Text = "Use Auxiliary Control Panel"
         Me.optUseAux.UseVisualStyleBackColor = True
         '
         'optNoAux
@@ -547,16 +560,23 @@ Partial Class frmFanVFD
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chk65kASCCRBase
+        'cmdScience
         '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(5, 125)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 34
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(309, 200)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 73
+        Me.cmdScience.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(345, 200)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 72
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
         'frmFanVFD
         '
@@ -564,6 +584,8 @@ Partial Class frmFanVFD
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 236)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
@@ -579,8 +601,8 @@ Partial Class frmFanVFD
         Me.tpgConditions.PerformLayout()
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.grpAuxPanel.ResumeLayout(False)
+        Me.grpAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -623,7 +645,7 @@ Partial Class frmFanVFD
     Friend WithEvents chkBACnet As CheckBox
     Friend WithEvents optSFanBalanceOnly As RadioButton
     Friend WithEvents chkNEMA4xDrive As CheckBox
-    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents grpAuxPanel As GroupBox
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
     Friend WithEvents optNoAux As RadioButton
@@ -634,4 +656,6 @@ Partial Class frmFanVFD
     Friend WithEvents chkMountEquipmentTouch As CheckBox
     Friend WithEvents chkIncludeEquipmentTouch As CheckBox
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
 End Class

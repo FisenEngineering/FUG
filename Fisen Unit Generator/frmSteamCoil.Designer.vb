@@ -22,6 +22,7 @@ Partial Class frmSteamCoil
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSteamCoil))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
@@ -64,6 +65,14 @@ Partial Class frmSteamCoil
         Me.optDSFanInlet = New System.Windows.Forms.RadioButton()
         Me.btnDoneDSOptions = New System.Windows.Forms.Button()
         Me.pgControls = New System.Windows.Forms.TabPage()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.optBU_SE_Fisen_Unwired = New System.Windows.Forms.RadioButton()
+        Me.optBU_SE_Fact_Unwired = New System.Windows.Forms.RadioButton()
+        Me.optBU_Other = New System.Windows.Forms.RadioButton()
+        Me.optBU_IPU_Unwired = New System.Windows.Forms.RadioButton()
+        Me.optBU_SE_Fact_FisenWires = New System.Windows.Forms.RadioButton()
+        Me.optBU_IPU_FisenWires = New System.Windows.Forms.RadioButton()
+        Me.optBU_SE_Fisen_FisenWires = New System.Windows.Forms.RadioButton()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
         Me.cmbValveCtrlFisenCustom = New System.Windows.Forms.ComboBox()
         Me.optValveCtrlFisenCustom = New System.Windows.Forms.RadioButton()
@@ -93,7 +102,6 @@ Partial Class frmSteamCoil
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtDeltaT = New System.Windows.Forms.TextBox()
         Me.tpgValves = New System.Windows.Forms.TabPage()
-        Me.btnSelectAValve = New System.Windows.Forms.Button()
         Me.cmbValveDesc = New System.Windows.Forms.ComboBox()
         Me.cmbValveSize = New System.Windows.Forms.ComboBox()
         Me.txtValveMPN = New System.Windows.Forms.TextBox()
@@ -105,14 +113,9 @@ Partial Class frmSteamCoil
         Me.txtValveTag = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.btnDoneValve = New System.Windows.Forms.Button()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.optBU_SE_Fisen_Unwired = New System.Windows.Forms.RadioButton()
-        Me.optBU_SE_Fact_Unwired = New System.Windows.Forms.RadioButton()
-        Me.optBU_Other = New System.Windows.Forms.RadioButton()
-        Me.optBU_IPU_Unwired = New System.Windows.Forms.RadioButton()
-        Me.optBU_SE_Fact_FisenWires = New System.Windows.Forms.RadioButton()
-        Me.optBU_IPU_FisenWires = New System.Windows.Forms.RadioButton()
-        Me.optBU_SE_Fisen_FisenWires = New System.Windows.Forms.RadioButton()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.sciConnections = New System.Windows.Forms.PictureBox()
+        Me.btnSelectAValve = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.pgConditions.SuspendLayout()
         Me.pgOptions.SuspendLayout()
@@ -123,11 +126,12 @@ Partial Class frmSteamCoil
         Me.pgDSOptions.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.pgControls.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.pgPerf.SuspendLayout()
         Me.tpgValves.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        CType(Me.sciConnections, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOK
@@ -177,7 +181,7 @@ Partial Class frmSteamCoil
         Me.pgConditions.Location = New System.Drawing.Point(4, 22)
         Me.pgConditions.Name = "pgConditions"
         Me.pgConditions.Padding = New System.Windows.Forms.Padding(3)
-        Me.pgConditions.Size = New System.Drawing.Size(432, 249)
+        Me.pgConditions.Size = New System.Drawing.Size(440, 249)
         Me.pgConditions.TabIndex = 0
         Me.pgConditions.Text = "Conditions"
         Me.pgConditions.UseVisualStyleBackColor = True
@@ -518,7 +522,7 @@ Partial Class frmSteamCoil
         Me.pgDSOptions.Location = New System.Drawing.Point(4, 22)
         Me.pgDSOptions.Name = "pgDSOptions"
         Me.pgDSOptions.Padding = New System.Windows.Forms.Padding(3)
-        Me.pgDSOptions.Size = New System.Drawing.Size(432, 249)
+        Me.pgDSOptions.Size = New System.Drawing.Size(440, 249)
         Me.pgDSOptions.TabIndex = 5
         Me.pgDSOptions.Text = "DS_ Options"
         Me.pgDSOptions.UseVisualStyleBackColor = True
@@ -578,6 +582,93 @@ Partial Class frmSteamCoil
         Me.pgControls.TabIndex = 2
         Me.pgControls.Text = "Controls"
         Me.pgControls.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fisen_Unwired)
+        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fact_Unwired)
+        Me.GroupBox3.Controls.Add(Me.optBU_Other)
+        Me.GroupBox3.Controls.Add(Me.optBU_IPU_Unwired)
+        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fact_FisenWires)
+        Me.GroupBox3.Controls.Add(Me.optBU_IPU_FisenWires)
+        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fisen_FisenWires)
+        Me.GroupBox3.Location = New System.Drawing.Point(178, 7)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(257, 138)
+        Me.GroupBox3.TabIndex = 33
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Base Unit Control"
+        '
+        'optBU_SE_Fisen_Unwired
+        '
+        Me.optBU_SE_Fisen_Unwired.AutoSize = True
+        Me.optBU_SE_Fisen_Unwired.Location = New System.Drawing.Point(134, 116)
+        Me.optBU_SE_Fisen_Unwired.Name = "optBU_SE_Fisen_Unwired"
+        Me.optBU_SE_Fisen_Unwired.Size = New System.Drawing.Size(123, 17)
+        Me.optBU_SE_Fisen_Unwired.TabIndex = 6
+        Me.optBU_SE_Fisen_Unwired.Text = "SE by Fisen Unwired"
+        Me.optBU_SE_Fisen_Unwired.UseVisualStyleBackColor = True
+        '
+        'optBU_SE_Fact_Unwired
+        '
+        Me.optBU_SE_Fact_Unwired.AutoSize = True
+        Me.optBU_SE_Fact_Unwired.Location = New System.Drawing.Point(134, 93)
+        Me.optBU_SE_Fact_Unwired.Name = "optBU_SE_Fact_Unwired"
+        Me.optBU_SE_Fact_Unwired.Size = New System.Drawing.Size(113, 17)
+        Me.optBU_SE_Fact_Unwired.TabIndex = 5
+        Me.optBU_SE_Fact_Unwired.Text = "SE by JCI Unwired"
+        Me.optBU_SE_Fact_Unwired.UseVisualStyleBackColor = True
+        '
+        'optBU_Other
+        '
+        Me.optBU_Other.AutoSize = True
+        Me.optBU_Other.Location = New System.Drawing.Point(6, 115)
+        Me.optBU_Other.Name = "optBU_Other"
+        Me.optBU_Other.Size = New System.Drawing.Size(42, 17)
+        Me.optBU_Other.TabIndex = 4
+        Me.optBU_Other.Text = "n/a"
+        Me.optBU_Other.UseVisualStyleBackColor = True
+        '
+        'optBU_IPU_Unwired
+        '
+        Me.optBU_IPU_Unwired.AutoSize = True
+        Me.optBU_IPU_Unwired.Location = New System.Drawing.Point(134, 70)
+        Me.optBU_IPU_Unwired.Name = "optBU_IPU_Unwired"
+        Me.optBU_IPU_Unwired.Size = New System.Drawing.Size(91, 17)
+        Me.optBU_IPU_Unwired.TabIndex = 3
+        Me.optBU_IPU_Unwired.Text = "IPU - Unwired"
+        Me.optBU_IPU_Unwired.UseVisualStyleBackColor = True
+        '
+        'optBU_SE_Fact_FisenWires
+        '
+        Me.optBU_SE_Fact_FisenWires.AutoSize = True
+        Me.optBU_SE_Fact_FisenWires.Location = New System.Drawing.Point(6, 24)
+        Me.optBU_SE_Fact_FisenWires.Name = "optBU_SE_Fact_FisenWires"
+        Me.optBU_SE_Fact_FisenWires.Size = New System.Drawing.Size(175, 17)
+        Me.optBU_SE_Fact_FisenWires.TabIndex = 2
+        Me.optBU_SE_Fact_FisenWires.Text = "SE 4 Stage by JCI - Fisen Wires"
+        Me.optBU_SE_Fact_FisenWires.UseVisualStyleBackColor = True
+        '
+        'optBU_IPU_FisenWires
+        '
+        Me.optBU_IPU_FisenWires.AutoSize = True
+        Me.optBU_IPU_FisenWires.Enabled = False
+        Me.optBU_IPU_FisenWires.Location = New System.Drawing.Point(6, 70)
+        Me.optBU_IPU_FisenWires.Name = "optBU_IPU_FisenWires"
+        Me.optBU_IPU_FisenWires.Size = New System.Drawing.Size(107, 17)
+        Me.optBU_IPU_FisenWires.TabIndex = 1
+        Me.optBU_IPU_FisenWires.Text = "IPU - Fisen Wires"
+        Me.optBU_IPU_FisenWires.UseVisualStyleBackColor = True
+        '
+        'optBU_SE_Fisen_FisenWires
+        '
+        Me.optBU_SE_Fisen_FisenWires.AutoSize = True
+        Me.optBU_SE_Fisen_FisenWires.Location = New System.Drawing.Point(6, 47)
+        Me.optBU_SE_Fisen_FisenWires.Name = "optBU_SE_Fisen_FisenWires"
+        Me.optBU_SE_Fisen_FisenWires.Size = New System.Drawing.Size(185, 17)
+        Me.optBU_SE_Fisen_FisenWires.TabIndex = 0
+        Me.optBU_SE_Fisen_FisenWires.Text = "SE 4 Stage by Fisen - Fisen Wires"
+        Me.optBU_SE_Fisen_FisenWires.UseVisualStyleBackColor = True
         '
         'GroupBox9
         '
@@ -693,6 +784,7 @@ Partial Class frmSteamCoil
         '
         'pgPerf
         '
+        Me.pgPerf.Controls.Add(Me.sciConnections)
         Me.pgPerf.Controls.Add(Me.optCoilOnly)
         Me.pgPerf.Controls.Add(Me.optAPDAllowance)
         Me.pgPerf.Controls.Add(Me.txtOutletSize)
@@ -888,15 +980,6 @@ Partial Class frmSteamCoil
         Me.tpgValves.Text = "Valves"
         Me.tpgValves.UseVisualStyleBackColor = True
         '
-        'btnSelectAValve
-        '
-        Me.btnSelectAValve.Image = CType(resources.GetObject("btnSelectAValve.Image"), System.Drawing.Image)
-        Me.btnSelectAValve.Location = New System.Drawing.Point(60, 59)
-        Me.btnSelectAValve.Name = "btnSelectAValve"
-        Me.btnSelectAValve.Size = New System.Drawing.Size(22, 22)
-        Me.btnSelectAValve.TabIndex = 34
-        Me.btnSelectAValve.UseVisualStyleBackColor = True
-        '
         'cmbValveDesc
         '
         Me.cmbValveDesc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -998,92 +1081,23 @@ Partial Class frmSteamCoil
         Me.btnDoneValve.Text = ">"
         Me.btnDoneValve.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'sciConnections
         '
-        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fisen_Unwired)
-        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fact_Unwired)
-        Me.GroupBox3.Controls.Add(Me.optBU_Other)
-        Me.GroupBox3.Controls.Add(Me.optBU_IPU_Unwired)
-        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fact_FisenWires)
-        Me.GroupBox3.Controls.Add(Me.optBU_IPU_FisenWires)
-        Me.GroupBox3.Controls.Add(Me.optBU_SE_Fisen_FisenWires)
-        Me.GroupBox3.Location = New System.Drawing.Point(178, 7)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(257, 138)
-        Me.GroupBox3.TabIndex = 33
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Base Unit Control"
+        Me.sciConnections.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.sciConnections.Location = New System.Drawing.Point(337, 55)
+        Me.sciConnections.Name = "sciConnections"
+        Me.sciConnections.Size = New System.Drawing.Size(24, 24)
+        Me.sciConnections.TabIndex = 51
+        Me.sciConnections.TabStop = False
         '
-        'optBU_SE_Fisen_Unwired
+        'btnSelectAValve
         '
-        Me.optBU_SE_Fisen_Unwired.AutoSize = True
-        Me.optBU_SE_Fisen_Unwired.Location = New System.Drawing.Point(134, 116)
-        Me.optBU_SE_Fisen_Unwired.Name = "optBU_SE_Fisen_Unwired"
-        Me.optBU_SE_Fisen_Unwired.Size = New System.Drawing.Size(123, 17)
-        Me.optBU_SE_Fisen_Unwired.TabIndex = 6
-        Me.optBU_SE_Fisen_Unwired.Text = "SE by Fisen Unwired"
-        Me.optBU_SE_Fisen_Unwired.UseVisualStyleBackColor = True
-        '
-        'optBU_SE_Fact_Unwired
-        '
-        Me.optBU_SE_Fact_Unwired.AutoSize = True
-        Me.optBU_SE_Fact_Unwired.Location = New System.Drawing.Point(134, 93)
-        Me.optBU_SE_Fact_Unwired.Name = "optBU_SE_Fact_Unwired"
-        Me.optBU_SE_Fact_Unwired.Size = New System.Drawing.Size(113, 17)
-        Me.optBU_SE_Fact_Unwired.TabIndex = 5
-        Me.optBU_SE_Fact_Unwired.Text = "SE by JCI Unwired"
-        Me.optBU_SE_Fact_Unwired.UseVisualStyleBackColor = True
-        '
-        'optBU_Other
-        '
-        Me.optBU_Other.AutoSize = True
-        Me.optBU_Other.Location = New System.Drawing.Point(6, 115)
-        Me.optBU_Other.Name = "optBU_Other"
-        Me.optBU_Other.Size = New System.Drawing.Size(42, 17)
-        Me.optBU_Other.TabIndex = 4
-        Me.optBU_Other.Text = "n/a"
-        Me.optBU_Other.UseVisualStyleBackColor = True
-        '
-        'optBU_IPU_Unwired
-        '
-        Me.optBU_IPU_Unwired.AutoSize = True
-        Me.optBU_IPU_Unwired.Location = New System.Drawing.Point(134, 70)
-        Me.optBU_IPU_Unwired.Name = "optBU_IPU_Unwired"
-        Me.optBU_IPU_Unwired.Size = New System.Drawing.Size(91, 17)
-        Me.optBU_IPU_Unwired.TabIndex = 3
-        Me.optBU_IPU_Unwired.Text = "IPU - Unwired"
-        Me.optBU_IPU_Unwired.UseVisualStyleBackColor = True
-        '
-        'optBU_SE_Fact_FisenWires
-        '
-        Me.optBU_SE_Fact_FisenWires.AutoSize = True
-        Me.optBU_SE_Fact_FisenWires.Location = New System.Drawing.Point(6, 24)
-        Me.optBU_SE_Fact_FisenWires.Name = "optBU_SE_Fact_FisenWires"
-        Me.optBU_SE_Fact_FisenWires.Size = New System.Drawing.Size(175, 17)
-        Me.optBU_SE_Fact_FisenWires.TabIndex = 2
-        Me.optBU_SE_Fact_FisenWires.Text = "SE 4 Stage by JCI - Fisen Wires"
-        Me.optBU_SE_Fact_FisenWires.UseVisualStyleBackColor = True
-        '
-        'optBU_IPU_FisenWires
-        '
-        Me.optBU_IPU_FisenWires.AutoSize = True
-        Me.optBU_IPU_FisenWires.Enabled = False
-        Me.optBU_IPU_FisenWires.Location = New System.Drawing.Point(6, 70)
-        Me.optBU_IPU_FisenWires.Name = "optBU_IPU_FisenWires"
-        Me.optBU_IPU_FisenWires.Size = New System.Drawing.Size(107, 17)
-        Me.optBU_IPU_FisenWires.TabIndex = 1
-        Me.optBU_IPU_FisenWires.Text = "IPU - Fisen Wires"
-        Me.optBU_IPU_FisenWires.UseVisualStyleBackColor = True
-        '
-        'optBU_SE_Fisen_FisenWires
-        '
-        Me.optBU_SE_Fisen_FisenWires.AutoSize = True
-        Me.optBU_SE_Fisen_FisenWires.Location = New System.Drawing.Point(6, 47)
-        Me.optBU_SE_Fisen_FisenWires.Name = "optBU_SE_Fisen_FisenWires"
-        Me.optBU_SE_Fisen_FisenWires.Size = New System.Drawing.Size(185, 17)
-        Me.optBU_SE_Fisen_FisenWires.TabIndex = 0
-        Me.optBU_SE_Fisen_FisenWires.Text = "SE 4 Stage by Fisen - Fisen Wires"
-        Me.optBU_SE_Fisen_FisenWires.UseVisualStyleBackColor = True
+        Me.btnSelectAValve.Image = CType(resources.GetObject("btnSelectAValve.Image"), System.Drawing.Image)
+        Me.btnSelectAValve.Location = New System.Drawing.Point(60, 59)
+        Me.btnSelectAValve.Name = "btnSelectAValve"
+        Me.btnSelectAValve.Size = New System.Drawing.Size(22, 22)
+        Me.btnSelectAValve.TabIndex = 34
+        Me.btnSelectAValve.UseVisualStyleBackColor = True
         '
         'frmSteamCoil
         '
@@ -1114,6 +1128,8 @@ Partial Class frmSteamCoil
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.pgControls.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -1122,8 +1138,7 @@ Partial Class frmSteamCoil
         Me.pgPerf.PerformLayout()
         Me.tpgValves.ResumeLayout(False)
         Me.tpgValves.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        CType(Me.sciConnections, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1218,4 +1233,6 @@ Partial Class frmSteamCoil
     Friend WithEvents optBU_SE_Fact_FisenWires As RadioButton
     Friend WithEvents optBU_IPU_FisenWires As RadioButton
     Friend WithEvents optBU_SE_Fisen_FisenWires As RadioButton
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents sciConnections As PictureBox
 End Class

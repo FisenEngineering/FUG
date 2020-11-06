@@ -25,6 +25,7 @@ Partial Class frmBiPolar
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBiPolar))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkShareXfmr = New System.Windows.Forms.CheckBox()
         Me.cmbBipolarStyle = New System.Windows.Forms.ComboBox()
         Me.grpDPPCkt = New System.Windows.Forms.GroupBox()
         Me.optDPPEmergency = New System.Windows.Forms.RadioButton()
@@ -70,6 +71,12 @@ Partial Class frmBiPolar
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.grpMnAOptions = New System.Windows.Forms.GroupBox()
+        Me.optNoMnA = New System.Windows.Forms.RadioButton()
+        Me.optLocalMnA = New System.Windows.Forms.RadioButton()
+        Me.optRemoteMnA = New System.Windows.Forms.RadioButton()
+        Me.chkBACnetMnA = New System.Windows.Forms.CheckBox()
+        Me.optBACnetOnlyMnA = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -80,6 +87,7 @@ Partial Class frmBiPolar
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.grpMnAOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -97,6 +105,7 @@ Partial Class frmBiPolar
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkShareXfmr)
         Me.tpgConditions.Controls.Add(Me.cmbBipolarStyle)
         Me.tpgConditions.Controls.Add(Me.grpDPPCkt)
         Me.tpgConditions.Controls.Add(Me.GroupBox2)
@@ -109,12 +118,23 @@ Partial Class frmBiPolar
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
         '
+        'chkShareXfmr
+        '
+        Me.chkShareXfmr.AutoSize = True
+        Me.chkShareXfmr.Location = New System.Drawing.Point(7, 113)
+        Me.chkShareXfmr.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkShareXfmr.Name = "chkShareXfmr"
+        Me.chkShareXfmr.Size = New System.Drawing.Size(181, 17)
+        Me.chkShareXfmr.TabIndex = 50
+        Me.chkShareXfmr.Text = "Share Transformer with UVLights"
+        Me.chkShareXfmr.UseVisualStyleBackColor = True
+        '
         'cmbBipolarStyle
         '
         Me.cmbBipolarStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbBipolarStyle.FormattingEnabled = True
         Me.cmbBipolarStyle.Items.AddRange(New Object() {"Use Standard", "CP Plasma Bar #PB-066"})
-        Me.cmbBipolarStyle.Location = New System.Drawing.Point(6, 112)
+        Me.cmbBipolarStyle.Location = New System.Drawing.Point(6, 137)
         Me.cmbBipolarStyle.Name = "cmbBipolarStyle"
         Me.cmbBipolarStyle.Size = New System.Drawing.Size(200, 21)
         Me.cmbBipolarStyle.TabIndex = 9
@@ -363,6 +383,7 @@ Partial Class frmBiPolar
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.grpMnAOptions)
         Me.tpgControls.Controls.Add(Me.chkEMControlsOnly)
         Me.tpgControls.Controls.Add(Me.cmbCustomControls)
         Me.tpgControls.Controls.Add(Me.optCtrlCustom)
@@ -383,8 +404,7 @@ Partial Class frmBiPolar
         Me.chkEMControlsOnly.AutoSize = True
         Me.chkEMControlsOnly.Checked = True
         Me.chkEMControlsOnly.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkEMControlsOnly.Enabled = False
-        Me.chkEMControlsOnly.Location = New System.Drawing.Point(6, 102)
+        Me.chkEMControlsOnly.Location = New System.Drawing.Point(6, 176)
         Me.chkEMControlsOnly.Name = "chkEMControlsOnly"
         Me.chkEMControlsOnly.Size = New System.Drawing.Size(107, 17)
         Me.chkEMControlsOnly.TabIndex = 13
@@ -599,6 +619,76 @@ Partial Class frmBiPolar
         Me.cmdFIOPPreview.TabIndex = 63
         Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
+        'grpMnAOptions
+        '
+        Me.grpMnAOptions.Controls.Add(Me.optBACnetOnlyMnA)
+        Me.grpMnAOptions.Controls.Add(Me.chkBACnetMnA)
+        Me.grpMnAOptions.Controls.Add(Me.optNoMnA)
+        Me.grpMnAOptions.Controls.Add(Me.optLocalMnA)
+        Me.grpMnAOptions.Controls.Add(Me.optRemoteMnA)
+        Me.grpMnAOptions.Enabled = False
+        Me.grpMnAOptions.Location = New System.Drawing.Point(6, 103)
+        Me.grpMnAOptions.Name = "grpMnAOptions"
+        Me.grpMnAOptions.Size = New System.Drawing.Size(373, 70)
+        Me.grpMnAOptions.TabIndex = 14
+        Me.grpMnAOptions.TabStop = False
+        Me.grpMnAOptions.Text = "Monitor and Alarm Options"
+        '
+        'optNoMnA
+        '
+        Me.optNoMnA.AutoSize = True
+        Me.optNoMnA.Checked = True
+        Me.optNoMnA.Enabled = False
+        Me.optNoMnA.Location = New System.Drawing.Point(249, 20)
+        Me.optNoMnA.Name = "optNoMnA"
+        Me.optNoMnA.Size = New System.Drawing.Size(94, 17)
+        Me.optNoMnA.TabIndex = 2
+        Me.optNoMnA.TabStop = True
+        Me.optNoMnA.Text = "No MnA Panel"
+        Me.optNoMnA.UseVisualStyleBackColor = True
+        '
+        'optLocalMnA
+        '
+        Me.optLocalMnA.AutoSize = True
+        Me.optLocalMnA.Enabled = False
+        Me.optLocalMnA.Location = New System.Drawing.Point(137, 20)
+        Me.optLocalMnA.Name = "optLocalMnA"
+        Me.optLocalMnA.Size = New System.Drawing.Size(106, 17)
+        Me.optLocalMnA.TabIndex = 1
+        Me.optLocalMnA.Text = "Local MnA Panel"
+        Me.optLocalMnA.UseVisualStyleBackColor = True
+        '
+        'optRemoteMnA
+        '
+        Me.optRemoteMnA.AutoSize = True
+        Me.optRemoteMnA.Location = New System.Drawing.Point(14, 20)
+        Me.optRemoteMnA.Name = "optRemoteMnA"
+        Me.optRemoteMnA.Size = New System.Drawing.Size(117, 17)
+        Me.optRemoteMnA.TabIndex = 0
+        Me.optRemoteMnA.Text = "Remote MnA Panel"
+        Me.optRemoteMnA.UseVisualStyleBackColor = True
+        '
+        'chkBACnetMnA
+        '
+        Me.chkBACnetMnA.AutoSize = True
+        Me.chkBACnetMnA.Location = New System.Drawing.Point(14, 43)
+        Me.chkBACnetMnA.Name = "chkBACnetMnA"
+        Me.chkBACnetMnA.Size = New System.Drawing.Size(150, 17)
+        Me.chkBACnetMnA.TabIndex = 14
+        Me.chkBACnetMnA.Text = "BACnet Monitor and Alarm"
+        Me.chkBACnetMnA.UseVisualStyleBackColor = True
+        '
+        'optBACnetOnlyMnA
+        '
+        Me.optBACnetOnlyMnA.AutoSize = True
+        Me.optBACnetOnlyMnA.Enabled = False
+        Me.optBACnetOnlyMnA.Location = New System.Drawing.Point(249, 42)
+        Me.optBACnetOnlyMnA.Name = "optBACnetOnlyMnA"
+        Me.optBACnetOnlyMnA.Size = New System.Drawing.Size(110, 17)
+        Me.optBACnetOnlyMnA.TabIndex = 15
+        Me.optBACnetOnlyMnA.Text = "BACnet Only MnA"
+        Me.optBACnetOnlyMnA.UseVisualStyleBackColor = True
+        '
         'frmBiPolar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -619,6 +709,7 @@ Partial Class frmBiPolar
         Me.Text = "Bipolar Ionization Subsystem"
         Me.TabControl1.ResumeLayout(False)
         Me.tpgConditions.ResumeLayout(False)
+        Me.tpgConditions.PerformLayout()
         Me.grpDPPCkt.ResumeLayout(False)
         Me.grpDPPCkt.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -635,6 +726,8 @@ Partial Class frmBiPolar
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
+        Me.grpMnAOptions.ResumeLayout(False)
+        Me.grpMnAOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -687,4 +780,11 @@ Partial Class frmBiPolar
     Friend WithEvents cmbBipolarStyle As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents chkShareXfmr As CheckBox
+    Friend WithEvents grpMnAOptions As GroupBox
+    Friend WithEvents optBACnetOnlyMnA As RadioButton
+    Friend WithEvents chkBACnetMnA As CheckBox
+    Friend WithEvents optNoMnA As RadioButton
+    Friend WithEvents optLocalMnA As RadioButton
+    Friend WithEvents optRemoteMnA As RadioButton
 End Class

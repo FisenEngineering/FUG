@@ -30,6 +30,7 @@ Partial Class frmAFlowMod
         Me.tpgConditions = New System.Windows.Forms.TabPage()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.btnDoneControls = New System.Windows.Forms.Button()
@@ -38,15 +39,21 @@ Partial Class frmAFlowMod
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.grpDown2Side = New System.Windows.Forms.GroupBox()
+        Me.chkAdjustESPDown = New System.Windows.Forms.CheckBox()
+        Me.txtSPAdjustSideDisch = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtSFanAFlow = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.tpgControls.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.grpDown2Side.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -130,6 +137,17 @@ Partial Class frmAFlowMod
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(4, 173)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 32
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'cmdDoneOptions
         '
         Me.cmdDoneOptions.Location = New System.Drawing.Point(513, 153)
@@ -164,6 +182,10 @@ Partial Class frmAFlowMod
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.Label2)
+        Me.tpgPerformance.Controls.Add(Me.txtSFanAFlow)
+        Me.tpgPerformance.Controls.Add(Me.Label1)
+        Me.tpgPerformance.Controls.Add(Me.grpDown2Side)
         Me.tpgPerformance.Controls.Add(Me.btnDonePerf)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Margin = New System.Windows.Forms.Padding(4)
@@ -216,17 +238,6 @@ Partial Class frmAFlowMod
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'chk65kASCCRBase
-        '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(4, 173)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 32
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
-        '
         'cmdViewHistory
         '
         Me.cmdViewHistory.Enabled = False
@@ -245,6 +256,60 @@ Partial Class frmAFlowMod
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 17
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'grpDown2Side
+        '
+        Me.grpDown2Side.Controls.Add(Me.txtSPAdjustSideDisch)
+        Me.grpDown2Side.Controls.Add(Me.chkAdjustESPDown)
+        Me.grpDown2Side.Location = New System.Drawing.Point(7, 33)
+        Me.grpDown2Side.Name = "grpDown2Side"
+        Me.grpDown2Side.Size = New System.Drawing.Size(310, 51)
+        Me.grpDown2Side.TabIndex = 15
+        Me.grpDown2Side.TabStop = False
+        Me.grpDown2Side.Text = "Static Adjustment for Conversion"
+        Me.grpDown2Side.Visible = False
+        '
+        'chkAdjustESPDown
+        '
+        Me.chkAdjustESPDown.AutoSize = True
+        Me.chkAdjustESPDown.Location = New System.Drawing.Point(15, 22)
+        Me.chkAdjustESPDown.Name = "chkAdjustESPDown"
+        Me.chkAdjustESPDown.Size = New System.Drawing.Size(217, 17)
+        Me.chkAdjustESPDown.TabIndex = 0
+        Me.chkAdjustESPDown.Text = "Adjust ESP Down for Conversion to Side"
+        Me.chkAdjustESPDown.UseVisualStyleBackColor = True
+        '
+        'txtSPAdjustSideDisch
+        '
+        Me.txtSPAdjustSideDisch.Location = New System.Drawing.Point(238, 19)
+        Me.txtSPAdjustSideDisch.Name = "txtSPAdjustSideDisch"
+        Me.txtSPAdjustSideDisch.Size = New System.Drawing.Size(66, 20)
+        Me.txtSPAdjustSideDisch.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(7, 10)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(213, 13)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Any performace is based upon an airflow of:"
+        '
+        'txtSFanAFlow
+        '
+        Me.txtSFanAFlow.Location = New System.Drawing.Point(226, 7)
+        Me.txtSFanAFlow.Name = "txtSFanAFlow"
+        Me.txtSFanAFlow.Size = New System.Drawing.Size(66, 20)
+        Me.txtSFanAFlow.TabIndex = 16
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(298, 10)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(24, 13)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "cfm"
         '
         'frmAFlowMod
         '
@@ -267,6 +332,9 @@ Partial Class frmAFlowMod
         Me.tpgOptions.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgPerformance.ResumeLayout(False)
+        Me.tpgPerformance.PerformLayout()
+        Me.grpDown2Side.ResumeLayout(False)
+        Me.grpDown2Side.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -289,4 +357,10 @@ Partial Class frmAFlowMod
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents grpDown2Side As GroupBox
+    Friend WithEvents txtSPAdjustSideDisch As TextBox
+    Friend WithEvents chkAdjustESPDown As CheckBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtSFanAFlow As TextBox
+    Friend WithEvents Label1 As Label
 End Class

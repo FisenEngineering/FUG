@@ -274,6 +274,12 @@
     <Compile Include="frmFanVFD.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFanWall.Designer.vb">
+      <DependentUpon>frmFanWall.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFanWall.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmFiltration.Designer.vb">
       <DependentUpon>frmFiltration.vb</DependentUpon>
     </Compile>
@@ -357,6 +363,12 @@
       <DependentUpon>frmMGH_R.vb</DependentUpon>
     </Compile>
     <Compile Include="frmMGH_R.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMZ.Designer.vb">
+      <DependentUpon>frmMZ.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMZ.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmNewFan.Designer.vb">
@@ -530,6 +542,9 @@
     <EmbeddedResource Include="frmFanVFD.resx">
       <DependentUpon>frmFanVFD.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmFanWall.resx">
+      <DependentUpon>frmFanWall.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmFiltration.resx">
       <DependentUpon>frmFiltration.vb</DependentUpon>
     </EmbeddedResource>
@@ -571,6 +586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMGH_R.resx">
       <DependentUpon>frmMGH_R.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMZ.resx">
+      <DependentUpon>frmMZ.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewFan.resx">
       <DependentUpon>frmNewFan.vb</DependentUpon>
@@ -708,6 +726,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GearIcon24.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Science2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

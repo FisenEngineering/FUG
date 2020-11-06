@@ -82,15 +82,20 @@ Public Class frmUVLights
             ModuleCodeList.Add("420102")
         End If
         If optPwrUnitPower.Checked Then
-            ModuleCodeList.Add("420104")
-            If frmMain.ThisUnit.Family = "Select" Then ModuleCodeList.Add("420X03")
-            If frmMain.ThisUnit.Family = "Series10" Then ModuleCodeList.Add("420X01")
-            If frmMain.ThisUnit.Family = "Series5" Then ModuleCodeList.Add("420X01")
-            If frmMain.ThisUnit.Family = "Series20" Then ModuleCodeList.Add("420X02")
-            If frmMain.ThisUnit.Family = "SeriesLX" Then ModuleCodeList.Add("420X01")
-
-        End If
-        If optPwrDedicated.Checked Then ModuleCodeList.Add("420103")
+            If Not (chkShareXfmr.Checked) Then
+                ModuleCodeList.Add("420104")
+                If frmMain.ThisUnit.Family = "Select" Then ModuleCodeList.Add("420X03")
+                If frmMain.ThisUnit.Family = "Series10" Then ModuleCodeList.Add("420X01")
+                If frmMain.ThisUnit.Family = "Series5" Then ModuleCodeList.Add("420X01")
+                If frmMain.ThisUnit.Family = "Series20" Then ModuleCodeList.Add("420X02")
+                If frmMain.ThisUnit.Family = "SeriesLX" Then ModuleCodeList.Add("420X01")
+            Else
+                ModuleCodeList.Add("420105")
+                If frmMain.ThisUnit.Family = "Series12" Then ModuleCodeList.Add("420X04")
+                If frmMain.ThisUnit.Family = "Series20" Then ModuleCodeList.Add("420X02")
+            End If
+            End If
+            If optPwrDedicated.Checked Then ModuleCodeList.Add("420103")
 
         ModuleCodeList.Add("420200")
         If chkEMControlsOnly.Checked Then ModuleCodeList.Add("420210")
@@ -187,6 +192,8 @@ Public Class frmUVLights
                 tempWeight = "55"
             Case Is = "Series10"
                 tempWeight = "65"
+            Case Is = "Series12"
+                tempWeight = "65"
             Case Is = "Series20"
                 tempWeight = "85"
             Case Is = "Series40"
@@ -224,25 +231,31 @@ Public Class frmUVLights
             Select Case frmMain.ThisUnit.Family
                 Case Is = "Series5"
                     RqdVA = 66
-                    XfmrVA = 100
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
                 Case Is = "Series10"
-                    XfmrVA = 100
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
+                    RqdVA = 84
+                Case Is = "Series12"
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
                     RqdVA = 84
                 Case Is = "SeriesLX"
-                    XfmrVA = 100
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
                     RqdVA = 84
                 Case Is = "Series20"
-                    XfmrVA = 250
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 250 Else XfmrVA = 250
                     RqdVA = 170
                 Case Is = "Select"
-                    XfmrVA = 500
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 500 Else XfmrVA = 500
                     RqdVA = 340
                 Case Is = "Series100"
-                    If frmMain.ThisUnit.Cabinet = "Series100A" Then RqdVA = 340
-                    If frmMain.ThisUnit.Cabinet = "Series100B" Then RqdVA = 340
-                    If frmMain.ThisUnit.Cabinet = "Series100C" Then RqdVA = 680
-                    XfmrVA = 500
-                    If frmMain.ThisUnit.Cabinet = "Series100C" Then XfmrVA = 750
+                    'Needs Fixing!!!!!
+                    dummy = MsgBox("Unit type undefined in 'BiPolar:Update Performance'" & vbCrLf & "Using Bogus Value.", vbOKCancel, "Fisen Unit Generator")
+                    If dummy = vbCancel Then Stop
+                    If frmMain.ThisUnit.Cabinet = "Series100A" Then RqdVA = 340 Else XfmrVA = 250
+                    If frmMain.ThisUnit.Cabinet = "Series100B" Then RqdVA = 340 Else XfmrVA = 250
+                    If frmMain.ThisUnit.Cabinet = "Series100C" Then RqdVA = 680 Else XfmrVA = 250
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 500 Else XfmrVA = 250
+                    If frmMain.ThisUnit.Cabinet = "Series100C" Then XfmrVA = 750 Else XfmrVA = 250
                 Case Else
                     RqdVA = 2000
                     XfmrVA = 2000
