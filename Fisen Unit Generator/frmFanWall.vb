@@ -53,6 +53,27 @@ Public Class frmFanWall
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
         End Select
 
+        Select Case pFanWallStyle
+            Case Is = "Supply Fan Array"
+                txtAirflow.Text = frmMain.ThisUnitSFanPerf.Airflow
+                txtESP.Text = frmMain.ThisUnitSFanPerf.ESP
+
+            Case Is = "Return Fan Array"
+                txtAirflow.Text = frmMain.ThisUnitRXPerf.Airflow
+                txtESP.Text = frmMain.ThisUnitRXPerf.ESP
+
+            Case Is = "Exhaust Fan Array"
+                txtAirflow.Text = frmMain.ThisUnitRXPerf.Airflow
+                txtESP.Text = frmMain.ThisUnitRXPerf.Airflow
+        End Select
+
+        cmbArraySize.Text = "Unselected"
+        cmbFanType.Text = pFanWallStyle
+        txtElevation.Text = frmMain.ThisUnitCoolPerf.Elevation
+        If Val(txtElevation.Text) > 0 Then chkESPatElev.Checked = True
+        lblKFactor.Text = Format(ElevationCorrection(txtElevation.Text), "0.00")
+
+
         'If it’s a DPP project then turn on DPP controls for handling during update performance.
         'n/a remains usable to permit n/a for dedicated supply.
         If frmMain.ThisUnitElecData.DPPPresent Then grpDPPCkt.Visible = True
@@ -282,20 +303,53 @@ Public Class frmFanWall
     Private Sub UpdateCodeList(Preview As Boolean)
         Select Case pFanWallStyle
             Case Is = "Supply Fan Array"
+                If Not (Preview) Then
+                    frmMain.ThisUnitMods.Add("SFanWall") 'Mod Code goes here!
+                End If
+                Call SFanArrayHandler()
 
-                If chk65kASCCRBase.Checked Then ModuleCodeList.Add("390100")
 
             Case Is = "Return Fan Array"
+                If Not (Preview) Then
+                    frmMain.ThisUnitMods.Add("RFanWall") 'Mod Code goes here!
+                End If
+                Call RFanArrayHandler()
 
-                If chk65kASCCRBase.Checked Then ModuleCodeList.Add("391100")
 
             Case Is = "Exhaust Fan Array"
+                If Not (Preview) Then
+                    frmMain.ThisUnitMods.Add("XFanWall") 'Mod Code goes here!
+                End If
+                Call XFanArrayHandler()
 
-                If chk65kASCCRBase.Checked Then ModuleCodeList.Add("392100")
 
         End Select
 
         'Do all the common stuff
+        If Not (Preview) Then
+            If chkWriteHistory.Checked = True Then Call WriteHistory()
+        End If
+
+    End Sub
+    Private Sub SFanArrayHandler()
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("390100")
+
+        If chk65kASCCRBase.Checked Then ModuleCodeList.Add("390F6A")
+    End Sub
+    Private Sub RFanArrayHandler()
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("391100")
+
+        If chk65kASCCRBase.Checked Then ModuleCodeList.Add("391F6A")
+    End Sub
+    Private Sub XFanArrayHandler()
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("392100")
+
+        If chk65kASCCRBase.Checked Then ModuleCodeList.Add("392F6A")
+    End Sub
+    Private Sub WriteHistory()
 
     End Sub
     Private Sub PopulateAuxPanelList()
@@ -368,4 +422,347 @@ Public Class frmFanWall
         End If
     End Sub
 
+    Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
+        Dim dummy As MsgBoxResult
+        If cmbArraySize.Text = "Unselected" Then
+            dummy = MsgBox("You must select an array size before continuing.", vbOKOnly, "Fisen Unit Generator")
+            Exit Sub
+        End If
+    End Sub
+
+    Private Sub cmbFanType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFanType.SelectedIndexChanged
+        Me.Text = pFanWallStyle
+    End Sub
+
+    Private Sub cmbArraySize_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbArraySize.SelectedIndexChanged
+        Dim fancount As String
+        Dim dummy As MsgBoxResult
+        Dim msgstr As String
+        Select Case cmbArraySize.Text
+            Case Is = "2x1"
+                fancount = 2
+            Case Is = "2x2"
+                fancount = 4
+            Case Is = "3x1"
+                fancount = 3
+            Case Is = "3x2"
+                fancount = 6
+            Case Is = "3x3"
+                fancount = 9
+            Case Is = "4x1"
+                fancount = 4
+            Case Is = "4x2"
+                fancount = 8
+            Case Is = "4x3"
+                fancount = 12
+            Case Is = "4x4"
+                fancount = 16
+            Case Is = "Unselected"
+                fancount = 99
+            Case Else
+                fancount = 99
+                msgstr = "Somehow you have selected an undefied fan array.  Please reselect array size."
+                dummy = MsgBox(msgstr, vbOK + vbAbort, "Fisen Unit Generator")
+                If dummy = vbAbort Then Stop
+        End Select
+        lblFanCount.Text = Trim(Str(fancount))
+        txtAirflowEachFan.Text = Format(Val(txtAirflow.Text) / Val(lblFanCount.Text), "0")
+    End Sub
+
+    Private Sub txtElevation_TextChanged(sender As Object, e As EventArgs) Handles txtElevation.TextChanged
+        lblKFactor.Text = Format(ElevationCorrection(txtElevation.Text), "0.00")
+        tslblElevation.Text = "Elevation: " & txtElevation.Text
+    End Sub
+
+    Private Sub cmdStaticSummary_Click(sender As Object, e As EventArgs) Handles cmdStaticSummary.Click
+        Dim NewRow As String()
+        Dim ItemAtSTP As String
+        Dim ItemAtATP As String
+
+        If chkESPatElev.Checked Then
+            ItemAtATP = txtESP.Text
+            ItemAtSTP = Format(Val(txtESP.Text) * Val(lblKFactor.Text), "0.00")
+        Else
+            ItemAtSTP = txtESP.Text
+            ItemAtATP = Format(Val(txtESP.Text) / Val(lblKFactor.Text), "0.00")
+        End If
+
+        NewRow = {"External Static Pressure", ItemAtSTP, ItemAtATP}
+        dgvStaticSummary.Rows.Add(NewRow)
+
+        Call PopulateStaticDropdown()
+
+        TabControl1.SelectTab("tpgStaticSum")
+    End Sub
+    Private Sub btnReturn_Click(sender As Object, e As EventArgs) Handles btnReturn.Click
+        Dim i As Integer
+        Dim tsp As Double
+        Dim atsp As Double
+        Dim sfactor As Double
+        Dim asfactor As Double
+        Dim NewRow As String()
+
+        tsp = 0.0
+        atsp = 0.0
+
+        For i = 0 To dgvStaticSummary.RowCount - 1
+            If dgvStaticSummary.Rows(i).Cells.Item(0).Value <> "External Static Pressure" Then
+                tsp = tsp + Val(dgvStaticSummary.Rows(i).Cells.Item(1).Value)
+                atsp = atsp + Val(dgvStaticSummary.Rows(i).Cells.Item(2).Value)
+            End If
+        Next
+        sfactor = tsp * 0.1
+        asfactor = atsp * 0.1
+
+        If chkESPatElev.Checked Then
+            txtUSP.Text = Format(atsp, "0.00")
+            chkUSPatElev.Checked = True
+            txtUSPSafetyFactor.Text = Format(asfactor, "0.00")
+            chkSFatElev.Checked = True
+            atsp = atsp + Val(txtESP.Text) + asfactor
+            txtTSP.Text = Format(atsp, "0.00")
+            chkTSPatElev.Checked = True
+        Else
+            txtUSP.Text = Format(tsp, "0.00")
+            txtUSPSafetyFactor.Text = Format(sfactor, "0.00")
+            tsp = tsp + Val(txtESP.Text) + sfactor
+            txtTSP.Text = Format(tsp, "0.00")
+        End If
+
+        NewRow = {"Cabinet Effects", Format(sfactor, "0.00"), Format(asfactor, "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+
+        tslblAirflow.Text = "Airflow:" & txtAirflow.Text
+        tslblTSP.Text = "TSP: " & txtTSP.Text
+        tslblESP.Text = "ESP: " & txtESP.Text
+        tslblElevation.Text = "Elevation: " & txtElevation.Text
+
+        TabControl1.SelectTab("tpgConditions")
+    End Sub
+
+    Private Sub txtESP_TextChanged(sender As Object, e As EventArgs) Handles txtESP.TextChanged
+        tslblESP.Text = "ESP: " & txtESP.Text
+    End Sub
+
+    Private Sub txtTSP_TextChanged(sender As Object, e As EventArgs) Handles txtTSP.TextChanged
+        tslblTSP.Text = "TSP: " & txtTSP.Text
+    End Sub
+
+    Private Sub txtAirflow_TextChanged(sender As Object, e As EventArgs) Handles txtAirflow.TextChanged
+        tslblAirflow.Text = "Airflow:" & txtAirflow.Text
+        txtAirflowEachFan.Text = Format(Val(txtAirflow.Text) / Val(lblFanCount.Text), "0")
+    End Sub
+
+    Private Sub PopulateStaticDropdown()
+        Dim dummy As MsgBoxResult
+        Dim msgstr As String
+
+        Dim myfam As String
+
+        myfam = frmMain.ThisUnit.Family
+        cmbUSPType.Items.Clear()
+        cmbUSPType.Items.Add("Generic")
+        Select Case myfam
+            Case Is = "Series5"
+                'Unlikely - Use Generic
+            Case Is = "Series10"
+                'Unlikely - Use Generic
+            Case Is = "Series20"
+                'Unlikely - Use Generic
+            Case Is = "Series40"
+                Select Case pFanWallStyle
+                    Case Is = "Supply Fan Array"
+                        cmbUSPType.Items.Add("S40 - Downflow Supply SFan")
+                        cmbUSPType.Items.Add("S40 - Rear Supply SFan")
+
+                    Case Is = "Return Fan Array"
+                        cmbUSPType.Items.Add("S40 - Bottom Return RFan")
+                        cmbUSPType.Items.Add("S40 - End Return RFan")
+                        cmbUSPType.Items.Add("S40 - Rear Return RFan")
+
+                    Case Is = "Exhaust Fan Array"
+                        cmbUSPType.Items.Add("S40 - Bottom Return XFan")
+
+                End Select
+            Case Is = "Series100"
+                Select Case pFanWallStyle
+                    Case Is = "Supply Fan Array"
+                        If frmMain.ThisUnit.Cabinet = "Series100A" Then
+                            cmbUSPType.Items.Add("S100A - Downflow Supply SFan")
+                            cmbUSPType.Items.Add("S100A - Rear Supply SFan")
+
+                        End If
+                        If frmMain.ThisUnit.Cabinet = "Series100B" Then
+                            cmbUSPType.Items.Add("S100B - Downflow Supply SFan")
+                            cmbUSPType.Items.Add("S100B - Rear Supply SFan")
+
+                        End If
+                        If frmMain.ThisUnit.Cabinet = "Series100C" Then
+                            cmbUSPType.Items.Add("S100C - Downflow Supply SFan")
+                            cmbUSPType.Items.Add("S100C - Rear Supply SFan")
+
+                        End If
+                    Case Is = "Return Fan Array"
+                        If frmMain.ThisUnit.Cabinet = "Series100A" Then
+                            cmbUSPType.Items.Add("S100A - Bottom Return RFan")
+                            cmbUSPType.Items.Add("S100A - End Return RFan")
+                            cmbUSPType.Items.Add("S100A - Rear Return RFan")
+
+                        End If
+                        If frmMain.ThisUnit.Cabinet = "Series100B" Then
+                            cmbUSPType.Items.Add("S100B - Bottom Return RFan")
+                            cmbUSPType.Items.Add("S100B - End Return RFan")
+                            cmbUSPType.Items.Add("S100B - Rear Return RFan")
+
+                        End If
+                        If frmMain.ThisUnit.Cabinet = "Series100C" Then
+                            cmbUSPType.Items.Add("S100C - Bottom Return RFan")
+                            cmbUSPType.Items.Add("S100C - End Return RFan")
+                            cmbUSPType.Items.Add("S100C - Rear Return RFan")
+
+                        End If
+                    Case Is = "Exhaust Fan Array"
+                        If frmMain.ThisUnit.Cabinet = "Series100A" Then
+                            cmbUSPType.Items.Add("S100A - Bottom Return XFan")
+
+                        End If
+                        If frmMain.ThisUnit.Cabinet = "Series100B" Then
+                            cmbUSPType.Items.Add("S100B - Bottom Return XFan")
+
+                        End If
+                        If frmMain.ThisUnit.Cabinet = "Series100C" Then
+                            cmbUSPType.Items.Add("S100C - Bottom Return XFan")
+
+                        End If
+                End Select
+            Case Is = "Select"
+                Select Case pFanWallStyle
+                    Case Is = "Supply Fan Array"
+                        cmbUSPType.Items.Add("Select - Downflow Supply SFan")
+                        cmbUSPType.Items.Add("Select - Rear Supply SFan")
+
+                    Case Is = "Return Fan Array"
+                        cmbUSPType.Items.Add("Select - Bottom Return RFan")
+                        cmbUSPType.Items.Add("Select - End Return RFan")
+                        cmbUSPType.Items.Add("Select - Rear Return RFan")
+
+                    Case Is = "Exhaust Fan Array"
+                        cmbUSPType.Items.Add("Select - Bottom Return XFan")
+
+                End Select
+            Case Is = "Choice"
+                Select Case pFanWallStyle
+                    Case Is = "Supply Fan Array"
+                        cmbUSPType.Items.Add("Choice - Downflow Supply SFan")
+                        cmbUSPType.Items.Add("Choice - Rear Supply SFan")
+
+                    Case Is = "Return Fan Array"
+                        cmbUSPType.Items.Add("Choice - Bottom Return RFan")
+                        cmbUSPType.Items.Add("Choice - End Return RFan")
+                        cmbUSPType.Items.Add("Choice - Rear Return RFan")
+
+                    Case Is = "Exhaust Fan Array"
+                        cmbUSPType.Items.Add("Choice - Bottom Return XFan")
+
+                End Select
+            Case Is = "Premier"
+                Select Case pFanWallStyle
+                    Case Is = "Supply Fan Array"
+                        cmbUSPType.Items.Add("Premier - Downflow Supply SFan")
+                        cmbUSPType.Items.Add("Premier - Rear Supply SFan")
+
+                    Case Is = "Return Fan Array"
+                        cmbUSPType.Items.Add("Premier - Bottom Return RFan")
+                        cmbUSPType.Items.Add("Premier - End Return RFan")
+                        cmbUSPType.Items.Add("Premier - Rear Return RFan")
+
+                    Case Is = "Exhaust Fan Array"
+                        cmbUSPType.Items.Add("Premier - Bottom Return XFan")
+
+                End Select
+            Case Is = "SeriesLX"
+                'Unlikely - Use Generic
+            Case Is = "Blank"
+                'Do nothing Generic will handle it.
+            Case Else
+                msgstr = "Unknown/unexpected family: " & myfam & " in PopulateStaticDropdown.  Aborting."
+                dummy = MsgBox(msgstr, vbOKOnly, "Fisen Unit Generator")
+                Stop
+        End Select
+
+
+        cmbUSPType.Items.Add("Unselected")
+        cmbUSPType.Text = "Unselected"
+    End Sub
+
+    Private Sub cmdPopulateStaticTable_Click(sender As Object, e As EventArgs) Handles cmdPopulateStaticTable.Click
+        Dim dummy As MsgBoxResult
+        Dim msgstr As String
+
+        Select Case cmbUSPType.Text
+            Case Is = "S40 - Downflow Supply SFan"
+            Case Is = "S40 - Rear Supply SFan"
+            Case Is = "S40 - Bottom Return RFan"
+            Case Is = "S40 - End Return RFan"
+            Case Is = "S40 - Rear Return RFan"
+            Case Is = "S40 - Bottom Return XFan"
+            Case Is = "S100A - Downflow Supply SFan"
+                Call PullYPALStaticsSFan()
+            Case Is = "S100A - Rear Supply SFan"
+                Call PullYPALStaticsSFan()
+            Case Is = "S100B - Downflow Supply SFan"
+                Call PullYPALStaticsSFan()
+            Case Is = "S100B - Rear Supply SFan"
+                Call PullYPALStaticsSFan()
+            Case Is = "S100C - Downflow Supply SFan"
+                Call PullYPALStaticsSFan()
+            Case Is = "S100C - Rear Supply SFan"
+                Call PullYPALStaticsSFan()
+
+            Case Is = "S100A - Bottom Return RFan"
+            Case Is = "S100A - End Return RFan"
+            Case Is = "S100A - Rear Return RFan"
+            Case Is = "S100B - Bottom Return RFan"
+            Case Is = "S100B - End Return RFan"
+            Case Is = "S100B - Rear Return RFan"
+            Case Is = "S100C - Bottom Return RFan"
+            Case Is = "S100C - End Return RFan"
+            Case Is = "S100C - Rear Return RFan"
+            Case Is = "S100A - Bottom Return XFan"
+            Case Is = "S100B - Bottom Return XFan"
+            Case Is = "S100C - Bottom Return XFan"
+            Case Is = "Select - Downflow Supply SFan"
+            Case Is = "Select - Rear Supply SFan"
+            Case Is = "Select - Bottom Return RFan"
+            Case Is = "Select - End Return RFan"
+            Case Is = "Select - Rear Return RFan"
+            Case Is = "Select - Bottom Return XFan"
+            Case Is = "Choice - Downflow Supply SFan"
+            Case Is = "Choice - Rear Supply SFan"
+            Case Is = "Choice - Bottom Return RFan"
+            Case Is = "Choice - End Return RFan"
+            Case Is = "Choice - Rear Return RFan"
+            Case Is = "Choice - Bottom Return XFan"
+            Case Is = "Premier - Downflow Supply SFan"
+            Case Is = "Premier - Rear Supply SFan"
+            Case Is = "Premier - Bottom Return RFan"
+            Case Is = "Premier - End Return RFan"
+            Case Is = "Premier - Rear Return RFan"
+            Case Is = "Premier - Bottom Return XFan"
+            Case Else
+                msgstr = "Unknown/unexpected configuration: " & cmbUSPType.Text & " in Static Summary Assignment.  Aborting."
+                dummy = MsgBox(msgstr, vbOKOnly, "Fisen Unit Generator")
+                Stop
+        End Select
+        btnReturn.Enabled = True
+    End Sub
+    Private Sub PullYPALStaticsSFan()
+        Dim i As Integer
+        Dim NewRow As String()
+
+        For i = 0 To frmMain.ThisUnitSFanPerf.StaticNameYpal.Count - 1
+            NewRow = {frmMain.ThisUnitSFanPerf.StaticNameYpal.Item(i), Format(Val(frmMain.ThisUnitSFanPerf.StaticDataYpal.Item(i)), "0.00"), Format(Val(frmMain.ThisUnitSFanPerf.StaticDataYpal.Item(i)) / Val(lblKFactor.Text), "0.00")}
+            dgvStaticSummary.Rows.Add(NewRow)
+        Next
+    End Sub
 End Class

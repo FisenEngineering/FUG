@@ -29,8 +29,10 @@ Partial Class frmUserOptions
         Me.optResearch = New System.Windows.Forms.RadioButton()
         Me.optSubGen = New System.Windows.Forms.RadioButton()
         Me.grpAdminOptions = New System.Windows.Forms.GroupBox()
-        Me.chkSkipAutoArchive = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.chkSkipAutoArchive = New System.Windows.Forms.CheckBox()
+        Me.chkStealthMode = New System.Windows.Forms.CheckBox()
+        Me.txtLocalDirectory = New System.Windows.Forms.TextBox()
         Me.fraRunMode.SuspendLayout()
         Me.grpAdminOptions.SuspendLayout()
         Me.SuspendLayout()
@@ -108,6 +110,15 @@ Partial Class frmUserOptions
         Me.grpAdminOptions.TabStop = False
         Me.grpAdminOptions.Text = "Admin Only Options"
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 18)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(171, 13)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "Only Active in Debug/Admin Mode"
+        '
         'chkSkipAutoArchive
         '
         Me.chkSkipAutoArchive.AutoSize = True
@@ -118,14 +129,23 @@ Partial Class frmUserOptions
         Me.chkSkipAutoArchive.Text = "Skip Auto Archive"
         Me.chkSkipAutoArchive.UseVisualStyleBackColor = True
         '
-        'Label1
+        'chkStealthMode
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 18)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(171, 13)
-        Me.Label1.TabIndex = 6
-        Me.Label1.Text = "Only Active in Debug/Admin Mode"
+        Me.chkStealthMode.AutoSize = True
+        Me.chkStealthMode.Location = New System.Drawing.Point(12, 186)
+        Me.chkStealthMode.Name = "chkStealthMode"
+        Me.chkStealthMode.Size = New System.Drawing.Size(201, 17)
+        Me.chkStealthMode.TabIndex = 7
+        Me.chkStealthMode.Text = "Save Design Files To Local Directory"
+        Me.chkStealthMode.UseVisualStyleBackColor = True
+        '
+        'txtLocalDirectory
+        '
+        Me.txtLocalDirectory.Location = New System.Drawing.Point(34, 209)
+        Me.txtLocalDirectory.Name = "txtLocalDirectory"
+        Me.txtLocalDirectory.Size = New System.Drawing.Size(298, 20)
+        Me.txtLocalDirectory.TabIndex = 8
+        Me.txtLocalDirectory.Text = "C:\Users\jlevine\Desktop\AAA - Local Jobs\"
         '
         'frmUserOptions
         '
@@ -133,7 +153,9 @@ Partial Class frmUserOptions
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.ControlBox = False
+        Me.Controls.Add(Me.txtLocalDirectory)
         Me.Controls.Add(Me.grpAdminOptions)
+        Me.Controls.Add(Me.chkStealthMode)
         Me.Controls.Add(Me.fraRunMode)
         Me.Controls.Add(Me.chkUOMoveCutstoSD)
         Me.Controls.Add(Me.cmdOK)
@@ -160,4 +182,6 @@ Partial Class frmUserOptions
     Friend WithEvents grpAdminOptions As GroupBox
     Friend WithEvents chkSkipAutoArchive As CheckBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents chkStealthMode As CheckBox
+    Friend WithEvents txtLocalDirectory As TextBox
 End Class

@@ -5293,6 +5293,36 @@ Public Class frmMain
 
         tabMain.SelectTab("pgReheat")
     End Sub
+
+    Private Sub ValidateLocalDirectory()
+        Dim LocalRoot As String
+        Dim BODName As String
+        Dim SlashPos As Integer
+        Dim JobNum As String
+        Dim JobPath As String
+        Dim UnitPath As String
+        Dim FinalPath As String
+
+        LocalRoot = My.Settings.UOLocalFolder
+        JobNum = txtJobNumber.Text & "-" & txtUnitNumber.Text
+        If txtJobNumber.Text = "BODF" Then
+            'determine appropriate name if its a BOD
+            BODName = Mid(txtProjectDirectory.Text, 1, Len(txtProjectDirectory.Text) - 1)
+            SlashPos = InStrRev(BODName, "\")
+            BODName = Mid(txtProjectDirectory.Text, SlashPos + 1)
+            JobPath = LocalRoot & BODName & "\"
+            UnitPath = JobPath & JobNum & "\"
+            FinalPath = UnitPath & "Submittal Source (Do not Distribute)\Submittal Design\"
+        Else
+            'determine appropriate name if its a Job
+            FinalPath = "bob"
+        End If
+
+        If Not (Directory.Exists(FinalPath)) Then
+            Directory.CreateDirectory(FinalPath)
+        End If
+    End Sub
+
     Private Sub btnDonePD_Click(sender As Object, e As EventArgs) Handles btnDonePD.Click
         Dim Dummy As MsgBoxResult
 
@@ -5300,6 +5330,10 @@ Public Class frmMain
 
         If Not (ProjectDataValid()) Then
             Exit Sub
+        End If
+
+        If My.Settings.UOStealthMode Then
+            Call ValidateLocalDirectory
         End If
 
         ThisUnit.Brand = cmbBrand.Text
@@ -9155,14 +9189,17 @@ Public Class frmMain
         My.Settings.DebugLastModule = cmbJumpDest.Text
         My.Settings.Save()
 
-        'ThisUnit.Family = "Series100"
-        ThisUnit.Family = "Series10"
+        ThisUnit.Family = "Series100"
+        ThisUnit.Cabinet = "Series100B"
         txtJobNumber.Text = "3994F"
         txtUnitNumber.Text = "01"
         txtModelNumber.Text = "J12ZJS24G2D6BCD2E1"
         ThisUnit.ModelNumber = "J12ZJS24G2D6BCD2E1"
         txtProjectDirectory.Text = "J:\3950-3999\3994F - Test S10 MGH Do Not Use\"
         ThisUnit.NominalTons = "12.5"
+
+        TSLabelFamily.Text = ThisUnit.Family
+        TSLabelModelNum.Text = ThisUnit.ModelNumber
 
         Select Case cmbJumpDest.Text
             Case Is = "100% Outdoor Air"
@@ -9192,6 +9229,21 @@ Public Class frmMain
             Case Is = "Supply Fan"
                 frmNewFan.FanStyle = "Supply Fan"
                 frmNewFan.ShowDialog()
+            Case Is = "SFanWall"
+                frmFanWall.FanWallStyle = "Supply Fan Array"
+                ThisUnitSFanPerf.Airflow = "10000"
+                ThisUnitSFanPerf.ESP = "2.50"
+                frmFanWall.ShowDialog()
+            Case Is = "RFanWall"
+                frmFanWall.FanWallStyle = "Return Fan Array"
+                ThisUnitRXPerf.Airflow = "10000"
+                ThisUnitRXPerf.ESP = "1.50"
+                frmFanWall.ShowDialog()
+            Case Is = "XFanWall"
+                frmFanWall.FanWallStyle = "Exhaust Fan Array"
+                ThisUnitRXPerf.Airflow = "10000"
+                ThisUnitRXPerf.ESP = "1.50"
+                frmFanWall.ShowDialog()
         End Select
     End Sub
 
@@ -9201,9 +9253,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub txtJobNumber_ModifiedChanged(sender As Object, e As EventArgs) Handles txtJobNumber.ModifiedChanged
-
-    End Sub
 
     Private Sub cmbJumpDest_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbJumpDest.SelectedIndexChanged
         cmdJumpButton.Enabled = True
@@ -9496,6 +9545,8 @@ Public Class frmMain
 
     Private Sub cmdResearchMode_Click(sender As Object, e As EventArgs) Handles cmdResearchMode.Click
         Dim RQData As String
+        Dim dummy As MsgBoxResult
+        Dim MsgStr As String
         ThisUnit.Family = SetUnitFamily()
 
         Select Case cmbResearchTarget.Text
@@ -9507,6 +9558,9 @@ Public Class frmMain
                 frmNewFan.ResearchMode = True
                 frmNewFan.ShowDialog()
                 frmNewFan.ResearchMode = False
+            Case Else
+                MsgStr = "Research for that module has not yet been implemented."
+                dummy = MsgBox(MsgStr, vbOKOnly, "Fisen Unit Generator")
         End Select
     End Sub
 

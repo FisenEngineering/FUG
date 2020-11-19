@@ -1580,8 +1580,6 @@ Public Class frmNewFan
         rawtsp = tsp
         sfactor = tsp * 0.1
         asfactor = atsp * 0.1
-        'tsp = tsp + sfactor
-        'atsp = atsp + asfactor
 
         If chkESPatElev.Checked Then
             txtUSP.Text = Format(atsp, "0.00")
@@ -1927,6 +1925,8 @@ Public Class frmNewFan
                     temp = 0.00000014609 * localAirflow ^ 2 + 0.000001211291 * localAirflow
                 Case Is = "J08ZJ"
                     temp = 0.000000047632 * localAirflow ^ 2 + 0.000094404159 * localAirflow
+                Case Is = "J08ZT"
+                    temp = 0.000000047632 * localAirflow ^ 2 + 0.000094404159 * localAirflow
                 Case Is = "J10ZF"
                     temp = 0.000000054358 * localAirflow ^ 2 + 0.000071105472 * localAirflow
                 Case Is = "J10ZJ"
@@ -2160,6 +2160,8 @@ Public Class frmNewFan
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J08ZJ"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
+                Case Is = "J08ZT"
+                    temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J07ZR"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J06ZR"
@@ -2207,6 +2209,8 @@ Public Class frmNewFan
                 Case Is = "J10ZT"
                     temp = -0.000000019882834557 * localAirflow ^ 2 + 0.000399254658385093 * localAirflow - 0.646415513833994
                 Case Is = "J08ZJ"
+                    temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
+                Case Is = "J08ZT"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J07ZR"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582

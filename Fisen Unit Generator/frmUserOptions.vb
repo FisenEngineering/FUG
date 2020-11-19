@@ -20,6 +20,8 @@ Public Class frmUserOptions
         chkUOAutoLaunchWord.Checked = My.Settings.UOWordLaunch
         chkUOMoveCutstoSD.Checked = My.Settings.UOMoveCuts2SD
         chkSkipAutoArchive.Checked = My.Settings.UOSkipArchive
+        chkStealthMode.Checked = My.Settings.UOStealthMode
+        txtLocalDirectory.Text = My.Settings.UOLocalFolder
 
         If My.Settings.UOResearchMode Then
             optResearch.Checked = True
@@ -31,6 +33,8 @@ Public Class frmUserOptions
         My.Settings.UOWordLaunch = chkUOAutoLaunchWord.Checked
         My.Settings.UOMoveCuts2SD = chkUOMoveCutstoSD.Checked
         My.Settings.UOSkipArchive = chkSkipAutoArchive.Checked
+        My.Settings.UOStealthMode = chkStealthMode.Checked
+        My.Settings.UOLocalFolder = txtLocalDirectory.Text
 
         If optResearch.Checked Then
             My.Settings.UOResearchMode = True

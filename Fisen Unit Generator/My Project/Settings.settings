@@ -49,5 +49,11 @@
     <Setting Name="LastHistoryPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\</Value>
     </Setting>
+    <Setting Name="UOStealthMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UOLocalFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\jlevine\Desktop\AAA - Local Jobs\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
