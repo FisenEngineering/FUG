@@ -59,7 +59,6 @@
         Dim Whole As String
         Dim FracPart As String
         Dim FracRep As String
-        FracSize = "99 99/100"""
         Whole = Trim(Str(Int(Val(DecimalSize))))
         FracPart = Trim(Str(Val(DecimalSize) - Val(Whole)))
 
@@ -564,4 +563,28 @@
         Return TempAmps
     End Function
 
+    Public Function SuperUser() As Boolean
+        Dim tempsu As Boolean
+        Dim UID As String
+
+        tempsu = False
+        UID = Environment.UserName
+        If UID = "jlevine" Then tempsu = True
+        If UID = "jmucinski" Then tempsu = True
+        If UID = "jruemenapp" Then tempsu = True
+
+        Return tempsu
+    End Function
+
+    Public Sub WriteToEventLog(ErrorModule As String, ErrorMsg As String, ErrorClass As String, ErrorButtonz As String)
+        Dim errorreport As System.IO.StreamWriter
+        Dim tempfilename As String
+
+        ' Call WriteToEventLog("LowAF", "User Cancelled", "Operator", dummy)
+        tempfilename = "\\filesrvr\FUG\db\FUGErrorLog.csv"
+
+        errorreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, True)
+        errorreport.WriteLine(Now.ToString & "," & ErrorModule & "," & ErrorMsg & "," & ErrorClass & "," & ErrorButtonz)
+        errorreport.Close()
+    End Sub
 End Module

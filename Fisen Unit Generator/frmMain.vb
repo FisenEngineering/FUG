@@ -173,13 +173,15 @@ Public Class frmMain
         If optChillerYCIV.Checked Then TempFamily = "YCIV"
         If optChillerYCAV.Checked Then TempFamily = "YCAV"
 
-
         If optMiscDS.Checked Then TempFamily = "DS"
         If optS20ODSplit.Checked Then TempFamily = "Series20ODSplit"
         If optS40ODSplit.Checked Then TempFamily = "Series40ODSplit"
         If optS20IDSplit.Checked Then TempFamily = "Series20IDSplit"
         If optYCULSplit.Checked Then TempFamily = "YCUL"
+        If optYLUASplit.Checked Then TempFamily = "YLUA"
         If optDOAS.Checked Then TempFamily = "DOAS"
+
+        If optLSeries.Checked Then TempFamily = "SeriesL"
 
         If optBlankFamily.Checked Then TempFamily = "Blank"
 
@@ -633,7 +635,8 @@ Public Class frmMain
             If lstSelectedMods.Items(i) = "Reduced Air Flow" Then
                 frmLowAF.ShowDialog()
                 If frmLowAF.Cancelled = True Then
-                    dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                    dummy = MsgBox("User Cancelled Generation in LowAF Module." & vbCrLf & "Exiting Program.", vbOKOnly, "Fisen Unit Generator")
+                    Call WriteToEventLog("LowAF", "User Cancelled", "Operator", Str(dummy))
                     End
                 Else
                     frmLowAF.Dispose()
@@ -661,12 +664,12 @@ Public Class frmMain
 
             thisitem = lstSelectedMods.Items(0)
             Select Case thisitem
-
                 Case Is = "100% Outdoor Air"
                     frm100OA.ShowDialog()
                     If frm100OA.Cancelled = True Then
-                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
-                        End
+                        dummy = MsgBox("User Cancelled Generation in 100% OA Module.  Exiting Program.")
+                        Call WriteToEventLog("100OA", "User Cancelled", "Operator", Str(dummy))
+                        Stop
                     Else
                         frm100OA.Dispose()
                     End If
@@ -674,8 +677,9 @@ Public Class frmMain
                 Case Is = "Acoustic Package"
                     frmAcoustic.ShowDialog()
                     If frmAcoustic.Cancelled = True Then
-                        dummy = MsgBox("User Cancelled Generation In Acoustic Package Module.  Exiting Program.")
-                        End
+                        dummy = MsgBox("User Cancelled Generation in Acoustic Package Module.  Exiting Program.")
+                        Call WriteToEventLog("100OA", "User Cancelled", "Operator", Str(dummy))
+                        Stop
                     Else
                         frmAcoustic.Dispose()
                     End If
@@ -683,8 +687,9 @@ Public Class frmMain
                 Case Is = "Airflow Path Reconfiguration"
                     frmAFlowMod.ShowDialog()
                     If frmAFlowMod.Cancelled = True Then
-                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
-                        End
+                        dummy = MsgBox("User Cancelled Generation in Airflow Path Reconfiguration Module.  Exiting Program.")
+                        Call WriteToEventLog("AFlowMod", "User Cancelled", "Operator", Str(dummy))
+                        Stop
                     Else
                         frmAFlowMod.Dispose()
                     End If
@@ -692,8 +697,9 @@ Public Class frmMain
                 Case Is = "Bipolar Ionization Array"
                     frmBiPolar.ShowDialog()
                     If frmBiPolar.Cancelled = True Then
-                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
-                        End
+                        dummy = MsgBox("User Cancelled Generation in Bipolar Module.  Exiting Program.")
+                        Call WriteToEventLog("BiPolar", "User Cancelled", "Operator", Str(dummy))
+                        Stop
                     Else
                         frmBiPolar.Dispose()
                     End If
@@ -701,8 +707,9 @@ Public Class frmMain
                 Case Is = "Chilled Water Coil"
                     frmCHWCoil.ShowDialog()
                     If frmCHWCoil.Cancelled = True Then
-                        dummy = MsgBox("User Cancelled Generation In Chilled Water Coil.  Exiting Program.")
-                        End
+                        dummy = MsgBox("User Cancelled Generation in Chilled Water Coil.  Exiting Program.")
+                        Call WriteToEventLog("CHWCoil", "User Cancelled", "Operator", Str(dummy))
+                        Stop
                     Else
                         frmCHWCoil.Dispose()
                     End If
@@ -710,8 +717,9 @@ Public Class frmMain
                 Case Is = "Custom Coil"
                     frmCustomCoil.ShowDialog()
                     If frmCustomCoil.Cancelled = True Then
-                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
-                        End
+                        dummy = MsgBox("User Cancelled Generation in Custom Coil Module.  Exiting Program.")
+                        Call WriteToEventLog("CstmCoil", "User Cancelled", "Operator", Str(dummy))
+                        Stop
                     Else
                         frmCustomCoil.Dispose()
                     End If
@@ -3753,11 +3761,11 @@ Public Class frmMain
 
         lUnitWriter.WriteEndElement() 'Conditions Table
 
-        Call WriteERWPerformanceTable(lUnitWriter, lmyXMLSettings)
+        Call WriteERWPerformanceTable(lUnitWriter)
         Call WriteERWMixingTable(lUnitWriter, lmyXMLSettings)
 
     End Sub
-    Private Sub WriteERWPerformanceTable(lUW As XmlWriter, lmyXMLSet As XmlWriterSettings)
+    Private Sub WriteERWPerformanceTable(lUW As XmlWriter)
         lUW.WriteStartElement("PerformanceTable")
 
         lUW.WriteStartElement("SupplyAirAirFlowS1")
@@ -8076,7 +8084,6 @@ Public Class frmMain
     Private Sub LoadYPALLoads()
         Dim ElecChar As String
         Dim i As Integer
-        Dim j As Integer
         Dim NewRow As String()
         Dim ThisFLA As String
         Dim FanCount As Integer
@@ -9206,6 +9213,14 @@ Public Class frmMain
                 frm100OA.ShowDialog()
             Case Is = "Custom Controls"
                 frmCstmCtrl.ShowDialog()
+            Case Is = "Custom Mechaincal"
+                frmCstmMech.ShowDialog()
+            Case Is = "Custom Power"
+                frmCstmHV.ShowDialog()
+            Case Is = "Custom Refrigeration"
+                frmCstmRef.ShowDialog()
+            Case Is = "Custom Sheet Metal"
+                frmCstmSM.ShowDialog()
             Case Is = "DWall"
                 frmDWall.ShowDialog()
             Case Is = "Filtration"
@@ -9602,5 +9617,7 @@ Public Class frmMain
         ThisUnitGenCodes.Add("960002")
     End Sub
 
-
+    Private Sub cmdEndDeviceEdit_Click(sender As Object, e As EventArgs) Handles cmdEndDeviceEdit.Click
+        frmEndDeviceMaintenance.ShowDialog()
+    End Sub
 End Class

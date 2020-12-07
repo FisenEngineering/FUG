@@ -18,10 +18,23 @@ Public Class frmCstmCtrl
         End Set
     End Property
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim dummy As MsgBoxResult
+
         pCancelled = False
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
         ModuleCodeList.Add("980000")
+
+        If frmMain.HasHMI Then
+            chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+        End If
+        If frmMain.HasUMHMI Then
+            chkMountEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+            chkMountEquipmentTouch.Enabled = False
+        End If
 
         Call LoadPermittedCtrlMods()
 
@@ -29,123 +42,159 @@ Public Class frmCstmCtrl
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
 
-        Call PopulateAuxPanelList() 'V1.1
+        Call PopulateAuxPanelList() 'V1.4
+        optUseAux.Checked = frmMain.HasAuxillaryPanel
 
-        'Set up the famcase presets
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
-
+                optOtherControl.Enabled = False
             Case Is = "Series10"
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Series12"
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Series20"
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Series40"
-                'Depricated *Probably not going to be used*
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Series100"
                 optIPU.Checked = True
-                optASE.Enabled = False
                 optSE.Enabled = False
-
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Premier"
                 optASE.Checked = True
-                optIPU.Enabled = False
                 optSE.Enabled = False
+                optIPU.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Choice"
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
+                optOtherControl.Enabled = False
             Case Is = "Select"
                 optSE.Checked = True
                 optIPU.Enabled = False
                 optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "SeriesLX"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "DOAS"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "YVAA"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "YLAA"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "YCAL"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "YCIV"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "YCAV"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "XTI"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "XTO"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "YorkCustom"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "Series20IDSplit"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "DS"
+                optOtherControl.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optSE.Enabled = False
+            Case Is = "SeriesL"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "Series20ODSplit"
+                optSE.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "Series40ODSplit"
+                optSE.Checked = True
+                optIPU.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "YCUL"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "YLUA"
+                optIPU.Checked = True
+                optSE.Enabled = False
+                optASE.Enabled = False
+                optOtherControl.Enabled = False
+            Case Is = "Blank"
+                optOtherControl.Checked = True
             Case Else
-
+                dummy = MsgBox("FUG encountered an unknown Family in CstmCtrl Module", vbOKOnly, "Fisen Unit Generator")
+                Call WriteToEventLog("CstmCtrl", "Unknown Family passed to module.", "Arby's", Str(dummy))
         End Select
+
 
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
 
-    End Sub
+        cmdAddNewCode.Visible = SuperUser()
 
-    Private Sub PopulateAuxPanelList()
-        'V1.1 Added Check for it already existing
-        If frmMain.HasAuxillaryPanel = True Then
-            optUseAux.Checked = True
-            grpAuxPanel.Enabled = False
-            cmbAuxPanelOpts.Items.Clear()
-            cmbAuxPanelOpts.Items.Add("Selected in Other Module")
-            cmbAuxPanelOpts.Text = "Selected in Other Module"
-
-        Else
-
-            If optNoAux.Checked = True Then
-                cmbAuxPanelOpts.Items.Clear()
-                cmbAuxPanelOpts.Items.Add("None")
-                cmbAuxPanelOpts.Text = "None"
-            Else
-                Select Case frmMain.ThisUnit.Family
-                    Case Is = "Series5"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Series 5 Downflow")
-                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
-                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
-                        cmbAuxPanelOpts.Items.Add("Series 5 Convertible")
-                        cmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
-                        cmbAuxPanelOpts.Text = "Series 5 Downflow"
-                    Case Is = "Series10"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Series 10 Downflow")
-                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
-                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
-                        cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
-                        cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
-                        cmbAuxPanelOpts.Text = "Series 10 Downflow"
-                    Case Is = "Series20"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Series 20 Downflow")
-                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
-                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
-                        cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
-                        cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
-                        cmbAuxPanelOpts.Text = "Series 20 Downflow"
-                    Case Is = "Series40"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
-                        cmbAuxPanelOpts.Text = "Series 40 Custom Application"
-                    Case Is = "Series100"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
-                        cmbAuxPanelOpts.Text = "Series 100 Custom Application"
-                    Case Is = "Premier"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
-                        cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
-                    Case Is = "Choice"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
-                        cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
-                    Case Is = "Select"
-                        cmbAuxPanelOpts.Items.Clear()
-                        cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
-                        cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
-                End Select
-            End If
-        End If
+        If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
+        If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
+        chkWriteHistory.Visible = SuperUser() Or frmMain.chkDebug.Checked
 
     End Sub
+
+
 
     Private Sub LoadDigConditions()
         Dim ModFilePath As String
@@ -427,6 +476,11 @@ Public Class frmCstmCtrl
                 End If
 
                 Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value)
+                Call UpdateBaseUnitDrawingTags(rs.Fields("BIUnitDrawings").Value)
+                Call UpdateReferDrawingTags(rs.Fields("BIReferDrawings").Value)
+                Call UpdateAirflowDrawingTags(rs.Fields("BIAirflowDrawings").Value)
+                Call UpdateHydroDrawingTags(rs.Fields("BIHydroDrawings").Value)
+                Call AddFieldInstalledItems(rs.Fields("CstmCode").Value)
                 rs.MoveNext()
             Loop
             rs.Close()
@@ -437,7 +491,9 @@ Public Class frmCstmCtrl
         con = Nothing
 
         'Add Auxillary Panel if selected
-        Call AuxPanelCodeInsert() 'v1.0
+        Call AuxPanelCodeInsert() 'v1.3
+
+
         If chkWriteHistory.Checked = True Then Call WriteHistory()
 
         'handle base SCCR Unit Code
@@ -445,15 +501,32 @@ Public Class frmCstmCtrl
             ModuleCodeList.Add("980F6A")
         End If
 
+        If chk30kASCCRBase.Checked Then
+            ModuleCodeList.Add("970F6B")
+        End If
+
         Call PerformDesignCautionScan(False)
         For i = 0 To ModuleCodeList.Count - 1
             frmMain.ThisUnitCstmCtrlCodes.Add(ModuleCodeList.Item(i))
             AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
+
+        If chkMountEquipmentTouch.Checked = True Then
+            If frmMain.HasUMHMI = False Then
+                frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
+            End If
+        End If
+        If chkIncludeEquipmentTouch.Checked = True Then
+            If frmMain.HasHMI = False Then
+                frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+            End If
+        End If
+
         Me.Hide()
     End Sub
     Private Sub WriteHistory()
         'Updated to Version 2.0 29 Apr 2020
+        'Update table name in 4 locations
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -519,57 +592,6 @@ Public Class frmCstmCtrl
         rs = Nothing
         con = Nothing
     End Sub
-    Private Sub AuxPanelCodeInsert()
-        'V1.0
-        If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
-            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
-            frmMain.HasAuxillaryPanel = True
-            Select Case cmbAuxPanelOpts.Text
-                Case Is = "Series 5 Downflow"
-                    frmMain.ThisUnitGenCodes.Add("960008")
-                Case Is = "Series 5 Horizontal"
-                    frmMain.ThisUnitGenCodes.Add("960013")
-                Case Is = "Series 5 Horizontal No Return"
-                    frmMain.ThisUnitGenCodes.Add("960014")
-                Case Is = "Series 5 Convertible"
-                    frmMain.ThisUnitGenCodes.Add("960015")
-                Case Is = "Series 5 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960017")
-                Case Is = "Series 10 Downflow"
-                    frmMain.ThisUnitGenCodes.Add("960005")
-                Case Is = "Series 10 Horizontal"
-                    frmMain.ThisUnitGenCodes.Add("960006")
-                Case Is = "Series 10 Horizontal No Return"
-                    frmMain.ThisUnitGenCodes.Add("960007")
-                Case Is = "Series 10 Convertible"
-                    frmMain.ThisUnitGenCodes.Add("960010")
-                Case Is = "Series 10 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960016")
-                Case Is = "Series 20 Downflow"
-                    frmMain.ThisUnitGenCodes.Add("960018")
-                Case Is = "Series 20 Horizontal"
-                    frmMain.ThisUnitGenCodes.Add("960019")
-                Case Is = "Series 20 Horizontal No Return"
-                    frmMain.ThisUnitGenCodes.Add("960020")
-                Case Is = "Series 20 Convertible"
-                    frmMain.ThisUnitGenCodes.Add("960021")
-                Case Is = "Series 20 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960012")
-                Case Is = "Series 40 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960022")
-                Case Is = "Series 100 Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960023")
-                Case Is = "Premier Cabinet Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960024")
-                Case Is = "Choice Cabinet Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960025")
-                Case Is = "Select Cabinet Custom Application"
-                    frmMain.ThisUnitGenCodes.Add("960026")
-            End Select
-        End If
-    End Sub
-
-
     Private Sub UpdateJCIRequiredItems(loccode As String)
         Dim lcon As ADODB.Connection
         Dim lrs As ADODB.Recordset
@@ -605,7 +627,6 @@ Public Class frmCstmCtrl
         lrs = Nothing
         lcon = Nothing
     End Sub
-
     Private Sub CustomMCARequired(LoadName As String, LoadHP As String, LoadValue As String)
         Dim elecchar As String
         Dim newrow As String()
@@ -704,12 +725,14 @@ Public Class frmCstmCtrl
     End Sub
     Private Sub UpdateCodeList(locCode As String)
         Dim i As Integer
+
         ModuleCodeList.Add(locCode)
         For i = 0 To pTagALongParent.Count - 1
             If pTagALongParent.Item(i) = locCode Then
                 ModuleCodeList.Add(pTagALongsSelected.Item(i))
             End If
         Next
+
     End Sub
 
     Private Sub optNoAux_CheckedChanged(sender As Object, e As EventArgs) Handles optNoAux.CheckedChanged
@@ -737,6 +760,272 @@ Public Class frmCstmCtrl
             chkMountEquipmentTouch.Checked = False
         End If
     End Sub
+    Private Sub PopulateAuxPanelList()
+        'V1.4 Added support for several family types
+        'V1.3 Added Blank Unit Support
+        'V1.2 Added LX Series Support
+        'V1.1 Added Check for it already existing
+        If frmMain.HasAuxillaryPanel = True Then
+            optUseAux.Checked = True
+            grpAuxPanel.Enabled = False
+            cmbAuxPanelOpts.Items.Clear()
+            cmbAuxPanelOpts.Items.Add("Selected in Other Module")
+            cmbAuxPanelOpts.Text = "Selected in Other Module"
 
+        Else
+            If optNoAux.Checked = True Then
+                cmbAuxPanelOpts.Items.Clear()
+                cmbAuxPanelOpts.Items.Add("None")
+                cmbAuxPanelOpts.Text = "None"
+            Else
+                Select Case frmMain.ThisUnit.Family
+                    Case Is = "Series5"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 5 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 5 Downflow"
+                    Case Is = "Series10"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 10 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 10 Downflow"
+                    Case Is = "Series20"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 20 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 20 Downflow"
+                    Case Is = "SeriesLX"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("LX Series Custom Application")
+                        cmbAuxPanelOpts.Text = "LX Series Custom Application"
+                    Case Is = "Series40"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 40 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 40 Custom Application"
+                    Case Is = "Series100"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                    Case Is = "Premier"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Premier Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Premier Cabinet Custom Application"
+                    Case Is = "Choice"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Choice Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Choice Cabinet Custom Application"
+                    Case Is = "Select"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Select Cabinet Custom Application")
+                        cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
+                    Case Is = "Blank"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Generic Unit Custom Application")
+                        cmbAuxPanelOpts.Text = "Select Cabinet Custom Application"
+                    Case Is = "Series20ODSplit"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 20 OD Split Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 20 OD Split Custom Application"
+                    Case Is = "Series20IDSplit"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 20 ID Split Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 20 ID Split Custom Application"
+                    Case Is = "Series40ODSplit"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 40 OD Split Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 40 OD Split Custom Application"
+                    Case Is = "YCUL"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("YCUL Frame Custom Application")
+                        cmbAuxPanelOpts.Text = "YCUL Frame Custom Application"
+                    Case Is = "YULA"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("YULA Frame Custom Application")
+                        cmbAuxPanelOpts.Text = "YULA Frame Custom Application"
+                    Case Is = "DOAS"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("DOAS Frame Custom Application")
+                        cmbAuxPanelOpts.Text = "DOAS Frame Custom Application"
+                    Case Is = "SeriesL"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series L Frame Custom Application")
+                        cmbAuxPanelOpts.Text = "Series L Frame Custom Application"
+                End Select
+            End If
+        End If
+    End Sub
+    Private Sub AuxPanelCodeInsert() 'Called from near the end of UpdateCode()
+        'V1.3  - Added several more family options and codes.
+        'V1.2 - Added Support for Blank Family
+        'V1.1 - Added Custom Option for LX Series Units.
+        'V1.0
+        If ((optUseAux.Checked = True) And (frmMain.HasAuxillaryPanel = False)) Then
+            If frmMain.ThisUnitGenCodes.Count = 0 Then frmMain.ThisUnitGenCodes.Add("960000")
+            frmMain.HasAuxillaryPanel = True
+            Select Case cmbAuxPanelOpts.Text
+                Case Is = "Series 5 Downflow"
+                    frmMain.ThisUnitGenCodes.Add("960008")
+                Case Is = "Series 5 Horizontal"
+                    frmMain.ThisUnitGenCodes.Add("960013")
+                Case Is = "Series 5 Horizontal No Return"
+                    frmMain.ThisUnitGenCodes.Add("960014")
+                Case Is = "Series 5 Convertible"
+                    frmMain.ThisUnitGenCodes.Add("960015")
+                Case Is = "Series 5 Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960017")
+                Case Is = "Series 10 Downflow"
+                    frmMain.ThisUnitGenCodes.Add("960005")
+                Case Is = "Series 10 Horizontal"
+                    frmMain.ThisUnitGenCodes.Add("960006")
+                Case Is = "Series 10 Horizontal No Return"
+                    frmMain.ThisUnitGenCodes.Add("960007")
+                Case Is = "Series 10 Convertible"
+                    frmMain.ThisUnitGenCodes.Add("960010")
+                Case Is = "Series 10 Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960016")
+                Case Is = "Series 20 Downflow"
+                    frmMain.ThisUnitGenCodes.Add("960018")
+                Case Is = "Series 20 Horizontal"
+                    frmMain.ThisUnitGenCodes.Add("960019")
+                Case Is = "Series 20 Horizontal No Return"
+                    frmMain.ThisUnitGenCodes.Add("960020")
+                Case Is = "Series 20 Convertible"
+                    frmMain.ThisUnitGenCodes.Add("960021")
+                Case Is = "Series 20 Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960012")
+                Case Is = "Series 40 Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960022")
+                Case Is = "LX Series Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960027")
+                Case Is = "Series 100 Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960023")
+                Case Is = "Premier Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960024")
+                Case Is = "Choice Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960025")
+                Case Is = "Select Cabinet Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960026")
+                Case Is = "Generic Unit Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960028")
+                Case Is = "Series 20 OD Split Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960029")
+                Case Is = "Series 20 ID Split Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960030")
+                Case Is = "Series 40 OD Split Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960031")
+                Case Is = "YCUL Frame Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960032")
+                Case Is = "YULA Frame Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960033")
+                Case Is = "DOAS Frame Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960034")
+                Case Is = "Series L Frame Custom Application"
+                    frmMain.ThisUnitGenCodes.Add("960035")
+            End Select
+        End If
+    End Sub
+    Private Sub UpdateBaseUnitDrawingTags(lUnitDrawingTag As String)
 
+        frmMain.txtUnitSuggestedTags.Text = frmMain.txtUnitSuggestedTags.Text & lUnitDrawingTag
+    End Sub
+
+    Private Sub UpdateAirflowDrawingTags(lAirflowDrawingTag As String)
+
+        frmMain.txtAirflowSuggestedTags.Text = frmMain.txtAirflowSuggestedTags.Text & lAirflowDrawingTag
+    End Sub
+
+    Private Sub UpdateReferDrawingTags(lUnitReferTag As String)
+
+        frmMain.txtReferSuggestedTags.Text = frmMain.txtReferSuggestedTags.Text & lUnitReferTag
+    End Sub
+
+    Private Sub UpdateHydroDrawingTags(lHydroDrawingTag As String)
+
+        frmMain.txtHydroSuggestedTags.Text = frmMain.txtHydroSuggestedTags.Text & lHydroDrawingTag
+    End Sub
+
+    Private Sub cmdScience_Click(sender As Object, e As EventArgs) Handles cmdScience.Click
+        Dim dummy As MsgBoxResult
+        dummy = MsgBox("Science! for the Custom Control Module is not yet implemented.")
+        WriteToEventLog("CstmCtrl", "Science! for the Custom Control Module is not yet implemented.", "Development", Str(dummy))
+    End Sub
+
+    Private Sub cmdFIOPPreview_Click(sender As Object, e As EventArgs) Handles cmdFIOPPreview.Click
+        Call FIOPPreview()
+    End Sub
+    Private Sub FIOPPreview()
+        'version 1.0 Special for CstmNNNN
+        'Modify: Code XXX in SQL declaration below AND THE TEMPMODLIST variable.
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim i, j As Integer
+        Dim TempModList As New ArrayList
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        Call UpdateCodeList(True)
+
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        'Update next line
+        MySQL = "SELECT * FROM tblFisenInstalledOptions WHERE FIOpCode Like '980%'"
+        rs.Open(MySQL, con)
+
+        'Update next line
+        TempModList.Add("980000")
+
+        For i = 0 To lstItemsInDB.SelectedItems.Count - 1
+            rs.MoveFirst()
+            rs.Find("Description='" & lstItemsInDB.SelectedItems(i) & "'")
+            TempModList.Add(rs.Fields("FIOpCode").Value)
+            For j = 0 To pTagALongParent.Count - 1
+                If pTagALongParent.Item(j) = rs.Fields("FIopCode").Value Then
+                    TempModList.Add(pTagALongsSelected.Item(j))
+                End If
+            Next
+        Next
+
+        For i = 0 To TempModList.Count - 1
+            rs.MoveFirst()
+            rs.Find("FIOpCode='" & TempModList(i) & "'")
+            OneLine = ""
+            For j = 1 To Val(rs.Fields("Level").Value)
+                OneLine = OneLine & "\tab "
+            Next
+            OneLine = OneLine & rs.Fields("Description").Value & " - " & rs.Fields("FIopCode").Value & "\par "
+            AllLines.Append(OneLine)
+        Next
+        AllLines.Append("}")
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+        frmFIOPPreview.ReportData = AllLines.ToString
+        frmFIOPPreview.Show()
+    End Sub
 End Class

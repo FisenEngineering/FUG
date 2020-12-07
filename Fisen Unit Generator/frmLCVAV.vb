@@ -43,7 +43,6 @@ Public Class frmLCVAV
         'There is no performance to update for this modification
     End Sub
     Private Sub UpdateCodeList()
-        Dim i As Integer
 
         ModuleCodeList.Clear()
         'Add the level 0 code

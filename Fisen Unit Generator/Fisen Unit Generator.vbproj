@@ -160,6 +160,12 @@
     <Compile Include="frmArchiver.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAssociateDrawings.Designer.vb">
+      <DependentUpon>frmAssociateDrawings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssociateDrawings.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmBiPolar.Designer.vb">
       <DependentUpon>frmBiPolar.vb</DependentUpon>
     </Compile>
@@ -176,6 +182,12 @@
       <DependentUpon>frmCondInt.vb</DependentUpon>
     </Compile>
     <Compile Include="frmCondInt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConstDetails.Designer.vb">
+      <DependentUpon>frmConstDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmConstDetails.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCPCtrl.Designer.vb">
@@ -250,6 +262,12 @@
     <Compile Include="frmDSUnitBase.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmEndDeviceMaintenance.Designer.vb">
+      <DependentUpon>frmEndDeviceMaintenance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEndDeviceMaintenance.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmERVIntegration.Designer.vb">
       <DependentUpon>frmERVIntegration.vb</DependentUpon>
     </Compile>
@@ -266,6 +284,12 @@
       <DependentUpon>frmExtend.vb</DependentUpon>
     </Compile>
     <Compile Include="frmExtend.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFanMaintenance.Designer.vb">
+      <DependentUpon>frmFanMaintenance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFanMaintenance.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmFanVFD.Designer.vb">
@@ -371,6 +395,12 @@
     <Compile Include="frmMZ.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmNewCustomCode.Designer.vb">
+      <DependentUpon>frmNewCustomCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNewCustomCode.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmNewFan.Designer.vb">
       <DependentUpon>frmNewFan.vb</DependentUpon>
     </Compile>
@@ -387,6 +417,12 @@
       <DependentUpon>frmPipePkg.vb</DependentUpon>
     </Compile>
     <Compile Include="frmPipePkg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPointListEditor.Designer.vb">
+      <DependentUpon>frmPointListEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPointListEditor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSCCR.Designer.vb">
@@ -485,6 +521,9 @@
     <EmbeddedResource Include="frmArchiver.resx">
       <DependentUpon>frmArchiver.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAssociateDrawings.resx">
+      <DependentUpon>frmAssociateDrawings.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmBiPolar.resx">
       <DependentUpon>frmBiPolar.vb</DependentUpon>
     </EmbeddedResource>
@@ -493,6 +532,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCondInt.resx">
       <DependentUpon>frmCondInt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConstDetails.resx">
+      <DependentUpon>frmConstDetails.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCPCtrl.resx">
       <DependentUpon>frmCPCtrl.vb</DependentUpon>
@@ -530,6 +572,9 @@
     <EmbeddedResource Include="frmDSUnitBase.resx">
       <DependentUpon>frmDSUnitBase.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEndDeviceMaintenance.resx">
+      <DependentUpon>frmEndDeviceMaintenance.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmERVIntegration.resx">
       <DependentUpon>frmERVIntegration.vb</DependentUpon>
     </EmbeddedResource>
@@ -538,6 +583,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmExtend.resx">
       <DependentUpon>frmExtend.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFanMaintenance.resx">
+      <DependentUpon>frmFanMaintenance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmFanVFD.resx">
       <DependentUpon>frmFanVFD.vb</DependentUpon>
@@ -589,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMZ.resx">
       <DependentUpon>frmMZ.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNewCustomCode.resx">
+      <DependentUpon>frmNewCustomCode.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewFan.resx">
       <DependentUpon>frmNewFan.vb</DependentUpon>

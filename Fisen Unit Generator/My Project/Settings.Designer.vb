@@ -243,6 +243,15 @@ Namespace My
                 Me("UOLocalFolder") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property DebugHard() As Boolean
+            Get
+                Return CType(Me("DebugHard"),Boolean)
+            End Get
+        End Property
     End Class
 End Namespace
 

@@ -331,6 +331,7 @@ Partial Class frmMain
         Me.Label57 = New System.Windows.Forms.Label()
         Me.btnDonePoints = New System.Windows.Forms.Button()
         Me.pgEndDeviceSchedule = New System.Windows.Forms.TabPage()
+        Me.cmdEndDeviceEdit = New System.Windows.Forms.Button()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
         Me.optMLB560 = New System.Windows.Forms.RadioButton()
         Me.chkMLBExpansion = New System.Windows.Forms.CheckBox()
@@ -833,6 +834,10 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
+        Me.Label119 = New System.Windows.Forms.Label()
+        Me.txtAirflowSuggestedTags = New System.Windows.Forms.TextBox()
+        Me.Label121 = New System.Windows.Forms.Label()
+        Me.txtHydroSuggestedTags = New System.Windows.Forms.TextBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -955,11 +960,11 @@ Partial Class frmMain
         Me.pgBaseUnit.Controls.Add(Me.fraChiller)
         Me.pgBaseUnit.Controls.Add(Me.fraAHU)
         Me.pgBaseUnit.Controls.Add(Me.fraRTU)
-        Me.pgBaseUnit.Location = New System.Drawing.Point(4, 22)
+        Me.pgBaseUnit.Location = New System.Drawing.Point(4, 25)
         Me.pgBaseUnit.Margin = New System.Windows.Forms.Padding(4)
         Me.pgBaseUnit.Name = "pgBaseUnit"
         Me.pgBaseUnit.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgBaseUnit.Size = New System.Drawing.Size(1205, 492)
+        Me.pgBaseUnit.Size = New System.Drawing.Size(1205, 489)
         Me.pgBaseUnit.TabIndex = 0
         Me.pgBaseUnit.Text = "Base Unit"
         Me.pgBaseUnit.UseVisualStyleBackColor = True
@@ -970,7 +975,7 @@ Partial Class frmMain
         Me.cmbResearchTarget.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Return Fan Array", "Steam Coil", "Supply Fan", "Supply Fan Array", "Exhaust Fan", "Exhaust Fan Array"})
         Me.cmbResearchTarget.Location = New System.Drawing.Point(740, 150)
         Me.cmbResearchTarget.Name = "cmbResearchTarget"
-        Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 21)
+        Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 24)
         Me.cmbResearchTarget.TabIndex = 21
         '
         'cmdResearchMode
@@ -1046,7 +1051,7 @@ Partial Class frmMain
         Me.optYLUASplit.Location = New System.Drawing.Point(8, 123)
         Me.optYLUASplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optYLUASplit.Name = "optYLUASplit"
-        Me.optYLUASplit.Size = New System.Drawing.Size(53, 17)
+        Me.optYLUASplit.Size = New System.Drawing.Size(65, 21)
         Me.optYLUASplit.TabIndex = 13
         Me.optYLUASplit.TabStop = True
         Me.optYLUASplit.Text = "YLUA"
@@ -1058,7 +1063,7 @@ Partial Class frmMain
         Me.optLSeries.Location = New System.Drawing.Point(8, 229)
         Me.optLSeries.Margin = New System.Windows.Forms.Padding(4)
         Me.optLSeries.Name = "optLSeries"
-        Me.optLSeries.Size = New System.Drawing.Size(63, 17)
+        Me.optLSeries.Size = New System.Drawing.Size(82, 21)
         Me.optLSeries.TabIndex = 12
         Me.optLSeries.TabStop = True
         Me.optLSeries.Text = "L-Series"
@@ -1070,7 +1075,7 @@ Partial Class frmMain
         Me.optS40ODSplit.Location = New System.Drawing.Point(8, 73)
         Me.optS40ODSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optS40ODSplit.Name = "optS40ODSplit"
-        Me.optS40ODSplit.Size = New System.Drawing.Size(111, 17)
+        Me.optS40ODSplit.Size = New System.Drawing.Size(145, 21)
         Me.optS40ODSplit.TabIndex = 11
         Me.optS40ODSplit.TabStop = True
         Me.optS40ODSplit.Text = "Series 40 OD Split"
@@ -1082,7 +1087,7 @@ Partial Class frmMain
         Me.optS20IDSplit.Location = New System.Drawing.Point(8, 48)
         Me.optS20IDSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optS20IDSplit.Name = "optS20IDSplit"
-        Me.optS20IDSplit.Size = New System.Drawing.Size(106, 17)
+        Me.optS20IDSplit.Size = New System.Drawing.Size(137, 21)
         Me.optS20IDSplit.TabIndex = 10
         Me.optS20IDSplit.TabStop = True
         Me.optS20IDSplit.Text = "Series 20 ID Split"
@@ -1094,7 +1099,7 @@ Partial Class frmMain
         Me.optDOAS.Location = New System.Drawing.Point(8, 205)
         Me.optDOAS.Margin = New System.Windows.Forms.Padding(4)
         Me.optDOAS.Name = "optDOAS"
-        Me.optDOAS.Size = New System.Drawing.Size(55, 17)
+        Me.optDOAS.Size = New System.Drawing.Size(68, 21)
         Me.optDOAS.TabIndex = 9
         Me.optDOAS.TabStop = True
         Me.optDOAS.Text = "DOAS"
@@ -1106,7 +1111,7 @@ Partial Class frmMain
         Me.optYCULSplit.Location = New System.Drawing.Point(8, 98)
         Me.optYCULSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optYCULSplit.Name = "optYCULSplit"
-        Me.optYCULSplit.Size = New System.Drawing.Size(53, 17)
+        Me.optYCULSplit.Size = New System.Drawing.Size(65, 21)
         Me.optYCULSplit.TabIndex = 8
         Me.optYCULSplit.TabStop = True
         Me.optYCULSplit.Text = "YCUL"
@@ -1119,7 +1124,7 @@ Partial Class frmMain
         Me.optMiscDS.Location = New System.Drawing.Point(8, 279)
         Me.optMiscDS.Margin = New System.Windows.Forms.Padding(4)
         Me.optMiscDS.Name = "optMiscDS"
-        Me.optMiscDS.Size = New System.Drawing.Size(52, 17)
+        Me.optMiscDS.Size = New System.Drawing.Size(66, 21)
         Me.optMiscDS.TabIndex = 7
         Me.optMiscDS.TabStop = True
         Me.optMiscDS.Text = "DS-?-"
@@ -1131,7 +1136,7 @@ Partial Class frmMain
         Me.optS20ODSplit.Location = New System.Drawing.Point(8, 23)
         Me.optS20ODSplit.Margin = New System.Windows.Forms.Padding(4)
         Me.optS20ODSplit.Name = "optS20ODSplit"
-        Me.optS20ODSplit.Size = New System.Drawing.Size(111, 17)
+        Me.optS20ODSplit.Size = New System.Drawing.Size(145, 21)
         Me.optS20ODSplit.TabIndex = 6
         Me.optS20ODSplit.TabStop = True
         Me.optS20ODSplit.Text = "Series 20 OD Split"
@@ -1144,7 +1149,7 @@ Partial Class frmMain
         Me.RadioButton5.Location = New System.Drawing.Point(8, 254)
         Me.RadioButton5.Margin = New System.Windows.Forms.Padding(4)
         Me.RadioButton5.Name = "RadioButton5"
-        Me.RadioButton5.Size = New System.Drawing.Size(40, 17)
+        Me.RadioButton5.Size = New System.Drawing.Size(48, 21)
         Me.RadioButton5.TabIndex = 5
         Me.RadioButton5.TabStop = True
         Me.RadioButton5.Text = "HP"
@@ -1172,7 +1177,7 @@ Partial Class frmMain
         Me.optBlankFamily.Location = New System.Drawing.Point(617, 23)
         Me.optBlankFamily.Margin = New System.Windows.Forms.Padding(4)
         Me.optBlankFamily.Name = "optBlankFamily"
-        Me.optBlankFamily.Size = New System.Drawing.Size(74, 17)
+        Me.optBlankFamily.Size = New System.Drawing.Size(93, 21)
         Me.optBlankFamily.TabIndex = 4
         Me.optBlankFamily.Text = "Blank Unit"
         Me.optBlankFamily.UseVisualStyleBackColor = True
@@ -1183,7 +1188,7 @@ Partial Class frmMain
         Me.optMisc.Location = New System.Drawing.Point(460, 23)
         Me.optMisc.Margin = New System.Windows.Forms.Padding(4)
         Me.optMisc.Name = "optMisc"
-        Me.optMisc.Size = New System.Drawing.Size(47, 17)
+        Me.optMisc.Size = New System.Drawing.Size(57, 21)
         Me.optMisc.TabIndex = 3
         Me.optMisc.Text = "Misc"
         Me.optMisc.UseVisualStyleBackColor = True
@@ -1194,7 +1199,7 @@ Partial Class frmMain
         Me.optChiller.Location = New System.Drawing.Point(309, 23)
         Me.optChiller.Margin = New System.Windows.Forms.Padding(4)
         Me.optChiller.Name = "optChiller"
-        Me.optChiller.Size = New System.Drawing.Size(53, 17)
+        Me.optChiller.Size = New System.Drawing.Size(68, 21)
         Me.optChiller.TabIndex = 2
         Me.optChiller.Text = "Chiller"
         Me.optChiller.UseVisualStyleBackColor = True
@@ -1206,7 +1211,7 @@ Partial Class frmMain
         Me.optAHU.Location = New System.Drawing.Point(159, 23)
         Me.optAHU.Margin = New System.Windows.Forms.Padding(4)
         Me.optAHU.Name = "optAHU"
-        Me.optAHU.Size = New System.Drawing.Size(104, 17)
+        Me.optAHU.Size = New System.Drawing.Size(135, 21)
         Me.optAHU.TabIndex = 1
         Me.optAHU.Text = "Air Handling Unit"
         Me.optAHU.UseVisualStyleBackColor = True
@@ -1218,7 +1223,7 @@ Partial Class frmMain
         Me.optRTU.Location = New System.Drawing.Point(8, 23)
         Me.optRTU.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTU.Name = "optRTU"
-        Me.optRTU.Size = New System.Drawing.Size(85, 17)
+        Me.optRTU.Size = New System.Drawing.Size(108, 21)
         Me.optRTU.TabIndex = 0
         Me.optRTU.TabStop = True
         Me.optRTU.Text = "Rooftop Unit"
@@ -1246,7 +1251,7 @@ Partial Class frmMain
         Me.optChillerYCAV.Location = New System.Drawing.Point(8, 137)
         Me.optChillerYCAV.Margin = New System.Windows.Forms.Padding(4)
         Me.optChillerYCAV.Name = "optChillerYCAV"
-        Me.optChillerYCAV.Size = New System.Drawing.Size(53, 17)
+        Me.optChillerYCAV.Size = New System.Drawing.Size(65, 21)
         Me.optChillerYCAV.TabIndex = 9
         Me.optChillerYCAV.TabStop = True
         Me.optChillerYCAV.Text = "YCAV"
@@ -1258,7 +1263,7 @@ Partial Class frmMain
         Me.optChillerYCIV.Location = New System.Drawing.Point(8, 108)
         Me.optChillerYCIV.Margin = New System.Windows.Forms.Padding(4)
         Me.optChillerYCIV.Name = "optChillerYCIV"
-        Me.optChillerYCIV.Size = New System.Drawing.Size(49, 17)
+        Me.optChillerYCIV.Size = New System.Drawing.Size(59, 21)
         Me.optChillerYCIV.TabIndex = 8
         Me.optChillerYCIV.TabStop = True
         Me.optChillerYCIV.Text = "YCIV"
@@ -1270,7 +1275,7 @@ Partial Class frmMain
         Me.optChillerYVAA.Location = New System.Drawing.Point(8, 80)
         Me.optChillerYVAA.Margin = New System.Windows.Forms.Padding(4)
         Me.optChillerYVAA.Name = "optChillerYVAA"
-        Me.optChillerYVAA.Size = New System.Drawing.Size(53, 17)
+        Me.optChillerYVAA.Size = New System.Drawing.Size(65, 21)
         Me.optChillerYVAA.TabIndex = 7
         Me.optChillerYVAA.TabStop = True
         Me.optChillerYVAA.Text = "YVAA"
@@ -1282,7 +1287,7 @@ Partial Class frmMain
         Me.optChillerYCAL.Location = New System.Drawing.Point(8, 23)
         Me.optChillerYCAL.Margin = New System.Windows.Forms.Padding(4)
         Me.optChillerYCAL.Name = "optChillerYCAL"
-        Me.optChillerYCAL.Size = New System.Drawing.Size(52, 17)
+        Me.optChillerYCAL.Size = New System.Drawing.Size(64, 21)
         Me.optChillerYCAL.TabIndex = 6
         Me.optChillerYCAL.TabStop = True
         Me.optChillerYCAL.Text = "YCAL"
@@ -1294,7 +1299,7 @@ Partial Class frmMain
         Me.optChillerYLAA.Location = New System.Drawing.Point(8, 52)
         Me.optChillerYLAA.Margin = New System.Windows.Forms.Padding(4)
         Me.optChillerYLAA.Name = "optChillerYLAA"
-        Me.optChillerYLAA.Size = New System.Drawing.Size(52, 17)
+        Me.optChillerYLAA.Size = New System.Drawing.Size(64, 21)
         Me.optChillerYLAA.TabIndex = 5
         Me.optChillerYLAA.TabStop = True
         Me.optChillerYLAA.Text = "YLAA"
@@ -1320,7 +1325,7 @@ Partial Class frmMain
         Me.optAHUYorkCustom.Location = New System.Drawing.Point(8, 80)
         Me.optAHUYorkCustom.Margin = New System.Windows.Forms.Padding(4)
         Me.optAHUYorkCustom.Name = "optAHUYorkCustom"
-        Me.optAHUYorkCustom.Size = New System.Drawing.Size(85, 17)
+        Me.optAHUYorkCustom.Size = New System.Drawing.Size(109, 21)
         Me.optAHUYorkCustom.TabIndex = 6
         Me.optAHUYorkCustom.TabStop = True
         Me.optAHUYorkCustom.Text = "York Custom"
@@ -1332,7 +1337,7 @@ Partial Class frmMain
         Me.optAHUXTI.Location = New System.Drawing.Point(8, 52)
         Me.optAHUXTI.Margin = New System.Windows.Forms.Padding(4)
         Me.optAHUXTI.Name = "optAHUXTI"
-        Me.optAHUXTI.Size = New System.Drawing.Size(42, 17)
+        Me.optAHUXTI.Size = New System.Drawing.Size(50, 21)
         Me.optAHUXTI.TabIndex = 5
         Me.optAHUXTI.TabStop = True
         Me.optAHUXTI.Text = "XTI"
@@ -1344,7 +1349,7 @@ Partial Class frmMain
         Me.optAHUXTO.Location = New System.Drawing.Point(8, 23)
         Me.optAHUXTO.Margin = New System.Windows.Forms.Padding(4)
         Me.optAHUXTO.Name = "optAHUXTO"
-        Me.optAHUXTO.Size = New System.Drawing.Size(47, 17)
+        Me.optAHUXTO.Size = New System.Drawing.Size(58, 21)
         Me.optAHUXTO.TabIndex = 4
         Me.optAHUXTO.TabStop = True
         Me.optAHUXTO.Text = "XTO"
@@ -1380,7 +1385,7 @@ Partial Class frmMain
         Me.optRTUSeriesLX.Location = New System.Drawing.Point(8, 317)
         Me.optRTUSeriesLX.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeriesLX.Name = "optRTUSeriesLX"
-        Me.optRTUSeriesLX.Size = New System.Drawing.Size(70, 17)
+        Me.optRTUSeriesLX.Size = New System.Drawing.Size(90, 21)
         Me.optRTUSeriesLX.TabIndex = 14
         Me.optRTUSeriesLX.Text = "LX Series"
         Me.optRTUSeriesLX.UseVisualStyleBackColor = True
@@ -1391,7 +1396,7 @@ Partial Class frmMain
         Me.optRTUSelect.Location = New System.Drawing.Point(8, 292)
         Me.optRTUSelect.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSelect.Name = "optRTUSelect"
-        Me.optRTUSelect.Size = New System.Drawing.Size(55, 17)
+        Me.optRTUSelect.Size = New System.Drawing.Size(68, 21)
         Me.optRTUSelect.TabIndex = 13
         Me.optRTUSelect.Text = "Select"
         Me.optRTUSelect.UseVisualStyleBackColor = True
@@ -1402,7 +1407,7 @@ Partial Class frmMain
         Me.optRTUPremier.Location = New System.Drawing.Point(8, 267)
         Me.optRTUPremier.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUPremier.Name = "optRTUPremier"
-        Me.optRTUPremier.Size = New System.Drawing.Size(60, 17)
+        Me.optRTUPremier.Size = New System.Drawing.Size(78, 21)
         Me.optRTUPremier.TabIndex = 12
         Me.optRTUPremier.Text = "Premier"
         Me.optRTUPremier.UseVisualStyleBackColor = True
@@ -1413,7 +1418,7 @@ Partial Class frmMain
         Me.optRTUChoice.Location = New System.Drawing.Point(8, 242)
         Me.optRTUChoice.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUChoice.Name = "optRTUChoice"
-        Me.optRTUChoice.Size = New System.Drawing.Size(58, 17)
+        Me.optRTUChoice.Size = New System.Drawing.Size(72, 21)
         Me.optRTUChoice.TabIndex = 11
         Me.optRTUChoice.Text = "Choice"
         Me.optRTUChoice.UseVisualStyleBackColor = True
@@ -1424,7 +1429,7 @@ Partial Class frmMain
         Me.chkS100CCabinet.Enabled = False
         Me.chkS100CCabinet.Location = New System.Drawing.Point(24, 218)
         Me.chkS100CCabinet.Name = "chkS100CCabinet"
-        Me.chkS100CCabinet.Size = New System.Drawing.Size(72, 17)
+        Me.chkS100CCabinet.Size = New System.Drawing.Size(91, 21)
         Me.chkS100CCabinet.TabIndex = 10
         Me.chkS100CCabinet.Text = "C Cabinet"
         Me.chkS100CCabinet.UseVisualStyleBackColor = True
@@ -1435,7 +1440,7 @@ Partial Class frmMain
         Me.chkS100BCabinet.Enabled = False
         Me.chkS100BCabinet.Location = New System.Drawing.Point(24, 195)
         Me.chkS100BCabinet.Name = "chkS100BCabinet"
-        Me.chkS100BCabinet.Size = New System.Drawing.Size(72, 17)
+        Me.chkS100BCabinet.Size = New System.Drawing.Size(91, 21)
         Me.chkS100BCabinet.TabIndex = 9
         Me.chkS100BCabinet.Text = "B Cabinet"
         Me.chkS100BCabinet.UseVisualStyleBackColor = True
@@ -1446,7 +1451,7 @@ Partial Class frmMain
         Me.chkS100ACabinet.Enabled = False
         Me.chkS100ACabinet.Location = New System.Drawing.Point(24, 172)
         Me.chkS100ACabinet.Name = "chkS100ACabinet"
-        Me.chkS100ACabinet.Size = New System.Drawing.Size(72, 17)
+        Me.chkS100ACabinet.Size = New System.Drawing.Size(91, 21)
         Me.chkS100ACabinet.TabIndex = 8
         Me.chkS100ACabinet.Text = "A Cabinet"
         Me.chkS100ACabinet.UseVisualStyleBackColor = True
@@ -1457,7 +1462,7 @@ Partial Class frmMain
         Me.optRTUSeries12.Location = New System.Drawing.Point(8, 73)
         Me.optRTUSeries12.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries12.Name = "optRTUSeries12"
-        Me.optRTUSeries12.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUSeries12.Size = New System.Drawing.Size(89, 21)
         Me.optRTUSeries12.TabIndex = 7
         Me.optRTUSeries12.Text = "Series 12"
         Me.optRTUSeries12.UseVisualStyleBackColor = True
@@ -1468,7 +1473,7 @@ Partial Class frmMain
         Me.optRTUSeries100.Location = New System.Drawing.Point(8, 148)
         Me.optRTUSeries100.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries100.Name = "optRTUSeries100"
-        Me.optRTUSeries100.Size = New System.Drawing.Size(75, 17)
+        Me.optRTUSeries100.Size = New System.Drawing.Size(97, 21)
         Me.optRTUSeries100.TabIndex = 4
         Me.optRTUSeries100.Text = "Series 100"
         Me.optRTUSeries100.UseVisualStyleBackColor = True
@@ -1479,7 +1484,7 @@ Partial Class frmMain
         Me.optRTUSeries40.Location = New System.Drawing.Point(8, 123)
         Me.optRTUSeries40.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries40.Name = "optRTUSeries40"
-        Me.optRTUSeries40.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUSeries40.Size = New System.Drawing.Size(89, 21)
         Me.optRTUSeries40.TabIndex = 3
         Me.optRTUSeries40.Text = "Series 40"
         Me.optRTUSeries40.UseVisualStyleBackColor = True
@@ -1491,7 +1496,7 @@ Partial Class frmMain
         Me.optRTUSeries20.Location = New System.Drawing.Point(8, 98)
         Me.optRTUSeries20.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries20.Name = "optRTUSeries20"
-        Me.optRTUSeries20.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUSeries20.Size = New System.Drawing.Size(89, 21)
         Me.optRTUSeries20.TabIndex = 2
         Me.optRTUSeries20.TabStop = True
         Me.optRTUSeries20.Text = "Series 20"
@@ -1503,7 +1508,7 @@ Partial Class frmMain
         Me.optRTUSeries10.Location = New System.Drawing.Point(8, 48)
         Me.optRTUSeries10.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries10.Name = "optRTUSeries10"
-        Me.optRTUSeries10.Size = New System.Drawing.Size(69, 17)
+        Me.optRTUSeries10.Size = New System.Drawing.Size(89, 21)
         Me.optRTUSeries10.TabIndex = 1
         Me.optRTUSeries10.Text = "Series 10"
         Me.optRTUSeries10.UseVisualStyleBackColor = True
@@ -1514,7 +1519,7 @@ Partial Class frmMain
         Me.optRTUSeries5.Location = New System.Drawing.Point(8, 23)
         Me.optRTUSeries5.Margin = New System.Windows.Forms.Padding(4)
         Me.optRTUSeries5.Name = "optRTUSeries5"
-        Me.optRTUSeries5.Size = New System.Drawing.Size(63, 17)
+        Me.optRTUSeries5.Size = New System.Drawing.Size(81, 21)
         Me.optRTUSeries5.TabIndex = 0
         Me.optRTUSeries5.Text = "Series 5"
         Me.optRTUSeries5.UseVisualStyleBackColor = True
@@ -1561,11 +1566,11 @@ Partial Class frmMain
         Me.pgProjectData.Controls.Add(Me.Label4)
         Me.pgProjectData.Controls.Add(Me.btnDonePD)
         Me.pgProjectData.Controls.Add(Me.nudJobNumberAdj)
-        Me.pgProjectData.Location = New System.Drawing.Point(4, 22)
+        Me.pgProjectData.Location = New System.Drawing.Point(4, 25)
         Me.pgProjectData.Margin = New System.Windows.Forms.Padding(4)
         Me.pgProjectData.Name = "pgProjectData"
         Me.pgProjectData.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgProjectData.Size = New System.Drawing.Size(1205, 492)
+        Me.pgProjectData.Size = New System.Drawing.Size(1205, 489)
         Me.pgProjectData.TabIndex = 2
         Me.pgProjectData.Text = "Project Data"
         Me.pgProjectData.UseVisualStyleBackColor = True
@@ -1625,7 +1630,7 @@ Partial Class frmMain
         Me.lblYPALUnitSize.Location = New System.Drawing.Point(959, 41)
         Me.lblYPALUnitSize.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblYPALUnitSize.Name = "lblYPALUnitSize"
-        Me.lblYPALUnitSize.Size = New System.Drawing.Size(49, 13)
+        Me.lblYPALUnitSize.Size = New System.Drawing.Size(64, 17)
         Me.lblYPALUnitSize.TabIndex = 39
         Me.lblYPALUnitSize.Text = "Unit Size"
         Me.lblYPALUnitSize.Visible = False
@@ -1635,7 +1640,7 @@ Partial Class frmMain
         Me.txtYPALUnitSize.Location = New System.Drawing.Point(1016, 38)
         Me.txtYPALUnitSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALUnitSize.Name = "txtYPALUnitSize"
-        Me.txtYPALUnitSize.Size = New System.Drawing.Size(176, 20)
+        Me.txtYPALUnitSize.Size = New System.Drawing.Size(176, 22)
         Me.txtYPALUnitSize.TabIndex = 11
         Me.txtYPALUnitSize.Text = "n/a"
         Me.txtYPALUnitSize.Visible = False
@@ -1645,7 +1650,7 @@ Partial Class frmMain
         Me.txtSelectionTag.Location = New System.Drawing.Point(123, 368)
         Me.txtSelectionTag.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSelectionTag.Name = "txtSelectionTag"
-        Me.txtSelectionTag.Size = New System.Drawing.Size(448, 20)
+        Me.txtSelectionTag.Size = New System.Drawing.Size(448, 22)
         Me.txtSelectionTag.TabIndex = 20
         '
         'Label101
@@ -1654,7 +1659,7 @@ Partial Class frmMain
         Me.Label101.Location = New System.Drawing.Point(39, 371)
         Me.Label101.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(76, 13)
+        Me.Label101.Size = New System.Drawing.Size(99, 17)
         Me.Label101.TabIndex = 36
         Me.Label101.Text = "Selection Tag:"
         '
@@ -1663,7 +1668,7 @@ Partial Class frmMain
         Me.txtBaseUnitFile.Location = New System.Drawing.Point(123, 336)
         Me.txtBaseUnitFile.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseUnitFile.Name = "txtBaseUnitFile"
-        Me.txtBaseUnitFile.Size = New System.Drawing.Size(448, 20)
+        Me.txtBaseUnitFile.Size = New System.Drawing.Size(448, 22)
         Me.txtBaseUnitFile.TabIndex = 19
         '
         'Label100
@@ -1672,7 +1677,7 @@ Partial Class frmMain
         Me.Label100.Location = New System.Drawing.Point(40, 339)
         Me.Label100.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label100.Name = "Label100"
-        Me.Label100.Size = New System.Drawing.Size(75, 13)
+        Me.Label100.Size = New System.Drawing.Size(99, 17)
         Me.Label100.TabIndex = 34
         Me.Label100.Text = "Base Unit File:"
         '
@@ -1681,7 +1686,7 @@ Partial Class frmMain
         Me.txtProjectDirectory.Location = New System.Drawing.Point(123, 308)
         Me.txtProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectDirectory.Name = "txtProjectDirectory"
-        Me.txtProjectDirectory.Size = New System.Drawing.Size(448, 20)
+        Me.txtProjectDirectory.Size = New System.Drawing.Size(448, 22)
         Me.txtProjectDirectory.TabIndex = 18
         Me.ToolTip1.SetToolTip(Me.txtProjectDirectory, "Job Folder not Unit Folder.  Ends in \")
         '
@@ -1691,7 +1696,7 @@ Partial Class frmMain
         Me.Label99.Location = New System.Drawing.Point(27, 311)
         Me.Label99.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label99.Name = "Label99"
-        Me.Label99.Size = New System.Drawing.Size(88, 13)
+        Me.Label99.Size = New System.Drawing.Size(117, 17)
         Me.Label99.TabIndex = 32
         Me.Label99.Text = "Project Directory:"
         '
@@ -1712,7 +1717,7 @@ Partial Class frmMain
         Me.dtpPrintedDate.Location = New System.Drawing.Point(123, 94)
         Me.dtpPrintedDate.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpPrintedDate.Name = "dtpPrintedDate"
-        Me.dtpPrintedDate.Size = New System.Drawing.Size(108, 20)
+        Me.dtpPrintedDate.Size = New System.Drawing.Size(108, 22)
         Me.dtpPrintedDate.TabIndex = 16
         '
         'dtpUnitDate
@@ -1722,7 +1727,7 @@ Partial Class frmMain
         Me.dtpUnitDate.Location = New System.Drawing.Point(123, 66)
         Me.dtpUnitDate.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpUnitDate.Name = "dtpUnitDate"
-        Me.dtpUnitDate.Size = New System.Drawing.Size(108, 20)
+        Me.dtpUnitDate.Size = New System.Drawing.Size(108, 22)
         Me.dtpUnitDate.TabIndex = 12
         '
         'Label3
@@ -1731,7 +1736,7 @@ Partial Class frmMain
         Me.Label3.Location = New System.Drawing.Point(973, 69)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(35, 13)
+        Me.Label3.Size = New System.Drawing.Size(46, 17)
         Me.Label3.TabIndex = 29
         Me.Label3.Text = "Brand"
         '
@@ -1743,7 +1748,7 @@ Partial Class frmMain
         Me.cmbBrand.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbBrand.MaxDropDownItems = 10
         Me.cmbBrand.Name = "cmbBrand"
-        Me.cmbBrand.Size = New System.Drawing.Size(55, 21)
+        Me.cmbBrand.Size = New System.Drawing.Size(55, 24)
         Me.cmbBrand.TabIndex = 15
         '
         'Label14
@@ -1752,7 +1757,7 @@ Partial Class frmMain
         Me.Label14.Location = New System.Drawing.Point(917, 13)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(91, 13)
+        Me.Label14.Size = New System.Drawing.Size(120, 17)
         Me.Label14.TabIndex = 27
         Me.Label14.Text = "Nominal Tonnage"
         '
@@ -1761,7 +1766,7 @@ Partial Class frmMain
         Me.txtNominalTons.Location = New System.Drawing.Point(1016, 10)
         Me.txtNominalTons.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNominalTons.Name = "txtNominalTons"
-        Me.txtNominalTons.Size = New System.Drawing.Size(55, 20)
+        Me.txtNominalTons.Size = New System.Drawing.Size(55, 22)
         Me.txtNominalTons.TabIndex = 8
         '
         'txtBrandModelNumber
@@ -1769,7 +1774,7 @@ Partial Class frmMain
         Me.txtBrandModelNumber.Location = New System.Drawing.Point(357, 66)
         Me.txtBrandModelNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBrandModelNumber.Name = "txtBrandModelNumber"
-        Me.txtBrandModelNumber.Size = New System.Drawing.Size(448, 20)
+        Me.txtBrandModelNumber.Size = New System.Drawing.Size(448, 22)
         Me.txtBrandModelNumber.TabIndex = 13
         '
         'Label13
@@ -1778,7 +1783,7 @@ Partial Class frmMain
         Me.Label13.Location = New System.Drawing.Point(239, 72)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(110, 13)
+        Me.Label13.Size = New System.Drawing.Size(146, 17)
         Me.Label13.TabIndex = 24
         Me.Label13.Text = "Brand Model Number:"
         '
@@ -1787,7 +1792,7 @@ Partial Class frmMain
         Me.txtJobNumber.Location = New System.Drawing.Point(123, 10)
         Me.txtJobNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJobNumber.Name = "txtJobNumber"
-        Me.txtJobNumber.Size = New System.Drawing.Size(108, 20)
+        Me.txtJobNumber.Size = New System.Drawing.Size(108, 22)
         Me.txtJobNumber.TabIndex = 0
         Me.txtJobNumber.Tag = ""
         Me.txtJobNumber.Text = "9999F"
@@ -1798,7 +1803,7 @@ Partial Class frmMain
         Me.Label12.Location = New System.Drawing.Point(48, 13)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(67, 13)
+        Me.Label12.Size = New System.Drawing.Size(89, 17)
         Me.Label12.TabIndex = 22
         Me.Label12.Text = "Job Number:"
         '
@@ -1807,7 +1812,7 @@ Partial Class frmMain
         Me.txtQty.Location = New System.Drawing.Point(357, 38)
         Me.txtQty.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty.Name = "txtQty"
-        Me.txtQty.Size = New System.Drawing.Size(68, 20)
+        Me.txtQty.Size = New System.Drawing.Size(68, 22)
         Me.txtQty.TabIndex = 9
         Me.txtQty.Text = "1"
         '
@@ -1817,7 +1822,7 @@ Partial Class frmMain
         Me.Label11.Location = New System.Drawing.Point(300, 41)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(49, 13)
+        Me.Label11.Size = New System.Drawing.Size(65, 17)
         Me.Label11.TabIndex = 20
         Me.Label11.Text = "Quantity:"
         '
@@ -1826,7 +1831,7 @@ Partial Class frmMain
         Me.txtModelNumber.Location = New System.Drawing.Point(357, 94)
         Me.txtModelNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.txtModelNumber.Name = "txtModelNumber"
-        Me.txtModelNumber.Size = New System.Drawing.Size(448, 20)
+        Me.txtModelNumber.Size = New System.Drawing.Size(448, 22)
         Me.txtModelNumber.TabIndex = 17
         '
         'Label10
@@ -1835,7 +1840,7 @@ Partial Class frmMain
         Me.Label10.Location = New System.Drawing.Point(252, 97)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(97, 13)
+        Me.Label10.Size = New System.Drawing.Size(127, 17)
         Me.Label10.TabIndex = 18
         Me.Label10.Text = "JCI Model Number:"
         '
@@ -1845,7 +1850,7 @@ Partial Class frmMain
         Me.Label9.Location = New System.Drawing.Point(46, 100)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(69, 13)
+        Me.Label9.Size = New System.Drawing.Size(91, 17)
         Me.Label9.TabIndex = 16
         Me.Label9.Text = "Printed Date:"
         '
@@ -1855,7 +1860,7 @@ Partial Class frmMain
         Me.Label8.Location = New System.Drawing.Point(60, 72)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(55, 13)
+        Me.Label8.Size = New System.Drawing.Size(71, 17)
         Me.Label8.TabIndex = 14
         Me.Label8.Text = "Unit Date:"
         '
@@ -1864,7 +1869,7 @@ Partial Class frmMain
         Me.txtUnitVersion.Location = New System.Drawing.Point(734, 38)
         Me.txtUnitVersion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtUnitVersion.Name = "txtUnitVersion"
-        Me.txtUnitVersion.Size = New System.Drawing.Size(159, 20)
+        Me.txtUnitVersion.Size = New System.Drawing.Size(159, 22)
         Me.txtUnitVersion.TabIndex = 10
         Me.txtUnitVersion.Text = "1.0"
         '
@@ -1874,7 +1879,7 @@ Partial Class frmMain
         Me.Label7.Location = New System.Drawing.Point(659, 41)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(67, 13)
+        Me.Label7.Size = New System.Drawing.Size(89, 17)
         Me.Label7.TabIndex = 12
         Me.Label7.Text = "Unit Version:"
         '
@@ -1883,7 +1888,7 @@ Partial Class frmMain
         Me.txtUnitTag.Location = New System.Drawing.Point(734, 10)
         Me.txtUnitTag.Margin = New System.Windows.Forms.Padding(4)
         Me.txtUnitTag.Name = "txtUnitTag"
-        Me.txtUnitTag.Size = New System.Drawing.Size(159, 20)
+        Me.txtUnitTag.Size = New System.Drawing.Size(159, 22)
         Me.txtUnitTag.TabIndex = 7
         '
         'Label6
@@ -1892,7 +1897,7 @@ Partial Class frmMain
         Me.Label6.Location = New System.Drawing.Point(675, 13)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(51, 13)
+        Me.Label6.Size = New System.Drawing.Size(66, 17)
         Me.Label6.TabIndex = 10
         Me.Label6.Text = "Unit Tag:"
         '
@@ -1901,7 +1906,7 @@ Partial Class frmMain
         Me.txtUnitNumber.Location = New System.Drawing.Point(123, 38)
         Me.txtUnitNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.txtUnitNumber.Name = "txtUnitNumber"
-        Me.txtUnitNumber.Size = New System.Drawing.Size(108, 20)
+        Me.txtUnitNumber.Size = New System.Drawing.Size(108, 22)
         Me.txtUnitNumber.TabIndex = 1
         Me.txtUnitNumber.Text = "01"
         '
@@ -1911,7 +1916,7 @@ Partial Class frmMain
         Me.Label5.Location = New System.Drawing.Point(46, 41)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(69, 13)
+        Me.Label5.Size = New System.Drawing.Size(91, 17)
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "Unit Number:"
         '
@@ -1920,7 +1925,7 @@ Partial Class frmMain
         Me.txtProjectName.Location = New System.Drawing.Point(357, 10)
         Me.txtProjectName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectName.Name = "txtProjectName"
-        Me.txtProjectName.Size = New System.Drawing.Size(292, 20)
+        Me.txtProjectName.Size = New System.Drawing.Size(292, 22)
         Me.txtProjectName.TabIndex = 6
         '
         'Label4
@@ -1929,7 +1934,7 @@ Partial Class frmMain
         Me.Label4.Location = New System.Drawing.Point(275, 13)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(74, 13)
+        Me.Label4.Size = New System.Drawing.Size(97, 17)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Project Name:"
         '
@@ -1949,7 +1954,7 @@ Partial Class frmMain
         Me.nudJobNumberAdj.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         Me.nudJobNumberAdj.Minimum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.nudJobNumberAdj.Name = "nudJobNumberAdj"
-        Me.nudJobNumberAdj.Size = New System.Drawing.Size(120, 20)
+        Me.nudJobNumberAdj.Size = New System.Drawing.Size(120, 22)
         Me.nudJobNumberAdj.TabIndex = 44
         Me.nudJobNumberAdj.Value = New Decimal(New Integer() {1000, 0, 0, 0})
         '
@@ -2041,11 +2046,11 @@ Partial Class frmMain
         Me.pgBaseChiller.Controls.Add(Me.lblBCRefType)
         Me.pgBaseChiller.Controls.Add(Me.txtBCNetCoolCap)
         Me.pgBaseChiller.Controls.Add(Me.lblBCNetCoolCap)
-        Me.pgBaseChiller.Location = New System.Drawing.Point(4, 22)
+        Me.pgBaseChiller.Location = New System.Drawing.Point(4, 25)
         Me.pgBaseChiller.Margin = New System.Windows.Forms.Padding(4)
         Me.pgBaseChiller.Name = "pgBaseChiller"
         Me.pgBaseChiller.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgBaseChiller.Size = New System.Drawing.Size(1205, 492)
+        Me.pgBaseChiller.Size = New System.Drawing.Size(1205, 489)
         Me.pgBaseChiller.TabIndex = 11
         Me.pgBaseChiller.Text = "Base Chiller"
         Me.pgBaseChiller.UseVisualStyleBackColor = True
@@ -2055,7 +2060,7 @@ Partial Class frmMain
         Me.txtBCVolts.Location = New System.Drawing.Point(1020, 41)
         Me.txtBCVolts.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCVolts.Name = "txtBCVolts"
-        Me.txtBCVolts.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCVolts.Size = New System.Drawing.Size(51, 22)
         Me.txtBCVolts.TabIndex = 85
         Me.txtBCVolts.Text = "5344"
         Me.txtBCVolts.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2066,7 +2071,7 @@ Partial Class frmMain
         Me.Label56.Location = New System.Drawing.Point(1034, 22)
         Me.Label56.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(30, 13)
+        Me.Label56.Size = New System.Drawing.Size(39, 17)
         Me.Label56.TabIndex = 86
         Me.Label56.Text = "Volts"
         Me.Label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2076,7 +2081,7 @@ Partial Class frmMain
         Me.txtChillerLength.Location = New System.Drawing.Point(674, 309)
         Me.txtChillerLength.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillerLength.Name = "txtChillerLength"
-        Me.txtChillerLength.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillerLength.Size = New System.Drawing.Size(51, 22)
         Me.txtChillerLength.TabIndex = 82
         Me.txtChillerLength.Text = "5417"
         Me.txtChillerLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2087,7 +2092,7 @@ Partial Class frmMain
         Me.Label149.Location = New System.Drawing.Point(604, 312)
         Me.Label149.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label149.Name = "Label149"
-        Me.Label149.Size = New System.Drawing.Size(62, 13)
+        Me.Label149.Size = New System.Drawing.Size(81, 17)
         Me.Label149.TabIndex = 84
         Me.Label149.Text = "Unit Length"
         Me.Label149.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2097,7 +2102,7 @@ Partial Class frmMain
         Me.txtChillerWidth.Location = New System.Drawing.Point(674, 278)
         Me.txtChillerWidth.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillerWidth.Name = "txtChillerWidth"
-        Me.txtChillerWidth.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillerWidth.Size = New System.Drawing.Size(51, 22)
         Me.txtChillerWidth.TabIndex = 81
         Me.txtChillerWidth.Text = "5344"
         Me.txtChillerWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2108,7 +2113,7 @@ Partial Class frmMain
         Me.Label150.Location = New System.Drawing.Point(609, 281)
         Me.Label150.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label150.Name = "Label150"
-        Me.Label150.Size = New System.Drawing.Size(57, 13)
+        Me.Label150.Size = New System.Drawing.Size(73, 17)
         Me.Label150.TabIndex = 83
         Me.Label150.Text = "Unit Width"
         Me.Label150.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2118,7 +2123,7 @@ Partial Class frmMain
         Me.txtChillTotalkW.Location = New System.Drawing.Point(848, 359)
         Me.txtChillTotalkW.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillTotalkW.Name = "txtChillTotalkW"
-        Me.txtChillTotalkW.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillTotalkW.Size = New System.Drawing.Size(51, 22)
         Me.txtChillTotalkW.TabIndex = 44
         Me.txtChillTotalkW.Text = "114"
         Me.txtChillTotalkW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2129,7 +2134,7 @@ Partial Class frmMain
         Me.Label124.Location = New System.Drawing.Point(789, 362)
         Me.Label124.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(51, 13)
+        Me.Label124.Size = New System.Drawing.Size(64, 17)
         Me.Label124.TabIndex = 80
         Me.Label124.Text = "Total kW"
         Me.Label124.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2139,7 +2144,7 @@ Partial Class frmMain
         Me.txtChillPumpkW.Location = New System.Drawing.Point(848, 331)
         Me.txtChillPumpkW.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillPumpkW.Name = "txtChillPumpkW"
-        Me.txtChillPumpkW.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillPumpkW.Size = New System.Drawing.Size(51, 22)
         Me.txtChillPumpkW.TabIndex = 43
         Me.txtChillPumpkW.Text = "XXX"
         Me.txtChillPumpkW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2150,7 +2155,7 @@ Partial Class frmMain
         Me.Label125.Location = New System.Drawing.Point(786, 335)
         Me.Label125.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label125.Name = "Label125"
-        Me.Label125.Size = New System.Drawing.Size(54, 13)
+        Me.Label125.Size = New System.Drawing.Size(68, 17)
         Me.Label125.TabIndex = 78
         Me.Label125.Text = "Pump kW"
         Me.Label125.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2160,7 +2165,7 @@ Partial Class frmMain
         Me.txtChillFankW.Location = New System.Drawing.Point(848, 303)
         Me.txtChillFankW.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillFankW.Name = "txtChillFankW"
-        Me.txtChillFankW.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillFankW.Size = New System.Drawing.Size(51, 22)
         Me.txtChillFankW.TabIndex = 42
         Me.txtChillFankW.Text = "XXX"
         Me.txtChillFankW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2171,7 +2176,7 @@ Partial Class frmMain
         Me.Label126.Location = New System.Drawing.Point(795, 307)
         Me.Label126.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(45, 13)
+        Me.Label126.Size = New System.Drawing.Size(56, 17)
         Me.Label126.TabIndex = 77
         Me.Label126.Text = "Fan kW"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2181,7 +2186,7 @@ Partial Class frmMain
         Me.txtChillCompressorkW.Location = New System.Drawing.Point(848, 275)
         Me.txtChillCompressorkW.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillCompressorkW.Name = "txtChillCompressorkW"
-        Me.txtChillCompressorkW.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillCompressorkW.Size = New System.Drawing.Size(51, 22)
         Me.txtChillCompressorkW.TabIndex = 41
         Me.txtChillCompressorkW.Text = "5344"
         Me.txtChillCompressorkW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2192,7 +2197,7 @@ Partial Class frmMain
         Me.Label127.Location = New System.Drawing.Point(758, 279)
         Me.Label127.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(82, 13)
+        Me.Label127.Size = New System.Drawing.Size(108, 17)
         Me.Label127.TabIndex = 76
         Me.Label127.Text = "Compressor kW"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2202,7 +2207,7 @@ Partial Class frmMain
         Me.txtChillControlkVA.Location = New System.Drawing.Point(1072, 331)
         Me.txtChillControlkVA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillControlkVA.Name = "txtChillControlkVA"
-        Me.txtChillControlkVA.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillControlkVA.Size = New System.Drawing.Size(51, 22)
         Me.txtChillControlkVA.TabIndex = 39
         Me.txtChillControlkVA.Text = "114"
         Me.txtChillControlkVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2213,7 +2218,7 @@ Partial Class frmMain
         Me.Label120.Location = New System.Drawing.Point(1001, 335)
         Me.Label120.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label120.Name = "Label120"
-        Me.Label120.Size = New System.Drawing.Size(63, 13)
+        Me.Label120.Size = New System.Drawing.Size(82, 17)
         Me.Label120.TabIndex = 70
         Me.Label120.Text = "Control kVA"
         Me.Label120.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2223,7 +2228,7 @@ Partial Class frmMain
         Me.txtChillPowerFactorStarter.Location = New System.Drawing.Point(1072, 303)
         Me.txtChillPowerFactorStarter.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillPowerFactorStarter.Name = "txtChillPowerFactorStarter"
-        Me.txtChillPowerFactorStarter.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillPowerFactorStarter.Size = New System.Drawing.Size(51, 22)
         Me.txtChillPowerFactorStarter.TabIndex = 38
         Me.txtChillPowerFactorStarter.Text = "5417"
         Me.txtChillPowerFactorStarter.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2234,7 +2239,7 @@ Partial Class frmMain
         Me.lblPowerFactorStarter.Location = New System.Drawing.Point(994, 307)
         Me.lblPowerFactorStarter.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPowerFactorStarter.Name = "lblPowerFactorStarter"
-        Me.lblPowerFactorStarter.Size = New System.Drawing.Size(70, 13)
+        Me.lblPowerFactorStarter.Size = New System.Drawing.Size(91, 17)
         Me.lblPowerFactorStarter.TabIndex = 69
         Me.lblPowerFactorStarter.Text = "Power Factor"
         Me.lblPowerFactorStarter.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2244,7 +2249,7 @@ Partial Class frmMain
         Me.txtChillWireSize.Location = New System.Drawing.Point(1072, 275)
         Me.txtChillWireSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillWireSize.Name = "txtChillWireSize"
-        Me.txtChillWireSize.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillWireSize.Size = New System.Drawing.Size(51, 22)
         Me.txtChillWireSize.TabIndex = 37
         Me.txtChillWireSize.Text = "5344"
         Me.txtChillWireSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2255,7 +2260,7 @@ Partial Class frmMain
         Me.Label122.Location = New System.Drawing.Point(1000, 279)
         Me.Label122.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(64, 13)
+        Me.Label122.Size = New System.Drawing.Size(83, 17)
         Me.Label122.TabIndex = 68
         Me.Label122.Text = "Wire Range"
         Me.Label122.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2265,7 +2270,7 @@ Partial Class frmMain
         Me.txtChillLugs.Location = New System.Drawing.Point(1072, 247)
         Me.txtChillLugs.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillLugs.Name = "txtChillLugs"
-        Me.txtChillLugs.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillLugs.Size = New System.Drawing.Size(51, 22)
         Me.txtChillLugs.TabIndex = 36
         Me.txtChillLugs.Text = "114"
         Me.txtChillLugs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2276,7 +2281,7 @@ Partial Class frmMain
         Me.Label117.Location = New System.Drawing.Point(983, 251)
         Me.Label117.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label117.Name = "Label117"
-        Me.Label117.Size = New System.Drawing.Size(85, 13)
+        Me.Label117.Size = New System.Drawing.Size(113, 17)
         Me.Label117.TabIndex = 64
         Me.Label117.Text = "Wires per Phase"
         Me.Label117.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2286,7 +2291,7 @@ Partial Class frmMain
         Me.txtChillSCCR.Location = New System.Drawing.Point(1072, 219)
         Me.txtChillSCCR.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillSCCR.Name = "txtChillSCCR"
-        Me.txtChillSCCR.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillSCCR.Size = New System.Drawing.Size(51, 22)
         Me.txtChillSCCR.TabIndex = 35
         Me.txtChillSCCR.Text = "5417"
         Me.txtChillSCCR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2297,7 +2302,7 @@ Partial Class frmMain
         Me.Label118.Location = New System.Drawing.Point(927, 223)
         Me.Label118.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label118.Name = "Label118"
-        Me.Label118.Size = New System.Drawing.Size(137, 13)
+        Me.Label118.Size = New System.Drawing.Size(181, 17)
         Me.Label118.TabIndex = 63
         Me.Label118.Text = "Unit Short Circuit Withstand"
         Me.Label118.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2307,7 +2312,7 @@ Partial Class frmMain
         Me.txtMaxDE.Location = New System.Drawing.Point(1072, 191)
         Me.txtMaxDE.Margin = New System.Windows.Forms.Padding(4)
         Me.txtMaxDE.Name = "txtMaxDE"
-        Me.txtMaxDE.Size = New System.Drawing.Size(51, 20)
+        Me.txtMaxDE.Size = New System.Drawing.Size(51, 22)
         Me.txtMaxDE.TabIndex = 34
         Me.txtMaxDE.Text = "5344"
         Me.txtMaxDE.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2318,7 +2323,7 @@ Partial Class frmMain
         Me.lblMaxDE.Location = New System.Drawing.Point(945, 195)
         Me.lblMaxDE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblMaxDE.Name = "lblMaxDE"
-        Me.lblMaxDE.Size = New System.Drawing.Size(119, 13)
+        Me.lblMaxDE.Size = New System.Drawing.Size(156, 17)
         Me.lblMaxDE.TabIndex = 62
         Me.lblMaxDE.Text = "Max Dual Element Fuse"
         Me.lblMaxDE.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2328,7 +2333,7 @@ Partial Class frmMain
         Me.txtMaxFuseMaxCB.Location = New System.Drawing.Point(1072, 163)
         Me.txtMaxFuseMaxCB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtMaxFuseMaxCB.Name = "txtMaxFuseMaxCB"
-        Me.txtMaxFuseMaxCB.Size = New System.Drawing.Size(51, 20)
+        Me.txtMaxFuseMaxCB.Size = New System.Drawing.Size(51, 22)
         Me.txtMaxFuseMaxCB.TabIndex = 33
         Me.txtMaxFuseMaxCB.Text = "114"
         Me.txtMaxFuseMaxCB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2339,7 +2344,7 @@ Partial Class frmMain
         Me.lblMaxFuseMaxCB.Location = New System.Drawing.Point(973, 167)
         Me.lblMaxFuseMaxCB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblMaxFuseMaxCB.Name = "lblMaxFuseMaxCB"
-        Me.lblMaxFuseMaxCB.Size = New System.Drawing.Size(91, 13)
+        Me.lblMaxFuseMaxCB.Size = New System.Drawing.Size(116, 17)
         Me.lblMaxFuseMaxCB.TabIndex = 58
         Me.lblMaxFuseMaxCB.Text = "Max Inv. Time CB"
         Me.lblMaxFuseMaxCB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2349,7 +2354,7 @@ Partial Class frmMain
         Me.txtMinRecFuse.Location = New System.Drawing.Point(1072, 135)
         Me.txtMinRecFuse.Margin = New System.Windows.Forms.Padding(4)
         Me.txtMinRecFuse.Name = "txtMinRecFuse"
-        Me.txtMinRecFuse.Size = New System.Drawing.Size(51, 20)
+        Me.txtMinRecFuse.Size = New System.Drawing.Size(51, 22)
         Me.txtMinRecFuse.TabIndex = 32
         Me.txtMinRecFuse.Text = "5417"
         Me.txtMinRecFuse.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2360,7 +2365,7 @@ Partial Class frmMain
         Me.lblMinRecFuse.Location = New System.Drawing.Point(989, 139)
         Me.lblMinRecFuse.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblMinRecFuse.Name = "lblMinRecFuse"
-        Me.lblMinRecFuse.Size = New System.Drawing.Size(75, 13)
+        Me.lblMinRecFuse.Size = New System.Drawing.Size(94, 17)
         Me.lblMinRecFuse.TabIndex = 57
         Me.lblMinRecFuse.Text = "Rec. Fuse/CB"
         Me.lblMinRecFuse.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2370,7 +2375,7 @@ Partial Class frmMain
         Me.txtChillMCA.Location = New System.Drawing.Point(1072, 107)
         Me.txtChillMCA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtChillMCA.Name = "txtChillMCA"
-        Me.txtChillMCA.Size = New System.Drawing.Size(51, 20)
+        Me.txtChillMCA.Size = New System.Drawing.Size(51, 22)
         Me.txtChillMCA.TabIndex = 31
         Me.txtChillMCA.Text = "5344"
         Me.txtChillMCA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2381,7 +2386,7 @@ Partial Class frmMain
         Me.Label116.Location = New System.Drawing.Point(1034, 111)
         Me.Label116.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label116.Name = "Label116"
-        Me.Label116.Size = New System.Drawing.Size(30, 13)
+        Me.Label116.Size = New System.Drawing.Size(37, 17)
         Me.Label116.TabIndex = 56
         Me.Label116.Text = "MCA"
         Me.Label116.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2391,7 +2396,7 @@ Partial Class frmMain
         Me.txtBCFanCount.Location = New System.Drawing.Point(661, 42)
         Me.txtBCFanCount.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCFanCount.Name = "txtBCFanCount"
-        Me.txtBCFanCount.Size = New System.Drawing.Size(64, 20)
+        Me.txtBCFanCount.Size = New System.Drawing.Size(64, 22)
         Me.txtBCFanCount.TabIndex = 2
         Me.txtBCFanCount.Text = "6"
         Me.txtBCFanCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2402,7 +2407,7 @@ Partial Class frmMain
         Me.Label59.Location = New System.Drawing.Point(657, 22)
         Me.Label59.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(56, 13)
+        Me.Label59.Size = New System.Drawing.Size(73, 17)
         Me.Label59.TabIndex = 52
         Me.Label59.Text = "Fan Count"
         '
@@ -2411,7 +2416,7 @@ Partial Class frmMain
         Me.txtMinAmbient.Location = New System.Drawing.Point(348, 341)
         Me.txtMinAmbient.Margin = New System.Windows.Forms.Padding(4)
         Me.txtMinAmbient.Name = "txtMinAmbient"
-        Me.txtMinAmbient.Size = New System.Drawing.Size(51, 20)
+        Me.txtMinAmbient.Size = New System.Drawing.Size(51, 22)
         Me.txtMinAmbient.TabIndex = 25
         Me.txtMinAmbient.Text = "-2.0"
         Me.txtMinAmbient.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2422,7 +2427,7 @@ Partial Class frmMain
         Me.Label50.Location = New System.Drawing.Point(271, 342)
         Me.Label50.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(65, 13)
+        Me.Label50.Size = New System.Drawing.Size(85, 17)
         Me.Label50.TabIndex = 50
         Me.Label50.Text = "Min Ambient"
         Me.Label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2435,7 +2440,7 @@ Partial Class frmMain
         Me.cmbFluidPercent.Location = New System.Drawing.Point(113, 309)
         Me.cmbFluidPercent.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFluidPercent.Name = "cmbFluidPercent"
-        Me.cmbFluidPercent.Size = New System.Drawing.Size(140, 21)
+        Me.cmbFluidPercent.Size = New System.Drawing.Size(140, 24)
         Me.cmbFluidPercent.TabIndex = 18
         '
         'cmbFluid
@@ -2446,7 +2451,7 @@ Partial Class frmMain
         Me.cmbFluid.Location = New System.Drawing.Point(113, 276)
         Me.cmbFluid.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFluid.Name = "cmbFluid"
-        Me.cmbFluid.Size = New System.Drawing.Size(140, 21)
+        Me.cmbFluid.Size = New System.Drawing.Size(140, 24)
         Me.cmbFluid.TabIndex = 17
         '
         'txtFoulFactor
@@ -2454,7 +2459,7 @@ Partial Class frmMain
         Me.txtFoulFactor.Location = New System.Drawing.Point(113, 341)
         Me.txtFoulFactor.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFoulFactor.Name = "txtFoulFactor"
-        Me.txtFoulFactor.Size = New System.Drawing.Size(140, 20)
+        Me.txtFoulFactor.Size = New System.Drawing.Size(140, 22)
         Me.txtFoulFactor.TabIndex = 19
         Me.txtFoulFactor.Text = "0.0001"
         Me.txtFoulFactor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2465,7 +2470,7 @@ Partial Class frmMain
         Me.Label51.Location = New System.Drawing.Point(29, 342)
         Me.Label51.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(74, 13)
+        Me.Label51.Size = New System.Drawing.Size(98, 17)
         Me.Label51.TabIndex = 45
         Me.Label51.Text = "Fouling Factor"
         Me.Label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2476,7 +2481,7 @@ Partial Class frmMain
         Me.lblFluidPercent.Location = New System.Drawing.Point(63, 315)
         Me.lblFluidPercent.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblFluidPercent.Name = "lblFluidPercent"
-        Me.lblFluidPercent.Size = New System.Drawing.Size(40, 13)
+        Me.lblFluidPercent.Size = New System.Drawing.Size(54, 17)
         Me.lblFluidPercent.TabIndex = 44
         Me.lblFluidPercent.Text = "Fluid %"
         Me.lblFluidPercent.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2487,7 +2492,7 @@ Partial Class frmMain
         Me.Label49.Location = New System.Drawing.Point(77, 278)
         Me.Label49.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(29, 13)
+        Me.Label49.Size = New System.Drawing.Size(38, 17)
         Me.Label49.TabIndex = 43
         Me.Label49.Text = "Fluid"
         Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2507,7 +2512,7 @@ Partial Class frmMain
         Me.txtBCAltitude.Location = New System.Drawing.Point(348, 309)
         Me.txtBCAltitude.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCAltitude.Name = "txtBCAltitude"
-        Me.txtBCAltitude.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCAltitude.Size = New System.Drawing.Size(51, 22)
         Me.txtBCAltitude.TabIndex = 24
         Me.txtBCAltitude.Text = "1000"
         Me.txtBCAltitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2518,7 +2523,7 @@ Partial Class frmMain
         Me.Label47.Location = New System.Drawing.Point(294, 312)
         Me.Label47.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(42, 13)
+        Me.Label47.Size = New System.Drawing.Size(55, 17)
         Me.Label47.TabIndex = 41
         Me.Label47.Text = "Altitude"
         Me.Label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2528,7 +2533,7 @@ Partial Class frmMain
         Me.txtBCAmbient.Location = New System.Drawing.Point(348, 278)
         Me.txtBCAmbient.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCAmbient.Name = "txtBCAmbient"
-        Me.txtBCAmbient.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCAmbient.Size = New System.Drawing.Size(51, 22)
         Me.txtBCAmbient.TabIndex = 23
         Me.txtBCAmbient.Text = "105.0"
         Me.txtBCAmbient.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2539,7 +2544,7 @@ Partial Class frmMain
         Me.Label48.Location = New System.Drawing.Point(261, 281)
         Me.Label48.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(75, 13)
+        Me.Label48.Size = New System.Drawing.Size(99, 17)
         Me.Label48.TabIndex = 39
         Me.Label48.Text = "Ambient Temp"
         Me.Label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2549,7 +2554,7 @@ Partial Class frmMain
         Me.txtBCRefCharge.Location = New System.Drawing.Point(527, 341)
         Me.txtBCRefCharge.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCRefCharge.Name = "txtBCRefCharge"
-        Me.txtBCRefCharge.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCRefCharge.Size = New System.Drawing.Size(51, 22)
         Me.txtBCRefCharge.TabIndex = 30
         Me.txtBCRefCharge.Text = "114"
         Me.txtBCRefCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2560,7 +2565,7 @@ Partial Class frmMain
         Me.Label26.Location = New System.Drawing.Point(455, 344)
         Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(64, 13)
+        Me.Label26.Size = New System.Drawing.Size(84, 17)
         Me.Label26.TabIndex = 37
         Me.Label26.Text = "Ref. Charge"
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2570,7 +2575,7 @@ Partial Class frmMain
         Me.txtBCOpMass.Location = New System.Drawing.Point(527, 309)
         Me.txtBCOpMass.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCOpMass.Name = "txtBCOpMass"
-        Me.txtBCOpMass.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCOpMass.Size = New System.Drawing.Size(51, 22)
         Me.txtBCOpMass.TabIndex = 29
         Me.txtBCOpMass.Text = "5417"
         Me.txtBCOpMass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2581,7 +2586,7 @@ Partial Class frmMain
         Me.Label45.Location = New System.Drawing.Point(446, 312)
         Me.Label45.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(73, 13)
+        Me.Label45.Size = New System.Drawing.Size(96, 17)
         Me.Label45.TabIndex = 35
         Me.Label45.Text = "Operating Wt."
         Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2591,7 +2596,7 @@ Partial Class frmMain
         Me.txtBCRigMass.Location = New System.Drawing.Point(527, 278)
         Me.txtBCRigMass.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCRigMass.Name = "txtBCRigMass"
-        Me.txtBCRigMass.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCRigMass.Size = New System.Drawing.Size(51, 22)
         Me.txtBCRigMass.TabIndex = 28
         Me.txtBCRigMass.Text = "5344"
         Me.txtBCRigMass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2602,7 +2607,7 @@ Partial Class frmMain
         Me.Label46.Location = New System.Drawing.Point(456, 281)
         Me.Label46.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(63, 13)
+        Me.Label46.Size = New System.Drawing.Size(81, 17)
         Me.Label46.TabIndex = 33
         Me.Label46.Text = "Rigging Wt."
         Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2612,7 +2617,7 @@ Partial Class frmMain
         Me.txtBCNPLV.Location = New System.Drawing.Point(524, 175)
         Me.txtBCNPLV.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCNPLV.Name = "txtBCNPLV"
-        Me.txtBCNPLV.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCNPLV.Size = New System.Drawing.Size(51, 22)
         Me.txtBCNPLV.TabIndex = 27
         Me.txtBCNPLV.Text = "17.8"
         Me.txtBCNPLV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2623,7 +2628,7 @@ Partial Class frmMain
         Me.Label23.Location = New System.Drawing.Point(484, 177)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(35, 13)
+        Me.Label23.Size = New System.Drawing.Size(44, 17)
         Me.Label23.TabIndex = 31
         Me.Label23.Text = "NPLV"
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2633,7 +2638,7 @@ Partial Class frmMain
         Me.txtBCEER.Location = New System.Drawing.Point(524, 144)
         Me.txtBCEER.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCEER.Name = "txtBCEER"
-        Me.txtBCEER.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCEER.Size = New System.Drawing.Size(51, 22)
         Me.txtBCEER.TabIndex = 26
         Me.txtBCEER.Text = "10.2"
         Me.txtBCEER.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2644,7 +2649,7 @@ Partial Class frmMain
         Me.Label25.Location = New System.Drawing.Point(490, 147)
         Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(29, 13)
+        Me.Label25.Size = New System.Drawing.Size(36, 17)
         Me.Label25.TabIndex = 29
         Me.Label25.Text = "EER"
         Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2654,7 +2659,7 @@ Partial Class frmMain
         Me.txtBCMaxFlow.Location = New System.Drawing.Point(348, 207)
         Me.txtBCMaxFlow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCMaxFlow.Name = "txtBCMaxFlow"
-        Me.txtBCMaxFlow.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCMaxFlow.Size = New System.Drawing.Size(51, 22)
         Me.txtBCMaxFlow.TabIndex = 22
         Me.txtBCMaxFlow.Text = "385.0"
         Me.txtBCMaxFlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2665,7 +2670,7 @@ Partial Class frmMain
         Me.Label21.Location = New System.Drawing.Point(281, 210)
         Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(55, 13)
+        Me.Label21.Size = New System.Drawing.Size(69, 17)
         Me.Label21.TabIndex = 27
         Me.Label21.Text = "Max. Flow"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2675,7 +2680,7 @@ Partial Class frmMain
         Me.txtBCMinFlow.Location = New System.Drawing.Point(348, 175)
         Me.txtBCMinFlow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCMinFlow.Name = "txtBCMinFlow"
-        Me.txtBCMinFlow.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCMinFlow.Size = New System.Drawing.Size(51, 22)
         Me.txtBCMinFlow.TabIndex = 21
         Me.txtBCMinFlow.Text = "100.0"
         Me.txtBCMinFlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2686,7 +2691,7 @@ Partial Class frmMain
         Me.Label22.Location = New System.Drawing.Point(284, 178)
         Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(52, 13)
+        Me.Label22.Size = New System.Drawing.Size(66, 17)
         Me.Label22.TabIndex = 25
         Me.Label22.Text = "Min. Flow"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2696,7 +2701,7 @@ Partial Class frmMain
         Me.txtBCFluidVol.Location = New System.Drawing.Point(348, 144)
         Me.txtBCFluidVol.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCFluidVol.Name = "txtBCFluidVol"
-        Me.txtBCFluidVol.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCFluidVol.Size = New System.Drawing.Size(51, 22)
         Me.txtBCFluidVol.TabIndex = 20
         Me.txtBCFluidVol.Text = "8.8"
         Me.txtBCFluidVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2707,7 +2712,7 @@ Partial Class frmMain
         Me.lblBCFluidVol.Location = New System.Drawing.Point(289, 147)
         Me.lblBCFluidVol.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBCFluidVol.Name = "lblBCFluidVol"
-        Me.lblBCFluidVol.Size = New System.Drawing.Size(50, 13)
+        Me.lblBCFluidVol.Size = New System.Drawing.Size(66, 17)
         Me.lblBCFluidVol.TabIndex = 23
         Me.lblBCFluidVol.Text = "Fluid Vol."
         Me.lblBCFluidVol.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2717,7 +2722,7 @@ Partial Class frmMain
         Me.txtBCFPD.Location = New System.Drawing.Point(113, 239)
         Me.txtBCFPD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCFPD.Name = "txtBCFPD"
-        Me.txtBCFPD.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCFPD.Size = New System.Drawing.Size(51, 22)
         Me.txtBCFPD.TabIndex = 16
         Me.txtBCFPD.Text = "2.3"
         Me.txtBCFPD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2728,7 +2733,7 @@ Partial Class frmMain
         Me.Label19.Location = New System.Drawing.Point(32, 242)
         Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(74, 13)
+        Me.Label19.Size = New System.Drawing.Size(100, 17)
         Me.Label19.TabIndex = 21
         Me.Label19.Text = "Pressure Drop"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2738,7 +2743,7 @@ Partial Class frmMain
         Me.txtBCFlow.Location = New System.Drawing.Point(113, 207)
         Me.txtBCFlow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCFlow.Name = "txtBCFlow"
-        Me.txtBCFlow.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCFlow.Size = New System.Drawing.Size(51, 22)
         Me.txtBCFlow.TabIndex = 15
         Me.txtBCFlow.Text = "100.0"
         Me.txtBCFlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2749,7 +2754,7 @@ Partial Class frmMain
         Me.Label18.Location = New System.Drawing.Point(40, 210)
         Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(65, 13)
+        Me.Label18.Size = New System.Drawing.Size(84, 17)
         Me.Label18.TabIndex = 19
         Me.Label18.Text = "Design Flow"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2759,7 +2764,7 @@ Partial Class frmMain
         Me.txtBCLWT.Location = New System.Drawing.Point(113, 175)
         Me.txtBCLWT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCLWT.Name = "txtBCLWT"
-        Me.txtBCLWT.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCLWT.Size = New System.Drawing.Size(51, 22)
         Me.txtBCLWT.TabIndex = 14
         Me.txtBCLWT.Text = "50.0"
         Me.txtBCLWT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2770,7 +2775,7 @@ Partial Class frmMain
         Me.Label17.Location = New System.Drawing.Point(75, 178)
         Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(31, 13)
+        Me.Label17.Size = New System.Drawing.Size(38, 17)
         Me.Label17.TabIndex = 17
         Me.Label17.Text = "LWT"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2780,7 +2785,7 @@ Partial Class frmMain
         Me.txtBCEWT.Location = New System.Drawing.Point(113, 144)
         Me.txtBCEWT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCEWT.Name = "txtBCEWT"
-        Me.txtBCEWT.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCEWT.Size = New System.Drawing.Size(51, 22)
         Me.txtBCEWT.TabIndex = 13
         Me.txtBCEWT.Text = "73.8"
         Me.txtBCEWT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2791,7 +2796,7 @@ Partial Class frmMain
         Me.lblBCEWT.Location = New System.Drawing.Point(73, 148)
         Me.lblBCEWT.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBCEWT.Name = "lblBCEWT"
-        Me.lblBCEWT.Size = New System.Drawing.Size(32, 13)
+        Me.lblBCEWT.Size = New System.Drawing.Size(39, 17)
         Me.lblBCEWT.TabIndex = 15
         Me.lblBCEWT.Text = "EWT"
         Me.lblBCEWT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2801,7 +2806,7 @@ Partial Class frmMain
         Me.txtBCPinJ.Location = New System.Drawing.Point(1020, 69)
         Me.txtBCPinJ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinJ.Name = "txtBCPinJ"
-        Me.txtBCPinJ.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinJ.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinJ.TabIndex = 12
         Me.txtBCPinJ.Text = "-"
         Me.txtBCPinJ.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2811,7 +2816,7 @@ Partial Class frmMain
         Me.txtBCPinI.Location = New System.Drawing.Point(908, 69)
         Me.txtBCPinI.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinI.Name = "txtBCPinI"
-        Me.txtBCPinI.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinI.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinI.TabIndex = 11
         Me.txtBCPinI.Text = "81..90"
         Me.txtBCPinI.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2821,7 +2826,7 @@ Partial Class frmMain
         Me.txtBCPinH.Location = New System.Drawing.Point(796, 69)
         Me.txtBCPinH.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinH.Name = "txtBCPinH"
-        Me.txtBCPinH.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinH.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinH.TabIndex = 10
         Me.txtBCPinH.Text = "71..80"
         Me.txtBCPinH.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2831,7 +2836,7 @@ Partial Class frmMain
         Me.txtBCPinG.Location = New System.Drawing.Point(684, 69)
         Me.txtBCPinG.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinG.Name = "txtBCPinG"
-        Me.txtBCPinG.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinG.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinG.TabIndex = 9
         Me.txtBCPinG.Text = "61..70"
         Me.txtBCPinG.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2841,7 +2846,7 @@ Partial Class frmMain
         Me.txtBCPinF.Location = New System.Drawing.Point(572, 69)
         Me.txtBCPinF.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinF.Name = "txtBCPinF"
-        Me.txtBCPinF.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinF.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinF.TabIndex = 8
         Me.txtBCPinF.Text = "XXXNP2XXXX"
         Me.txtBCPinF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2851,7 +2856,7 @@ Partial Class frmMain
         Me.txtBCPinE.Location = New System.Drawing.Point(460, 69)
         Me.txtBCPinE.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinE.Name = "txtBCPinE"
-        Me.txtBCPinE.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinE.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinE.TabIndex = 7
         Me.txtBCPinE.Text = "YAXGTXX7BX"
         Me.txtBCPinE.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2861,7 +2866,7 @@ Partial Class frmMain
         Me.txtBCPinD.Location = New System.Drawing.Point(348, 69)
         Me.txtBCPinD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinD.Name = "txtBCPinD"
-        Me.txtBCPinD.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinD.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinD.TabIndex = 6
         Me.txtBCPinD.Text = "SX1XXXHXXV"
         Me.txtBCPinD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2871,7 +2876,7 @@ Partial Class frmMain
         Me.txtBCPinC.Location = New System.Drawing.Point(236, 69)
         Me.txtBCPinC.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinC.Name = "txtBCPinC"
-        Me.txtBCPinC.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinC.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinC.TabIndex = 5
         Me.txtBCPinC.Text = "XXBLXCXX50"
         Me.txtBCPinC.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2881,7 +2886,7 @@ Partial Class frmMain
         Me.txtBCPinB.Location = New System.Drawing.Point(124, 69)
         Me.txtBCPinB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinB.Name = "txtBCPinB"
-        Me.txtBCPinB.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinB.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinB.TabIndex = 4
         Me.txtBCPinB.Text = "46XFBBCTCB"
         Me.txtBCPinB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2891,7 +2896,7 @@ Partial Class frmMain
         Me.txtBCPinA.Location = New System.Drawing.Point(12, 69)
         Me.txtBCPinA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCPinA.Name = "txtBCPinA"
-        Me.txtBCPinA.Size = New System.Drawing.Size(103, 20)
+        Me.txtBCPinA.Size = New System.Drawing.Size(103, 22)
         Me.txtBCPinA.TabIndex = 3
         Me.txtBCPinA.Text = "YLAA0092HE"
         Me.txtBCPinA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2902,7 +2907,7 @@ Partial Class frmMain
         Me.lblBCPin.Location = New System.Drawing.Point(8, 49)
         Me.lblBCPin.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBCPin.Name = "lblBCPin"
-        Me.lblBCPin.Size = New System.Drawing.Size(28, 13)
+        Me.lblBCPin.Size = New System.Drawing.Size(34, 17)
         Me.lblBCPin.TabIndex = 4
         Me.lblBCPin.Text = "PIN:"
         '
@@ -2911,7 +2916,7 @@ Partial Class frmMain
         Me.txtBCRefType.Location = New System.Drawing.Point(539, 42)
         Me.txtBCRefType.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCRefType.Name = "txtBCRefType"
-        Me.txtBCRefType.Size = New System.Drawing.Size(64, 20)
+        Me.txtBCRefType.Size = New System.Drawing.Size(64, 22)
         Me.txtBCRefType.TabIndex = 1
         Me.txtBCRefType.Text = "R410A"
         Me.txtBCRefType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2922,7 +2927,7 @@ Partial Class frmMain
         Me.lblBCRefType.Location = New System.Drawing.Point(513, 22)
         Me.lblBCRefType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBCRefType.Name = "lblBCRefType"
-        Me.lblBCRefType.Size = New System.Drawing.Size(86, 13)
+        Me.lblBCRefType.Size = New System.Drawing.Size(115, 17)
         Me.lblBCRefType.TabIndex = 2
         Me.lblBCRefType.Text = "Refrigerant Type"
         '
@@ -2931,7 +2936,7 @@ Partial Class frmMain
         Me.txtBCNetCoolCap.Location = New System.Drawing.Point(403, 42)
         Me.txtBCNetCoolCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCNetCoolCap.Name = "txtBCNetCoolCap"
-        Me.txtBCNetCoolCap.Size = New System.Drawing.Size(64, 20)
+        Me.txtBCNetCoolCap.Size = New System.Drawing.Size(64, 22)
         Me.txtBCNetCoolCap.TabIndex = 0
         Me.txtBCNetCoolCap.Text = "89.3"
         Me.txtBCNetCoolCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2942,7 +2947,7 @@ Partial Class frmMain
         Me.lblBCNetCoolCap.Location = New System.Drawing.Point(364, 22)
         Me.lblBCNetCoolCap.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBCNetCoolCap.Name = "lblBCNetCoolCap"
-        Me.lblBCNetCoolCap.Size = New System.Drawing.Size(106, 13)
+        Me.lblBCNetCoolCap.Size = New System.Drawing.Size(139, 17)
         Me.lblBCNetCoolCap.TabIndex = 0
         Me.lblBCNetCoolCap.Text = "Net Cooling Capacity"
         '
@@ -2959,11 +2964,11 @@ Partial Class frmMain
         Me.pgModifications.Controls.Add(Me.Label1)
         Me.pgModifications.Controls.Add(Me.lstSelectedMods)
         Me.pgModifications.Controls.Add(Me.lstAvailableMods)
-        Me.pgModifications.Location = New System.Drawing.Point(4, 22)
+        Me.pgModifications.Location = New System.Drawing.Point(4, 25)
         Me.pgModifications.Margin = New System.Windows.Forms.Padding(4)
         Me.pgModifications.Name = "pgModifications"
         Me.pgModifications.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgModifications.Size = New System.Drawing.Size(1205, 492)
+        Me.pgModifications.Size = New System.Drawing.Size(1205, 489)
         Me.pgModifications.TabIndex = 1
         Me.pgModifications.Text = "Modifications"
         Me.pgModifications.UseVisualStyleBackColor = True
@@ -2991,7 +2996,7 @@ Partial Class frmMain
         '
         Me.txtModCodeImport.Location = New System.Drawing.Point(8, 52)
         Me.txtModCodeImport.Name = "txtModCodeImport"
-        Me.txtModCodeImport.Size = New System.Drawing.Size(547, 20)
+        Me.txtModCodeImport.Size = New System.Drawing.Size(547, 22)
         Me.txtModCodeImport.TabIndex = 9
         Me.txtModCodeImport.Text = "RFan"
         '
@@ -3041,7 +3046,7 @@ Partial Class frmMain
         Me.Label2.Location = New System.Drawing.Point(629, 75)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(114, 13)
+        Me.Label2.Size = New System.Drawing.Size(149, 17)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Selected Modifications"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -3052,7 +3057,7 @@ Partial Class frmMain
         Me.Label1.Location = New System.Drawing.Point(83, 75)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(115, 13)
+        Me.Label1.Size = New System.Drawing.Size(151, 17)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Available Modifications"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -3060,19 +3065,21 @@ Partial Class frmMain
         'lstSelectedMods
         '
         Me.lstSelectedMods.FormattingEnabled = True
+        Me.lstSelectedMods.ItemHeight = 16
         Me.lstSelectedMods.Location = New System.Drawing.Point(555, 95)
         Me.lstSelectedMods.Margin = New System.Windows.Forms.Padding(4)
         Me.lstSelectedMods.Name = "lstSelectedMods"
-        Me.lstSelectedMods.Size = New System.Drawing.Size(301, 251)
+        Me.lstSelectedMods.Size = New System.Drawing.Size(301, 244)
         Me.lstSelectedMods.TabIndex = 1
         '
         'lstAvailableMods
         '
         Me.lstAvailableMods.FormattingEnabled = True
+        Me.lstAvailableMods.ItemHeight = 16
         Me.lstAvailableMods.Location = New System.Drawing.Point(8, 95)
         Me.lstAvailableMods.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailableMods.Name = "lstAvailableMods"
-        Me.lstAvailableMods.Size = New System.Drawing.Size(301, 251)
+        Me.lstAvailableMods.Size = New System.Drawing.Size(301, 244)
         Me.lstAvailableMods.TabIndex = 0
         '
         'pgFactOpts
@@ -3086,11 +3093,11 @@ Partial Class frmMain
         Me.pgFactOpts.Controls.Add(Me.btnAddFactOpt)
         Me.pgFactOpts.Controls.Add(Me.lstFactOpts)
         Me.pgFactOpts.Controls.Add(Me.btnDoneFactOpts)
-        Me.pgFactOpts.Location = New System.Drawing.Point(4, 22)
+        Me.pgFactOpts.Location = New System.Drawing.Point(4, 25)
         Me.pgFactOpts.Margin = New System.Windows.Forms.Padding(4)
         Me.pgFactOpts.Name = "pgFactOpts"
         Me.pgFactOpts.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgFactOpts.Size = New System.Drawing.Size(1205, 492)
+        Me.pgFactOpts.Size = New System.Drawing.Size(1205, 489)
         Me.pgFactOpts.TabIndex = 12
         Me.pgFactOpts.Text = "Factory Opts"
         Me.pgFactOpts.UseVisualStyleBackColor = True
@@ -3109,7 +3116,7 @@ Partial Class frmMain
         Me.Label52.AutoSize = True
         Me.Label52.Location = New System.Drawing.Point(93, 54)
         Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(199, 13)
+        Me.Label52.Size = New System.Drawing.Size(263, 17)
         Me.Label52.TabIndex = 17
         Me.Label52.Text = "Required Factory Installed Options/Items"
         '
@@ -3118,7 +3125,7 @@ Partial Class frmMain
         Me.chkBaseUnitGTG.AutoSize = True
         Me.chkBaseUnitGTG.Location = New System.Drawing.Point(31, 410)
         Me.chkBaseUnitGTG.Name = "chkBaseUnitGTG"
-        Me.chkBaseUnitGTG.Size = New System.Drawing.Size(294, 17)
+        Me.chkBaseUnitGTG.Size = New System.Drawing.Size(389, 21)
         Me.chkBaseUnitGTG.TabIndex = 16
         Me.chkBaseUnitGTG.Text = "I have verified these items are on the base unit selection."
         Me.chkBaseUnitGTG.UseVisualStyleBackColor = True
@@ -3126,11 +3133,12 @@ Partial Class frmMain
         'lstRequiredFactoryItems
         '
         Me.lstRequiredFactoryItems.FormattingEnabled = True
+        Me.lstRequiredFactoryItems.ItemHeight = 16
         Me.lstRequiredFactoryItems.Location = New System.Drawing.Point(31, 79)
         Me.lstRequiredFactoryItems.Margin = New System.Windows.Forms.Padding(4)
         Me.lstRequiredFactoryItems.Name = "lstRequiredFactoryItems"
         Me.lstRequiredFactoryItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lstRequiredFactoryItems.Size = New System.Drawing.Size(386, 290)
+        Me.lstRequiredFactoryItems.Size = New System.Drawing.Size(386, 276)
         Me.lstRequiredFactoryItems.TabIndex = 15
         '
         'txtNewFactOpt
@@ -3138,7 +3146,7 @@ Partial Class frmMain
         Me.txtNewFactOpt.Location = New System.Drawing.Point(806, 7)
         Me.txtNewFactOpt.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNewFactOpt.Name = "txtNewFactOpt"
-        Me.txtNewFactOpt.Size = New System.Drawing.Size(386, 20)
+        Me.txtNewFactOpt.Size = New System.Drawing.Size(386, 22)
         Me.txtNewFactOpt.TabIndex = 14
         '
         'btnDelFactOpt
@@ -3164,10 +3172,11 @@ Partial Class frmMain
         'lstFactOpts
         '
         Me.lstFactOpts.FormattingEnabled = True
+        Me.lstFactOpts.ItemHeight = 16
         Me.lstFactOpts.Location = New System.Drawing.Point(806, 79)
         Me.lstFactOpts.Margin = New System.Windows.Forms.Padding(4)
         Me.lstFactOpts.Name = "lstFactOpts"
-        Me.lstFactOpts.Size = New System.Drawing.Size(386, 290)
+        Me.lstFactOpts.Size = New System.Drawing.Size(386, 276)
         Me.lstFactOpts.TabIndex = 10
         '
         'btnDoneFactOpts
@@ -3188,11 +3197,11 @@ Partial Class frmMain
         Me.pgFieldInst.Controls.Add(Me.btnAddFieldInst)
         Me.pgFieldInst.Controls.Add(Me.lstFieldInst)
         Me.pgFieldInst.Controls.Add(Me.btnDoneFieldInst)
-        Me.pgFieldInst.Location = New System.Drawing.Point(4, 22)
+        Me.pgFieldInst.Location = New System.Drawing.Point(4, 25)
         Me.pgFieldInst.Margin = New System.Windows.Forms.Padding(4)
         Me.pgFieldInst.Name = "pgFieldInst"
         Me.pgFieldInst.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgFieldInst.Size = New System.Drawing.Size(1205, 492)
+        Me.pgFieldInst.Size = New System.Drawing.Size(1205, 489)
         Me.pgFieldInst.TabIndex = 13
         Me.pgFieldInst.Text = "Field Installed"
         Me.pgFieldInst.UseVisualStyleBackColor = True
@@ -3212,7 +3221,7 @@ Partial Class frmMain
         Me.txtNewFieldInst.Location = New System.Drawing.Point(806, 7)
         Me.txtNewFieldInst.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNewFieldInst.Name = "txtNewFieldInst"
-        Me.txtNewFieldInst.Size = New System.Drawing.Size(386, 20)
+        Me.txtNewFieldInst.Size = New System.Drawing.Size(386, 22)
         Me.txtNewFieldInst.TabIndex = 20
         '
         'btnDelFieldInst
@@ -3238,10 +3247,11 @@ Partial Class frmMain
         'lstFieldInst
         '
         Me.lstFieldInst.FormattingEnabled = True
+        Me.lstFieldInst.ItemHeight = 16
         Me.lstFieldInst.Location = New System.Drawing.Point(806, 79)
         Me.lstFieldInst.Margin = New System.Windows.Forms.Padding(4)
         Me.lstFieldInst.Name = "lstFieldInst"
-        Me.lstFieldInst.Size = New System.Drawing.Size(386, 290)
+        Me.lstFieldInst.Size = New System.Drawing.Size(386, 276)
         Me.lstFieldInst.TabIndex = 16
         '
         'btnDoneFieldInst
@@ -3262,10 +3272,10 @@ Partial Class frmMain
         Me.pgWarranty.Controls.Add(Me.Label54)
         Me.pgWarranty.Controls.Add(Me.clbTestList)
         Me.pgWarranty.Controls.Add(Me.btnDoneWarranty)
-        Me.pgWarranty.Location = New System.Drawing.Point(4, 22)
+        Me.pgWarranty.Location = New System.Drawing.Point(4, 25)
         Me.pgWarranty.Margin = New System.Windows.Forms.Padding(4)
         Me.pgWarranty.Name = "pgWarranty"
-        Me.pgWarranty.Size = New System.Drawing.Size(1205, 492)
+        Me.pgWarranty.Size = New System.Drawing.Size(1205, 489)
         Me.pgWarranty.TabIndex = 14
         Me.pgWarranty.Text = "Warranty"
         Me.pgWarranty.UseVisualStyleBackColor = True
@@ -3292,7 +3302,7 @@ Partial Class frmMain
         Me.optNoGasHx.Location = New System.Drawing.Point(8, 23)
         Me.optNoGasHx.Margin = New System.Windows.Forms.Padding(4)
         Me.optNoGasHx.Name = "optNoGasHx"
-        Me.optNoGasHx.Size = New System.Drawing.Size(51, 17)
+        Me.optNoGasHx.Size = New System.Drawing.Size(63, 21)
         Me.optNoGasHx.TabIndex = 4
         Me.optNoGasHx.TabStop = True
         Me.optNoGasHx.Text = "None"
@@ -3304,7 +3314,7 @@ Partial Class frmMain
         Me.opt15YrSSHx.Location = New System.Drawing.Point(8, 108)
         Me.opt15YrSSHx.Margin = New System.Windows.Forms.Padding(4)
         Me.opt15YrSSHx.Name = "opt15YrSSHx"
-        Me.opt15YrSSHx.Size = New System.Drawing.Size(134, 17)
+        Me.opt15YrSSHx.Size = New System.Drawing.Size(176, 21)
         Me.opt15YrSSHx.TabIndex = 3
         Me.opt15YrSSHx.Text = "15 Year Stainless Steel"
         Me.opt15YrSSHx.UseVisualStyleBackColor = True
@@ -3315,7 +3325,7 @@ Partial Class frmMain
         Me.opt10YrSSHx.Location = New System.Drawing.Point(8, 80)
         Me.opt10YrSSHx.Margin = New System.Windows.Forms.Padding(4)
         Me.opt10YrSSHx.Name = "opt10YrSSHx"
-        Me.opt10YrSSHx.Size = New System.Drawing.Size(134, 17)
+        Me.opt10YrSSHx.Size = New System.Drawing.Size(176, 21)
         Me.opt10YrSSHx.TabIndex = 2
         Me.opt10YrSSHx.Text = "10 Year Stainless Steel"
         Me.opt10YrSSHx.UseVisualStyleBackColor = True
@@ -3327,7 +3337,7 @@ Partial Class frmMain
         Me.opt10YrAlHX.Location = New System.Drawing.Point(8, 52)
         Me.opt10YrAlHX.Margin = New System.Windows.Forms.Padding(4)
         Me.opt10YrAlHX.Name = "opt10YrAlHX"
-        Me.opt10YrAlHX.Size = New System.Drawing.Size(142, 17)
+        Me.opt10YrAlHX.Size = New System.Drawing.Size(187, 21)
         Me.opt10YrAlHX.TabIndex = 1
         Me.opt10YrAlHX.TabStop = True
         Me.opt10YrAlHX.Text = "10 Year Aluminized Steel"
@@ -3352,7 +3362,7 @@ Partial Class frmMain
         Me.opt5YrComps.Location = New System.Drawing.Point(8, 52)
         Me.opt5YrComps.Margin = New System.Windows.Forms.Padding(4)
         Me.opt5YrComps.Name = "opt5YrComps"
-        Me.opt5YrComps.Size = New System.Drawing.Size(107, 17)
+        Me.opt5YrComps.Size = New System.Drawing.Size(141, 21)
         Me.opt5YrComps.TabIndex = 2
         Me.opt5YrComps.Text = "5 Year Parts Only"
         Me.opt5YrComps.UseVisualStyleBackColor = True
@@ -3364,7 +3374,7 @@ Partial Class frmMain
         Me.opt1YrComps.Location = New System.Drawing.Point(8, 23)
         Me.opt1YrComps.Margin = New System.Windows.Forms.Padding(4)
         Me.opt1YrComps.Name = "opt1YrComps"
-        Me.opt1YrComps.Size = New System.Drawing.Size(107, 17)
+        Me.opt1YrComps.Size = New System.Drawing.Size(141, 21)
         Me.opt1YrComps.TabIndex = 1
         Me.opt1YrComps.TabStop = True
         Me.opt1YrComps.Text = "1 Year Parts Only"
@@ -3391,7 +3401,7 @@ Partial Class frmMain
         Me.opt5YrLabor.Location = New System.Drawing.Point(8, 108)
         Me.opt5YrLabor.Margin = New System.Windows.Forms.Padding(4)
         Me.opt5YrLabor.Name = "opt5YrLabor"
-        Me.opt5YrLabor.Size = New System.Drawing.Size(134, 17)
+        Me.opt5YrLabor.Size = New System.Drawing.Size(177, 21)
         Me.opt5YrLabor.TabIndex = 3
         Me.opt5YrLabor.Text = "5 Year Parts and Labor"
         Me.opt5YrLabor.UseVisualStyleBackColor = True
@@ -3402,7 +3412,7 @@ Partial Class frmMain
         Me.opt1YrLabor.Location = New System.Drawing.Point(8, 80)
         Me.opt1YrLabor.Margin = New System.Windows.Forms.Padding(4)
         Me.opt1YrLabor.Name = "opt1YrLabor"
-        Me.opt1YrLabor.Size = New System.Drawing.Size(134, 17)
+        Me.opt1YrLabor.Size = New System.Drawing.Size(177, 21)
         Me.opt1YrLabor.TabIndex = 2
         Me.opt1YrLabor.Text = "1 Year Parts and Labor"
         Me.opt1YrLabor.UseVisualStyleBackColor = True
@@ -3413,7 +3423,7 @@ Partial Class frmMain
         Me.opt5YrParts.Location = New System.Drawing.Point(8, 52)
         Me.opt5YrParts.Margin = New System.Windows.Forms.Padding(4)
         Me.opt5YrParts.Name = "opt5YrParts"
-        Me.opt5YrParts.Size = New System.Drawing.Size(107, 17)
+        Me.opt5YrParts.Size = New System.Drawing.Size(141, 21)
         Me.opt5YrParts.TabIndex = 1
         Me.opt5YrParts.Text = "5 Year Parts Only"
         Me.opt5YrParts.UseVisualStyleBackColor = True
@@ -3425,7 +3435,7 @@ Partial Class frmMain
         Me.opt1YrParts.Location = New System.Drawing.Point(8, 23)
         Me.opt1YrParts.Margin = New System.Windows.Forms.Padding(4)
         Me.opt1YrParts.Name = "opt1YrParts"
-        Me.opt1YrParts.Size = New System.Drawing.Size(107, 17)
+        Me.opt1YrParts.Size = New System.Drawing.Size(141, 21)
         Me.opt1YrParts.TabIndex = 0
         Me.opt1YrParts.TabStop = True
         Me.opt1YrParts.Text = "1 Year Parts Only"
@@ -3437,7 +3447,7 @@ Partial Class frmMain
         Me.Label54.Location = New System.Drawing.Point(947, 15)
         Me.Label54.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(66, 13)
+        Me.Label54.Size = New System.Drawing.Size(86, 17)
         Me.Label54.TabIndex = 19
         Me.Label54.Text = "Testing Text"
         '
@@ -3449,7 +3459,7 @@ Partial Class frmMain
         Me.clbTestList.Location = New System.Drawing.Point(869, 34)
         Me.clbTestList.Margin = New System.Windows.Forms.Padding(4)
         Me.clbTestList.Name = "clbTestList"
-        Me.clbTestList.Size = New System.Drawing.Size(241, 169)
+        Me.clbTestList.Size = New System.Drawing.Size(241, 157)
         Me.clbTestList.TabIndex = 18
         '
         'btnDoneWarranty
@@ -3479,10 +3489,10 @@ Partial Class frmMain
         Me.pgUnitDrawing.Controls.Add(Me.lstUsingDwgs)
         Me.pgUnitDrawing.Controls.Add(Me.lstAvailDwgs)
         Me.pgUnitDrawing.Controls.Add(Me.btnDoneUnitDwg)
-        Me.pgUnitDrawing.Location = New System.Drawing.Point(4, 22)
+        Me.pgUnitDrawing.Location = New System.Drawing.Point(4, 25)
         Me.pgUnitDrawing.Margin = New System.Windows.Forms.Padding(4)
         Me.pgUnitDrawing.Name = "pgUnitDrawing"
-        Me.pgUnitDrawing.Size = New System.Drawing.Size(1205, 492)
+        Me.pgUnitDrawing.Size = New System.Drawing.Size(1205, 489)
         Me.pgUnitDrawing.TabIndex = 15
         Me.pgUnitDrawing.Text = "Unit Drawing"
         Me.pgUnitDrawing.UseVisualStyleBackColor = True
@@ -3513,7 +3523,7 @@ Partial Class frmMain
         Me.chkUnitFilterOnStubbs.AutoSize = True
         Me.chkUnitFilterOnStubbs.Location = New System.Drawing.Point(17, 357)
         Me.chkUnitFilterOnStubbs.Name = "chkUnitFilterOnStubbs"
-        Me.chkUnitFilterOnStubbs.Size = New System.Drawing.Size(126, 17)
+        Me.chkUnitFilterOnStubbs.Size = New System.Drawing.Size(164, 21)
         Me.chkUnitFilterOnStubbs.TabIndex = 70
         Me.chkUnitFilterOnStubbs.Text = "Filter on Model Stubb"
         Me.chkUnitFilterOnStubbs.UseVisualStyleBackColor = True
@@ -3531,11 +3541,12 @@ Partial Class frmMain
         'lstUnitTagstoApply
         '
         Me.lstUnitTagstoApply.FormattingEnabled = True
+        Me.lstUnitTagstoApply.ItemHeight = 16
         Me.lstUnitTagstoApply.Items.AddRange(New Object() {"GasHeat", "HWHeat", "Heatco", "NoHeat", "SteamHeat", "Aux", "LeftAux", "RearAux", "48Extend", "Extend", "Filters", "Final_Filters", "HGRH", "OAFMS", "OAFMSLowFlow", "OAFMSHiFlow", "ReclaimCoil", "RFan", "RFWall", "SFWall", "XFan", "Disconnect", "Bottom_Bottom", "Bottom_NoReturn", "Bottom_End", "Bottom_Rear", "Bottom_Side", "Convertible", "Front_Bottom", "Front_End", "Left_Front(End)", "Rear_Bottom", "Rear_End", "Rear_Rear", "Side_NoReturn", "Side_Side", "TOHumid"})
         Me.lstUnitTagstoApply.Location = New System.Drawing.Point(17, 256)
         Me.lstUnitTagstoApply.Name = "lstUnitTagstoApply"
         Me.lstUnitTagstoApply.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
-        Me.lstUnitTagstoApply.Size = New System.Drawing.Size(199, 95)
+        Me.lstUnitTagstoApply.Size = New System.Drawing.Size(199, 84)
         Me.lstUnitTagstoApply.TabIndex = 68
         '
         'Label115
@@ -3544,7 +3555,7 @@ Partial Class frmMain
         Me.Label115.Location = New System.Drawing.Point(14, 214)
         Me.Label115.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label115.Name = "Label115"
-        Me.Label115.Size = New System.Drawing.Size(110, 13)
+        Me.Label115.Size = New System.Drawing.Size(147, 17)
         Me.Label115.TabIndex = 67
         Me.Label115.Text = "Suggested Filter Tags"
         '
@@ -3552,7 +3563,7 @@ Partial Class frmMain
         '
         Me.txtUnitSuggestedTags.Location = New System.Drawing.Point(17, 230)
         Me.txtUnitSuggestedTags.Name = "txtUnitSuggestedTags"
-        Me.txtUnitSuggestedTags.Size = New System.Drawing.Size(400, 20)
+        Me.txtUnitSuggestedTags.Size = New System.Drawing.Size(400, 22)
         Me.txtUnitSuggestedTags.TabIndex = 66
         '
         'GroupBox6
@@ -3576,7 +3587,7 @@ Partial Class frmMain
         Me.optFlagUnitDrawing.Location = New System.Drawing.Point(8, 19)
         Me.optFlagUnitDrawing.Margin = New System.Windows.Forms.Padding(4)
         Me.optFlagUnitDrawing.Name = "optFlagUnitDrawing"
-        Me.optFlagUnitDrawing.Size = New System.Drawing.Size(151, 17)
+        Me.optFlagUnitDrawing.Size = New System.Drawing.Size(199, 21)
         Me.optFlagUnitDrawing.TabIndex = 2
         Me.optFlagUnitDrawing.TabStop = True
         Me.optFlagUnitDrawing.Text = "Flag for Copying and Insert"
@@ -3588,7 +3599,7 @@ Partial Class frmMain
         Me.optCopyUnitDwgNow.Location = New System.Drawing.Point(167, 19)
         Me.optCopyUnitDwgNow.Margin = New System.Windows.Forms.Padding(4)
         Me.optCopyUnitDwgNow.Name = "optCopyUnitDwgNow"
-        Me.optCopyUnitDwgNow.Size = New System.Drawing.Size(124, 17)
+        Me.optCopyUnitDwgNow.Size = New System.Drawing.Size(159, 21)
         Me.optCopyUnitDwgNow.TabIndex = 1
         Me.optCopyUnitDwgNow.Text = "Copy Now and Insert"
         Me.optCopyUnitDwgNow.UseVisualStyleBackColor = True
@@ -3599,7 +3610,7 @@ Partial Class frmMain
         Me.optInsertUnitDrawing.Location = New System.Drawing.Point(299, 19)
         Me.optInsertUnitDrawing.Margin = New System.Windows.Forms.Padding(4)
         Me.optInsertUnitDrawing.Name = "optInsertUnitDrawing"
-        Me.optInsertUnitDrawing.Size = New System.Drawing.Size(118, 17)
+        Me.optInsertUnitDrawing.Size = New System.Drawing.Size(153, 21)
         Me.optInsertUnitDrawing.TabIndex = 0
         Me.optInsertUnitDrawing.Text = "Insert Into Submittal"
         Me.optInsertUnitDrawing.UseVisualStyleBackColor = True
@@ -3648,19 +3659,21 @@ Partial Class frmMain
         'lstUsingDwgs
         '
         Me.lstUsingDwgs.FormattingEnabled = True
+        Me.lstUsingDwgs.ItemHeight = 16
         Me.lstUsingDwgs.Location = New System.Drawing.Point(540, 16)
         Me.lstUsingDwgs.Margin = New System.Windows.Forms.Padding(4)
         Me.lstUsingDwgs.Name = "lstUsingDwgs"
-        Me.lstUsingDwgs.Size = New System.Drawing.Size(450, 82)
+        Me.lstUsingDwgs.Size = New System.Drawing.Size(450, 68)
         Me.lstUsingDwgs.TabIndex = 18
         '
         'lstAvailDwgs
         '
         Me.lstAvailDwgs.FormattingEnabled = True
+        Me.lstAvailDwgs.ItemHeight = 16
         Me.lstAvailDwgs.Location = New System.Drawing.Point(17, 17)
         Me.lstAvailDwgs.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailDwgs.Name = "lstAvailDwgs"
-        Me.lstAvailDwgs.Size = New System.Drawing.Size(450, 82)
+        Me.lstAvailDwgs.Size = New System.Drawing.Size(450, 68)
         Me.lstAvailDwgs.TabIndex = 17
         '
         'btnDoneUnitDwg
@@ -3675,6 +3688,8 @@ Partial Class frmMain
         '
         'pgHydronics
         '
+        Me.pgHydronics.Controls.Add(Me.Label121)
+        Me.pgHydronics.Controls.Add(Me.txtHydroSuggestedTags)
         Me.pgHydronics.Controls.Add(Me.GroupBox9)
         Me.pgHydronics.Controls.Add(Me.txtOutletSize)
         Me.pgHydronics.Controls.Add(Me.Label98)
@@ -3687,10 +3702,10 @@ Partial Class frmMain
         Me.pgHydronics.Controls.Add(Me.lstUsingHydro)
         Me.pgHydronics.Controls.Add(Me.lstAvailHydro)
         Me.pgHydronics.Controls.Add(Me.btnDoneHydronics)
-        Me.pgHydronics.Location = New System.Drawing.Point(4, 22)
+        Me.pgHydronics.Location = New System.Drawing.Point(4, 25)
         Me.pgHydronics.Margin = New System.Windows.Forms.Padding(4)
         Me.pgHydronics.Name = "pgHydronics"
-        Me.pgHydronics.Size = New System.Drawing.Size(1205, 492)
+        Me.pgHydronics.Size = New System.Drawing.Size(1205, 489)
         Me.pgHydronics.TabIndex = 21
         Me.pgHydronics.Text = "Hydronics"
         Me.pgHydronics.UseVisualStyleBackColor = True
@@ -3716,7 +3731,7 @@ Partial Class frmMain
         Me.optHydroInsertOnly.Location = New System.Drawing.Point(8, 71)
         Me.optHydroInsertOnly.Margin = New System.Windows.Forms.Padding(4)
         Me.optHydroInsertOnly.Name = "optHydroInsertOnly"
-        Me.optHydroInsertOnly.Size = New System.Drawing.Size(75, 17)
+        Me.optHydroInsertOnly.Size = New System.Drawing.Size(97, 21)
         Me.optHydroInsertOnly.TabIndex = 3
         Me.optHydroInsertOnly.TabStop = True
         Me.optHydroInsertOnly.Text = "Insert Only"
@@ -3728,7 +3743,7 @@ Partial Class frmMain
         Me.optHydroFlagforCopy.Location = New System.Drawing.Point(8, 21)
         Me.optHydroFlagforCopy.Margin = New System.Windows.Forms.Padding(4)
         Me.optHydroFlagforCopy.Name = "optHydroFlagforCopy"
-        Me.optHydroFlagforCopy.Size = New System.Drawing.Size(151, 17)
+        Me.optHydroFlagforCopy.Size = New System.Drawing.Size(199, 21)
         Me.optHydroFlagforCopy.TabIndex = 2
         Me.optHydroFlagforCopy.Text = "Flag for Copying and Insert"
         Me.optHydroFlagforCopy.UseVisualStyleBackColor = True
@@ -3739,7 +3754,7 @@ Partial Class frmMain
         Me.optHydroCopyNow.Location = New System.Drawing.Point(8, 46)
         Me.optHydroCopyNow.Margin = New System.Windows.Forms.Padding(4)
         Me.optHydroCopyNow.Name = "optHydroCopyNow"
-        Me.optHydroCopyNow.Size = New System.Drawing.Size(74, 17)
+        Me.optHydroCopyNow.Size = New System.Drawing.Size(92, 21)
         Me.optHydroCopyNow.TabIndex = 1
         Me.optHydroCopyNow.Text = "Copy Now"
         Me.optHydroCopyNow.UseVisualStyleBackColor = True
@@ -3749,7 +3764,7 @@ Partial Class frmMain
         Me.txtOutletSize.Location = New System.Drawing.Point(978, 48)
         Me.txtOutletSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtOutletSize.Name = "txtOutletSize"
-        Me.txtOutletSize.Size = New System.Drawing.Size(52, 20)
+        Me.txtOutletSize.Size = New System.Drawing.Size(52, 22)
         Me.txtOutletSize.TabIndex = 45
         Me.txtOutletSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -3759,7 +3774,7 @@ Partial Class frmMain
         Me.Label98.Location = New System.Drawing.Point(1040, 52)
         Me.Label98.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label98.Name = "Label98"
-        Me.Label98.Size = New System.Drawing.Size(75, 13)
+        Me.Label98.Size = New System.Drawing.Size(102, 17)
         Me.Label98.TabIndex = 46
         Me.Label98.Text = "Outlet Size (in)"
         '
@@ -3768,7 +3783,7 @@ Partial Class frmMain
         Me.txtInletSize.Location = New System.Drawing.Point(978, 17)
         Me.txtInletSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtInletSize.Name = "txtInletSize"
-        Me.txtInletSize.Size = New System.Drawing.Size(52, 20)
+        Me.txtInletSize.Size = New System.Drawing.Size(52, 22)
         Me.txtInletSize.TabIndex = 43
         Me.txtInletSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -3778,7 +3793,7 @@ Partial Class frmMain
         Me.Label102.Location = New System.Drawing.Point(1040, 21)
         Me.Label102.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label102.Name = "Label102"
-        Me.Label102.Size = New System.Drawing.Size(67, 13)
+        Me.Label102.Size = New System.Drawing.Size(90, 17)
         Me.Label102.TabIndex = 44
         Me.Label102.Text = "Inlet Size (in)"
         '
@@ -3826,19 +3841,21 @@ Partial Class frmMain
         'lstUsingHydro
         '
         Me.lstUsingHydro.FormattingEnabled = True
+        Me.lstUsingHydro.ItemHeight = 16
         Me.lstUsingHydro.Location = New System.Drawing.Point(532, 17)
         Me.lstUsingHydro.Margin = New System.Windows.Forms.Padding(4)
         Me.lstUsingHydro.Name = "lstUsingHydro"
-        Me.lstUsingHydro.Size = New System.Drawing.Size(400, 121)
+        Me.lstUsingHydro.Size = New System.Drawing.Size(400, 116)
         Me.lstUsingHydro.TabIndex = 24
         '
         'lstAvailHydro
         '
         Me.lstAvailHydro.FormattingEnabled = True
+        Me.lstAvailHydro.ItemHeight = 16
         Me.lstAvailHydro.Location = New System.Drawing.Point(17, 17)
         Me.lstAvailHydro.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailHydro.Name = "lstAvailHydro"
-        Me.lstAvailHydro.Size = New System.Drawing.Size(400, 121)
+        Me.lstAvailHydro.Size = New System.Drawing.Size(400, 116)
         Me.lstAvailHydro.TabIndex = 23
         '
         'btnDoneHydronics
@@ -3855,10 +3872,10 @@ Partial Class frmMain
         '
         Me.pgValveSchedule.Controls.Add(Me.Label55)
         Me.pgValveSchedule.Controls.Add(Me.btnDoneValves)
-        Me.pgValveSchedule.Location = New System.Drawing.Point(4, 22)
+        Me.pgValveSchedule.Location = New System.Drawing.Point(4, 25)
         Me.pgValveSchedule.Margin = New System.Windows.Forms.Padding(4)
         Me.pgValveSchedule.Name = "pgValveSchedule"
-        Me.pgValveSchedule.Size = New System.Drawing.Size(1205, 492)
+        Me.pgValveSchedule.Size = New System.Drawing.Size(1205, 489)
         Me.pgValveSchedule.TabIndex = 24
         Me.pgValveSchedule.Text = "Valves"
         Me.pgValveSchedule.UseVisualStyleBackColor = True
@@ -3870,7 +3887,7 @@ Partial Class frmMain
         Me.Label55.Location = New System.Drawing.Point(28, 63)
         Me.Label55.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(347, 13)
+        Me.Label55.Size = New System.Drawing.Size(453, 17)
         Me.Label55.TabIndex = 20
         Me.Label55.Text = "Coming Soon: Std List to Select From / Checking By Mods/Mods to Add"
         '
@@ -3905,9 +3922,9 @@ Partial Class frmMain
         Me.pgRefrigeration.Controls.Add(Me.lstUsingRefer)
         Me.pgRefrigeration.Controls.Add(Me.lstAvailRefer)
         Me.pgRefrigeration.Controls.Add(Me.btnDoneRefrigeration)
-        Me.pgRefrigeration.Location = New System.Drawing.Point(4, 22)
+        Me.pgRefrigeration.Location = New System.Drawing.Point(4, 25)
         Me.pgRefrigeration.Name = "pgRefrigeration"
-        Me.pgRefrigeration.Size = New System.Drawing.Size(1205, 492)
+        Me.pgRefrigeration.Size = New System.Drawing.Size(1205, 489)
         Me.pgRefrigeration.TabIndex = 27
         Me.pgRefrigeration.Text = "Refrigeration"
         Me.pgRefrigeration.UseVisualStyleBackColor = True
@@ -3938,7 +3955,7 @@ Partial Class frmMain
         Me.chkReferFilterOnStubb.AutoSize = True
         Me.chkReferFilterOnStubb.Location = New System.Drawing.Point(21, 410)
         Me.chkReferFilterOnStubb.Name = "chkReferFilterOnStubb"
-        Me.chkReferFilterOnStubb.Size = New System.Drawing.Size(126, 17)
+        Me.chkReferFilterOnStubb.Size = New System.Drawing.Size(164, 21)
         Me.chkReferFilterOnStubb.TabIndex = 63
         Me.chkReferFilterOnStubb.Text = "Filter on Model Stubb"
         Me.chkReferFilterOnStubb.UseVisualStyleBackColor = True
@@ -3956,11 +3973,12 @@ Partial Class frmMain
         'lstReferTagstoApply
         '
         Me.lstReferTagstoApply.FormattingEnabled = True
+        Me.lstReferTagstoApply.ItemHeight = 16
         Me.lstReferTagstoApply.Items.AddRange(New Object() {"1Ckt", "2Ckt", "3Ckt", "4Ckt", "nCkt", "Ckt1CC1", "Ckt1CC2", "Ckt1CC3", "Ckt2CC1", "Ckt2CC2", "Ckt2CC3", "Ckt3CC1", "Ckt3CC2", "Ckt3CC3", "Ckt4CC1", "Ckt4CC2", "Ckt4CC3", "MHGRH(R)1", "MHGRH(R)2", "MHGRH(R)3", "HGBP1", "HGBP2", "HGBP3", "HGBP4", "BaseHGBP1", "Rawal"})
         Me.lstReferTagstoApply.Location = New System.Drawing.Point(21, 309)
         Me.lstReferTagstoApply.Name = "lstReferTagstoApply"
         Me.lstReferTagstoApply.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
-        Me.lstReferTagstoApply.Size = New System.Drawing.Size(199, 95)
+        Me.lstReferTagstoApply.Size = New System.Drawing.Size(199, 84)
         Me.lstReferTagstoApply.TabIndex = 61
         '
         'Label114
@@ -3969,7 +3987,7 @@ Partial Class frmMain
         Me.Label114.Location = New System.Drawing.Point(18, 267)
         Me.Label114.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(110, 13)
+        Me.Label114.Size = New System.Drawing.Size(147, 17)
         Me.Label114.TabIndex = 60
         Me.Label114.Text = "Suggested Filter Tags"
         '
@@ -3978,7 +3996,7 @@ Partial Class frmMain
         Me.txtReferSuggestedTags.Location = New System.Drawing.Point(21, 283)
         Me.txtReferSuggestedTags.Name = "txtReferSuggestedTags"
         Me.txtReferSuggestedTags.ReadOnly = True
-        Me.txtReferSuggestedTags.Size = New System.Drawing.Size(400, 20)
+        Me.txtReferSuggestedTags.Size = New System.Drawing.Size(400, 22)
         Me.txtReferSuggestedTags.TabIndex = 59
         '
         'GroupBox10
@@ -4001,7 +4019,7 @@ Partial Class frmMain
         Me.optReferInsertOnly.Location = New System.Drawing.Point(262, 21)
         Me.optReferInsertOnly.Margin = New System.Windows.Forms.Padding(4)
         Me.optReferInsertOnly.Name = "optReferInsertOnly"
-        Me.optReferInsertOnly.Size = New System.Drawing.Size(75, 17)
+        Me.optReferInsertOnly.Size = New System.Drawing.Size(97, 21)
         Me.optReferInsertOnly.TabIndex = 7
         Me.optReferInsertOnly.Text = "Insert Only"
         Me.optReferInsertOnly.UseVisualStyleBackColor = True
@@ -4012,7 +4030,7 @@ Partial Class frmMain
         Me.optReferCopyNow.Location = New System.Drawing.Point(180, 21)
         Me.optReferCopyNow.Margin = New System.Windows.Forms.Padding(4)
         Me.optReferCopyNow.Name = "optReferCopyNow"
-        Me.optReferCopyNow.Size = New System.Drawing.Size(74, 17)
+        Me.optReferCopyNow.Size = New System.Drawing.Size(92, 21)
         Me.optReferCopyNow.TabIndex = 5
         Me.optReferCopyNow.Text = "Copy Now"
         Me.optReferCopyNow.UseVisualStyleBackColor = True
@@ -4024,7 +4042,7 @@ Partial Class frmMain
         Me.optReferFlagforCopy.Location = New System.Drawing.Point(21, 21)
         Me.optReferFlagforCopy.Margin = New System.Windows.Forms.Padding(4)
         Me.optReferFlagforCopy.Name = "optReferFlagforCopy"
-        Me.optReferFlagforCopy.Size = New System.Drawing.Size(151, 17)
+        Me.optReferFlagforCopy.Size = New System.Drawing.Size(199, 21)
         Me.optReferFlagforCopy.TabIndex = 4
         Me.optReferFlagforCopy.TabStop = True
         Me.optReferFlagforCopy.Text = "Flag for Copying and Insert"
@@ -4035,7 +4053,7 @@ Partial Class frmMain
         Me.txtReferOutletSize.Location = New System.Drawing.Point(944, 47)
         Me.txtReferOutletSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtReferOutletSize.Name = "txtReferOutletSize"
-        Me.txtReferOutletSize.Size = New System.Drawing.Size(52, 20)
+        Me.txtReferOutletSize.Size = New System.Drawing.Size(52, 22)
         Me.txtReferOutletSize.TabIndex = 56
         Me.txtReferOutletSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -4045,7 +4063,7 @@ Partial Class frmMain
         Me.Label105.Location = New System.Drawing.Point(1006, 51)
         Me.Label105.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label105.Name = "Label105"
-        Me.Label105.Size = New System.Drawing.Size(75, 13)
+        Me.Label105.Size = New System.Drawing.Size(102, 17)
         Me.Label105.TabIndex = 57
         Me.Label105.Text = "Outlet Size (in)"
         '
@@ -4054,7 +4072,7 @@ Partial Class frmMain
         Me.txtReferInletSize.Location = New System.Drawing.Point(944, 16)
         Me.txtReferInletSize.Margin = New System.Windows.Forms.Padding(4)
         Me.txtReferInletSize.Name = "txtReferInletSize"
-        Me.txtReferInletSize.Size = New System.Drawing.Size(52, 20)
+        Me.txtReferInletSize.Size = New System.Drawing.Size(52, 22)
         Me.txtReferInletSize.TabIndex = 54
         Me.txtReferInletSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -4064,7 +4082,7 @@ Partial Class frmMain
         Me.Label106.Location = New System.Drawing.Point(1006, 20)
         Me.Label106.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label106.Name = "Label106"
-        Me.Label106.Size = New System.Drawing.Size(67, 13)
+        Me.Label106.Size = New System.Drawing.Size(90, 17)
         Me.Label106.TabIndex = 55
         Me.Label106.Text = "Inlet Size (in)"
         '
@@ -4112,19 +4130,21 @@ Partial Class frmMain
         'lstUsingRefer
         '
         Me.lstUsingRefer.FormattingEnabled = True
+        Me.lstUsingRefer.ItemHeight = 16
         Me.lstUsingRefer.Location = New System.Drawing.Point(536, 16)
         Me.lstUsingRefer.Margin = New System.Windows.Forms.Padding(4)
         Me.lstUsingRefer.Name = "lstUsingRefer"
-        Me.lstUsingRefer.Size = New System.Drawing.Size(400, 82)
+        Me.lstUsingRefer.Size = New System.Drawing.Size(400, 68)
         Me.lstUsingRefer.TabIndex = 49
         '
         'lstAvailRefer
         '
         Me.lstAvailRefer.FormattingEnabled = True
+        Me.lstAvailRefer.ItemHeight = 16
         Me.lstAvailRefer.Location = New System.Drawing.Point(21, 16)
         Me.lstAvailRefer.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailRefer.Name = "lstAvailRefer"
-        Me.lstAvailRefer.Size = New System.Drawing.Size(400, 82)
+        Me.lstAvailRefer.Size = New System.Drawing.Size(400, 68)
         Me.lstAvailRefer.TabIndex = 48
         '
         'btnDoneRefrigeration
@@ -4139,6 +4159,8 @@ Partial Class frmMain
         '
         'pgAirflow
         '
+        Me.pgAirflow.Controls.Add(Me.Label119)
+        Me.pgAirflow.Controls.Add(Me.txtAirflowSuggestedTags)
         Me.pgAirflow.Controls.Add(Me.GroupBox12)
         Me.pgAirflow.Controls.Add(Me.txtAirflowDesc)
         Me.pgAirflow.Controls.Add(Me.btnAirflowDelAll)
@@ -4147,10 +4169,10 @@ Partial Class frmMain
         Me.pgAirflow.Controls.Add(Me.lstUsingAirflow)
         Me.pgAirflow.Controls.Add(Me.lstAvailAirflow)
         Me.pgAirflow.Controls.Add(Me.btnDoneAirflow)
-        Me.pgAirflow.Location = New System.Drawing.Point(4, 22)
+        Me.pgAirflow.Location = New System.Drawing.Point(4, 25)
         Me.pgAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.pgAirflow.Name = "pgAirflow"
-        Me.pgAirflow.Size = New System.Drawing.Size(1205, 492)
+        Me.pgAirflow.Size = New System.Drawing.Size(1205, 489)
         Me.pgAirflow.TabIndex = 22
         Me.pgAirflow.Text = "Airflow"
         Me.pgAirflow.UseVisualStyleBackColor = True
@@ -4176,7 +4198,7 @@ Partial Class frmMain
         Me.optAirflowInsertOnly.Location = New System.Drawing.Point(21, 71)
         Me.optAirflowInsertOnly.Margin = New System.Windows.Forms.Padding(4)
         Me.optAirflowInsertOnly.Name = "optAirflowInsertOnly"
-        Me.optAirflowInsertOnly.Size = New System.Drawing.Size(75, 17)
+        Me.optAirflowInsertOnly.Size = New System.Drawing.Size(97, 21)
         Me.optAirflowInsertOnly.TabIndex = 7
         Me.optAirflowInsertOnly.TabStop = True
         Me.optAirflowInsertOnly.Text = "Insert Only"
@@ -4188,7 +4210,7 @@ Partial Class frmMain
         Me.optAirflowCopyNow.Location = New System.Drawing.Point(21, 46)
         Me.optAirflowCopyNow.Margin = New System.Windows.Forms.Padding(4)
         Me.optAirflowCopyNow.Name = "optAirflowCopyNow"
-        Me.optAirflowCopyNow.Size = New System.Drawing.Size(74, 17)
+        Me.optAirflowCopyNow.Size = New System.Drawing.Size(92, 21)
         Me.optAirflowCopyNow.TabIndex = 5
         Me.optAirflowCopyNow.Text = "Copy Now"
         Me.optAirflowCopyNow.UseVisualStyleBackColor = True
@@ -4199,7 +4221,7 @@ Partial Class frmMain
         Me.optAirflowFlagforCopy.Location = New System.Drawing.Point(21, 21)
         Me.optAirflowFlagforCopy.Margin = New System.Windows.Forms.Padding(4)
         Me.optAirflowFlagforCopy.Name = "optAirflowFlagforCopy"
-        Me.optAirflowFlagforCopy.Size = New System.Drawing.Size(151, 17)
+        Me.optAirflowFlagforCopy.Size = New System.Drawing.Size(199, 21)
         Me.optAirflowFlagforCopy.TabIndex = 4
         Me.optAirflowFlagforCopy.Text = "Flag for Copying and Insert"
         Me.optAirflowFlagforCopy.UseVisualStyleBackColor = True
@@ -4248,19 +4270,21 @@ Partial Class frmMain
         'lstUsingAirflow
         '
         Me.lstUsingAirflow.FormattingEnabled = True
+        Me.lstUsingAirflow.ItemHeight = 16
         Me.lstUsingAirflow.Location = New System.Drawing.Point(532, 14)
         Me.lstUsingAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.lstUsingAirflow.Name = "lstUsingAirflow"
-        Me.lstUsingAirflow.Size = New System.Drawing.Size(400, 82)
+        Me.lstUsingAirflow.Size = New System.Drawing.Size(400, 68)
         Me.lstUsingAirflow.TabIndex = 60
         '
         'lstAvailAirflow
         '
         Me.lstAvailAirflow.FormattingEnabled = True
+        Me.lstAvailAirflow.ItemHeight = 16
         Me.lstAvailAirflow.Location = New System.Drawing.Point(17, 14)
         Me.lstAvailAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailAirflow.Name = "lstAvailAirflow"
-        Me.lstAvailAirflow.Size = New System.Drawing.Size(400, 82)
+        Me.lstAvailAirflow.Size = New System.Drawing.Size(400, 68)
         Me.lstAvailAirflow.TabIndex = 59
         '
         'btnDoneAirflow
@@ -4280,10 +4304,10 @@ Partial Class frmMain
         Me.pgSequence.Controls.Add(Me.lstSoOFiles)
         Me.pgSequence.Controls.Add(Me.lstModsForSoO)
         Me.pgSequence.Controls.Add(Me.btnDoneSequence)
-        Me.pgSequence.Location = New System.Drawing.Point(4, 22)
+        Me.pgSequence.Location = New System.Drawing.Point(4, 25)
         Me.pgSequence.Margin = New System.Windows.Forms.Padding(4)
         Me.pgSequence.Name = "pgSequence"
-        Me.pgSequence.Size = New System.Drawing.Size(1205, 492)
+        Me.pgSequence.Size = New System.Drawing.Size(1205, 489)
         Me.pgSequence.TabIndex = 16
         Me.pgSequence.Text = "Sequence"
         Me.pgSequence.UseVisualStyleBackColor = True
@@ -4310,17 +4334,19 @@ Partial Class frmMain
         'lstSoOFiles
         '
         Me.lstSoOFiles.FormattingEnabled = True
+        Me.lstSoOFiles.ItemHeight = 16
         Me.lstSoOFiles.Location = New System.Drawing.Point(269, 18)
         Me.lstSoOFiles.Name = "lstSoOFiles"
-        Me.lstSoOFiles.Size = New System.Drawing.Size(583, 121)
+        Me.lstSoOFiles.Size = New System.Drawing.Size(583, 116)
         Me.lstSoOFiles.TabIndex = 18
         '
         'lstModsForSoO
         '
         Me.lstModsForSoO.FormattingEnabled = True
+        Me.lstModsForSoO.ItemHeight = 16
         Me.lstModsForSoO.Location = New System.Drawing.Point(12, 17)
         Me.lstModsForSoO.Name = "lstModsForSoO"
-        Me.lstModsForSoO.Size = New System.Drawing.Size(251, 121)
+        Me.lstModsForSoO.Size = New System.Drawing.Size(251, 116)
         Me.lstModsForSoO.TabIndex = 17
         '
         'btnDoneSequence
@@ -4337,10 +4363,10 @@ Partial Class frmMain
         '
         Me.pgPoints.Controls.Add(Me.Label57)
         Me.pgPoints.Controls.Add(Me.btnDonePoints)
-        Me.pgPoints.Location = New System.Drawing.Point(4, 22)
+        Me.pgPoints.Location = New System.Drawing.Point(4, 25)
         Me.pgPoints.Margin = New System.Windows.Forms.Padding(4)
         Me.pgPoints.Name = "pgPoints"
-        Me.pgPoints.Size = New System.Drawing.Size(1205, 492)
+        Me.pgPoints.Size = New System.Drawing.Size(1205, 489)
         Me.pgPoints.TabIndex = 17
         Me.pgPoints.Text = "Point List"
         Me.pgPoints.UseVisualStyleBackColor = True
@@ -4352,7 +4378,7 @@ Partial Class frmMain
         Me.Label57.Location = New System.Drawing.Point(28, 36)
         Me.Label57.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(347, 13)
+        Me.Label57.Size = New System.Drawing.Size(453, 17)
         Me.Label57.TabIndex = 20
         Me.Label57.Text = "Coming Soon: Std List to Select From / Checking By Mods/Mods to Add"
         '
@@ -4368,17 +4394,28 @@ Partial Class frmMain
         '
         'pgEndDeviceSchedule
         '
+        Me.pgEndDeviceSchedule.Controls.Add(Me.cmdEndDeviceEdit)
         Me.pgEndDeviceSchedule.Controls.Add(Me.GroupBox13)
         Me.pgEndDeviceSchedule.Controls.Add(Me.chkEDMovetoCutSheets)
         Me.pgEndDeviceSchedule.Controls.Add(Me.dgvEndDevices)
         Me.pgEndDeviceSchedule.Controls.Add(Me.btnDoneEndDev)
-        Me.pgEndDeviceSchedule.Location = New System.Drawing.Point(4, 22)
+        Me.pgEndDeviceSchedule.Location = New System.Drawing.Point(4, 25)
         Me.pgEndDeviceSchedule.Margin = New System.Windows.Forms.Padding(4)
         Me.pgEndDeviceSchedule.Name = "pgEndDeviceSchedule"
-        Me.pgEndDeviceSchedule.Size = New System.Drawing.Size(1205, 492)
+        Me.pgEndDeviceSchedule.Size = New System.Drawing.Size(1205, 489)
         Me.pgEndDeviceSchedule.TabIndex = 25
         Me.pgEndDeviceSchedule.Text = "End Devices"
         Me.pgEndDeviceSchedule.UseVisualStyleBackColor = True
+        '
+        'cmdEndDeviceEdit
+        '
+        Me.cmdEndDeviceEdit.Location = New System.Drawing.Point(1001, 443)
+        Me.cmdEndDeviceEdit.Name = "cmdEndDeviceEdit"
+        Me.cmdEndDeviceEdit.Size = New System.Drawing.Size(107, 34)
+        Me.cmdEndDeviceEdit.TabIndex = 21
+        Me.cmdEndDeviceEdit.Text = "End Device Edit"
+        Me.cmdEndDeviceEdit.UseVisualStyleBackColor = True
+        Me.cmdEndDeviceEdit.Visible = False
         '
         'GroupBox13
         '
@@ -4400,7 +4437,7 @@ Partial Class frmMain
         Me.optMLB560.AutoSize = True
         Me.optMLB560.Location = New System.Drawing.Point(6, 111)
         Me.optMLB560.Name = "optMLB560"
-        Me.optMLB560.Size = New System.Drawing.Size(117, 17)
+        Me.optMLB560.Size = New System.Drawing.Size(153, 21)
         Me.optMLB560.TabIndex = 20
         Me.optMLB560.TabStop = True
         Me.optMLB560.Text = "560 - OEM Controls"
@@ -4411,7 +4448,7 @@ Partial Class frmMain
         Me.chkMLBExpansion.AutoSize = True
         Me.chkMLBExpansion.Location = New System.Drawing.Point(6, 134)
         Me.chkMLBExpansion.Name = "chkMLBExpansion"
-        Me.chkMLBExpansion.Size = New System.Drawing.Size(113, 17)
+        Me.chkMLBExpansion.Size = New System.Drawing.Size(145, 21)
         Me.chkMLBExpansion.TabIndex = 19
         Me.chkMLBExpansion.Text = "Expansion Module"
         Me.chkMLBExpansion.UseVisualStyleBackColor = True
@@ -4421,7 +4458,7 @@ Partial Class frmMain
         Me.optMLB812U.AutoSize = True
         Me.optMLB812U.Location = New System.Drawing.Point(6, 88)
         Me.optMLB812U.Name = "optMLB812U"
-        Me.optMLB812U.Size = New System.Drawing.Size(144, 17)
+        Me.optMLB812U.Size = New System.Drawing.Size(189, 21)
         Me.optMLB812U.TabIndex = 3
         Me.optMLB812U.TabStop = True
         Me.optMLB812U.Text = "812U Pro - OEM Controls"
@@ -4432,7 +4469,7 @@ Partial Class frmMain
         Me.optMLB583.AutoSize = True
         Me.optMLB583.Location = New System.Drawing.Point(6, 65)
         Me.optMLB583.Name = "optMLB583"
-        Me.optMLB583.Size = New System.Drawing.Size(117, 17)
+        Me.optMLB583.Size = New System.Drawing.Size(153, 21)
         Me.optMLB583.TabIndex = 2
         Me.optMLB583.TabStop = True
         Me.optMLB583.Text = "583 - OEM Controls"
@@ -4443,7 +4480,7 @@ Partial Class frmMain
         Me.optMLB6126.AutoSize = True
         Me.optMLB6126.Location = New System.Drawing.Point(6, 42)
         Me.optMLB6126.Name = "optMLB6126"
-        Me.optMLB6126.Size = New System.Drawing.Size(123, 17)
+        Me.optMLB6126.Size = New System.Drawing.Size(161, 21)
         Me.optMLB6126.TabIndex = 1
         Me.optMLB6126.TabStop = True
         Me.optMLB6126.Text = "6126 - OEM Controls"
@@ -4454,7 +4491,7 @@ Partial Class frmMain
         Me.optMLBNone.AutoSize = True
         Me.optMLBNone.Location = New System.Drawing.Point(6, 19)
         Me.optMLBNone.Name = "optMLBNone"
-        Me.optMLBNone.Size = New System.Drawing.Size(51, 17)
+        Me.optMLBNone.Size = New System.Drawing.Size(63, 21)
         Me.optMLBNone.TabIndex = 0
         Me.optMLBNone.TabStop = True
         Me.optMLBNone.Text = "None"
@@ -4465,7 +4502,7 @@ Partial Class frmMain
         Me.chkEDMovetoCutSheets.AutoSize = True
         Me.chkEDMovetoCutSheets.Location = New System.Drawing.Point(629, 14)
         Me.chkEDMovetoCutSheets.Name = "chkEDMovetoCutSheets"
-        Me.chkEDMovetoCutSheets.Size = New System.Drawing.Size(332, 17)
+        Me.chkEDMovetoCutSheets.Size = New System.Drawing.Size(435, 21)
         Me.chkEDMovetoCutSheets.TabIndex = 18
         Me.chkEDMovetoCutSheets.Text = "Move Cut Sheets to 'Cut Sheets to Include with Submittal ' Folder"
         Me.chkEDMovetoCutSheets.UseVisualStyleBackColor = True
@@ -4478,6 +4515,7 @@ Partial Class frmMain
         Me.dgvEndDevices.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.EDevTag, Me.EDevName, Me.EDevType, Me.EDevIO, Me.EDevFieldInst})
         Me.dgvEndDevices.Location = New System.Drawing.Point(3, 3)
         Me.dgvEndDevices.Name = "dgvEndDevices"
+        Me.dgvEndDevices.RowHeadersWidth = 51
         Me.dgvEndDevices.Size = New System.Drawing.Size(620, 486)
         Me.dgvEndDevices.TabIndex = 17
         '
@@ -4485,33 +4523,40 @@ Partial Class frmMain
         '
         Me.EDevTag.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.EDevTag.HeaderText = "Tag"
+        Me.EDevTag.MinimumWidth = 6
         Me.EDevTag.Name = "EDevTag"
         Me.EDevTag.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.EDevTag.Width = 51
+        Me.EDevTag.Width = 62
         '
         'EDevName
         '
         Me.EDevName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.EDevName.HeaderText = "Name"
+        Me.EDevName.MinimumWidth = 6
         Me.EDevName.Name = "EDevName"
-        Me.EDevName.Width = 60
+        Me.EDevName.Width = 74
         '
         'EDevType
         '
         Me.EDevType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.EDevType.HeaderText = "Type"
+        Me.EDevType.MinimumWidth = 6
         Me.EDevType.Name = "EDevType"
-        Me.EDevType.Width = 56
+        Me.EDevType.Width = 69
         '
         'EDevIO
         '
         Me.EDevIO.HeaderText = "I/O"
+        Me.EDevIO.MinimumWidth = 6
         Me.EDevIO.Name = "EDevIO"
+        Me.EDevIO.Width = 125
         '
         'EDevFieldInst
         '
         Me.EDevFieldInst.HeaderText = "Field Installed"
+        Me.EDevFieldInst.MinimumWidth = 6
         Me.EDevFieldInst.Name = "EDevFieldInst"
+        Me.EDevFieldInst.Width = 125
         '
         'btnDoneEndDev
         '
@@ -4569,10 +4614,10 @@ Partial Class frmMain
         Me.pgWeights.Controls.Add(Me.txtBaseWtS)
         Me.pgWeights.Controls.Add(Me.txtBaseWtC)
         Me.pgWeights.Controls.Add(Me.btnDoneWeights)
-        Me.pgWeights.Location = New System.Drawing.Point(4, 22)
+        Me.pgWeights.Location = New System.Drawing.Point(4, 25)
         Me.pgWeights.Margin = New System.Windows.Forms.Padding(4)
         Me.pgWeights.Name = "pgWeights"
-        Me.pgWeights.Size = New System.Drawing.Size(1205, 492)
+        Me.pgWeights.Size = New System.Drawing.Size(1205, 489)
         Me.pgWeights.TabIndex = 18
         Me.pgWeights.Text = "Weights"
         Me.pgWeights.UseVisualStyleBackColor = True
@@ -4592,7 +4637,7 @@ Partial Class frmMain
         Me.Label81.Location = New System.Drawing.Point(48, 151)
         Me.Label81.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label81.Name = "Label81"
-        Me.Label81.Size = New System.Drawing.Size(90, 13)
+        Me.Label81.Size = New System.Drawing.Size(117, 17)
         Me.Label81.TabIndex = 228
         Me.Label81.Text = "Base Unit Weight"
         Me.Label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -4603,7 +4648,7 @@ Partial Class frmMain
         Me.Label139.Location = New System.Drawing.Point(164, 70)
         Me.Label139.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label139.Name = "Label139"
-        Me.Label139.Size = New System.Drawing.Size(14, 13)
+        Me.Label139.Size = New System.Drawing.Size(17, 17)
         Me.Label139.TabIndex = 218
         Me.Label139.Text = "A"
         Me.Label139.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4614,7 +4659,7 @@ Partial Class frmMain
         Me.Label140.Location = New System.Drawing.Point(739, 70)
         Me.Label140.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label140.Name = "Label140"
-        Me.Label140.Size = New System.Drawing.Size(14, 13)
+        Me.Label140.Size = New System.Drawing.Size(17, 17)
         Me.Label140.TabIndex = 219
         Me.Label140.Text = "S"
         Me.Label140.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4625,7 +4670,7 @@ Partial Class frmMain
         Me.Label141.Location = New System.Drawing.Point(675, 70)
         Me.Label141.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label141.Name = "Label141"
-        Me.Label141.Size = New System.Drawing.Size(15, 13)
+        Me.Label141.Size = New System.Drawing.Size(19, 17)
         Me.Label141.TabIndex = 220
         Me.Label141.Text = "Q"
         Me.Label141.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4636,7 +4681,7 @@ Partial Class frmMain
         Me.Label142.Location = New System.Drawing.Point(293, 70)
         Me.Label142.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label142.Name = "Label142"
-        Me.Label142.Size = New System.Drawing.Size(14, 13)
+        Me.Label142.Size = New System.Drawing.Size(17, 17)
         Me.Label142.TabIndex = 221
         Me.Label142.Text = "E"
         Me.Label142.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4647,7 +4692,7 @@ Partial Class frmMain
         Me.Label143.Location = New System.Drawing.Point(357, 70)
         Me.Label143.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label143.Name = "Label143"
-        Me.Label143.Size = New System.Drawing.Size(15, 13)
+        Me.Label143.Size = New System.Drawing.Size(19, 17)
         Me.Label143.TabIndex = 222
         Me.Label143.Text = "G"
         Me.Label143.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4658,7 +4703,7 @@ Partial Class frmMain
         Me.Label144.Location = New System.Drawing.Point(610, 70)
         Me.Label144.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label144.Name = "Label144"
-        Me.Label144.Size = New System.Drawing.Size(15, 13)
+        Me.Label144.Size = New System.Drawing.Size(19, 17)
         Me.Label144.TabIndex = 223
         Me.Label144.Text = "O"
         Me.Label144.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4669,7 +4714,7 @@ Partial Class frmMain
         Me.Label145.Location = New System.Drawing.Point(547, 70)
         Me.Label145.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(16, 13)
+        Me.Label145.Size = New System.Drawing.Size(19, 17)
         Me.Label145.TabIndex = 224
         Me.Label145.Text = "M"
         Me.Label145.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4680,7 +4725,7 @@ Partial Class frmMain
         Me.Label146.Location = New System.Drawing.Point(422, 70)
         Me.Label146.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label146.Name = "Label146"
-        Me.Label146.Size = New System.Drawing.Size(10, 13)
+        Me.Label146.Size = New System.Drawing.Size(11, 17)
         Me.Label146.TabIndex = 225
         Me.Label146.Text = "I"
         Me.Label146.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4691,7 +4736,7 @@ Partial Class frmMain
         Me.Label147.Location = New System.Drawing.Point(483, 70)
         Me.Label147.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label147.Name = "Label147"
-        Me.Label147.Size = New System.Drawing.Size(14, 13)
+        Me.Label147.Size = New System.Drawing.Size(17, 17)
         Me.Label147.TabIndex = 226
         Me.Label147.Text = "K"
         Me.Label147.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4702,7 +4747,7 @@ Partial Class frmMain
         Me.Label148.Location = New System.Drawing.Point(229, 70)
         Me.Label148.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label148.Name = "Label148"
-        Me.Label148.Size = New System.Drawing.Size(14, 13)
+        Me.Label148.Size = New System.Drawing.Size(17, 17)
         Me.Label148.TabIndex = 227
         Me.Label148.Text = "C"
         Me.Label148.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4713,7 +4758,7 @@ Partial Class frmMain
         Me.Label129.Location = New System.Drawing.Point(229, 172)
         Me.Label129.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(15, 13)
+        Me.Label129.Size = New System.Drawing.Size(18, 17)
         Me.Label129.TabIndex = 217
         Me.Label129.Text = "D"
         Me.Label129.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4724,7 +4769,7 @@ Partial Class frmMain
         Me.Label130.Location = New System.Drawing.Point(484, 172)
         Me.Label130.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(13, 13)
+        Me.Label130.Size = New System.Drawing.Size(16, 17)
         Me.Label130.TabIndex = 216
         Me.Label130.Text = "L"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4735,7 +4780,7 @@ Partial Class frmMain
         Me.Label131.Location = New System.Drawing.Point(421, 172)
         Me.Label131.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label131.Name = "Label131"
-        Me.Label131.Size = New System.Drawing.Size(12, 13)
+        Me.Label131.Size = New System.Drawing.Size(15, 17)
         Me.Label131.TabIndex = 215
         Me.Label131.Text = "J"
         Me.Label131.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4746,7 +4791,7 @@ Partial Class frmMain
         Me.Label132.Location = New System.Drawing.Point(548, 172)
         Me.Label132.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(15, 13)
+        Me.Label132.Size = New System.Drawing.Size(18, 17)
         Me.Label132.TabIndex = 214
         Me.Label132.Text = "N"
         Me.Label132.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4757,7 +4802,7 @@ Partial Class frmMain
         Me.Label133.Location = New System.Drawing.Point(610, 172)
         Me.Label133.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(14, 13)
+        Me.Label133.Size = New System.Drawing.Size(17, 17)
         Me.Label133.TabIndex = 213
         Me.Label133.Text = "P"
         Me.Label133.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4768,7 +4813,7 @@ Partial Class frmMain
         Me.Label134.Location = New System.Drawing.Point(357, 172)
         Me.Label134.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(15, 13)
+        Me.Label134.Size = New System.Drawing.Size(18, 17)
         Me.Label134.TabIndex = 212
         Me.Label134.Text = "H"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4779,7 +4824,7 @@ Partial Class frmMain
         Me.Label135.Location = New System.Drawing.Point(293, 172)
         Me.Label135.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(13, 13)
+        Me.Label135.Size = New System.Drawing.Size(16, 17)
         Me.Label135.TabIndex = 211
         Me.Label135.Text = "F"
         Me.Label135.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4790,7 +4835,7 @@ Partial Class frmMain
         Me.Label136.Location = New System.Drawing.Point(675, 172)
         Me.Label136.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(15, 13)
+        Me.Label136.Size = New System.Drawing.Size(18, 17)
         Me.Label136.TabIndex = 210
         Me.Label136.Text = "R"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4801,7 +4846,7 @@ Partial Class frmMain
         Me.Label137.Location = New System.Drawing.Point(739, 172)
         Me.Label137.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(14, 13)
+        Me.Label137.Size = New System.Drawing.Size(17, 17)
         Me.Label137.TabIndex = 209
         Me.Label137.Text = "T"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4812,7 +4857,7 @@ Partial Class frmMain
         Me.Label138.Location = New System.Drawing.Point(164, 172)
         Me.Label138.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label138.Name = "Label138"
-        Me.Label138.Size = New System.Drawing.Size(14, 13)
+        Me.Label138.Size = New System.Drawing.Size(17, 17)
         Me.Label138.TabIndex = 208
         Me.Label138.Text = "B"
         Me.Label138.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4823,7 +4868,7 @@ Partial Class frmMain
         Me.Label82.Location = New System.Drawing.Point(48, 90)
         Me.Label82.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label82.Name = "Label82"
-        Me.Label82.Size = New System.Drawing.Size(90, 13)
+        Me.Label82.Size = New System.Drawing.Size(117, 17)
         Me.Label82.TabIndex = 206
         Me.Label82.Text = "Base Unit Weight"
         Me.Label82.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -4833,7 +4878,7 @@ Partial Class frmMain
         Me.txtBaseWtL.Location = New System.Drawing.Point(465, 148)
         Me.txtBaseWtL.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtL.Name = "txtBaseWtL"
-        Me.txtBaseWtL.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtL.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtL.TabIndex = 11
         Me.txtBaseWtL.Tag = ""
         Me.txtBaseWtL.Text = "x"
@@ -4844,7 +4889,7 @@ Partial Class frmMain
         Me.txtBaseWtJ.Location = New System.Drawing.Point(402, 148)
         Me.txtBaseWtJ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtJ.Name = "txtBaseWtJ"
-        Me.txtBaseWtJ.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtJ.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtJ.TabIndex = 9
         Me.txtBaseWtJ.Tag = ""
         Me.txtBaseWtJ.Text = "-"
@@ -4855,7 +4900,7 @@ Partial Class frmMain
         Me.txtBaseWtN.Location = New System.Drawing.Point(530, 148)
         Me.txtBaseWtN.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtN.Name = "txtBaseWtN"
-        Me.txtBaseWtN.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtN.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtN.TabIndex = 13
         Me.txtBaseWtN.Tag = ""
         Me.txtBaseWtN.Text = "-"
@@ -4866,7 +4911,7 @@ Partial Class frmMain
         Me.txtBaseWtH.Location = New System.Drawing.Point(339, 148)
         Me.txtBaseWtH.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtH.Name = "txtBaseWtH"
-        Me.txtBaseWtH.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtH.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtH.TabIndex = 7
         Me.txtBaseWtH.Tag = ""
         Me.txtBaseWtH.Text = "-"
@@ -4877,7 +4922,7 @@ Partial Class frmMain
         Me.txtBaseWtP.Location = New System.Drawing.Point(592, 148)
         Me.txtBaseWtP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtP.Name = "txtBaseWtP"
-        Me.txtBaseWtP.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtP.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtP.TabIndex = 15
         Me.txtBaseWtP.Tag = ""
         Me.txtBaseWtP.Text = "-"
@@ -4888,7 +4933,7 @@ Partial Class frmMain
         Me.txtBaseWtF.Location = New System.Drawing.Point(277, 148)
         Me.txtBaseWtF.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtF.Name = "txtBaseWtF"
-        Me.txtBaseWtF.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtF.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtF.TabIndex = 5
         Me.txtBaseWtF.Tag = ""
         Me.txtBaseWtF.Text = "-"
@@ -4899,7 +4944,7 @@ Partial Class frmMain
         Me.txtBaseWtR.Location = New System.Drawing.Point(657, 148)
         Me.txtBaseWtR.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtR.Name = "txtBaseWtR"
-        Me.txtBaseWtR.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtR.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtR.TabIndex = 17
         Me.txtBaseWtR.Tag = ""
         Me.txtBaseWtR.Text = "-"
@@ -4910,7 +4955,7 @@ Partial Class frmMain
         Me.txtBaseWtD.Location = New System.Drawing.Point(211, 148)
         Me.txtBaseWtD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtD.Name = "txtBaseWtD"
-        Me.txtBaseWtD.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtD.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtD.TabIndex = 3
         Me.txtBaseWtD.Tag = ""
         Me.txtBaseWtD.Text = "-"
@@ -4921,7 +4966,7 @@ Partial Class frmMain
         Me.txtBaseWtT.Location = New System.Drawing.Point(721, 148)
         Me.txtBaseWtT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtT.Name = "txtBaseWtT"
-        Me.txtBaseWtT.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtT.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtT.TabIndex = 19
         Me.txtBaseWtT.Tag = ""
         Me.txtBaseWtT.Text = "-"
@@ -4932,7 +4977,7 @@ Partial Class frmMain
         Me.txtBaseWtB.Location = New System.Drawing.Point(146, 148)
         Me.txtBaseWtB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtB.Name = "txtBaseWtB"
-        Me.txtBaseWtB.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtB.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtB.TabIndex = 1
         Me.txtBaseWtB.Tag = ""
         Me.txtBaseWtB.Text = "-"
@@ -4943,7 +4988,7 @@ Partial Class frmMain
         Me.txtBaseWtK.Location = New System.Drawing.Point(465, 87)
         Me.txtBaseWtK.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtK.Name = "txtBaseWtK"
-        Me.txtBaseWtK.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtK.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtK.TabIndex = 10
         Me.txtBaseWtK.Tag = ""
         Me.txtBaseWtK.Text = "-"
@@ -4954,7 +4999,7 @@ Partial Class frmMain
         Me.txtBaseWtI.Location = New System.Drawing.Point(402, 87)
         Me.txtBaseWtI.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtI.Name = "txtBaseWtI"
-        Me.txtBaseWtI.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtI.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtI.TabIndex = 8
         Me.txtBaseWtI.Tag = ""
         Me.txtBaseWtI.Text = "x"
@@ -4965,7 +5010,7 @@ Partial Class frmMain
         Me.txtBaseWtM.Location = New System.Drawing.Point(530, 87)
         Me.txtBaseWtM.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtM.Name = "txtBaseWtM"
-        Me.txtBaseWtM.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtM.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtM.TabIndex = 12
         Me.txtBaseWtM.Tag = ""
         Me.txtBaseWtM.Text = "-"
@@ -4976,7 +5021,7 @@ Partial Class frmMain
         Me.txtBaseWtG.Location = New System.Drawing.Point(339, 87)
         Me.txtBaseWtG.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtG.Name = "txtBaseWtG"
-        Me.txtBaseWtG.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtG.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtG.TabIndex = 6
         Me.txtBaseWtG.Tag = ""
         Me.txtBaseWtG.Text = "-"
@@ -4987,7 +5032,7 @@ Partial Class frmMain
         Me.txtBaseWtO.Location = New System.Drawing.Point(592, 87)
         Me.txtBaseWtO.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtO.Name = "txtBaseWtO"
-        Me.txtBaseWtO.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtO.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtO.TabIndex = 14
         Me.txtBaseWtO.Tag = ""
         Me.txtBaseWtO.Text = "-"
@@ -4998,7 +5043,7 @@ Partial Class frmMain
         Me.txtBaseWtE.Location = New System.Drawing.Point(277, 87)
         Me.txtBaseWtE.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtE.Name = "txtBaseWtE"
-        Me.txtBaseWtE.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtE.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtE.TabIndex = 4
         Me.txtBaseWtE.Tag = ""
         Me.txtBaseWtE.Text = "-"
@@ -5009,7 +5054,7 @@ Partial Class frmMain
         Me.txtBaseWtA.Location = New System.Drawing.Point(146, 87)
         Me.txtBaseWtA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtA.Name = "txtBaseWtA"
-        Me.txtBaseWtA.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtA.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtA.TabIndex = 0
         Me.txtBaseWtA.Tag = ""
         Me.txtBaseWtA.Text = "-"
@@ -5020,7 +5065,7 @@ Partial Class frmMain
         Me.txtBaseWtQ.Location = New System.Drawing.Point(657, 87)
         Me.txtBaseWtQ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtQ.Name = "txtBaseWtQ"
-        Me.txtBaseWtQ.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtQ.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtQ.TabIndex = 16
         Me.txtBaseWtQ.Tag = ""
         Me.txtBaseWtQ.Text = "-"
@@ -5031,7 +5076,7 @@ Partial Class frmMain
         Me.txtBaseWtS.Location = New System.Drawing.Point(721, 87)
         Me.txtBaseWtS.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtS.Name = "txtBaseWtS"
-        Me.txtBaseWtS.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtS.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtS.TabIndex = 18
         Me.txtBaseWtS.Tag = ""
         Me.txtBaseWtS.Text = "-"
@@ -5042,7 +5087,7 @@ Partial Class frmMain
         Me.txtBaseWtC.Location = New System.Drawing.Point(211, 87)
         Me.txtBaseWtC.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseWtC.Name = "txtBaseWtC"
-        Me.txtBaseWtC.Size = New System.Drawing.Size(56, 20)
+        Me.txtBaseWtC.Size = New System.Drawing.Size(56, 22)
         Me.txtBaseWtC.TabIndex = 2
         Me.txtBaseWtC.Tag = ""
         Me.txtBaseWtC.Text = "x"
@@ -5063,10 +5108,10 @@ Partial Class frmMain
         Me.pgConnections.Controls.Add(Me.GroupBox14)
         Me.pgConnections.Controls.Add(Me.GroupBox5)
         Me.pgConnections.Controls.Add(Me.btnDoneConns)
-        Me.pgConnections.Location = New System.Drawing.Point(4, 22)
+        Me.pgConnections.Location = New System.Drawing.Point(4, 25)
         Me.pgConnections.Margin = New System.Windows.Forms.Padding(4)
         Me.pgConnections.Name = "pgConnections"
-        Me.pgConnections.Size = New System.Drawing.Size(1205, 492)
+        Me.pgConnections.Size = New System.Drawing.Size(1205, 489)
         Me.pgConnections.TabIndex = 20
         Me.pgConnections.Text = "Connections"
         Me.pgConnections.UseVisualStyleBackColor = True
@@ -5091,7 +5136,7 @@ Partial Class frmMain
         Me.optHMIInstalled.Location = New System.Drawing.Point(8, 71)
         Me.optHMIInstalled.Margin = New System.Windows.Forms.Padding(4)
         Me.optHMIInstalled.Name = "optHMIInstalled"
-        Me.optHMIInstalled.Size = New System.Drawing.Size(115, 17)
+        Me.optHMIInstalled.Size = New System.Drawing.Size(147, 21)
         Me.optHMIInstalled.TabIndex = 2
         Me.optHMIInstalled.Text = "HMI Fisen Installed"
         Me.optHMIInstalled.UseVisualStyleBackColor = True
@@ -5102,7 +5147,7 @@ Partial Class frmMain
         Me.optHMIShipLoose.Location = New System.Drawing.Point(8, 46)
         Me.optHMIShipLoose.Margin = New System.Windows.Forms.Padding(4)
         Me.optHMIShipLoose.Name = "optHMIShipLoose"
-        Me.optHMIShipLoose.Size = New System.Drawing.Size(78, 17)
+        Me.optHMIShipLoose.Size = New System.Drawing.Size(100, 21)
         Me.optHMIShipLoose.TabIndex = 1
         Me.optHMIShipLoose.Text = "Ship Loose"
         Me.optHMIShipLoose.UseVisualStyleBackColor = True
@@ -5114,7 +5159,7 @@ Partial Class frmMain
         Me.optHMINone.Location = New System.Drawing.Point(8, 21)
         Me.optHMINone.Margin = New System.Windows.Forms.Padding(4)
         Me.optHMINone.Name = "optHMINone"
-        Me.optHMINone.Size = New System.Drawing.Size(51, 17)
+        Me.optHMINone.Size = New System.Drawing.Size(63, 21)
         Me.optHMINone.TabIndex = 0
         Me.optHMINone.TabStop = True
         Me.optHMINone.Text = "None"
@@ -5141,7 +5186,7 @@ Partial Class frmMain
         Me.optTwoNodeComms.Location = New System.Drawing.Point(8, 71)
         Me.optTwoNodeComms.Margin = New System.Windows.Forms.Padding(4)
         Me.optTwoNodeComms.Name = "optTwoNodeComms"
-        Me.optTwoNodeComms.Size = New System.Drawing.Size(75, 17)
+        Me.optTwoNodeComms.Size = New System.Drawing.Size(93, 21)
         Me.optTwoNodeComms.TabIndex = 2
         Me.optTwoNodeComms.TabStop = True
         Me.optTwoNodeComms.Text = "Two Node"
@@ -5153,7 +5198,7 @@ Partial Class frmMain
         Me.optOneNodeComms.Location = New System.Drawing.Point(8, 46)
         Me.optOneNodeComms.Margin = New System.Windows.Forms.Padding(4)
         Me.optOneNodeComms.Name = "optOneNodeComms"
-        Me.optOneNodeComms.Size = New System.Drawing.Size(74, 17)
+        Me.optOneNodeComms.Size = New System.Drawing.Size(94, 21)
         Me.optOneNodeComms.TabIndex = 1
         Me.optOneNodeComms.Text = "One Node"
         Me.optOneNodeComms.UseVisualStyleBackColor = True
@@ -5164,7 +5209,7 @@ Partial Class frmMain
         Me.optNoComms.Location = New System.Drawing.Point(8, 21)
         Me.optNoComms.Margin = New System.Windows.Forms.Padding(4)
         Me.optNoComms.Name = "optNoComms"
-        Me.optNoComms.Size = New System.Drawing.Size(51, 17)
+        Me.optNoComms.Size = New System.Drawing.Size(63, 21)
         Me.optNoComms.TabIndex = 0
         Me.optNoComms.Text = "None"
         Me.optNoComms.UseVisualStyleBackColor = True
@@ -5184,10 +5229,10 @@ Partial Class frmMain
         Me.pgShipping.Controls.Add(Me.GroupBox11)
         Me.pgShipping.Controls.Add(Me.GroupBox8)
         Me.pgShipping.Controls.Add(Me.btnDoneConstruction)
-        Me.pgShipping.Location = New System.Drawing.Point(4, 22)
+        Me.pgShipping.Location = New System.Drawing.Point(4, 25)
         Me.pgShipping.Margin = New System.Windows.Forms.Padding(4)
         Me.pgShipping.Name = "pgShipping"
-        Me.pgShipping.Size = New System.Drawing.Size(1205, 492)
+        Me.pgShipping.Size = New System.Drawing.Size(1205, 489)
         Me.pgShipping.TabIndex = 19
         Me.pgShipping.Text = "Shipping"
         Me.pgShipping.UseVisualStyleBackColor = True
@@ -5209,7 +5254,7 @@ Partial Class frmMain
         Me.optFieldWork1DayOnSiteSel.AutoSize = True
         Me.optFieldWork1DayOnSiteSel.Location = New System.Drawing.Point(6, 65)
         Me.optFieldWork1DayOnSiteSel.Name = "optFieldWork1DayOnSiteSel"
-        Me.optFieldWork1DayOnSiteSel.Size = New System.Drawing.Size(136, 17)
+        Me.optFieldWork1DayOnSiteSel.Size = New System.Drawing.Size(177, 21)
         Me.optFieldWork1DayOnSiteSel.TabIndex = 22
         Me.optFieldWork1DayOnSiteSel.Text = "Insert No Startup Notes"
         Me.optFieldWork1DayOnSiteSel.UseVisualStyleBackColor = True
@@ -5220,7 +5265,7 @@ Partial Class frmMain
         Me.optFieldWorkNoOnSiteSel.Checked = True
         Me.optFieldWorkNoOnSiteSel.Location = New System.Drawing.Point(6, 42)
         Me.optFieldWorkNoOnSiteSel.Name = "optFieldWorkNoOnSiteSel"
-        Me.optFieldWorkNoOnSiteSel.Size = New System.Drawing.Size(169, 17)
+        Me.optFieldWorkNoOnSiteSel.Size = New System.Drawing.Size(220, 21)
         Me.optFieldWorkNoOnSiteSel.TabIndex = 20
         Me.optFieldWorkNoOnSiteSel.TabStop = True
         Me.optFieldWorkNoOnSiteSel.Text = "No Onsite Startup/Supervision"
@@ -5231,7 +5276,7 @@ Partial Class frmMain
         Me.optFieldWorkNoNotes.AutoSize = True
         Me.optFieldWorkNoNotes.Location = New System.Drawing.Point(6, 19)
         Me.optFieldWorkNoNotes.Name = "optFieldWorkNoNotes"
-        Me.optFieldWorkNoNotes.Size = New System.Drawing.Size(136, 17)
+        Me.optFieldWorkNoNotes.Size = New System.Drawing.Size(177, 21)
         Me.optFieldWorkNoNotes.TabIndex = 21
         Me.optFieldWorkNoNotes.Text = "Insert No Startup Notes"
         Me.optFieldWorkNoNotes.UseVisualStyleBackColor = True
@@ -5253,7 +5298,7 @@ Partial Class frmMain
         Me.optShippingFisenShrink.AutoSize = True
         Me.optShippingFisenShrink.Location = New System.Drawing.Point(6, 65)
         Me.optShippingFisenShrink.Name = "optShippingFisenShrink"
-        Me.optShippingFisenShrink.Size = New System.Drawing.Size(155, 17)
+        Me.optShippingFisenShrink.Size = New System.Drawing.Size(201, 21)
         Me.optShippingFisenShrink.TabIndex = 19
         Me.optShippingFisenShrink.Text = "Fisen will Shrink Wrap Note"
         Me.optShippingFisenShrink.UseVisualStyleBackColor = True
@@ -5264,7 +5309,7 @@ Partial Class frmMain
         Me.optShippingNoShrink.Checked = True
         Me.optShippingNoShrink.Location = New System.Drawing.Point(6, 42)
         Me.optShippingNoShrink.Name = "optShippingNoShrink"
-        Me.optShippingNoShrink.Size = New System.Drawing.Size(147, 17)
+        Me.optShippingNoShrink.Size = New System.Drawing.Size(190, 21)
         Me.optShippingNoShrink.TabIndex = 18
         Me.optShippingNoShrink.TabStop = True
         Me.optShippingNoShrink.Text = "No Shrink Wrapping Note"
@@ -5275,7 +5320,7 @@ Partial Class frmMain
         Me.optShippingNoNotes.AutoSize = True
         Me.optShippingNoNotes.Location = New System.Drawing.Point(6, 19)
         Me.optShippingNoNotes.Name = "optShippingNoNotes"
-        Me.optShippingNoNotes.Size = New System.Drawing.Size(143, 17)
+        Me.optShippingNoNotes.Size = New System.Drawing.Size(186, 21)
         Me.optShippingNoNotes.TabIndex = 17
         Me.optShippingNoNotes.Text = "Insert No Shipping Notes"
         Me.optShippingNoNotes.UseVisualStyleBackColor = True
@@ -5294,9 +5339,9 @@ Partial Class frmMain
         '
         Me.pgCHW.Controls.Add(Me.Label104)
         Me.pgCHW.Controls.Add(Me.btnDoneCHW)
-        Me.pgCHW.Location = New System.Drawing.Point(4, 22)
+        Me.pgCHW.Location = New System.Drawing.Point(4, 25)
         Me.pgCHW.Name = "pgCHW"
-        Me.pgCHW.Size = New System.Drawing.Size(1205, 492)
+        Me.pgCHW.Size = New System.Drawing.Size(1205, 489)
         Me.pgCHW.TabIndex = 26
         Me.pgCHW.Text = "CHW"
         Me.pgCHW.UseVisualStyleBackColor = True
@@ -5307,7 +5352,7 @@ Partial Class frmMain
         Me.Label104.ForeColor = System.Drawing.Color.DarkRed
         Me.Label104.Location = New System.Drawing.Point(31, 20)
         Me.Label104.Name = "Label104"
-        Me.Label104.Size = New System.Drawing.Size(264, 13)
+        Me.Label104.Size = New System.Drawing.Size(348, 17)
         Me.Label104.TabIndex = 18
         Me.Label104.Text = "Coming Soon: Last Chance to Edit CHW Performance."
         '
@@ -5347,11 +5392,11 @@ Partial Class frmMain
         Me.pgCooling.Controls.Add(Me.Label16)
         Me.pgCooling.Controls.Add(Me.txtTCap)
         Me.pgCooling.Controls.Add(Me.Label15)
-        Me.pgCooling.Location = New System.Drawing.Point(4, 22)
+        Me.pgCooling.Location = New System.Drawing.Point(4, 25)
         Me.pgCooling.Margin = New System.Windows.Forms.Padding(4)
         Me.pgCooling.Name = "pgCooling"
         Me.pgCooling.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgCooling.Size = New System.Drawing.Size(1205, 492)
+        Me.pgCooling.Size = New System.Drawing.Size(1205, 489)
         Me.pgCooling.TabIndex = 3
         Me.pgCooling.Text = "Cooling"
         Me.pgCooling.UseVisualStyleBackColor = True
@@ -5375,7 +5420,7 @@ Partial Class frmMain
         Me.txtYPALIPLV.Location = New System.Drawing.Point(104, 63)
         Me.txtYPALIPLV.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALIPLV.Name = "txtYPALIPLV"
-        Me.txtYPALIPLV.Size = New System.Drawing.Size(93, 20)
+        Me.txtYPALIPLV.Size = New System.Drawing.Size(93, 22)
         Me.txtYPALIPLV.TabIndex = 46
         Me.txtYPALIPLV.Tag = ""
         Me.txtYPALIPLV.Text = "-"
@@ -5386,7 +5431,7 @@ Partial Class frmMain
         Me.Label53.Location = New System.Drawing.Point(57, 66)
         Me.Label53.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(30, 13)
+        Me.Label53.Size = New System.Drawing.Size(37, 17)
         Me.Label53.TabIndex = 48
         Me.Label53.Text = "IPLV"
         Me.Label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5396,7 +5441,7 @@ Partial Class frmMain
         Me.txtYPALEER.Location = New System.Drawing.Point(104, 22)
         Me.txtYPALEER.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALEER.Name = "txtYPALEER"
-        Me.txtYPALEER.Size = New System.Drawing.Size(93, 20)
+        Me.txtYPALEER.Size = New System.Drawing.Size(93, 22)
         Me.txtYPALEER.TabIndex = 45
         Me.txtYPALEER.Tag = ""
         Me.txtYPALEER.Text = "-"
@@ -5407,7 +5452,7 @@ Partial Class frmMain
         Me.Label107.Location = New System.Drawing.Point(58, 25)
         Me.Label107.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(29, 13)
+        Me.Label107.Size = New System.Drawing.Size(36, 17)
         Me.Label107.TabIndex = 47
         Me.Label107.Text = "EER"
         Me.Label107.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5427,7 +5472,7 @@ Partial Class frmMain
         Me.txtElev.Location = New System.Drawing.Point(140, 414)
         Me.txtElev.Margin = New System.Windows.Forms.Padding(4)
         Me.txtElev.Name = "txtElev"
-        Me.txtElev.Size = New System.Drawing.Size(93, 20)
+        Me.txtElev.Size = New System.Drawing.Size(93, 22)
         Me.txtElev.TabIndex = 11
         Me.txtElev.Tag = ""
         '
@@ -5437,7 +5482,7 @@ Partial Class frmMain
         Me.lblElev.Location = New System.Drawing.Point(64, 417)
         Me.lblElev.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElev.Name = "lblElev"
-        Me.lblElev.Size = New System.Drawing.Size(51, 13)
+        Me.lblElev.Size = New System.Drawing.Size(66, 17)
         Me.lblElev.TabIndex = 44
         Me.lblElev.Text = "Elevation"
         Me.lblElev.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5447,7 +5492,7 @@ Partial Class frmMain
         Me.txtPower.Location = New System.Drawing.Point(140, 373)
         Me.txtPower.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPower.Name = "txtPower"
-        Me.txtPower.Size = New System.Drawing.Size(93, 20)
+        Me.txtPower.Size = New System.Drawing.Size(93, 22)
         Me.txtPower.TabIndex = 10
         Me.txtPower.Tag = ""
         '
@@ -5457,7 +5502,7 @@ Partial Class frmMain
         Me.lblPower.Location = New System.Drawing.Point(47, 377)
         Me.lblPower.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPower.Name = "lblPower"
-        Me.lblPower.Size = New System.Drawing.Size(64, 13)
+        Me.lblPower.Size = New System.Drawing.Size(82, 17)
         Me.lblPower.TabIndex = 42
         Me.lblPower.Text = "Power Input"
         Me.lblPower.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5467,7 +5512,7 @@ Partial Class frmMain
         Me.txtLWB.Location = New System.Drawing.Point(140, 332)
         Me.txtLWB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtLWB.Name = "txtLWB"
-        Me.txtLWB.Size = New System.Drawing.Size(93, 20)
+        Me.txtLWB.Size = New System.Drawing.Size(93, 22)
         Me.txtLWB.TabIndex = 9
         Me.txtLWB.Tag = ""
         '
@@ -5477,7 +5522,7 @@ Partial Class frmMain
         Me.lblLWB.Location = New System.Drawing.Point(44, 336)
         Me.lblLWB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblLWB.Name = "lblLWB"
-        Me.lblLWB.Size = New System.Drawing.Size(66, 13)
+        Me.lblLWB.Size = New System.Drawing.Size(84, 17)
         Me.lblLWB.TabIndex = 40
         Me.lblLWB.Text = "Leaving WB"
         Me.lblLWB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5487,7 +5532,7 @@ Partial Class frmMain
         Me.txtLDB.Location = New System.Drawing.Point(140, 292)
         Me.txtLDB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtLDB.Name = "txtLDB"
-        Me.txtLDB.Size = New System.Drawing.Size(93, 20)
+        Me.txtLDB.Size = New System.Drawing.Size(93, 22)
         Me.txtLDB.TabIndex = 8
         Me.txtLDB.Tag = ""
         '
@@ -5497,7 +5542,7 @@ Partial Class frmMain
         Me.lblLDB.Location = New System.Drawing.Point(48, 295)
         Me.lblLDB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblLDB.Name = "lblLDB"
-        Me.lblLDB.Size = New System.Drawing.Size(63, 13)
+        Me.lblLDB.Size = New System.Drawing.Size(81, 17)
         Me.lblLDB.TabIndex = 38
         Me.lblLDB.Text = "Leaving DB"
         Me.lblLDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5507,7 +5552,7 @@ Partial Class frmMain
         Me.txtEWB.Location = New System.Drawing.Point(140, 251)
         Me.txtEWB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEWB.Name = "txtEWB"
-        Me.txtEWB.Size = New System.Drawing.Size(93, 20)
+        Me.txtEWB.Size = New System.Drawing.Size(93, 22)
         Me.txtEWB.TabIndex = 7
         Me.txtEWB.Tag = ""
         '
@@ -5517,7 +5562,7 @@ Partial Class frmMain
         Me.lblEWB.Location = New System.Drawing.Point(43, 255)
         Me.lblEWB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblEWB.Name = "lblEWB"
-        Me.lblEWB.Size = New System.Drawing.Size(67, 13)
+        Me.lblEWB.Size = New System.Drawing.Size(87, 17)
         Me.lblEWB.TabIndex = 36
         Me.lblEWB.Text = "Entering WB"
         Me.lblEWB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5527,7 +5572,7 @@ Partial Class frmMain
         Me.txtEDB.Location = New System.Drawing.Point(140, 210)
         Me.txtEDB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEDB.Name = "txtEDB"
-        Me.txtEDB.Size = New System.Drawing.Size(93, 20)
+        Me.txtEDB.Size = New System.Drawing.Size(93, 22)
         Me.txtEDB.TabIndex = 6
         Me.txtEDB.Tag = ""
         '
@@ -5537,7 +5582,7 @@ Partial Class frmMain
         Me.lblEDB.Location = New System.Drawing.Point(47, 214)
         Me.lblEDB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblEDB.Name = "lblEDB"
-        Me.lblEDB.Size = New System.Drawing.Size(64, 13)
+        Me.lblEDB.Size = New System.Drawing.Size(84, 17)
         Me.lblEDB.TabIndex = 34
         Me.lblEDB.Text = "Entering DB"
         Me.lblEDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5547,7 +5592,7 @@ Partial Class frmMain
         Me.txtAmbientDB.Location = New System.Drawing.Point(140, 170)
         Me.txtAmbientDB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtAmbientDB.Name = "txtAmbientDB"
-        Me.txtAmbientDB.Size = New System.Drawing.Size(93, 20)
+        Me.txtAmbientDB.Size = New System.Drawing.Size(93, 22)
         Me.txtAmbientDB.TabIndex = 5
         Me.txtAmbientDB.Tag = ""
         '
@@ -5557,7 +5602,7 @@ Partial Class frmMain
         Me.lblAmbientDB.Location = New System.Drawing.Point(48, 174)
         Me.lblAmbientDB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAmbientDB.Name = "lblAmbientDB"
-        Me.lblAmbientDB.Size = New System.Drawing.Size(63, 13)
+        Me.lblAmbientDB.Size = New System.Drawing.Size(82, 17)
         Me.lblAmbientDB.TabIndex = 32
         Me.lblAmbientDB.Text = "Ambient DB"
         Me.lblAmbientDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5567,7 +5612,7 @@ Partial Class frmMain
         Me.txtEff.Location = New System.Drawing.Point(140, 129)
         Me.txtEff.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEff.Name = "txtEff"
-        Me.txtEff.Size = New System.Drawing.Size(93, 20)
+        Me.txtEff.Size = New System.Drawing.Size(93, 22)
         Me.txtEff.TabIndex = 4
         Me.txtEff.Tag = ""
         '
@@ -5577,7 +5622,7 @@ Partial Class frmMain
         Me.Label20.Location = New System.Drawing.Point(17, 133)
         Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(86, 13)
+        Me.Label20.Size = New System.Drawing.Size(110, 17)
         Me.Label20.TabIndex = 30
         Me.Label20.Text = "Efficiency at ARI"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5587,7 +5632,7 @@ Partial Class frmMain
         Me.txtRef.Location = New System.Drawing.Point(140, 89)
         Me.txtRef.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRef.Name = "txtRef"
-        Me.txtRef.Size = New System.Drawing.Size(93, 20)
+        Me.txtRef.Size = New System.Drawing.Size(93, 22)
         Me.txtRef.TabIndex = 3
         Me.txtRef.Tag = ""
         '
@@ -5597,7 +5642,7 @@ Partial Class frmMain
         Me.lblRef.Location = New System.Drawing.Point(53, 92)
         Me.lblRef.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRef.Name = "lblRef"
-        Me.lblRef.Size = New System.Drawing.Size(59, 13)
+        Me.lblRef.Size = New System.Drawing.Size(79, 17)
         Me.lblRef.TabIndex = 28
         Me.lblRef.Text = "Refrigerant"
         Me.lblRef.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5607,7 +5652,7 @@ Partial Class frmMain
         Me.txtSCap.Location = New System.Drawing.Point(140, 48)
         Me.txtSCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSCap.Name = "txtSCap"
-        Me.txtSCap.Size = New System.Drawing.Size(93, 20)
+        Me.txtSCap.Size = New System.Drawing.Size(93, 22)
         Me.txtSCap.TabIndex = 2
         Me.txtSCap.Tag = ""
         '
@@ -5617,7 +5662,7 @@ Partial Class frmMain
         Me.Label16.Location = New System.Drawing.Point(11, 52)
         Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(91, 13)
+        Me.Label16.Size = New System.Drawing.Size(120, 17)
         Me.Label16.TabIndex = 26
         Me.Label16.Text = "Sensible Capacity"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5627,7 +5672,7 @@ Partial Class frmMain
         Me.txtTCap.Location = New System.Drawing.Point(140, 7)
         Me.txtTCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTCap.Name = "txtTCap"
-        Me.txtTCap.Size = New System.Drawing.Size(93, 20)
+        Me.txtTCap.Size = New System.Drawing.Size(93, 22)
         Me.txtTCap.TabIndex = 1
         Me.txtTCap.Tag = ""
         '
@@ -5637,7 +5682,7 @@ Partial Class frmMain
         Me.Label15.Location = New System.Drawing.Point(32, 11)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(75, 13)
+        Me.Label15.Size = New System.Drawing.Size(98, 17)
         Me.Label15.TabIndex = 24
         Me.Label15.Text = "Total Capacity"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5664,11 +5709,11 @@ Partial Class frmMain
         Me.pgReheat.Controls.Add(Me.txtRHControlType)
         Me.pgReheat.Controls.Add(Me.lblRHControlType)
         Me.pgReheat.Controls.Add(Me.btnDoneRH)
-        Me.pgReheat.Location = New System.Drawing.Point(4, 22)
+        Me.pgReheat.Location = New System.Drawing.Point(4, 25)
         Me.pgReheat.Margin = New System.Windows.Forms.Padding(4)
         Me.pgReheat.Name = "pgReheat"
         Me.pgReheat.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgReheat.Size = New System.Drawing.Size(1205, 492)
+        Me.pgReheat.Size = New System.Drawing.Size(1205, 489)
         Me.pgReheat.TabIndex = 5
         Me.pgReheat.Text = "Reheat"
         Me.pgReheat.UseVisualStyleBackColor = True
@@ -5688,7 +5733,7 @@ Partial Class frmMain
         Me.txtPipeStyle.Location = New System.Drawing.Point(204, 340)
         Me.txtPipeStyle.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPipeStyle.Name = "txtPipeStyle"
-        Me.txtPipeStyle.Size = New System.Drawing.Size(93, 20)
+        Me.txtPipeStyle.Size = New System.Drawing.Size(93, 22)
         Me.txtPipeStyle.TabIndex = 9
         Me.txtPipeStyle.Tag = ""
         Me.txtPipeStyle.Text = "Parallel"
@@ -5699,7 +5744,7 @@ Partial Class frmMain
         Me.lblPipeStyle.Location = New System.Drawing.Point(108, 343)
         Me.lblPipeStyle.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPipeStyle.Name = "lblPipeStyle"
-        Me.lblPipeStyle.Size = New System.Drawing.Size(62, 13)
+        Me.lblPipeStyle.Size = New System.Drawing.Size(82, 17)
         Me.lblPipeStyle.TabIndex = 64
         Me.lblPipeStyle.Text = "Piping Style"
         Me.lblPipeStyle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5709,7 +5754,7 @@ Partial Class frmMain
         Me.txtRHCoilAPD.Location = New System.Drawing.Point(204, 299)
         Me.txtRHCoilAPD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHCoilAPD.Name = "txtRHCoilAPD"
-        Me.txtRHCoilAPD.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHCoilAPD.Size = New System.Drawing.Size(93, 22)
         Me.txtRHCoilAPD.TabIndex = 8
         Me.txtRHCoilAPD.Tag = ""
         Me.txtRHCoilAPD.Text = "0.35"
@@ -5720,7 +5765,7 @@ Partial Class frmMain
         Me.lblRHCoilAPD.Location = New System.Drawing.Point(75, 303)
         Me.lblRHCoilAPD.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHCoilAPD.Name = "lblRHCoilAPD"
-        Me.lblRHCoilAPD.Size = New System.Drawing.Size(87, 13)
+        Me.lblRHCoilAPD.Size = New System.Drawing.Size(113, 17)
         Me.lblRHCoilAPD.TabIndex = 63
         Me.lblRHCoilAPD.Text = "Reheat Coil APD"
         Me.lblRHCoilAPD.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5730,7 +5775,7 @@ Partial Class frmMain
         Me.txtDHCap.Location = New System.Drawing.Point(204, 258)
         Me.txtDHCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDHCap.Name = "txtDHCap"
-        Me.txtDHCap.Size = New System.Drawing.Size(93, 20)
+        Me.txtDHCap.Size = New System.Drawing.Size(93, 22)
         Me.txtDHCap.TabIndex = 7
         Me.txtDHCap.Tag = ""
         Me.txtDHCap.Text = "67.0"
@@ -5741,7 +5786,7 @@ Partial Class frmMain
         Me.lblDHCap.Location = New System.Drawing.Point(19, 262)
         Me.lblDHCap.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblDHCap.Name = "lblDHCap"
-        Me.lblDHCap.Size = New System.Drawing.Size(129, 13)
+        Me.lblDHCap.Size = New System.Drawing.Size(170, 17)
         Me.lblDHCap.TabIndex = 62
         Me.lblDHCap.Text = "Dehumidification Capacity"
         Me.lblDHCap.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5751,7 +5796,7 @@ Partial Class frmMain
         Me.txtRHDeltaT.Location = New System.Drawing.Point(204, 218)
         Me.txtRHDeltaT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHDeltaT.Name = "txtRHDeltaT"
-        Me.txtRHDeltaT.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHDeltaT.Size = New System.Drawing.Size(93, 22)
         Me.txtRHDeltaT.TabIndex = 6
         Me.txtRHDeltaT.Tag = ""
         Me.txtRHDeltaT.Text = "16"
@@ -5762,7 +5807,7 @@ Partial Class frmMain
         Me.lblRHDeltaT.Location = New System.Drawing.Point(63, 222)
         Me.lblRHDeltaT.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHDeltaT.Name = "lblRHDeltaT"
-        Me.lblRHDeltaT.Size = New System.Drawing.Size(96, 13)
+        Me.lblRHDeltaT.Size = New System.Drawing.Size(126, 17)
         Me.lblRHDeltaT.TabIndex = 61
         Me.lblRHDeltaT.Text = "Reheat Temp Rise"
         Me.lblRHDeltaT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5772,7 +5817,7 @@ Partial Class frmMain
         Me.txtRHLAT.Location = New System.Drawing.Point(204, 177)
         Me.txtRHLAT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHLAT.Name = "txtRHLAT"
-        Me.txtRHLAT.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHLAT.Size = New System.Drawing.Size(93, 22)
         Me.txtRHLAT.TabIndex = 5
         Me.txtRHLAT.Tag = ""
         Me.txtRHLAT.Text = "76"
@@ -5783,7 +5828,7 @@ Partial Class frmMain
         Me.lblRHLAT.Location = New System.Drawing.Point(104, 181)
         Me.lblRHLAT.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHLAT.Name = "lblRHLAT"
-        Me.lblRHLAT.Size = New System.Drawing.Size(65, 13)
+        Me.lblRHLAT.Size = New System.Drawing.Size(84, 17)
         Me.lblRHLAT.TabIndex = 60
         Me.lblRHLAT.Text = "Reheat LAT"
         Me.lblRHLAT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5793,7 +5838,7 @@ Partial Class frmMain
         Me.txtRHEAT.Location = New System.Drawing.Point(204, 137)
         Me.txtRHEAT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHEAT.Name = "txtRHEAT"
-        Me.txtRHEAT.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHEAT.Size = New System.Drawing.Size(93, 22)
         Me.txtRHEAT.TabIndex = 4
         Me.txtRHEAT.Tag = ""
         Me.txtRHEAT.Text = "60"
@@ -5804,7 +5849,7 @@ Partial Class frmMain
         Me.lblRHEAT.Location = New System.Drawing.Point(103, 140)
         Me.lblRHEAT.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHEAT.Name = "lblRHEAT"
-        Me.lblRHEAT.Size = New System.Drawing.Size(66, 13)
+        Me.lblRHEAT.Size = New System.Drawing.Size(85, 17)
         Me.lblRHEAT.TabIndex = 59
         Me.lblRHEAT.Text = "Reheat EAT"
         Me.lblRHEAT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5814,7 +5859,7 @@ Partial Class frmMain
         Me.txtRHAirflow.Location = New System.Drawing.Point(204, 96)
         Me.txtRHAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHAirflow.Name = "txtRHAirflow"
-        Me.txtRHAirflow.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHAirflow.Size = New System.Drawing.Size(93, 22)
         Me.txtRHAirflow.TabIndex = 3
         Me.txtRHAirflow.Tag = ""
         Me.txtRHAirflow.Text = "8000"
@@ -5825,7 +5870,7 @@ Partial Class frmMain
         Me.lblRHAirflow.Location = New System.Drawing.Point(89, 100)
         Me.lblRHAirflow.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHAirflow.Name = "lblRHAirflow"
-        Me.lblRHAirflow.Size = New System.Drawing.Size(76, 13)
+        Me.lblRHAirflow.Size = New System.Drawing.Size(99, 17)
         Me.lblRHAirflow.TabIndex = 58
         Me.lblRHAirflow.Text = "Reheat Airflow"
         Me.lblRHAirflow.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5835,7 +5880,7 @@ Partial Class frmMain
         Me.txtRHCap.Location = New System.Drawing.Point(204, 55)
         Me.txtRHCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHCap.Name = "txtRHCap"
-        Me.txtRHCap.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHCap.Size = New System.Drawing.Size(93, 22)
         Me.txtRHCap.TabIndex = 2
         Me.txtRHCap.Tag = ""
         Me.txtRHCap.Text = "125.0"
@@ -5846,7 +5891,7 @@ Partial Class frmMain
         Me.lblRHCap.Location = New System.Drawing.Point(76, 59)
         Me.lblRHCap.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHCap.Name = "lblRHCap"
-        Me.lblRHCap.Size = New System.Drawing.Size(86, 13)
+        Me.lblRHCap.Size = New System.Drawing.Size(112, 17)
         Me.lblRHCap.TabIndex = 57
         Me.lblRHCap.Text = "Reheat Capacity"
         Me.lblRHCap.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5856,7 +5901,7 @@ Partial Class frmMain
         Me.txtRHControlType.Location = New System.Drawing.Point(204, 15)
         Me.txtRHControlType.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRHControlType.Name = "txtRHControlType"
-        Me.txtRHControlType.Size = New System.Drawing.Size(93, 20)
+        Me.txtRHControlType.Size = New System.Drawing.Size(93, 22)
         Me.txtRHControlType.TabIndex = 1
         Me.txtRHControlType.Tag = ""
         Me.txtRHControlType.Text = "On/Off"
@@ -5867,7 +5912,7 @@ Partial Class frmMain
         Me.lblRHControlType.Location = New System.Drawing.Point(101, 18)
         Me.lblRHControlType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRHControlType.Name = "lblRHControlType"
-        Me.lblRHControlType.Size = New System.Drawing.Size(67, 13)
+        Me.lblRHControlType.Size = New System.Drawing.Size(89, 17)
         Me.lblRHControlType.TabIndex = 56
         Me.lblRHControlType.Text = "Control Type"
         Me.lblRHControlType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5924,11 +5969,11 @@ Partial Class frmMain
         Me.pgHeating.Controls.Add(Me.Label35)
         Me.pgHeating.Controls.Add(Me.Label36)
         Me.pgHeating.Controls.Add(Me.btnDoneHP)
-        Me.pgHeating.Location = New System.Drawing.Point(4, 22)
+        Me.pgHeating.Location = New System.Drawing.Point(4, 25)
         Me.pgHeating.Margin = New System.Windows.Forms.Padding(4)
         Me.pgHeating.Name = "pgHeating"
         Me.pgHeating.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgHeating.Size = New System.Drawing.Size(1205, 492)
+        Me.pgHeating.Size = New System.Drawing.Size(1205, 489)
         Me.pgHeating.TabIndex = 4
         Me.pgHeating.Text = "Heating"
         Me.pgHeating.UseVisualStyleBackColor = True
@@ -5952,7 +5997,7 @@ Partial Class frmMain
         Me.txtYPALGasConsumption.Location = New System.Drawing.Point(139, 62)
         Me.txtYPALGasConsumption.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALGasConsumption.Name = "txtYPALGasConsumption"
-        Me.txtYPALGasConsumption.Size = New System.Drawing.Size(93, 20)
+        Me.txtYPALGasConsumption.Size = New System.Drawing.Size(93, 22)
         Me.txtYPALGasConsumption.TabIndex = 91
         Me.txtYPALGasConsumption.Tag = ""
         Me.txtYPALGasConsumption.Text = "54.9"
@@ -5963,7 +6008,7 @@ Partial Class frmMain
         Me.Label109.Location = New System.Drawing.Point(7, 65)
         Me.Label109.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label109.Name = "Label109"
-        Me.Label109.Size = New System.Drawing.Size(90, 13)
+        Me.Label109.Size = New System.Drawing.Size(120, 17)
         Me.Label109.TabIndex = 92
         Me.Label109.Text = "Gas Consumption"
         Me.Label109.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5973,7 +6018,7 @@ Partial Class frmMain
         Me.txtYPALGasHeatContent.Location = New System.Drawing.Point(139, 32)
         Me.txtYPALGasHeatContent.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALGasHeatContent.Name = "txtYPALGasHeatContent"
-        Me.txtYPALGasHeatContent.Size = New System.Drawing.Size(93, 20)
+        Me.txtYPALGasHeatContent.Size = New System.Drawing.Size(93, 22)
         Me.txtYPALGasHeatContent.TabIndex = 89
         Me.txtYPALGasHeatContent.Tag = ""
         Me.txtYPALGasHeatContent.Text = "54.9"
@@ -5984,7 +6029,7 @@ Partial Class frmMain
         Me.Label108.Location = New System.Drawing.Point(7, 35)
         Me.Label108.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label108.Name = "Label108"
-        Me.Label108.Size = New System.Drawing.Size(92, 13)
+        Me.Label108.Size = New System.Drawing.Size(121, 17)
         Me.Label108.TabIndex = 90
         Me.Label108.Text = "Gas Heat Content"
         Me.Label108.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -5997,7 +6042,7 @@ Partial Class frmMain
         Me.cmbControlStyle.Location = New System.Drawing.Point(140, 52)
         Me.cmbControlStyle.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbControlStyle.Name = "cmbControlStyle"
-        Me.cmbControlStyle.Size = New System.Drawing.Size(112, 21)
+        Me.cmbControlStyle.Size = New System.Drawing.Size(112, 24)
         Me.cmbControlStyle.TabIndex = 84
         '
         'cmbHeatType
@@ -6008,7 +6053,7 @@ Partial Class frmMain
         Me.cmbHeatType.Location = New System.Drawing.Point(140, 11)
         Me.cmbHeatType.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbHeatType.Name = "cmbHeatType"
-        Me.cmbHeatType.Size = New System.Drawing.Size(112, 21)
+        Me.cmbHeatType.Size = New System.Drawing.Size(112, 24)
         Me.cmbHeatType.TabIndex = 83
         '
         'txtHeatNominalEHeat
@@ -6016,7 +6061,7 @@ Partial Class frmMain
         Me.txtHeatNominalEHeat.Location = New System.Drawing.Point(860, 53)
         Me.txtHeatNominalEHeat.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatNominalEHeat.Name = "txtHeatNominalEHeat"
-        Me.txtHeatNominalEHeat.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatNominalEHeat.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatNominalEHeat.TabIndex = 80
         Me.txtHeatNominalEHeat.Tag = ""
         Me.txtHeatNominalEHeat.Text = "Control Style"
@@ -6028,7 +6073,7 @@ Partial Class frmMain
         Me.Label43.Location = New System.Drawing.Point(707, 57)
         Me.Label43.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(109, 13)
+        Me.Label43.Size = New System.Drawing.Size(143, 17)
         Me.Label43.TabIndex = 82
         Me.Label43.Text = "Nominal Electric Heat"
         Me.Label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6039,7 +6084,7 @@ Partial Class frmMain
         Me.txtHeatAppliedEHeat.Location = New System.Drawing.Point(860, 12)
         Me.txtHeatAppliedEHeat.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatAppliedEHeat.Name = "txtHeatAppliedEHeat"
-        Me.txtHeatAppliedEHeat.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatAppliedEHeat.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatAppliedEHeat.TabIndex = 79
         Me.txtHeatAppliedEHeat.Tag = ""
         Me.txtHeatAppliedEHeat.Text = "100.0"
@@ -6051,7 +6096,7 @@ Partial Class frmMain
         Me.Label44.Location = New System.Drawing.Point(711, 16)
         Me.Label44.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(106, 13)
+        Me.Label44.Size = New System.Drawing.Size(139, 17)
         Me.Label44.TabIndex = 81
         Me.Label44.Text = "Applied Electric Heat"
         Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6062,7 +6107,7 @@ Partial Class frmMain
         Me.txtFPD.Location = New System.Drawing.Point(601, 294)
         Me.txtFPD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFPD.Name = "txtFPD"
-        Me.txtFPD.Size = New System.Drawing.Size(93, 20)
+        Me.txtFPD.Size = New System.Drawing.Size(93, 22)
         Me.txtFPD.TabIndex = 77
         Me.txtFPD.Tag = ""
         Me.txtFPD.Text = "67"
@@ -6074,7 +6119,7 @@ Partial Class frmMain
         Me.Label42.Location = New System.Drawing.Point(460, 298)
         Me.Label42.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(99, 13)
+        Me.Label42.Size = New System.Drawing.Size(134, 17)
         Me.Label42.TabIndex = 78
         Me.Label42.Text = "Fluid Pressure Drop"
         Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -6085,7 +6130,7 @@ Partial Class frmMain
         Me.txtHeatLFT.Location = New System.Drawing.Point(601, 256)
         Me.txtHeatLFT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatLFT.Name = "txtHeatLFT"
-        Me.txtHeatLFT.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatLFT.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatLFT.TabIndex = 69
         Me.txtHeatLFT.Tag = ""
         Me.txtHeatLFT.Text = "67"
@@ -6097,7 +6142,7 @@ Partial Class frmMain
         Me.Label24.Location = New System.Drawing.Point(460, 260)
         Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(100, 13)
+        Me.Label24.Size = New System.Drawing.Size(132, 17)
         Me.Label24.TabIndex = 76
         Me.Label24.Text = "Leaving Fluid Temp"
         Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -6108,7 +6153,7 @@ Partial Class frmMain
         Me.txtHeatEFT.Location = New System.Drawing.Point(601, 215)
         Me.txtHeatEFT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatEFT.Name = "txtHeatEFT"
-        Me.txtHeatEFT.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatEFT.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatEFT.TabIndex = 68
         Me.txtHeatEFT.Tag = ""
         Me.txtHeatEFT.Text = "80"
@@ -6120,7 +6165,7 @@ Partial Class frmMain
         Me.Label27.Location = New System.Drawing.Point(459, 219)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(101, 13)
+        Me.Label27.Size = New System.Drawing.Size(135, 17)
         Me.Label27.TabIndex = 75
         Me.Label27.Text = "Entering Fluid Temp"
         Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6131,7 +6176,7 @@ Partial Class frmMain
         Me.txtHeatFluidFlow.Location = New System.Drawing.Point(601, 175)
         Me.txtHeatFluidFlow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatFluidFlow.Name = "txtHeatFluidFlow"
-        Me.txtHeatFluidFlow.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatFluidFlow.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatFluidFlow.TabIndex = 67
         Me.txtHeatFluidFlow.Tag = ""
         Me.txtHeatFluidFlow.Text = "95"
@@ -6143,7 +6188,7 @@ Partial Class frmMain
         Me.Label37.Location = New System.Drawing.Point(521, 178)
         Me.Label37.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(54, 13)
+        Me.Label37.Size = New System.Drawing.Size(70, 17)
         Me.Label37.TabIndex = 74
         Me.Label37.Text = "Fluid Flow"
         Me.Label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6154,7 +6199,7 @@ Partial Class frmMain
         Me.txtHeatFluid.Location = New System.Drawing.Point(601, 134)
         Me.txtHeatFluid.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatFluid.Name = "txtHeatFluid"
-        Me.txtHeatFluid.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatFluid.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatFluid.TabIndex = 66
         Me.txtHeatFluid.Tag = ""
         Me.txtHeatFluid.Text = "10.0"
@@ -6166,7 +6211,7 @@ Partial Class frmMain
         Me.Label38.Location = New System.Drawing.Point(555, 138)
         Me.Label38.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(29, 13)
+        Me.Label38.Size = New System.Drawing.Size(38, 17)
         Me.Label38.TabIndex = 73
         Me.Label38.Text = "Fluid"
         Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6177,7 +6222,7 @@ Partial Class frmMain
         Me.txtHeatCoilAPD.Location = New System.Drawing.Point(601, 94)
         Me.txtHeatCoilAPD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatCoilAPD.Name = "txtHeatCoilAPD"
-        Me.txtHeatCoilAPD.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatCoilAPD.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatCoilAPD.TabIndex = 65
         Me.txtHeatCoilAPD.Tag = ""
         Me.txtHeatCoilAPD.Text = "R410A"
@@ -6189,7 +6234,7 @@ Partial Class frmMain
         Me.Label39.Location = New System.Drawing.Point(528, 97)
         Me.Label39.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(49, 13)
+        Me.Label39.Size = New System.Drawing.Size(63, 17)
         Me.Label39.TabIndex = 72
         Me.Label39.Text = "Coil APD"
         Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6200,7 +6245,7 @@ Partial Class frmMain
         Me.txtHeatCondFlow.Location = New System.Drawing.Point(601, 53)
         Me.txtHeatCondFlow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatCondFlow.Name = "txtHeatCondFlow"
-        Me.txtHeatCondFlow.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatCondFlow.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatCondFlow.TabIndex = 64
         Me.txtHeatCondFlow.Tag = ""
         Me.txtHeatCondFlow.Text = "Control Style"
@@ -6212,7 +6257,7 @@ Partial Class frmMain
         Me.Label40.Location = New System.Drawing.Point(475, 57)
         Me.Label40.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(89, 13)
+        Me.Label40.Size = New System.Drawing.Size(116, 17)
         Me.Label40.TabIndex = 71
         Me.Label40.Text = "Condensate Flow"
         Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6223,7 +6268,7 @@ Partial Class frmMain
         Me.txtHeatSteamP.Location = New System.Drawing.Point(601, 12)
         Me.txtHeatSteamP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatSteamP.Name = "txtHeatSteamP"
-        Me.txtHeatSteamP.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatSteamP.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatSteamP.TabIndex = 63
         Me.txtHeatSteamP.Tag = ""
         Me.txtHeatSteamP.Text = "100.0"
@@ -6235,7 +6280,7 @@ Partial Class frmMain
         Me.Label41.Location = New System.Drawing.Point(485, 16)
         Me.Label41.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(81, 13)
+        Me.Label41.Size = New System.Drawing.Size(109, 17)
         Me.Label41.TabIndex = 70
         Me.Label41.Text = "Steam Pressure"
         Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6246,7 +6291,7 @@ Partial Class frmMain
         Me.txtHeatSSE.Location = New System.Drawing.Point(359, 53)
         Me.txtHeatSSE.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatSSE.Name = "txtHeatSSE"
-        Me.txtHeatSSE.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatSSE.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatSSE.TabIndex = 9
         Me.txtHeatSSE.Tag = ""
         Me.txtHeatSSE.Text = "54.9"
@@ -6258,7 +6303,7 @@ Partial Class frmMain
         Me.Label28.Location = New System.Drawing.Point(313, 57)
         Me.Label28.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(28, 13)
+        Me.Label28.Size = New System.Drawing.Size(35, 17)
         Me.Label28.TabIndex = 62
         Me.Label28.Text = "SSE"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6269,7 +6314,7 @@ Partial Class frmMain
         Me.txtHeatInCap.Location = New System.Drawing.Point(359, 12)
         Me.txtHeatInCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatInCap.Name = "txtHeatInCap"
-        Me.txtHeatInCap.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatInCap.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatInCap.TabIndex = 8
         Me.txtHeatInCap.Tag = ""
         Me.txtHeatInCap.Text = "55"
@@ -6281,7 +6326,7 @@ Partial Class frmMain
         Me.Label29.Location = New System.Drawing.Point(251, 16)
         Me.Label29.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(75, 13)
+        Me.Label29.Size = New System.Drawing.Size(97, 17)
         Me.Label29.TabIndex = 60
         Me.Label29.Text = "Input Capacity"
         Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6292,7 +6337,7 @@ Partial Class frmMain
         Me.txtHeatDeltaT.Location = New System.Drawing.Point(140, 256)
         Me.txtHeatDeltaT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatDeltaT.Name = "txtHeatDeltaT"
-        Me.txtHeatDeltaT.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatDeltaT.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatDeltaT.TabIndex = 7
         Me.txtHeatDeltaT.Tag = ""
         Me.txtHeatDeltaT.Text = "67"
@@ -6303,7 +6348,7 @@ Partial Class frmMain
         Me.Label30.Location = New System.Drawing.Point(76, 260)
         Me.Label30.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(42, 13)
+        Me.Label30.Size = New System.Drawing.Size(54, 17)
         Me.Label30.TabIndex = 58
         Me.Label30.Text = "Delta T"
         Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6313,7 +6358,7 @@ Partial Class frmMain
         Me.txtHeatLAT.Location = New System.Drawing.Point(140, 215)
         Me.txtHeatLAT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatLAT.Name = "txtHeatLAT"
-        Me.txtHeatLAT.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatLAT.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatLAT.TabIndex = 6
         Me.txtHeatLAT.Tag = ""
         Me.txtHeatLAT.Text = "80"
@@ -6324,7 +6369,7 @@ Partial Class frmMain
         Me.Label31.Location = New System.Drawing.Point(8, 219)
         Me.Label31.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(93, 13)
+        Me.Label31.Size = New System.Drawing.Size(121, 17)
         Me.Label31.TabIndex = 56
         Me.Label31.Text = "Leaving DB Temp"
         Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6334,7 +6379,7 @@ Partial Class frmMain
         Me.txtHeatEAT.Location = New System.Drawing.Point(140, 175)
         Me.txtHeatEAT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatEAT.Name = "txtHeatEAT"
-        Me.txtHeatEAT.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatEAT.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatEAT.TabIndex = 5
         Me.txtHeatEAT.Tag = ""
         Me.txtHeatEAT.Text = "95"
@@ -6345,7 +6390,7 @@ Partial Class frmMain
         Me.Label32.Location = New System.Drawing.Point(7, 178)
         Me.Label32.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(94, 13)
+        Me.Label32.Size = New System.Drawing.Size(124, 17)
         Me.Label32.TabIndex = 54
         Me.Label32.Text = "Entering DB Temp"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6355,7 +6400,7 @@ Partial Class frmMain
         Me.txtHeatAF.Location = New System.Drawing.Point(140, 134)
         Me.txtHeatAF.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatAF.Name = "txtHeatAF"
-        Me.txtHeatAF.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatAF.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatAF.TabIndex = 4
         Me.txtHeatAF.Tag = ""
         Me.txtHeatAF.Text = "10.0"
@@ -6366,7 +6411,7 @@ Partial Class frmMain
         Me.Label33.Location = New System.Drawing.Point(28, 138)
         Me.Label33.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(78, 13)
+        Me.Label33.Size = New System.Drawing.Size(102, 17)
         Me.Label33.TabIndex = 52
         Me.Label33.Text = "Heating Airflow"
         Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6376,7 +6421,7 @@ Partial Class frmMain
         Me.txtHeatOutCap.Location = New System.Drawing.Point(140, 94)
         Me.txtHeatOutCap.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeatOutCap.Name = "txtHeatOutCap"
-        Me.txtHeatOutCap.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeatOutCap.Size = New System.Drawing.Size(93, 22)
         Me.txtHeatOutCap.TabIndex = 3
         Me.txtHeatOutCap.Tag = ""
         Me.txtHeatOutCap.Text = "R410A"
@@ -6387,7 +6432,7 @@ Partial Class frmMain
         Me.Label34.Location = New System.Drawing.Point(21, 97)
         Me.Label34.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(83, 13)
+        Me.Label34.Size = New System.Drawing.Size(109, 17)
         Me.Label34.TabIndex = 50
         Me.Label34.Text = "Output Capacity"
         Me.Label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6398,7 +6443,7 @@ Partial Class frmMain
         Me.Label35.Location = New System.Drawing.Point(44, 57)
         Me.Label35.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(66, 13)
+        Me.Label35.Size = New System.Drawing.Size(88, 17)
         Me.Label35.TabIndex = 48
         Me.Label35.Text = "Control Style"
         Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6409,7 +6454,7 @@ Partial Class frmMain
         Me.Label36.Location = New System.Drawing.Point(56, 16)
         Me.Label36.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(57, 13)
+        Me.Label36.Size = New System.Drawing.Size(74, 17)
         Me.Label36.TabIndex = 46
         Me.Label36.Text = "Heat Type"
         Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6450,11 +6495,11 @@ Partial Class frmMain
         Me.pgSupplyAir.Controls.Add(Me.txtAirflow)
         Me.pgSupplyAir.Controls.Add(Me.lblAirflow)
         Me.pgSupplyAir.Controls.Add(Me.btnDoneSA)
-        Me.pgSupplyAir.Location = New System.Drawing.Point(4, 22)
+        Me.pgSupplyAir.Location = New System.Drawing.Point(4, 25)
         Me.pgSupplyAir.Margin = New System.Windows.Forms.Padding(4)
         Me.pgSupplyAir.Name = "pgSupplyAir"
         Me.pgSupplyAir.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgSupplyAir.Size = New System.Drawing.Size(1205, 492)
+        Me.pgSupplyAir.Size = New System.Drawing.Size(1205, 489)
         Me.pgSupplyAir.TabIndex = 6
         Me.pgSupplyAir.Text = "Supply"
         Me.pgSupplyAir.UseVisualStyleBackColor = True
@@ -6514,7 +6559,7 @@ Partial Class frmMain
         Me.txtYPALSFanMotor.Location = New System.Drawing.Point(103, 63)
         Me.txtYPALSFanMotor.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALSFanMotor.Name = "txtYPALSFanMotor"
-        Me.txtYPALSFanMotor.Size = New System.Drawing.Size(178, 20)
+        Me.txtYPALSFanMotor.Size = New System.Drawing.Size(178, 22)
         Me.txtYPALSFanMotor.TabIndex = 62
         Me.txtYPALSFanMotor.Tag = ""
         Me.txtYPALSFanMotor.Text = "n/a"
@@ -6525,7 +6570,7 @@ Partial Class frmMain
         Me.Label110.Location = New System.Drawing.Point(51, 66)
         Me.Label110.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label110.Name = "Label110"
-        Me.Label110.Size = New System.Drawing.Size(34, 13)
+        Me.Label110.Size = New System.Drawing.Size(44, 17)
         Me.Label110.TabIndex = 64
         Me.Label110.Text = "Motor"
         Me.Label110.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6535,7 +6580,7 @@ Partial Class frmMain
         Me.txtSFanModel.Location = New System.Drawing.Point(103, 22)
         Me.txtSFanModel.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSFanModel.Name = "txtSFanModel"
-        Me.txtSFanModel.Size = New System.Drawing.Size(93, 20)
+        Me.txtSFanModel.Size = New System.Drawing.Size(93, 22)
         Me.txtSFanModel.TabIndex = 61
         Me.txtSFanModel.Tag = ""
         Me.txtSFanModel.Text = "n/a"
@@ -6546,7 +6591,7 @@ Partial Class frmMain
         Me.Label111.Location = New System.Drawing.Point(21, 25)
         Me.Label111.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label111.Name = "Label111"
-        Me.Label111.Size = New System.Drawing.Size(57, 13)
+        Me.Label111.Size = New System.Drawing.Size(74, 17)
         Me.Label111.TabIndex = 63
         Me.Label111.Text = "Fan Model"
         Me.Label111.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6556,7 +6601,7 @@ Partial Class frmMain
         Me.txtDuctLoc.Location = New System.Drawing.Point(141, 338)
         Me.txtDuctLoc.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDuctLoc.Name = "txtDuctLoc"
-        Me.txtDuctLoc.Size = New System.Drawing.Size(93, 20)
+        Me.txtDuctLoc.Size = New System.Drawing.Size(93, 22)
         Me.txtDuctLoc.TabIndex = 9
         Me.txtDuctLoc.Tag = ""
         Me.txtDuctLoc.Text = "54.9"
@@ -6567,7 +6612,7 @@ Partial Class frmMain
         Me.lblDuctLoc.Location = New System.Drawing.Point(45, 342)
         Me.lblDuctLoc.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblDuctLoc.Name = "lblDuctLoc"
-        Me.lblDuctLoc.Size = New System.Drawing.Size(74, 13)
+        Me.lblDuctLoc.Size = New System.Drawing.Size(95, 17)
         Me.lblDuctLoc.TabIndex = 64
         Me.lblDuctLoc.Text = "Duct Location"
         Me.lblDuctLoc.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6577,7 +6622,7 @@ Partial Class frmMain
         Me.txtDriveType.Location = New System.Drawing.Point(141, 298)
         Me.txtDriveType.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDriveType.Name = "txtDriveType"
-        Me.txtDriveType.Size = New System.Drawing.Size(93, 20)
+        Me.txtDriveType.Size = New System.Drawing.Size(93, 22)
         Me.txtDriveType.TabIndex = 8
         Me.txtDriveType.Tag = ""
         Me.txtDriveType.Text = "55"
@@ -6588,7 +6633,7 @@ Partial Class frmMain
         Me.lblDriveType.Location = New System.Drawing.Point(65, 302)
         Me.lblDriveType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblDriveType.Name = "lblDriveType"
-        Me.lblDriveType.Size = New System.Drawing.Size(59, 13)
+        Me.lblDriveType.Size = New System.Drawing.Size(77, 17)
         Me.lblDriveType.TabIndex = 63
         Me.lblDriveType.Text = "Drive Type"
         Me.lblDriveType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6598,7 +6643,7 @@ Partial Class frmMain
         Me.txtFanPower.Location = New System.Drawing.Point(141, 257)
         Me.txtFanPower.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFanPower.Name = "txtFanPower"
-        Me.txtFanPower.Size = New System.Drawing.Size(93, 20)
+        Me.txtFanPower.Size = New System.Drawing.Size(93, 22)
         Me.txtFanPower.TabIndex = 7
         Me.txtFanPower.Tag = ""
         Me.txtFanPower.Text = "67"
@@ -6609,7 +6654,7 @@ Partial Class frmMain
         Me.lblFanPower.Location = New System.Drawing.Point(67, 261)
         Me.lblFanPower.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblFanPower.Name = "lblFanPower"
-        Me.lblFanPower.Size = New System.Drawing.Size(58, 13)
+        Me.lblFanPower.Size = New System.Drawing.Size(75, 17)
         Me.lblFanPower.TabIndex = 62
         Me.lblFanPower.Text = "Fan Power"
         Me.lblFanPower.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6619,7 +6664,7 @@ Partial Class frmMain
         Me.txtFanhp.Location = New System.Drawing.Point(141, 217)
         Me.txtFanhp.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFanhp.Name = "txtFanhp"
-        Me.txtFanhp.Size = New System.Drawing.Size(93, 20)
+        Me.txtFanhp.Size = New System.Drawing.Size(93, 22)
         Me.txtFanhp.TabIndex = 6
         Me.txtFanhp.Tag = ""
         Me.txtFanhp.Text = "80"
@@ -6630,7 +6675,7 @@ Partial Class frmMain
         Me.lblFanhp.Location = New System.Drawing.Point(31, 220)
         Me.lblFanhp.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblFanhp.Name = "lblFanhp"
-        Me.lblFanhp.Size = New System.Drawing.Size(85, 13)
+        Me.lblFanhp.Size = New System.Drawing.Size(112, 17)
         Me.lblFanhp.TabIndex = 61
         Me.lblFanhp.Text = "Fan Horsepower"
         Me.lblFanhp.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6640,7 +6685,7 @@ Partial Class frmMain
         Me.txtMhp.Location = New System.Drawing.Point(141, 176)
         Me.txtMhp.Margin = New System.Windows.Forms.Padding(4)
         Me.txtMhp.Name = "txtMhp"
-        Me.txtMhp.Size = New System.Drawing.Size(93, 20)
+        Me.txtMhp.Size = New System.Drawing.Size(93, 22)
         Me.txtMhp.TabIndex = 5
         Me.txtMhp.Tag = ""
         Me.txtMhp.Text = "95"
@@ -6651,7 +6696,7 @@ Partial Class frmMain
         Me.lblMhp.Location = New System.Drawing.Point(75, 180)
         Me.lblMhp.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblMhp.Name = "lblMhp"
-        Me.lblMhp.Size = New System.Drawing.Size(52, 13)
+        Me.lblMhp.Size = New System.Drawing.Size(67, 17)
         Me.lblMhp.TabIndex = 60
         Me.lblMhp.Text = "Motor HP"
         Me.lblMhp.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6661,7 +6706,7 @@ Partial Class frmMain
         Me.txtRPM.Location = New System.Drawing.Point(141, 135)
         Me.txtRPM.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRPM.Name = "txtRPM"
-        Me.txtRPM.Size = New System.Drawing.Size(93, 20)
+        Me.txtRPM.Size = New System.Drawing.Size(93, 22)
         Me.txtRPM.TabIndex = 4
         Me.txtRPM.Tag = ""
         Me.txtRPM.Text = "10.0"
@@ -6672,7 +6717,7 @@ Partial Class frmMain
         Me.lblRPM.Location = New System.Drawing.Point(103, 139)
         Me.lblRPM.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRPM.Name = "lblRPM"
-        Me.lblRPM.Size = New System.Drawing.Size(31, 13)
+        Me.lblRPM.Size = New System.Drawing.Size(38, 17)
         Me.lblRPM.TabIndex = 59
         Me.lblRPM.Text = "RPM"
         Me.lblRPM.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6682,7 +6727,7 @@ Partial Class frmMain
         Me.txtTSP.Location = New System.Drawing.Point(141, 95)
         Me.txtTSP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTSP.Name = "txtTSP"
-        Me.txtTSP.Size = New System.Drawing.Size(93, 20)
+        Me.txtTSP.Size = New System.Drawing.Size(93, 22)
         Me.txtTSP.TabIndex = 3
         Me.txtTSP.Tag = ""
         Me.txtTSP.Text = "R410A"
@@ -6693,7 +6738,7 @@ Partial Class frmMain
         Me.lblTSP.Location = New System.Drawing.Point(107, 98)
         Me.lblTSP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTSP.Name = "lblTSP"
-        Me.lblTSP.Size = New System.Drawing.Size(28, 13)
+        Me.lblTSP.Size = New System.Drawing.Size(35, 17)
         Me.lblTSP.TabIndex = 58
         Me.lblTSP.Text = "TSP"
         Me.lblTSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6703,7 +6748,7 @@ Partial Class frmMain
         Me.txtESP.Location = New System.Drawing.Point(141, 54)
         Me.txtESP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtESP.Name = "txtESP"
-        Me.txtESP.Size = New System.Drawing.Size(93, 20)
+        Me.txtESP.Size = New System.Drawing.Size(93, 22)
         Me.txtESP.TabIndex = 2
         Me.txtESP.Tag = ""
         Me.txtESP.Text = "0.75"
@@ -6714,7 +6759,7 @@ Partial Class frmMain
         Me.lblESP.Location = New System.Drawing.Point(107, 58)
         Me.lblESP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblESP.Name = "lblESP"
-        Me.lblESP.Size = New System.Drawing.Size(28, 13)
+        Me.lblESP.Size = New System.Drawing.Size(35, 17)
         Me.lblESP.TabIndex = 57
         Me.lblESP.Text = "ESP"
         Me.lblESP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6724,7 +6769,7 @@ Partial Class frmMain
         Me.txtAirflow.Location = New System.Drawing.Point(141, 14)
         Me.txtAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtAirflow.Name = "txtAirflow"
-        Me.txtAirflow.Size = New System.Drawing.Size(93, 20)
+        Me.txtAirflow.Size = New System.Drawing.Size(93, 22)
         Me.txtAirflow.TabIndex = 1
         Me.txtAirflow.Tag = ""
         Me.txtAirflow.Text = "8000"
@@ -6735,7 +6780,7 @@ Partial Class frmMain
         Me.lblAirflow.Location = New System.Drawing.Point(93, 17)
         Me.lblAirflow.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAirflow.Name = "lblAirflow"
-        Me.lblAirflow.Size = New System.Drawing.Size(38, 13)
+        Me.lblAirflow.Size = New System.Drawing.Size(49, 17)
         Me.lblAirflow.TabIndex = 56
         Me.lblAirflow.Text = "Airflow"
         Me.lblAirflow.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6775,11 +6820,11 @@ Partial Class frmMain
         Me.pgRXAir.Controls.Add(Me.txtRXAirflow)
         Me.pgRXAir.Controls.Add(Me.Label68)
         Me.pgRXAir.Controls.Add(Me.btnDoneRXA)
-        Me.pgRXAir.Location = New System.Drawing.Point(4, 22)
+        Me.pgRXAir.Location = New System.Drawing.Point(4, 25)
         Me.pgRXAir.Margin = New System.Windows.Forms.Padding(4)
         Me.pgRXAir.Name = "pgRXAir"
         Me.pgRXAir.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgRXAir.Size = New System.Drawing.Size(1205, 492)
+        Me.pgRXAir.Size = New System.Drawing.Size(1205, 489)
         Me.pgRXAir.TabIndex = 7
         Me.pgRXAir.Text = "Return/Exhaust"
         Me.pgRXAir.UseVisualStyleBackColor = True
@@ -6803,7 +6848,7 @@ Partial Class frmMain
         Me.txtYPALRXFanMotor.Location = New System.Drawing.Point(103, 63)
         Me.txtYPALRXFanMotor.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALRXFanMotor.Name = "txtYPALRXFanMotor"
-        Me.txtYPALRXFanMotor.Size = New System.Drawing.Size(178, 20)
+        Me.txtYPALRXFanMotor.Size = New System.Drawing.Size(178, 22)
         Me.txtYPALRXFanMotor.TabIndex = 62
         Me.txtYPALRXFanMotor.Tag = ""
         Me.txtYPALRXFanMotor.Text = "n/a"
@@ -6814,7 +6859,7 @@ Partial Class frmMain
         Me.Label112.Location = New System.Drawing.Point(51, 66)
         Me.Label112.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label112.Name = "Label112"
-        Me.Label112.Size = New System.Drawing.Size(34, 13)
+        Me.Label112.Size = New System.Drawing.Size(44, 17)
         Me.Label112.TabIndex = 64
         Me.Label112.Text = "Motor"
         Me.Label112.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6824,7 +6869,7 @@ Partial Class frmMain
         Me.txtYPALRXFanModel.Location = New System.Drawing.Point(103, 22)
         Me.txtYPALRXFanModel.Margin = New System.Windows.Forms.Padding(4)
         Me.txtYPALRXFanModel.Name = "txtYPALRXFanModel"
-        Me.txtYPALRXFanModel.Size = New System.Drawing.Size(93, 20)
+        Me.txtYPALRXFanModel.Size = New System.Drawing.Size(93, 22)
         Me.txtYPALRXFanModel.TabIndex = 61
         Me.txtYPALRXFanModel.Tag = ""
         Me.txtYPALRXFanModel.Text = "n/a"
@@ -6835,7 +6880,7 @@ Partial Class frmMain
         Me.Label113.Location = New System.Drawing.Point(21, 25)
         Me.Label113.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label113.Name = "Label113"
-        Me.Label113.Size = New System.Drawing.Size(57, 13)
+        Me.Label113.Size = New System.Drawing.Size(74, 17)
         Me.Label113.TabIndex = 63
         Me.Label113.Text = "Fan Model"
         Me.Label113.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6846,7 +6891,7 @@ Partial Class frmMain
         Me.Label97.Location = New System.Drawing.Point(63, 24)
         Me.Label97.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label97.Name = "Label97"
-        Me.Label97.Size = New System.Drawing.Size(52, 13)
+        Me.Label97.Size = New System.Drawing.Size(68, 17)
         Me.Label97.TabIndex = 85
         Me.Label97.Text = "Fan Type"
         Me.Label97.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6858,7 +6903,7 @@ Partial Class frmMain
         Me.cmbFanStyle.Items.AddRange(New Object() {"-", "Exhaust", "Return"})
         Me.cmbFanStyle.Location = New System.Drawing.Point(141, 17)
         Me.cmbFanStyle.Name = "cmbFanStyle"
-        Me.cmbFanStyle.Size = New System.Drawing.Size(96, 21)
+        Me.cmbFanStyle.Size = New System.Drawing.Size(96, 24)
         Me.cmbFanStyle.TabIndex = 64
         '
         'btnNoRXFan
@@ -6876,7 +6921,7 @@ Partial Class frmMain
         Me.txtRXDuctLoc.Location = New System.Drawing.Point(141, 381)
         Me.txtRXDuctLoc.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXDuctLoc.Name = "txtRXDuctLoc"
-        Me.txtRXDuctLoc.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXDuctLoc.Size = New System.Drawing.Size(93, 22)
         Me.txtRXDuctLoc.TabIndex = 73
         Me.txtRXDuctLoc.Tag = ""
         Me.txtRXDuctLoc.Text = "54.9"
@@ -6887,7 +6932,7 @@ Partial Class frmMain
         Me.Label60.Location = New System.Drawing.Point(36, 385)
         Me.Label60.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(74, 13)
+        Me.Label60.Size = New System.Drawing.Size(95, 17)
         Me.Label60.TabIndex = 82
         Me.Label60.Text = "Duct Location"
         Me.Label60.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6897,7 +6942,7 @@ Partial Class frmMain
         Me.txtRXDriveType.Location = New System.Drawing.Point(141, 341)
         Me.txtRXDriveType.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXDriveType.Name = "txtRXDriveType"
-        Me.txtRXDriveType.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXDriveType.Size = New System.Drawing.Size(93, 22)
         Me.txtRXDriveType.TabIndex = 72
         Me.txtRXDriveType.Tag = ""
         Me.txtRXDriveType.Text = "55"
@@ -6908,7 +6953,7 @@ Partial Class frmMain
         Me.Label61.Location = New System.Drawing.Point(54, 345)
         Me.Label61.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label61.Name = "Label61"
-        Me.Label61.Size = New System.Drawing.Size(59, 13)
+        Me.Label61.Size = New System.Drawing.Size(77, 17)
         Me.Label61.TabIndex = 81
         Me.Label61.Text = "Drive Type"
         Me.Label61.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6918,7 +6963,7 @@ Partial Class frmMain
         Me.txtRXFanPower.Location = New System.Drawing.Point(141, 300)
         Me.txtRXFanPower.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXFanPower.Name = "txtRXFanPower"
-        Me.txtRXFanPower.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXFanPower.Size = New System.Drawing.Size(93, 22)
         Me.txtRXFanPower.TabIndex = 71
         Me.txtRXFanPower.Tag = ""
         Me.txtRXFanPower.Text = "67"
@@ -6929,7 +6974,7 @@ Partial Class frmMain
         Me.Label62.Location = New System.Drawing.Point(56, 304)
         Me.Label62.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(58, 13)
+        Me.Label62.Size = New System.Drawing.Size(75, 17)
         Me.Label62.TabIndex = 80
         Me.Label62.Text = "Fan Power"
         Me.Label62.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6939,7 +6984,7 @@ Partial Class frmMain
         Me.txtRXFanhp.Location = New System.Drawing.Point(141, 260)
         Me.txtRXFanhp.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXFanhp.Name = "txtRXFanhp"
-        Me.txtRXFanhp.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXFanhp.Size = New System.Drawing.Size(93, 22)
         Me.txtRXFanhp.TabIndex = 70
         Me.txtRXFanhp.Tag = ""
         Me.txtRXFanhp.Text = "80"
@@ -6950,7 +6995,7 @@ Partial Class frmMain
         Me.Label63.Location = New System.Drawing.Point(19, 263)
         Me.Label63.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(85, 13)
+        Me.Label63.Size = New System.Drawing.Size(112, 17)
         Me.Label63.TabIndex = 79
         Me.Label63.Text = "Fan Horsepower"
         Me.Label63.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6960,7 +7005,7 @@ Partial Class frmMain
         Me.txtRXMhp.Location = New System.Drawing.Point(141, 219)
         Me.txtRXMhp.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXMhp.Name = "txtRXMhp"
-        Me.txtRXMhp.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXMhp.Size = New System.Drawing.Size(93, 22)
         Me.txtRXMhp.TabIndex = 69
         Me.txtRXMhp.Tag = ""
         Me.txtRXMhp.Text = "95"
@@ -6971,7 +7016,7 @@ Partial Class frmMain
         Me.Label64.Location = New System.Drawing.Point(64, 223)
         Me.Label64.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(52, 13)
+        Me.Label64.Size = New System.Drawing.Size(67, 17)
         Me.Label64.TabIndex = 78
         Me.Label64.Text = "Motor HP"
         Me.Label64.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -6981,7 +7026,7 @@ Partial Class frmMain
         Me.txtRXRPM.Location = New System.Drawing.Point(141, 178)
         Me.txtRXRPM.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXRPM.Name = "txtRXRPM"
-        Me.txtRXRPM.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXRPM.Size = New System.Drawing.Size(93, 22)
         Me.txtRXRPM.TabIndex = 68
         Me.txtRXRPM.Tag = ""
         Me.txtRXRPM.Text = "10.0"
@@ -6992,7 +7037,7 @@ Partial Class frmMain
         Me.Label65.Location = New System.Drawing.Point(93, 182)
         Me.Label65.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(31, 13)
+        Me.Label65.Size = New System.Drawing.Size(38, 17)
         Me.Label65.TabIndex = 77
         Me.Label65.Text = "RPM"
         Me.Label65.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7002,7 +7047,7 @@ Partial Class frmMain
         Me.txtRXTSP.Location = New System.Drawing.Point(141, 138)
         Me.txtRXTSP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXTSP.Name = "txtRXTSP"
-        Me.txtRXTSP.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXTSP.Size = New System.Drawing.Size(93, 22)
         Me.txtRXTSP.TabIndex = 67
         Me.txtRXTSP.Tag = ""
         Me.txtRXTSP.Text = "R410A"
@@ -7013,7 +7058,7 @@ Partial Class frmMain
         Me.Label66.Location = New System.Drawing.Point(96, 141)
         Me.Label66.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(28, 13)
+        Me.Label66.Size = New System.Drawing.Size(35, 17)
         Me.Label66.TabIndex = 76
         Me.Label66.Text = "TSP"
         Me.Label66.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7023,7 +7068,7 @@ Partial Class frmMain
         Me.txtRXESP.Location = New System.Drawing.Point(141, 97)
         Me.txtRXESP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXESP.Name = "txtRXESP"
-        Me.txtRXESP.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXESP.Size = New System.Drawing.Size(93, 22)
         Me.txtRXESP.TabIndex = 66
         Me.txtRXESP.Tag = ""
         Me.txtRXESP.Text = "0.75"
@@ -7034,7 +7079,7 @@ Partial Class frmMain
         Me.Label67.Location = New System.Drawing.Point(96, 101)
         Me.Label67.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(28, 13)
+        Me.Label67.Size = New System.Drawing.Size(35, 17)
         Me.Label67.TabIndex = 75
         Me.Label67.Text = "ESP"
         Me.Label67.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7044,7 +7089,7 @@ Partial Class frmMain
         Me.txtRXAirflow.Location = New System.Drawing.Point(141, 57)
         Me.txtRXAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRXAirflow.Name = "txtRXAirflow"
-        Me.txtRXAirflow.Size = New System.Drawing.Size(93, 20)
+        Me.txtRXAirflow.Size = New System.Drawing.Size(93, 22)
         Me.txtRXAirflow.TabIndex = 65
         Me.txtRXAirflow.Tag = ""
         Me.txtRXAirflow.Text = "8000"
@@ -7055,7 +7100,7 @@ Partial Class frmMain
         Me.Label68.Location = New System.Drawing.Point(82, 60)
         Me.Label68.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(38, 13)
+        Me.Label68.Size = New System.Drawing.Size(49, 17)
         Me.Label68.TabIndex = 74
         Me.Label68.Text = "Airflow"
         Me.Label68.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7095,11 +7140,11 @@ Partial Class frmMain
         Me.pgElec.Controls.Add(Me.GroupBox3)
         Me.pgElec.Controls.Add(Me.GroupBox2)
         Me.pgElec.Controls.Add(Me.btnDoneElec)
-        Me.pgElec.Location = New System.Drawing.Point(4, 22)
+        Me.pgElec.Location = New System.Drawing.Point(4, 25)
         Me.pgElec.Margin = New System.Windows.Forms.Padding(4)
         Me.pgElec.Name = "pgElec"
         Me.pgElec.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgElec.Size = New System.Drawing.Size(1205, 492)
+        Me.pgElec.Size = New System.Drawing.Size(1205, 489)
         Me.pgElec.TabIndex = 8
         Me.pgElec.Text = "Electrical"
         Me.pgElec.UseVisualStyleBackColor = True
@@ -7128,7 +7173,7 @@ Partial Class frmMain
         Me.optMCAReportC.AutoSize = True
         Me.optMCAReportC.Location = New System.Drawing.Point(558, 19)
         Me.optMCAReportC.Name = "optMCAReportC"
-        Me.optMCAReportC.Size = New System.Drawing.Size(109, 17)
+        Me.optMCAReportC.Size = New System.Drawing.Size(140, 21)
         Me.optMCAReportC.TabIndex = 9
         Me.optMCAReportC.Text = "Custom Method C"
         Me.optMCAReportC.UseVisualStyleBackColor = True
@@ -7138,7 +7183,7 @@ Partial Class frmMain
         Me.optMCAReportB.AutoSize = True
         Me.optMCAReportB.Location = New System.Drawing.Point(375, 19)
         Me.optMCAReportB.Name = "optMCAReportB"
-        Me.optMCAReportB.Size = New System.Drawing.Size(109, 17)
+        Me.optMCAReportB.Size = New System.Drawing.Size(140, 21)
         Me.optMCAReportB.TabIndex = 8
         Me.optMCAReportB.Text = "Custom Method B"
         Me.optMCAReportB.UseVisualStyleBackColor = True
@@ -7148,7 +7193,7 @@ Partial Class frmMain
         Me.optMCAReportA.AutoSize = True
         Me.optMCAReportA.Location = New System.Drawing.Point(207, 19)
         Me.optMCAReportA.Name = "optMCAReportA"
-        Me.optMCAReportA.Size = New System.Drawing.Size(109, 17)
+        Me.optMCAReportA.Size = New System.Drawing.Size(140, 21)
         Me.optMCAReportA.TabIndex = 7
         Me.optMCAReportA.Text = "Custom Method A"
         Me.optMCAReportA.UseVisualStyleBackColor = True
@@ -7158,7 +7203,7 @@ Partial Class frmMain
         Me.chkMCANoChangeOnlyAddReactors.AutoSize = True
         Me.chkMCANoChangeOnlyAddReactors.Location = New System.Drawing.Point(25, 157)
         Me.chkMCANoChangeOnlyAddReactors.Name = "chkMCANoChangeOnlyAddReactors"
-        Me.chkMCANoChangeOnlyAddReactors.Size = New System.Drawing.Size(113, 17)
+        Me.chkMCANoChangeOnlyAddReactors.Size = New System.Drawing.Size(146, 21)
         Me.chkMCANoChangeOnlyAddReactors.TabIndex = 6
         Me.chkMCANoChangeOnlyAddReactors.Text = "Just Add Reactors"
         Me.chkMCANoChangeOnlyAddReactors.UseVisualStyleBackColor = True
@@ -7168,7 +7213,7 @@ Partial Class frmMain
         Me.chkMCANoChangeOnlyAddDigiScroll.AutoSize = True
         Me.chkMCANoChangeOnlyAddDigiScroll.Location = New System.Drawing.Point(25, 134)
         Me.chkMCANoChangeOnlyAddDigiScroll.Name = "chkMCANoChangeOnlyAddDigiScroll"
-        Me.chkMCANoChangeOnlyAddDigiScroll.Size = New System.Drawing.Size(114, 17)
+        Me.chkMCANoChangeOnlyAddDigiScroll.Size = New System.Drawing.Size(148, 21)
         Me.chkMCANoChangeOnlyAddDigiScroll.TabIndex = 5
         Me.chkMCANoChangeOnlyAddDigiScroll.Text = "Just Add DigiScroll"
         Me.chkMCANoChangeOnlyAddDigiScroll.UseVisualStyleBackColor = True
@@ -7178,7 +7223,7 @@ Partial Class frmMain
         Me.chkMCANoChangeOnlyAddSCR.AutoSize = True
         Me.chkMCANoChangeOnlyAddSCR.Location = New System.Drawing.Point(25, 111)
         Me.chkMCANoChangeOnlyAddSCR.Name = "chkMCANoChangeOnlyAddSCR"
-        Me.chkMCANoChangeOnlyAddSCR.Size = New System.Drawing.Size(92, 17)
+        Me.chkMCANoChangeOnlyAddSCR.Size = New System.Drawing.Size(117, 21)
         Me.chkMCANoChangeOnlyAddSCR.TabIndex = 4
         Me.chkMCANoChangeOnlyAddSCR.Text = "Just Add SCR"
         Me.chkMCANoChangeOnlyAddSCR.UseVisualStyleBackColor = True
@@ -7188,7 +7233,7 @@ Partial Class frmMain
         Me.chkMCANoChangeOnlyAddFieldProvVFD.AutoSize = True
         Me.chkMCANoChangeOnlyAddFieldProvVFD.Location = New System.Drawing.Point(25, 88)
         Me.chkMCANoChangeOnlyAddFieldProvVFD.Name = "chkMCANoChangeOnlyAddFieldProvVFD"
-        Me.chkMCANoChangeOnlyAddFieldProvVFD.Size = New System.Drawing.Size(176, 17)
+        Me.chkMCANoChangeOnlyAddFieldProvVFD.Size = New System.Drawing.Size(231, 21)
         Me.chkMCANoChangeOnlyAddFieldProvVFD.TabIndex = 3
         Me.chkMCANoChangeOnlyAddFieldProvVFD.Text = "Just Add VFD for Field Provided"
         Me.chkMCANoChangeOnlyAddFieldProvVFD.UseVisualStyleBackColor = True
@@ -7198,7 +7243,7 @@ Partial Class frmMain
         Me.chkMCANoChangeOnlyAddVFD.AutoSize = True
         Me.chkMCANoChangeOnlyAddVFD.Location = New System.Drawing.Point(25, 65)
         Me.chkMCANoChangeOnlyAddVFD.Name = "chkMCANoChangeOnlyAddVFD"
-        Me.chkMCANoChangeOnlyAddVFD.Size = New System.Drawing.Size(91, 17)
+        Me.chkMCANoChangeOnlyAddVFD.Size = New System.Drawing.Size(116, 21)
         Me.chkMCANoChangeOnlyAddVFD.TabIndex = 2
         Me.chkMCANoChangeOnlyAddVFD.Text = "Just Add VFD"
         Me.chkMCANoChangeOnlyAddVFD.UseVisualStyleBackColor = True
@@ -7210,7 +7255,7 @@ Partial Class frmMain
         Me.chkMCANoChangeNo1ALoads.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkMCANoChangeNo1ALoads.Location = New System.Drawing.Point(25, 42)
         Me.chkMCANoChangeNo1ALoads.Name = "chkMCANoChangeNo1ALoads"
-        Me.chkMCANoChangeNo1ALoads.Size = New System.Drawing.Size(151, 17)
+        Me.chkMCANoChangeNo1ALoads.Size = New System.Drawing.Size(196, 21)
         Me.chkMCANoChangeNo1ALoads.TabIndex = 1
         Me.chkMCANoChangeNo1ALoads.Text = "No Loads Over 1 A Added"
         Me.chkMCANoChangeNo1ALoads.UseVisualStyleBackColor = True
@@ -7221,7 +7266,7 @@ Partial Class frmMain
         Me.optMCAReportNoChange.Checked = True
         Me.optMCAReportNoChange.Location = New System.Drawing.Point(6, 19)
         Me.optMCAReportNoChange.Name = "optMCAReportNoChange"
-        Me.optMCAReportNoChange.Size = New System.Drawing.Size(151, 17)
+        Me.optMCAReportNoChange.Size = New System.Drawing.Size(197, 21)
         Me.optMCAReportNoChange.TabIndex = 0
         Me.optMCAReportNoChange.TabStop = True
         Me.optMCAReportNoChange.Text = "No Change from Base Unit"
@@ -7233,7 +7278,7 @@ Partial Class frmMain
         Me.lblElecLoad3.Location = New System.Drawing.Point(264, 261)
         Me.lblElecLoad3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad3.Name = "lblElecLoad3"
-        Me.lblElecLoad3.Size = New System.Drawing.Size(77, 13)
+        Me.lblElecLoad3.Size = New System.Drawing.Size(99, 17)
         Me.lblElecLoad3.TabIndex = 135
         Me.lblElecLoad3.Text = "Include in Calc"
         Me.lblElecLoad3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7245,7 +7290,7 @@ Partial Class frmMain
         Me.lblElecLoad2.Location = New System.Drawing.Point(289, 243)
         Me.lblElecLoad2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad2.Name = "lblElecLoad2"
-        Me.lblElecLoad2.Size = New System.Drawing.Size(64, 13)
+        Me.lblElecLoad2.Size = New System.Drawing.Size(83, 17)
         Me.lblElecLoad2.TabIndex = 134
         Me.lblElecLoad2.Text = "EHeat Load"
         Me.lblElecLoad2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7257,7 +7302,7 @@ Partial Class frmMain
         Me.lblElecLoad7.Location = New System.Drawing.Point(875, 226)
         Me.lblElecLoad7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad7.Name = "lblElecLoad7"
-        Me.lblElecLoad7.Size = New System.Drawing.Size(26, 13)
+        Me.lblElecLoad7.Size = New System.Drawing.Size(33, 17)
         Me.lblElecLoad7.TabIndex = 133
         Me.lblElecLoad7.Text = "FLA"
         Me.lblElecLoad7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7269,7 +7314,7 @@ Partial Class frmMain
         Me.lblElecLoad6.Location = New System.Drawing.Point(778, 226)
         Me.lblElecLoad6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad6.Name = "lblElecLoad6"
-        Me.lblElecLoad6.Size = New System.Drawing.Size(22, 13)
+        Me.lblElecLoad6.Size = New System.Drawing.Size(27, 17)
         Me.lblElecLoad6.TabIndex = 132
         Me.lblElecLoad6.Text = "HP"
         Me.lblElecLoad6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7281,7 +7326,7 @@ Partial Class frmMain
         Me.lblElecLoad5.Location = New System.Drawing.Point(676, 226)
         Me.lblElecLoad5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad5.Name = "lblElecLoad5"
-        Me.lblElecLoad5.Size = New System.Drawing.Size(48, 13)
+        Me.lblElecLoad5.Size = New System.Drawing.Size(65, 17)
         Me.lblElecLoad5.TabIndex = 131
         Me.lblElecLoad5.Text = "V-P-Freq"
         Me.lblElecLoad5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7293,7 +7338,7 @@ Partial Class frmMain
         Me.lblElecLoad4.Location = New System.Drawing.Point(416, 224)
         Me.lblElecLoad4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad4.Name = "lblElecLoad4"
-        Me.lblElecLoad4.Size = New System.Drawing.Size(31, 13)
+        Me.lblElecLoad4.Size = New System.Drawing.Size(40, 17)
         Me.lblElecLoad4.TabIndex = 130
         Me.lblElecLoad4.Text = "Load"
         Me.lblElecLoad4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7305,7 +7350,7 @@ Partial Class frmMain
         Me.lblElecLoad1.Location = New System.Drawing.Point(318, 226)
         Me.lblElecLoad1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblElecLoad1.Name = "lblElecLoad1"
-        Me.lblElecLoad1.Size = New System.Drawing.Size(34, 13)
+        Me.lblElecLoad1.Size = New System.Drawing.Size(43, 17)
         Me.lblElecLoad1.TabIndex = 129
         Me.lblElecLoad1.Text = "Mode"
         Me.lblElecLoad1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7347,7 +7392,7 @@ Partial Class frmMain
         Me.cmbElecLoads.Items.AddRange(New Object() {"Supply Fan", "Exhaust Fan", "Compressor", "Condenser Fan", "Electric Heat", "Return Fan", "Supply Fan VFD", "Exhaust Fan VFD", "Return Fan VFD", "Convenience Outlet", "Controls Transformer"})
         Me.cmbElecLoads.Location = New System.Drawing.Point(419, 190)
         Me.cmbElecLoads.Name = "cmbElecLoads"
-        Me.cmbElecLoads.Size = New System.Drawing.Size(254, 21)
+        Me.cmbElecLoads.Size = New System.Drawing.Size(254, 24)
         Me.cmbElecLoads.TabIndex = 125
         Me.cmbElecLoads.Visible = False
         '
@@ -7358,7 +7403,7 @@ Partial Class frmMain
         Me.cmbLoadVoltsPhFreq.Items.AddRange(New Object() {"575-3-60", "575-1-60", "460-3-60", "460-1-60", "240-1-60", "230-3-60", "230-1-60", "208-3-60", "200-3-60", "200-1-60", "115-1-60"})
         Me.cmbLoadVoltsPhFreq.Location = New System.Drawing.Point(679, 192)
         Me.cmbLoadVoltsPhFreq.Name = "cmbLoadVoltsPhFreq"
-        Me.cmbLoadVoltsPhFreq.Size = New System.Drawing.Size(94, 21)
+        Me.cmbLoadVoltsPhFreq.Size = New System.Drawing.Size(94, 24)
         Me.cmbLoadVoltsPhFreq.TabIndex = 124
         Me.cmbLoadVoltsPhFreq.Visible = False
         '
@@ -7369,7 +7414,7 @@ Partial Class frmMain
         Me.cmbLoadMode.Items.AddRange(New Object() {"All", "Cool", "Heat"})
         Me.cmbLoadMode.Location = New System.Drawing.Point(321, 190)
         Me.cmbLoadMode.Name = "cmbLoadMode"
-        Me.cmbLoadMode.Size = New System.Drawing.Size(90, 21)
+        Me.cmbLoadMode.Size = New System.Drawing.Size(90, 24)
         Me.cmbLoadMode.TabIndex = 123
         Me.cmbLoadMode.Visible = False
         '
@@ -7378,7 +7423,7 @@ Partial Class frmMain
         Me.chkElecHeatLoad.AutoSize = True
         Me.chkElecHeatLoad.Location = New System.Drawing.Point(292, 192)
         Me.chkElecHeatLoad.Name = "chkElecHeatLoad"
-        Me.chkElecHeatLoad.Size = New System.Drawing.Size(15, 14)
+        Me.chkElecHeatLoad.Size = New System.Drawing.Size(18, 17)
         Me.chkElecHeatLoad.TabIndex = 122
         Me.chkElecHeatLoad.UseVisualStyleBackColor = True
         Me.chkElecHeatLoad.Visible = False
@@ -7390,7 +7435,7 @@ Partial Class frmMain
         Me.cmbMotorHPList.Items.AddRange(New Object() {"-", "0.25", "0.33", "0.75", "1", "2", "3", "5", "7.5", "10", "15", "20", "25", "30", "40", "50"})
         Me.cmbMotorHPList.Location = New System.Drawing.Point(781, 192)
         Me.cmbMotorHPList.Name = "cmbMotorHPList"
-        Me.cmbMotorHPList.Size = New System.Drawing.Size(90, 21)
+        Me.cmbMotorHPList.Size = New System.Drawing.Size(90, 24)
         Me.cmbMotorHPList.TabIndex = 121
         Me.cmbMotorHPList.Visible = False
         '
@@ -7399,7 +7444,7 @@ Partial Class frmMain
         Me.chkIncludeLoadinCalc.AutoSize = True
         Me.chkIncludeLoadinCalc.Location = New System.Drawing.Point(267, 192)
         Me.chkIncludeLoadinCalc.Name = "chkIncludeLoadinCalc"
-        Me.chkIncludeLoadinCalc.Size = New System.Drawing.Size(15, 14)
+        Me.chkIncludeLoadinCalc.Size = New System.Drawing.Size(18, 17)
         Me.chkIncludeLoadinCalc.TabIndex = 120
         Me.chkIncludeLoadinCalc.UseVisualStyleBackColor = True
         Me.chkIncludeLoadinCalc.Visible = False
@@ -7409,7 +7454,7 @@ Partial Class frmMain
         Me.txtElecLoadFLA.Location = New System.Drawing.Point(878, 192)
         Me.txtElecLoadFLA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtElecLoadFLA.Name = "txtElecLoadFLA"
-        Me.txtElecLoadFLA.Size = New System.Drawing.Size(62, 20)
+        Me.txtElecLoadFLA.Size = New System.Drawing.Size(62, 22)
         Me.txtElecLoadFLA.TabIndex = 118
         Me.txtElecLoadFLA.Tag = ""
         Me.txtElecLoadFLA.Text = "0"
@@ -7439,6 +7484,7 @@ Partial Class frmMain
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
         Me.dgvElecLoads.Name = "dgvElecLoads"
         Me.dgvElecLoads.RowHeadersVisible = False
+        Me.dgvElecLoads.RowHeadersWidth = 51
         Me.dgvElecLoads.RowTemplate.Height = 24
         Me.dgvElecLoads.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dgvElecLoads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -7449,36 +7495,42 @@ Partial Class frmMain
         '
         Me.ElecLoadInclude.FillWeight = 25.0!
         Me.ElecLoadInclude.HeaderText = "Use"
+        Me.ElecLoadInclude.MinimumWidth = 6
         Me.ElecLoadInclude.Name = "ElecLoadInclude"
         Me.ElecLoadInclude.Width = 35
         '
         'EHeat
         '
         Me.EHeat.HeaderText = "EHeat"
+        Me.EHeat.MinimumWidth = 6
         Me.EHeat.Name = "EHeat"
         Me.EHeat.Width = 50
         '
         'LoadMode
         '
         Me.LoadMode.HeaderText = "Mode"
+        Me.LoadMode.MinimumWidth = 6
         Me.LoadMode.Name = "LoadMode"
         Me.LoadMode.Width = 50
         '
         'ElecLoadCLoad
         '
         Me.ElecLoadCLoad.HeaderText = "Comm"
+        Me.ElecLoadCLoad.MinimumWidth = 6
         Me.ElecLoadCLoad.Name = "ElecLoadCLoad"
         Me.ElecLoadCLoad.Width = 55
         '
         'ElecLoad
         '
         Me.ElecLoad.HeaderText = "Load"
+        Me.ElecLoad.MinimumWidth = 6
         Me.ElecLoad.Name = "ElecLoad"
         Me.ElecLoad.Width = 225
         '
         'ElecLoadVoltage
         '
         Me.ElecLoadVoltage.HeaderText = "Elec"
+        Me.ElecLoadVoltage.MinimumWidth = 6
         Me.ElecLoadVoltage.Name = "ElecLoadVoltage"
         Me.ElecLoadVoltage.Width = 90
         '
@@ -7487,6 +7539,7 @@ Partial Class frmMain
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
         Me.ElecLoadHP.HeaderText = "HP"
+        Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
         Me.ElecLoadHP.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.ElecLoadHP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -7497,19 +7550,23 @@ Partial Class frmMain
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
         Me.ElecLoadFLA.HeaderText = "FLA"
+        Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
         Me.ElecLoadFLA.Width = 50
         '
         'ElecLoadEload
         '
         Me.ElecLoadEload.HeaderText = "Emer"
+        Me.ElecLoadEload.MinimumWidth = 6
         Me.ElecLoadEload.Name = "ElecLoadEload"
         Me.ElecLoadEload.Width = 45
         '
         'DataSource
         '
         Me.DataSource.HeaderText = "DataSource"
+        Me.DataSource.MinimumWidth = 6
         Me.DataSource.Name = "DataSource"
+        Me.DataSource.Width = 125
         '
         'GroupBox3
         '
@@ -7543,7 +7600,7 @@ Partial Class frmMain
         Me.optEmerNA.Location = New System.Drawing.Point(41, 302)
         Me.optEmerNA.Margin = New System.Windows.Forms.Padding(4)
         Me.optEmerNA.Name = "optEmerNA"
-        Me.optEmerNA.Size = New System.Drawing.Size(127, 17)
+        Me.optEmerNA.Size = New System.Drawing.Size(165, 21)
         Me.optEmerNA.TabIndex = 112
         Me.optEmerNA.TabStop = True
         Me.optEmerNA.Text = "No Emergency Circuit"
@@ -7555,7 +7612,7 @@ Partial Class frmMain
         Me.optEmerFusedDisc.Location = New System.Drawing.Point(41, 273)
         Me.optEmerFusedDisc.Margin = New System.Windows.Forms.Padding(4)
         Me.optEmerFusedDisc.Name = "optEmerFusedDisc"
-        Me.optEmerFusedDisc.Size = New System.Drawing.Size(111, 17)
+        Me.optEmerFusedDisc.Size = New System.Drawing.Size(142, 21)
         Me.optEmerFusedDisc.TabIndex = 111
         Me.optEmerFusedDisc.Text = "Fused Disconnect"
         Me.optEmerFusedDisc.UseVisualStyleBackColor = True
@@ -7566,7 +7623,7 @@ Partial Class frmMain
         Me.optEmerNFDisc.Location = New System.Drawing.Point(41, 245)
         Me.optEmerNFDisc.Margin = New System.Windows.Forms.Padding(4)
         Me.optEmerNFDisc.Name = "optEmerNFDisc"
-        Me.optEmerNFDisc.Size = New System.Drawing.Size(134, 17)
+        Me.optEmerNFDisc.Size = New System.Drawing.Size(173, 21)
         Me.optEmerNFDisc.TabIndex = 110
         Me.optEmerNFDisc.Text = "Non-Fused Disconnect"
         Me.optEmerNFDisc.UseVisualStyleBackColor = True
@@ -7577,7 +7634,7 @@ Partial Class frmMain
         Me.optEmerMLO.Location = New System.Drawing.Point(41, 217)
         Me.optEmerMLO.Margin = New System.Windows.Forms.Padding(4)
         Me.optEmerMLO.Name = "optEmerMLO"
-        Me.optEmerMLO.Size = New System.Drawing.Size(98, 17)
+        Me.optEmerMLO.Size = New System.Drawing.Size(127, 21)
         Me.optEmerMLO.TabIndex = 109
         Me.optEmerMLO.Text = "Main Lugs Only"
         Me.optEmerMLO.UseVisualStyleBackColor = True
@@ -7587,7 +7644,7 @@ Partial Class frmMain
         Me.txtEmerVolts.Location = New System.Drawing.Point(137, 23)
         Me.txtEmerVolts.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEmerVolts.Name = "txtEmerVolts"
-        Me.txtEmerVolts.Size = New System.Drawing.Size(93, 20)
+        Me.txtEmerVolts.Size = New System.Drawing.Size(93, 22)
         Me.txtEmerVolts.TabIndex = 99
         Me.txtEmerVolts.Tag = ""
         Me.txtEmerVolts.Text = "-"
@@ -7599,7 +7656,7 @@ Partial Class frmMain
         Me.Label96.Location = New System.Drawing.Point(72, 27)
         Me.Label96.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label96.Name = "Label96"
-        Me.Label96.Size = New System.Drawing.Size(43, 13)
+        Me.Label96.Size = New System.Drawing.Size(56, 17)
         Me.Label96.TabIndex = 102
         Me.Label96.Text = "Voltage"
         Me.Label96.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7610,7 +7667,7 @@ Partial Class frmMain
         Me.Label95.Location = New System.Drawing.Point(80, 68)
         Me.Label95.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label95.Name = "Label95"
-        Me.Label95.Size = New System.Drawing.Size(37, 13)
+        Me.Label95.Size = New System.Drawing.Size(48, 17)
         Me.Label95.TabIndex = 103
         Me.Label95.Text = "Phase"
         Me.Label95.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7620,7 +7677,7 @@ Partial Class frmMain
         Me.txtEmerMOP.Location = New System.Drawing.Point(137, 185)
         Me.txtEmerMOP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEmerMOP.Name = "txtEmerMOP"
-        Me.txtEmerMOP.Size = New System.Drawing.Size(93, 20)
+        Me.txtEmerMOP.Size = New System.Drawing.Size(93, 22)
         Me.txtEmerMOP.TabIndex = 106
         Me.txtEmerMOP.Tag = ""
         Me.txtEmerMOP.Text = "-"
@@ -7631,7 +7688,7 @@ Partial Class frmMain
         Me.txtEmerPhase.Location = New System.Drawing.Point(137, 64)
         Me.txtEmerPhase.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEmerPhase.Name = "txtEmerPhase"
-        Me.txtEmerPhase.Size = New System.Drawing.Size(93, 20)
+        Me.txtEmerPhase.Size = New System.Drawing.Size(93, 22)
         Me.txtEmerPhase.TabIndex = 100
         Me.txtEmerPhase.Tag = ""
         Me.txtEmerPhase.Text = "-"
@@ -7643,7 +7700,7 @@ Partial Class frmMain
         Me.Label92.Location = New System.Drawing.Point(88, 188)
         Me.Label92.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label92.Name = "Label92"
-        Me.Label92.Size = New System.Drawing.Size(31, 13)
+        Me.Label92.Size = New System.Drawing.Size(39, 17)
         Me.Label92.TabIndex = 108
         Me.Label92.Text = "MOP"
         Me.Label92.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7654,7 +7711,7 @@ Partial Class frmMain
         Me.Label94.Location = New System.Drawing.Point(53, 108)
         Me.Label94.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label94.Name = "Label94"
-        Me.Label94.Size = New System.Drawing.Size(57, 13)
+        Me.Label94.Size = New System.Drawing.Size(75, 17)
         Me.Label94.TabIndex = 104
         Me.Label94.Text = "Frequency"
         Me.Label94.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7664,7 +7721,7 @@ Partial Class frmMain
         Me.txtEmerMCA.Location = New System.Drawing.Point(137, 144)
         Me.txtEmerMCA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEmerMCA.Name = "txtEmerMCA"
-        Me.txtEmerMCA.Size = New System.Drawing.Size(93, 20)
+        Me.txtEmerMCA.Size = New System.Drawing.Size(93, 22)
         Me.txtEmerMCA.TabIndex = 105
         Me.txtEmerMCA.Tag = ""
         Me.txtEmerMCA.Text = "-"
@@ -7675,7 +7732,7 @@ Partial Class frmMain
         Me.txtEmerFreq.Location = New System.Drawing.Point(137, 105)
         Me.txtEmerFreq.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEmerFreq.Name = "txtEmerFreq"
-        Me.txtEmerFreq.Size = New System.Drawing.Size(93, 20)
+        Me.txtEmerFreq.Size = New System.Drawing.Size(93, 22)
         Me.txtEmerFreq.TabIndex = 101
         Me.txtEmerFreq.Tag = ""
         Me.txtEmerFreq.Text = "-"
@@ -7687,7 +7744,7 @@ Partial Class frmMain
         Me.Label93.Location = New System.Drawing.Point(89, 148)
         Me.Label93.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label93.Name = "Label93"
-        Me.Label93.Size = New System.Drawing.Size(30, 13)
+        Me.Label93.Size = New System.Drawing.Size(37, 17)
         Me.Label93.TabIndex = 107
         Me.Label93.Text = "MCA"
         Me.Label93.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7725,7 +7782,7 @@ Partial Class frmMain
         Me.lblBaseUnitMOP.Location = New System.Drawing.Point(29, 188)
         Me.lblBaseUnitMOP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBaseUnitMOP.Name = "lblBaseUnitMOP"
-        Me.lblBaseUnitMOP.Size = New System.Drawing.Size(30, 13)
+        Me.lblBaseUnitMOP.Size = New System.Drawing.Size(37, 17)
         Me.lblBaseUnitMOP.TabIndex = 122
         Me.lblBaseUnitMOP.Text = "MCA"
         Me.lblBaseUnitMOP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7736,7 +7793,7 @@ Partial Class frmMain
         Me.lblBaseUnitMCA.Location = New System.Drawing.Point(29, 148)
         Me.lblBaseUnitMCA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBaseUnitMCA.Name = "lblBaseUnitMCA"
-        Me.lblBaseUnitMCA.Size = New System.Drawing.Size(30, 13)
+        Me.lblBaseUnitMCA.Size = New System.Drawing.Size(37, 17)
         Me.lblBaseUnitMCA.TabIndex = 121
         Me.lblBaseUnitMCA.Text = "MCA"
         Me.lblBaseUnitMCA.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7747,7 +7804,7 @@ Partial Class frmMain
         Me.optCommFusedDisc.Location = New System.Drawing.Point(32, 273)
         Me.optCommFusedDisc.Margin = New System.Windows.Forms.Padding(4)
         Me.optCommFusedDisc.Name = "optCommFusedDisc"
-        Me.optCommFusedDisc.Size = New System.Drawing.Size(111, 17)
+        Me.optCommFusedDisc.Size = New System.Drawing.Size(142, 21)
         Me.optCommFusedDisc.TabIndex = 101
         Me.optCommFusedDisc.Text = "Fused Disconnect"
         Me.optCommFusedDisc.UseVisualStyleBackColor = True
@@ -7757,7 +7814,7 @@ Partial Class frmMain
         Me.chkUseCustomMCA.AutoSize = True
         Me.chkUseCustomMCA.Location = New System.Drawing.Point(32, 301)
         Me.chkUseCustomMCA.Name = "chkUseCustomMCA"
-        Me.chkUseCustomMCA.Size = New System.Drawing.Size(109, 17)
+        Me.chkUseCustomMCA.Size = New System.Drawing.Size(139, 21)
         Me.chkUseCustomMCA.TabIndex = 119
         Me.chkUseCustomMCA.Text = "Use Custom MCA"
         Me.chkUseCustomMCA.UseVisualStyleBackColor = True
@@ -7768,7 +7825,7 @@ Partial Class frmMain
         Me.optCommNFDisc.Location = New System.Drawing.Point(32, 245)
         Me.optCommNFDisc.Margin = New System.Windows.Forms.Padding(4)
         Me.optCommNFDisc.Name = "optCommNFDisc"
-        Me.optCommNFDisc.Size = New System.Drawing.Size(134, 17)
+        Me.optCommNFDisc.Size = New System.Drawing.Size(173, 21)
         Me.optCommNFDisc.TabIndex = 100
         Me.optCommNFDisc.Text = "Non-Fused Disconnect"
         Me.optCommNFDisc.UseVisualStyleBackColor = True
@@ -7780,7 +7837,7 @@ Partial Class frmMain
         Me.optCommMLO.Location = New System.Drawing.Point(32, 217)
         Me.optCommMLO.Margin = New System.Windows.Forms.Padding(4)
         Me.optCommMLO.Name = "optCommMLO"
-        Me.optCommMLO.Size = New System.Drawing.Size(98, 17)
+        Me.optCommMLO.Size = New System.Drawing.Size(127, 21)
         Me.optCommMLO.TabIndex = 99
         Me.optCommMLO.TabStop = True
         Me.optCommMLO.Text = "Main Lugs Only"
@@ -7791,7 +7848,7 @@ Partial Class frmMain
         Me.txtCommVolts.Location = New System.Drawing.Point(137, 23)
         Me.txtCommVolts.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCommVolts.Name = "txtCommVolts"
-        Me.txtCommVolts.Size = New System.Drawing.Size(93, 20)
+        Me.txtCommVolts.Size = New System.Drawing.Size(93, 22)
         Me.txtCommVolts.TabIndex = 89
         Me.txtCommVolts.Tag = ""
         Me.txtCommVolts.Text = "460"
@@ -7803,7 +7860,7 @@ Partial Class frmMain
         Me.Label89.Location = New System.Drawing.Point(72, 27)
         Me.Label89.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label89.Name = "Label89"
-        Me.Label89.Size = New System.Drawing.Size(43, 13)
+        Me.Label89.Size = New System.Drawing.Size(56, 17)
         Me.Label89.TabIndex = 92
         Me.Label89.Text = "Voltage"
         Me.Label89.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7814,7 +7871,7 @@ Partial Class frmMain
         Me.Label88.Location = New System.Drawing.Point(80, 68)
         Me.Label88.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label88.Name = "Label88"
-        Me.Label88.Size = New System.Drawing.Size(37, 13)
+        Me.Label88.Size = New System.Drawing.Size(48, 17)
         Me.Label88.TabIndex = 93
         Me.Label88.Text = "Phase"
         Me.Label88.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7824,7 +7881,7 @@ Partial Class frmMain
         Me.txtCommPhase.Location = New System.Drawing.Point(137, 64)
         Me.txtCommPhase.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCommPhase.Name = "txtCommPhase"
-        Me.txtCommPhase.Size = New System.Drawing.Size(93, 20)
+        Me.txtCommPhase.Size = New System.Drawing.Size(93, 22)
         Me.txtCommPhase.TabIndex = 90
         Me.txtCommPhase.Tag = ""
         Me.txtCommPhase.Text = "3"
@@ -7836,7 +7893,7 @@ Partial Class frmMain
         Me.Label86.Location = New System.Drawing.Point(53, 108)
         Me.Label86.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label86.Name = "Label86"
-        Me.Label86.Size = New System.Drawing.Size(57, 13)
+        Me.Label86.Size = New System.Drawing.Size(75, 17)
         Me.Label86.TabIndex = 94
         Me.Label86.Text = "Frequency"
         Me.Label86.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7846,7 +7903,7 @@ Partial Class frmMain
         Me.txtCommFreq.Location = New System.Drawing.Point(137, 105)
         Me.txtCommFreq.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCommFreq.Name = "txtCommFreq"
-        Me.txtCommFreq.Size = New System.Drawing.Size(93, 20)
+        Me.txtCommFreq.Size = New System.Drawing.Size(93, 22)
         Me.txtCommFreq.TabIndex = 91
         Me.txtCommFreq.Tag = ""
         Me.txtCommFreq.Text = "60"
@@ -7858,7 +7915,7 @@ Partial Class frmMain
         Me.Label91.Location = New System.Drawing.Point(89, 148)
         Me.Label91.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label91.Name = "Label91"
-        Me.Label91.Size = New System.Drawing.Size(30, 13)
+        Me.Label91.Size = New System.Drawing.Size(37, 17)
         Me.Label91.TabIndex = 97
         Me.Label91.Text = "MCA"
         Me.Label91.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7868,7 +7925,7 @@ Partial Class frmMain
         Me.txtCommMCA.Location = New System.Drawing.Point(137, 144)
         Me.txtCommMCA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCommMCA.Name = "txtCommMCA"
-        Me.txtCommMCA.Size = New System.Drawing.Size(93, 20)
+        Me.txtCommMCA.Size = New System.Drawing.Size(93, 22)
         Me.txtCommMCA.TabIndex = 95
         Me.txtCommMCA.Tag = ""
         Me.txtCommMCA.Text = "0"
@@ -7880,7 +7937,7 @@ Partial Class frmMain
         Me.Label90.Location = New System.Drawing.Point(88, 188)
         Me.Label90.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label90.Name = "Label90"
-        Me.Label90.Size = New System.Drawing.Size(31, 13)
+        Me.Label90.Size = New System.Drawing.Size(39, 17)
         Me.Label90.TabIndex = 98
         Me.Label90.Text = "MOP"
         Me.Label90.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7890,7 +7947,7 @@ Partial Class frmMain
         Me.txtCommMOP.Location = New System.Drawing.Point(137, 185)
         Me.txtCommMOP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCommMOP.Name = "txtCommMOP"
-        Me.txtCommMOP.Size = New System.Drawing.Size(93, 20)
+        Me.txtCommMOP.Size = New System.Drawing.Size(93, 22)
         Me.txtCommMOP.TabIndex = 96
         Me.txtCommMOP.Tag = ""
         Me.txtCommMOP.Text = "0"
@@ -7953,11 +8010,11 @@ Partial Class frmMain
         Me.pgPhysical.Controls.Add(Me.txtLength)
         Me.pgPhysical.Controls.Add(Me.Label74)
         Me.pgPhysical.Controls.Add(Me.btnDonePhysical)
-        Me.pgPhysical.Location = New System.Drawing.Point(4, 22)
+        Me.pgPhysical.Location = New System.Drawing.Point(4, 25)
         Me.pgPhysical.Margin = New System.Windows.Forms.Padding(4)
         Me.pgPhysical.Name = "pgPhysical"
         Me.pgPhysical.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgPhysical.Size = New System.Drawing.Size(1205, 492)
+        Me.pgPhysical.Size = New System.Drawing.Size(1205, 489)
         Me.pgPhysical.TabIndex = 9
         Me.pgPhysical.Text = "Physical"
         Me.pgPhysical.UseVisualStyleBackColor = True
@@ -7968,7 +8025,7 @@ Partial Class frmMain
         Me.Label151.Location = New System.Drawing.Point(820, 235)
         Me.Label151.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label151.Name = "Label151"
-        Me.Label151.Size = New System.Drawing.Size(20, 13)
+        Me.Label151.Size = New System.Drawing.Size(25, 17)
         Me.Label151.TabIndex = 193
         Me.Label151.Text = "dY"
         Me.Label151.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7979,7 +8036,7 @@ Partial Class frmMain
         Me.lblLongitudinal.Location = New System.Drawing.Point(10, 168)
         Me.lblLongitudinal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblLongitudinal.Name = "lblLongitudinal"
-        Me.lblLongitudinal.Size = New System.Drawing.Size(20, 13)
+        Me.lblLongitudinal.Size = New System.Drawing.Size(25, 17)
         Me.lblLongitudinal.TabIndex = 192
         Me.lblLongitudinal.Text = "dX"
         Me.lblLongitudinal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -7990,7 +8047,7 @@ Partial Class frmMain
         Me.lblTransverse.Location = New System.Drawing.Point(792, 235)
         Me.lblTransverse.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTransverse.Name = "lblTransverse"
-        Me.lblTransverse.Size = New System.Drawing.Size(20, 13)
+        Me.lblTransverse.Size = New System.Drawing.Size(25, 17)
         Me.lblTransverse.TabIndex = 191
         Me.lblTransverse.Text = "dY"
         Me.lblTransverse.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -8000,7 +8057,7 @@ Partial Class frmMain
         Me.txtModWeight.Location = New System.Drawing.Point(122, 36)
         Me.txtModWeight.Margin = New System.Windows.Forms.Padding(4)
         Me.txtModWeight.Name = "txtModWeight"
-        Me.txtModWeight.Size = New System.Drawing.Size(93, 20)
+        Me.txtModWeight.Size = New System.Drawing.Size(93, 22)
         Me.txtModWeight.TabIndex = 189
         Me.txtModWeight.Tag = ""
         Me.txtModWeight.Text = "0"
@@ -8012,7 +8069,7 @@ Partial Class frmMain
         Me.Label87.Location = New System.Drawing.Point(13, 39)
         Me.Label87.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label87.Name = "Label87"
-        Me.Label87.Size = New System.Drawing.Size(101, 13)
+        Me.Label87.Size = New System.Drawing.Size(131, 17)
         Me.Label87.TabIndex = 190
         Me.Label87.Text = "Modification Weight"
         Me.Label87.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -8159,7 +8216,7 @@ Partial Class frmMain
         Me.Label83.Location = New System.Drawing.Point(647, 34)
         Me.Label83.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label83.Name = "Label83"
-        Me.Label83.Size = New System.Drawing.Size(73, 13)
+        Me.Label83.Size = New System.Drawing.Size(94, 17)
         Me.Label83.TabIndex = 230
         Me.Label83.Text = "Base Unit Wt,"
         Me.Label83.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8171,7 +8228,7 @@ Partial Class frmMain
         Me.Label190.Location = New System.Drawing.Point(647, 54)
         Me.Label190.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label190.Name = "Label190"
-        Me.Label190.Size = New System.Drawing.Size(48, 13)
+        Me.Label190.Size = New System.Drawing.Size(60, 17)
         Me.Label190.TabIndex = 229
         Me.Label190.Text = "Mod Wt."
         Me.Label190.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8205,7 +8262,7 @@ Partial Class frmMain
         Me.Label191.Location = New System.Drawing.Point(647, 74)
         Me.Label191.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label191.Name = "Label191"
-        Me.Label191.Size = New System.Drawing.Size(54, 13)
+        Me.Label191.Size = New System.Drawing.Size(71, 17)
         Me.Label191.TabIndex = 228
         Me.Label191.Text = "Gross Wt."
         Me.Label191.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8241,7 +8298,7 @@ Partial Class frmMain
         Me.Label189.Location = New System.Drawing.Point(647, 176)
         Me.Label189.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label189.Name = "Label189"
-        Me.Label189.Size = New System.Drawing.Size(73, 13)
+        Me.Label189.Size = New System.Drawing.Size(94, 17)
         Me.Label189.TabIndex = 227
         Me.Label189.Text = "Base Unit Wt,"
         Me.Label189.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8277,7 +8334,7 @@ Partial Class frmMain
         Me.Label188.Location = New System.Drawing.Point(647, 196)
         Me.Label188.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label188.Name = "Label188"
-        Me.Label188.Size = New System.Drawing.Size(48, 13)
+        Me.Label188.Size = New System.Drawing.Size(60, 17)
         Me.Label188.TabIndex = 226
         Me.Label188.Text = "Mod Wt."
         Me.Label188.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8688,7 +8745,7 @@ Partial Class frmMain
         Me.txtPtWtA.Location = New System.Drawing.Point(583, 213)
         Me.txtPtWtA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtA.Name = "txtPtWtA"
-        Me.txtPtWtA.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtA.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtA.TabIndex = 93
         Me.txtPtWtA.Tag = ""
         Me.txtPtWtA.Text = "2222"
@@ -8699,7 +8756,7 @@ Partial Class frmMain
         Me.txtPtWtS.Location = New System.Drawing.Point(7, 213)
         Me.txtPtWtS.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtS.Name = "txtPtWtS"
-        Me.txtPtWtS.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtS.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtS.TabIndex = 107
         Me.txtPtWtS.Tag = ""
         Me.txtPtWtS.Text = "2222"
@@ -8711,7 +8768,7 @@ Partial Class frmMain
         Me.txtPtdXL.Location = New System.Drawing.Point(263, 140)
         Me.txtPtdXL.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXL.Name = "txtPtdXL"
-        Me.txtPtdXL.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXL.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXL.TabIndex = 181
         Me.txtPtdXL.Tag = ""
         Me.txtPtdXL.Text = "2222"
@@ -8723,7 +8780,7 @@ Partial Class frmMain
         Me.txtPtWtC.Location = New System.Drawing.Point(519, 213)
         Me.txtPtWtC.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtC.Name = "txtPtWtC"
-        Me.txtPtWtC.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtC.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtC.TabIndex = 95
         Me.txtPtWtC.Tag = ""
         Me.txtPtWtC.Text = "2222"
@@ -8734,7 +8791,7 @@ Partial Class frmMain
         Me.txtPtdXJ.Location = New System.Drawing.Point(327, 140)
         Me.txtPtdXJ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXJ.Name = "txtPtdXJ"
-        Me.txtPtdXJ.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXJ.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXJ.TabIndex = 180
         Me.txtPtdXJ.Tag = ""
         Me.txtPtdXJ.Text = "2222"
@@ -8746,7 +8803,7 @@ Partial Class frmMain
         Me.txtPtWtQ.Location = New System.Drawing.Point(71, 213)
         Me.txtPtWtQ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtQ.Name = "txtPtWtQ"
-        Me.txtPtWtQ.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtQ.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtQ.TabIndex = 111
         Me.txtPtWtQ.Tag = ""
         Me.txtPtWtQ.Text = "2222"
@@ -8759,7 +8816,7 @@ Partial Class frmMain
         Me.Label58.Location = New System.Drawing.Point(647, 216)
         Me.Label58.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(54, 13)
+        Me.Label58.Size = New System.Drawing.Size(71, 17)
         Me.Label58.TabIndex = 182
         Me.Label58.Text = "Gross Wt."
         Me.Label58.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8769,7 +8826,7 @@ Partial Class frmMain
         Me.txtPtdXN.Location = New System.Drawing.Point(199, 140)
         Me.txtPtdXN.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXN.Name = "txtPtdXN"
-        Me.txtPtdXN.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXN.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXN.TabIndex = 179
         Me.txtPtdXN.Tag = ""
         Me.txtPtdXN.Text = "2222"
@@ -8782,7 +8839,7 @@ Partial Class frmMain
         Me.Label84.Location = New System.Drawing.Point(647, 115)
         Me.Label84.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label84.Name = "Label84"
-        Me.Label84.Size = New System.Drawing.Size(53, 13)
+        Me.Label84.Size = New System.Drawing.Size(69, 17)
         Me.Label84.TabIndex = 184
         Me.Label84.Text = "Locations"
         Me.Label84.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8792,7 +8849,7 @@ Partial Class frmMain
         Me.txtPtdXH.Location = New System.Drawing.Point(391, 140)
         Me.txtPtdXH.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXH.Name = "txtPtdXH"
-        Me.txtPtdXH.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXH.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXH.TabIndex = 178
         Me.txtPtdXH.Tag = ""
         Me.txtPtdXH.Text = "2222"
@@ -8805,7 +8862,7 @@ Partial Class frmMain
         Me.Label128.Location = New System.Drawing.Point(647, 143)
         Me.Label128.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(53, 13)
+        Me.Label128.Size = New System.Drawing.Size(69, 17)
         Me.Label128.TabIndex = 185
         Me.Label128.Text = "Locations"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -8815,7 +8872,7 @@ Partial Class frmMain
         Me.txtPtWtE.Location = New System.Drawing.Point(455, 213)
         Me.txtPtWtE.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtE.Name = "txtPtWtE"
-        Me.txtPtWtE.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtE.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtE.TabIndex = 112
         Me.txtPtWtE.Tag = ""
         Me.txtPtWtE.Text = "2222"
@@ -8827,7 +8884,7 @@ Partial Class frmMain
         Me.txtPtdXP.Location = New System.Drawing.Point(135, 140)
         Me.txtPtdXP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXP.Name = "txtPtdXP"
-        Me.txtPtdXP.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXP.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXP.TabIndex = 177
         Me.txtPtdXP.Tag = ""
         Me.txtPtdXP.Text = "2222"
@@ -8839,7 +8896,7 @@ Partial Class frmMain
         Me.txtPtWtO.Location = New System.Drawing.Point(135, 213)
         Me.txtPtWtO.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtO.Name = "txtPtWtO"
-        Me.txtPtWtO.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtO.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtO.TabIndex = 115
         Me.txtPtWtO.Tag = ""
         Me.txtPtWtO.Text = "2222"
@@ -8851,7 +8908,7 @@ Partial Class frmMain
         Me.txtPtdXF.Location = New System.Drawing.Point(455, 140)
         Me.txtPtdXF.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXF.Name = "txtPtdXF"
-        Me.txtPtdXF.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXF.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXF.TabIndex = 176
         Me.txtPtdXF.Tag = ""
         Me.txtPtdXF.Text = "2222"
@@ -8863,7 +8920,7 @@ Partial Class frmMain
         Me.txtPtWtG.Location = New System.Drawing.Point(391, 213)
         Me.txtPtWtG.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtG.Name = "txtPtWtG"
-        Me.txtPtWtG.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtG.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtG.TabIndex = 116
         Me.txtPtWtG.Tag = ""
         Me.txtPtWtG.Text = "2222"
@@ -8875,7 +8932,7 @@ Partial Class frmMain
         Me.txtPtdXR.Location = New System.Drawing.Point(71, 140)
         Me.txtPtdXR.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXR.Name = "txtPtdXR"
-        Me.txtPtdXR.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXR.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXR.TabIndex = 175
         Me.txtPtdXR.Tag = ""
         Me.txtPtdXR.Text = "2222"
@@ -8887,7 +8944,7 @@ Partial Class frmMain
         Me.txtPtWtM.Location = New System.Drawing.Point(199, 213)
         Me.txtPtWtM.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtM.Name = "txtPtWtM"
-        Me.txtPtWtM.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtM.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtM.TabIndex = 119
         Me.txtPtWtM.Tag = ""
         Me.txtPtWtM.Text = "2222"
@@ -8899,7 +8956,7 @@ Partial Class frmMain
         Me.txtPtdXD.Location = New System.Drawing.Point(519, 140)
         Me.txtPtdXD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXD.Name = "txtPtdXD"
-        Me.txtPtdXD.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXD.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXD.TabIndex = 173
         Me.txtPtdXD.Tag = ""
         Me.txtPtdXD.Text = "2222"
@@ -8910,7 +8967,7 @@ Partial Class frmMain
         Me.txtPtWtI.Location = New System.Drawing.Point(327, 213)
         Me.txtPtWtI.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtI.Name = "txtPtWtI"
-        Me.txtPtWtI.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtI.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtI.TabIndex = 120
         Me.txtPtWtI.Tag = ""
         Me.txtPtWtI.Text = "2222"
@@ -8922,7 +8979,7 @@ Partial Class frmMain
         Me.txtPtdXT.Location = New System.Drawing.Point(7, 140)
         Me.txtPtdXT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXT.Name = "txtPtdXT"
-        Me.txtPtdXT.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXT.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXT.TabIndex = 174
         Me.txtPtdXT.Tag = ""
         Me.txtPtdXT.Text = "2222"
@@ -8934,7 +8991,7 @@ Partial Class frmMain
         Me.txtPtWtK.Location = New System.Drawing.Point(263, 213)
         Me.txtPtWtK.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtK.Name = "txtPtWtK"
-        Me.txtPtWtK.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtK.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtK.TabIndex = 123
         Me.txtPtWtK.Tag = ""
         Me.txtPtWtK.Text = "2222"
@@ -8946,7 +9003,7 @@ Partial Class frmMain
         Me.txtPtdXB.Location = New System.Drawing.Point(583, 140)
         Me.txtPtdXB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXB.Name = "txtPtdXB"
-        Me.txtPtdXB.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXB.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXB.TabIndex = 172
         Me.txtPtdXB.Tag = ""
         Me.txtPtdXB.Text = "2222"
@@ -8959,7 +9016,7 @@ Partial Class frmMain
         Me.lblPtWtA.Location = New System.Drawing.Point(607, 237)
         Me.lblPtWtA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtA.Name = "lblPtWtA"
-        Me.lblPtWtA.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtA.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtA.TabIndex = 124
         Me.lblPtWtA.Text = "A"
         Me.lblPtWtA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -8971,7 +9028,7 @@ Partial Class frmMain
         Me.lblPtWtS.Location = New System.Drawing.Point(31, 237)
         Me.lblPtWtS.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtS.Name = "lblPtWtS"
-        Me.lblPtWtS.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtS.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtS.TabIndex = 129
         Me.lblPtWtS.Text = "S"
         Me.lblPtWtS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -8984,7 +9041,7 @@ Partial Class frmMain
         Me.lblPtWtD.Location = New System.Drawing.Point(543, 20)
         Me.lblPtWtD.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtD.Name = "lblPtWtD"
-        Me.lblPtWtD.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtD.Size = New System.Drawing.Size(19, 17)
         Me.lblPtWtD.TabIndex = 159
         Me.lblPtWtD.Text = "D"
         Me.lblPtWtD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -8996,7 +9053,7 @@ Partial Class frmMain
         Me.lblPtWtQ.Location = New System.Drawing.Point(95, 237)
         Me.lblPtWtQ.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtQ.Name = "lblPtWtQ"
-        Me.lblPtWtQ.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtQ.Size = New System.Drawing.Size(20, 17)
         Me.lblPtWtQ.TabIndex = 131
         Me.lblPtWtQ.Text = "Q"
         Me.lblPtWtQ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9009,7 +9066,7 @@ Partial Class frmMain
         Me.lblPtWtE.Location = New System.Drawing.Point(477, 237)
         Me.lblPtWtE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtE.Name = "lblPtWtE"
-        Me.lblPtWtE.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtE.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtE.TabIndex = 132
         Me.lblPtWtE.Text = "E"
         Me.lblPtWtE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9022,7 +9079,7 @@ Partial Class frmMain
         Me.lblPtWtG.Location = New System.Drawing.Point(415, 237)
         Me.lblPtWtG.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtG.Name = "lblPtWtG"
-        Me.lblPtWtG.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtG.Size = New System.Drawing.Size(20, 17)
         Me.lblPtWtG.TabIndex = 134
         Me.lblPtWtG.Text = "G"
         Me.lblPtWtG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9033,7 +9090,7 @@ Partial Class frmMain
         Me.txtPtdXK.Location = New System.Drawing.Point(263, 112)
         Me.txtPtdXK.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXK.Name = "txtPtdXK"
-        Me.txtPtdXK.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXK.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXK.TabIndex = 171
         Me.txtPtdXK.Tag = ""
         Me.txtPtdXK.Text = "2222"
@@ -9047,7 +9104,7 @@ Partial Class frmMain
         Me.lblPtWtO.Location = New System.Drawing.Point(159, 237)
         Me.lblPtWtO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtO.Name = "lblPtWtO"
-        Me.lblPtWtO.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtO.Size = New System.Drawing.Size(20, 17)
         Me.lblPtWtO.TabIndex = 137
         Me.lblPtWtO.Text = "O"
         Me.lblPtWtO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9058,7 +9115,7 @@ Partial Class frmMain
         Me.txtPtdXI.Location = New System.Drawing.Point(327, 112)
         Me.txtPtdXI.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXI.Name = "txtPtdXI"
-        Me.txtPtdXI.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXI.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXI.TabIndex = 170
         Me.txtPtdXI.Tag = ""
         Me.txtPtdXI.Text = "2222"
@@ -9072,7 +9129,7 @@ Partial Class frmMain
         Me.lblPtWtM.Location = New System.Drawing.Point(222, 237)
         Me.lblPtWtM.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtM.Name = "lblPtWtM"
-        Me.lblPtWtM.Size = New System.Drawing.Size(17, 13)
+        Me.lblPtWtM.Size = New System.Drawing.Size(20, 17)
         Me.lblPtWtM.TabIndex = 139
         Me.lblPtWtM.Text = "M"
         Me.lblPtWtM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9083,7 +9140,7 @@ Partial Class frmMain
         Me.txtPtdXM.Location = New System.Drawing.Point(199, 112)
         Me.txtPtdXM.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXM.Name = "txtPtdXM"
-        Me.txtPtdXM.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXM.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXM.TabIndex = 169
         Me.txtPtdXM.Tag = ""
         Me.txtPtdXM.Text = "2222"
@@ -9097,7 +9154,7 @@ Partial Class frmMain
         Me.lblPtWtI.Location = New System.Drawing.Point(353, 237)
         Me.lblPtWtI.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtI.Name = "lblPtWtI"
-        Me.lblPtWtI.Size = New System.Drawing.Size(11, 13)
+        Me.lblPtWtI.Size = New System.Drawing.Size(12, 17)
         Me.lblPtWtI.TabIndex = 140
         Me.lblPtWtI.Text = "I"
         Me.lblPtWtI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9108,7 +9165,7 @@ Partial Class frmMain
         Me.txtPtdXG.Location = New System.Drawing.Point(391, 112)
         Me.txtPtdXG.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXG.Name = "txtPtdXG"
-        Me.txtPtdXG.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXG.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXG.TabIndex = 168
         Me.txtPtdXG.Tag = ""
         Me.txtPtdXG.Text = "2222"
@@ -9122,7 +9179,7 @@ Partial Class frmMain
         Me.lblPtWtK.Location = New System.Drawing.Point(287, 237)
         Me.lblPtWtK.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtK.Name = "lblPtWtK"
-        Me.lblPtWtK.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtK.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtK.TabIndex = 143
         Me.lblPtWtK.Text = "K"
         Me.lblPtWtK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9133,7 +9190,7 @@ Partial Class frmMain
         Me.txtPtdXO.Location = New System.Drawing.Point(135, 112)
         Me.txtPtdXO.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXO.Name = "txtPtdXO"
-        Me.txtPtdXO.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXO.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXO.TabIndex = 167
         Me.txtPtdXO.Tag = ""
         Me.txtPtdXO.Text = "2222"
@@ -9147,7 +9204,7 @@ Partial Class frmMain
         Me.lblPtWtC.Location = New System.Drawing.Point(543, 237)
         Me.lblPtWtC.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtC.Name = "lblPtWtC"
-        Me.lblPtWtC.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtC.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtC.TabIndex = 158
         Me.lblPtWtC.Text = "C"
         Me.lblPtWtC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9159,7 +9216,7 @@ Partial Class frmMain
         Me.lblPtWtL.Location = New System.Drawing.Point(288, 20)
         Me.lblPtWtL.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtL.Name = "lblPtWtL"
-        Me.lblPtWtL.Size = New System.Drawing.Size(14, 13)
+        Me.lblPtWtL.Size = New System.Drawing.Size(17, 17)
         Me.lblPtWtL.TabIndex = 142
         Me.lblPtWtL.Text = "L"
         Me.lblPtWtL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9170,7 +9227,7 @@ Partial Class frmMain
         Me.txtPtdXE.Location = New System.Drawing.Point(455, 112)
         Me.txtPtdXE.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXE.Name = "txtPtdXE"
-        Me.txtPtdXE.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXE.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXE.TabIndex = 166
         Me.txtPtdXE.Tag = ""
         Me.txtPtdXE.Text = "2222"
@@ -9184,7 +9241,7 @@ Partial Class frmMain
         Me.lblPtWtJ.Location = New System.Drawing.Point(352, 20)
         Me.lblPtWtJ.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtJ.Name = "lblPtWtJ"
-        Me.lblPtWtJ.Size = New System.Drawing.Size(13, 13)
+        Me.lblPtWtJ.Size = New System.Drawing.Size(16, 17)
         Me.lblPtWtJ.TabIndex = 141
         Me.lblPtWtJ.Text = "J"
         Me.lblPtWtJ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9195,7 +9252,7 @@ Partial Class frmMain
         Me.txtPtdXA.Location = New System.Drawing.Point(583, 112)
         Me.txtPtdXA.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXA.Name = "txtPtdXA"
-        Me.txtPtdXA.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXA.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXA.TabIndex = 162
         Me.txtPtdXA.Tag = ""
         Me.txtPtdXA.Text = "2222"
@@ -9208,7 +9265,7 @@ Partial Class frmMain
         Me.lblPtWtN.Location = New System.Drawing.Point(223, 20)
         Me.lblPtWtN.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtN.Name = "lblPtWtN"
-        Me.lblPtWtN.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtN.Size = New System.Drawing.Size(19, 17)
         Me.lblPtWtN.TabIndex = 138
         Me.lblPtWtN.Text = "N"
         Me.lblPtWtN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9219,7 +9276,7 @@ Partial Class frmMain
         Me.txtPtdXQ.Location = New System.Drawing.Point(71, 112)
         Me.txtPtdXQ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXQ.Name = "txtPtdXQ"
-        Me.txtPtdXQ.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXQ.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXQ.TabIndex = 165
         Me.txtPtdXQ.Tag = ""
         Me.txtPtdXQ.Text = "2222"
@@ -9233,7 +9290,7 @@ Partial Class frmMain
         Me.lblPtWtP.Location = New System.Drawing.Point(159, 20)
         Me.lblPtWtP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtP.Name = "lblPtWtP"
-        Me.lblPtWtP.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtP.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtP.TabIndex = 136
         Me.lblPtWtP.Text = "P"
         Me.lblPtWtP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9244,7 +9301,7 @@ Partial Class frmMain
         Me.txtPtdXS.Location = New System.Drawing.Point(7, 112)
         Me.txtPtdXS.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXS.Name = "txtPtdXS"
-        Me.txtPtdXS.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXS.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXS.TabIndex = 164
         Me.txtPtdXS.Tag = ""
         Me.txtPtdXS.Text = "2222"
@@ -9258,7 +9315,7 @@ Partial Class frmMain
         Me.lblPtWtH.Location = New System.Drawing.Point(415, 20)
         Me.lblPtWtH.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtH.Name = "lblPtWtH"
-        Me.lblPtWtH.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtH.Size = New System.Drawing.Size(19, 17)
         Me.lblPtWtH.TabIndex = 135
         Me.lblPtWtH.Text = "H"
         Me.lblPtWtH.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9269,7 +9326,7 @@ Partial Class frmMain
         Me.txtPtdXC.Location = New System.Drawing.Point(519, 112)
         Me.txtPtdXC.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtdXC.Name = "txtPtdXC"
-        Me.txtPtdXC.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtdXC.Size = New System.Drawing.Size(56, 22)
         Me.txtPtdXC.TabIndex = 163
         Me.txtPtdXC.Tag = ""
         Me.txtPtdXC.Text = "2222"
@@ -9282,7 +9339,7 @@ Partial Class frmMain
         Me.lblPtWtF.Location = New System.Drawing.Point(477, 20)
         Me.lblPtWtF.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtF.Name = "lblPtWtF"
-        Me.lblPtWtF.Size = New System.Drawing.Size(14, 13)
+        Me.lblPtWtF.Size = New System.Drawing.Size(17, 17)
         Me.lblPtWtF.TabIndex = 133
         Me.lblPtWtF.Text = "F"
         Me.lblPtWtF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9293,7 +9350,7 @@ Partial Class frmMain
         Me.txtPtWtT.Location = New System.Drawing.Point(7, 71)
         Me.txtPtWtT.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtT.Name = "txtPtWtT"
-        Me.txtPtWtT.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtT.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtT.TabIndex = 105
         Me.txtPtWtT.Tag = ""
         Me.txtPtWtT.Text = "2222"
@@ -9307,7 +9364,7 @@ Partial Class frmMain
         Me.lblPtWtR.Location = New System.Drawing.Point(95, 20)
         Me.lblPtWtR.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtR.Name = "lblPtWtR"
-        Me.lblPtWtR.Size = New System.Drawing.Size(16, 13)
+        Me.lblPtWtR.Size = New System.Drawing.Size(19, 17)
         Me.lblPtWtR.TabIndex = 130
         Me.lblPtWtR.Text = "R"
         Me.lblPtWtR.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9318,7 +9375,7 @@ Partial Class frmMain
         Me.txtPtWtB.Location = New System.Drawing.Point(583, 71)
         Me.txtPtWtB.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtB.Name = "txtPtWtB"
-        Me.txtPtWtB.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtB.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtB.TabIndex = 94
         Me.txtPtWtB.Tag = ""
         Me.txtPtWtB.Text = "2222"
@@ -9331,7 +9388,7 @@ Partial Class frmMain
         Me.lblPtWtT.Location = New System.Drawing.Point(31, 20)
         Me.lblPtWtT.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtT.Name = "lblPtWtT"
-        Me.lblPtWtT.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtT.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtT.TabIndex = 128
         Me.lblPtWtT.Text = "T"
         Me.lblPtWtT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9342,7 +9399,7 @@ Partial Class frmMain
         Me.txtPtWtR.Location = New System.Drawing.Point(71, 71)
         Me.txtPtWtR.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtR.Name = "txtPtWtR"
-        Me.txtPtWtR.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtR.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtR.TabIndex = 109
         Me.txtPtWtR.Tag = ""
         Me.txtPtWtR.Text = "2222"
@@ -9356,7 +9413,7 @@ Partial Class frmMain
         Me.lblPtWtB.Location = New System.Drawing.Point(607, 20)
         Me.lblPtWtB.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPtWtB.Name = "lblPtWtB"
-        Me.lblPtWtB.Size = New System.Drawing.Size(15, 13)
+        Me.lblPtWtB.Size = New System.Drawing.Size(18, 17)
         Me.lblPtWtB.TabIndex = 125
         Me.lblPtWtB.Text = "B"
         Me.lblPtWtB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -9366,7 +9423,7 @@ Partial Class frmMain
         Me.txtPtWtD.Location = New System.Drawing.Point(519, 71)
         Me.txtPtWtD.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtD.Name = "txtPtWtD"
-        Me.txtPtWtD.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtD.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtD.TabIndex = 96
         Me.txtPtWtD.Tag = ""
         Me.txtPtWtD.Text = "2222"
@@ -9377,7 +9434,7 @@ Partial Class frmMain
         Me.txtPtWtJ.Location = New System.Drawing.Point(327, 71)
         Me.txtPtWtJ.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtJ.Name = "txtPtWtJ"
-        Me.txtPtWtJ.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtJ.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtJ.TabIndex = 122
         Me.txtPtWtJ.Tag = ""
         Me.txtPtWtJ.Text = "2222"
@@ -9389,7 +9446,7 @@ Partial Class frmMain
         Me.txtPtWtP.Location = New System.Drawing.Point(135, 71)
         Me.txtPtWtP.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtP.Name = "txtPtWtP"
-        Me.txtPtWtP.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtP.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtP.TabIndex = 113
         Me.txtPtWtP.Tag = ""
         Me.txtPtWtP.Text = "2222"
@@ -9401,7 +9458,7 @@ Partial Class frmMain
         Me.txtPtWtL.Location = New System.Drawing.Point(263, 71)
         Me.txtPtWtL.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtL.Name = "txtPtWtL"
-        Me.txtPtWtL.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtL.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtL.TabIndex = 121
         Me.txtPtWtL.Tag = ""
         Me.txtPtWtL.Text = "2222"
@@ -9413,7 +9470,7 @@ Partial Class frmMain
         Me.txtPtWtF.Location = New System.Drawing.Point(455, 71)
         Me.txtPtWtF.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtF.Name = "txtPtWtF"
-        Me.txtPtWtF.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtF.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtF.TabIndex = 114
         Me.txtPtWtF.Tag = ""
         Me.txtPtWtF.Text = "2222"
@@ -9425,7 +9482,7 @@ Partial Class frmMain
         Me.txtPtWtH.Location = New System.Drawing.Point(391, 71)
         Me.txtPtWtH.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtH.Name = "txtPtWtH"
-        Me.txtPtWtH.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtH.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtH.TabIndex = 118
         Me.txtPtWtH.Tag = ""
         Me.txtPtWtH.Text = "2222"
@@ -9437,7 +9494,7 @@ Partial Class frmMain
         Me.txtPtWtN.Location = New System.Drawing.Point(199, 71)
         Me.txtPtWtN.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPtWtN.Name = "txtPtWtN"
-        Me.txtPtWtN.Size = New System.Drawing.Size(56, 20)
+        Me.txtPtWtN.Size = New System.Drawing.Size(56, 22)
         Me.txtPtWtN.TabIndex = 117
         Me.txtPtWtN.Tag = ""
         Me.txtPtWtN.Text = "2222"
@@ -9449,7 +9506,7 @@ Partial Class frmMain
         Me.Label103.AutoSize = True
         Me.Label103.Location = New System.Drawing.Point(52, 126)
         Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(63, 13)
+        Me.Label103.Size = New System.Drawing.Size(83, 17)
         Me.Label103.TabIndex = 161
         Me.Label103.Text = "Point Loads"
         '
@@ -9461,7 +9518,7 @@ Partial Class frmMain
         Me.nudPointLoads.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
         Me.nudPointLoads.Minimum = New Decimal(New Integer() {4, 0, 0, 0})
         Me.nudPointLoads.Name = "nudPointLoads"
-        Me.nudPointLoads.Size = New System.Drawing.Size(93, 20)
+        Me.nudPointLoads.Size = New System.Drawing.Size(93, 22)
         Me.nudPointLoads.TabIndex = 160
         Me.nudPointLoads.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.nudPointLoads.Value = New Decimal(New Integer() {4, 0, 0, 0})
@@ -9472,7 +9529,7 @@ Partial Class frmMain
         Me.lblSFMass.Location = New System.Drawing.Point(711, 177)
         Me.lblSFMass.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblSFMass.Name = "lblSFMass"
-        Me.lblSFMass.Size = New System.Drawing.Size(25, 13)
+        Me.lblSFMass.Size = New System.Drawing.Size(32, 17)
         Me.lblSFMass.TabIndex = 153
         Me.lblSFMass.Text = "999"
         '
@@ -9482,7 +9539,7 @@ Partial Class frmMain
         Me.Label85.Location = New System.Drawing.Point(488, 177)
         Me.Label85.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label85.Name = "Label85"
-        Me.Label85.Size = New System.Drawing.Size(182, 13)
+        Me.Label85.Size = New System.Drawing.Size(240, 17)
         Me.Label85.TabIndex = 152
         Me.Label85.Text = "Hardware, Connectors, and Brackets"
         Me.Label85.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9514,17 +9571,18 @@ Partial Class frmMain
         Me.txtModWtMod.Location = New System.Drawing.Point(284, 50)
         Me.txtModWtMod.Margin = New System.Windows.Forms.Padding(4)
         Me.txtModWtMod.Name = "txtModWtMod"
-        Me.txtModWtMod.Size = New System.Drawing.Size(82, 20)
+        Me.txtModWtMod.Size = New System.Drawing.Size(82, 22)
         Me.txtModWtMod.TabIndex = 149
         Me.txtModWtMod.TabStop = False
         '
         'lstModWtMod
         '
         Me.lstModWtMod.FormattingEnabled = True
+        Me.lstModWtMod.ItemHeight = 16
         Me.lstModWtMod.Location = New System.Drawing.Point(284, 78)
         Me.lstModWtMod.Margin = New System.Windows.Forms.Padding(4)
         Me.lstModWtMod.Name = "lstModWtMod"
-        Me.lstModWtMod.Size = New System.Drawing.Size(82, 95)
+        Me.lstModWtMod.Size = New System.Drawing.Size(82, 84)
         Me.lstModWtMod.TabIndex = 148
         Me.lstModWtMod.TabStop = False
         '
@@ -9533,7 +9591,7 @@ Partial Class frmMain
         Me.txtModWtMass.Location = New System.Drawing.Point(678, 50)
         Me.txtModWtMass.Margin = New System.Windows.Forms.Padding(4)
         Me.txtModWtMass.Name = "txtModWtMass"
-        Me.txtModWtMass.Size = New System.Drawing.Size(58, 20)
+        Me.txtModWtMass.Size = New System.Drawing.Size(58, 22)
         Me.txtModWtMass.TabIndex = 147
         Me.txtModWtMass.TabStop = False
         '
@@ -9542,27 +9600,29 @@ Partial Class frmMain
         Me.txtModWtItem.Location = New System.Drawing.Point(375, 50)
         Me.txtModWtItem.Margin = New System.Windows.Forms.Padding(4)
         Me.txtModWtItem.Name = "txtModWtItem"
-        Me.txtModWtItem.Size = New System.Drawing.Size(295, 20)
+        Me.txtModWtItem.Size = New System.Drawing.Size(295, 22)
         Me.txtModWtItem.TabIndex = 146
         Me.txtModWtItem.TabStop = False
         '
         'lstModWtMass
         '
         Me.lstModWtMass.FormattingEnabled = True
+        Me.lstModWtMass.ItemHeight = 16
         Me.lstModWtMass.Location = New System.Drawing.Point(678, 78)
         Me.lstModWtMass.Margin = New System.Windows.Forms.Padding(4)
         Me.lstModWtMass.Name = "lstModWtMass"
-        Me.lstModWtMass.Size = New System.Drawing.Size(58, 95)
+        Me.lstModWtMass.Size = New System.Drawing.Size(58, 84)
         Me.lstModWtMass.TabIndex = 145
         Me.lstModWtMass.TabStop = False
         '
         'lstModWtItem
         '
         Me.lstModWtItem.FormattingEnabled = True
+        Me.lstModWtItem.ItemHeight = 16
         Me.lstModWtItem.Location = New System.Drawing.Point(375, 78)
         Me.lstModWtItem.Margin = New System.Windows.Forms.Padding(4)
         Me.lstModWtItem.Name = "lstModWtItem"
-        Me.lstModWtItem.Size = New System.Drawing.Size(295, 95)
+        Me.lstModWtItem.Size = New System.Drawing.Size(295, 84)
         Me.lstModWtItem.TabIndex = 144
         Me.lstModWtItem.TabStop = False
         '
@@ -9571,7 +9631,7 @@ Partial Class frmMain
         Me.txtTopClear.Location = New System.Drawing.Point(832, 380)
         Me.txtTopClear.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTopClear.Name = "txtTopClear"
-        Me.txtTopClear.Size = New System.Drawing.Size(56, 20)
+        Me.txtTopClear.Size = New System.Drawing.Size(56, 22)
         Me.txtTopClear.TabIndex = 87
         Me.txtTopClear.Tag = ""
         Me.txtTopClear.Text = "80"
@@ -9583,7 +9643,7 @@ Partial Class frmMain
         Me.Label78.Location = New System.Drawing.Point(798, 383)
         Me.Label78.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(26, 13)
+        Me.Label78.Size = New System.Drawing.Size(33, 17)
         Me.Label78.TabIndex = 103
         Me.Label78.Text = "Top"
         Me.Label78.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9593,7 +9653,7 @@ Partial Class frmMain
         Me.txtLeftClear.Location = New System.Drawing.Point(1136, 380)
         Me.txtLeftClear.Margin = New System.Windows.Forms.Padding(4)
         Me.txtLeftClear.Name = "txtLeftClear"
-        Me.txtLeftClear.Size = New System.Drawing.Size(56, 20)
+        Me.txtLeftClear.Size = New System.Drawing.Size(56, 22)
         Me.txtLeftClear.TabIndex = 92
         Me.txtLeftClear.Tag = ""
         Me.txtLeftClear.Text = "95"
@@ -9605,7 +9665,7 @@ Partial Class frmMain
         Me.Label79.Location = New System.Drawing.Point(1103, 380)
         Me.Label79.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label79.Name = "Label79"
-        Me.Label79.Size = New System.Drawing.Size(25, 13)
+        Me.Label79.Size = New System.Drawing.Size(32, 17)
         Me.Label79.TabIndex = 102
         Me.Label79.Text = "Left"
         Me.Label79.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9615,7 +9675,7 @@ Partial Class frmMain
         Me.txtBottomClear.Location = New System.Drawing.Point(991, 380)
         Me.txtBottomClear.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBottomClear.Name = "txtBottomClear"
-        Me.txtBottomClear.Size = New System.Drawing.Size(56, 20)
+        Me.txtBottomClear.Size = New System.Drawing.Size(56, 22)
         Me.txtBottomClear.TabIndex = 89
         Me.txtBottomClear.Tag = ""
         Me.txtBottomClear.Text = "10.0"
@@ -9627,7 +9687,7 @@ Partial Class frmMain
         Me.Label80.Location = New System.Drawing.Point(943, 383)
         Me.Label80.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label80.Name = "Label80"
-        Me.Label80.Size = New System.Drawing.Size(40, 13)
+        Me.Label80.Size = New System.Drawing.Size(52, 17)
         Me.Label80.TabIndex = 101
         Me.Label80.Text = "Bottom"
         Me.Label80.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9637,7 +9697,7 @@ Partial Class frmMain
         Me.txtRightClear.Location = New System.Drawing.Point(832, 348)
         Me.txtRightClear.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRightClear.Name = "txtRightClear"
-        Me.txtRightClear.Size = New System.Drawing.Size(56, 20)
+        Me.txtRightClear.Size = New System.Drawing.Size(56, 22)
         Me.txtRightClear.TabIndex = 86
         Me.txtRightClear.Tag = ""
         Me.txtRightClear.Text = "80"
@@ -9649,7 +9709,7 @@ Partial Class frmMain
         Me.Label75.Location = New System.Drawing.Point(792, 351)
         Me.Label75.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(32, 13)
+        Me.Label75.Size = New System.Drawing.Size(41, 17)
         Me.Label75.TabIndex = 97
         Me.Label75.Text = "Right"
         Me.Label75.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9659,7 +9719,7 @@ Partial Class frmMain
         Me.txtBackClear.Location = New System.Drawing.Point(1136, 348)
         Me.txtBackClear.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBackClear.Name = "txtBackClear"
-        Me.txtBackClear.Size = New System.Drawing.Size(56, 20)
+        Me.txtBackClear.Size = New System.Drawing.Size(56, 22)
         Me.txtBackClear.TabIndex = 91
         Me.txtBackClear.Tag = ""
         Me.txtBackClear.Text = "95"
@@ -9671,7 +9731,7 @@ Partial Class frmMain
         Me.Label76.Location = New System.Drawing.Point(1096, 351)
         Me.Label76.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label76.Name = "Label76"
-        Me.Label76.Size = New System.Drawing.Size(32, 13)
+        Me.Label76.Size = New System.Drawing.Size(39, 17)
         Me.Label76.TabIndex = 96
         Me.Label76.Text = "Back"
         Me.Label76.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9681,7 +9741,7 @@ Partial Class frmMain
         Me.txtFrontClear.Location = New System.Drawing.Point(991, 348)
         Me.txtFrontClear.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFrontClear.Name = "txtFrontClear"
-        Me.txtFrontClear.Size = New System.Drawing.Size(56, 20)
+        Me.txtFrontClear.Size = New System.Drawing.Size(56, 22)
         Me.txtFrontClear.TabIndex = 88
         Me.txtFrontClear.Tag = ""
         Me.txtFrontClear.Text = "10.0"
@@ -9693,7 +9753,7 @@ Partial Class frmMain
         Me.Label77.Location = New System.Drawing.Point(952, 351)
         Me.Label77.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label77.Name = "Label77"
-        Me.Label77.Size = New System.Drawing.Size(31, 13)
+        Me.Label77.Size = New System.Drawing.Size(41, 17)
         Me.Label77.TabIndex = 95
         Me.Label77.Text = "Front"
         Me.Label77.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9703,7 +9763,7 @@ Partial Class frmMain
         Me.txtBUWeight.Location = New System.Drawing.Point(122, 8)
         Me.txtBUWeight.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBUWeight.Name = "txtBUWeight"
-        Me.txtBUWeight.Size = New System.Drawing.Size(93, 20)
+        Me.txtBUWeight.Size = New System.Drawing.Size(93, 22)
         Me.txtBUWeight.TabIndex = 83
         Me.txtBUWeight.Tag = ""
         Me.txtBUWeight.Text = "0"
@@ -9715,7 +9775,7 @@ Partial Class frmMain
         Me.Label69.Location = New System.Drawing.Point(24, 11)
         Me.Label69.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(90, 13)
+        Me.Label69.Size = New System.Drawing.Size(117, 17)
         Me.Label69.TabIndex = 91
         Me.Label69.Text = "Base Unit Weight"
         Me.Label69.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9725,7 +9785,7 @@ Partial Class frmMain
         Me.txtRigWeight.Location = New System.Drawing.Point(122, 94)
         Me.txtRigWeight.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRigWeight.Name = "txtRigWeight"
-        Me.txtRigWeight.Size = New System.Drawing.Size(93, 20)
+        Me.txtRigWeight.Size = New System.Drawing.Size(93, 22)
         Me.txtRigWeight.TabIndex = 85
         Me.txtRigWeight.Tag = ""
         Me.txtRigWeight.Text = "0"
@@ -9737,7 +9797,7 @@ Partial Class frmMain
         Me.Label70.Location = New System.Drawing.Point(24, 67)
         Me.Label70.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(90, 13)
+        Me.Label70.Size = New System.Drawing.Size(119, 17)
         Me.Label70.TabIndex = 90
         Me.Label70.Text = "Operating Weight"
         Me.Label70.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9747,7 +9807,7 @@ Partial Class frmMain
         Me.txtOpWeight.Location = New System.Drawing.Point(122, 64)
         Me.txtOpWeight.Margin = New System.Windows.Forms.Padding(4)
         Me.txtOpWeight.Name = "txtOpWeight"
-        Me.txtOpWeight.Size = New System.Drawing.Size(93, 20)
+        Me.txtOpWeight.Size = New System.Drawing.Size(93, 22)
         Me.txtOpWeight.TabIndex = 84
         Me.txtOpWeight.Tag = ""
         Me.txtOpWeight.Text = "0"
@@ -9759,7 +9819,7 @@ Partial Class frmMain
         Me.Label71.Location = New System.Drawing.Point(9, 97)
         Me.Label71.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(105, 13)
+        Me.Label71.Size = New System.Drawing.Size(140, 17)
         Me.Label71.TabIndex = 89
         Me.Label71.Text = "Rigging (Dry) Weight"
         Me.Label71.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9769,7 +9829,7 @@ Partial Class frmMain
         Me.txtHeight.Location = New System.Drawing.Point(1099, 314)
         Me.txtHeight.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHeight.Name = "txtHeight"
-        Me.txtHeight.Size = New System.Drawing.Size(93, 20)
+        Me.txtHeight.Size = New System.Drawing.Size(93, 22)
         Me.txtHeight.TabIndex = 82
         Me.txtHeight.Tag = ""
         Me.txtHeight.Text = "R410A"
@@ -9780,7 +9840,7 @@ Partial Class frmMain
         Me.Label72.Location = New System.Drawing.Point(1053, 317)
         Me.Label72.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(38, 13)
+        Me.Label72.Size = New System.Drawing.Size(49, 17)
         Me.Label72.TabIndex = 88
         Me.Label72.Text = "Height"
         Me.Label72.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9790,7 +9850,7 @@ Partial Class frmMain
         Me.txtWidth.Location = New System.Drawing.Point(1099, 284)
         Me.txtWidth.Margin = New System.Windows.Forms.Padding(4)
         Me.txtWidth.Name = "txtWidth"
-        Me.txtWidth.Size = New System.Drawing.Size(93, 20)
+        Me.txtWidth.Size = New System.Drawing.Size(93, 22)
         Me.txtWidth.TabIndex = 81
         Me.txtWidth.Tag = ""
         Me.txtWidth.Text = "0.75"
@@ -9801,7 +9861,7 @@ Partial Class frmMain
         Me.Label73.Location = New System.Drawing.Point(1056, 287)
         Me.Label73.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(35, 13)
+        Me.Label73.Size = New System.Drawing.Size(44, 17)
         Me.Label73.TabIndex = 87
         Me.Label73.Text = "Width"
         Me.Label73.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9811,7 +9871,7 @@ Partial Class frmMain
         Me.txtLength.Location = New System.Drawing.Point(1099, 256)
         Me.txtLength.Margin = New System.Windows.Forms.Padding(4)
         Me.txtLength.Name = "txtLength"
-        Me.txtLength.Size = New System.Drawing.Size(93, 20)
+        Me.txtLength.Size = New System.Drawing.Size(93, 22)
         Me.txtLength.TabIndex = 80
         Me.txtLength.Tag = ""
         Me.txtLength.Text = "8000"
@@ -9822,7 +9882,7 @@ Partial Class frmMain
         Me.Label74.Location = New System.Drawing.Point(1051, 259)
         Me.Label74.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(40, 13)
+        Me.Label74.Size = New System.Drawing.Size(52, 17)
         Me.Label74.TabIndex = 86
         Me.Label74.Text = "Length"
         Me.Label74.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -9860,11 +9920,11 @@ Partial Class frmMain
         Me.pgCerts.Controls.Add(Me.PictureBox1)
         Me.pgCerts.Controls.Add(Me.picASHRAE90_1)
         Me.pgCerts.Controls.Add(Me.btnDoneCerts)
-        Me.pgCerts.Location = New System.Drawing.Point(4, 22)
+        Me.pgCerts.Location = New System.Drawing.Point(4, 25)
         Me.pgCerts.Margin = New System.Windows.Forms.Padding(4)
         Me.pgCerts.Name = "pgCerts"
         Me.pgCerts.Padding = New System.Windows.Forms.Padding(4)
-        Me.pgCerts.Size = New System.Drawing.Size(1205, 492)
+        Me.pgCerts.Size = New System.Drawing.Size(1205, 489)
         Me.pgCerts.TabIndex = 10
         Me.pgCerts.Text = "Certifications"
         Me.pgCerts.UseVisualStyleBackColor = True
@@ -9874,7 +9934,7 @@ Partial Class frmMain
         Me.chkCSAGas.AutoSize = True
         Me.chkCSAGas.Location = New System.Drawing.Point(21, 377)
         Me.chkCSAGas.Name = "chkCSAGas"
-        Me.chkCSAGas.Size = New System.Drawing.Size(102, 17)
+        Me.chkCSAGas.Size = New System.Drawing.Size(132, 21)
         Me.chkCSAGas.TabIndex = 33
         Me.chkCSAGas.Text = "CSA Gas Listing"
         Me.chkCSAGas.UseVisualStyleBackColor = True
@@ -9894,7 +9954,7 @@ Partial Class frmMain
         Me.chkEnergyStar.AutoSize = True
         Me.chkEnergyStar.Location = New System.Drawing.Point(799, 99)
         Me.chkEnergyStar.Name = "chkEnergyStar"
-        Me.chkEnergyStar.Size = New System.Drawing.Size(81, 17)
+        Me.chkEnergyStar.Size = New System.Drawing.Size(105, 21)
         Me.chkEnergyStar.TabIndex = 31
         Me.chkEnergyStar.Text = "Energy Star"
         Me.chkEnergyStar.UseVisualStyleBackColor = True
@@ -9914,7 +9974,7 @@ Partial Class frmMain
         Me.chkETL.AutoSize = True
         Me.chkETL.Location = New System.Drawing.Point(678, 100)
         Me.chkETL.Name = "chkETL"
-        Me.chkETL.Size = New System.Drawing.Size(46, 17)
+        Me.chkETL.Size = New System.Drawing.Size(56, 21)
         Me.chkETL.TabIndex = 29
         Me.chkETL.Text = "ETL"
         Me.chkETL.UseVisualStyleBackColor = True
@@ -9934,7 +9994,7 @@ Partial Class frmMain
         Me.chkETL_C_US.AutoSize = True
         Me.chkETL_C_US.Location = New System.Drawing.Point(290, 255)
         Me.chkETL_C_US.Name = "chkETL_C_US"
-        Me.chkETL_C_US.Size = New System.Drawing.Size(125, 17)
+        Me.chkETL_C_US.Size = New System.Drawing.Size(160, 21)
         Me.chkETL_C_US.TabIndex = 27
         Me.chkETL_C_US.Text = "ETL Canada and US"
         Me.chkETL_C_US.UseVisualStyleBackColor = True
@@ -9954,7 +10014,7 @@ Partial Class frmMain
         Me.chkAHRICert.AutoSize = True
         Me.chkAHRICert.Location = New System.Drawing.Point(252, 99)
         Me.chkAHRICert.Name = "chkAHRICert"
-        Me.chkAHRICert.Size = New System.Drawing.Size(52, 17)
+        Me.chkAHRICert.Size = New System.Drawing.Size(62, 21)
         Me.chkAHRICert.TabIndex = 25
         Me.chkAHRICert.Text = "AHRI"
         Me.chkAHRICert.UseVisualStyleBackColor = True
@@ -9974,7 +10034,7 @@ Partial Class frmMain
         Me.chkCSA_C_US.AutoSize = True
         Me.chkCSA_C_US.Location = New System.Drawing.Point(145, 255)
         Me.chkCSA_C_US.Name = "chkCSA_C_US"
-        Me.chkCSA_C_US.Size = New System.Drawing.Size(126, 17)
+        Me.chkCSA_C_US.Size = New System.Drawing.Size(161, 21)
         Me.chkCSA_C_US.TabIndex = 23
         Me.chkCSA_C_US.Text = "CSA Canada and US"
         Me.chkCSA_C_US.UseVisualStyleBackColor = True
@@ -9993,7 +10053,7 @@ Partial Class frmMain
         Me.chkCSADesign.AutoSize = True
         Me.chkCSADesign.Location = New System.Drawing.Point(555, 99)
         Me.chkCSADesign.Name = "chkCSADesign"
-        Me.chkCSADesign.Size = New System.Drawing.Size(83, 17)
+        Me.chkCSADesign.Size = New System.Drawing.Size(105, 21)
         Me.chkCSADesign.TabIndex = 21
         Me.chkCSADesign.Text = "CSA Design"
         Me.chkCSADesign.UseVisualStyleBackColor = True
@@ -10013,7 +10073,7 @@ Partial Class frmMain
         Me.chkISO9001.AutoSize = True
         Me.chkISO9001.Location = New System.Drawing.Point(132, 99)
         Me.chkISO9001.Name = "chkISO9001"
-        Me.chkISO9001.Size = New System.Drawing.Size(71, 17)
+        Me.chkISO9001.Size = New System.Drawing.Size(89, 21)
         Me.chkISO9001.TabIndex = 19
         Me.chkISO9001.Text = "ISO 9001"
         Me.chkISO9001.UseVisualStyleBackColor = True
@@ -10033,7 +10093,7 @@ Partial Class frmMain
         Me.chkAmericanQ.AutoSize = True
         Me.chkAmericanQ.Location = New System.Drawing.Point(21, 255)
         Me.chkAmericanQ.Name = "chkAmericanQ"
-        Me.chkAmericanQ.Size = New System.Drawing.Size(105, 17)
+        Me.chkAmericanQ.Size = New System.Drawing.Size(137, 21)
         Me.chkAmericanQ.TabIndex = 17
         Me.chkAmericanQ.Text = "American Quality"
         Me.chkAmericanQ.UseVisualStyleBackColor = True
@@ -10043,7 +10103,7 @@ Partial Class frmMain
         Me.chkASHRAE90_1.AutoSize = True
         Me.chkASHRAE90_1.Location = New System.Drawing.Point(21, 99)
         Me.chkASHRAE90_1.Name = "chkASHRAE90_1"
-        Me.chkASHRAE90_1.Size = New System.Drawing.Size(94, 17)
+        Me.chkASHRAE90_1.Size = New System.Drawing.Size(118, 21)
         Me.chkASHRAE90_1.TabIndex = 16
         Me.chkASHRAE90_1.Text = "ASHRAE 90.1"
         Me.chkASHRAE90_1.UseVisualStyleBackColor = True
@@ -10080,10 +10140,10 @@ Partial Class frmMain
         'pgCutSheets
         '
         Me.pgCutSheets.Controls.Add(Me.btnDoneCutSheets)
-        Me.pgCutSheets.Location = New System.Drawing.Point(4, 22)
+        Me.pgCutSheets.Location = New System.Drawing.Point(4, 25)
         Me.pgCutSheets.Margin = New System.Windows.Forms.Padding(4)
         Me.pgCutSheets.Name = "pgCutSheets"
-        Me.pgCutSheets.Size = New System.Drawing.Size(1205, 492)
+        Me.pgCutSheets.Size = New System.Drawing.Size(1205, 489)
         Me.pgCutSheets.TabIndex = 23
         Me.pgCutSheets.Text = "Cut Sheets"
         Me.pgCutSheets.UseVisualStyleBackColor = True
@@ -10115,7 +10175,7 @@ Partial Class frmMain
         Me.chkDebug.Location = New System.Drawing.Point(58, 545)
         Me.chkDebug.Margin = New System.Windows.Forms.Padding(4)
         Me.chkDebug.Name = "chkDebug"
-        Me.chkDebug.Size = New System.Drawing.Size(55, 17)
+        Me.chkDebug.Size = New System.Drawing.Size(69, 21)
         Me.chkDebug.TabIndex = 1
         Me.chkDebug.Text = "Admin"
         Me.chkDebug.UseVisualStyleBackColor = True
@@ -10139,23 +10199,24 @@ Partial Class frmMain
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSLabelFamily, Me.TSLabelModelNum})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 586)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 582)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1239, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1239, 26)
         Me.StatusStrip1.TabIndex = 18
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'TSLabelFamily
         '
         Me.TSLabelFamily.Name = "TSLabelFamily"
-        Me.TSLabelFamily.Size = New System.Drawing.Size(48, 17)
+        Me.TSLabelFamily.Size = New System.Drawing.Size(58, 20)
         Me.TSLabelFamily.Text = "Family: "
         '
         'TSLabelModelNum
         '
         Me.TSLabelModelNum.Name = "TSLabelModelNum"
-        Me.TSLabelModelNum.Size = New System.Drawing.Size(91, 17)
+        Me.TSLabelModelNum.Size = New System.Drawing.Size(113, 20)
         Me.TSLabelModelNum.Text = "Model Number:"
         '
         'chkSaveinProjDB
@@ -10166,7 +10227,7 @@ Partial Class frmMain
         Me.chkSaveinProjDB.Location = New System.Drawing.Point(961, 541)
         Me.chkSaveinProjDB.Margin = New System.Windows.Forms.Padding(4)
         Me.chkSaveinProjDB.Name = "chkSaveinProjDB"
-        Me.chkSaveinProjDB.Size = New System.Drawing.Size(147, 17)
+        Me.chkSaveinProjDB.Size = New System.Drawing.Size(190, 21)
         Me.chkSaveinProjDB.TabIndex = 19
         Me.chkSaveinProjDB.Text = "Save in Project Database"
         Me.chkSaveinProjDB.UseVisualStyleBackColor = True
@@ -10178,10 +10239,10 @@ Partial Class frmMain
         'cmbJumpDest
         '
         Me.cmbJumpDest.FormattingEnabled = True
-        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "RFanWall", "Steam Coil", "Supply Fan", "SFanWall", "XFanWall"})
+        Me.cmbJumpDest.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "Custom Mechanical", "Custom Power", "Custom Refrigeration", "Custom Sheet Metal", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "RFanWall", "Steam Coil", "Supply Fan", "SFanWall", "XFanWall"})
         Me.cmbJumpDest.Location = New System.Drawing.Point(179, 543)
         Me.cmbJumpDest.Name = "cmbJumpDest"
-        Me.cmbJumpDest.Size = New System.Drawing.Size(178, 21)
+        Me.cmbJumpDest.Size = New System.Drawing.Size(178, 24)
         Me.cmbJumpDest.TabIndex = 20
         Me.cmbJumpDest.Visible = False
         '
@@ -10203,7 +10264,7 @@ Partial Class frmMain
         Me.chkInhibitDigConditions.Location = New System.Drawing.Point(806, 540)
         Me.chkInhibitDigConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.chkInhibitDigConditions.Name = "chkInhibitDigConditions"
-        Me.chkInhibitDigConditions.Size = New System.Drawing.Size(138, 17)
+        Me.chkInhibitDigConditions.Size = New System.Drawing.Size(180, 21)
         Me.chkInhibitDigConditions.TabIndex = 23
         Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
         Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
@@ -10214,7 +10275,7 @@ Partial Class frmMain
         Me.chk65kASCCRBase.Location = New System.Drawing.Point(583, 560)
         Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
         Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(277, 21)
         Me.chk65kASCCRBase.TabIndex = 26
         Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
         Me.chk65kASCCRBase.UseVisualStyleBackColor = True
@@ -10227,6 +10288,42 @@ Partial Class frmMain
         Me.cmdUserOptions.Size = New System.Drawing.Size(31, 33)
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
+        '
+        'Label119
+        '
+        Me.Label119.AutoSize = True
+        Me.Label119.Location = New System.Drawing.Point(14, 276)
+        Me.Label119.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label119.Name = "Label119"
+        Me.Label119.Size = New System.Drawing.Size(147, 17)
+        Me.Label119.TabIndex = 71
+        Me.Label119.Text = "Suggested Filter Tags"
+        '
+        'txtAirflowSuggestedTags
+        '
+        Me.txtAirflowSuggestedTags.Location = New System.Drawing.Point(17, 296)
+        Me.txtAirflowSuggestedTags.Name = "txtAirflowSuggestedTags"
+        Me.txtAirflowSuggestedTags.ReadOnly = True
+        Me.txtAirflowSuggestedTags.Size = New System.Drawing.Size(400, 22)
+        Me.txtAirflowSuggestedTags.TabIndex = 70
+        '
+        'Label121
+        '
+        Me.Label121.AutoSize = True
+        Me.Label121.Location = New System.Drawing.Point(14, 285)
+        Me.Label121.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label121.Name = "Label121"
+        Me.Label121.Size = New System.Drawing.Size(147, 17)
+        Me.Label121.TabIndex = 62
+        Me.Label121.Text = "Suggested Filter Tags"
+        '
+        'txtHydroSuggestedTags
+        '
+        Me.txtHydroSuggestedTags.Location = New System.Drawing.Point(17, 305)
+        Me.txtHydroSuggestedTags.Name = "txtHydroSuggestedTags"
+        Me.txtHydroSuggestedTags.ReadOnly = True
+        Me.txtHydroSuggestedTags.Size = New System.Drawing.Size(400, 22)
+        Me.txtHydroSuggestedTags.TabIndex = 61
         '
         'frmMain
         '
@@ -10425,6 +10522,13 @@ Partial Class frmMain
         Call SetupLastKingdomAndFamily()
         Me.Text = Application.ProductName & "-" & Application.ProductVersion & " Logged in as: " & UserID
 
+        If My.Settings.DebugHard Then
+            frmEndDeviceMaintenance.ShowDialog()
+        End If
+
+        If ((SuperUser()) Or (chkDebug.Checked)) Then
+            cmdEndDeviceEdit.Visible = True
+        End If
 
     End Sub
     Friend WithEvents tabMain As TabControl
@@ -11233,4 +11337,9 @@ Partial Class frmMain
     Friend WithEvents optHMIInstalled As RadioButton
     Friend WithEvents optHMIShipLoose As RadioButton
     Friend WithEvents optHMINone As RadioButton
+    Friend WithEvents cmdEndDeviceEdit As Button
+    Friend WithEvents Label121 As Label
+    Friend WithEvents txtHydroSuggestedTags As TextBox
+    Friend WithEvents Label119 As Label
+    Friend WithEvents txtAirflowSuggestedTags As TextBox
 End Class

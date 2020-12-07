@@ -55,5 +55,8 @@
     <Setting Name="UOLocalFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\jlevine\Desktop\AAA - Local Jobs\</Value>
     </Setting>
+    <Setting Name="DebugHard" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

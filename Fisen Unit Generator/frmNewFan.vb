@@ -35,7 +35,11 @@ Public Class frmNewFan
         Dim dummy As MsgBoxResult
 
         'If the user is SUPER! then alow mid operation fan list refreshes.
-        If frmMain.SU Then cmdRefreshFanList.Visible = True
+        If SuperUser() Then
+            cmdRefreshFanList.Visible = True
+            cmdCreateNewFan.Visible = True
+
+        End If
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 
@@ -155,8 +159,10 @@ Public Class frmNewFan
 
                 Case Is = "Series10"
                     cmdS10BottomReturn.Visible = True
+                    cmdS10SideReturn.Visible = True
                     lblNote1.Text = "DNE fan Is a Continental AFK 16In Fan (2hp max).  14In fan Is preferred (2hp max)."
                     chkS10BottomRAMonitor.Visible = True
+
                     chkInletMeasuringStationOnly.Visible = True
                     chkInletMeasuringStationWithXMit.Visible = True
                     chkInletMeasuringStationFull.Visible = True
@@ -3776,5 +3782,46 @@ Public Class frmNewFan
 
     Private Sub frmNewFan_Activated(sender As Object, e As EventArgs) Handles Me.Activated
         If pResearchMode Then Me.Text = Me.Text & "***Research Mode***" Else Me.Text = "Add or Replace a " & pFanStyle
+    End Sub
+
+    Private Sub cmdCreateNewFan_Click(sender As Object, e As EventArgs) Handles cmdCreateNewFan.Click
+        frmFanMaintenance.ShowDialog()
+        frmFanMaintenance.Close()
+    End Sub
+
+    Private Sub cmdS10SideReturn_Click(sender As Object, e As EventArgs) Handles cmdS10SideReturn.Click
+        Dim RAOpening As Double
+        Dim NinetyBend As Double
+        Dim Damper As Double
+        Dim Hood As Double
+
+        Dim airflow As Double
+
+        Dim NewRow As String()
+
+        airflow = Val(txtAirflow.Text)
+        'first the return air opening
+        RAOpening = 0.000000002564 * airflow ^ 2 + 0.000000051282 * airflow + 0.000181818182
+        'now the transition
+        NinetyBend = 0.05
+        'now the damper
+        Damper = 0.000000004266854998 * airflow ^ 2 + 0.000031695476713075 * airflow + 0.00885010063426657
+        'finally the hood
+        Hood = 0.000000001010744741 * airflow ^ 2 + 0.000009026079425346 * airflow + 0.00166151293860098
+
+        NewRow = {"Return Air Opening", Format(RAOpening, "0.00"), Format(RAOpening / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Cabinet Transitions", Format(NinetyBend, "0.00"), Format(NinetyBend / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Exhaust Air Dampers", Format(Damper, "0.00"), Format(Damper / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Exhaust Air Hood", Format(Hood, "0.00"), Format(Hood / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+
+
+
+        frmMain.ThisUnitRXPerf.DuctLoc = "Side"
+        cmdS10SideReturn.Enabled = False
+        btnReturn.Enabled = True
     End Sub
 End Class

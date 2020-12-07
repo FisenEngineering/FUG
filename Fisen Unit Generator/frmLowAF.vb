@@ -294,8 +294,6 @@ Public Class frmLowAF
 
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
         Dim dummy As MsgBoxResult
-        Dim tempaf As String
-        Dim delta_h As Double
 
         If ((txtAmbient.Text) <> (txtEDB.Text) And (chk100OA.Checked = True)) Then
             dummy = MsgBox("Entering Air DB should equal Ambient DB.  Proceed Anyway?", vbYesNo)

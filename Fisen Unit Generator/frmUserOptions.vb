@@ -13,6 +13,10 @@ Public Class frmUserOptions
 
     Private Sub frmUserOptions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         grpAdminOptions.Enabled = frmMain.chkDebug.Checked
+        grpSuperUserOptions.Enabled = SuperUser()
+        mnuDBMaintenance.Enabled = SuperUser()
+
+
         Call InitializeOptions()
     End Sub
 
@@ -42,5 +46,13 @@ Public Class frmUserOptions
             My.Settings.UOResearchMode = False
         End If
 
+    End Sub
+
+    Private Sub cmdEditConstDetails_Click(sender As Object, e As EventArgs) Handles cmdEditConstDetails.Click
+        frmConstDetails.ShowDialog()
+    End Sub
+
+    Private Sub cmdEditED_Click(sender As Object, e As EventArgs) Handles cmdEditED.Click
+        frmEndDeviceMaintenance.ShowDialog()
     End Sub
 End Class

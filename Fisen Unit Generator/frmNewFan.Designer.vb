@@ -23,10 +23,10 @@ Partial Class frmNewFan
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNewFan))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -169,7 +169,6 @@ Partial Class frmNewFan
         Me.cmbNewMotorHP = New System.Windows.Forms.ComboBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.txtFanbhpeach = New System.Windows.Forms.TextBox()
-        Me.btnbhpeachWiz = New System.Windows.Forms.Button()
         Me.optContinental = New System.Windows.Forms.RadioButton()
         Me.optComefri = New System.Windows.Forms.RadioButton()
         Me.cmdPasteInlet = New System.Windows.Forms.Button()
@@ -222,6 +221,7 @@ Partial Class frmNewFan
         Me.txtFanRPM = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.tpgStaticSum = New System.Windows.Forms.TabPage()
+        Me.chkFisen2Rear = New System.Windows.Forms.CheckBox()
         Me.chkHeatBaffles = New System.Windows.Forms.CheckBox()
         Me.chkReheatCoil = New System.Windows.Forms.CheckBox()
         Me.cmdLXRearSupply = New System.Windows.Forms.Button()
@@ -267,10 +267,12 @@ Partial Class frmNewFan
         Me.tslblESP = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tslblElevation = New System.Windows.Forms.ToolStripStatusLabel()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkFisen2Rear = New System.Windows.Forms.CheckBox()
+        Me.btnbhpeachWiz = New System.Windows.Forms.Button()
+        Me.cmdCreateNewFan = New System.Windows.Forms.Button()
+        Me.cmdS10SideReturn = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -1762,6 +1764,7 @@ Partial Class frmNewFan
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.cmdCreateNewFan)
         Me.tpgPerformance.Controls.Add(Me.lblIECMotorFLA)
         Me.tpgPerformance.Controls.Add(Me.lblIECNote2)
         Me.tpgPerformance.Controls.Add(Me.txtIECMotorFLA)
@@ -1955,15 +1958,6 @@ Partial Class frmNewFan
         Me.txtFanbhpeach.Name = "txtFanbhpeach"
         Me.txtFanbhpeach.Size = New System.Drawing.Size(81, 20)
         Me.txtFanbhpeach.TabIndex = 94
-        '
-        'btnbhpeachWiz
-        '
-        Me.btnbhpeachWiz.Image = CType(resources.GetObject("btnbhpeachWiz.Image"), System.Drawing.Image)
-        Me.btnbhpeachWiz.Location = New System.Drawing.Point(370, 82)
-        Me.btnbhpeachWiz.Name = "btnbhpeachWiz"
-        Me.btnbhpeachWiz.Size = New System.Drawing.Size(22, 22)
-        Me.btnbhpeachWiz.TabIndex = 93
-        Me.btnbhpeachWiz.UseVisualStyleBackColor = True
         '
         'optContinental
         '
@@ -2459,6 +2453,7 @@ Partial Class frmNewFan
         '
         'tpgStaticSum
         '
+        Me.tpgStaticSum.Controls.Add(Me.cmdS10SideReturn)
         Me.tpgStaticSum.Controls.Add(Me.chkFisen2Rear)
         Me.tpgStaticSum.Controls.Add(Me.chkHeatBaffles)
         Me.tpgStaticSum.Controls.Add(Me.chkReheatCoil)
@@ -2498,6 +2493,17 @@ Partial Class frmNewFan
         Me.tpgStaticSum.TabIndex = 3
         Me.tpgStaticSum.Text = "Static Summary"
         Me.tpgStaticSum.UseVisualStyleBackColor = True
+        '
+        'chkFisen2Rear
+        '
+        Me.chkFisen2Rear.AutoSize = True
+        Me.chkFisen2Rear.Location = New System.Drawing.Point(517, 187)
+        Me.chkFisen2Rear.Name = "chkFisen2Rear"
+        Me.chkFisen2Rear.Size = New System.Drawing.Size(185, 17)
+        Me.chkFisen2Rear.TabIndex = 39
+        Me.chkFisen2Rear.Text = "Fisen Converts to Rear Discharge"
+        Me.chkFisen2Rear.UseVisualStyleBackColor = True
+        Me.chkFisen2Rear.Visible = False
         '
         'chkHeatBaffles
         '
@@ -2886,8 +2892,8 @@ Partial Class frmNewFan
         'colItem
         '
         Me.colItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colItem.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colItem.DefaultCellStyle = DataGridViewCellStyle4
         Me.colItem.HeaderText = "Item"
         Me.colItem.MinimumWidth = 6
         Me.colItem.Name = "colItem"
@@ -2896,8 +2902,8 @@ Partial Class frmNewFan
         'colSTPStatic
         '
         Me.colSTPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle5
         Me.colSTPStatic.HeaderText = "Static(std)"
         Me.colSTPStatic.MinimumWidth = 6
         Me.colSTPStatic.Name = "colSTPStatic"
@@ -2906,8 +2912,8 @@ Partial Class frmNewFan
         'colATPStatic
         '
         Me.colATPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle6
         Me.colATPStatic.HeaderText = "Static(elev)"
         Me.colATPStatic.MinimumWidth = 6
         Me.colATPStatic.Name = "colATPStatic"
@@ -2986,16 +2992,36 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'chkFisen2Rear
+        'btnbhpeachWiz
         '
-        Me.chkFisen2Rear.AutoSize = True
-        Me.chkFisen2Rear.Location = New System.Drawing.Point(517, 187)
-        Me.chkFisen2Rear.Name = "chkFisen2Rear"
-        Me.chkFisen2Rear.Size = New System.Drawing.Size(185, 17)
-        Me.chkFisen2Rear.TabIndex = 39
-        Me.chkFisen2Rear.Text = "Fisen Converts to Rear Discharge"
-        Me.chkFisen2Rear.UseVisualStyleBackColor = True
-        Me.chkFisen2Rear.Visible = False
+        Me.btnbhpeachWiz.Image = CType(resources.GetObject("btnbhpeachWiz.Image"), System.Drawing.Image)
+        Me.btnbhpeachWiz.Location = New System.Drawing.Point(370, 82)
+        Me.btnbhpeachWiz.Name = "btnbhpeachWiz"
+        Me.btnbhpeachWiz.Size = New System.Drawing.Size(22, 22)
+        Me.btnbhpeachWiz.TabIndex = 93
+        Me.btnbhpeachWiz.UseVisualStyleBackColor = True
+        '
+        'cmdCreateNewFan
+        '
+        Me.cmdCreateNewFan.BackColor = System.Drawing.Color.LightCoral
+        Me.cmdCreateNewFan.Location = New System.Drawing.Point(698, 10)
+        Me.cmdCreateNewFan.Name = "cmdCreateNewFan"
+        Me.cmdCreateNewFan.Size = New System.Drawing.Size(75, 23)
+        Me.cmdCreateNewFan.TabIndex = 106
+        Me.cmdCreateNewFan.Text = "Create"
+        Me.cmdCreateNewFan.UseVisualStyleBackColor = False
+        Me.cmdCreateNewFan.Visible = False
+        '
+        'cmdS10SideReturn
+        '
+        Me.cmdS10SideReturn.Location = New System.Drawing.Point(110, 319)
+        Me.cmdS10SideReturn.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdS10SideReturn.Name = "cmdS10SideReturn"
+        Me.cmdS10SideReturn.Size = New System.Drawing.Size(94, 28)
+        Me.cmdS10SideReturn.TabIndex = 40
+        Me.cmdS10SideReturn.Text = "S10 Side RA"
+        Me.cmdS10SideReturn.UseVisualStyleBackColor = True
+        Me.cmdS10SideReturn.Visible = False
         '
         'frmNewFan
         '
@@ -3315,4 +3341,6 @@ Partial Class frmNewFan
     Friend WithEvents chkReheatCoil As CheckBox
     Friend WithEvents chkHeatBaffles As CheckBox
     Friend WithEvents chkFisen2Rear As CheckBox
+    Friend WithEvents cmdCreateNewFan As Button
+    Friend WithEvents cmdS10SideReturn As Button
 End Class

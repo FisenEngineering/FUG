@@ -184,6 +184,8 @@ Public Class frmMGH_R
                 ModuleCodeList.Add("523150")
             Case Is = "Series10"
                 ModuleCodeList.Add("523151")
+            Case Is = "Series12"
+                ModuleCodeList.Add("523158")
             Case Is = "Series20"
                 ModuleCodeList.Add("523152")
             Case Is = "Series40"
@@ -297,6 +299,8 @@ Public Class frmMGH_R
                 tempWeight = "25"
             Case Is = "Series10"
                 tempWeight = "25"
+            Case Is = "Series12"
+                tempWeight = "25"
             Case Is = "Series20"
                 tempWeight = "25"
             Case Is = "Series40"
@@ -357,6 +361,8 @@ Public Class frmMGH_R
             Case Is = "Series5"
                 optUseAux.Checked = True
             Case Is = "Series10"
+                optUseAux.Checked = frmMain.HasAuxillaryPanel
+            Case Is = "Series12"
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
             Case Is = "Series20"
                 optUseAux.Checked = frmMain.HasAuxillaryPanel
@@ -451,6 +457,15 @@ Public Class frmMGH_R
                         cmbAuxPanelOpts.Items.Add("Series 10 Convertible")
                         cmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
                         cmbAuxPanelOpts.Text = "Series 10 Downflow"
+                    Case Is = "Series10"
+                        cmbAuxPanelOpts.Items.Clear()
+                        cmbAuxPanelOpts.Items.Add("Series 12 Downflow")
+                        cmbAuxPanelOpts.Items.Add("Series 12 Horizontal")
+                        cmbAuxPanelOpts.Items.Add("Series 12 Horizontal No Return")
+                        cmbAuxPanelOpts.Items.Add("Series 12 Convertible")
+                        cmbAuxPanelOpts.Items.Add("Series 12 Custom Application")
+                        cmbAuxPanelOpts.Text = "Series 12 Downflow"
+
                     Case Is = "Series20"
                         cmbAuxPanelOpts.Items.Clear()
                         cmbAuxPanelOpts.Items.Add("Series 20 Downflow")

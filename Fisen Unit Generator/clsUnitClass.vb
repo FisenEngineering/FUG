@@ -233,6 +233,8 @@ Public Class clsUnitClass
                         pBrandFamily = "Sunline"
                     Case Is = "Series10"
                         pBrandFamily = "Predator"
+                    Case Is = "Series12"
+                        pBrandFamily = "Sun Core"
                     Case Is = "Series20"
                         pBrandFamily = "Sunline Magnum"
                     Case Is = "Series40"
