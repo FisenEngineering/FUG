@@ -29,6 +29,13 @@ Public Class frmNewFan
             pResearchMode = value
         End Set
     End Property
+    Private Sub SetupResearchMode()
+        'This line commented out because of the unique nature of NewFan
+        'Me.Text = Me.Text & " ***Research Mode***"
+        btnOK.Text = "Research Mode"
+        chkWriteHistory.Checked = False
+        chkWriteHistory.Enabled = False
+    End Sub
 
     Private Sub frmNewFan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim lFamily As String
@@ -40,6 +47,8 @@ Public Class frmNewFan
             cmdCreateNewFan.Visible = True
 
         End If
+
+        If pResearchMode Then Call SetupResearchMode()
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
 

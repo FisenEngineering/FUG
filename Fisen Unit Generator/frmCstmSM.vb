@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Public Class frmCstmSM
     Private pCancelled As Boolean
+    Private pResearchMode As Boolean
     Private pModsSelected As Integer()
     Private pTagALongsSelected As New ArrayList
     Private pTagALongParent As New ArrayList
@@ -13,6 +14,14 @@ Public Class frmCstmSM
         End Get
         Set(value As Boolean)
             pCancelled = value
+        End Set
+    End Property
+    Public Property ResearchMode As Boolean
+        Get
+            Return pResearchMode
+        End Get
+        Set(value As Boolean)
+            pResearchMode = value
         End Set
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
@@ -63,12 +72,12 @@ Public Class frmCstmSM
                 If rs.Fields("MCAChange").Value = True Then
                     Call CustomMCARequired(rs.Fields("LoadName").Value, rs.Fields("LoadHP").Value, rs.Fields("LoadValue").Value)
                 End If
-                Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value)
-                Call UpdateBaseUnitDrawingTags(rs.Fields("BIUnitDrawings").Value)
-                Call UpdateReferDrawingTags(rs.Fields("BIReferDrawings").Value)
-                Call UpdateAirflowDrawingTags(rs.Fields("BIAirflowDrawings").Value)
-                Call UpdateHydroDrawingTags(rs.Fields("BIHydroDrawings").Value)
-                Call AddFieldInstalledItems(rs.Fields("CstmCode").Value)
+                Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value.ToString)
+                Call UpdateBaseUnitDrawingTags(rs.Fields("BIUnitDrawings").Value.ToString)
+                Call UpdateReferDrawingTags(rs.Fields("BIReferDrawings").Value.ToString)
+                Call UpdateAirflowDrawingTags(rs.Fields("BIAirflowDrawings").Value.ToString)
+                Call UpdateHydroDrawingTags(rs.Fields("BIHydroDrawings").Value.ToString)
+                Call AddFieldInstalledItems(rs.Fields("CstmCode").Value.ToString)
 
                 rs.MoveNext()
             Loop
@@ -147,7 +156,7 @@ Public Class frmCstmSM
         If optASE.Checked Then Controller = "ASE"
 
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
-            MySQL = "Select * FROM tblCstmSM WHERE (CstmFIOP='" & lstItemsInDB.SelectedItems(i).ToString & "')"
+            MySQL = "Select * FROM tblCstmSMDB WHERE (CstmFIOP='" & lstItemsInDB.SelectedItems(i).ToString & "')"
             rs.Open(MySQL, con)
             pSelectedCodes.Add(rs.Fields("CstmCode").Value)
             rs.Close()
@@ -252,10 +261,18 @@ Public Class frmCstmSM
         'items here will look like frmmain.thiunitheatperf.deltat = txtDeltat.text
 
     End Sub
+    Private Sub SetupResearchMode()
+        Me.Text = Me.Text & " ***Research Mode***"
+        btnOK.Text = "Research Mode"
+        chkWriteHistory.Checked = False
+        chkWriteHistory.Enabled = False
+    End Sub
     Private Sub frmCstmSM_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim dummy As MsgBoxResult
 
         pCancelled = False
+
+        If pResearchMode Then Call SetupResearchMode()
 
         Call PopulateAuxPanelList() 'v1.4
         optUseAux.Checked = frmMain.HasAuxillaryPanel
@@ -495,7 +512,7 @@ Public Class frmCstmSM
     End Sub
 
     Private Sub btnDonePerformance_Click(sender As Object, e As EventArgs) Handles btnDonePerformance.Click
-        btnOK.Enabled = True
+        If Not (pResearchMode) Then btnOK.Enabled = True
     End Sub
 
     Private Sub btnDoneSelection_Click(sender As Object, e As EventArgs) Handles btnDoneSelection.Click
@@ -940,5 +957,10 @@ Public Class frmCstmSM
 
         frmFIOPPreview.ReportData = AllLines.ToString
         frmFIOPPreview.Show()
+    End Sub
+
+    Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
+        pCancelled = True
+        Me.Hide()
     End Sub
 End Class

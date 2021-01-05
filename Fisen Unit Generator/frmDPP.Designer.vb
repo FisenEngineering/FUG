@@ -22,6 +22,7 @@ Partial Class frmDPP
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDPP))
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -64,7 +65,12 @@ Partial Class frmDPP
         Me.chkNoPerformance = New System.Windows.Forms.CheckBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -224,7 +230,7 @@ Partial Class frmDPP
         'lstNoCircuit
         '
         Me.lstNoCircuit.FormattingEnabled = True
-        Me.lstNoCircuit.Items.AddRange(New Object() {"Exhaust Fan", "Return Fan", "Gas Heat", "Electric Heat", "Convenience Outlet", "UV Light Transformer", "Bipolar Ionization Transformer"})
+        Me.lstNoCircuit.Items.AddRange(New Object() {"Exhaust Fan", "Return Fan", "Gas Heat", "Electric Heat", "Convenience Outlet", "UV Light Transformer", "Bipolar Ionization Transformer", "JCI ERV Module"})
         Me.lstNoCircuit.Location = New System.Drawing.Point(163, 19)
         Me.lstNoCircuit.Name = "lstNoCircuit"
         Me.lstNoCircuit.Size = New System.Drawing.Size(108, 95)
@@ -523,21 +529,75 @@ Partial Class frmDPP
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
         '
+        'cmdLoadMod
+        '
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(277, 237)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 18
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(385, 237)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 19
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
         'cmdDesignCautions
         '
-        Me.cmdDesignCautions.Location = New System.Drawing.Point(355, 237)
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(421, 237)
         Me.cmdDesignCautions.Name = "cmdDesignCautions"
-        Me.cmdDesignCautions.Size = New System.Drawing.Size(96, 29)
-        Me.cmdDesignCautions.TabIndex = 9
-        Me.cmdDesignCautions.Text = "Design Cautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 20
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(168, 249)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 21
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
+        '
+        'cmdScience
+        '
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(313, 237)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 79
+        Me.cmdScience.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(349, 237)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 78
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
         'frmDPP
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(459, 278)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
+        Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -558,6 +618,7 @@ Partial Class frmDPP
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -603,5 +664,10 @@ Partial Class frmDPP
     Friend WithEvents optCommFisenSSFused As RadioButton
     Friend WithEvents lblXFan As Label
     Friend WithEvents lblConv As Label
+    Friend WithEvents cmdLoadMod As Button
+    Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
 End Class

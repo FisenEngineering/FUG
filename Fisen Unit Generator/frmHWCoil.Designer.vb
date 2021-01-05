@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmHWCoil
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmHWCoil
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHWCoil))
         Me.btnOK = New System.Windows.Forms.Button()
@@ -48,8 +48,6 @@ Partial Class frmHWCoil
         Me.cmbAuxPanelOpts = New System.Windows.Forms.ComboBox()
         Me.optUseAux = New System.Windows.Forms.RadioButton()
         Me.optNoAux = New System.Windows.Forms.RadioButton()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.chkS40DrawThroughCoil = New System.Windows.Forms.CheckBox()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.optCoil2Row = New System.Windows.Forms.RadioButton()
@@ -124,6 +122,8 @@ Partial Class frmHWCoil
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -336,8 +336,6 @@ Partial Class frmHWCoil
         '
         Me.tpgOptions.Controls.Add(Me.chk65kASCCRBase)
         Me.tpgOptions.Controls.Add(Me.fraAuxPanel)
-        Me.tpgOptions.Controls.Add(Me.CheckBox1)
-        Me.tpgOptions.Controls.Add(Me.CheckBox2)
         Me.tpgOptions.Controls.Add(Me.chkS40DrawThroughCoil)
         Me.tpgOptions.Controls.Add(Me.GroupBox6)
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
@@ -355,7 +353,7 @@ Partial Class frmHWCoil
         'chk65kASCCRBase
         '
         Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(6, 225)
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(6, 151)
         Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
         Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
         Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
@@ -408,35 +406,14 @@ Partial Class frmHWCoil
         Me.optNoAux.Text = "None"
         Me.optNoAux.UseVisualStyleBackColor = True
         '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(6, 150)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(149, 17)
-        Me.CheckBox1.TabIndex = 32
-        Me.CheckBox1.Text = "Provide Equipment Touch"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Enabled = False
-        Me.CheckBox2.Location = New System.Drawing.Point(12, 171)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(165, 17)
-        Me.CheckBox2.TabIndex = 33
-        Me.CheckBox2.Text = "Unit Mount Equipment Touch"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
         'chkS40DrawThroughCoil
         '
         Me.chkS40DrawThroughCoil.AutoSize = True
         Me.chkS40DrawThroughCoil.Location = New System.Drawing.Point(6, 127)
         Me.chkS40DrawThroughCoil.Name = "chkS40DrawThroughCoil"
-        Me.chkS40DrawThroughCoil.Size = New System.Drawing.Size(195, 17)
+        Me.chkS40DrawThroughCoil.Size = New System.Drawing.Size(217, 17)
         Me.chkS40DrawThroughCoil.TabIndex = 25
-        Me.chkS40DrawThroughCoil.Text = "Install Coil in Draw Through Position"
+        Me.chkS40DrawThroughCoil.Text = "Install Coil in Draw Through Position S40"
         Me.chkS40DrawThroughCoil.UseVisualStyleBackColor = True
         Me.chkS40DrawThroughCoil.Visible = False
         '
@@ -1216,12 +1193,27 @@ Partial Class frmHWCoil
         Me.cmdDesignCautions.TabIndex = 15
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
+        'cmdLoadMod
+        '
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(344, 291)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 17
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
         'frmHWCoil
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 332)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.chkWriteHistory)
@@ -1350,8 +1342,6 @@ Partial Class frmHWCoil
     Friend WithEvents cmbValveSize As ComboBox
     Friend WithEvents cmbValveDesc As ComboBox
     Friend WithEvents btnSelectAValve As Button
-    Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents fraAuxPanel As GroupBox
     Friend WithEvents cmbAuxPanelOpts As ComboBox
     Friend WithEvents optUseAux As RadioButton
@@ -1362,4 +1352,6 @@ Partial Class frmHWCoil
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents cmdLoadMod As Button
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
 End Class

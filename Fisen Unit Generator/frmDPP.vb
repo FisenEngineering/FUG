@@ -84,6 +84,11 @@
                     ModuleCodeList.Add("210118")
                     frmMain.ThisUnitElecData.CommLoad.Add("CONVENIENCE OUTLET")
                 End If
+                If lstCommCircuit.Items.Item(i) = "JCI ERV Module" Then
+                    ModuleCodeList.Add("210119")
+                    frmMain.ThisUnitElecData.CommLoad.Add("ERV Module")
+                End If
+
             Next
             ModuleCodeList.Add("210200")
             For i = 0 To lstEmerCircuit.Items.Count - 1
@@ -122,6 +127,10 @@
                 If lstEmerCircuit.Items.Item(i) = "Convenience Outlet" Then
                     ModuleCodeList.Add("210218")
                     frmMain.ThisUnitElecData.EmerLoad.Add("CONVENIENCE OUTLET")
+                End If
+                If lstEmerCircuit.Items.Item(i) = "JCI ERV Module" Then
+                    ModuleCodeList.Add("210219")
+                    frmMain.ThisUnitElecData.EmerLoad.Add("ERV Module")
                 End If
             Next
 
@@ -264,6 +273,13 @@
                 If optEmerFisenMCDS.Checked Then tempWeight = tempWeight + 20
                 If optEmerFisenMLO.Checked Then tempWeight = tempWeight + 10
                 If optEmerFisenSS.Checked Then tempWeight = tempWeight + 23
+            Case Is = "Choice"
+                If optCommFisenMCDS.Checked Then tempWeight = tempWeight + 15
+                If optCommFisenMLO.Checked Then tempWeight = tempWeight + 12
+                If optCommFisenSS.Checked Then tempWeight = tempWeight + 19
+                If optEmerFisenMCDS.Checked Then tempWeight = tempWeight + 15
+                If optEmerFisenMLO.Checked Then tempWeight = tempWeight + 12
+                If optEmerFisenSS.Checked Then tempWeight = tempWeight + 19
             Case Else
                 tempWeight = 9999
         End Select
@@ -377,7 +393,7 @@
         ModuleCodeList.Add("210000")
     End Sub
 
-    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
+    Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs)
         Call PerformDesignCautionScan(True)
     End Sub
 
@@ -389,7 +405,6 @@
         Dim totalmessage As String
         Dim spacepos As Integer
         Dim RecCount As Integer
-        Dim TCode As String
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset

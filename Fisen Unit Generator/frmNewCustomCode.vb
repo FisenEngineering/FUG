@@ -18,7 +18,7 @@
         End Set
     End Property
     Private Sub frmNewCustomCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = Me.Text & pWhichCustom
+        Me.Text = Me.Text & " " & pWhichCustom
         Call GetNextCstmCode
 
     End Sub
@@ -42,7 +42,7 @@
             Case Is = "Sheet Metal"
                 TableName = "tblCstmSMDB"
             Case Else
-
+                TableName = "Error"
         End Select
 
         MySQL = "SELECT * FROM " & TableName & " ORDER BY CstmCode"
@@ -230,6 +230,7 @@
 
         'Needs Select and Series 12
         Dim S5, S10, S20, S40, S100A, S100B, S100C, S100, SLX, SChoice, SPremier, SXTO, SXTI, SYVAA, SYCAL, SYLAA As String
+        Dim SSelect, S12, SSeriesL, S20ODSplt, S20IDSplit, S40ODSplit, SBlank, SYCUL, SYLUA, SDOAS As String
 
         NewCode = txtNewOpCode.Text
         NewDesc = txtCstmFIOP.Text
@@ -266,6 +267,17 @@
         If chkSeriesYVAA.Checked Then SYVAA = "TRUE" Else SYVAA = "FALSE"
         If chkSeriesYCAL.Checked Then SYCAL = "TRUE" Else SYCAL = "FALSE"
         If chkSeriesYLAA.Checked Then SYLAA = "TRUE" Else SYLAA = "FALSE"
+        If chkSeriesSelect.Checked Then SSelect = "True" Else SSelect = "False"
+        If chkSeries12.Checked Then S12 = "True" Else S12 = "False"
+        If chkSeriesL.Checked Then SSeriesL = "True" Else SSeriesL = "False"
+        If chkSeries20ODSplit.Checked Then S20ODSplt = "True" Else S20ODSplt = "False"
+        If chkSeries20IDSplit.Checked Then S20IDSplit = "True" Else S20IDSplit = "False"
+        If chkSeries40ODSplit.Checked Then S40ODSplit = "True" Else S40ODSplit = "False"
+        If chkBlank.Checked Then SBlank = "True" Else SBlank = "False"
+        If chkYCUL.Checked Then SYCUL = "True" Else SYCUL = "False"
+        If chkYULA.Checked Then SYLUA = "True" Else SYLUA = "False"
+        If chkDOAS.Checked Then SDOAS = "True" Else SDOAS = "False"
+
         If chkDesignCaution.Checked Then DesignCaution = "TRUE" Else DesignCaution = "FALSE"
 
         con = New ADODB.Connection
@@ -278,18 +290,16 @@
             Case Is = "Sheet Metal"
                 TableName = "tblCstmSMDB"
             Case Else
-
+                TableName = "Error"
         End Select
 
-        MySQL = "INSERT INTO " & TableName & " (CstmCode,TagALongOnly,CstmFIOP,CstmWeight,MCAChange,LoadName,LoadValue,DesignCaution,TestAF,TestCoil,TestCtrl,TestMotor,TestEHeat,TestGHeat,TestGTrain,TestHydro,TestRef,TestRefInst,Series5OK,Series10OK,Series20OK,Series40OK,Series100OK,Series100AOK,Series100BOK,Series100COK,XTIOK,XTOOK,ChoiceOK,PremierOK,YVAAOK,YCALOK,YLAAOK,SeriesLXOK) "
+        MySQL = "INSERT INTO " & TableName & " (CstmCode,TagALongOnly,CstmFIOP,CstmWeight,MCAChange,LoadName,LoadValue,DesignCaution,TestAF,TestCoil,TestCtrl,TestMotor,TestEHeat,TestGHeat,TestGTrain,TestHydro,TestRef,TestRefInst,Series5OK,Series10OK,Series20OK,Series40OK,Series100OK,Series100AOK,Series100BOK,Series100COK,XTIOK,XTOOK,ChoiceOK,PremierOK,YVAAOK,YCALOK,YLAAOK,SeriesLXOK,BlankOK,Series20ODSplitOK,Series20IDSplitOK,Series40ODSplitOK,YCULOK,YLUAOK,DOASOK,SeriesLOK) "
         MySQL = MySQL & "VALUES ('" & NewCode & "'," & TagALong & ",'" & NewDesc & "', " & Val(NewWeight) & "," & MCAChange & ",'" & LoadName & "','" & LoadVal & "'," & DesignCaution
         MySQL = MySQL & "," & TestAF & "," & TestCoil & "," & TestCtrl & "," & TestMotor & "," & TestElec & "," & TestGas & "," & TestGTrain & "," & TestHydro & "," & TestRefer & "," & TestRefInst
-        MySQL = MySQL & "," & S5 & "," & S10 & "," & S20 & "," & S40 & "," & S100 & "," & S100A & "," & S100B & "," & S100C & "," & SXTI & "," & SXTO & "," & SChoice & "," & SPremier & "," & SYVAA & "," & SYCAL & "," & SYLAA & "," & SLX & ")"
+        MySQL = MySQL & "," & S5 & "," & S10 & "," & S20 & "," & S40 & "," & S100 & "," & S100A & "," & S100B & "," & S100C & "," & SXTI & "," & SXTO & "," & SChoice & "," & SPremier & "," & SYVAA & "," & SYCAL & "," & SYLAA & "," & SLX & "," & SBlank & "," & S20ODSplt & "," & S20IDSplit & "," & S40ODSplit & "," & SYCUL & "," & SYLUA & "," & SDOAS & "," & SSeriesL & ")"
 
         con.Execute(MySQL)
 
-        'rs.Close()
-        'rs = Nothing
         con = Nothing
 
         Me.Hide()

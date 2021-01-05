@@ -1,5 +1,6 @@
 ﻿Public Class frmCstmMech
     Private pCancelled As Boolean
+    Private pResearchMode As Boolean
     Private pModsSelected As Integer()
     Private pTagALongsSelected As New ArrayList
     Private pTagALongParent As New ArrayList
@@ -14,10 +15,26 @@
             pCancelled = value
         End Set
     End Property
+    Public Property ResearchMode As Boolean
+        Get
+            Return pResearchMode
+        End Get
+        Set(value As Boolean)
+            pResearchMode = value
+        End Set
+    End Property
+    Private Sub SetupResearchMode()
+        Me.Text = Me.Text & " ***Research Mode***"
+        btnOK.Text = "Research Mode"
+        chkWriteHistory.Checked = False
+        chkWriteHistory.Enabled = False
+    End Sub
     Private Sub frmCstmMech_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim dummy As MsgBoxResult
 
         pCancelled = False
+
+        If pResearchMode Then Call SetupResearchMode()
 
         Call PopulateAuxPanelList() 'v1.4
         optUseAux.Checked = frmMain.HasAuxillaryPanel
@@ -370,7 +387,7 @@
     End Sub
 
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
-        btnOK.Enabled = True
+        If Not (pResearchMode) Then btnOK.Enabled = True
         btnDonePerf.Enabled = False
         TabControl1.Enabled = False
     End Sub

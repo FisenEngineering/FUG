@@ -71,6 +71,14 @@ Partial Class frmNewCustomCode
         Me.lblParentCode = New System.Windows.Forms.Label()
         Me.txtParentCode = New System.Windows.Forms.TextBox()
         Me.cmdConstDetails = New System.Windows.Forms.Button()
+        Me.chkBlank = New System.Windows.Forms.CheckBox()
+        Me.chkSeries40ODSplit = New System.Windows.Forms.CheckBox()
+        Me.chkSeries20IDSplit = New System.Windows.Forms.CheckBox()
+        Me.chkSeries20ODSplit = New System.Windows.Forms.CheckBox()
+        Me.chkYULA = New System.Windows.Forms.CheckBox()
+        Me.chkYCUL = New System.Windows.Forms.CheckBox()
+        Me.chkSeriesL = New System.Windows.Forms.CheckBox()
+        Me.chkDOAS = New System.Windows.Forms.CheckBox()
         CType(Me.nudLevel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -194,7 +202,7 @@ Partial Class frmNewCustomCode
         'chkTestControls
         '
         Me.chkTestControls.AutoSize = True
-        Me.chkTestControls.Location = New System.Drawing.Point(352, 142)
+        Me.chkTestControls.Location = New System.Drawing.Point(362, 142)
         Me.chkTestControls.Name = "chkTestControls"
         Me.chkTestControls.Size = New System.Drawing.Size(88, 17)
         Me.chkTestControls.TabIndex = 13
@@ -234,7 +242,7 @@ Partial Class frmNewCustomCode
         'chkTestGasTrain
         '
         Me.chkTestGasTrain.AutoSize = True
-        Me.chkTestGasTrain.Location = New System.Drawing.Point(352, 165)
+        Me.chkTestGasTrain.Location = New System.Drawing.Point(362, 165)
         Me.chkTestGasTrain.Name = "chkTestGasTrain"
         Me.chkTestGasTrain.Size = New System.Drawing.Size(96, 17)
         Me.chkTestGasTrain.TabIndex = 17
@@ -244,7 +252,7 @@ Partial Class frmNewCustomCode
         'chkTestHydro
         '
         Me.chkTestHydro.AutoSize = True
-        Me.chkTestHydro.Location = New System.Drawing.Point(446, 142)
+        Me.chkTestHydro.Location = New System.Drawing.Point(456, 142)
         Me.chkTestHydro.Name = "chkTestHydro"
         Me.chkTestHydro.Size = New System.Drawing.Size(136, 17)
         Me.chkTestHydro.TabIndex = 18
@@ -264,7 +272,7 @@ Partial Class frmNewCustomCode
         'chkTestReferInst
         '
         Me.chkTestReferInst.AutoSize = True
-        Me.chkTestReferInst.Location = New System.Drawing.Point(446, 165)
+        Me.chkTestReferInst.Location = New System.Drawing.Point(456, 165)
         Me.chkTestReferInst.Name = "chkTestReferInst"
         Me.chkTestReferInst.Size = New System.Drawing.Size(163, 17)
         Me.chkTestReferInst.TabIndex = 20
@@ -274,7 +282,7 @@ Partial Class frmNewCustomCode
         'chkSeriesXTI
         '
         Me.chkSeriesXTI.AutoSize = True
-        Me.chkSeriesXTI.Location = New System.Drawing.Point(522, 275)
+        Me.chkSeriesXTI.Location = New System.Drawing.Point(251, 368)
         Me.chkSeriesXTI.Name = "chkSeriesXTI"
         Me.chkSeriesXTI.Size = New System.Drawing.Size(43, 17)
         Me.chkSeriesXTI.TabIndex = 30
@@ -284,7 +292,7 @@ Partial Class frmNewCustomCode
         'chkSeriesXTO
         '
         Me.chkSeriesXTO.AutoSize = True
-        Me.chkSeriesXTO.Location = New System.Drawing.Point(446, 274)
+        Me.chkSeriesXTO.Location = New System.Drawing.Point(134, 368)
         Me.chkSeriesXTO.Name = "chkSeriesXTO"
         Me.chkSeriesXTO.Size = New System.Drawing.Size(48, 17)
         Me.chkSeriesXTO.TabIndex = 29
@@ -294,7 +302,7 @@ Partial Class frmNewCustomCode
         'chkSeries40
         '
         Me.chkSeries40.AutoSize = True
-        Me.chkSeries40.Location = New System.Drawing.Point(446, 229)
+        Me.chkSeries40.Location = New System.Drawing.Point(456, 229)
         Me.chkSeries40.Name = "chkSeries40"
         Me.chkSeries40.Size = New System.Drawing.Size(70, 17)
         Me.chkSeries40.TabIndex = 28
@@ -304,7 +312,7 @@ Partial Class frmNewCustomCode
         'chkSeries100C
         '
         Me.chkSeries100C.AutoSize = True
-        Me.chkSeries100C.Location = New System.Drawing.Point(352, 252)
+        Me.chkSeries100C.Location = New System.Drawing.Point(362, 252)
         Me.chkSeries100C.Name = "chkSeries100C"
         Me.chkSeries100C.Size = New System.Drawing.Size(83, 17)
         Me.chkSeries100C.TabIndex = 27
@@ -344,7 +352,7 @@ Partial Class frmNewCustomCode
         'chkSeries20
         '
         Me.chkSeries20.AutoSize = True
-        Me.chkSeries20.Location = New System.Drawing.Point(352, 229)
+        Me.chkSeries20.Location = New System.Drawing.Point(362, 229)
         Me.chkSeries20.Name = "chkSeries20"
         Me.chkSeries20.Size = New System.Drawing.Size(70, 17)
         Me.chkSeries20.TabIndex = 23
@@ -384,7 +392,7 @@ Partial Class frmNewCustomCode
         'chkSeriesSelect
         '
         Me.chkSeriesSelect.AutoSize = True
-        Me.chkSeriesSelect.Location = New System.Drawing.Point(352, 275)
+        Me.chkSeriesSelect.Location = New System.Drawing.Point(362, 275)
         Me.chkSeriesSelect.Name = "chkSeriesSelect"
         Me.chkSeriesSelect.Size = New System.Drawing.Size(56, 17)
         Me.chkSeriesSelect.TabIndex = 32
@@ -394,7 +402,7 @@ Partial Class frmNewCustomCode
         'chkSeriesYVAA
         '
         Me.chkSeriesYVAA.AutoSize = True
-        Me.chkSeriesYVAA.Location = New System.Drawing.Point(134, 297)
+        Me.chkSeriesYVAA.Location = New System.Drawing.Point(134, 405)
         Me.chkSeriesYVAA.Name = "chkSeriesYVAA"
         Me.chkSeriesYVAA.Size = New System.Drawing.Size(54, 17)
         Me.chkSeriesYVAA.TabIndex = 33
@@ -404,7 +412,7 @@ Partial Class frmNewCustomCode
         'chkSeriesYCAL
         '
         Me.chkSeriesYCAL.AutoSize = True
-        Me.chkSeriesYCAL.Location = New System.Drawing.Point(251, 297)
+        Me.chkSeriesYCAL.Location = New System.Drawing.Point(251, 405)
         Me.chkSeriesYCAL.Name = "chkSeriesYCAL"
         Me.chkSeriesYCAL.Size = New System.Drawing.Size(53, 17)
         Me.chkSeriesYCAL.TabIndex = 34
@@ -414,7 +422,7 @@ Partial Class frmNewCustomCode
         'chkSeriesYLAA
         '
         Me.chkSeriesYLAA.AutoSize = True
-        Me.chkSeriesYLAA.Location = New System.Drawing.Point(352, 298)
+        Me.chkSeriesYLAA.Location = New System.Drawing.Point(362, 406)
         Me.chkSeriesYLAA.Name = "chkSeriesYLAA"
         Me.chkSeriesYLAA.Size = New System.Drawing.Size(53, 17)
         Me.chkSeriesYLAA.TabIndex = 35
@@ -424,7 +432,7 @@ Partial Class frmNewCustomCode
         'chkSeriesLX
         '
         Me.chkSeriesLX.AutoSize = True
-        Me.chkSeriesLX.Location = New System.Drawing.Point(446, 251)
+        Me.chkSeriesLX.Location = New System.Drawing.Point(456, 251)
         Me.chkSeriesLX.Name = "chkSeriesLX"
         Me.chkSeriesLX.Size = New System.Drawing.Size(71, 17)
         Me.chkSeriesLX.TabIndex = 36
@@ -434,7 +442,7 @@ Partial Class frmNewCustomCode
         'chkSeries12
         '
         Me.chkSeries12.AutoSize = True
-        Me.chkSeries12.Location = New System.Drawing.Point(522, 229)
+        Me.chkSeries12.Location = New System.Drawing.Point(532, 229)
         Me.chkSeries12.Name = "chkSeries12"
         Me.chkSeries12.Size = New System.Drawing.Size(70, 17)
         Me.chkSeries12.TabIndex = 37
@@ -549,12 +557,103 @@ Partial Class frmNewCustomCode
         Me.cmdConstDetails.Text = "Const. Details"
         Me.cmdConstDetails.UseVisualStyleBackColor = True
         '
+        'chkBlank
+        '
+        Me.chkBlank.AutoSize = True
+        Me.chkBlank.Checked = True
+        Me.chkBlank.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkBlank.Enabled = False
+        Me.chkBlank.Location = New System.Drawing.Point(532, 368)
+        Me.chkBlank.Name = "chkBlank"
+        Me.chkBlank.Size = New System.Drawing.Size(53, 17)
+        Me.chkBlank.TabIndex = 49
+        Me.chkBlank.Text = "Blank"
+        Me.chkBlank.UseVisualStyleBackColor = True
+        '
+        'chkSeries40ODSplit
+        '
+        Me.chkSeries40ODSplit.AutoSize = True
+        Me.chkSeries40ODSplit.Location = New System.Drawing.Point(362, 309)
+        Me.chkSeries40ODSplit.Name = "chkSeries40ODSplit"
+        Me.chkSeries40ODSplit.Size = New System.Drawing.Size(107, 17)
+        Me.chkSeries40ODSplit.TabIndex = 52
+        Me.chkSeries40ODSplit.Text = "Series 40 ID Split"
+        Me.chkSeries40ODSplit.UseVisualStyleBackColor = True
+        '
+        'chkSeries20IDSplit
+        '
+        Me.chkSeries20IDSplit.AutoSize = True
+        Me.chkSeries20IDSplit.Location = New System.Drawing.Point(251, 308)
+        Me.chkSeries20IDSplit.Name = "chkSeries20IDSplit"
+        Me.chkSeries20IDSplit.Size = New System.Drawing.Size(107, 17)
+        Me.chkSeries20IDSplit.TabIndex = 51
+        Me.chkSeries20IDSplit.Text = "Series 20 ID Split"
+        Me.chkSeries20IDSplit.UseVisualStyleBackColor = True
+        '
+        'chkSeries20ODSplit
+        '
+        Me.chkSeries20ODSplit.AutoSize = True
+        Me.chkSeries20ODSplit.Location = New System.Drawing.Point(134, 308)
+        Me.chkSeries20ODSplit.Name = "chkSeries20ODSplit"
+        Me.chkSeries20ODSplit.Size = New System.Drawing.Size(112, 17)
+        Me.chkSeries20ODSplit.TabIndex = 50
+        Me.chkSeries20ODSplit.Text = "Series 20 OD Split"
+        Me.chkSeries20ODSplit.UseVisualStyleBackColor = True
+        '
+        'chkYULA
+        '
+        Me.chkYULA.AutoSize = True
+        Me.chkYULA.Location = New System.Drawing.Point(251, 332)
+        Me.chkYULA.Name = "chkYULA"
+        Me.chkYULA.Size = New System.Drawing.Size(54, 17)
+        Me.chkYULA.TabIndex = 54
+        Me.chkYULA.Text = "YULA"
+        Me.chkYULA.UseVisualStyleBackColor = True
+        '
+        'chkYCUL
+        '
+        Me.chkYCUL.AutoSize = True
+        Me.chkYCUL.Location = New System.Drawing.Point(134, 331)
+        Me.chkYCUL.Name = "chkYCUL"
+        Me.chkYCUL.Size = New System.Drawing.Size(54, 17)
+        Me.chkYCUL.TabIndex = 53
+        Me.chkYCUL.Text = "YCUL"
+        Me.chkYCUL.UseVisualStyleBackColor = True
+        '
+        'chkSeriesL
+        '
+        Me.chkSeriesL.AutoSize = True
+        Me.chkSeriesL.Location = New System.Drawing.Point(362, 368)
+        Me.chkSeriesL.Name = "chkSeriesL"
+        Me.chkSeriesL.Size = New System.Drawing.Size(64, 17)
+        Me.chkSeriesL.TabIndex = 55
+        Me.chkSeriesL.Text = "Series L"
+        Me.chkSeriesL.UseVisualStyleBackColor = True
+        '
+        'chkDOAS
+        '
+        Me.chkDOAS.AutoSize = True
+        Me.chkDOAS.Location = New System.Drawing.Point(456, 368)
+        Me.chkDOAS.Name = "chkDOAS"
+        Me.chkDOAS.Size = New System.Drawing.Size(64, 17)
+        Me.chkDOAS.TabIndex = 56
+        Me.chkDOAS.Text = "Addison"
+        Me.chkDOAS.UseVisualStyleBackColor = True
+        '
         'frmNewCustomCode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(652, 515)
         Me.ControlBox = False
+        Me.Controls.Add(Me.chkDOAS)
+        Me.Controls.Add(Me.chkSeriesL)
+        Me.Controls.Add(Me.chkYULA)
+        Me.Controls.Add(Me.chkYCUL)
+        Me.Controls.Add(Me.chkSeries40ODSplit)
+        Me.Controls.Add(Me.chkSeries20IDSplit)
+        Me.Controls.Add(Me.chkSeries20ODSplit)
+        Me.Controls.Add(Me.chkBlank)
         Me.Controls.Add(Me.cmdConstDetails)
         Me.Controls.Add(Me.lblParentCode)
         Me.Controls.Add(Me.txtParentCode)
@@ -663,4 +762,12 @@ Partial Class frmNewCustomCode
     Friend WithEvents lblParentCode As Label
     Friend WithEvents txtParentCode As TextBox
     Friend WithEvents cmdConstDetails As Button
+    Friend WithEvents chkBlank As CheckBox
+    Friend WithEvents chkSeries40ODSplit As CheckBox
+    Friend WithEvents chkSeries20IDSplit As CheckBox
+    Friend WithEvents chkSeries20ODSplit As CheckBox
+    Friend WithEvents chkYULA As CheckBox
+    Friend WithEvents chkYCUL As CheckBox
+    Friend WithEvents chkSeriesL As CheckBox
+    Friend WithEvents chkDOAS As CheckBox
 End Class

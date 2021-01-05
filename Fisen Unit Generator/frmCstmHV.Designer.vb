@@ -528,7 +528,7 @@ Partial Class frmCstmHV
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 342)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 346)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(612, 22)
         Me.StatusStrip1.TabIndex = 85
@@ -537,7 +537,7 @@ Partial Class frmCstmHV
         'frmCstmHV
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(612, 364)
+        Me.ClientSize = New System.Drawing.Size(612, 368)
         Me.ControlBox = False
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.chkWriteHistory)

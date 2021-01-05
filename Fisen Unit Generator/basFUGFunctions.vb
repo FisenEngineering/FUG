@@ -1,4 +1,22 @@
 ﻿Module basFUGFunctions
+    Public Function GuessPerfPrevVerFileName(lmodname As String) As String
+        Dim TempFileName As String
+        Dim CurrentVer, LastVer As Double
+        Dim strLastVer As String
+        TempFileName = "Unknown.xml"
+        CurrentVer = Val(frmMain.txtUnitVersion.Text)
+        LastVer = CurrentVer - 1
+        strLastVer = Format(LastVer, "0.0")
+
+        Select Case lmodname
+            Case Is = "HWCoil"
+                TempFileName = "FUG-HWCoilData_"
+        End Select
+        TempFileName = TempFileName & Ver2FileVer(strLastVer) & ".xml"
+
+
+        Return TempFileName
+    End Function
     Public Function Ver2FileVer(lVersionNum As String) As String
         Dim MyVer As String
         Dim dotloc As Integer

@@ -117,7 +117,7 @@ Partial Class frmCstmSM
         Me.tpgSelection.Controls.Add(Me.lstItemsInDB)
         Me.tpgSelection.Location = New System.Drawing.Point(4, 22)
         Me.tpgSelection.Name = "tpgSelection"
-        Me.tpgSelection.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgSelection.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgSelection.Size = New System.Drawing.Size(585, 253)
         Me.tpgSelection.TabIndex = 5
         Me.tpgSelection.Text = "Selection"
@@ -137,7 +137,7 @@ Partial Class frmCstmSM
         'btnDoneSelection
         '
         Me.btnDoneSelection.Location = New System.Drawing.Point(520, 219)
-        Me.btnDoneSelection.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnDoneSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDoneSelection.Name = "btnDoneSelection"
         Me.btnDoneSelection.Size = New System.Drawing.Size(55, 28)
         Me.btnDoneSelection.TabIndex = 10
@@ -165,7 +165,7 @@ Partial Class frmCstmSM
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
         Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Name = "tpgConditions"
-        Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgConditions.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgConditions.Size = New System.Drawing.Size(585, 253)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
@@ -240,7 +240,7 @@ Partial Class frmCstmSM
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Name = "tpgOptions"
-        Me.tpgOptions.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgOptions.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgOptions.Size = New System.Drawing.Size(585, 253)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
@@ -272,9 +272,9 @@ Partial Class frmCstmSM
         Me.grpAuxPanel.Controls.Add(Me.optUseAux)
         Me.grpAuxPanel.Controls.Add(Me.optNoAux)
         Me.grpAuxPanel.Location = New System.Drawing.Point(7, 54)
-        Me.grpAuxPanel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grpAuxPanel.Margin = New System.Windows.Forms.Padding(2)
         Me.grpAuxPanel.Name = "grpAuxPanel"
-        Me.grpAuxPanel.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grpAuxPanel.Padding = New System.Windows.Forms.Padding(2)
         Me.grpAuxPanel.Size = New System.Drawing.Size(160, 85)
         Me.grpAuxPanel.TabIndex = 34
         Me.grpAuxPanel.TabStop = False
@@ -285,7 +285,7 @@ Partial Class frmCstmSM
         Me.cmbAuxPanelOpts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbAuxPanelOpts.FormattingEnabled = True
         Me.cmbAuxPanelOpts.Location = New System.Drawing.Point(4, 53)
-        Me.cmbAuxPanelOpts.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cmbAuxPanelOpts.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbAuxPanelOpts.Name = "cmbAuxPanelOpts"
         Me.cmbAuxPanelOpts.Size = New System.Drawing.Size(152, 21)
         Me.cmbAuxPanelOpts.TabIndex = 29
@@ -294,7 +294,7 @@ Partial Class frmCstmSM
         '
         Me.optUseAux.AutoSize = True
         Me.optUseAux.Location = New System.Drawing.Point(4, 34)
-        Me.optUseAux.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.optUseAux.Margin = New System.Windows.Forms.Padding(2)
         Me.optUseAux.Name = "optUseAux"
         Me.optUseAux.Size = New System.Drawing.Size(149, 17)
         Me.optUseAux.TabIndex = 1
@@ -307,7 +307,7 @@ Partial Class frmCstmSM
         Me.optNoAux.AutoSize = True
         Me.optNoAux.Checked = True
         Me.optNoAux.Location = New System.Drawing.Point(4, 15)
-        Me.optNoAux.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.optNoAux.Margin = New System.Windows.Forms.Padding(2)
         Me.optNoAux.Name = "optNoAux"
         Me.optNoAux.Size = New System.Drawing.Size(51, 17)
         Me.optNoAux.TabIndex = 0
@@ -320,7 +320,7 @@ Partial Class frmCstmSM
         Me.chkMountEquipmentTouch.AutoSize = True
         Me.chkMountEquipmentTouch.Enabled = False
         Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(26, 30)
-        Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
         Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
         Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
         Me.chkMountEquipmentTouch.TabIndex = 26
@@ -331,7 +331,7 @@ Partial Class frmCstmSM
         '
         Me.chkIncludeEquipmentTouch.AutoSize = True
         Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(7, 7)
-        Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
         Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
         Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
         Me.chkIncludeEquipmentTouch.TabIndex = 25
@@ -354,7 +354,7 @@ Partial Class frmCstmSM
         Me.tpgControls.Controls.Add(Me.btnDoneControls)
         Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Name = "tpgControls"
-        Me.tpgControls.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tpgControls.Padding = New System.Windows.Forms.Padding(3)
         Me.tpgControls.Size = New System.Drawing.Size(585, 253)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
@@ -367,9 +367,9 @@ Partial Class frmCstmSM
         Me.GroupBox1.Controls.Add(Me.optIPU)
         Me.GroupBox1.Controls.Add(Me.optSE)
         Me.GroupBox1.Location = New System.Drawing.Point(472, 7)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(106, 127)
         Me.GroupBox1.TabIndex = 26
         Me.GroupBox1.TabStop = False
@@ -380,7 +380,7 @@ Partial Class frmCstmSM
         Me.optOtherControl.AutoSize = True
         Me.optOtherControl.Enabled = False
         Me.optOtherControl.Location = New System.Drawing.Point(8, 96)
-        Me.optOtherControl.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.optOtherControl.Margin = New System.Windows.Forms.Padding(4)
         Me.optOtherControl.Name = "optOtherControl"
         Me.optOtherControl.Size = New System.Drawing.Size(51, 17)
         Me.optOtherControl.TabIndex = 5
@@ -392,7 +392,7 @@ Partial Class frmCstmSM
         Me.optASE.AutoSize = True
         Me.optASE.Enabled = False
         Me.optASE.Location = New System.Drawing.Point(8, 71)
-        Me.optASE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.optASE.Margin = New System.Windows.Forms.Padding(4)
         Me.optASE.Name = "optASE"
         Me.optASE.Size = New System.Drawing.Size(93, 17)
         Me.optASE.TabIndex = 4
@@ -404,7 +404,7 @@ Partial Class frmCstmSM
         Me.optIPU.AutoSize = True
         Me.optIPU.Enabled = False
         Me.optIPU.Location = New System.Drawing.Point(8, 46)
-        Me.optIPU.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.optIPU.Margin = New System.Windows.Forms.Padding(4)
         Me.optIPU.Name = "optIPU"
         Me.optIPU.Size = New System.Drawing.Size(90, 17)
         Me.optIPU.TabIndex = 1
@@ -416,7 +416,7 @@ Partial Class frmCstmSM
         Me.optSE.AutoSize = True
         Me.optSE.Checked = True
         Me.optSE.Location = New System.Drawing.Point(8, 21)
-        Me.optSE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.optSE.Margin = New System.Windows.Forms.Padding(4)
         Me.optSE.Name = "optSE"
         Me.optSE.Size = New System.Drawing.Size(86, 17)
         Me.optSE.TabIndex = 0
@@ -458,7 +458,7 @@ Partial Class frmCstmSM
         '
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
-        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
         Me.DebugPage.Size = New System.Drawing.Size(585, 253)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
@@ -519,7 +519,8 @@ Partial Class frmCstmSM
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 342)
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 343)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(612, 22)
         Me.StatusStrip1.TabIndex = 81
@@ -527,9 +528,8 @@ Partial Class frmCstmSM
         '
         'frmCstmSM
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 364)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
+        Me.ClientSize = New System.Drawing.Size(612, 365)
         Me.ControlBox = False
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.chkWriteHistory)

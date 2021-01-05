@@ -3374,9 +3374,9 @@ Public Class frmMain
         Next j
         If ThisUnitCstmMechCodes.Count > 0 Then
             UnitWriter.WriteStartElement("CstmMech")
-            UnitWriter.WriteStartElement("ModeCode")
-            UnitWriter.WriteString("940000")
-            UnitWriter.WriteEndElement()
+            'UnitWriter.WriteStartElement("ModeCode")
+            'UnitWriter.WriteString("940000")
+            'UnitWriter.WriteEndElement()
             For j = 0 To ThisUnitCstmMechCodes.Count - 1
                 UnitWriter.WriteStartElement("ModeCode")
                 UnitWriter.WriteString(ThisUnitCstmMechCodes.Item(j))
@@ -3386,9 +3386,9 @@ Public Class frmMain
         End If
         If ThisUnitCstmRefCodes.Count > 0 Then
             UnitWriter.WriteStartElement("CstmRef")
-            UnitWriter.WriteStartElement("ModeCode")
-            UnitWriter.WriteString("970000")
-            UnitWriter.WriteEndElement()
+            'UnitWriter.WriteStartElement("ModeCode")
+            'UnitWriter.WriteString("970000")
+            'UnitWriter.WriteEndElement()
             For j = 0 To ThisUnitCstmRefCodes.Count - 1
                 UnitWriter.WriteStartElement("ModeCode")
                 UnitWriter.WriteString(ThisUnitCstmRefCodes.Item(j))
@@ -3398,9 +3398,9 @@ Public Class frmMain
         End If
         If ThisUnitCstmSMCodes.Count > 0 Then
             UnitWriter.WriteStartElement("CstmSM")
-            UnitWriter.WriteStartElement("ModeCode")
-            UnitWriter.WriteString("940000")
-            UnitWriter.WriteEndElement()
+            'UnitWriter.WriteStartElement("ModeCode")
+            'UnitWriter.WriteString("990000")
+            'UnitWriter.WriteEndElement()
             For j = 0 To ThisUnitCstmSMCodes.Count - 1
                 UnitWriter.WriteStartElement("ModeCode")
                 UnitWriter.WriteString(ThisUnitCstmSMCodes.Item(j))
@@ -3410,9 +3410,9 @@ Public Class frmMain
         End If
         If ThisUnitCstmHVCodes.Count > 0 Then
             UnitWriter.WriteStartElement("CstmHV")
-            UnitWriter.WriteStartElement("ModeCode")
-            UnitWriter.WriteString("920000")
-            UnitWriter.WriteEndElement()
+            'UnitWriter.WriteStartElement("ModeCode")
+            'UnitWriter.WriteString("920000")
+            'UnitWriter.WriteEndElement()
             For j = 0 To ThisUnitCstmHVCodes.Count - 1
                 UnitWriter.WriteStartElement("ModeCode")
                 UnitWriter.WriteString(ThisUnitCstmHVCodes.Item(j))
@@ -3422,9 +3422,9 @@ Public Class frmMain
         End If
         If ThisUnitCstmCtrlCodes.Count > 0 Then
             UnitWriter.WriteStartElement("CstmCtrl")
-            UnitWriter.WriteStartElement("ModeCode")
-            UnitWriter.WriteString("980000")
-            UnitWriter.WriteEndElement()
+            'UnitWriter.WriteStartElement("ModeCode")
+            'UnitWriter.WriteString("980000")
+            'UnitWriter.WriteEndElement()
             For j = 0 To ThisUnitCstmCtrlCodes.Count - 1
                 UnitWriter.WriteStartElement("ModeCode")
                 UnitWriter.WriteString(ThisUnitCstmCtrlCodes.Item(j))
@@ -6653,6 +6653,8 @@ Public Class frmMain
         Dim SugTags As String
         Dim ArrTags() As String
         Dim i, TargetID As Integer
+        'debugging only
+        Exit Sub
 
         If txtUnitSuggestedTags.Text = "" Then Exit Sub
         SugTags = Trim(txtUnitSuggestedTags.Text)
@@ -8754,6 +8756,7 @@ Public Class frmMain
         Dim FSTFile As String
         Dim FullFilePath As String
 
+
         FullFilePath = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\BaseUnitFile.xml"
         If Not (My.Computer.FileSystem.FileExists(FullFilePath)) Then
             If txtBaseUnitFile.Text = "" Then
@@ -9228,6 +9231,8 @@ Public Class frmMain
                 frmFiltration.ShowDialog()
             Case Is = "HGBP"
                 frmHGBP.ShowDialog()
+            Case Is = "HWCoil"
+                frmHWCoil.ShowDialog()
             Case Is = "LCVAV"
                 frmLCVAV.ShowDialog()
             Case Is = "LowAF"
@@ -9562,7 +9567,10 @@ Public Class frmMain
         Dim RQData As String
         Dim dummy As MsgBoxResult
         Dim MsgStr As String
+
         ThisUnit.Family = SetUnitFamily()
+        ThisUnit.Cabinet = SetUnitCabinet()
+        ThisUnit.Kingdom = SetUnitKingdom()
 
         Select Case cmbResearchTarget.Text
 
@@ -9573,6 +9581,21 @@ Public Class frmMain
                 frmNewFan.ResearchMode = True
                 frmNewFan.ShowDialog()
                 frmNewFan.ResearchMode = False
+            Case Is = "Custom Controls"
+                dummy = MsgBox("Have you selected the appropriate Unit Family?", vbYesNo, "Fisen Unit Generator")
+                If dummy = vbYes Then
+
+                Else
+                    Exit Sub
+                End If
+            Case Is = "Custom Mechanical"
+
+            Case Is = "Custom Power"
+
+            Case Is = "Custom Refrigeration"
+
+            Case Is = "Custom Sheetmetal"
+
             Case Else
                 MsgStr = "Research for that module has not yet been implemented."
                 dummy = MsgBox(MsgStr, vbOKOnly, "Fisen Unit Generator")

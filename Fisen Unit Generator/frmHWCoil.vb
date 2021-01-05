@@ -1,5 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Xml
+Imports System.Xml.Serialization
+Imports System.IO
 
 Public Class frmHWCoil
 
@@ -20,7 +22,8 @@ Public Class frmHWCoil
         Call UpdateWarrantyItems
         frmMain.ThisUnitMods.Add("HWCoil")
         Call UpdateCodeList()
-        If chkWriteHistory.Checked = True Then Call WriteHWCoilHistory
+        If chkWriteHistory.Checked = True Then Call WriteHWCoilHistory()
+        Call WriteModuleData()
         Me.Hide()
     End Sub
     Private Sub UpdateCodeList()
@@ -1025,4 +1028,402 @@ Public Class frmHWCoil
         frmHistoryReport.cmbModCode.Text = "HWCoil"
         frmHistoryReport.Show()
     End Sub
+
+    Private Sub cmdLoadMod_Click(sender As Object, e As EventArgs) Handles cmdLoadMod.Click
+        Call LoadPriorVersionData
+    End Sub
+
+    Private Sub LoadPriorVersionData()
+        Dim FUGName, FUGPath As String
+        Dim xDoc As XmlDocument = New XmlDocument
+        Dim myItem As String
+        Dim dummy As MsgBoxResult
+
+
+        FUGName = GuessPerfPrevVerFileName("HWCoil")
+        FUGPath = frmMain.txtProjectDirectory.Text
+        FUGPath = FUGPath & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & " - " & FUGName
+        If Not (My.Computer.FileSystem.FileExists(FUGPath)) Then
+            dummy = MsgBox("Couldn't locate the expected file." & vbCrLf & "Search for file?", vbYesNo, "Fisen Unit Generator")
+            If dummy = vbNo Then Exit Sub
+            OpenFileDialog1.InitialDirectory = frmMain.txtProjectDirectory.Text & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\"
+            OpenFileDialog1.Filter = ".xml Files (*.xml)|*.xml|All files (*.*)|*.*"
+            OpenFileDialog1.FilterIndex = 1
+            If OpenFileDialog1.ShowDialog = vbOK Then
+                FUGPath = OpenFileDialog1.FileName
+            Else
+                Exit Sub
+            End If
+
+        End If
+        xDoc.Load(FUGPath)
+        Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//HotWaterCoil/Conditions")
+
+        txtHeatAF.Text = xNodeRoot.SelectSingleNode("HeatAF").InnerText
+        txtEAT.Text = xNodeRoot.SelectSingleNode("EAT").InnerText
+        txtInputCap.Text = xNodeRoot.SelectSingleNode("InCap").InnerText
+        txtEFT.Text = xNodeRoot.SelectSingleNode("EFT").InnerText
+        txtFluidFlow.Text = xNodeRoot.SelectSingleNode("FluidFlow").InnerText
+        cmbFluidList.Text = xNodeRoot.SelectSingleNode("Fluid").InnerText
+        cmbFluidPer.Text = xNodeRoot.SelectSingleNode("FluidPer").InnerText
+
+        xNodeRoot = xDoc.SelectSingleNode("//HotWaterCoil/Options")
+        myItem = xNodeRoot.SelectSingleNode("Coil").InnerText
+        Select Case myItem
+            Case Is = "Custom"
+                optCoilCustom.Checked = True
+            Case Is = "1Row"
+                optCoil1Row.Checked = True
+            Case Is = "2Row"
+                optCoil2Row.Checked = True
+        End Select
+        myItem = xNodeRoot.SelectSingleNode("Valve").InnerText
+        Select Case myItem
+            Case Is = "None"
+                optValveNone.Checked = True
+            Case Is = "2Way"
+                optValve2Way.Checked = True
+            Case Is = "3Way"
+                optValve3Way.Checked = True
+        End Select
+        myItem = xNodeRoot.SelectSingleNode("ValveInstall").InnerText
+        Select Case myItem
+            Case Is = "FisenProvFisenInst"
+                optValveFisenProvFisenInst.Checked = True
+            Case Is = "FisenProvFieldInst"
+                optValveFisenProvFieldInst.Checked = True
+            Case Is = "FieldProvFieldInst"
+                optValveFieldProvFieldInst.Checked = True
+        End Select
+        myItem = xNodeRoot.SelectSingleNode("ECoat").InnerText
+        If myItem = "Yes" Then chkEpoxy.Checked = True Else chkEpoxy.Checked = False
+        myItem = xNodeRoot.SelectSingleNode("DrawThrough").InnerText
+        If myItem = "Yes" Then chkS40DrawThroughCoil.Checked = True Else chkS40DrawThroughCoil.Checked = False
+        myItem = xNodeRoot.SelectSingleNode("SCCRBase").InnerText
+        If myItem = "Yes" Then chk65kASCCRBase.Checked = True Else chk65kASCCRBase.Checked = False
+        myItem = xNodeRoot.SelectSingleNode("AuxPanel").InnerText
+        If myItem = "Yes" Then optUseAux.Checked = True Else optNoAux.Checked = True
+        myItem = xNodeRoot.SelectSingleNode("AuxPanelLoc").InnerText
+        cmbAuxPanelOpts.Text = myItem
+
+        xNodeRoot = xDoc.SelectSingleNode("//HotWaterCoil/Controls")
+        myItem = xNodeRoot.SelectSingleNode("ValveControls").InnerText
+        Select Case myItem
+            Case Is = "None"
+                optValveCtrlNone.Checked = True
+            Case Is = "BaseUnit"
+                optValveCtrlBaseUnit.Checked = True
+            Case Is = "FisenCustom"
+                optValveCtrlFisenCustom.Checked = True
+        End Select
+        myItem = xNodeRoot.SelectSingleNode("ValveControlsDetail").InnerText
+        cmbValveCtrlFisenCustom.Text = myItem
+        myItem = xNodeRoot.SelectSingleNode("BaseUnitControl").InnerText
+        Select Case myItem
+            Case Is = "SE4StageByJCIFisenWires"
+                optBU_SE_Fact_FisenWires.Checked = True
+            Case Is = "SE4StageByFisenFisenWires"
+                optBU_SE_Fisen_FisenWires.Checked = True
+            Case Is = "IPUFisenWires"
+                optBU_IPU_FisenWires.Checked = True
+            Case Is = "IPUUnwired"
+                optBU_IPU_Unwired.Checked = True
+            Case Is = "SE4StageByJCIUnwired"
+                optBU_SE_Fact_Unwired.Checked = True
+            Case Is = "SE4StageByFisenUnwired"
+                optBU_SE_Fisen_Unwired.Checked = True
+            Case Is = "NotApplicable"
+                optBU_Other.Checked = True
+        End Select
+        myItem = xNodeRoot.SelectSingleNode("LowLimitStat").InnerText
+        If myItem = "Yes" Then optLLUnwired.Checked = True Else optLLWired.Checked = True
+        myItem = xNodeRoot.SelectSingleNode("BreakPower").InnerText
+        If myItem = "Yes" Then chkBreakonLL.Checked = True Else chkBreakonLL.Checked = False
+        myItem = xNodeRoot.SelectSingleNode("EquipmentTouch").InnerText
+        If myItem = "Yes" Then chkIncludeEquipmentTouch.Checked = True Else chkIncludeEquipmentTouch.Checked = False
+        myItem = xNodeRoot.SelectSingleNode("MountTouch").InnerText
+        If myItem = "Yes" Then chkMountEquipmentTouch.Checked = True Else chkMountEquipmentTouch.Checked = False
+
+        xNodeRoot = xDoc.SelectSingleNode("//HotWaterCoil/Performance")
+        txtLAT.Text = xNodeRoot.SelectSingleNode("LAT").InnerText
+        txtDeltaT.Text = xNodeRoot.SelectSingleNode("DeltaT").InnerText
+        txtLFT.Text = xNodeRoot.SelectSingleNode("LFT").InnerText
+        txtActualAPD.Text = xNodeRoot.SelectSingleNode("ActualAPD").InnerText
+        txtAPD.Text = xNodeRoot.SelectSingleNode("SystemAPD").InnerText
+        myItem = xNodeRoot.SelectSingleNode("Allowance").InnerText
+        If myItem = "Yes" Then optAPDAllowance.Checked = True
+        txtFPD.Text = xNodeRoot.SelectSingleNode("FPD").InnerText
+        txtOutCap.Text = xNodeRoot.SelectSingleNode("OutCapacity").InnerText
+        txtInletSize.Text = xNodeRoot.SelectSingleNode("InletSize").InnerText
+        txtOutletSize.Text = xNodeRoot.SelectSingleNode("OutletSize").InnerText
+
+        xNodeRoot = xDoc.SelectSingleNode("//HotWaterCoil/Valves")
+        txtValveTag.Text = xNodeRoot.SelectSingleNode("Tag").InnerText
+        cmbValveSize.Text = xNodeRoot.SelectSingleNode("BodySize").InnerText
+        cmbValveDesc.Text = xNodeRoot.SelectSingleNode("Description").InnerText
+        txtValveType.Text = xNodeRoot.SelectSingleNode("Type").InnerText
+        txtValveMPN.Text = xNodeRoot.SelectSingleNode("PartNo").InnerText
+    End Sub
+    Private Sub WriteModuleData()
+        Dim myXMLSettings As New XmlWriterSettings
+        Dim ModWriter As XmlWriter
+        Dim TargetName, TargetPath, ArchivePath As String
+        Dim SlashLoc As Integer
+        Dim myItem As String
+        Dim dummy As MsgBoxResult
+
+
+        TargetName = "HWCoilData"
+        TargetPath = frmMain.txtProjectDirectory.Text
+        TargetPath = TargetPath & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & " - FUG-" & TargetName & "_" & Ver2FileVer(frmMain.txtUnitVersion.Text) & ".xml"
+        If My.Computer.FileSystem.FileExists(TargetPath) Then
+            dummy = MsgBox("A previous version of the mod data file exists.  Archive prior to writing?", vbYesNo, "Fisen Unit Generator")
+            If dummy = vbYes Then
+                SlashLoc = InStrRev(TargetPath, "\")
+                ArchivePath = Mid(TargetPath, 1, SlashLoc) & "Archive\" & Mid(TargetPath, SlashLoc + 1)
+                My.Computer.FileSystem.MoveFile(TargetPath, ArchivePath)
+            End If
+        End If
+
+        myXMLSettings.Indent = True
+        myXMLSettings.NewLineOnAttributes = True
+
+        ModWriter = XmlWriter.Create(TargetPath, myXMLSettings)
+        ModWriter.WriteComment("Hot Water Coil Modification Definition File")
+
+        ModWriter.WriteStartElement("HotWaterCoil")
+        ModWriter.WriteString("Fisen HWCoil Modification")
+
+
+        ModWriter.WriteStartElement("Conditions") '************************************************************************************************************
+
+        ModWriter.WriteStartElement("HeatAF")
+        ModWriter.WriteString(txtHeatAF.Text)
+        ModWriter.WriteEndElement() 'HeatAF
+
+        ModWriter.WriteStartElement("EAT")
+        ModWriter.WriteString(txtEAT.Text)
+        ModWriter.WriteEndElement() 'EAT
+
+        ModWriter.WriteStartElement("InCap")
+        ModWriter.WriteString(txtInputCap.Text)
+        ModWriter.WriteEndElement() 'InCap
+
+        ModWriter.WriteStartElement("EFT")
+        ModWriter.WriteString(txtEFT.Text)
+        ModWriter.WriteEndElement() 'EFT
+
+        ModWriter.WriteStartElement("FluidFlow")
+        ModWriter.WriteString(txtFluidFlow.Text)
+        ModWriter.WriteEndElement() 'FluidFlow
+
+        ModWriter.WriteStartElement("Fluid")
+        ModWriter.WriteString(cmbFluidList.Text)
+        ModWriter.WriteEndElement() 'Fluid
+
+        ModWriter.WriteStartElement("FluidPer")
+        ModWriter.WriteString(cmbFluidPer.Text)
+        ModWriter.WriteEndElement() 'Fluid%
+
+        ModWriter.WriteEndElement() 'Conditions
+        '************************************************************************************************************
+
+        ModWriter.WriteStartElement("Options") '************************************************************************************************************
+
+        ModWriter.WriteStartElement("Coil")
+        myItem = "Error"
+        If optCoilCustom.Checked Then myItem = "Custom"
+        If optCoil1Row.Checked Then myItem = "1Row"
+        If optCoil2Row.Checked Then myItem = "2Row"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Coil
+
+        ModWriter.WriteStartElement("Valve")
+        If optValveNone.Checked Then myItem = "None"
+        If optValve2Way.Checked Then myItem = "2Way"
+        If optValve3Way.Checked Then myItem = "3Way"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Valve
+
+        ModWriter.WriteStartElement("ValveInstall")
+        If optValveFisenProvFisenInst.Checked Then myItem = "FisenProvFisenInst"
+        If optValveFisenProvFieldInst.Checked Then myItem = "FisenProvFieldInst"
+        If optValveFieldProvFieldInst.Checked Then myItem = "FieldProvFieldInst"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Valve Install
+
+        ModWriter.WriteStartElement("ECoat")
+        If chkEpoxy.Checked Then myItem = "Yes" Else myItem = "No"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'ECoat
+
+        ModWriter.WriteStartElement("DrawThrough")
+        If chkS40DrawThroughCoil.Checked Then myItem = "Yes" Else myItem = "No"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'DrawThrough
+
+        ModWriter.WriteStartElement("SCCRBase")
+        If chk65kASCCRBase.Checked Then myItem = "Yes" Else myItem = "No"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'SCCRBase
+
+        ModWriter.WriteStartElement("AuxPanel")
+        If optNoAux.Checked Then myItem = "None"
+        If optUseAux.Checked Then myItem = "UseAux"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'AuxPanel
+
+        ModWriter.WriteStartElement("AuxPanelLoc")
+        myItem = cmbAuxPanelOpts.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'AuxPanelLoc
+
+        ModWriter.WriteEndElement() 'Options
+        '************************************************************************************************************
+
+
+
+        ModWriter.WriteStartElement("Controls") '************************************************************************************************************
+
+        ModWriter.WriteStartElement("ValveControls")
+        If optValveCtrlNone.Checked Then myItem = "None"
+        If optValveCtrlBaseUnit.Checked Then myItem = "BaseUnit"
+        If optValveCtrlFisenCustom.Checked Then myItem = "FisenCustom"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'ValveControls
+
+        ModWriter.WriteStartElement("ValveControlsDetail")
+        myItem = cmbValveCtrlFisenCustom.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'ValveControlsDetail
+
+        ModWriter.WriteStartElement("BaseUnitControl")
+        If optBU_SE_Fact_FisenWires.Checked Then myItem = "SE4StageByJCIFisenWires"
+        If optBU_SE_Fisen_FisenWires.Checked Then myItem = "SE4StageByFisenFisenWires"
+        If optBU_IPU_FisenWires.Checked Then myItem = "IPUFisenWires"
+        If optBU_IPU_Unwired.Checked Then myItem = "IPUUnwired"
+        If optBU_SE_Fact_Unwired.Checked Then myItem = "SE4StageByJCIUnwired"
+        If optBU_SE_Fisen_Unwired.Checked Then myItem = "SE4StageByFisenUnwired"
+        If optBU_Other.Checked Then myItem = "NotApplicable"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Base Unit Control
+
+        ModWriter.WriteStartElement("LowLimitStat")
+        If optLLUnwired.Checked Then myItem = "Unwired"
+        If optLLWired.Checked Then myItem = "Wired"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'LowLimitStat
+
+        ModWriter.WriteStartElement("BreakPower")
+        If chkBreakonLL.Checked Then myItem = "Yes"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Break Power
+
+        ModWriter.WriteStartElement("EquipmentTouch")
+        If chkIncludeEquipmentTouch.Checked Then myItem = "Yes" Else myItem = "No"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Equipement Touch
+
+        ModWriter.WriteStartElement("MountTouch")
+        If chkMountEquipmentTouch.Checked Then myItem = "Yes" Else myItem = "No"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Mount Touch
+
+
+        ModWriter.WriteEndElement() 'Controls
+        '************************************************************************************************************
+
+        ModWriter.WriteStartElement("Performance") '************************************************************************************************************
+        ModWriter.WriteStartElement("LAT")
+        myItem = txtLAT.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'LAT
+
+        ModWriter.WriteStartElement("DeltaT")
+        myItem = txtDeltaT.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'DeltaT
+
+        ModWriter.WriteStartElement("LFT")
+        myItem = txtLFT.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'LFT
+
+        ModWriter.WriteStartElement("ActualAPD")
+        myItem = txtActualAPD.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'ActualAPD
+
+        ModWriter.WriteStartElement("SystemAPD")
+        myItem = txtAPD.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'SystemAPD
+
+        ModWriter.WriteStartElement("Allowance")
+        If optAPDAllowance.Checked Then myItem = "Yes" Else myItem = "No"
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Allowance
+
+        ModWriter.WriteStartElement("FPD")
+        myItem = txtFPD.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'FPD
+
+        ModWriter.WriteStartElement("OutCapacity")
+        myItem = txtOutCap.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'OutCap
+
+        ModWriter.WriteStartElement("InletSize")
+        myItem = txtInletSize.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'inletsize
+
+        ModWriter.WriteStartElement("OutletSize")
+        myItem = txtOutletSize.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'outlet size
+
+        ModWriter.WriteEndElement() 'Performance
+        '************************************************************************************************************
+
+        ModWriter.WriteStartElement("Valves") '************************************************************************************************************
+        ModWriter.WriteStartElement("Tag")
+        myItem = txtValveTag.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Tag
+
+        ModWriter.WriteStartElement("BodySize")
+        myItem = cmbValveSize.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'BodySize
+
+        ModWriter.WriteStartElement("Description")
+        myItem = cmbValveDesc.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Description
+
+        ModWriter.WriteStartElement("Type")
+        myItem = txtValveType.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'Type
+
+        ModWriter.WriteStartElement("PartNo")
+        myItem = txtValveMPN.Text
+        ModWriter.WriteString(myItem)
+        ModWriter.WriteEndElement() 'PartNo
+
+
+        ModWriter.WriteEndElement() 'Valves
+        '************************************************************************************************************
+
+
+        ModWriter.WriteEndElement() 'HotWaterCoil
+        ModWriter.WriteEndDocument()
+        ModWriter.Close()
+
+        ModWriter = Nothing
+    End Sub
+
+
 End Class
