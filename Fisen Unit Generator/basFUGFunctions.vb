@@ -605,4 +605,18 @@
         errorreport.WriteLine(Now.ToString & "," & ErrorModule & "," & ErrorMsg & "," & ErrorClass & "," & ErrorButtonz)
         errorreport.Close()
     End Sub
+
+    Public Function MBTop(ParTop As Integer, ParHeight As Integer) As Integer
+        Dim ltop As Integer
+        ltop = CInt((ParHeight * 0.25) + ParTop)
+        Return ltop
+    End Function
+
+    Public Function MBLeft(ParLeft As Integer, ParWidth As Integer) As Integer
+        Dim ltop As Integer
+        ltop = CInt((ParWidth * 0.25) + ParLeft)
+        Return ltop
+    End Function
+
+
 End Module

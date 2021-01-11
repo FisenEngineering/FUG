@@ -10503,7 +10503,8 @@ Partial Class frmMain
         Me.Text = Application.ProductName & "-" & Application.ProductVersion & " Logged in as: " & UserID
 
         If My.Settings.DebugHard Then
-            frmEndDeviceMaintenance.ShowDialog()
+            frmAssociateDrawings.FIOPCode = "920005"
+            frmAssociateDrawings.ShowDialog()
         End If
 
         If ((SuperUser()) Or (chkDebug.Checked)) Then

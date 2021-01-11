@@ -22,33 +22,41 @@ Partial Class frmAssociateDrawings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAssociateDrawings))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtConPath = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtDescription = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.cmbFIOPType = New System.Windows.Forms.ComboBox()
+        Me.optOldCon = New System.Windows.Forms.RadioButton()
+        Me.optNewCon = New System.Windows.Forms.RadioButton()
+        Me.txtFIOPCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.cmdAddItem = New System.Windows.Forms.Button()
+        Me.cmdPasteWMFPath = New System.Windows.Forms.Button()
+        Me.cmdChooseProjectDirectory = New System.Windows.Forms.Button()
+        Me.Cancel = New System.Windows.Forms.Button()
+        Me.btnOK = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmdPasteWMFPath)
+        Me.GroupBox1.Controls.Add(Me.cmdChooseProjectDirectory)
         Me.GroupBox1.Controls.Add(Me.DataGridView1)
         Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.TextBox3)
+        Me.GroupBox1.Controls.Add(Me.txtConPath)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.TextBox2)
+        Me.GroupBox1.Controls.Add(Me.txtDescription)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.ComboBox1)
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Controls.Add(Me.cmbFIOPType)
+        Me.GroupBox1.Controls.Add(Me.optOldCon)
+        Me.GroupBox1.Controls.Add(Me.optNewCon)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 38)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(776, 253)
@@ -73,13 +81,13 @@ Partial Class frmAssociateDrawings
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "Path:"
         '
-        'TextBox3
+        'txtConPath
         '
-        Me.TextBox3.Location = New System.Drawing.Point(46, 63)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(693, 20)
-        Me.TextBox3.TabIndex = 6
-        Me.TextBox3.Text = "Connections\xxx.wmf"
+        Me.txtConPath.Location = New System.Drawing.Point(46, 63)
+        Me.txtConPath.Name = "txtConPath"
+        Me.txtConPath.Size = New System.Drawing.Size(657, 20)
+        Me.txtConPath.TabIndex = 6
+        Me.txtConPath.Text = "Connections\xxx.wmf"
         '
         'Label3
         '
@@ -90,12 +98,12 @@ Partial Class frmAssociateDrawings
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Description:"
         '
-        'TextBox2
+        'txtDescription
         '
-        Me.TextBox2.Location = New System.Drawing.Point(242, 37)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(528, 20)
-        Me.TextBox2.TabIndex = 4
+        Me.txtDescription.Location = New System.Drawing.Point(242, 37)
+        Me.txtDescription.Name = "txtDescription"
+        Me.txtDescription.Size = New System.Drawing.Size(528, 20)
+        Me.txtDescription.TabIndex = 4
         '
         'Label2
         '
@@ -106,44 +114,45 @@ Partial Class frmAssociateDrawings
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Type:"
         '
-        'ComboBox1
+        'cmbFIOPType
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Controls", "Gas", "Power", "Unselected"})
-        Me.ComboBox1.Location = New System.Drawing.Point(46, 36)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox1.TabIndex = 2
+        Me.cmbFIOPType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFIOPType.FormattingEnabled = True
+        Me.cmbFIOPType.Items.AddRange(New Object() {"Controls", "Gas", "Power", "Unselected"})
+        Me.cmbFIOPType.Location = New System.Drawing.Point(46, 36)
+        Me.cmbFIOPType.Name = "cmbFIOPType"
+        Me.cmbFIOPType.Size = New System.Drawing.Size(121, 21)
+        Me.cmbFIOPType.TabIndex = 2
         '
-        'RadioButton2
+        'optOldCon
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Enabled = False
-        Me.RadioButton2.Location = New System.Drawing.Point(3, 89)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(61, 17)
-        Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.Text = "Existing"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.optOldCon.AutoSize = True
+        Me.optOldCon.Enabled = False
+        Me.optOldCon.Location = New System.Drawing.Point(3, 89)
+        Me.optOldCon.Name = "optOldCon"
+        Me.optOldCon.Size = New System.Drawing.Size(95, 17)
+        Me.optOldCon.TabIndex = 1
+        Me.optOldCon.Text = "Reuse Existing"
+        Me.optOldCon.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'optNewCon
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Checked = True
-        Me.RadioButton1.Location = New System.Drawing.Point(6, 19)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(47, 17)
-        Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "New"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.optNewCon.AutoSize = True
+        Me.optNewCon.Checked = True
+        Me.optNewCon.Location = New System.Drawing.Point(6, 19)
+        Me.optNewCon.Name = "optNewCon"
+        Me.optNewCon.Size = New System.Drawing.Size(47, 17)
+        Me.optNewCon.TabIndex = 0
+        Me.optNewCon.TabStop = True
+        Me.optNewCon.Text = "New"
+        Me.optNewCon.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'txtFIOPCode
         '
-        Me.TextBox1.Location = New System.Drawing.Point(77, 12)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 1
+        Me.txtFIOPCode.Location = New System.Drawing.Point(77, 12)
+        Me.txtFIOPCode.Name = "txtFIOPCode"
+        Me.txtFIOPCode.Size = New System.Drawing.Size(74, 20)
+        Me.txtFIOPCode.TabIndex = 1
         '
         'Label1
         '
@@ -154,14 +163,68 @@ Partial Class frmAssociateDrawings
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "FIOP Code"
         '
+        'cmdAddItem
+        '
+        Me.cmdAddItem.Location = New System.Drawing.Point(12, 297)
+        Me.cmdAddItem.Name = "cmdAddItem"
+        Me.cmdAddItem.Size = New System.Drawing.Size(75, 23)
+        Me.cmdAddItem.TabIndex = 3
+        Me.cmdAddItem.Text = "Add"
+        Me.cmdAddItem.UseVisualStyleBackColor = True
+        '
+        'cmdPasteWMFPath
+        '
+        Me.cmdPasteWMFPath.Image = CType(resources.GetObject("cmdPasteWMFPath.Image"), System.Drawing.Image)
+        Me.cmdPasteWMFPath.Location = New System.Drawing.Point(744, 62)
+        Me.cmdPasteWMFPath.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdPasteWMFPath.Name = "cmdPasteWMFPath"
+        Me.cmdPasteWMFPath.Size = New System.Drawing.Size(26, 20)
+        Me.cmdPasteWMFPath.TabIndex = 7
+        Me.cmdPasteWMFPath.UseVisualStyleBackColor = True
+        '
+        'cmdChooseProjectDirectory
+        '
+        Me.cmdChooseProjectDirectory.Enabled = False
+        Me.cmdChooseProjectDirectory.Location = New System.Drawing.Point(710, 62)
+        Me.cmdChooseProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdChooseProjectDirectory.Name = "cmdChooseProjectDirectory"
+        Me.cmdChooseProjectDirectory.Size = New System.Drawing.Size(26, 20)
+        Me.cmdChooseProjectDirectory.TabIndex = 6
+        Me.cmdChooseProjectDirectory.Text = "..."
+        Me.cmdChooseProjectDirectory.UseVisualStyleBackColor = True
+        '
+        'Cancel
+        '
+        Me.Cancel.Location = New System.Drawing.Point(116, 468)
+        Me.Cancel.Margin = New System.Windows.Forms.Padding(4)
+        Me.Cancel.Name = "Cancel"
+        Me.Cancel.Size = New System.Drawing.Size(96, 36)
+        Me.Cancel.TabIndex = 10
+        Me.Cancel.Text = "Cancel"
+        Me.Cancel.UseVisualStyleBackColor = True
+        '
+        'btnOK
+        '
+        Me.btnOK.Enabled = False
+        Me.btnOK.Location = New System.Drawing.Point(12, 468)
+        Me.btnOK.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(96, 36)
+        Me.btnOK.TabIndex = 9
+        Me.btnOK.Text = "OK"
+        Me.btnOK.UseVisualStyleBackColor = True
+        '
         'frmAssociateDrawings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 517)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Cancel)
+        Me.Controls.Add(Me.btnOK)
+        Me.Controls.Add(Me.cmdAddItem)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtFIOPCode)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmAssociateDrawings"
@@ -178,13 +241,18 @@ Partial Class frmAssociateDrawings
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Label4 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtConPath As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtDescription As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents cmbFIOPType As ComboBox
+    Friend WithEvents optOldCon As RadioButton
+    Friend WithEvents optNewCon As RadioButton
+    Friend WithEvents txtFIOPCode As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents cmdAddItem As Button
+    Friend WithEvents cmdPasteWMFPath As Button
+    Friend WithEvents cmdChooseProjectDirectory As Button
+    Friend WithEvents Cancel As Button
+    Friend WithEvents btnOK As Button
 End Class

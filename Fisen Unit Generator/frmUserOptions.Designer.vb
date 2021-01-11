@@ -34,12 +34,12 @@ Partial Class frmUserOptions
         Me.chkStealthMode = New System.Windows.Forms.CheckBox()
         Me.txtLocalDirectory = New System.Windows.Forms.TextBox()
         Me.grpSuperUserOptions = New System.Windows.Forms.GroupBox()
+        Me.cmdEditED = New System.Windows.Forms.Button()
         Me.cmdEditConstDetails = New System.Windows.Forms.Button()
         Me.UOMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.mnuDBMaintenance = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConstructionDetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FanCurvesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmdEditED = New System.Windows.Forms.Button()
         Me.fraRunMode.SuspendLayout()
         Me.grpAdminOptions.SuspendLayout()
         Me.grpSuperUserOptions.SuspendLayout()
@@ -170,6 +170,15 @@ Partial Class frmUserOptions
         Me.grpSuperUserOptions.TabStop = False
         Me.grpSuperUserOptions.Text = "Super User Options"
         '
+        'cmdEditED
+        '
+        Me.cmdEditED.Location = New System.Drawing.Point(87, 68)
+        Me.cmdEditED.Name = "cmdEditED"
+        Me.cmdEditED.Size = New System.Drawing.Size(75, 23)
+        Me.cmdEditED.TabIndex = 10
+        Me.cmdEditED.Text = "End Dev."
+        Me.cmdEditED.UseVisualStyleBackColor = True
+        '
         'cmdEditConstDetails
         '
         Me.cmdEditConstDetails.Location = New System.Drawing.Point(6, 68)
@@ -207,15 +216,6 @@ Partial Class frmUserOptions
         Me.FanCurvesToolStripMenuItem.Name = "FanCurvesToolStripMenuItem"
         Me.FanCurvesToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.FanCurvesToolStripMenuItem.Text = "Fan Curves"
-        '
-        'cmdEditED
-        '
-        Me.cmdEditED.Location = New System.Drawing.Point(87, 68)
-        Me.cmdEditED.Name = "cmdEditED"
-        Me.cmdEditED.Size = New System.Drawing.Size(75, 23)
-        Me.cmdEditED.TabIndex = 10
-        Me.cmdEditED.Text = "Const Det."
-        Me.cmdEditED.UseVisualStyleBackColor = True
         '
         'frmUserOptions
         '

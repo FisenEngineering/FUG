@@ -27,6 +27,7 @@ Partial Class frmLowAF
         Me.Cancel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkCalculateCooling = New System.Windows.Forms.CheckBox()
         Me.Label39 = New System.Windows.Forms.Label()
         Me.txtHeatingAF = New System.Windows.Forms.TextBox()
         Me.lblsqftevap = New System.Windows.Forms.Label()
@@ -80,6 +81,8 @@ Partial Class frmLowAF
         Me.chkGasHeatProtection = New System.Windows.Forms.CheckBox()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.txtInitialEnth = New System.Windows.Forms.TextBox()
+        Me.Label44 = New System.Windows.Forms.Label()
         Me.cmdCalcDehumCap = New System.Windows.Forms.Button()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.txtDehumCap = New System.Windows.Forms.TextBox()
@@ -191,8 +194,8 @@ Partial Class frmLowAF
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.txtInitialEnth = New System.Windows.Forms.TextBox()
-        Me.Label44 = New System.Windows.Forms.Label()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -244,6 +247,7 @@ Partial Class frmLowAF
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkCalculateCooling)
         Me.tpgConditions.Controls.Add(Me.Label39)
         Me.tpgConditions.Controls.Add(Me.txtHeatingAF)
         Me.tpgConditions.Controls.Add(Me.lblsqftevap)
@@ -269,6 +273,16 @@ Partial Class frmLowAF
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'chkCalculateCooling
+        '
+        Me.chkCalculateCooling.AutoSize = True
+        Me.chkCalculateCooling.Location = New System.Drawing.Point(230, 305)
+        Me.chkCalculateCooling.Name = "chkCalculateCooling"
+        Me.chkCalculateCooling.Size = New System.Drawing.Size(114, 17)
+        Me.chkCalculateCooling.TabIndex = 67
+        Me.chkCalculateCooling.Text = "Calculate Cooling?"
+        Me.chkCalculateCooling.UseVisualStyleBackColor = True
         '
         'Label39
         '
@@ -860,6 +874,22 @@ Partial Class frmLowAF
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
+        '
+        'txtInitialEnth
+        '
+        Me.txtInitialEnth.Location = New System.Drawing.Point(133, 305)
+        Me.txtInitialEnth.Name = "txtInitialEnth"
+        Me.txtInitialEnth.Size = New System.Drawing.Size(54, 20)
+        Me.txtInitialEnth.TabIndex = 93
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(27, 309)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(75, 13)
+        Me.Label44.TabIndex = 94
+        Me.Label44.Text = "Initial Enthalpy"
         '
         'cmdCalcDehumCap
         '
@@ -1908,21 +1938,23 @@ Partial Class frmLowAF
         Me.cmdDesignCautions.TabIndex = 15
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'txtInitialEnth
+        'cmdScience
         '
-        Me.txtInitialEnth.Location = New System.Drawing.Point(133, 305)
-        Me.txtInitialEnth.Name = "txtInitialEnth"
-        Me.txtInitialEnth.Size = New System.Drawing.Size(54, 20)
-        Me.txtInitialEnth.TabIndex = 93
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(460, 380)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 81
+        Me.cmdScience.UseVisualStyleBackColor = True
         '
-        'Label44
+        'cmdFIOPPreview
         '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(27, 309)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(75, 13)
-        Me.Label44.TabIndex = 94
-        Me.Label44.Text = "Initial Enthalpy"
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(496, 380)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 80
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
         'frmLowAF
         '
@@ -1930,6 +1962,8 @@ Partial Class frmLowAF
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(612, 424)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.chkWriteHistory)
@@ -2135,4 +2169,7 @@ Partial Class frmLowAF
     Friend WithEvents Button1 As Button
     Friend WithEvents txtInitialEnth As TextBox
     Friend WithEvents Label44 As Label
+    Friend WithEvents chkCalculateCooling As CheckBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
 End Class

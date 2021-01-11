@@ -175,6 +175,9 @@
             rs.MoveNext()
         Loop
         cmdAddSelectedRow.Enabled = False
+        If dgvExistingDetails.Rows.Count > 1 Then
+            cmdAddSelectedRow.Enabled = False
+        End If
     End Sub
 
     Private Sub dgvExistingDetails_SelectionChanged(sender As Object, e As EventArgs) Handles dgvExistingDetails.SelectionChanged
@@ -205,7 +208,6 @@
             Call GetNewDetailIDs()
             Call CreateNewAssociations()
         End If
-        Stop
         Me.Hide()
     End Sub
 

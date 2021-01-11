@@ -995,4 +995,16 @@
         frmFIOPPreview.ReportData = AllLines.ToString
         frmFIOPPreview.Show()
     End Sub
+
+    Private Sub cmdAddNewCode_Click(sender As Object, e As EventArgs) Handles cmdAddNewCode.Click
+        frmNewCustomCode.WhichCustom = "Power"
+        frmNewCustomCode.ShowDialog()
+        If frmNewCustomCode.Cancelled = True Then
+            frmNewCustomCode.Dispose()
+        Else
+            frmNewCustomCode.Dispose()
+        End If
+        lstItemsInDB.Items.Clear()
+        Call LoadPermittedPowerMods()
+    End Sub
 End Class

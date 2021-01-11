@@ -107,6 +107,9 @@ Public Class frmLowAF
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As String
+        Dim dummy As MsgBoxResult
+        Dim errmsg As String
+
         'next line is the mod code i.e. HWCoil...
         frmMain.ThisUnitPhysicalData.ModLoadMod.Add("LowAF")
         'Next Line is the line item description i.e. Hot Water Description
@@ -121,6 +124,12 @@ Public Class frmLowAF
                 If optFanWallBypassNew.Checked Then tempWeight = "20" '10+5+5
                 If optReplaceFan.Checked Then tempWeight = "10" 'just the controls - fan is a different line item
             Case Is = "Series10"
+                If optExistingSheaves.Checked Then tempWeight = "10" '10 for the new controls
+                If optResheave.Checked Then tempWeight = "5" '10 for the new controls 5 for net new sheaves
+                If optFanWallBypassExisting.Checked Then tempWeight = "15" '10+5 for FWBP
+                If optFanWallBypassNew.Checked Then tempWeight = "20" '10+5+5
+                If optReplaceFan.Checked Then tempWeight = "10" 'just the controls - fan is a different line item
+            Case Is = "Series 12"
                 If optExistingSheaves.Checked Then tempWeight = "10" '10 for the new controls
                 If optResheave.Checked Then tempWeight = "5" '10 for the new controls 5 for net new sheaves
                 If optFanWallBypassExisting.Checked Then tempWeight = "15" '10+5 for FWBP
@@ -150,9 +159,35 @@ Public Class frmLowAF
                 If optFanWallBypassExisting.Checked Then tempWeight = "15" '10+5 for FWBP
                 If optFanWallBypassNew.Checked Then tempWeight = "23" '10+5+8
                 If optReplaceFan.Checked Then tempWeight = "10" 'just the controls - fan is a different line item
+            Case Is = "Premier"
+
+            Case Is = "Choice"
+
+            Case Is = "Select"
+
+            Case Is = "SeriesLX"
+
+            Case Is = "DOAS"
+
+            Case Is = "SeriesL"
+
+            Case Is = "Series 20IDSplit"
+
+            Case Is = "Blank"
+                errmsg = "Blank unit type requires manual weight entry:"
+                tempWeight = InputBox(errmsg, "Fisen Unit Generator", "9999", MBLeft(Me.Left, Me.Width), MBTop(Me.Top, Me.Height))
             Case Else
                 tempWeight = "9999"
+                errmsg = "Error assigning weight in LowAF:UpdateWeightTable." & vbCrLf & "Continue using 9999 or cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, "Fisen Unit Generator")
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Auto weight definition not working.  Enter weight to use to continue."
+                    tempWeight = InputBox(errmsg, "Fisen Unit Generator", "9999", MBLeft(Me.Left, Me.Width), MBTop(Me.Top, Me.Height))
+                End If
+
         End Select
+
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub UpdatePerformance()
@@ -210,6 +245,33 @@ Public Class frmLowAF
 
         If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
         If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
+
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+
+            Case Is = "Series10"
+
+            Case Is = "Series12"
+
+            Case Is = "Series20"
+
+            Case Is = "Series40"
+                 'Depricated *Probably not going to be used*
+            Case Is = "Series100"
+
+            Case Is = "Premier"
+
+            Case Is = "Choice"
+
+            Case Is = "Select"
+
+            Case Is = "SeriesLX"
+
+            Case Is = "Blank"
+
+            Case Else
+
+        End Select
 
         txtFanBHP.Text = frmMain.ThisUnitSFanPerf.BrakeHP
         txtFanRPM.Text = frmMain.ThisUnitSFanPerf.RPM
@@ -305,7 +367,8 @@ Public Class frmLowAF
             Call UpdateStaticSummaryValues()
         End If
 
-        Call CalculateCoolingPerf()
+        If chkCalculateCooling.Checked Then Call CalculateCoolingPerf()
+
 
         TabControl1.SelectTab("tpgOptions")
     End Sub
@@ -1357,7 +1420,6 @@ Public Class frmLowAF
         Dim totalmessage As String
         Dim spacepos As Integer
         Dim RecCount As Integer
-        Dim TCode As String
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -1466,6 +1528,7 @@ Public Class frmLowAF
         MinCatAir = txtMinCatAirflow.Text
         BypassAir = txtBypassAF.Text
 
+        Soln = "Unknown Error"
         If optExistingSheaves.Checked Then Soln = "Adjust Sheaves"
         If optResheave.Checked Then Soln = "Resheave"
         If optFanWallBypassExisting.Checked Then Soln = "FWBypass"

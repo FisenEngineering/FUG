@@ -27,7 +27,8 @@
         Dim rs As ADODB.Recordset
         Dim dbProvider As String
         Dim MySQL As String
-        Dim TableName As String
+        Dim FieldName As String
+        Dim dummy As MsgBoxResult
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -40,22 +41,66 @@
 
         Select Case pWhichCustom
             Case Is = "Sheet Metal"
-                TableName = "tblCstmSMDB"
+                FieldName = "CstmSM"
+            Case Is = "Power"
+                FieldName = "CstmPower"
+            Case Is = "Controls"
+                FieldName = "CstmCtrl"
+            Case Is = "Mechanical"
+                FieldName = "CstmMech"
+            Case Is = "Refrigeration"
+                FieldName = "CstmRef"
             Case Else
-                TableName = "Error"
+                FieldName = "Error"
+                dummy = MsgBox("Error in selecting database field: " & pWhichCustom & " is not defined.", vbOKOnly, "Fisen Unit Generator")
+                Stop
         End Select
 
-        MySQL = "SELECT * FROM " & TableName & " ORDER BY CstmCode"
+        MySQL = "SELECT * FROM tblCstmNextNum"
         rs.Open(MySQL, con)
         rs.MoveLast()
 
-        txtNewOpCode.Text = Val(rs.Fields("CstmCode").Value) + 1
+        txtNewOpCode.Text = rs.Fields(FieldName).Value
         rs.Close()
         rs = Nothing
         con = Nothing
 
     End Sub
+    Private Sub WriteNextCstmCode()
+        Dim con As ADODB.Connection
+        Dim dbProvider As String
+        Dim MySQL As String
+        Dim FieldName As String
+        Dim dummy As MsgBoxResult
 
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        Select Case pWhichCustom
+            Case Is = "Sheet Metal"
+                FieldName = "CstmSM"
+            Case Is = "Power"
+                FieldName = "CstmPower"
+            Case Is = "Controls"
+                FieldName = "CstmCtrl"
+            Case Is = "Mechanical"
+                FieldName = "CstmMech"
+            Case Is = "Refrigeration"
+                FieldName = "CstmRef"
+            Case Else
+                FieldName = "Error"
+                dummy = MsgBox("Error in selecting database field: " & pWhichCustom & " is not defined.", vbOKOnly, "Fisen Unit Generator")
+                Stop
+        End Select
+
+        MySQL = "UPDATE tblCstmNextNum SET " & FieldName & "='" & Trim(Str(Val(txtNewOpCode.Text) + 1)) & "' WHERE PK=1"
+        con.Execute(MySQL)
+        con.Close()
+        con = Nothing
+
+    End Sub
     Private Sub chkMCAChange_CheckedChanged(sender As Object, e As EventArgs) Handles chkMCAChange.CheckedChanged
         If chkMCAChange.Checked Then
             Label4.Visible = True
@@ -84,8 +129,11 @@
             Exit Sub
         End If
         Call WriteNewFIOPtoCstm()
+        Call WriteNextCstmCode()
         Call WriteNewFIOPtoFisenMain()
-        Call CreateAndAssociateDetails
+        Call CreateAndAssociateDetails()
+
+        frmAssociateDrawings.ShowDialog()
 
     End Sub
 
@@ -219,6 +267,8 @@
 
     End Sub
     Private Sub WriteNewFIOPtoCstm()
+        Dim dummy As MsgBoxResult
+
         Dim con As ADODB.Connection
         'Dim rs As ADODB.Recordset
         Dim dbProvider As String
@@ -289,8 +339,18 @@
         Select Case pWhichCustom
             Case Is = "Sheet Metal"
                 TableName = "tblCstmSMDB"
+            Case Is = "Power"
+                TableName = "tblCstmHVDB"
+            Case Is = "Controls"
+                TableName = "tblCstmCtrl"
+            Case Is = "Mechanical"
+                TableName = "tblCstmMechDB"
+            Case Is = "Refrigeration"
+                TableName = "tblCstmRef"
             Case Else
                 TableName = "Error"
+                dummy = MsgBox("Error in selecting database table: " & pWhichCustom & " is not defined.", vbOKOnly, "Fisen Unit Generator")
+                Stop
         End Select
 
         MySQL = "INSERT INTO " & TableName & " (CstmCode,TagALongOnly,CstmFIOP,CstmWeight,MCAChange,LoadName,LoadValue,DesignCaution,TestAF,TestCoil,TestCtrl,TestMotor,TestEHeat,TestGHeat,TestGTrain,TestHydro,TestRef,TestRefInst,Series5OK,Series10OK,Series20OK,Series40OK,Series100OK,Series100AOK,Series100BOK,Series100COK,XTIOK,XTOOK,ChoiceOK,PremierOK,YVAAOK,YCALOK,YLAAOK,SeriesLXOK,BlankOK,Series20ODSplitOK,Series20IDSplitOK,Series40ODSplitOK,YCULOK,YLUAOK,DOASOK,SeriesLOK) "
@@ -322,5 +382,9 @@
             txtParentCode.Visible = False
             txtParentCode.Text = ""
         End If
+    End Sub
+
+    Private Sub cmdConstDetails_Click(sender As Object, e As EventArgs) Handles cmdConstDetails.Click
+
     End Sub
 End Class
