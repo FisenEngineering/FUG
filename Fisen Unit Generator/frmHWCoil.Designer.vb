@@ -124,6 +124,8 @@ Partial Class frmHWCoil
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.cmdLoadMod = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -1196,7 +1198,7 @@ Partial Class frmHWCoil
         'cmdLoadMod
         '
         Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
-        Me.cmdLoadMod.Location = New System.Drawing.Point(344, 291)
+        Me.cmdLoadMod.Location = New System.Drawing.Point(272, 291)
         Me.cmdLoadMod.Name = "cmdLoadMod"
         Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
         Me.cmdLoadMod.TabIndex = 17
@@ -1207,12 +1209,32 @@ Partial Class frmHWCoil
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'cmdScience
+        '
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(308, 291)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 83
+        Me.cmdScience.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(344, 291)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 82
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
+        '
         'frmHWCoil
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 332)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
@@ -1354,4 +1376,6 @@ Partial Class frmHWCoil
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents cmdLoadMod As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
 End Class

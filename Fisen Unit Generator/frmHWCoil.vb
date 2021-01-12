@@ -499,6 +499,8 @@ Public Class frmHWCoil
             Case Else
 
         End Select
+
+
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
         ModuleCodeList.Add("513000")
 

@@ -15,8 +15,11 @@
         Dim i As Integer
         Dim CurMod As String
         Dim dummy As MsgBoxResult
+        Dim errmsg As String
         Dim airflow As Double
+        Dim UndefMod As Boolean
 
+        UndefMod = False
 
         If lstItemsInDB.SelectedItems.Count = 0 Then
             dummy = MsgBox("You must select at least 1 modification.", vbOKOnly, "Fisen Unit Generator")
@@ -29,39 +32,169 @@
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
             CurMod = lstItemsInDB.SelectedItems.Item(i)
 
-
-
             Select Case CurMod
                 Case Is = "Supply Air - Convert to Rear Discharge"
                     'Turn on the appropriate controls on the Performance Tab
                     Select Case frmMain.ThisUnit.Family
                         Case Is = "Series5"
-
+                            UndefMod = True
                         Case Is = "Series10"
-
+                            UndefMod = True
                         Case Is = "Series12"
-
+                            UndefMod = True
                         Case Is = "Series20"
-
+                            UndefMod = True
                         Case Is = "Series40"
                             'Depricated *Probably not going to be used*
+                            UndefMod = True
                         Case Is = "Series100"
-
+                            UndefMod = True
                         Case Is = "Premier"
-
+                            UndefMod = True
                         Case Is = "Choice"
                             grpDown2Side.Visible = True
                             txtSPAdjustSideDisch.Text = Format(0.000000009564935065 * airflow * airflow - 0.000006064832535891 * airflow + 0.0270664217361984, "0.00")
                         Case Is = "Select"
+                            UndefMod = True
+                        Case Is = "SeriesLX"
+                            UndefMod = True
+                        Case Is = "Series20IDSplit"
+                            UndefMod = True
+                        Case Is = "DOAS"
+                            UndefMod = True
+                        Case Is = "SeriesL"
+                            UndefMod = True
+                        Case Is = "Blank"
+                            grpDown2Side.Visible = True
+                            errmsg = "Please enter the static loss (or gain) associated with the change."
+                            txtSPAdjustSideDisch.Text = Format(Val(InputBox(errmsg, "Fisen Unit Generator", "0.00")), "0.00")
 
                         Case Else
-
+                            UndefMod = True
                     End Select
+
                 Case Is = "Return Air - Convert to Rear Return"
                     'Turn on the appropriate controls on the Performance Tab
                     'None yet
-            End Select
+                    'Turn on the appropriate controls on the Performance Tab
+                    Select Case frmMain.ThisUnit.Family
+                        Case Is = "Series5"
+                            UndefMod = True
+                        Case Is = "Series10"
+                            UndefMod = True
+                        Case Is = "Series12"
+                            UndefMod = True
+                        Case Is = "Series20"
+                            UndefMod = True
+                        Case Is = "Series40"
+                            'Depricated *Probably not going to be used*
+                            UndefMod = True
+                        Case Is = "Series100"
+                            UndefMod = True
+                        Case Is = "Premier"
+                            UndefMod = True
+                        Case Is = "Choice"
+                            UndefMod = True
+                        Case Is = "Select"
+                            UndefMod = True
+                        Case Is = "SeriesLX"
+                            UndefMod = True
+                        Case Is = "Series20IDSplit"
+                            UndefMod = True
+                        Case Is = "DOAS"
+                            UndefMod = True
+                        Case Is = "SeriesL"
+                            UndefMod = True
+                        Case Is = "Blank"
+                            grpDown2Side.Visible = True
+                            errmsg = "Please enter the static loss (or gain) associated with the change."
+                            txtSPAdjustSideDisch.Text = Format(Val(InputBox(errmsg, "Fisen Unit Generator", "0.00")), "0.00")
 
+                        Case Else
+                            UndefMod = True
+                    End Select
+                Case Is = "Return Air Blockoff"
+                    'Turn on the appropriate controls on the Performance Tab
+                    Select Case frmMain.ThisUnit.Family
+                        Case Is = "Series5"
+                            UndefMod = True
+                        Case Is = "Series10"
+                            UndefMod = True
+                        Case Is = "Series12"
+                            UndefMod = True
+                        Case Is = "Series20"
+                            UndefMod = True
+                        Case Is = "Series40"
+                            'Depricated *Probably not going to be used*
+                            UndefMod = True
+                        Case Is = "Series100"
+                            UndefMod = True
+                        Case Is = "Premier"
+                            UndefMod = True
+                        Case Is = "Choice"
+                            UndefMod = True
+                        Case Is = "Select"
+                            UndefMod = True
+                        Case Is = "SeriesLX"
+                            UndefMod = True
+                        Case Is = "Series20IDSplit"
+                            UndefMod = True
+                        Case Is = "DOAS"
+                            UndefMod = True
+                        Case Is = "SeriesL"
+                            UndefMod = True
+                        Case Is = "Blank"
+                            grpDown2Side.Visible = True
+                            errmsg = "Please enter the static loss (or gain) associated with the change."
+                            txtSPAdjustSideDisch.Text = Format(Val(InputBox(errmsg, "Fisen Unit Generator", "0.00")), "0.00")
+
+                        Case Else
+                            UndefMod = True
+                    End Select
+                Case Is = "Return Air - Convert to End Return"
+                    'Turn on the appropriate controls on the Performance Tab
+                    Select Case frmMain.ThisUnit.Family
+                        Case Is = "Series5"
+                            UndefMod = True
+                        Case Is = "Series10"
+                            UndefMod = True
+                        Case Is = "Series12"
+                            UndefMod = True
+                        Case Is = "Series20"
+                            UndefMod = True
+                        Case Is = "Series40"
+                            'Depricated *Probably not going to be used*
+                            UndefMod = True
+                        Case Is = "Series100"
+                            UndefMod = True
+                        Case Is = "Premier"
+                            UndefMod = True
+                        Case Is = "Choice"
+                            UndefMod = True
+                        Case Is = "Select"
+                            UndefMod = True
+                        Case Is = "SeriesLX"
+                            UndefMod = True
+                        Case Is = "Series20IDSplit"
+                            UndefMod = True
+                        Case Is = "DOAS"
+                            UndefMod = True
+                        Case Is = "SeriesL"
+                            UndefMod = True
+                        Case Is = "Blank"
+                            grpDown2Side.Visible = True
+                            errmsg = "Please enter the static loss (or gain) associated with the change."
+                            txtSPAdjustSideDisch.Text = Format(Val(InputBox(errmsg, "Fisen Unit Generator", "0.00")), "0.00")
+
+                        Case Else
+                            UndefMod = True
+                    End Select
+            End Select
+            If UndefMod Then
+                errmsg = "The modification / family combination you have" & vbCrLf & "Selected is undefined: " & CurMod & " - " & frmMain.ThisUnit.Family & vbCrLf & "Aborting operation."
+                dummy = MsgBox(errmsg, vbOK, "Fisen Unit Generator")
+                Stop
+            End If
         Next
 
 
@@ -305,6 +438,19 @@
                                 dummy = MsgBox("Error in Code Assignment for Return Air to Rear - Unrecognized Family", vbOKOnly, "Fisen Unit Generator")
                                 Stop
                         End Select
+                    Case Is = "Return Air - Convert to End Return"
+                        Select Case frmMain.ThisUnit.Family
+                            Case Is = "Choice"
+                                ModuleCodeList.Add("340301")
+                                ModuleCodeList.Add("340302")
+                                ModuleCodeList.Add("340301")
+                                If chkFlanges.Checked Then ModuleCodeList.Add("340303")
+                                If chkShipOldDampers.Checked Then ModuleCodeList.Add("340304")
+                                If chkNoDampers.Checked Then ModuleCodeList.Add("340305")
+                            Case Else
+                                dummy = MsgBox("Error in Code Assignment for Return Air to End - Unrecognized Family", vbOKOnly, "Fisen Unit Generator")
+                                Stop
+                        End Select
                     Case Is = "A-Cabinet Bottom Supply to Top Supply"
                         ModuleCodeList.Add("340123") 'convert to top.
                     Case Is = "B-Cabinet Bottom Supply to Top Supply"
@@ -388,6 +534,8 @@
     End Sub
     Private Function UpdateWeightTableMass(locMod As String)
         Dim mass As Double
+        Dim errmsg As String
+        Dim dummy As MsgBoxResult
 
         mass = 0
         'Now it's logic to assign the values.
@@ -436,9 +584,9 @@
                         mass = 16
                     Case Is = "B-Cabinet Bottom Supply to Top Supply"
                         mass = 22
-                    Case Is ="C-Cabinet Bottom Supply to Top Supply"
+                    Case Is = "C-Cabinet Bottom Supply to Top Supply"
                         mass = 31
-                    Case Is ="B-Cut in Outdoor Air Opening for RA Only Unit (No Damper)"
+                    Case Is = "B-Cut in Outdoor Air Opening for RA Only Unit (No Damper)"
                         mass = 8
                     Case Else
                         mass = -9999
@@ -454,6 +602,8 @@
                         mass = 48
                     Case Is = "Return Air - Convert to Rear Return"
                         mass = 32
+                    Case Is = "Return Air - Convert to End Return"
+                        mass = 32
                     Case Else
                         mass = -9999
                 End Select
@@ -466,9 +616,28 @@
                     Case Else
                         mass = -9999
                 End Select
+            Case Is = "Blank"
+                If SuperUser() Then
+                    mass = -9999
+                    errmsg = "Enter your estimated weight."
+                    mass = Val(InputBox(errmsg, "Fisen Unit Generator", "-9999"))
+                End If
+
             Case Else
                 mass = -9999
         End Select
+
+        If mass < 0 Then
+            errmsg = "Error assigning weight in LowAF:UpdateWeightTable." & vbCrLf & "Continue using -9999 or cancel?"
+            dummy = MsgBox(errmsg, vbOKCancel, "Fisen Unit Generator")
+            If dummy = vbCancel Then Stop
+            If SuperUser() Then
+                errmsg = "Auto weight definition not working.  Enter weight to use to continue."
+                mass = Val(InputBox(errmsg, "Fisen Unit Generator", "-9999"))
+            End If
+        End If
+
+
         Return mass
     End Function
     Private Sub UpdatePerformance()
@@ -490,6 +659,8 @@
 
     Private Sub PopulateAvailableModifications()
         Dim MyFam As String
+        Dim dummy As MsgBoxResult
+
         MyFam = frmMain.ThisUnit.Family
 
         lstItemsInDB.Items.Clear()
@@ -521,12 +692,27 @@
                 lstItemsInDB.Items.Add("Return Air Blockoff")
                 lstItemsInDB.Items.Add("Supply Air - Convert to Rear Discharge")
                 lstItemsInDB.Items.Add("Return Air - Convert to Rear Return")
+                lstItemsInDB.Items.Add("Return Air - Convert to End Return")
+                chkNoDampers.Visible = True
+                chkFlanges.Visible = True
+                chkShipOldDampers.Visible = True
             Case Is = "Select"
                 lstItemsInDB.Items.Add("Return Air Blockoff")
                 lstItemsInDB.Items.Add("Supply Air - Convert to Rear Discharge")
                 lstItemsInDB.Items.Add("Return Air - Convert to Rear Return")
+            Case Is = "SeriesLX"
+                lstItemsInDB.Items.Add("No Modifcations Defined")
+            Case Is = "Blank"
+                lstItemsInDB.Items.Add("No Modifcations Defined")
+            Case Is = "Series20IDSplit"
+                lstItemsInDB.Items.Add("No Modifcations Defined")
+            Case Is = "DOAS"
+                lstItemsInDB.Items.Add("No Modifcations Defined")
+            Case Is = "SeriesL"
+                lstItemsInDB.Items.Add("No Modifcations Defined")
             Case Else
-
+                dummy = MsgBox("Error in Form Load for Air Flow Modification: " & frmMain.ThisUnit.Family & " is not defined.", vbOKOnly, "Fisen Unit Generator")
+                Stop
         End Select
     End Sub
 

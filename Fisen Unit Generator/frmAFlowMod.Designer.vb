@@ -35,18 +35,24 @@ Partial Class frmAFlowMod
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtSFanAFlow = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.grpDown2Side = New System.Windows.Forms.GroupBox()
+        Me.txtSPAdjustSideDisch = New System.Windows.Forms.TextBox()
+        Me.chkAdjustESPDown = New System.Windows.Forms.CheckBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.grpDown2Side = New System.Windows.Forms.GroupBox()
-        Me.chkAdjustESPDown = New System.Windows.Forms.CheckBox()
-        Me.txtSPAdjustSideDisch = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtSFanAFlow = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
+        Me.chkFlanges = New System.Windows.Forms.CheckBox()
+        Me.chkShipOldDampers = New System.Windows.Forms.CheckBox()
+        Me.chkNoDampers = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -182,6 +188,9 @@ Partial Class frmAFlowMod
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.chkNoDampers)
+        Me.tpgPerformance.Controls.Add(Me.chkShipOldDampers)
+        Me.tpgPerformance.Controls.Add(Me.chkFlanges)
         Me.tpgPerformance.Controls.Add(Me.Label2)
         Me.tpgPerformance.Controls.Add(Me.txtSFanAFlow)
         Me.tpgPerformance.Controls.Add(Me.Label1)
@@ -195,6 +204,60 @@ Partial Class frmAFlowMod
         Me.tpgPerformance.TabIndex = 2
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(298, 10)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(24, 13)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "cfm"
+        '
+        'txtSFanAFlow
+        '
+        Me.txtSFanAFlow.Location = New System.Drawing.Point(226, 7)
+        Me.txtSFanAFlow.Name = "txtSFanAFlow"
+        Me.txtSFanAFlow.Size = New System.Drawing.Size(66, 20)
+        Me.txtSFanAFlow.TabIndex = 16
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(7, 10)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(213, 13)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Any performace is based upon an airflow of:"
+        '
+        'grpDown2Side
+        '
+        Me.grpDown2Side.Controls.Add(Me.txtSPAdjustSideDisch)
+        Me.grpDown2Side.Controls.Add(Me.chkAdjustESPDown)
+        Me.grpDown2Side.Location = New System.Drawing.Point(7, 33)
+        Me.grpDown2Side.Name = "grpDown2Side"
+        Me.grpDown2Side.Size = New System.Drawing.Size(310, 51)
+        Me.grpDown2Side.TabIndex = 15
+        Me.grpDown2Side.TabStop = False
+        Me.grpDown2Side.Text = "Static Adjustment for Conversion"
+        Me.grpDown2Side.Visible = False
+        '
+        'txtSPAdjustSideDisch
+        '
+        Me.txtSPAdjustSideDisch.Location = New System.Drawing.Point(238, 19)
+        Me.txtSPAdjustSideDisch.Name = "txtSPAdjustSideDisch"
+        Me.txtSPAdjustSideDisch.Size = New System.Drawing.Size(66, 20)
+        Me.txtSPAdjustSideDisch.TabIndex = 1
+        '
+        'chkAdjustESPDown
+        '
+        Me.chkAdjustESPDown.AutoSize = True
+        Me.chkAdjustESPDown.Location = New System.Drawing.Point(15, 22)
+        Me.chkAdjustESPDown.Name = "chkAdjustESPDown"
+        Me.chkAdjustESPDown.Size = New System.Drawing.Size(217, 17)
+        Me.chkAdjustESPDown.TabIndex = 0
+        Me.chkAdjustESPDown.Text = "Adjust ESP Down for Conversion to Side"
+        Me.chkAdjustESPDown.UseVisualStyleBackColor = True
         '
         'btnDonePerf
         '
@@ -257,65 +320,78 @@ Partial Class frmAFlowMod
         Me.cmdDesignCautions.TabIndex = 17
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'grpDown2Side
+        'cmdScience
         '
-        Me.grpDown2Side.Controls.Add(Me.txtSPAdjustSideDisch)
-        Me.grpDown2Side.Controls.Add(Me.chkAdjustESPDown)
-        Me.grpDown2Side.Location = New System.Drawing.Point(7, 33)
-        Me.grpDown2Side.Name = "grpDown2Side"
-        Me.grpDown2Side.Size = New System.Drawing.Size(310, 51)
-        Me.grpDown2Side.TabIndex = 15
-        Me.grpDown2Side.TabStop = False
-        Me.grpDown2Side.Text = "Static Adjustment for Conversion"
-        Me.grpDown2Side.Visible = False
+        Me.cmdScience.Enabled = False
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(458, 249)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 86
+        Me.cmdScience.UseVisualStyleBackColor = True
         '
-        'chkAdjustESPDown
+        'cmdFIOPPreview
         '
-        Me.chkAdjustESPDown.AutoSize = True
-        Me.chkAdjustESPDown.Location = New System.Drawing.Point(15, 22)
-        Me.chkAdjustESPDown.Name = "chkAdjustESPDown"
-        Me.chkAdjustESPDown.Size = New System.Drawing.Size(217, 17)
-        Me.chkAdjustESPDown.TabIndex = 0
-        Me.chkAdjustESPDown.Text = "Adjust ESP Down for Conversion to Side"
-        Me.chkAdjustESPDown.UseVisualStyleBackColor = True
+        Me.cmdFIOPPreview.Enabled = False
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(494, 249)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 85
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
-        'txtSPAdjustSideDisch
+        'cmdLoadMod
         '
-        Me.txtSPAdjustSideDisch.Location = New System.Drawing.Point(238, 19)
-        Me.txtSPAdjustSideDisch.Name = "txtSPAdjustSideDisch"
-        Me.txtSPAdjustSideDisch.Size = New System.Drawing.Size(66, 20)
-        Me.txtSPAdjustSideDisch.TabIndex = 1
+        Me.cmdLoadMod.Enabled = False
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(422, 249)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 84
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
         '
-        'Label1
+        'chkFlanges
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(7, 10)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(213, 13)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Any performace is based upon an airflow of:"
+        Me.chkFlanges.AutoSize = True
+        Me.chkFlanges.Location = New System.Drawing.Point(10, 137)
+        Me.chkFlanges.Name = "chkFlanges"
+        Me.chkFlanges.Size = New System.Drawing.Size(230, 17)
+        Me.chkFlanges.TabIndex = 18
+        Me.chkFlanges.Text = "Provide 1"" Duct Flanges for New Openings"
+        Me.chkFlanges.UseVisualStyleBackColor = True
+        Me.chkFlanges.Visible = False
         '
-        'txtSFanAFlow
+        'chkShipOldDampers
         '
-        Me.txtSFanAFlow.Location = New System.Drawing.Point(226, 7)
-        Me.txtSFanAFlow.Name = "txtSFanAFlow"
-        Me.txtSFanAFlow.Size = New System.Drawing.Size(66, 20)
-        Me.txtSFanAFlow.TabIndex = 16
+        Me.chkShipOldDampers.AutoSize = True
+        Me.chkShipOldDampers.Location = New System.Drawing.Point(10, 160)
+        Me.chkShipOldDampers.Name = "chkShipOldDampers"
+        Me.chkShipOldDampers.Size = New System.Drawing.Size(196, 17)
+        Me.chkShipOldDampers.TabIndex = 19
+        Me.chkShipOldDampers.Text = "Ship Removed Hoods and Dampers"
+        Me.chkShipOldDampers.UseVisualStyleBackColor = True
+        Me.chkShipOldDampers.Visible = False
         '
-        'Label2
+        'chkNoDampers
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(298, 10)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(24, 13)
-        Me.Label2.TabIndex = 17
-        Me.Label2.Text = "cfm"
+        Me.chkNoDampers.AutoSize = True
+        Me.chkNoDampers.Location = New System.Drawing.Point(10, 114)
+        Me.chkNoDampers.Name = "chkNoDampers"
+        Me.chkNoDampers.Size = New System.Drawing.Size(163, 17)
+        Me.chkNoDampers.TabIndex = 20
+        Me.chkNoDampers.Text = "No Dampers/Hoods by Fisen"
+        Me.chkNoDampers.UseVisualStyleBackColor = True
+        Me.chkNoDampers.Visible = False
         '
         'frmAFlowMod
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(612, 290)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
+        Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
         Me.Controls.Add(Me.TabControl1)
@@ -363,4 +439,10 @@ Partial Class frmAFlowMod
     Friend WithEvents Label2 As Label
     Friend WithEvents txtSFanAFlow As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents cmdLoadMod As Button
+    Friend WithEvents chkShipOldDampers As CheckBox
+    Friend WithEvents chkFlanges As CheckBox
+    Friend WithEvents chkNoDampers As CheckBox
 End Class
