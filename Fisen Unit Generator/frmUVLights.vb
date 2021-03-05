@@ -31,6 +31,9 @@ Public Class frmUVLights
         Next i
 
         If chkWriteHistory.Checked = True Then Call WriteHistory()
+
+        frmMain.DesignNotes = frmMain.DesignNotes & txtDesignNotesHard.Text & vbCrLf & vbCrLf & txtDesignNotesSoft.Text
+
         Me.Hide()
     End Sub
     Private Sub UpdateBaseUnitRequiredItems()
@@ -225,6 +228,8 @@ Public Class frmUVLights
         Dim ElecChar As String
         Dim dummy As MsgBoxResult
 
+        Dim lDesignNote As String
+
         PriVolts = Val(frmMain.ThisUnitElecData.CommVolts)
         ElecChar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
         If optPwrUnitPower.Checked Then
@@ -233,7 +238,14 @@ Public Class frmUVLights
                     RqdVA = 66
                     If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
                 Case Is = "Series10"
-                    If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
+                    If Not (chkShareXfmr.Checked) Then
+                        XfmrVA = 100
+                        txtDesignNotesHard.Text = txtDesignNotesHard.Text & "UV Light Transformer is 100VA - Non Shared." & vbCrLf
+                        lDesignNote = Format(100 / frmMain.ThisUnitElecData.CommVolts, "0.0")
+                        frmMain.txtElecFisenLoadNotesComm.Text = frmMain.txtElecFisenLoadNotesComm.Text & "Fisen added load: UVLights - 100va Transformer - " & lDesignNote & " A Primary Current" & vbCrLf
+                    Else
+                        XfmrVA = 150
+                    End If
                     RqdVA = 84
                 Case Is = "Series12"
                     If Not (chkShareXfmr.Checked) Then XfmrVA = 100 Else XfmrVA = 150
@@ -276,6 +288,49 @@ Public Class frmUVLights
             frmMain.ThisUnitElecData.COPLoadsPresent = True
             frmMain.ThisUnitElecData.COPLoad.Add("Ultraviolet Lights," & Format(RqdVA, "0.0"))
         End If
+
+        lDesignNote = "Missing UV Tube Selection for Design.  Please update."
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+
+            Case Is = "Series10"
+                lDesignNote = "UV Light Tubes - 2 33 inch Ultravation UV Matrix EZ-Series"
+            Case Is = "Series12"
+
+            Case Is = "Series20"
+
+            Case Is = "Series40"
+                 'Depricated *Probably not going to be used*
+            Case Is = "Series100"
+
+            Case Is = "Premier"
+
+            Case Is = "Choice"
+
+            Case Is = "Select"
+
+            Case Is = "SeriesLX"
+
+            Case Is = "Series20ODSplit"
+
+            Case Is = "Series20IDSplit"
+
+            Case Is = "Series40ODSplit"
+
+            Case Is = "YCUL"
+
+            Case Is = "YLUA"
+
+            Case Is = "DOAS"
+
+            Case Is = "SeriesL"
+
+            Case Is = "Blank"
+
+            Case Else
+
+        End Select
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & lDesignNote & vbCrLf
 
     End Sub
     Private Sub WriteHistory()
@@ -365,6 +420,8 @@ Public Class frmUVLights
         ModuleCodeList.Add("420000")
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+        txtDesignNotesHard.Text = "***BiPolar Notes and Comments***" & vbCrLf
 
     End Sub
 
@@ -559,12 +616,18 @@ Public Class frmUVLights
     End Sub
 
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
-        btnOK.Enabled = True
-        btnDonePerf.Enabled = False
-        TabControl1.Enabled = False
+        TabControl1.SelectTab("tpgNotesPage")
+
     End Sub
 
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
+        pCancelled = True
+        Me.Hide()
+    End Sub
 
+    Private Sub btnDoneNotes_Click(sender As Object, e As EventArgs) Handles btnDoneNotes.Click
+        If txtDesignNotesSoft.Text = "" Then txtDesignNotesSoft.Text = "No user entered design notes."
+        btnOK.Enabled = True
+        btnDoneNotes.Enabled = False
     End Sub
 End Class

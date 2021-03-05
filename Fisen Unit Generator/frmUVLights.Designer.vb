@@ -28,6 +28,7 @@ Partial Class frmUVLights
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkShareXfmr = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.optPwrDedicated = New System.Windows.Forms.RadioButton()
         Me.optPwrConvOutlet = New System.Windows.Forms.RadioButton()
@@ -61,10 +62,12 @@ Partial Class frmUVLights
         Me.optCtrlWithComps = New System.Windows.Forms.RadioButton()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.btnDonePerf = New System.Windows.Forms.Button()
-        Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.tpgNotesPage = New System.Windows.Forms.TabPage()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.chkShareXfmr = New System.Windows.Forms.CheckBox()
+        Me.btnDoneNotes = New System.Windows.Forms.Button()
+        Me.txtDesignNotesSoft = New System.Windows.Forms.TextBox()
+        Me.txtDesignNotesHard = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -74,6 +77,7 @@ Partial Class frmUVLights
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.tpgNotesPage.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkWriteHistory
@@ -113,7 +117,7 @@ Partial Class frmUVLights
         Me.TabControl1.Controls.Add(Me.tpgOptions)
         Me.TabControl1.Controls.Add(Me.tpgControls)
         Me.TabControl1.Controls.Add(Me.tpgPerformance)
-        Me.TabControl1.Controls.Add(Me.DebugPage)
+        Me.TabControl1.Controls.Add(Me.tpgNotesPage)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -132,6 +136,17 @@ Partial Class frmUVLights
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'chkShareXfmr
+        '
+        Me.chkShareXfmr.AutoSize = True
+        Me.chkShareXfmr.Location = New System.Drawing.Point(7, 113)
+        Me.chkShareXfmr.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkShareXfmr.Name = "chkShareXfmr"
+        Me.chkShareXfmr.Size = New System.Drawing.Size(170, 17)
+        Me.chkShareXfmr.TabIndex = 49
+        Me.chkShareXfmr.Text = "Share Transformer with Bipolar"
+        Me.chkShareXfmr.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -505,15 +520,18 @@ Partial Class frmUVLights
         Me.btnDonePerf.Text = ">"
         Me.btnDonePerf.UseVisualStyleBackColor = True
         '
-        'DebugPage
+        'tpgNotesPage
         '
-        Me.DebugPage.Location = New System.Drawing.Point(4, 22)
-        Me.DebugPage.Name = "DebugPage"
-        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(432, 199)
-        Me.DebugPage.TabIndex = 3
-        Me.DebugPage.Text = "Debug"
-        Me.DebugPage.UseVisualStyleBackColor = True
+        Me.tpgNotesPage.Controls.Add(Me.btnDoneNotes)
+        Me.tpgNotesPage.Controls.Add(Me.txtDesignNotesSoft)
+        Me.tpgNotesPage.Controls.Add(Me.txtDesignNotesHard)
+        Me.tpgNotesPage.Location = New System.Drawing.Point(4, 22)
+        Me.tpgNotesPage.Name = "tpgNotesPage"
+        Me.tpgNotesPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpgNotesPage.Size = New System.Drawing.Size(432, 199)
+        Me.tpgNotesPage.TabIndex = 3
+        Me.tpgNotesPage.Text = "Notes"
+        Me.tpgNotesPage.UseVisualStyleBackColor = True
         '
         'cmdViewHistory
         '
@@ -533,16 +551,33 @@ Partial Class frmUVLights
         Me.cmdDesignCautions.TabIndex = 22
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'chkShareXfmr
+        'btnDoneNotes
         '
-        Me.chkShareXfmr.AutoSize = True
-        Me.chkShareXfmr.Location = New System.Drawing.Point(7, 113)
-        Me.chkShareXfmr.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkShareXfmr.Name = "chkShareXfmr"
-        Me.chkShareXfmr.Size = New System.Drawing.Size(170, 17)
-        Me.chkShareXfmr.TabIndex = 49
-        Me.chkShareXfmr.Text = "Share Transformer with Bipolar"
-        Me.chkShareXfmr.UseVisualStyleBackColor = True
+        Me.btnDoneNotes.Location = New System.Drawing.Point(385, 170)
+        Me.btnDoneNotes.Name = "btnDoneNotes"
+        Me.btnDoneNotes.Size = New System.Drawing.Size(41, 23)
+        Me.btnDoneNotes.TabIndex = 24
+        Me.btnDoneNotes.Text = ">"
+        Me.btnDoneNotes.UseVisualStyleBackColor = True
+        '
+        'txtDesignNotesSoft
+        '
+        Me.txtDesignNotesSoft.Location = New System.Drawing.Point(6, 76)
+        Me.txtDesignNotesSoft.Multiline = True
+        Me.txtDesignNotesSoft.Name = "txtDesignNotesSoft"
+        Me.txtDesignNotesSoft.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDesignNotesSoft.Size = New System.Drawing.Size(420, 74)
+        Me.txtDesignNotesSoft.TabIndex = 23
+        '
+        'txtDesignNotesHard
+        '
+        Me.txtDesignNotesHard.Location = New System.Drawing.Point(6, 6)
+        Me.txtDesignNotesHard.Multiline = True
+        Me.txtDesignNotesHard.Name = "txtDesignNotesHard"
+        Me.txtDesignNotesHard.ReadOnly = True
+        Me.txtDesignNotesHard.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDesignNotesHard.Size = New System.Drawing.Size(420, 64)
+        Me.txtDesignNotesHard.TabIndex = 22
         '
         'frmUVLights
         '
@@ -576,6 +611,8 @@ Partial Class frmUVLights
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
+        Me.tpgNotesPage.ResumeLayout(False)
+        Me.tpgNotesPage.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -611,7 +648,7 @@ Partial Class frmUVLights
     Friend WithEvents optCtrlWithComps As RadioButton
     Friend WithEvents tpgPerformance As TabPage
     Friend WithEvents btnDonePerf As Button
-    Friend WithEvents DebugPage As TabPage
+    Friend WithEvents tpgNotesPage As TabPage
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents optPwrDedicated As RadioButton
     Friend WithEvents optPwrConvOutlet As RadioButton
@@ -623,4 +660,7 @@ Partial Class frmUVLights
     Friend WithEvents optInstDSEvap As RadioButton
     Friend WithEvents chkEMControlsOnly As CheckBox
     Friend WithEvents chkShareXfmr As CheckBox
+    Friend WithEvents btnDoneNotes As Button
+    Friend WithEvents txtDesignNotesSoft As TextBox
+    Friend WithEvents txtDesignNotesHard As TextBox
 End Class

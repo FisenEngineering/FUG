@@ -82,4 +82,14 @@
         con.Close()
         con = Nothing
     End Sub
+
+    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+
+    End Sub
+
+    Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
+        pCancelled = True
+        Me.Hide()
+
+    End Sub
 End Class

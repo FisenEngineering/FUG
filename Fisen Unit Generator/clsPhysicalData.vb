@@ -201,29 +201,6 @@ Public Class clsPhysicalData
     Public Sub New()
         pCalcPoints = 4
     End Sub
-    Public Sub ImportUPGData(UnitFamily As String)
-        Dim xdoc As XmlDocument = New XmlDocument
-        Dim nodeid As String
-        If ((UnitFamily = "Series20ODSplit") Or (UnitFamily = "Series40ODSplit")) Then
-            nodeid = "Value/SystemPerformance/Outdoor"
-        Else
-            nodeid = "Value/SystemPerformance/"
-        End If
-        xdoc.Load(frmMain.txtBaseUnitFile.Text)
-        Dim xnodelist As XmlNodeList = xdoc.SelectNodes("//HvacQuote/LineItems/HvacQuoteLineItem")
-        Dim xnode As XmlNode
-        xnode = xdoc.SelectSingleNode("//HvacQuote/Performance/Dictionary/KeyValuePair[contains(.,'" & frmMain.ThisUnit.PerformanceID & "')]")
-        pLength = xnode.SelectSingleNode(nodeid & "Dimensions").SelectSingleNode("LengthIn").InnerText
-        pWidth = xnode.SelectSingleNode(nodeid & "Dimensions").SelectSingleNode("WidthIn").InnerText
-        pHeight = xnode.SelectSingleNode(nodeid & "Dimensions").SelectSingleNode("HeightIn").InnerText
-        pBaseUnitWeight = xnode.SelectSingleNode(nodeid & "Dimensions").SelectSingleNode("WeightLbs").InnerText
-        pClearRight = xnode.SelectSingleNode(nodeid & "Clearance").SelectSingleNode("Right").InnerText
-        pClearTop = xnode.SelectSingleNode(nodeid & "Clearance").SelectSingleNode("Top").InnerText
-        pClearFront = xnode.SelectSingleNode(nodeid & "Clearance").SelectSingleNode("Front").InnerText
-        pClearBottom = xnode.SelectSingleNode(nodeid & "Clearance").SelectSingleNode("Bottom").InnerText
-        pClearBack = xnode.SelectSingleNode(nodeid & "Clearance").SelectSingleNode("Back").InnerText
-        pClearLeft = xnode.SelectSingleNode(nodeid & "Clearance").SelectSingleNode("Left").InnerText
-    End Sub
 
     Public Sub ImportFSTUPGData()
         Dim xDoc As XmlDocument = New XmlDocument
@@ -261,8 +238,6 @@ Public Class clsPhysicalData
         pBasePointLoad.Add(xNodeRoot.SelectSingleNode("BWeight").InnerText)
         pBasePointLoad.Add(xNodeRoot.SelectSingleNode("CWeight").InnerText)
         pBasePointLoad.Add(xNodeRoot.SelectSingleNode("DWeight").InnerText)
-
-
 
         xDoc = Nothing
 
@@ -437,6 +412,25 @@ Public Class clsPhysicalData
         con.Close()
         rs = Nothing
         con = Nothing
+
+    End Sub
+    Public Sub ImportPointLoadsBlank()
+        Dim inmsg, errmsg, oneweight As String
+        Dim dummy As MsgBoxResult
+        Dim i As Integer
+
+        For i = 0 To 3
+            inmsg = "Please enter the weight for location '" & Chr(65 + i) & "':"
+            oneweight = InputBox(inmsg, frmMain.gProgName, "-1")
+            If IsNumeric(oneweight) Then
+                pBasePointLoad.Add(Format(Val(oneweight), "0"))
+            Else
+                errmsg = "That was not a numeric value." & vbCrLf & "Please validate weight tables at end of generation." & vbCrLf & "OK to Substitute '-1'. CANCEL to end generation"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                pBasePointLoad.Add("-1")
+            End If
+        Next
 
     End Sub
 End Class

@@ -55,4 +55,10 @@ Public Class frmUserOptions
     Private Sub cmdEditED_Click(sender As Object, e As EventArgs) Handles cmdEditED.Click
         frmEndDeviceMaintenance.ShowDialog()
     End Sub
+
+    Private Sub cmdNewPoint_Click(sender As Object, e As EventArgs) Handles cmdNewPoint.Click
+        frmPointEditCreate.WhichAction = "Create"
+        frmPointEditCreate.ShowDialog()
+
+    End Sub
 End Class

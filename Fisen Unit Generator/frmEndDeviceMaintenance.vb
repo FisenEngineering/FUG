@@ -1,7 +1,16 @@
 ﻿Public Class frmEndDeviceMaintenance
+    Private pCancelled As Boolean
+    Public Property Cancelled As Boolean
+        Get
+            Return pCancelled
+        End Get
+        Set(value As Boolean)
+            pCancelled = value
+        End Set
+    End Property
     Private Sub frmEndDeviceMaintenance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cmbSensorClass.Text = "All"
-        Call PopulateEndDeviceList
+        Call PopulateEndDeviceList()
     End Sub
 
     Private Sub PopulateEndDeviceList()
@@ -173,5 +182,17 @@
         rs.Close()
         con.Close()
         con = Nothing
+    End Sub
+
+    Private Sub cmdCreateNewED_Click(sender As Object, e As EventArgs) Handles cmdCreateNewED.Click
+        frmEndDeviceCreateNew.ShowDialog()
+        frmEndDeviceCreateNew.Dispose()
+        Call PopulateEndDeviceList()
+
+    End Sub
+
+    Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
+        pcancelled = True
+        Me.Hide()
     End Sub
 End Class

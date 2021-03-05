@@ -170,7 +170,7 @@
                         Case Is = "Premier"
                             UndefMod = True
                         Case Is = "Choice"
-                            UndefMod = True
+                            'UndefMod = True
                         Case Is = "Select"
                             UndefMod = True
                         Case Is = "SeriesLX"
@@ -250,9 +250,57 @@
             AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
 
+
+        If chkWriteHistory.Checked = True Then Call WriteAFlowModHistory()
         Me.Hide()
     End Sub
+    Private Sub WriteAFlowModHistory()
+        'Upgraded to Version 2.0 30 April 2020
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific
+        Dim MainCustomCode, MainCustomDescription As String
 
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+
+        MySQL = "Select * FROM tblHistoryHWCoil WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        rs.Open(MySQL, con)
+
+        If Not (rs.EOF And rs.BOF) Then
+            'Update SQL
+            ExistingRecordID = rs.Fields(0).Value
+            ' MySQL = "UPDATE tblHistoryHWCoil SET HeatAirFlow='" & HeatAirflow & "', EAT='" & EAT & "', " & "EFT='" & EFT & "', Flow='" & Flow & "', Fluid='" & Fluid & "', FPercent='" & Percent & "', LAT='" & LAT & "', LFT='" & LFT & "', CoilAPD='" & CoilAPD & "', FPD='" & FPD & "', Capacity='" & Capacity & "' WHERE ID=" & ExistingRecordID
+            con.Execute(MySQL)
+        Else
+            'Insert SQL
+            'MySQL = "INSERT INTO tblHistoryHWCoil (JobName, UnitID, Version, ModelNumber, HeatAirflow, EAT, EFT, Flow, Fluid, FPercent, LAT, LFT, CoilAPD, FPD, Capacity) VALUES ('" _
+            '& jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HeatAirflow & "','" & EAT & "','" & EFT & "','" & Flow & "','" & Fluid & "','" & Percent & "','" & LAT & "','" & LFT & "','" & CoilAPD & "','" & FPD & "','" & Capacity & "')"
+            con.Execute(MySQL)
+        End If
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+
+    End Sub
     Private Sub PerformDesignCautionScan(Prelim As Boolean)
         Dim i As Integer
         Dim dummy As MsgBoxResult
@@ -333,7 +381,7 @@
         Dim dummy As MsgBoxResult
 
         ModuleCodeList.Clear()
-        ModuleCodeList.Add("340100")
+        ModuleCodeList.Add("340000")
 
         For i = 0 To lstItemsInDB.Items.Count - 1
             ThisAFMod = lstItemsInDB.Items(i).ToString()
@@ -443,7 +491,6 @@
                             Case Is = "Choice"
                                 ModuleCodeList.Add("340301")
                                 ModuleCodeList.Add("340302")
-                                ModuleCodeList.Add("340301")
                                 If chkFlanges.Checked Then ModuleCodeList.Add("340303")
                                 If chkShipOldDampers.Checked Then ModuleCodeList.Add("340304")
                                 If chkNoDampers.Checked Then ModuleCodeList.Add("340305")
@@ -471,8 +518,8 @@
         Dim ThisAFMod As String
         Dim dummy As MsgBoxResult
 
-        ModuleCodeList.Clear()
-        ModuleCodeList.Add("340100")
+        ' ModuleCodeList.Clear()
+        'ModuleCodeList.Add("340000")
 
         For i = 0 To lstItemsInDB.Items.Count - 1
             ThisAFMod = lstItemsInDB.Items(i).ToString()
@@ -500,6 +547,8 @@
                         frmMain.lstRequiredFactoryItems.Items.Add("Base unit ordered with bottom supply.")
                     Case Is = "Return Air - Convert to Rear Return"
                         frmMain.lstRequiredFactoryItems.Items.Add("Base unit ordered with bottom supply.")
+                    Case Is = "Return Air - Convert to End Return"
+                        frmMain.lstRequiredFactoryItems.Items.Add("Base unit ordered with bottom return.")
                     Case Else
                         dummy = MsgBox("Error is assigning Required Base Unit Items:" & vbCrLf & "Unknown Code - " & ThisAFMod, vbOKOnly, "Fisen Unit Generator")
                         Stop
@@ -522,14 +571,14 @@
         'Next Line is the line item description i.e. Hot Water Description
         frmMain.ThisUnitPhysicalData.ModLoadItem.Add("Airflow Path Reconfiguration (Net)")
 
-        NetMass = 0
+        Netmass = 0
         For i = 0 To lstItemsInDB.Items.Count - 1
             ThisAFMod = lstItemsInDB.Items(i).ToString()
             If lstItemsInDB.SelectedItems.Contains(ThisAFMod) Then
                 Netmass = Netmass + UpdateWeightTableMass(ThisAFMod)
             End If
         Next i
-        frmMain.ThisUnitPhysicalData.ModLoadMass.Add(NetMass)
+        frmMain.ThisUnitPhysicalData.ModLoadMass.Add(Netmass)
 
     End Sub
     Private Function UpdateWeightTableMass(locMod As String)
@@ -652,7 +701,7 @@
     Private Sub frmAFlowMod_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call PopulateAvailableModifications()
         'Prime the pump
-        ModuleCodeList.Add("340100")
+        ModuleCodeList.Add("340000")
 
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
     End Sub
@@ -714,6 +763,11 @@
                 dummy = MsgBox("Error in Form Load for Air Flow Modification: " & frmMain.ThisUnit.Family & " is not defined.", vbOKOnly, "Fisen Unit Generator")
                 Stop
         End Select
+
+        If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
+        If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False
+        chkWriteHistory.Visible = SuperUser() Or frmMain.chkDebug.Checked
+
     End Sub
 
     Private Sub cmdDesignCautions_Click(sender As Object, e As EventArgs) Handles cmdDesignCautions.Click
@@ -726,7 +780,7 @@
         frmHistoryReport.Show()
     End Sub
 
-    Private Sub txtSFanAFlow_Leave(sender As Object, e As EventArgs) Handles txtSFanAFlow.Leave
+    Private Sub txtSFanAFlow_Leave(sender As Object, e As EventArgs)
         txtSPAdjustSideDisch.Text = Format(0.000000009564935065 * Val(txtSFanAFlow.Text) * Val(txtSFanAFlow.Text) - 0.000006064832535891 * Val(txtSFanAFlow.Text) + 0.0270664217361984, "0.00")
     End Sub
 End Class

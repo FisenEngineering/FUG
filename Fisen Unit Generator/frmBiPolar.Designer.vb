@@ -50,6 +50,12 @@ Partial Class frmBiPolar
         Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.grpMnAOptions = New System.Windows.Forms.GroupBox()
+        Me.optBACnetOnlyMnA = New System.Windows.Forms.RadioButton()
+        Me.chkBACnetMnA = New System.Windows.Forms.CheckBox()
+        Me.optNoMnA = New System.Windows.Forms.RadioButton()
+        Me.optLocalMnA = New System.Windows.Forms.RadioButton()
+        Me.optRemoteMnA = New System.Windows.Forms.RadioButton()
         Me.chkEMControlsOnly = New System.Windows.Forms.CheckBox()
         Me.cmbCustomControls = New System.Windows.Forms.ComboBox()
         Me.optCtrlCustom = New System.Windows.Forms.RadioButton()
@@ -62,21 +68,20 @@ Partial Class frmBiPolar
         Me.optCtrl247 = New System.Windows.Forms.RadioButton()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
-        Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.tpgNotesPage = New System.Windows.Forms.TabPage()
+        Me.btnDoneNotes = New System.Windows.Forms.Button()
+        Me.txtDesignNotesSoft = New System.Windows.Forms.TextBox()
+        Me.txtDesignNotesHard = New System.Windows.Forms.TextBox()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.cmdFIOPPreview = New System.Windows.Forms.Button()
-        Me.grpMnAOptions = New System.Windows.Forms.GroupBox()
-        Me.optNoMnA = New System.Windows.Forms.RadioButton()
-        Me.optLocalMnA = New System.Windows.Forms.RadioButton()
-        Me.optRemoteMnA = New System.Windows.Forms.RadioButton()
-        Me.chkBACnetMnA = New System.Windows.Forms.CheckBox()
-        Me.optBACnetOnlyMnA = New System.Windows.Forms.RadioButton()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
+        Me.txtPerfNotes = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -85,9 +90,10 @@ Partial Class frmBiPolar
         Me.GroupBox3.SuspendLayout()
         Me.fraAuxPanel.SuspendLayout()
         Me.tpgControls.SuspendLayout()
+        Me.grpMnAOptions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
-        Me.grpMnAOptions.SuspendLayout()
+        Me.tpgNotesPage.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -96,7 +102,7 @@ Partial Class frmBiPolar
         Me.TabControl1.Controls.Add(Me.tpgOptions)
         Me.TabControl1.Controls.Add(Me.tpgControls)
         Me.TabControl1.Controls.Add(Me.tpgPerformance)
-        Me.TabControl1.Controls.Add(Me.DebugPage)
+        Me.TabControl1.Controls.Add(Me.tpgNotesPage)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -399,6 +405,76 @@ Partial Class frmBiPolar
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
         '
+        'grpMnAOptions
+        '
+        Me.grpMnAOptions.Controls.Add(Me.optBACnetOnlyMnA)
+        Me.grpMnAOptions.Controls.Add(Me.chkBACnetMnA)
+        Me.grpMnAOptions.Controls.Add(Me.optNoMnA)
+        Me.grpMnAOptions.Controls.Add(Me.optLocalMnA)
+        Me.grpMnAOptions.Controls.Add(Me.optRemoteMnA)
+        Me.grpMnAOptions.Enabled = False
+        Me.grpMnAOptions.Location = New System.Drawing.Point(6, 103)
+        Me.grpMnAOptions.Name = "grpMnAOptions"
+        Me.grpMnAOptions.Size = New System.Drawing.Size(373, 70)
+        Me.grpMnAOptions.TabIndex = 14
+        Me.grpMnAOptions.TabStop = False
+        Me.grpMnAOptions.Text = "Monitor and Alarm Options"
+        '
+        'optBACnetOnlyMnA
+        '
+        Me.optBACnetOnlyMnA.AutoSize = True
+        Me.optBACnetOnlyMnA.Enabled = False
+        Me.optBACnetOnlyMnA.Location = New System.Drawing.Point(249, 42)
+        Me.optBACnetOnlyMnA.Name = "optBACnetOnlyMnA"
+        Me.optBACnetOnlyMnA.Size = New System.Drawing.Size(110, 17)
+        Me.optBACnetOnlyMnA.TabIndex = 15
+        Me.optBACnetOnlyMnA.Text = "BACnet Only MnA"
+        Me.optBACnetOnlyMnA.UseVisualStyleBackColor = True
+        '
+        'chkBACnetMnA
+        '
+        Me.chkBACnetMnA.AutoSize = True
+        Me.chkBACnetMnA.Location = New System.Drawing.Point(14, 43)
+        Me.chkBACnetMnA.Name = "chkBACnetMnA"
+        Me.chkBACnetMnA.Size = New System.Drawing.Size(150, 17)
+        Me.chkBACnetMnA.TabIndex = 14
+        Me.chkBACnetMnA.Text = "BACnet Monitor and Alarm"
+        Me.chkBACnetMnA.UseVisualStyleBackColor = True
+        '
+        'optNoMnA
+        '
+        Me.optNoMnA.AutoSize = True
+        Me.optNoMnA.Checked = True
+        Me.optNoMnA.Enabled = False
+        Me.optNoMnA.Location = New System.Drawing.Point(249, 20)
+        Me.optNoMnA.Name = "optNoMnA"
+        Me.optNoMnA.Size = New System.Drawing.Size(94, 17)
+        Me.optNoMnA.TabIndex = 2
+        Me.optNoMnA.TabStop = True
+        Me.optNoMnA.Text = "No MnA Panel"
+        Me.optNoMnA.UseVisualStyleBackColor = True
+        '
+        'optLocalMnA
+        '
+        Me.optLocalMnA.AutoSize = True
+        Me.optLocalMnA.Enabled = False
+        Me.optLocalMnA.Location = New System.Drawing.Point(137, 20)
+        Me.optLocalMnA.Name = "optLocalMnA"
+        Me.optLocalMnA.Size = New System.Drawing.Size(106, 17)
+        Me.optLocalMnA.TabIndex = 1
+        Me.optLocalMnA.Text = "Local MnA Panel"
+        Me.optLocalMnA.UseVisualStyleBackColor = True
+        '
+        'optRemoteMnA
+        '
+        Me.optRemoteMnA.AutoSize = True
+        Me.optRemoteMnA.Location = New System.Drawing.Point(14, 20)
+        Me.optRemoteMnA.Name = "optRemoteMnA"
+        Me.optRemoteMnA.Size = New System.Drawing.Size(117, 17)
+        Me.optRemoteMnA.TabIndex = 0
+        Me.optRemoteMnA.Text = "Remote MnA Panel"
+        Me.optRemoteMnA.UseVisualStyleBackColor = True
+        '
         'chkEMControlsOnly
         '
         Me.chkEMControlsOnly.AutoSize = True
@@ -512,8 +588,8 @@ Partial Class frmBiPolar
         '
         'tpgPerformance
         '
+        Me.tpgPerformance.Controls.Add(Me.txtPerfNotes)
         Me.tpgPerformance.Controls.Add(Me.Label1)
-        Me.tpgPerformance.Controls.Add(Me.TextBox1)
         Me.tpgPerformance.Controls.Add(Me.btnDonePerf)
         Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Name = "tpgPerformance"
@@ -532,15 +608,6 @@ Partial Class frmBiPolar
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Performance Notes:"
         '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(6, 19)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(420, 145)
-        Me.TextBox1.TabIndex = 15
-        '
         'btnDonePerf
         '
         Me.btnDonePerf.Location = New System.Drawing.Point(385, 170)
@@ -550,15 +617,46 @@ Partial Class frmBiPolar
         Me.btnDonePerf.Text = ">"
         Me.btnDonePerf.UseVisualStyleBackColor = True
         '
-        'DebugPage
+        'tpgNotesPage
         '
-        Me.DebugPage.Location = New System.Drawing.Point(4, 22)
-        Me.DebugPage.Name = "DebugPage"
-        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(432, 199)
-        Me.DebugPage.TabIndex = 3
-        Me.DebugPage.Text = "Debug"
-        Me.DebugPage.UseVisualStyleBackColor = True
+        Me.tpgNotesPage.Controls.Add(Me.btnDoneNotes)
+        Me.tpgNotesPage.Controls.Add(Me.txtDesignNotesSoft)
+        Me.tpgNotesPage.Controls.Add(Me.txtDesignNotesHard)
+        Me.tpgNotesPage.Location = New System.Drawing.Point(4, 22)
+        Me.tpgNotesPage.Name = "tpgNotesPage"
+        Me.tpgNotesPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpgNotesPage.Size = New System.Drawing.Size(432, 199)
+        Me.tpgNotesPage.TabIndex = 3
+        Me.tpgNotesPage.Text = "Notes"
+        Me.tpgNotesPage.UseVisualStyleBackColor = True
+        '
+        'btnDoneNotes
+        '
+        Me.btnDoneNotes.Location = New System.Drawing.Point(385, 170)
+        Me.btnDoneNotes.Name = "btnDoneNotes"
+        Me.btnDoneNotes.Size = New System.Drawing.Size(41, 23)
+        Me.btnDoneNotes.TabIndex = 21
+        Me.btnDoneNotes.Text = ">"
+        Me.btnDoneNotes.UseVisualStyleBackColor = True
+        '
+        'txtDesignNotesSoft
+        '
+        Me.txtDesignNotesSoft.Location = New System.Drawing.Point(6, 76)
+        Me.txtDesignNotesSoft.Multiline = True
+        Me.txtDesignNotesSoft.Name = "txtDesignNotesSoft"
+        Me.txtDesignNotesSoft.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDesignNotesSoft.Size = New System.Drawing.Size(420, 74)
+        Me.txtDesignNotesSoft.TabIndex = 20
+        '
+        'txtDesignNotesHard
+        '
+        Me.txtDesignNotesHard.Location = New System.Drawing.Point(6, 6)
+        Me.txtDesignNotesHard.Multiline = True
+        Me.txtDesignNotesHard.Name = "txtDesignNotesHard"
+        Me.txtDesignNotesHard.ReadOnly = True
+        Me.txtDesignNotesHard.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDesignNotesHard.Size = New System.Drawing.Size(420, 64)
+        Me.txtDesignNotesHard.TabIndex = 19
         '
         'chkWriteHistory
         '
@@ -619,75 +717,35 @@ Partial Class frmBiPolar
         Me.cmdFIOPPreview.TabIndex = 63
         Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
-        'grpMnAOptions
+        'cmdScience
         '
-        Me.grpMnAOptions.Controls.Add(Me.optBACnetOnlyMnA)
-        Me.grpMnAOptions.Controls.Add(Me.chkBACnetMnA)
-        Me.grpMnAOptions.Controls.Add(Me.optNoMnA)
-        Me.grpMnAOptions.Controls.Add(Me.optLocalMnA)
-        Me.grpMnAOptions.Controls.Add(Me.optRemoteMnA)
-        Me.grpMnAOptions.Enabled = False
-        Me.grpMnAOptions.Location = New System.Drawing.Point(6, 103)
-        Me.grpMnAOptions.Name = "grpMnAOptions"
-        Me.grpMnAOptions.Size = New System.Drawing.Size(373, 70)
-        Me.grpMnAOptions.TabIndex = 14
-        Me.grpMnAOptions.TabStop = False
-        Me.grpMnAOptions.Text = "Monitor and Alarm Options"
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(309, 243)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 76
+        Me.cmdScience.UseVisualStyleBackColor = True
         '
-        'optNoMnA
+        'cmdLoadMod
         '
-        Me.optNoMnA.AutoSize = True
-        Me.optNoMnA.Checked = True
-        Me.optNoMnA.Enabled = False
-        Me.optNoMnA.Location = New System.Drawing.Point(249, 20)
-        Me.optNoMnA.Name = "optNoMnA"
-        Me.optNoMnA.Size = New System.Drawing.Size(94, 17)
-        Me.optNoMnA.TabIndex = 2
-        Me.optNoMnA.TabStop = True
-        Me.optNoMnA.Text = "No MnA Panel"
-        Me.optNoMnA.UseVisualStyleBackColor = True
+        Me.cmdLoadMod.Enabled = False
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(273, 243)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 88
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
         '
-        'optLocalMnA
+        'txtPerfNotes
         '
-        Me.optLocalMnA.AutoSize = True
-        Me.optLocalMnA.Enabled = False
-        Me.optLocalMnA.Location = New System.Drawing.Point(137, 20)
-        Me.optLocalMnA.Name = "optLocalMnA"
-        Me.optLocalMnA.Size = New System.Drawing.Size(106, 17)
-        Me.optLocalMnA.TabIndex = 1
-        Me.optLocalMnA.Text = "Local MnA Panel"
-        Me.optLocalMnA.UseVisualStyleBackColor = True
-        '
-        'optRemoteMnA
-        '
-        Me.optRemoteMnA.AutoSize = True
-        Me.optRemoteMnA.Location = New System.Drawing.Point(14, 20)
-        Me.optRemoteMnA.Name = "optRemoteMnA"
-        Me.optRemoteMnA.Size = New System.Drawing.Size(117, 17)
-        Me.optRemoteMnA.TabIndex = 0
-        Me.optRemoteMnA.Text = "Remote MnA Panel"
-        Me.optRemoteMnA.UseVisualStyleBackColor = True
-        '
-        'chkBACnetMnA
-        '
-        Me.chkBACnetMnA.AutoSize = True
-        Me.chkBACnetMnA.Location = New System.Drawing.Point(14, 43)
-        Me.chkBACnetMnA.Name = "chkBACnetMnA"
-        Me.chkBACnetMnA.Size = New System.Drawing.Size(150, 17)
-        Me.chkBACnetMnA.TabIndex = 14
-        Me.chkBACnetMnA.Text = "BACnet Monitor and Alarm"
-        Me.chkBACnetMnA.UseVisualStyleBackColor = True
-        '
-        'optBACnetOnlyMnA
-        '
-        Me.optBACnetOnlyMnA.AutoSize = True
-        Me.optBACnetOnlyMnA.Enabled = False
-        Me.optBACnetOnlyMnA.Location = New System.Drawing.Point(249, 42)
-        Me.optBACnetOnlyMnA.Name = "optBACnetOnlyMnA"
-        Me.optBACnetOnlyMnA.Size = New System.Drawing.Size(110, 17)
-        Me.optBACnetOnlyMnA.TabIndex = 15
-        Me.optBACnetOnlyMnA.Text = "BACnet Only MnA"
-        Me.optBACnetOnlyMnA.UseVisualStyleBackColor = True
+        Me.txtPerfNotes.Location = New System.Drawing.Point(6, 19)
+        Me.txtPerfNotes.Multiline = True
+        Me.txtPerfNotes.Name = "txtPerfNotes"
+        Me.txtPerfNotes.ReadOnly = True
+        Me.txtPerfNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtPerfNotes.Size = New System.Drawing.Size(420, 145)
+        Me.txtPerfNotes.TabIndex = 20
         '
         'frmBiPolar
         '
@@ -696,6 +754,8 @@ Partial Class frmBiPolar
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(457, 281)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdLoadMod)
+        Me.Controls.Add(Me.cmdScience)
         Me.Controls.Add(Me.cmdFIOPPreview)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
@@ -722,12 +782,14 @@ Partial Class frmBiPolar
         Me.fraAuxPanel.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
         Me.tpgControls.PerformLayout()
+        Me.grpMnAOptions.ResumeLayout(False)
+        Me.grpMnAOptions.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
-        Me.grpMnAOptions.ResumeLayout(False)
-        Me.grpMnAOptions.PerformLayout()
+        Me.tpgNotesPage.ResumeLayout(False)
+        Me.tpgNotesPage.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -766,7 +828,7 @@ Partial Class frmBiPolar
     Friend WithEvents optCtrl247 As RadioButton
     Friend WithEvents tpgPerformance As TabPage
     Friend WithEvents btnDonePerf As Button
-    Friend WithEvents DebugPage As TabPage
+    Friend WithEvents tpgNotesPage As TabPage
     Friend WithEvents chkWriteHistory As CheckBox
     Friend WithEvents cmdViewHistory As Button
     Friend WithEvents cmdDesignCautions As Button
@@ -779,7 +841,6 @@ Partial Class frmBiPolar
     Friend WithEvents optDPPNA As RadioButton
     Friend WithEvents cmbBipolarStyle As ComboBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents chkShareXfmr As CheckBox
     Friend WithEvents grpMnAOptions As GroupBox
     Friend WithEvents optBACnetOnlyMnA As RadioButton
@@ -787,4 +848,10 @@ Partial Class frmBiPolar
     Friend WithEvents optNoMnA As RadioButton
     Friend WithEvents optLocalMnA As RadioButton
     Friend WithEvents optRemoteMnA As RadioButton
+    Friend WithEvents btnDoneNotes As Button
+    Friend WithEvents txtDesignNotesSoft As TextBox
+    Friend WithEvents txtDesignNotesHard As TextBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdLoadMod As Button
+    Friend WithEvents txtPerfNotes As TextBox
 End Class

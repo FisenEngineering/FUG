@@ -30,24 +30,25 @@ Partial Class frmEndDeviceMaintenance
         Me.EDCutSheet = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EDCutSheetPath = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmdCreateNewED = New System.Windows.Forms.Button()
         Me.cmbEndDeviceClass = New System.Windows.Forms.ComboBox()
         Me.cmbSensorClass = New System.Windows.Forms.ComboBox()
         Me.optEDTEndDevice = New System.Windows.Forms.RadioButton()
         Me.optEDTSensor = New System.Windows.Forms.RadioButton()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.cmdAddED2Code = New System.Windows.Forms.Button()
         Me.txtFIOPCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvFIOPCodes = New System.Windows.Forms.DataGridView()
         Me.FIOPCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgvRequiredED = New System.Windows.Forms.DataGridView()
+        Me.RQID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RQTag = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.RQName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtSelectedFIOP = New System.Windows.Forms.TextBox()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.cmdSearchForFIOPs = New System.Windows.Forms.Button()
-        Me.RQID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.RQTag = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.RQName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvEndDevices, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvFIOPCodes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,17 +108,27 @@ Partial Class frmEndDeviceMaintenance
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmdCreateNewED)
         Me.GroupBox1.Controls.Add(Me.cmbEndDeviceClass)
         Me.GroupBox1.Controls.Add(Me.cmbSensorClass)
         Me.GroupBox1.Controls.Add(Me.optEDTEndDevice)
         Me.GroupBox1.Controls.Add(Me.optEDTSensor)
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.cmdAddED2Code)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 168)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(776, 50)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "End Device Type"
+        '
+        'cmdCreateNewED
+        '
+        Me.cmdCreateNewED.Location = New System.Drawing.Point(574, 19)
+        Me.cmdCreateNewED.Name = "cmdCreateNewED"
+        Me.cmdCreateNewED.Size = New System.Drawing.Size(95, 20)
+        Me.cmdCreateNewED.TabIndex = 6
+        Me.cmdCreateNewED.Text = "Create New"
+        Me.cmdCreateNewED.UseVisualStyleBackColor = True
         '
         'cmbEndDeviceClass
         '
@@ -161,14 +172,14 @@ Partial Class frmEndDeviceMaintenance
         Me.optEDTSensor.Text = "Sensor"
         Me.optEDTSensor.UseVisualStyleBackColor = True
         '
-        'Button1
+        'cmdAddED2Code
         '
-        Me.Button1.Location = New System.Drawing.Point(675, 19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(95, 20)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Add Selected"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.cmdAddED2Code.Location = New System.Drawing.Point(675, 19)
+        Me.cmdAddED2Code.Name = "cmdAddED2Code"
+        Me.cmdAddED2Code.Size = New System.Drawing.Size(95, 20)
+        Me.cmdAddED2Code.TabIndex = 5
+        Me.cmdAddED2Code.Text = "Add Selected"
+        Me.cmdAddED2Code.UseVisualStyleBackColor = True
         '
         'txtFIOPCode
         '
@@ -235,6 +246,25 @@ Partial Class frmEndDeviceMaintenance
         Me.dgvRequiredED.Size = New System.Drawing.Size(776, 150)
         Me.dgvRequiredED.TabIndex = 6
         '
+        'RQID
+        '
+        Me.RQID.HeaderText = "ID"
+        Me.RQID.Name = "RQID"
+        Me.RQID.Visible = False
+        Me.RQID.Width = 24
+        '
+        'RQTag
+        '
+        Me.RQTag.HeaderText = "Tag"
+        Me.RQTag.Name = "RQTag"
+        Me.RQTag.Width = 51
+        '
+        'RQName
+        '
+        Me.RQName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.RQName.HeaderText = "Name"
+        Me.RQName.Name = "RQName"
+        '
         'txtSelectedFIOP
         '
         Me.txtSelectedFIOP.Location = New System.Drawing.Point(12, 443)
@@ -270,25 +300,6 @@ Partial Class frmEndDeviceMaintenance
         Me.cmdSearchForFIOPs.TabIndex = 10
         Me.cmdSearchForFIOPs.Text = "Search for FIOPs"
         Me.cmdSearchForFIOPs.UseVisualStyleBackColor = True
-        '
-        'RQID
-        '
-        Me.RQID.HeaderText = "ID"
-        Me.RQID.Name = "RQID"
-        Me.RQID.Visible = False
-        Me.RQID.Width = 24
-        '
-        'RQTag
-        '
-        Me.RQTag.HeaderText = "Tag"
-        Me.RQTag.Name = "RQTag"
-        Me.RQTag.Width = 51
-        '
-        'RQName
-        '
-        Me.RQName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.RQName.HeaderText = "Name"
-        Me.RQName.Name = "RQName"
         '
         'frmEndDeviceMaintenance
         '
@@ -329,7 +340,7 @@ Partial Class frmEndDeviceMaintenance
     Friend WithEvents txtFIOPCode As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents dgvFIOPCodes As DataGridView
-    Friend WithEvents Button1 As Button
+    Friend WithEvents cmdAddED2Code As Button
     Friend WithEvents dgvRequiredED As DataGridView
     Friend WithEvents txtSelectedFIOP As TextBox
     Friend WithEvents Cancel As Button
@@ -346,4 +357,5 @@ Partial Class frmEndDeviceMaintenance
     Friend WithEvents RQID As DataGridViewTextBoxColumn
     Friend WithEvents RQTag As DataGridViewTextBoxColumn
     Friend WithEvents RQName As DataGridViewTextBoxColumn
+    Friend WithEvents cmdCreateNewED As Button
 End Class

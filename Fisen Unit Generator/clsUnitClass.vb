@@ -198,6 +198,8 @@ Public Class clsUnitClass
                         pBrandFamily = "YCAV"
                     Case Is = "YLAA"
                         pBrandFamily = "YLAA"
+                    Case Is = "Blank"
+                        pBrandFamily = InputBox("Please enter the plain text name of the unit family:", frmMain.gProgName, "Blank")
                     Case Else
                         Select Case pUnitFamily
                             Case Is = "Series5"
@@ -225,6 +227,8 @@ Public Class clsUnitClass
                 Select Case pUnitFamily
                     Case Is = "Series10"
                         pBrandFamily = "ReliaCore 300"
+                    Case Is = "Blank"
+                        pBrandFamily = InputBox("Please enter the plain text name of the unit family:", frmMain.gProgName, "Blank")
                 End Select
             End If
             If pBrand = "York" Then
@@ -253,6 +257,8 @@ Public Class clsUnitClass
                         pBrandFamily = "YLAA"
                     Case Is = "YVAA"
                         pBrandFamily = "YVAA"
+                    Case Is = "Blank"
+                        pBrandFamily = InputBox("Please enter the plain text name of the unit family:", frmMain.gProgName, "Blank")
                 End Select
             End If
             If pBrand = "TMP" Then
@@ -271,6 +277,8 @@ Public Class clsUnitClass
                         pBrandFamily = "OmniElite"
                     Case Is = "YLAA"
                         pBrandFamily = "YLAA"
+                    Case Is = "Blank"
+                        pBrandFamily = InputBox("Please enter the plain text name of the unit family:", frmMain.gProgName, "Blank")
                 End Select
             End If
 
@@ -284,6 +292,8 @@ Public Class clsUnitClass
                         pBrandFamily = "Eclipse Series"
                     Case Is = "Choice"
                         pBrandFamily = "Optimum Choice"
+                    Case Is = "Blank"
+                        pBrandFamily = InputBox("Please enter the plain text name of the unit family:", frmMain.gProgName, "Blank")
                     Case Else
                         pBrandFamily = "???????????"
                 End Select

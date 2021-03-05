@@ -618,5 +618,50 @@
         Return ltop
     End Function
 
+    Public Function IsCondensingUnit() As Boolean
+        Dim lCU As Boolean
+        lCU = False
+        If frmMain.ThisUnit.Family = "Series20ODSplit" Then lCU = True
+        If frmMain.ThisUnit.Family = "Series40ODSplit" Then lCU = True
+        If frmMain.ThisUnit.Family = "YCUL" Then lCU = True
+        If frmMain.ThisUnit.Family = "YLUA" Then lCU = True
+        Return lCU
+    End Function
+
+    Public Function StandardTransformer(lva As Double) As String
+        Dim TransformerSize As String
+        lva = lva / 0.8
+        Select Case lva
+            Case <= 50
+                TransformerSize = "50"
+            Case <= 100
+                TransformerSize = "100"
+            Case <= 150
+                TransformerSize = "150"
+            Case <= 250
+                TransformerSize = "250"
+            Case <= 500
+                TransformerSize = "500"
+            Case <= 750
+                TransformerSize = "750"
+            Case <= 1000
+                TransformerSize = "1000"
+            Case <= 1500
+                TransformerSize = "1500"
+            Case <= 3000
+                TransformerSize = "3000"
+            Case <= 5000
+                TransformerSize = "5000"
+            Case <= 7500
+                TransformerSize = "7500"
+            Case <= 10000
+                TransformerSize = "10000"
+            Case <= 15000
+                TransformerSize = "15000"
+            Case Else
+                TransformerSize = "Unknown Size"
+        End Select
+        Return TransformerSize
+    End Function
 
 End Module

@@ -182,12 +182,19 @@ Public Class frmHGBP
     Private Sub UpdateWarrantyItems()
         'using logic complete the following items...
         If chkDischargeTStat.Checked = True Then frmMain.ThisUnitWarrTest.CtrlTest = True
-        frmMain.ThisUnitWarrTest.RefTest = True
-        'get the idea?
+        If Not (IsCondensingUnit()) Then frmMain.ThisUnitWarrTest.RefTest = True
+        If IsCondensingUnit() Then frmMain.ThisUnitWarrTest.RefInsp = True
+        If frmMain.ThisUnit.Family = "Blank" Then
+            frmBlankWarranty.ShowDialog()
+            frmBlankWarranty.Dispose()
+        End If
 
     End Sub
     Private Sub UpdateWeightTable()
         Dim tempWeight As String
+        Dim errmsg, blankweight As String
+        Dim dummy As MsgBoxResult
+
         'next line is the mod code i.e. HWCoil...
         frmMain.ThisUnitPhysicalData.ModLoadMod.Add("HGBP")
         'Next Line is the line item description i.e. Hot Water Description
@@ -240,8 +247,25 @@ Public Class frmHGBP
                 If chkStage2.Checked = True Then tempWeight = "90"
                 If chkStage3.Checked = True Then tempWeight = "125"
                 If chkStage4.Checked = True Then tempWeight = "160"
+            Case Is = "Blank"
+                blankweight = "X"
+                Do While Not (IsNumeric(blankweight))
+                    errmsg = "Please enter the weight to use for this modification."
+                    blankweight = InputBox(errmsg, frmMain.gProgName, "30")
+                    If Not (IsNumeric(blankweight)) Then
+                        errmsg = "That is not a numeric value.  Please try again."
+                        dummy = MsgBox(errmsg, vbOKOnly, frmMain.gProgName)
+                    End If
+                Loop
             Case Else
                 tempWeight = "9999"
+                errmsg = "Error assigning weight in LowAF:UpdateWeightTable." & vbCrLf & "Continue using 9999 or cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Auto weight definition not working.  Enter weight to use to continue."
+                    tempWeight = InputBox(errmsg, frmMain.gProgName, "9999")
+                End If
         End Select
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub

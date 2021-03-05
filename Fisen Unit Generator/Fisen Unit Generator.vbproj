@@ -166,10 +166,22 @@
     <Compile Include="frmAssociateDrawings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAssociateSequences.Designer.vb">
+      <DependentUpon>frmAssociateSequences.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssociateSequences.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmBiPolar.Designer.vb">
       <DependentUpon>frmBiPolar.vb</DependentUpon>
     </Compile>
     <Compile Include="frmBiPolar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBlankWarranty.Designer.vb">
+      <DependentUpon>frmBlankWarranty.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBlankWarranty.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCHWCoil.Designer.vb">
@@ -260,6 +272,12 @@
       <DependentUpon>frmDSUnitBase.vb</DependentUpon>
     </Compile>
     <Compile Include="frmDSUnitBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEndDeviceCreateNew.Designer.vb">
+      <DependentUpon>frmEndDeviceCreateNew.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEndDeviceCreateNew.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmEndDeviceMaintenance.Designer.vb">
@@ -419,6 +437,12 @@
     <Compile Include="frmPipePkg.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmPointEditCreate.Designer.vb">
+      <DependentUpon>frmPointEditCreate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPointEditCreate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmPointListEditor.Designer.vb">
       <DependentUpon>frmPointListEditor.vb</DependentUpon>
     </Compile>
@@ -524,8 +548,14 @@
     <EmbeddedResource Include="frmAssociateDrawings.resx">
       <DependentUpon>frmAssociateDrawings.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAssociateSequences.resx">
+      <DependentUpon>frmAssociateSequences.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmBiPolar.resx">
       <DependentUpon>frmBiPolar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBlankWarranty.resx">
+      <DependentUpon>frmBlankWarranty.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCHWCoil.resx">
       <DependentUpon>frmCHWCoil.vb</DependentUpon>
@@ -571,6 +601,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDSUnitBase.resx">
       <DependentUpon>frmDSUnitBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEndDeviceCreateNew.resx">
+      <DependentUpon>frmEndDeviceCreateNew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEndDeviceMaintenance.resx">
       <DependentUpon>frmEndDeviceMaintenance.vb</DependentUpon>
@@ -649,6 +682,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPipePkg.resx">
       <DependentUpon>frmPipePkg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPointEditCreate.resx">
+      <DependentUpon>frmPointEditCreate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPointListEditor.resx">
+      <DependentUpon>frmPointListEditor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSCCR.resx">
       <DependentUpon>frmSCCR.vb</DependentUpon>

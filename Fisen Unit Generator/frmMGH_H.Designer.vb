@@ -25,6 +25,8 @@ Partial Class frmMGH_H
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMGH_H))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lstTubeMaterial = New System.Windows.Forms.ListBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtInputCap = New System.Windows.Forms.TextBox()
@@ -33,7 +35,28 @@ Partial Class frmMGH_H
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtEAT = New System.Windows.Forms.TextBox()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.lstDesignTempRise = New System.Windows.Forms.ListBox()
+        Me.chkPropane = New System.Windows.Forms.CheckBox()
+        Me.lstPower = New System.Windows.Forms.Label()
+        Me.lstInducerVolts = New System.Windows.Forms.ListBox()
         Me.fraBurners = New System.Windows.Forms.GroupBox()
+        Me.chkHMT0700Burner = New System.Windows.Forms.CheckBox()
+        Me.nudHMT0700 = New System.Windows.Forms.NumericUpDown()
+        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.nudHMB200 = New System.Windows.Forms.NumericUpDown()
+        Me.chkHMB200Burner = New System.Windows.Forms.CheckBox()
+        Me.nudHMB250 = New System.Windows.Forms.NumericUpDown()
+        Me.chkHMB250Burner = New System.Windows.Forms.CheckBox()
         Me.chkHMT1100Burner = New System.Windows.Forms.CheckBox()
         Me.nudHMT1100 = New System.Windows.Forms.NumericUpDown()
         Me.chkHE750Burner = New System.Windows.Forms.CheckBox()
@@ -53,8 +76,6 @@ Partial Class frmMGH_H
         Me.chkGasTrainRoofRaise = New System.Windows.Forms.CheckBox()
         Me.chkGasTrainBumpout = New System.Windows.Forms.CheckBox()
         Me.chkSupplyFanRelocate = New System.Windows.Forms.CheckBox()
-        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
-        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.cmbCstmCtrl = New System.Windows.Forms.ComboBox()
@@ -100,6 +121,7 @@ Partial Class frmMGH_H
         Me.txtAPDCalc = New System.Windows.Forms.TextBox()
         Me.cmdCalc = New System.Windows.Forms.Button()
         Me.fraAPDLayout = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.chkInlet23 = New System.Windows.Forms.CheckBox()
         Me.chkInlet21 = New System.Windows.Forms.CheckBox()
         Me.chkInlet19 = New System.Windows.Forms.CheckBox()
@@ -198,32 +220,20 @@ Partial Class frmMGH_H
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.lstTubeMaterial = New System.Windows.Forms.ListBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.lstPower = New System.Windows.Forms.Label()
-        Me.lstInducerVolts = New System.Windows.Forms.ListBox()
-        Me.chkPropane = New System.Windows.Forms.CheckBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.lstDesignTempRise = New System.Windows.Forms.ListBox()
-        Me.nudHMB250 = New System.Windows.Forms.NumericUpDown()
-        Me.chkHMB250Burner = New System.Windows.Forms.CheckBox()
-        Me.nudHMB200 = New System.Windows.Forms.NumericUpDown()
-        Me.chkHMB200Burner = New System.Windows.Forms.CheckBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.chkMountEquipmentTouch = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.fraBurners.SuspendLayout()
+        CType(Me.nudHMT0700, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudHMB200, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudHMB250, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHMT1100, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHE750, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudHMG500, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -249,13 +259,6 @@ Partial Class frmMGH_H
         CType(Me.picLoc2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picLoc3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DebugPage.SuspendLayout()
-        CType(Me.nudHMB250, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudHMB200, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -292,6 +295,25 @@ Partial Class frmMGH_H
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(8, 97)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(72, 13)
+        Me.Label15.TabIndex = 7
+        Me.Label15.Text = "Tube Material"
+        '
+        'lstTubeMaterial
+        '
+        Me.lstTubeMaterial.FormattingEnabled = True
+        Me.lstTubeMaterial.Items.AddRange(New Object() {"409 Stainless Steel", "304 Stainless Steel", "439 Stainless Steel"})
+        Me.lstTubeMaterial.Location = New System.Drawing.Point(8, 113)
+        Me.lstTubeMaterial.Name = "lstTubeMaterial"
+        Me.lstTubeMaterial.Size = New System.Drawing.Size(120, 95)
+        Me.lstTubeMaterial.TabIndex = 6
         '
         'btnDoneConditions
         '
@@ -373,8 +395,6 @@ Partial Class frmMGH_H
         Me.tpgOptions.Controls.Add(Me.chkGasTrainRoofRaise)
         Me.tpgOptions.Controls.Add(Me.chkGasTrainBumpout)
         Me.tpgOptions.Controls.Add(Me.chkSupplyFanRelocate)
-        Me.tpgOptions.Controls.Add(Me.chkMountEquipmentTouch)
-        Me.tpgOptions.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgOptions.Controls.Add(Me.cmdDoneOptions)
         Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Margin = New System.Windows.Forms.Padding(4)
@@ -384,8 +404,60 @@ Partial Class frmMGH_H
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(139, 453)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(94, 13)
+        Me.Label16.TabIndex = 27
+        Me.Label16.Text = "Design Temp Rise"
+        '
+        'lstDesignTempRise
+        '
+        Me.lstDesignTempRise.FormattingEnabled = True
+        Me.lstDesignTempRise.Items.AddRange(New Object() {"20-90°F (A-G,P,Q Configuration)", "20-75°F (A-G,P,Q Configuration)", "20-60°F (H-N,R,S Configuration)"})
+        Me.lstDesignTempRise.Location = New System.Drawing.Point(139, 469)
+        Me.lstDesignTempRise.Name = "lstDesignTempRise"
+        Me.lstDesignTempRise.Size = New System.Drawing.Size(161, 43)
+        Me.lstDesignTempRise.TabIndex = 26
+        '
+        'chkPropane
+        '
+        Me.chkPropane.AutoSize = True
+        Me.chkPropane.Enabled = False
+        Me.chkPropane.Location = New System.Drawing.Point(11, 402)
+        Me.chkPropane.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPropane.Name = "chkPropane"
+        Me.chkPropane.Size = New System.Drawing.Size(126, 17)
+        Me.chkPropane.TabIndex = 25
+        Me.chkPropane.Text = "Fuel Type is Propane"
+        Me.chkPropane.UseVisualStyleBackColor = True
+        '
+        'lstPower
+        '
+        Me.lstPower.AutoSize = True
+        Me.lstPower.Location = New System.Drawing.Point(12, 453)
+        Me.lstPower.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lstPower.Name = "lstPower"
+        Me.lstPower.Size = New System.Drawing.Size(117, 13)
+        Me.lstPower.TabIndex = 24
+        Me.lstPower.Text = "Power/Inducer Voltage"
+        '
+        'lstInducerVolts
+        '
+        Me.lstInducerVolts.FormattingEnabled = True
+        Me.lstInducerVolts.Items.AddRange(New Object() {"120 VAC", "230 VAC", "208 VAC"})
+        Me.lstInducerVolts.Location = New System.Drawing.Point(12, 469)
+        Me.lstInducerVolts.Name = "lstInducerVolts"
+        Me.lstInducerVolts.Size = New System.Drawing.Size(120, 43)
+        Me.lstInducerVolts.TabIndex = 23
+        '
         'fraBurners
         '
+        Me.fraBurners.Controls.Add(Me.chkHMT0700Burner)
+        Me.fraBurners.Controls.Add(Me.nudHMT0700)
         Me.fraBurners.Controls.Add(Me.NumericUpDown5)
         Me.fraBurners.Controls.Add(Me.CheckBox5)
         Me.fraBurners.Controls.Add(Me.NumericUpDown1)
@@ -421,10 +493,172 @@ Partial Class frmMGH_H
         Me.fraBurners.TabStop = False
         Me.fraBurners.Text = "Burner Options"
         '
+        'chkHMT0700Burner
+        '
+        Me.chkHMT0700Burner.AutoSize = True
+        Me.chkHMT0700Burner.Location = New System.Drawing.Point(250, 77)
+        Me.chkHMT0700Burner.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkHMT0700Burner.Name = "chkHMT0700Burner"
+        Me.chkHMT0700Burner.Size = New System.Drawing.Size(74, 17)
+        Me.chkHMT0700Burner.TabIndex = 38
+        Me.chkHMT0700Burner.Text = "HMT0700"
+        Me.chkHMT0700Burner.UseVisualStyleBackColor = True
+        '
+        'nudHMT0700
+        '
+        Me.nudHMT0700.Location = New System.Drawing.Point(331, 76)
+        Me.nudHMT0700.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudHMT0700.Name = "nudHMT0700"
+        Me.nudHMT0700.Size = New System.Drawing.Size(35, 20)
+        Me.nudHMT0700.TabIndex = 39
+        '
+        'NumericUpDown5
+        '
+        Me.NumericUpDown5.Enabled = False
+        Me.NumericUpDown5.Location = New System.Drawing.Point(205, 253)
+        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.NumericUpDown5.Name = "NumericUpDown5"
+        Me.NumericUpDown5.Size = New System.Drawing.Size(35, 20)
+        Me.NumericUpDown5.TabIndex = 35
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Enabled = False
+        Me.CheckBox5.Location = New System.Drawing.Point(127, 254)
+        Me.CheckBox5.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(68, 17)
+        Me.CheckBox5.TabIndex = 34
+        Me.CheckBox5.Text = "HMB200"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Enabled = False
+        Me.NumericUpDown1.Location = New System.Drawing.Point(204, 228)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(35, 20)
+        Me.NumericUpDown1.TabIndex = 33
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Enabled = False
+        Me.CheckBox1.Location = New System.Drawing.Point(126, 229)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(68, 17)
+        Me.CheckBox1.TabIndex = 32
+        Me.CheckBox1.Text = "HMB200"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown2
+        '
+        Me.NumericUpDown2.Enabled = False
+        Me.NumericUpDown2.Location = New System.Drawing.Point(204, 203)
+        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.NumericUpDown2.Name = "NumericUpDown2"
+        Me.NumericUpDown2.Size = New System.Drawing.Size(35, 20)
+        Me.NumericUpDown2.TabIndex = 31
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Enabled = False
+        Me.CheckBox2.Location = New System.Drawing.Point(126, 204)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(68, 17)
+        Me.CheckBox2.TabIndex = 30
+        Me.CheckBox2.Text = "HMB250"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown3
+        '
+        Me.NumericUpDown3.Enabled = False
+        Me.NumericUpDown3.Location = New System.Drawing.Point(204, 178)
+        Me.NumericUpDown3.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        Me.NumericUpDown3.Size = New System.Drawing.Size(35, 20)
+        Me.NumericUpDown3.TabIndex = 29
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Enabled = False
+        Me.CheckBox3.Location = New System.Drawing.Point(126, 179)
+        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(69, 17)
+        Me.CheckBox3.TabIndex = 28
+        Me.CheckBox3.Text = "HMG300"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown4
+        '
+        Me.NumericUpDown4.Enabled = False
+        Me.NumericUpDown4.Location = New System.Drawing.Point(204, 153)
+        Me.NumericUpDown4.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.NumericUpDown4.Name = "NumericUpDown4"
+        Me.NumericUpDown4.Size = New System.Drawing.Size(35, 20)
+        Me.NumericUpDown4.TabIndex = 27
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Enabled = False
+        Me.CheckBox4.Location = New System.Drawing.Point(126, 154)
+        Me.CheckBox4.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(69, 17)
+        Me.CheckBox4.TabIndex = 26
+        Me.CheckBox4.Text = "HMG350"
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
+        'nudHMB200
+        '
+        Me.nudHMB200.Location = New System.Drawing.Point(84, 228)
+        Me.nudHMB200.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudHMB200.Name = "nudHMB200"
+        Me.nudHMB200.Size = New System.Drawing.Size(35, 20)
+        Me.nudHMB200.TabIndex = 25
+        '
+        'chkHMB200Burner
+        '
+        Me.chkHMB200Burner.AutoSize = True
+        Me.chkHMB200Burner.Location = New System.Drawing.Point(6, 229)
+        Me.chkHMB200Burner.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkHMB200Burner.Name = "chkHMB200Burner"
+        Me.chkHMB200Burner.Size = New System.Drawing.Size(68, 17)
+        Me.chkHMB200Burner.TabIndex = 24
+        Me.chkHMB200Burner.Text = "HMB200"
+        Me.chkHMB200Burner.UseVisualStyleBackColor = True
+        '
+        'nudHMB250
+        '
+        Me.nudHMB250.Location = New System.Drawing.Point(84, 203)
+        Me.nudHMB250.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
+        Me.nudHMB250.Name = "nudHMB250"
+        Me.nudHMB250.Size = New System.Drawing.Size(35, 20)
+        Me.nudHMB250.TabIndex = 23
+        '
+        'chkHMB250Burner
+        '
+        Me.chkHMB250Burner.AutoSize = True
+        Me.chkHMB250Burner.Location = New System.Drawing.Point(6, 204)
+        Me.chkHMB250Burner.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkHMB250Burner.Name = "chkHMB250Burner"
+        Me.chkHMB250Burner.Size = New System.Drawing.Size(68, 17)
+        Me.chkHMB250Burner.TabIndex = 22
+        Me.chkHMB250Burner.Text = "HMB250"
+        Me.chkHMB250Burner.UseVisualStyleBackColor = True
+        '
         'chkHMT1100Burner
         '
         Me.chkHMT1100Burner.AutoSize = True
-        Me.chkHMT1100Burner.Location = New System.Drawing.Point(251, 34)
+        Me.chkHMT1100Burner.Location = New System.Drawing.Point(250, 20)
         Me.chkHMT1100Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMT1100Burner.Name = "chkHMT1100Burner"
         Me.chkHMT1100Burner.Size = New System.Drawing.Size(74, 17)
@@ -434,7 +668,7 @@ Partial Class frmMGH_H
         '
         'nudHMT1100
         '
-        Me.nudHMT1100.Location = New System.Drawing.Point(332, 33)
+        Me.nudHMT1100.Location = New System.Drawing.Point(331, 16)
         Me.nudHMT1100.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMT1100.Name = "nudHMT1100"
         Me.nudHMT1100.Size = New System.Drawing.Size(35, 20)
@@ -443,7 +677,7 @@ Partial Class frmMGH_H
         'chkHE750Burner
         '
         Me.chkHE750Burner.AutoSize = True
-        Me.chkHE750Burner.Location = New System.Drawing.Point(375, 63)
+        Me.chkHE750Burner.Location = New System.Drawing.Point(374, 145)
         Me.chkHE750Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHE750Burner.Name = "chkHE750Burner"
         Me.chkHE750Burner.Size = New System.Drawing.Size(59, 17)
@@ -453,7 +687,7 @@ Partial Class frmMGH_H
         '
         'nudHE750
         '
-        Me.nudHE750.Location = New System.Drawing.Point(441, 60)
+        Me.nudHE750.Location = New System.Drawing.Point(440, 142)
         Me.nudHE750.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHE750.Name = "nudHE750"
         Me.nudHE750.Size = New System.Drawing.Size(35, 20)
@@ -461,7 +695,7 @@ Partial Class frmMGH_H
         '
         'nudHMG500
         '
-        Me.nudHMG500.Location = New System.Drawing.Point(206, 45)
+        Me.nudHMG500.Location = New System.Drawing.Point(205, 127)
         Me.nudHMG500.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMG500.Name = "nudHMG500"
         Me.nudHMG500.Size = New System.Drawing.Size(35, 20)
@@ -470,7 +704,7 @@ Partial Class frmMGH_H
         'chkHMG500Burner
         '
         Me.chkHMG500Burner.AutoSize = True
-        Me.chkHMG500Burner.Location = New System.Drawing.Point(127, 46)
+        Me.chkHMG500Burner.Location = New System.Drawing.Point(126, 128)
         Me.chkHMG500Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMG500Burner.Name = "chkHMG500Burner"
         Me.chkHMG500Burner.Size = New System.Drawing.Size(69, 17)
@@ -480,7 +714,7 @@ Partial Class frmMGH_H
         '
         'nudHMB300
         '
-        Me.nudHMB300.Location = New System.Drawing.Point(85, 96)
+        Me.nudHMB300.Location = New System.Drawing.Point(84, 178)
         Me.nudHMB300.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB300.Name = "nudHMB300"
         Me.nudHMB300.Size = New System.Drawing.Size(35, 20)
@@ -489,7 +723,7 @@ Partial Class frmMGH_H
         'chkHMB600Burner
         '
         Me.chkHMB600Burner.AutoSize = True
-        Me.chkHMB600Burner.Location = New System.Drawing.Point(7, 20)
+        Me.chkHMB600Burner.Location = New System.Drawing.Point(6, 102)
         Me.chkHMB600Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB600Burner.Name = "chkHMB600Burner"
         Me.chkHMB600Burner.Size = New System.Drawing.Size(68, 17)
@@ -500,7 +734,7 @@ Partial Class frmMGH_H
         'chkHMB300Burner
         '
         Me.chkHMB300Burner.AutoSize = True
-        Me.chkHMB300Burner.Location = New System.Drawing.Point(7, 97)
+        Me.chkHMB300Burner.Location = New System.Drawing.Point(6, 179)
         Me.chkHMB300Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB300Burner.Name = "chkHMB300Burner"
         Me.chkHMB300Burner.Size = New System.Drawing.Size(68, 17)
@@ -510,7 +744,7 @@ Partial Class frmMGH_H
         '
         'nudHMB600
         '
-        Me.nudHMB600.Location = New System.Drawing.Point(85, 19)
+        Me.nudHMB600.Location = New System.Drawing.Point(84, 101)
         Me.nudHMB600.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB600.Name = "nudHMB600"
         Me.nudHMB600.Size = New System.Drawing.Size(35, 20)
@@ -518,7 +752,7 @@ Partial Class frmMGH_H
         '
         'nudHMB400
         '
-        Me.nudHMB400.Location = New System.Drawing.Point(85, 71)
+        Me.nudHMB400.Location = New System.Drawing.Point(84, 153)
         Me.nudHMB400.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB400.Name = "nudHMB400"
         Me.nudHMB400.Size = New System.Drawing.Size(35, 20)
@@ -527,7 +761,7 @@ Partial Class frmMGH_H
         'chkHMB500Burner
         '
         Me.chkHMB500Burner.AutoSize = True
-        Me.chkHMB500Burner.Location = New System.Drawing.Point(7, 46)
+        Me.chkHMB500Burner.Location = New System.Drawing.Point(6, 128)
         Me.chkHMB500Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB500Burner.Name = "chkHMB500Burner"
         Me.chkHMB500Burner.Size = New System.Drawing.Size(68, 17)
@@ -538,7 +772,7 @@ Partial Class frmMGH_H
         'chkHMB400Burner
         '
         Me.chkHMB400Burner.AutoSize = True
-        Me.chkHMB400Burner.Location = New System.Drawing.Point(7, 72)
+        Me.chkHMB400Burner.Location = New System.Drawing.Point(6, 154)
         Me.chkHMB400Burner.Margin = New System.Windows.Forms.Padding(4)
         Me.chkHMB400Burner.Name = "chkHMB400Burner"
         Me.chkHMB400Burner.Size = New System.Drawing.Size(68, 17)
@@ -548,7 +782,7 @@ Partial Class frmMGH_H
         '
         'nudHMB500
         '
-        Me.nudHMB500.Location = New System.Drawing.Point(85, 45)
+        Me.nudHMB500.Location = New System.Drawing.Point(84, 127)
         Me.nudHMB500.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
         Me.nudHMB500.Name = "nudHMB500"
         Me.nudHMB500.Size = New System.Drawing.Size(35, 20)
@@ -610,29 +844,6 @@ Partial Class frmMGH_H
         Me.chkSupplyFanRelocate.Text = "Supply Fan Relocation"
         Me.chkSupplyFanRelocate.UseVisualStyleBackColor = True
         '
-        'chkMountEquipmentTouch
-        '
-        Me.chkMountEquipmentTouch.AutoSize = True
-        Me.chkMountEquipmentTouch.Enabled = False
-        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(30, 338)
-        Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
-        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
-        Me.chkMountEquipmentTouch.TabIndex = 13
-        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
-        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
-        '
-        'chkIncludeEquipmentTouch
-        '
-        Me.chkIncludeEquipmentTouch.AutoSize = True
-        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(11, 315)
-        Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
-        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
-        Me.chkIncludeEquipmentTouch.TabIndex = 12
-        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
-        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
-        '
         'cmdDoneOptions
         '
         Me.cmdDoneOptions.Location = New System.Drawing.Point(745, 479)
@@ -645,6 +856,8 @@ Partial Class frmMGH_H
         '
         'tpgControls
         '
+        Me.tpgControls.Controls.Add(Me.chkMountEquipmentTouch)
+        Me.tpgControls.Controls.Add(Me.chkIncludeEquipmentTouch)
         Me.tpgControls.Controls.Add(Me.cmbCstmCtrl)
         Me.tpgControls.Controls.Add(Me.lbl)
         Me.tpgControls.Controls.Add(Me.nudOffLowHighCount)
@@ -1187,6 +1400,16 @@ Partial Class frmMGH_H
         Me.fraAPDLayout.TabIndex = 18
         Me.fraAPDLayout.TabStop = False
         Me.fraAPDLayout.Text = "Burner Layout"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(590, 443)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(55, 28)
+        Me.Button1.TabIndex = 90
+        Me.Button1.Text = "Reset"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'chkInlet23
         '
@@ -2190,217 +2413,28 @@ Partial Class frmMGH_H
         Me.cmdDesignCautions.TabIndex = 19
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
         '
-        'lstTubeMaterial
+        'chkMountEquipmentTouch
         '
-        Me.lstTubeMaterial.FormattingEnabled = True
-        Me.lstTubeMaterial.Items.AddRange(New Object() {"409 Stainless Steel", "304 Stainless Steel", "439 Stainless Steel"})
-        Me.lstTubeMaterial.Location = New System.Drawing.Point(8, 113)
-        Me.lstTubeMaterial.Name = "lstTubeMaterial"
-        Me.lstTubeMaterial.Size = New System.Drawing.Size(120, 95)
-        Me.lstTubeMaterial.TabIndex = 6
+        Me.chkMountEquipmentTouch.AutoSize = True
+        Me.chkMountEquipmentTouch.Enabled = False
+        Me.chkMountEquipmentTouch.Location = New System.Drawing.Point(635, 400)
+        Me.chkMountEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMountEquipmentTouch.Name = "chkMountEquipmentTouch"
+        Me.chkMountEquipmentTouch.Size = New System.Drawing.Size(165, 17)
+        Me.chkMountEquipmentTouch.TabIndex = 23
+        Me.chkMountEquipmentTouch.Text = "Unit Mount Equipment Touch"
+        Me.chkMountEquipmentTouch.UseVisualStyleBackColor = True
         '
-        'Label15
+        'chkIncludeEquipmentTouch
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(8, 97)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(72, 13)
-        Me.Label15.TabIndex = 7
-        Me.Label15.Text = "Tube Material"
-        '
-        'lstPower
-        '
-        Me.lstPower.AutoSize = True
-        Me.lstPower.Location = New System.Drawing.Point(12, 453)
-        Me.lstPower.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lstPower.Name = "lstPower"
-        Me.lstPower.Size = New System.Drawing.Size(117, 13)
-        Me.lstPower.TabIndex = 24
-        Me.lstPower.Text = "Power/Inducer Voltage"
-        '
-        'lstInducerVolts
-        '
-        Me.lstInducerVolts.FormattingEnabled = True
-        Me.lstInducerVolts.Items.AddRange(New Object() {"120 VAC", "230 VAC", "208 VAC"})
-        Me.lstInducerVolts.Location = New System.Drawing.Point(12, 469)
-        Me.lstInducerVolts.Name = "lstInducerVolts"
-        Me.lstInducerVolts.Size = New System.Drawing.Size(120, 43)
-        Me.lstInducerVolts.TabIndex = 23
-        '
-        'chkPropane
-        '
-        Me.chkPropane.AutoSize = True
-        Me.chkPropane.Enabled = False
-        Me.chkPropane.Location = New System.Drawing.Point(11, 402)
-        Me.chkPropane.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPropane.Name = "chkPropane"
-        Me.chkPropane.Size = New System.Drawing.Size(126, 17)
-        Me.chkPropane.TabIndex = 25
-        Me.chkPropane.Text = "Fuel Type is Propane"
-        Me.chkPropane.UseVisualStyleBackColor = True
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(139, 453)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(94, 13)
-        Me.Label16.TabIndex = 27
-        Me.Label16.Text = "Design Temp Rise"
-        '
-        'lstDesignTempRise
-        '
-        Me.lstDesignTempRise.FormattingEnabled = True
-        Me.lstDesignTempRise.Items.AddRange(New Object() {"20-90°F (A-G,P,Q Configuration)", "20-75°F (A-G,P,Q Configuration)", "20-60°F (H-N,R,S Configuration)"})
-        Me.lstDesignTempRise.Location = New System.Drawing.Point(139, 469)
-        Me.lstDesignTempRise.Name = "lstDesignTempRise"
-        Me.lstDesignTempRise.Size = New System.Drawing.Size(161, 43)
-        Me.lstDesignTempRise.TabIndex = 26
-        '
-        'nudHMB250
-        '
-        Me.nudHMB250.Location = New System.Drawing.Point(85, 121)
-        Me.nudHMB250.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.nudHMB250.Name = "nudHMB250"
-        Me.nudHMB250.Size = New System.Drawing.Size(35, 20)
-        Me.nudHMB250.TabIndex = 23
-        '
-        'chkHMB250Burner
-        '
-        Me.chkHMB250Burner.AutoSize = True
-        Me.chkHMB250Burner.Location = New System.Drawing.Point(7, 122)
-        Me.chkHMB250Burner.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkHMB250Burner.Name = "chkHMB250Burner"
-        Me.chkHMB250Burner.Size = New System.Drawing.Size(68, 17)
-        Me.chkHMB250Burner.TabIndex = 22
-        Me.chkHMB250Burner.Text = "HMB250"
-        Me.chkHMB250Burner.UseVisualStyleBackColor = True
-        '
-        'nudHMB200
-        '
-        Me.nudHMB200.Location = New System.Drawing.Point(85, 146)
-        Me.nudHMB200.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.nudHMB200.Name = "nudHMB200"
-        Me.nudHMB200.Size = New System.Drawing.Size(35, 20)
-        Me.nudHMB200.TabIndex = 25
-        '
-        'chkHMB200Burner
-        '
-        Me.chkHMB200Burner.AutoSize = True
-        Me.chkHMB200Burner.Location = New System.Drawing.Point(7, 147)
-        Me.chkHMB200Burner.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkHMB200Burner.Name = "chkHMB200Burner"
-        Me.chkHMB200Burner.Size = New System.Drawing.Size(68, 17)
-        Me.chkHMB200Burner.TabIndex = 24
-        Me.chkHMB200Burner.Text = "HMB200"
-        Me.chkHMB200Burner.UseVisualStyleBackColor = True
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(205, 146)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(35, 20)
-        Me.NumericUpDown1.TabIndex = 33
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(127, 147)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(68, 17)
-        Me.CheckBox1.TabIndex = 32
-        Me.CheckBox1.Text = "HMB200"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'NumericUpDown2
-        '
-        Me.NumericUpDown2.Location = New System.Drawing.Point(205, 121)
-        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.Size = New System.Drawing.Size(35, 20)
-        Me.NumericUpDown2.TabIndex = 31
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(127, 122)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(68, 17)
-        Me.CheckBox2.TabIndex = 30
-        Me.CheckBox2.Text = "HMB250"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'NumericUpDown3
-        '
-        Me.NumericUpDown3.Location = New System.Drawing.Point(205, 96)
-        Me.NumericUpDown3.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.Size = New System.Drawing.Size(35, 20)
-        Me.NumericUpDown3.TabIndex = 29
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(127, 97)
-        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(69, 17)
-        Me.CheckBox3.TabIndex = 28
-        Me.CheckBox3.Text = "HMG300"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'NumericUpDown4
-        '
-        Me.NumericUpDown4.Location = New System.Drawing.Point(205, 71)
-        Me.NumericUpDown4.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.NumericUpDown4.Name = "NumericUpDown4"
-        Me.NumericUpDown4.Size = New System.Drawing.Size(35, 20)
-        Me.NumericUpDown4.TabIndex = 27
-        '
-        'CheckBox4
-        '
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Location = New System.Drawing.Point(127, 72)
-        Me.CheckBox4.Margin = New System.Windows.Forms.Padding(4)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(69, 17)
-        Me.CheckBox4.TabIndex = 26
-        Me.CheckBox4.Text = "HMG350"
-        Me.CheckBox4.UseVisualStyleBackColor = True
-        '
-        'NumericUpDown5
-        '
-        Me.NumericUpDown5.Location = New System.Drawing.Point(206, 171)
-        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {6, 0, 0, 0})
-        Me.NumericUpDown5.Name = "NumericUpDown5"
-        Me.NumericUpDown5.Size = New System.Drawing.Size(35, 20)
-        Me.NumericUpDown5.TabIndex = 35
-        '
-        'CheckBox5
-        '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Location = New System.Drawing.Point(128, 172)
-        Me.CheckBox5.Margin = New System.Windows.Forms.Padding(4)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(68, 17)
-        Me.CheckBox5.TabIndex = 34
-        Me.CheckBox5.Text = "HMB200"
-        Me.CheckBox5.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(590, 443)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(55, 28)
-        Me.Button1.TabIndex = 90
-        Me.Button1.Text = "Reset"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.chkIncludeEquipmentTouch.AutoSize = True
+        Me.chkIncludeEquipmentTouch.Location = New System.Drawing.Point(616, 377)
+        Me.chkIncludeEquipmentTouch.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkIncludeEquipmentTouch.Name = "chkIncludeEquipmentTouch"
+        Me.chkIncludeEquipmentTouch.Size = New System.Drawing.Size(149, 17)
+        Me.chkIncludeEquipmentTouch.TabIndex = 22
+        Me.chkIncludeEquipmentTouch.Text = "Provide Equipment Touch"
+        Me.chkIncludeEquipmentTouch.UseVisualStyleBackColor = True
         '
         'frmMGH_H
         '
@@ -2424,6 +2458,14 @@ Partial Class frmMGH_H
         Me.tpgOptions.PerformLayout()
         Me.fraBurners.ResumeLayout(False)
         Me.fraBurners.PerformLayout()
+        CType(Me.nudHMT0700, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudHMB200, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudHMB250, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHMT1100, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHE750, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudHMG500, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2455,13 +2497,6 @@ Partial Class frmMGH_H
         CType(Me.picLoc3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DebugPage.ResumeLayout(False)
         Me.DebugPage.PerformLayout()
-        CType(Me.nudHMB250, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudHMB200, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2477,8 +2512,6 @@ Partial Class frmMGH_H
     Friend WithEvents Label1 As Label
     Friend WithEvents txtEAT As TextBox
     Friend WithEvents tpgOptions As TabPage
-    Friend WithEvents chkMountEquipmentTouch As CheckBox
-    Friend WithEvents chkIncludeEquipmentTouch As CheckBox
     Friend WithEvents cmdDoneOptions As Button
     Friend WithEvents tpgControls As TabPage
     Friend WithEvents optCustomCtrl As RadioButton
@@ -2664,4 +2697,8 @@ Partial Class frmMGH_H
     Friend WithEvents nudHMB250 As NumericUpDown
     Friend WithEvents chkHMB250Burner As CheckBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents chkHMT0700Burner As CheckBox
+    Friend WithEvents nudHMT0700 As NumericUpDown
+    Friend WithEvents chkMountEquipmentTouch As CheckBox
+    Friend WithEvents chkIncludeEquipmentTouch As CheckBox
 End Class

@@ -29,7 +29,7 @@
       <Value Profile="(Default)">J:\3450-3499\3493F - Central One Auburn\</Value>
     </Setting>
     <Setting Name="LastCabinet" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Series100C</Value>
     </Setting>
     <Setting Name="DebugLastModule" Type="System.String" Scope="User">
       <Value Profile="(Default)">LCVAV</Value>

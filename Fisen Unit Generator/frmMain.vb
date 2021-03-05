@@ -9,6 +9,7 @@ Imports System.Xml.Schema
 Imports System.Windows.Markup
 
 Public Class frmMain
+    Public Const gProgName As String = "Fisen Unit Generator"
     Public ThisUnit As clsUnitClass
     Public ThisUnitDS As clsDSUnitClass
     Public ThisUnitCoolPerf As clsCoolPerf
@@ -57,7 +58,7 @@ Public Class frmMain
 
     Public ThisUnitAirflowDiag As New ArrayList
 
-    Private DwgDesc(100) As String
+    Private DwgDesc(500) As String
     Public UnitWMFPAth As New ArrayList
 
     Private HydroDesc(50) As String
@@ -74,6 +75,9 @@ Public Class frmMain
     Public HasAuxillaryPanel As Boolean
 
     Public UserID As String
+
+    Public DesignNotes As String
+
 
     Public ReadOnly Property SU As Boolean
         Get
@@ -95,7 +99,7 @@ Public Class frmMain
         ListTop = ThisUnitGenCodes.Count
         If ListTop > 0 Then
             For i = 0 To (ListTop - 1)
-                If ((ThisUnitGenCodes.Item(i) = "960001") Or (ThisUnitGenCodes.Item(i) = "960002")) Then
+                If ((ThisUnitGenCodes.Item(i) = "960001")) Then
                     RetVal = True
                 End If
             Next
@@ -373,6 +377,9 @@ Public Class frmMain
 
         MySQL = "Select * FROM tblUnitDrawings WHERE " & TempVar & "=True ORDER BY PlainName"
 
+        'Pull back all the drawings if blank
+        If ThisUnit.Family = "Blank" Then MySQL = "Select * FROM tblUnitDrawings ORDER BY PlainName"
+
         rs.Open(MySQL, con)
 
         i = 0
@@ -427,6 +434,8 @@ Public Class frmMain
         If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
 
         MySQL = "Select * FROM tblAirflowDiagrams WHERE " & TempVar & "=True"
+        If ThisUnit.Family = "Blank" Then MySQL = "Select * FROM tblAirflowDiagrams"
+
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
@@ -469,6 +478,7 @@ Public Class frmMain
 
         If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
         MySQL = "Select * FROM tblReferDrawings WHERE " & TempVar & "=True"
+        If ThisUnit.Family = "Blank" Then MySQL = "Select * FROM tblReferDrawings"
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
@@ -527,6 +537,8 @@ Public Class frmMain
         }
         If ThisUnit.Family = "Select" Then TempVar = "xSelectx" Else TempVar = ThisUnit.Family
         MySQL = "Select * FROM tblHydroDrawings WHERE " & TempVar & "=True"
+        If ThisUnit.Family = "Blank" Then MySQL = "Select * FROM tblHydroDrawings"
+
         rs.Open(MySQL, con)
         '       If rs.RecordCount > 0 Then
         rs.MoveFirst()
@@ -1188,12 +1200,16 @@ Public Class frmMain
             txtAmbientDB.Text = "n/a"
         End If
 
+
         If ThisUnit.Family = "Series100" Then
             txtYPALEER.Text = ThisUnitCoolPerf.Efficiency
             txtYPALIPLV.Text = ThisUnitCoolPerf.IEER
         End If
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim dummy As MsgBoxResult
+        Dim errmsg As String
+
         Dim locFamily As String
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -1205,6 +1221,7 @@ Public Class frmMain
         Dim YPALFile As String = "S:\FUG\Resources\WordTemplates\YPAL Submittal Template "
         Dim YLAAFile As String = "S:\FUG\Resources\WordTemplates\YLAA Submittal Template "
         Dim YVAAFile As String = "S:\FUG\Resources\WordTemplates\YVAA-YCIV Submittal Template "
+        Dim BlankFile As String = "S:\FUG\Resources\WordTemplates\Blank Submittal Template "
 
         Button1.Enabled = False
 
@@ -1212,8 +1229,6 @@ Public Class frmMain
 
         Call SaveTheXMLData()
         Call HandleFlaggedFileMoves()
-
-
 
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
 
@@ -1264,23 +1279,22 @@ Public Class frmMain
                 Case Is = "Select"
                     UPGFile = UPGFile & Ver & ".dotm"
                     Process.Start(UPGFile)
+                Case Is = "Blank"
+                    UPGFile = BlankFile & Ver & ".dotm"
+                    Process.Start(UPGFile)
                 Case Else
-
-
+                    errmsg = "The unit Family: " & locFamily & " is undefind as we launch a Word template." & vbCrLf
+                    errmsg = errmsg & "The .xml file has been written, but you will need to launch" & vbCrLf
+                    errmsg = errmsg & "the appropriate Word template yourself."
+                    dummy = MsgBox(errmsg, vbOKOnly, "Fisen Unit Generator")
             End Select
-
-
-
         End If
-
-
-
 
         con.Close()
         rs = Nothing
         con = Nothing
 
-        End
+        End 'Main program
     End Sub
     Private Sub WriteUnitHistory()
         Dim con As ADODB.Connection
@@ -2589,6 +2603,14 @@ Public Class frmMain
         mcareport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
         mcareport.WriteLine("MCA Calculation Report")
         mcareport.WriteLine(" ")
+
+        mcareport.WriteLine("Commercial Circuit Fisen Added Loads:")
+        mcareport.WriteLine(txtElecFisenLoadNotesComm.Text)
+        mcareport.WriteLine(" ")
+        mcareport.WriteLine("Emergency Circuit Fisen Added Loads:")
+        mcareport.WriteLine(txtElecFisenLoadNotesEmer.Text)
+        mcareport.WriteLine(" ")
+
         If optMCAReportNoChange.Checked Then
             mcareport.WriteLine("FISEN MODIFICATIONS HAVE NO IMPACT - VALUE FROM BASE UNIT SELECTION")
             mcareport.WriteLine("Rule:")
@@ -2642,6 +2664,21 @@ Public Class frmMain
         End If
 
         mcareport.Close()
+    End Sub
+
+    Private Sub WriteDesignNotesReport()
+        Dim designreport As System.IO.StreamWriter
+        Dim tempfilename As String
+
+        tempfilename = txtProjectDirectory.Text & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\" & "Submittal Source (Do not Distribute)\Submittal Design\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - " & "Design Notes Report " & Ver2FileVer(txtUnitVersion.Text) & ".txt"
+
+        designreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
+        designreport.WriteLine("Design Notes Report")
+        designreport.WriteLine(" ")
+        designreport.WriteLine(DesignNotes)
+        designreport.WriteLine(" ")
+        designreport.Close()
+
     End Sub
 
     Private Sub WriteCOPUseReport()
@@ -3135,8 +3172,6 @@ Public Class frmMain
         myXMLSettings.Indent = True
         myXMLSettings.NewLineOnAttributes = True
 
-
-
         TargetPath = txtProjectDirectory.Text
         TargetPath = TargetPath & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(ThisUnit.JobNumber) & "-" & ThisUnit.UnitNumber & " - FUG-" & ThisUnit.Kingdom & "_" & Ver2FileVer(txtUnitVersion.Text) & ".xml"
         Clipboard.SetText("""" & TargetPath & """")
@@ -3153,7 +3188,7 @@ Public Class frmMain
         UnitWriter.WriteEndElement()
 
         UnitWriter.WriteStartElement("Units")
-        'For i = 1 To 2
+
         i = 1
         UnitWriter.WriteStartElement("Unit")
         UnitWriter.WriteAttributeString("ID", Format(i, "00"))
@@ -3359,6 +3394,7 @@ Public Class frmMain
         UnitWriter.WriteEndElement() 'EndDevices Required
 
         UnitWriter.WriteStartElement("UnitModifications")
+        Call WriteDesignNotesReport()
         k = 0
         For j = 0 To ThisUnitMods.Count - 1
             UnitWriter.WriteStartElement(ThisUnitMods.Item(j))
@@ -3506,7 +3542,6 @@ Public Class frmMain
 
         UnitWriter.WriteEndElement() 'Unit XX
 
-        ' Next i
         UnitWriter.WriteEndElement() 'Units
         UnitWriter.WriteEndElement() 'Fisen Project
         UnitWriter.WriteEndDocument()
@@ -5376,11 +5411,14 @@ Public Class frmMain
             ThisUnitPhysicalData.ImportPointLoadsUPG()
         End If
 
-
         If ((ThisUnit.Kingdom = "RTU") And (ThisUnit.Family = "Series100")) Then
             If ThisUnitPhysicalData.BasePointLoad.Count = 0 Then
                 ThisUnitPhysicalData.ImportPointLoadsYPAL()
             End If
+        End If
+
+        If ThisUnit.Kingdom = "Blank" Then
+            ThisUnitPhysicalData.ImportPointLoadsBlank()
         End If
 
         Call loadPermittedMods()
@@ -5423,6 +5461,7 @@ Public Class frmMain
         End If
 
         My.Settings.Save()
+        DesignNotes = "Design Notes for: " & txtJobNumber.Text & "-" & txtUnitNumber.Text & " - " & txtProjectName.Text & " " & dtpUnitDate.Text & " " & txtUnitVersion.Text & vbCrLf
 
     End Sub
     Private Sub ArchiveOldSubDesignFiles()
@@ -5446,7 +5485,6 @@ Public Class frmMain
         My.Computer.FileSystem.CreateDirectory(ArchiveDir & OldVersion)
         TargetDir = ArchiveDir & OldVersion & "\"
         FileList = Directory.GetFiles(Mid(UnitDir, 1, Len(UnitDir) - 1))
-
 
         frmArchiver.localTargetDir = TargetDir
         frmArchiver.txtTargetDir.Text = TargetDir
@@ -5474,7 +5512,6 @@ Public Class frmMain
         Dim steam As Boolean
         Dim elec As Boolean
         Dim water As Boolean
-
 
         gas = (cmbHeatType.Text Like "Gas")
         steam = (cmbHeatType.Text Like "Steam")
@@ -5532,7 +5569,6 @@ Public Class frmMain
     End Sub
     Private Sub btnDoneHP_Click(sender As Object, e As EventArgs) Handles btnDoneHP.Click
 
-
         ThisUnitHeatPerf.HeatType = cmbHeatType.Text
         ThisUnitHeatPerf.ControlStyle = cmbControlStyle.Text
         ThisUnitHeatPerf.OutputCapacity = txtHeatOutCap.Text
@@ -5555,7 +5591,6 @@ Public Class frmMain
 
         ThisUnitHeatPerf.GasConsumption = txtYPALGasConsumption.Text
         ThisUnitHeatPerf.GasHeatContent = txtYPALGasHeatContent.Text
-
 
         txtAirflow.Text = ThisUnitSFanPerf.Airflow
         txtESP.Text = ThisUnitSFanPerf.ESP
@@ -7301,6 +7336,44 @@ Public Class frmMain
                     End Select
                 End If
             Case Is = "Series10"
+                If cmbBrand.Text = "JCI" Then
+                    btu = Mid(txtBrandModelNumber.Text, 3, 3)
+                    Select Case btu
+                        Case Is = "037"
+                            btu = "03"
+                        Case Is = "049"
+                            btu = "04"
+                        Case Is = "060"
+                            btu = "05"
+                        Case Is = "072"
+                            btu = "06"
+                        Case Is = "078"
+                            btu = "06"
+                        Case Is = "090"
+                            btu = "07"
+                        Case Is = "96"
+                            btu = "08"
+                        Case Is = "102"
+                            btu = "08"
+                        Case Is = "120"
+                            btu = "10"
+                        Case Is = "150"
+                            btu = "12"
+                        Case Else
+                            btu = "xx"
+                    End Select
+                    Select Case Mid(txtBrandModelNumber.Text, 1, 2)
+
+                        Case = "ZJ"
+                            txtModelNumber.Text = "J" & btu & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZR"
+                            txtModelNumber.Text = "J" & btu & "ZR" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZF"
+                            txtModelNumber.Text = "J" & btu & "ZF" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZT"
+                            txtModelNumber.Text = "J" & btu & "ZT" & Mid(txtBrandModelNumber.Text, 6)
+                    End Select
+                End If
                 If cmbBrand.Text = "York" Then
                     btu = Mid(txtBrandModelNumber.Text, 3, 3)
                     Select Case btu
@@ -8957,6 +9030,9 @@ Public Class frmMain
     End Sub
 
     Private Sub SetupLastKingdomAndFamily()
+        Dim dummy As MsgBoxResult
+        Dim errmsg As String
+
         If My.Settings.LastKingdom = "RTU" Then
             optRTU.Checked = True
             Select Case My.Settings.LastFamily
@@ -8972,15 +9048,19 @@ Public Class frmMain
                     optRTUSeries40.Checked = True
                 Case Is = "Series100"
                     optRTUSeries100.Checked = True
-                    If My.Settings.LastCabinet = "S100A" Then chkS100ACabinet.Checked = True
-                    If My.Settings.LastCabinet = "S100B" Then chkS100BCabinet.Checked = True
-                    If My.Settings.LastCabinet = "S100C" Then chkS100CCabinet.Checked = True
+                    If My.Settings.LastCabinet = "Series100A" Then chkS100ACabinet.Checked = True
+                    If My.Settings.LastCabinet = "Series100B" Then chkS100BCabinet.Checked = True
+                    If My.Settings.LastCabinet = "Series100C" Then chkS100CCabinet.Checked = True
                 Case Is = "Choice"
                     optRTUChoice.Checked = True
                 Case Is = "Select"
                     optRTUSelect.Checked = True
                 Case Is = "Premier"
                     optRTUPremier.Checked = True
+                Case Else
+                    errmsg = "Unknown Family: " & My.Settings.LastFamily & " in Program Settings for Kingdom Type: RTU."
+                    dummy = MsgBox(errmsg, vbOKOnly, gProgName)
+                    Stop
             End Select
         End If
 
@@ -8993,6 +9073,10 @@ Public Class frmMain
                     optAHUXTO.Checked = True
                 Case Is = "YorkCustom"
                     optAHUYorkCustom.Checked = True
+                Case Else
+                    errmsg = "Unknown Family: " & My.Settings.LastFamily & " in Program Settings for Kingdom Type: AHU."
+                    dummy = MsgBox(errmsg, vbOKOnly, gProgName)
+                    Stop
             End Select
         End If
 
@@ -9009,6 +9093,10 @@ Public Class frmMain
                     optChillerYCIV.Checked = True
                 Case Is = "YCAV"
                     optChillerYCAV.Checked = True
+                Case Else
+                    errmsg = "Unknown Family: " & My.Settings.LastFamily & " in Program Settings for Kingdom Type: Chiller."
+                    dummy = MsgBox(errmsg, vbOKOnly, gProgName)
+                    Stop
             End Select
         End If
 
@@ -9025,9 +9113,19 @@ Public Class frmMain
                     optS20IDSplit.Checked = True
                 Case Is = "YCUL"
                     optYCULSplit.Checked = True
+                Case Is = "YLUA"
+                    optYLUASplit.Checked = True
                 Case Is = "DOAS"
                     optDOAS.Checked = True
+                Case Else
+                    errmsg = "Unknown Family: " & My.Settings.LastFamily & " in Program Settings for Kingdom Type: Misc."
+                    dummy = MsgBox(errmsg, vbOKOnly, gProgName)
+                    Stop
             End Select
+        End If
+
+        If My.Settings.LastKingdom = "Blank" Then
+            optBlankFamily.Checked = True
         End If
 
     End Sub
@@ -9616,31 +9714,34 @@ Public Class frmMain
 
     Private Sub optHMIShipLoose_CheckedChanged(sender As Object, e As EventArgs) Handles optHMIShipLoose.CheckedChanged
         Dim i As Integer
-        If optHMINone.Checked Then
+        If optHMIShipLoose.Checked Then
             For i = 0 To ThisUnitGenCodes.Count - 1
                 If ((ThisUnitGenCodes.Item(i) = "960001") Or (ThisUnitGenCodes.Item(i) = "960002")) Then
                     ThisUnitGenCodes.RemoveAt(i)
                     Exit For
                 End If
             Next
+            ThisUnitGenCodes.Add("960001")
         End If
-        ThisUnitGenCodes.Add("960001")
+
     End Sub
 
     Private Sub optHMIInstalled_CheckedChanged(sender As Object, e As EventArgs) Handles optHMIInstalled.CheckedChanged
         Dim i As Integer
-        If optHMINone.Checked Then
+        If optHMIInstalled.Checked Then
             For i = 0 To ThisUnitGenCodes.Count - 1
                 If ((ThisUnitGenCodes.Item(i) = "960001") Or (ThisUnitGenCodes.Item(i) = "960002")) Then
                     ThisUnitGenCodes.RemoveAt(i)
                     Exit For
                 End If
             Next
+            ThisUnitGenCodes.Add("960002")
         End If
-        ThisUnitGenCodes.Add("960002")
+
     End Sub
 
     Private Sub cmdEndDeviceEdit_Click(sender As Object, e As EventArgs) Handles cmdEndDeviceEdit.Click
         frmEndDeviceMaintenance.ShowDialog()
     End Sub
+
 End Class

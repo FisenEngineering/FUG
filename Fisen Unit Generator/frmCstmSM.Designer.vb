@@ -65,6 +65,7 @@ Partial Class frmCstmSM
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -526,11 +527,23 @@ Partial Class frmCstmSM
         Me.StatusStrip1.TabIndex = 81
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'cmdLoadMod
+        '
+        Me.cmdLoadMod.Enabled = False
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(422, 295)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 87
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
+        '
         'frmCstmSM
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(612, 365)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdScience)
@@ -602,4 +615,5 @@ Partial Class frmCstmSM
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents cmdLoadMod As Button
 End Class

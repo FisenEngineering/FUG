@@ -4,7 +4,10 @@ Imports Microsoft.Office.Interop.Excel
 
 Public Class frmBiPolar
     Private pCancelled As Boolean
+    Private pCount1002 As Integer
+    Private pCount508 As Integer
     Private ModuleCodeList As New ArrayList
+
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -13,6 +16,19 @@ Public Class frmBiPolar
             pCancelled = value
         End Set
     End Property
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        pCancelled = False
+        pCount1002 = 0
+        pCount508 = 0
+
+    End Sub
+
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Call UpdatePerformance()
         Call UpdateWeightTable()
@@ -32,6 +48,8 @@ Public Class frmBiPolar
         Next i
 
         If chkWriteHistory.Checked = True Then Call WriteHistory()
+        frmMain.DesignNotes = frmMain.DesignNotes & txtDesignNotesHard.Text & vbCrLf & vbCrLf & txtDesignNotesSoft.Text
+
         Me.Hide()
     End Sub
 
@@ -64,6 +82,7 @@ Public Class frmBiPolar
                         If frmMain.ThisUnit.Cabinet = "Series100C" Then ModuleCodeList.Add("430Z0A")
                     Case Is = "Choice"
                         ModuleCodeList.Add("430Z07")
+                        ModuleCodeList.Add("430Z0C")
                     Case Is = "Select"
                         snippet = Mid(frmMain.ThisUnit.ModelNumber, 3, 2)
                         If snippet = "35" Then ModuleCodeList.Add("430Z01")
@@ -112,7 +131,7 @@ Public Class frmBiPolar
                     Case Is = "Premier"
                         ModuleCodeList.Add("430X01")
                     Case Is = "Choice"
-                        ModuleCodeList.Add("430X01")
+                        ModuleCodeList.Add("430X03")
                     Case Is = "Select"
                         ModuleCodeList.Add("430X01")
                     Case Else
@@ -331,6 +350,258 @@ Public Class frmBiPolar
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
 
+    Private Function GetGeneratorDetails() As String
+        Dim dummy As MsgBoxResult
+        Dim errmsg As String
+        Dim ldn As String
+        Dim lNomTons, lAirflow As Double
+        Dim lstrNomTons As String
+        Dim lcabinet As String
+        Dim lcount As String
+
+        lstrNomTons = frmMain.txtNominalTons.Text
+        lNomTons = Val(lstrNomTons)
+        lAirflow = Val(frmMain.ThisUnitSFanPerf.Airflow)
+
+        ldn = "Undefined Bipolar Type"
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+                ldn = "Series 5 cabinets are not supported.  Program limits exceeded"
+                errmsg = "Series 5 cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "Series10"
+                ldn = "Standard Series 10 " & S10CabinetHeightTorS() & " cabinet. - " & lstrNomTons & " Ton - 1 Matterhorn 1002 with (2) F Tubes / Order with remote intensity kit." & vbCrLf
+                pCount1002 = 1
+                pCount508 = 0
+            Case Is = "Series12"
+                ldn = "Series 12 cabinets are not supported.  Program limits exceeded"
+                errmsg = "Series 12 cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "Series20"
+                Select Case lAirflow
+                    Case 0 To 5000
+                        ldn = "Standard Series 20 cabinet. - " & lstrNomTons & " Ton - 1 Matterhorn 1002 with (2) F Tubes / Order with S-Clips.  Good for up to 5,000 cfm" & vbCrLf
+                        pCount1002 = 1
+                        pCount508 = 0
+                    Case 5001 To 10000
+                        ldn = "Standard Series 20 cabinet. - " & lstrNomTons & " Ton - 2 Matterhorn 1002 with (2) F Tubes / Order with S-Clips.  Good for up to 10,000 cfm" & vbCrLf
+                        pCount1002 = 2
+                        pCount508 = 0
+                    Case 10001 To 12000
+                        ldn = "Standard Series 20 cabinet. - " & lstrNomTons & " Ton - 1 508FC with (7) F Tubes  Good for up to 12000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 1
+                    Case Else
+                        ldn = "Series 20 cabinet with airflow over 12,000 cfm.  Program limits exceeded."
+                        errmsg = "Series 20 cabinet with airflow over 12,000 cfm.  Continue or Cancel?"
+                        dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                        If dummy = vbCancel Then Stop
+                        If SuperUser() Then
+                            errmsg = "Enter custom message for Design Notes Report"
+                            ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                        End If
+                        pCount1002 = 0
+                        pCount508 = 0
+                End Select
+            Case Is = "Series40"
+                'Depricated *Probably not going to be used*
+                ldn = "Series 40 cabinets are not supported.  Program limits exceeded"
+                errmsg = "Series 40 cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "Series100"
+                lcabinet = frmMain.ThisUnit.Cabinet
+                Select Case lAirflow
+                    Case 0 To 5000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 1 Matterhorn 1002 with (2) F Tubes / Order with S-Clips / Order with remote intensity kit.  Good for up to 5,000 cfm" & vbCrLf
+                        pCount1002 = 1
+                        pCount508 = 0
+                    Case 5001 To 10000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 2 Matterhorn 1002 with (2) F Tubes / Order with S-Clips / Order with remote intensity kit.  Good for up to 10,000 cfm" & vbCrLf
+                        pCount1002 = 2
+                        pCount508 = 0
+                    Case 10001 To 15000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 1 508FC with (7) F Tubes / Order with remote intensity kit.  Good for up to 15,000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 1
+                    Case 15001 To 20000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 1 508FC with (8) F Tubes / Order with remote intensity kits. 1 M-1002FC with (2) F Tubes/Order with Remote Intensity Kit / Order with S Clips.  Good for up to 20,000 cfm" & vbCrLf
+                        pCount1002 = 1
+                        pCount508 = 1
+                    Case 20001 To 30000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 2 508FC with (8) F Tubes / Order with remote intensity kit.  Good for up to 30,000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 2
+                    Case 30001 To 45000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 3 508FC with (8) F Tubes / Order with remote intensity kit.  Good for up to 30,000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 3
+                    Case 45001 To 60000
+                        ldn = "Standard Series 100 " & lcabinet & " cabinet. - " & lstrNomTons & " Ton - 4 508FC with (8) F Tubes / Order with remote intensity kit.  Good for up to 30,000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 4
+                    Case Else
+                        ldn = "Series 100 cabinet with airflow over 60,000 cfm.  Program limits exceeded."
+                        errmsg = "Series 100 cabinet with airflow over 60,000 cfm.  Continue or Cancel?"
+                        dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                        If dummy = vbCancel Then Stop
+                        If SuperUser() Then
+                            errmsg = "Enter custom message for Design Notes Report"
+                            ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                        End If
+                        pCount1002 = 0
+                        pCount508 = 0
+                End Select
+            Case Is = "Premier"
+                ldn = "Premier cabinets are not supported.  Program limits exceeded"
+                errmsg = "Premier cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "Choice"
+                Select Case lAirflow
+                    Case 0 To 5000
+                        ldn = "Standard Choice cabinet. - " & lstrNomTons & " Ton - 1 Matterhorn 1002 with (2) F Tubes / Order with S-Clips.  Good for up to 5,000 cfm" & vbCrLf
+                        pCount1002 = 1
+                        pCount508 = 0
+                    Case 5001 To 10000
+                        ldn = "Standard Choice cabinet. - " & lstrNomTons & " Ton - 2 Matterhorn 1002 with (2) F Tubes / Order with S-Clips.  Good for up to 10,000 cfm" & vbCrLf
+                        pCount1002 = 2
+                        pCount508 = 0
+                    Case 10001 To 15000
+                        ldn = "Standard Choice cabinet. - " & lstrNomTons & " Ton - 1 508FC with (8) F Tubes  Good for up to 15000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 1
+                    Case Else
+                        ldn = "Choice cabinet with airflow over 15,000 cfm.  Program limits exceeded."
+                        errmsg = "Choice cabinet with airflow over 15,000 cfm.  Continue or Cancel?"
+                        dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                        If dummy = vbCancel Then Stop
+                        If SuperUser() Then
+                            errmsg = "Enter custom message for Design Notes Report"
+                            ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                        End If
+                        pCount1002 = 0
+                        pCount508 = 0
+                End Select
+            Case Is = "Select"
+                Select Case lAirflow
+                    Case 0 To 5000
+                        ldn = "Standard Select cabinet. - " & lstrNomTons & " Ton - 1 Matterhorn 1002 with (2) F Tubes / Order with S-Clips / Order with remote intensity kit.  Good for up to 5,000 cfm" & vbCrLf
+                        pCount1002 = 1
+                        pCount508 = 0
+                    Case 5001 To 10000
+                        ldn = "Standard Select cabinet. - " & lstrNomTons & " Ton - 2 Matterhorn 1002 with (2) F Tubes / Order with S-Clips / Order with remote intensity kit.  Good for up to 10,000 cfm" & vbCrLf
+                        pCount1002 = 2
+                        pCount508 = 0
+                    Case 10001 To 15000
+                        ldn = "Standard Select cabinet. - " & lstrNomTons & "  Ton - 1 508FC with (7) F Tubes / Order with remote intensity kit.  Good for up to 15,000 cfm" & vbCrLf
+                        pCount1002 = 0
+                        pCount508 = 1
+                    Case 15001 To 20000
+                        ldn = "Standard Select cabinet. - " & lstrNomTons & "  Ton - 1 508FC with (8) F Tubes / Order with remote intensity kits. 1 M-1002FC with (2) F Tubes/Order with Remote Intensity Kit / Order with S Clips.  Good for up to 20,000 cfm" & vbCrLf
+                        pCount1002 = 1
+                        pCount508 = 1
+                    Case Else
+                        ldn = "Select cabinet with airflow over 20,000 cfm.  Program limits exceeded."
+                        errmsg = "Select cabinet with airflow over 20,000 cfm.  Continue or Cancel?"
+                        dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                        If dummy = vbCancel Then Stop
+                        If SuperUser() Then
+                            errmsg = "Enter custom message for Design Notes Report"
+                            ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                        End If
+                        pCount1002 = 0
+                        pCount508 = 0
+                End Select
+
+            Case Is = "SeriesLX"
+                ldn = "Series LX cabinets are not supported.  Program limits exceeded"
+                errmsg = "Series LX cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "Series20IDSplit"
+                ldn = "Series 20 ID Split cabinets are not supported.  Program limits exceeded"
+                errmsg = "Series 20 ID Split cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "DOAS"
+                ldn = "DOAS cabinets are not supported.  Program limits exceeded"
+                errmsg = "DOAS cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "SeriesL"
+                ldn = "SeriesL cabinets are not supported.  Program limits exceeded"
+                errmsg = "SeriesL cabinets are not supported in this module yet.  Continue or Cancel?"
+                dummy = MsgBox(errmsg, vbOKCancel, frmMain.gProgName)
+                If dummy = vbCancel Then Stop
+                If SuperUser() Then
+                    errmsg = "Enter custom message for Design Notes Report"
+                    ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                End If
+                pCount1002 = 0
+                pCount508 = 0
+            Case Is = "Blank"
+                ldn = "Example: 1 Matterhorn 1002 with (2) F Tubes / Order with S-Clips / Order with Remote Indicator."
+                errmsg = "Enter custom message for Design Notes Report"
+                ldn = InputBox(errmsg, frmMain.gProgName, ldn)
+                errmsg = "How many Matterhorn 1002s?"
+                lcount = "0"
+                lcount = InputBox(errmsg, frmMain.gProgName, lcount)
+                pCount1002 = Val(lcount)
+                errmsg = "How many Matterhorn 508s?"
+                lcount = "0"
+                lcount = InputBox(errmsg, frmMain.gProgName, lcount)
+                pCount508 = Val(lcount)
+            Case Else
+                dummy = MsgBox("Error in BiPolar:GetGeneratorDetails: " & frmMain.ThisUnit.Family & " is not defined.", vbOKOnly, frmMain.gProgName)
+                Stop
+        End Select
+        Return ldn
+    End Function
     Private Sub UpdatePerformance()
         Dim NewRow As String()
         Dim RqdVA As Double
@@ -365,8 +636,8 @@ Public Class frmBiPolar
                 RqdVA = 15
                 If Not (chkShareXfmr.Checked) Then XFmrVA = 500 Else XFmrVA = 500
             Case Is = "Choice"
-                RqdVA = 8
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 250 Else XFmrVA = 250
+                RqdVA = 15
+                If Not (chkShareXfmr.Checked) Then XFmrVA = 150 Else XFmrVA = 500
             Case Is = "Series100"
                 If frmMain.ThisUnit.Cabinet = "Series100A" Then RqdVA = 15
                 If frmMain.ThisUnit.Cabinet = "Series100B" Then RqdVA = 35
@@ -430,6 +701,10 @@ Public Class frmBiPolar
         ModuleCodeList.Add("430000")
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+
+        txtDesignNotesHard.Text = "***BiPolar Notes and Comments***" & vbCrLf
+
+
 
     End Sub
     Private Sub LoadDigConditions()
@@ -675,6 +950,23 @@ Public Class frmBiPolar
     End Sub
 
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
+        Dim PowerSource As String
+
+        PowerSource = "Undefined Error."
+        If optPwrUnitPower.Checked Then PowerSource = "Unit Powered Transformer, Fisen Installed."
+        If optPwrConvOutlet.Checked Then PowerSource = "JCI Powered Convenience Outlet Transformer."
+        If optPwrDedicated.Checked Then PowerSource = "Dedicated 115 VAC Circuit, Field Wired."
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & "Bipolar Ionization Powered by " & PowerSource & vbCrLf
+        If Not (optDPPNA.Checked) Then
+            PowerSource = "Undefined Error."
+            If optDPPEmergency.Checked Then PowerSource = "Unit mounted transformer on Emergency Circuit."
+            If optDPPCommercial.Checked Then PowerSource = "Unit mounted transformer on Commercial Circuit."
+            txtDesignNotesHard.Text = txtDesignNotesHard.Text & PowerSource & vbCrLf
+        End If
+        If chkShareXfmr.Checked Then txtDesignNotesHard.Text = txtDesignNotesHard.Text & "Transformer shared with UV Lights." & vbCrLf
+        If chk65kASCCRBase.Checked Then txtDesignNotesHard.Text = txtDesignNotesHard.Text & "Base unit is 65k SCCR.  BiPolar must also be 65k SCCR." & vbCrLf
+
+
         TabControl1.SelectTab("tpgOptions")
     End Sub
 
@@ -683,15 +975,44 @@ Public Class frmBiPolar
     End Sub
 
     Private Sub btnDoneControls_Click(sender As Object, e As EventArgs) Handles btnDoneControls.Click
+        If cmbBipolarStyle.Text = "Use Standard" Then
+            txtDesignNotesHard.Text = txtDesignNotesHard.Text & GetGeneratorDetails() & vbCrLf
+            If optPwrUnitPower.Checked Then
+                txtDesignNotesHard.Text = txtDesignNotesHard.Text & GetRequredTransformer() & vbCrLf
+                txtPerfNotes.Text = GetRequredTransformer() & vbCrLf
+            End If
+        End If
+
         TabControl1.SelectTab("tpgPerformance")
     End Sub
 
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
-        btnOK.Enabled = True
-        btnDonePerf.Enabled = False
-        TabControl1.Enabled = False
+
+        TabControl1.SelectTab("tpgNotesPage")
     End Sub
 
+    Private Sub btnDoneNotes_Click(sender As Object, e As EventArgs) Handles btnDoneNotes.Click
+        If txtDesignNotesSoft.Text = "" Then txtDesignNotesSoft.Text = "No user entered design notes."
+        btnOK.Enabled = True
+        btnDoneNotes.Enabled = False
+    End Sub
+
+    Private Function GetRequredTransformer() As String
+        Dim lSharedXfmr As Boolean
+        Dim ldn As String
+        Dim rqdVA As Double
+        Dim lpvolts As Double
+
+        lpvolts = Val(frmMain.ThisUnitElecData.CommVolts)
+
+        lSharedXfmr = chkShareXfmr.Checked
+        rqdVA = pCount1002 * 0.037 + pCount508 * 0.48
+        ldn = "Unit Mounted and Wired Power Supply - " & StandardTransformer(rqdVA) & " va Transformer - " & Trim(Str(XfmrPrimaryAmps(lpvolts, Val(StandardTransformer(rqdVA))))) & " Amps at " & frmMain.ThisUnitElecData.CommVolts & "."
+        If XfmrPrimaryAmps(lpvolts, Val(StandardTransformer(rqdVA))) < 1.0 Then
+            ldn = ldn & " No impact on MCA/MOP."
+        End If
+        Return ldn
+    End Function
     Private Sub chkIncludeEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeEquipmentTouch.CheckedChanged
         If chkIncludeEquipmentTouch.Checked = False Then
             chkMountEquipmentTouch.Checked = False
@@ -726,4 +1047,6 @@ Public Class frmBiPolar
             optNoMnA.Checked = True
         End If
     End Sub
+
+
 End Class

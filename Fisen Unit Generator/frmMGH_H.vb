@@ -19,14 +19,20 @@ Public Class frmMGH_H
 
         frmMain.ThisUnitMods.Add("MGH_H") 'Mod Code goes here!
 
-        If chkIncludeEquipmentTouch.Checked Then
-            frmMain.ThisUnit.GenCodesPresent = True
-            If chkMountEquipmentTouch.Checked Then
+        If chkMountEquipmentTouch.Checked = True Then
+            If frmMain.HasUMHMI = False Then
                 frmMain.ThisUnitGenCodes.Add("960002") 'Adds an HMI
-            Else
-                frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+                frmMain.optHMIInstalled.Checked = True
             End If
         End If
+        If chkIncludeEquipmentTouch.Checked = True Then
+            If frmMain.HasHMI = False Then
+                frmMain.ThisUnitGenCodes.Add("960001") 'Adds an HMI
+                frmMain.optHMIShipLoose.Checked = True
+            End If
+        End If
+
+
 
         Call UpdateCodeList()
         Call UpdateBaseUnitRequiredItems()
@@ -194,6 +200,7 @@ Public Class frmMGH_H
 
         If chkHE750Burner.Checked Then BurnerTypes = BurnerTypes & "(" & Trim(Str(nudHE750.Value)) & ")" & "HE750 "
 
+        If chkHMT0700Burner.Checked Then BurnerTypes = BurnerTypes & "(" & Trim(Str(nudHMT0700.Value)) & ")" & "HMT1100 "
         If chkHMT1100Burner.Checked Then BurnerTypes = BurnerTypes & "(" & Trim(Str(nudHMT1100.Value)) & ")" & "HMT1100 "
 
         BurnerTypes = Trim(BurnerTypes)
@@ -360,6 +367,20 @@ Public Class frmMGH_H
             End If
         End If
 
+        If chkHMT1100Burner.Checked Then
+            If nudHMT0700.Value = 4 Then
+                ModuleCodeList.Add("520T74")
+            End If
+            If nudHMT0700.Value = 3 Then
+                ModuleCodeList.Add("520T73")
+            End If
+            If nudHMT0700.Value = 2 Then
+                ModuleCodeList.Add("520T72")
+            End If
+            If nudHMT0700.Value = 1 Then
+                ModuleCodeList.Add("520T71")
+            End If
+        End If
 
         'Handle the gas train
         ModuleCodeList.Add("520030")
@@ -531,6 +552,7 @@ Public Class frmMGH_H
 
         'Handle the HMT Module Weights
         If chkHMT1100Burner.Checked Then ModWeight = ModWeight + nudHMT1100.Value * 550
+        If chkHMT0700Burner.Checked Then ModWeight = ModWeight + nudHMT0700.Value * 415
 
         'Handle Wall, Flue, and Damper Weights
         Select Case frmMain.ThisUnit.Family
@@ -594,13 +616,20 @@ Public Class frmMGH_H
             optIPU.Enabled = True
             optIPU.Checked = True
             optSE.Enabled = False
+        End If
 
+        If frmMain.HasHMI Then
             chkIncludeEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Enabled = False
+        End If
+
+        If frmMain.HasUMHMI Then
             chkMountEquipmentTouch.Checked = True
+            chkIncludeEquipmentTouch.Checked = True
             chkIncludeEquipmentTouch.Enabled = False
             chkMountEquipmentTouch.Enabled = False
-
         End If
+
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
@@ -668,6 +697,7 @@ Public Class frmMGH_H
         If chkHMB500Burner.Checked Then sse = "80.0"
         If chkHMB600Burner.Checked Then sse = "80.0"
         If chkHMG500Burner.Checked Then sse = "80.0"
+        If chkHMT0700Burner.Checked Then sse = "80.0"
         If chkHMT1100Burner.Checked Then sse = "80.0"
 
         Return sse
@@ -679,7 +709,7 @@ Public Class frmMGH_H
         Dim OffLoHiCount As Integer
         Dim BurnerCount As Integer
 
-        BurnerCount = nudHMB300.Value + nudHMB400.Value + nudHMB500.Value + nudHMB600.Value + nudHMG500.Value + nudHE750.Value + nudHMT1100.Value
+        BurnerCount = nudHMB200.Value + nudHMB250.Value + nudHMB300.Value + nudHMB400.Value + nudHMB500.Value + nudHMB600.Value + nudHMG500.Value + nudHMT0700.Value + nudHMT1100.Value + nudHE750.Value
 
         'guess the counts and populate
         ModCount = 1
@@ -699,7 +729,7 @@ Public Class frmMGH_H
         TabControl1.Enabled = False
     End Sub
 
-    Private Sub chkIncludeEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeEquipmentTouch.CheckedChanged
+    Private Sub chkIncludeEquipmentTouch_CheckedChanged(sender As Object, e As EventArgs)
         If chkIncludeEquipmentTouch.Checked = False Then
             chkMountEquipmentTouch.Checked = False
             chkMountEquipmentTouch.Enabled = False
@@ -1825,5 +1855,30 @@ Public Class frmMGH_H
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Call WriteDesignNotesReport()
+    End Sub
+
+    Private Sub nudHMT1100_ValueChanged(sender As Object, e As EventArgs) Handles nudHMT1100.ValueChanged
+        If nudHMT1100.Value = 0 Then chkHMT1100Burner.Checked = False Else chkHMT1100Burner.Checked = True
+    End Sub
+
+    Private Sub nudHMT0700_ValueChanged(sender As Object, e As EventArgs) Handles nudHMT0700.ValueChanged
+        If nudHMT0700.Value = 0 Then chkHMT0700Burner.Checked = False Else chkHMT0700Burner.Checked = True
+    End Sub
+
+    Private Sub nudHMG500_ValueChanged(sender As Object, e As EventArgs) Handles nudHMG500.ValueChanged
+        If nudHMG500.Value = 0 Then chkHMG500Burner.Checked = False Else chkHMG500Burner.Checked = True
+    End Sub
+
+    Private Sub chkHMT0700Burner_CheckedChanged(sender As Object, e As EventArgs) Handles chkHMT0700Burner.CheckedChanged
+        If chkHMT0700Burner.Checked Then nudHMT0700.Value = 1 Else nudHMT0700.Value = 0
+    End Sub
+
+    Private Sub chkIncludeEquipmentTouch_CheckedChanged_1(sender As Object, e As EventArgs) Handles chkIncludeEquipmentTouch.CheckedChanged
+        If chkIncludeEquipmentTouch.Checked Then
+            chkMountEquipmentTouch.Enabled = True
+        Else
+            chkMountEquipmentTouch.Enabled = False
+            chkMountEquipmentTouch.Checked = False
+        End If
     End Sub
 End Class

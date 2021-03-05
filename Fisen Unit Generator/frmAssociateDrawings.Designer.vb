@@ -24,6 +24,8 @@ Partial Class frmAssociateDrawings
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAssociateDrawings))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmdPasteWMFPath = New System.Windows.Forms.Button()
+        Me.cmdChooseProjectDirectory = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtConPath = New System.Windows.Forms.TextBox()
@@ -36,8 +38,6 @@ Partial Class frmAssociateDrawings
         Me.txtFIOPCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmdAddItem = New System.Windows.Forms.Button()
-        Me.cmdPasteWMFPath = New System.Windows.Forms.Button()
-        Me.cmdChooseProjectDirectory = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
@@ -63,6 +63,27 @@ Partial Class frmAssociateDrawings
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Field Connections"
+        '
+        'cmdPasteWMFPath
+        '
+        Me.cmdPasteWMFPath.Image = CType(resources.GetObject("cmdPasteWMFPath.Image"), System.Drawing.Image)
+        Me.cmdPasteWMFPath.Location = New System.Drawing.Point(744, 62)
+        Me.cmdPasteWMFPath.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdPasteWMFPath.Name = "cmdPasteWMFPath"
+        Me.cmdPasteWMFPath.Size = New System.Drawing.Size(26, 20)
+        Me.cmdPasteWMFPath.TabIndex = 7
+        Me.cmdPasteWMFPath.UseVisualStyleBackColor = True
+        '
+        'cmdChooseProjectDirectory
+        '
+        Me.cmdChooseProjectDirectory.Enabled = False
+        Me.cmdChooseProjectDirectory.Location = New System.Drawing.Point(710, 62)
+        Me.cmdChooseProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdChooseProjectDirectory.Name = "cmdChooseProjectDirectory"
+        Me.cmdChooseProjectDirectory.Size = New System.Drawing.Size(26, 20)
+        Me.cmdChooseProjectDirectory.TabIndex = 6
+        Me.cmdChooseProjectDirectory.Text = "..."
+        Me.cmdChooseProjectDirectory.UseVisualStyleBackColor = True
         '
         'DataGridView1
         '
@@ -171,27 +192,6 @@ Partial Class frmAssociateDrawings
         Me.cmdAddItem.TabIndex = 3
         Me.cmdAddItem.Text = "Add"
         Me.cmdAddItem.UseVisualStyleBackColor = True
-        '
-        'cmdPasteWMFPath
-        '
-        Me.cmdPasteWMFPath.Image = CType(resources.GetObject("cmdPasteWMFPath.Image"), System.Drawing.Image)
-        Me.cmdPasteWMFPath.Location = New System.Drawing.Point(744, 62)
-        Me.cmdPasteWMFPath.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdPasteWMFPath.Name = "cmdPasteWMFPath"
-        Me.cmdPasteWMFPath.Size = New System.Drawing.Size(26, 20)
-        Me.cmdPasteWMFPath.TabIndex = 7
-        Me.cmdPasteWMFPath.UseVisualStyleBackColor = True
-        '
-        'cmdChooseProjectDirectory
-        '
-        Me.cmdChooseProjectDirectory.Enabled = False
-        Me.cmdChooseProjectDirectory.Location = New System.Drawing.Point(710, 62)
-        Me.cmdChooseProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdChooseProjectDirectory.Name = "cmdChooseProjectDirectory"
-        Me.cmdChooseProjectDirectory.Size = New System.Drawing.Size(26, 20)
-        Me.cmdChooseProjectDirectory.TabIndex = 6
-        Me.cmdChooseProjectDirectory.Text = "..."
-        Me.cmdChooseProjectDirectory.UseVisualStyleBackColor = True
         '
         'Cancel
         '

@@ -71,11 +71,14 @@ Partial Class frmMGH_R
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtSSE = New System.Windows.Forms.TextBox()
-        Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.tpgNotesPage = New System.Windows.Forms.TabPage()
         Me.TTfrmMGH_R = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
+        Me.btnDoneNotes = New System.Windows.Forms.Button()
+        Me.txtDesignNotesSoft = New System.Windows.Forms.TextBox()
+        Me.txtDesignNotesHard = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -83,6 +86,7 @@ Partial Class frmMGH_R
         Me.tpgControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.tpgNotesPage.SuspendLayout()
         Me.SuspendLayout()
         '
         'Cancel
@@ -164,7 +168,7 @@ Partial Class frmMGH_R
         Me.TabControl1.Controls.Add(Me.tpgOptions)
         Me.TabControl1.Controls.Add(Me.tpgControls)
         Me.TabControl1.Controls.Add(Me.tpgPerformance)
-        Me.TabControl1.Controls.Add(Me.DebugPage)
+        Me.TabControl1.Controls.Add(Me.tpgNotesPage)
         Me.TabControl1.Location = New System.Drawing.Point(7, 10)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -586,15 +590,18 @@ Partial Class frmMGH_R
         Me.txtSSE.TabIndex = 8
         Me.txtSSE.Text = "88888"
         '
-        'DebugPage
+        'tpgNotesPage
         '
-        Me.DebugPage.Location = New System.Drawing.Point(4, 22)
-        Me.DebugPage.Name = "DebugPage"
-        Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(432, 199)
-        Me.DebugPage.TabIndex = 3
-        Me.DebugPage.Text = "Debug"
-        Me.DebugPage.UseVisualStyleBackColor = True
+        Me.tpgNotesPage.Controls.Add(Me.btnDoneNotes)
+        Me.tpgNotesPage.Controls.Add(Me.txtDesignNotesSoft)
+        Me.tpgNotesPage.Controls.Add(Me.txtDesignNotesHard)
+        Me.tpgNotesPage.Location = New System.Drawing.Point(4, 22)
+        Me.tpgNotesPage.Name = "tpgNotesPage"
+        Me.tpgNotesPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpgNotesPage.Size = New System.Drawing.Size(432, 199)
+        Me.tpgNotesPage.TabIndex = 3
+        Me.tpgNotesPage.Text = "Notes"
+        Me.tpgNotesPage.UseVisualStyleBackColor = True
         '
         'cmdViewHistory
         '
@@ -626,6 +633,34 @@ Partial Class frmMGH_R
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
+        'btnDoneNotes
+        '
+        Me.btnDoneNotes.Location = New System.Drawing.Point(385, 170)
+        Me.btnDoneNotes.Name = "btnDoneNotes"
+        Me.btnDoneNotes.Size = New System.Drawing.Size(41, 23)
+        Me.btnDoneNotes.TabIndex = 24
+        Me.btnDoneNotes.Text = ">"
+        Me.btnDoneNotes.UseVisualStyleBackColor = True
+        '
+        'txtDesignNotesSoft
+        '
+        Me.txtDesignNotesSoft.Location = New System.Drawing.Point(6, 76)
+        Me.txtDesignNotesSoft.Multiline = True
+        Me.txtDesignNotesSoft.Name = "txtDesignNotesSoft"
+        Me.txtDesignNotesSoft.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDesignNotesSoft.Size = New System.Drawing.Size(420, 74)
+        Me.txtDesignNotesSoft.TabIndex = 23
+        '
+        'txtDesignNotesHard
+        '
+        Me.txtDesignNotesHard.Location = New System.Drawing.Point(6, 6)
+        Me.txtDesignNotesHard.Multiline = True
+        Me.txtDesignNotesHard.Name = "txtDesignNotesHard"
+        Me.txtDesignNotesHard.ReadOnly = True
+        Me.txtDesignNotesHard.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDesignNotesHard.Size = New System.Drawing.Size(420, 64)
+        Me.txtDesignNotesHard.TabIndex = 22
+        '
         'frmMGH_R
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -654,6 +689,8 @@ Partial Class frmMGH_R
         Me.GroupBox1.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
+        Me.tpgNotesPage.ResumeLayout(False)
+        Me.tpgNotesPage.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -671,7 +708,7 @@ Partial Class frmMGH_R
     Friend WithEvents tpgConditions As TabPage
     Friend WithEvents tpgControls As TabPage
     Friend WithEvents tpgPerformance As TabPage
-    Friend WithEvents DebugPage As TabPage
+    Friend WithEvents tpgNotesPage As TabPage
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents optIPU As RadioButton
     Friend WithEvents optSE As RadioButton
@@ -711,4 +748,7 @@ Partial Class frmMGH_R
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents optASE As RadioButton
     Friend WithEvents chkWriteHistory As CheckBox
+    Friend WithEvents btnDoneNotes As Button
+    Friend WithEvents txtDesignNotesSoft As TextBox
+    Friend WithEvents txtDesignNotesHard As TextBox
 End Class

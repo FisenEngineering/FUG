@@ -65,6 +65,7 @@ Partial Class frmCstmHV
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
@@ -122,7 +123,7 @@ Partial Class frmCstmHV
         Me.lstItemsInDB.Name = "lstItemsInDB"
         Me.lstItemsInDB.ScrollAlwaysVisible = True
         Me.lstItemsInDB.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
-        Me.lstItemsInDB.Size = New System.Drawing.Size(567, 121)
+        Me.lstItemsInDB.Size = New System.Drawing.Size(567, 199)
         Me.lstItemsInDB.TabIndex = 8
         '
         'btnDoneSelection
@@ -534,11 +535,23 @@ Partial Class frmCstmHV
         Me.StatusStrip1.TabIndex = 85
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'cmdLoadMod
+        '
+        Me.cmdLoadMod.Enabled = False
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(426, 294)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 86
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
+        '
         'frmCstmHV
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(612, 368)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdScience)
@@ -610,4 +623,5 @@ Partial Class frmCstmHV
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents cmdLoadMod As Button
 End Class

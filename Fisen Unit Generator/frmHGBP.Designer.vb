@@ -39,6 +39,7 @@ Partial Class frmHGBP
         Me.chkStage1 = New System.Windows.Forms.CheckBox()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.chkRemoveJCIHGBP = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.optNoIso = New System.Windows.Forms.RadioButton()
@@ -55,7 +56,9 @@ Partial Class frmHGBP
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -243,6 +246,17 @@ Partial Class frmHGBP
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chk65kASCCRBase
+        '
+        Me.chk65kASCCRBase.AutoSize = True
+        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 128)
+        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
+        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
+        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
+        Me.chk65kASCCRBase.TabIndex = 27
+        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
+        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        '
         'chkRemoveJCIHGBP
         '
         Me.chkRemoveJCIHGBP.AutoSize = True
@@ -410,16 +424,36 @@ Partial Class frmHGBP
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chk65kASCCRBase
+        'cmdScience
         '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(7, 128)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 27
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        Me.cmdScience.Enabled = False
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(305, 195)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 86
+        Me.cmdScience.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Enabled = False
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(341, 195)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 85
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
+        '
+        'cmdLoadMod
+        '
+        Me.cmdLoadMod.Enabled = False
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(269, 195)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 84
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
         '
         'frmHGBP
         '
@@ -427,6 +461,9 @@ Partial Class frmHGBP
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(459, 236)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
+        Me.Controls.Add(Me.cmdLoadMod)
         Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.cmdViewHistory)
         Me.Controls.Add(Me.cmdDesignCautions)
@@ -486,4 +523,7 @@ Partial Class frmHGBP
     Friend WithEvents cmdDesignCautions As Button
     Friend WithEvents chkWriteHistory As CheckBox
     Friend WithEvents chk65kASCCRBase As CheckBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents cmdLoadMod As Button
 End Class

@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
@@ -838,6 +838,8 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
+        Me.txtElecFisenLoadNotesComm = New System.Windows.Forms.TextBox()
+        Me.txtElecFisenLoadNotesEmer = New System.Windows.Forms.TextBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -7136,6 +7138,8 @@ Partial Class frmMain
         '
         'pgElec
         '
+        Me.pgElec.Controls.Add(Me.txtElecFisenLoadNotesEmer)
+        Me.pgElec.Controls.Add(Me.txtElecFisenLoadNotesComm)
         Me.pgElec.Controls.Add(Me.GroupBox7)
         Me.pgElec.Controls.Add(Me.lblElecLoad3)
         Me.pgElec.Controls.Add(Me.lblElecLoad2)
@@ -7496,8 +7500,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7555,8 +7559,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
@@ -7566,8 +7570,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
@@ -10305,6 +10309,24 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
+        'txtElecFisenLoadNotesComm
+        '
+        Me.txtElecFisenLoadNotesComm.Location = New System.Drawing.Point(21, 350)
+        Me.txtElecFisenLoadNotesComm.Multiline = True
+        Me.txtElecFisenLoadNotesComm.Name = "txtElecFisenLoadNotesComm"
+        Me.txtElecFisenLoadNotesComm.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtElecFisenLoadNotesComm.Size = New System.Drawing.Size(240, 86)
+        Me.txtElecFisenLoadNotesComm.TabIndex = 137
+        '
+        'txtElecFisenLoadNotesEmer
+        '
+        Me.txtElecFisenLoadNotesEmer.Location = New System.Drawing.Point(952, 348)
+        Me.txtElecFisenLoadNotesEmer.Multiline = True
+        Me.txtElecFisenLoadNotesEmer.Name = "txtElecFisenLoadNotesEmer"
+        Me.txtElecFisenLoadNotesEmer.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtElecFisenLoadNotesEmer.Size = New System.Drawing.Size(240, 88)
+        Me.txtElecFisenLoadNotesEmer.TabIndex = 138
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -10503,8 +10525,10 @@ Partial Class frmMain
         Me.Text = Application.ProductName & "-" & Application.ProductVersion & " Logged in as: " & UserID
 
         If My.Settings.DebugHard Then
-            frmAssociateDrawings.FIOPCode = "920005"
-            frmAssociateDrawings.ShowDialog()
+            frmEndDeviceMaintenance.ShowDialog()
+            'frmAssociateSequences.ShowDialog()
+            'frmAssociateDrawings.FIOPCode = "920005"
+            'frmAssociateDrawings.ShowDialog()
         End If
 
         If ((SuperUser()) Or (chkDebug.Checked)) Then
@@ -11323,4 +11347,6 @@ Partial Class frmMain
     Friend WithEvents txtHydroSuggestedTags As TextBox
     Friend WithEvents Label119 As Label
     Friend WithEvents txtAirflowSuggestedTags As TextBox
+    Friend WithEvents txtElecFisenLoadNotesEmer As TextBox
+    Friend WithEvents txtElecFisenLoadNotesComm As TextBox
 End Class

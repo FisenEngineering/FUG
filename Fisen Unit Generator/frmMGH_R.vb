@@ -35,6 +35,8 @@ Public Class frmMGH_R
             AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
         If chkWriteHistory.Checked Then Call WriteHistory()
+        frmMain.DesignNotes = frmMain.DesignNotes & txtDesignNotesHard.Text & vbCrLf & vbCrLf & txtDesignNotesSoft.Text
+
         Me.Hide()
     End Sub
 
@@ -297,6 +299,7 @@ Public Class frmMGH_R
         Select Case frmMain.ThisUnit.Family
             Case Is = "Series5"
                 tempWeight = "25"
+                'if chkauxpanel then temwt=tmpwt +30
             Case Is = "Series10"
                 tempWeight = "25"
             Case Is = "Series12"
@@ -319,6 +322,7 @@ Public Class frmMGH_R
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(tempWeight)
     End Sub
     Private Sub UpdatePerformance()
+        Dim lDesignNote As String
 
         frmMain.ThisUnitHeatPerf.OutputCapacity = txtOutCap.Text
         frmMain.ThisUnitHeatPerf.SSE = txtSSE.Text
@@ -328,6 +332,9 @@ Public Class frmMGH_R
         frmMain.ThisUnitHeatPerf.EnteringAirTemp = txtEAT.Text
         frmMain.ThisUnitHeatPerf.InputCapacity = txtInputCap.Text
         frmMain.ThisUnitHeatPerf.ControlStyle = "Modulating"
+
+        lDesignNote = Format(100 / frmMain.ThisUnitElecData.CommVolts, "0.0")
+        frmMain.txtElecFisenLoadNotesComm.Text = frmMain.txtElecFisenLoadNotesComm.Text & "Fisen added load: MGH(R) - 50va Transformer - " & lDesignNote & " A Primary Current" & vbCrLf
 
     End Sub
 
@@ -351,9 +358,7 @@ Public Class frmMGH_R
         txtLAT.Text = frmMain.ThisUnitHeatPerf.LeavingAirTemp
         txtDeltaT.Text = frmMain.ThisUnitHeatPerf.DeltaT
         If frmMain.ThisUnit.Family = "Series100" Then optIPU.Enabled = True
-        If Not (frmMain.chkDebug.Checked) Then
-            TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
-        End If
+
         Call PopulateAuxPanelList()
 
         Call PopulateAuxPanelList()
@@ -392,6 +397,10 @@ Public Class frmMGH_R
 
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
         ModuleCodeList.Add("523100")
+
+        txtDesignNotesHard.Text = "***MGH(R) Notes and Comments***" & vbCrLf
+
+
     End Sub
 
     Private Sub LoadDigConditions()
@@ -503,6 +512,7 @@ Public Class frmMGH_R
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
         Dim PerfGood As Boolean
         Dim dummy As MsgBoxResult
+        Dim TempNote As String
 
         PerfGood = True
 
@@ -523,6 +533,12 @@ Public Class frmMGH_R
         Else
             dummy = MsgBox("One or more of your inputs is invalid.")
         End If
+
+        TempNote = ""
+        If chkPropane.Checked Then TempNote = "Unit will be field converted to propane." & vbCrLf
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & TempNote
+
+
         TabControl1.SelectTab("tpgOptions")
     End Sub
 
@@ -558,6 +574,12 @@ Public Class frmMGH_R
     End Sub
 
     Private Sub cmdDoneOptions_Click(sender As Object, e As EventArgs) Handles cmdDoneOptions.Click
+        Dim tempnote As String
+
+        tempnote = ""
+        If chk65kASCCRBase.Checked Then tempnote = "Base unit is 65k SCCR select components appropriately." & vbCrLf
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & TempNote
+
         TabControl1.SelectTab("tpgControls")
     End Sub
 
@@ -571,11 +593,24 @@ Public Class frmMGH_R
     End Sub
 
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
-        btnOK.Enabled = True
-        btnDonePerf.Enabled = False
-        TabControl1.Enabled = False
-    End Sub
+        Dim TempNote As String
 
+
+
+        TempNote = ""
+        If Val(txtDeltaT.Text) > 80 Then TempNote = "High heat exchanger delta T.  Proceed carefully.  Control Properly." & vbCrLf
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & TempNote
+        If txtDesignNotesHard.Text = "***MGH(R) Notes and Comments***" & vbCrLf Then
+            txtDesignNotesHard.Text = txtDesignNotesHard.Text & "No FUG generated design notes." & vbCrLf
+        End If
+
+        TabControl1.SelectTab("tpgNotesPage")
+    End Sub
+    Private Sub btnDoneNotes_Click(sender As Object, e As EventArgs) Handles btnDoneNotes.Click
+        If txtDesignNotesSoft.Text = "" Then txtDesignNotesSoft.Text = "No user entered design notes."
+        btnOK.Enabled = True
+        btnDoneNotes.Enabled = False
+    End Sub
     Private Sub optCustomCtrl_CheckedChanged(sender As Object, e As EventArgs) Handles optCustomCtrl.CheckedChanged
         If optCustomCtrl.Checked Then
             cmbCustomControls.Enabled = True

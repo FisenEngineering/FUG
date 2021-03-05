@@ -46,6 +46,7 @@ Partial Class frmConstDetails
         Me.btnOK = New System.Windows.Forms.Button()
         Me.txtPrimaryMod = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dgvExistingDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -71,14 +72,14 @@ Partial Class frmConstDetails
         Me.lstNewTitles.FormattingEnabled = True
         Me.lstNewTitles.Location = New System.Drawing.Point(12, 25)
         Me.lstNewTitles.Name = "lstNewTitles"
-        Me.lstNewTitles.Size = New System.Drawing.Size(728, 69)
+        Me.lstNewTitles.Size = New System.Drawing.Size(718, 69)
         Me.lstNewTitles.TabIndex = 6
         '
         'cmdAddNewDetail
         '
-        Me.cmdAddNewDetail.Location = New System.Drawing.Point(746, 51)
+        Me.cmdAddNewDetail.Location = New System.Drawing.Point(736, 25)
         Me.cmdAddNewDetail.Name = "cmdAddNewDetail"
-        Me.cmdAddNewDetail.Size = New System.Drawing.Size(39, 23)
+        Me.cmdAddNewDetail.Size = New System.Drawing.Size(52, 23)
         Me.cmdAddNewDetail.TabIndex = 7
         Me.cmdAddNewDetail.Text = "Add"
         Me.cmdAddNewDetail.UseVisualStyleBackColor = True
@@ -258,12 +259,22 @@ Partial Class frmConstDetails
         Me.Label6.TabIndex = 43
         Me.Label6.Text = "Primary Mod:"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(736, 54)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(52, 23)
+        Me.Button1.TabIndex = 45
+        Me.Button1.Text = "Write"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmConstDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 549)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.txtPrimaryMod)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Cancel)
@@ -319,4 +330,5 @@ Partial Class frmConstDetails
     Friend WithEvents btnOK As Button
     Friend WithEvents txtPrimaryMod As TextBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents Button1 As Button
 End Class

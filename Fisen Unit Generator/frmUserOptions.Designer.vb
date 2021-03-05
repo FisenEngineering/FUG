@@ -40,6 +40,7 @@ Partial Class frmUserOptions
         Me.mnuDBMaintenance = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConstructionDetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FanCurvesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmdNewPoint = New System.Windows.Forms.Button()
         Me.fraRunMode.SuspendLayout()
         Me.grpAdminOptions.SuspendLayout()
         Me.grpSuperUserOptions.SuspendLayout()
@@ -158,6 +159,7 @@ Partial Class frmUserOptions
         '
         'grpSuperUserOptions
         '
+        Me.grpSuperUserOptions.Controls.Add(Me.cmdNewPoint)
         Me.grpSuperUserOptions.Controls.Add(Me.cmdEditED)
         Me.grpSuperUserOptions.Controls.Add(Me.cmdEditConstDetails)
         Me.grpSuperUserOptions.Controls.Add(Me.chkStealthMode)
@@ -217,6 +219,15 @@ Partial Class frmUserOptions
         Me.FanCurvesToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.FanCurvesToolStripMenuItem.Text = "Fan Curves"
         '
+        'cmdNewPoint
+        '
+        Me.cmdNewPoint.Location = New System.Drawing.Point(6, 97)
+        Me.cmdNewPoint.Name = "cmdNewPoint"
+        Me.cmdNewPoint.Size = New System.Drawing.Size(75, 23)
+        Me.cmdNewPoint.TabIndex = 11
+        Me.cmdNewPoint.Text = "New Point"
+        Me.cmdNewPoint.UseVisualStyleBackColor = True
+        '
         'frmUserOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -266,4 +277,5 @@ Partial Class frmUserOptions
     Friend WithEvents ConstructionDetailsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FanCurvesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents cmdEditED As Button
+    Friend WithEvents cmdNewPoint As Button
 End Class

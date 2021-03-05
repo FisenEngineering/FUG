@@ -138,7 +138,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Series100C")>  _
         Public Property LastCabinet() As String
             Get
                 Return CType(Me("LastCabinet"),String)
