@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
@@ -572,6 +572,8 @@ Partial Class frmMain
         Me.Label68 = New System.Windows.Forms.Label()
         Me.btnDoneRXA = New System.Windows.Forms.Button()
         Me.pgElec = New System.Windows.Forms.TabPage()
+        Me.txtElecFisenLoadNotesEmer = New System.Windows.Forms.TextBox()
+        Me.txtElecFisenLoadNotesComm = New System.Windows.Forms.TextBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.optMCAReportC = New System.Windows.Forms.RadioButton()
         Me.optMCAReportB = New System.Windows.Forms.RadioButton()
@@ -838,8 +840,6 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
-        Me.txtElecFisenLoadNotesComm = New System.Windows.Forms.TextBox()
-        Me.txtElecFisenLoadNotesEmer = New System.Windows.Forms.TextBox()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -974,7 +974,7 @@ Partial Class frmMain
         'cmbResearchTarget
         '
         Me.cmbResearchTarget.FormattingEnabled = True
-        Me.cmbResearchTarget.Items.AddRange(New Object() {"100% Outdoor Air", "Custom Controls", "Custom Mechanical", "Custom Power", "Custom Refrigeration", "Custom Sheetmetal", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Return Fan Array", "Steam Coil", "Supply Fan", "Supply Fan Array", "Exhaust Fan", "Exhaust Fan Array"})
+        Me.cmbResearchTarget.Items.AddRange(New Object() {"100% Outdoor Air", "AFlowMod", "Custom Controls", "Custom Mechanical", "Custom Power", "Custom Refrigeration", "Custom Sheetmetal", "DWall", "Filtration", "HGBP", "LCVAV", "LowAF", "MGH Heatco", "Piping Package", "Return Fan", "Return Fan Array", "Steam Coil", "Supply Fan", "Supply Fan Array", "Exhaust Fan", "Exhaust Fan Array"})
         Me.cmbResearchTarget.Location = New System.Drawing.Point(740, 150)
         Me.cmbResearchTarget.Name = "cmbResearchTarget"
         Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 21)
@@ -7172,6 +7172,24 @@ Partial Class frmMain
         Me.pgElec.Text = "Electrical"
         Me.pgElec.UseVisualStyleBackColor = True
         '
+        'txtElecFisenLoadNotesEmer
+        '
+        Me.txtElecFisenLoadNotesEmer.Location = New System.Drawing.Point(952, 348)
+        Me.txtElecFisenLoadNotesEmer.Multiline = True
+        Me.txtElecFisenLoadNotesEmer.Name = "txtElecFisenLoadNotesEmer"
+        Me.txtElecFisenLoadNotesEmer.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtElecFisenLoadNotesEmer.Size = New System.Drawing.Size(240, 88)
+        Me.txtElecFisenLoadNotesEmer.TabIndex = 138
+        '
+        'txtElecFisenLoadNotesComm
+        '
+        Me.txtElecFisenLoadNotesComm.Location = New System.Drawing.Point(21, 350)
+        Me.txtElecFisenLoadNotesComm.Multiline = True
+        Me.txtElecFisenLoadNotesComm.Name = "txtElecFisenLoadNotesComm"
+        Me.txtElecFisenLoadNotesComm.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtElecFisenLoadNotesComm.Size = New System.Drawing.Size(240, 86)
+        Me.txtElecFisenLoadNotesComm.TabIndex = 137
+        '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.optMCAReportC)
@@ -7500,8 +7518,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7559,8 +7577,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
@@ -7570,8 +7588,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
@@ -10308,24 +10326,6 @@ Partial Class frmMain
         Me.cmdUserOptions.Size = New System.Drawing.Size(31, 33)
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
-        '
-        'txtElecFisenLoadNotesComm
-        '
-        Me.txtElecFisenLoadNotesComm.Location = New System.Drawing.Point(21, 350)
-        Me.txtElecFisenLoadNotesComm.Multiline = True
-        Me.txtElecFisenLoadNotesComm.Name = "txtElecFisenLoadNotesComm"
-        Me.txtElecFisenLoadNotesComm.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtElecFisenLoadNotesComm.Size = New System.Drawing.Size(240, 86)
-        Me.txtElecFisenLoadNotesComm.TabIndex = 137
-        '
-        'txtElecFisenLoadNotesEmer
-        '
-        Me.txtElecFisenLoadNotesEmer.Location = New System.Drawing.Point(952, 348)
-        Me.txtElecFisenLoadNotesEmer.Multiline = True
-        Me.txtElecFisenLoadNotesEmer.Name = "txtElecFisenLoadNotesEmer"
-        Me.txtElecFisenLoadNotesEmer.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtElecFisenLoadNotesEmer.Size = New System.Drawing.Size(240, 88)
-        Me.txtElecFisenLoadNotesEmer.TabIndex = 138
         '
         'frmMain
         '

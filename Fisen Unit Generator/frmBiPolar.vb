@@ -609,53 +609,23 @@ Public Class frmBiPolar
         Dim PriVolts As Double
         Dim PrimeAmps As Double
         Dim ElecChar As String
-        Dim dummy As MsgBoxResult
         Dim PutOnEmergency As Boolean
         Dim PutOnCommercial As Boolean
-
+        Dim SourceText As String
 
         PutOnEmergency = False
 
         PriVolts = Val(frmMain.ThisUnitElecData.CommVolts)
         ElecChar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
 
-        Select Case frmMain.ThisUnit.Family
-            Case Is = "Series5"
-                RqdVA = 3
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 150
-            Case Is = "Series10"
-                RqdVA = 4
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 150
-            Case Is = "Series12"
-                RqdVA = 4
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 150
-            Case Is = "Series20"
-                RqdVA = 8
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 75 Else XFmrVA = 250
-            Case Is = "Select"
-                RqdVA = 15
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 500 Else XFmrVA = 500
-            Case Is = "Choice"
-                RqdVA = 15
-                If Not (chkShareXfmr.Checked) Then XFmrVA = 150 Else XFmrVA = 500
-            Case Is = "Series100"
-                If frmMain.ThisUnit.Cabinet = "Series100A" Then RqdVA = 15
-                If frmMain.ThisUnit.Cabinet = "Series100B" Then RqdVA = 35
-                If frmMain.ThisUnit.Cabinet = "Series100C" Then RqdVA = 49
-                XFmrVA = 75
-            Case Else
-                RqdVA = 2000
-                XFmrVA = 2000
-                dummy = MsgBox("Unit type undefined in 'BiPolar:Update Performance'" & vbCrLf & "Using Bogus Value.", vbOKCancel, "Fisen Unit Generator")
-                If dummy = vbCancel Then Stop
-        End Select
-
+        XFmrVA = Val(StandardTransformer(pCount1002 * 0.037 + pCount508 * 0.48))
+        SourceText = "Math-" & Trim(Str(XFmrVA)) & "va transformer."
         If optPwrUnitPower.Checked Then
             PrimeAmps = XfmrPrimaryAmps(PriVolts, XFmrVA)
             If PrimeAmps > 0.9999 Then
                 If optDPPEmergency.Checked Then PutOnEmergency = True
                 PutOnCommercial = Not (PutOnEmergency)
-                NewRow = {True, False, "All", PutOnCommercial, "Bipolar Ionization Transformer", ElecChar, "-", Format(PrimeAmps, "0.0"), PutOnEmergency, "Math"}
+                NewRow = {True, False, "All", PutOnCommercial, "Bipolar Ionization Transformer", ElecChar, "-", Format(PrimeAmps, "0.0"), PutOnEmergency, SourceText}
                 frmMain.ThisUnitElecData.ModLoad.Add(NewRow)
                 frmMain.chkUseCustomMCA.Checked = True
             End If

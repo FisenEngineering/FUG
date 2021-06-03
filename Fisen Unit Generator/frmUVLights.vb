@@ -268,6 +268,8 @@ Public Class frmUVLights
                     If frmMain.ThisUnit.Cabinet = "Series100C" Then RqdVA = 680 Else XfmrVA = 250
                     If Not (chkShareXfmr.Checked) Then XfmrVA = 500 Else XfmrVA = 250
                     If frmMain.ThisUnit.Cabinet = "Series100C" Then XfmrVA = 750 Else XfmrVA = 250
+                Case Is = "Blank"
+
                 Case Else
                     RqdVA = 2000
                     XfmrVA = 2000

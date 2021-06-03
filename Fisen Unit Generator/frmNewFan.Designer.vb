@@ -23,10 +23,10 @@ Partial Class frmNewFan
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNewFan))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -157,6 +157,7 @@ Partial Class frmNewFan
         Me.optNoControls = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.cmdCreateNewFan = New System.Windows.Forms.Button()
         Me.lblIECMotorFLA = New System.Windows.Forms.Label()
         Me.lblIECNote2 = New System.Windows.Forms.Label()
         Me.txtIECMotorFLA = New System.Windows.Forms.TextBox()
@@ -169,6 +170,7 @@ Partial Class frmNewFan
         Me.cmbNewMotorHP = New System.Windows.Forms.ComboBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.txtFanbhpeach = New System.Windows.Forms.TextBox()
+        Me.btnbhpeachWiz = New System.Windows.Forms.Button()
         Me.optContinental = New System.Windows.Forms.RadioButton()
         Me.optComefri = New System.Windows.Forms.RadioButton()
         Me.cmdPasteInlet = New System.Windows.Forms.Button()
@@ -221,6 +223,7 @@ Partial Class frmNewFan
         Me.txtFanRPM = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.tpgStaticSum = New System.Windows.Forms.TabPage()
+        Me.cmdS10SideReturn = New System.Windows.Forms.Button()
         Me.chkFisen2Rear = New System.Windows.Forms.CheckBox()
         Me.chkHeatBaffles = New System.Windows.Forms.CheckBox()
         Me.chkReheatCoil = New System.Windows.Forms.CheckBox()
@@ -270,9 +273,6 @@ Partial Class frmNewFan
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.btnbhpeachWiz = New System.Windows.Forms.Button()
-        Me.cmdCreateNewFan = New System.Windows.Forms.Button()
-        Me.cmdS10SideReturn = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -531,7 +531,7 @@ Partial Class frmNewFan
         'lblKFactor
         '
         Me.lblKFactor.AutoSize = True
-        Me.lblKFactor.Location = New System.Drawing.Point(296, 249)
+        Me.lblKFactor.Location = New System.Drawing.Point(297, 249)
         Me.lblKFactor.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblKFactor.Name = "lblKFactor"
         Me.lblKFactor.Size = New System.Drawing.Size(28, 13)
@@ -1838,6 +1838,17 @@ Partial Class frmNewFan
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
         '
+        'cmdCreateNewFan
+        '
+        Me.cmdCreateNewFan.BackColor = System.Drawing.Color.LightCoral
+        Me.cmdCreateNewFan.Location = New System.Drawing.Point(698, 10)
+        Me.cmdCreateNewFan.Name = "cmdCreateNewFan"
+        Me.cmdCreateNewFan.Size = New System.Drawing.Size(75, 23)
+        Me.cmdCreateNewFan.TabIndex = 106
+        Me.cmdCreateNewFan.Text = "Create"
+        Me.cmdCreateNewFan.UseVisualStyleBackColor = False
+        Me.cmdCreateNewFan.Visible = False
+        '
         'lblIECMotorFLA
         '
         Me.lblIECMotorFLA.AutoSize = True
@@ -1958,6 +1969,15 @@ Partial Class frmNewFan
         Me.txtFanbhpeach.Name = "txtFanbhpeach"
         Me.txtFanbhpeach.Size = New System.Drawing.Size(81, 20)
         Me.txtFanbhpeach.TabIndex = 94
+        '
+        'btnbhpeachWiz
+        '
+        Me.btnbhpeachWiz.Image = CType(resources.GetObject("btnbhpeachWiz.Image"), System.Drawing.Image)
+        Me.btnbhpeachWiz.Location = New System.Drawing.Point(370, 82)
+        Me.btnbhpeachWiz.Name = "btnbhpeachWiz"
+        Me.btnbhpeachWiz.Size = New System.Drawing.Size(22, 22)
+        Me.btnbhpeachWiz.TabIndex = 93
+        Me.btnbhpeachWiz.UseVisualStyleBackColor = True
         '
         'optContinental
         '
@@ -2494,6 +2514,17 @@ Partial Class frmNewFan
         Me.tpgStaticSum.Text = "Static Summary"
         Me.tpgStaticSum.UseVisualStyleBackColor = True
         '
+        'cmdS10SideReturn
+        '
+        Me.cmdS10SideReturn.Location = New System.Drawing.Point(110, 319)
+        Me.cmdS10SideReturn.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdS10SideReturn.Name = "cmdS10SideReturn"
+        Me.cmdS10SideReturn.Size = New System.Drawing.Size(94, 28)
+        Me.cmdS10SideReturn.TabIndex = 40
+        Me.cmdS10SideReturn.Text = "S10 Side RA"
+        Me.cmdS10SideReturn.UseVisualStyleBackColor = True
+        Me.cmdS10SideReturn.Visible = False
+        '
         'chkFisen2Rear
         '
         Me.chkFisen2Rear.AutoSize = True
@@ -2892,8 +2923,8 @@ Partial Class frmNewFan
         'colItem
         '
         Me.colItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colItem.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colItem.DefaultCellStyle = DataGridViewCellStyle1
         Me.colItem.HeaderText = "Item"
         Me.colItem.MinimumWidth = 6
         Me.colItem.Name = "colItem"
@@ -2902,8 +2933,8 @@ Partial Class frmNewFan
         'colSTPStatic
         '
         Me.colSTPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colSTPStatic.DefaultCellStyle = DataGridViewCellStyle2
         Me.colSTPStatic.HeaderText = "Static(std)"
         Me.colSTPStatic.MinimumWidth = 6
         Me.colSTPStatic.Name = "colSTPStatic"
@@ -2912,8 +2943,8 @@ Partial Class frmNewFan
         'colATPStatic
         '
         Me.colATPStatic.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colATPStatic.DefaultCellStyle = DataGridViewCellStyle3
         Me.colATPStatic.HeaderText = "Static(elev)"
         Me.colATPStatic.MinimumWidth = 6
         Me.colATPStatic.Name = "colATPStatic"
@@ -2991,37 +3022,6 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
-        '
-        'btnbhpeachWiz
-        '
-        Me.btnbhpeachWiz.Image = CType(resources.GetObject("btnbhpeachWiz.Image"), System.Drawing.Image)
-        Me.btnbhpeachWiz.Location = New System.Drawing.Point(370, 82)
-        Me.btnbhpeachWiz.Name = "btnbhpeachWiz"
-        Me.btnbhpeachWiz.Size = New System.Drawing.Size(22, 22)
-        Me.btnbhpeachWiz.TabIndex = 93
-        Me.btnbhpeachWiz.UseVisualStyleBackColor = True
-        '
-        'cmdCreateNewFan
-        '
-        Me.cmdCreateNewFan.BackColor = System.Drawing.Color.LightCoral
-        Me.cmdCreateNewFan.Location = New System.Drawing.Point(698, 10)
-        Me.cmdCreateNewFan.Name = "cmdCreateNewFan"
-        Me.cmdCreateNewFan.Size = New System.Drawing.Size(75, 23)
-        Me.cmdCreateNewFan.TabIndex = 106
-        Me.cmdCreateNewFan.Text = "Create"
-        Me.cmdCreateNewFan.UseVisualStyleBackColor = False
-        Me.cmdCreateNewFan.Visible = False
-        '
-        'cmdS10SideReturn
-        '
-        Me.cmdS10SideReturn.Location = New System.Drawing.Point(110, 319)
-        Me.cmdS10SideReturn.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdS10SideReturn.Name = "cmdS10SideReturn"
-        Me.cmdS10SideReturn.Size = New System.Drawing.Size(94, 28)
-        Me.cmdS10SideReturn.TabIndex = 40
-        Me.cmdS10SideReturn.Text = "S10 Side RA"
-        Me.cmdS10SideReturn.UseVisualStyleBackColor = True
-        Me.cmdS10SideReturn.Visible = False
         '
         'frmNewFan
         '

@@ -29,9 +29,11 @@
         airflow = frmMain.ThisUnitSFanPerf.Airflow
         txtSFanAFlow.Text = Format(airflow, "0")
 
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & " Specific Airflow Modifications Selected:" & vbCrLf
+
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
             CurMod = lstItemsInDB.SelectedItems.Item(i)
-
+            txtDesignNotesHard.Text = txtDesignNotesHard.Text & CurMod & " Selected as Modification." & vbCrLf
             Select Case CurMod
                 Case Is = "Supply Air - Convert to Rear Discharge"
                     'Turn on the appropriate controls on the Performance Tab
@@ -54,6 +56,7 @@
                         Case Is = "Choice"
                             grpDown2Side.Visible = True
                             txtSPAdjustSideDisch.Text = Format(0.000000009564935065 * airflow * airflow - 0.000006064832535891 * airflow + 0.0270664217361984, "0.00")
+                            txtDesignNotesHard.Text = txtDesignNotesHard.Text & "Estimated additional USP of: " & txtSPAdjustSideDisch.Text & " iwc" & vbCrLf
                         Case Is = "Select"
                             UndefMod = True
                         Case Is = "SeriesLX"
@@ -132,7 +135,9 @@
                         Case Is = "Premier"
                             UndefMod = True
                         Case Is = "Choice"
-                            UndefMod = True
+                            'No change to unit static beyond the static add for the addition of the economizer.
+                            'See Table 21 Additional static resistance in Tech Guide for details.
+                            UndefMod = False
                         Case Is = "Select"
                             UndefMod = True
                         Case Is = "SeriesLX"
@@ -197,17 +202,15 @@
             End If
         Next
 
-
         TabControl1.SelectTab("tpgConditions")
     End Sub
 
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
-
+        txtDesignNotesHard.Text = txtDesignNotesHard.Text & "All modification calculations based upon an airflow of " & txtSFanAFlow.Text & " cfm." & vbCrLf
         TabControl1.SelectTab("tpgOptions")
     End Sub
 
     Private Sub cmdDoneOptions_Click(sender As Object, e As EventArgs) Handles cmdDoneOptions.Click
-
         TabControl1.SelectTab("tpgControls")
     End Sub
 
@@ -221,9 +224,13 @@
     End Sub
 
     Private Sub btnDonePerf_Click(sender As Object, e As EventArgs) Handles btnDonePerf.Click
-        btnOK.Enabled = True
-        btnDonePerf.Enabled = False
-        TabControl1.Enabled = False
+        If chkAdjustESPDown.Checked Then
+            txtDesignNotesHard.Text = txtDesignNotesHard.Text & "User entered additional unit static pressure of: " & txtSPAdjustSideDisch.Text & " iwc for Supply Air - Convert to Rear Discharge." & vbCrLf
+        Else
+            txtDesignNotesHard.Text = txtDesignNotesHard.Text & "User elected not to allocate static pressure to the conversion." & vbCrLf
+        End If
+
+        TabControl1.SelectTab("tpgNotesPage")
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
@@ -250,8 +257,8 @@
             AddUniqueEndDeviceRequirements(ModuleCodeList.Item(i))
         Next i
 
-
         If chkWriteHistory.Checked = True Then Call WriteAFlowModHistory()
+        frmMain.DesignNotes = frmMain.DesignNotes & txtDesignNotesHard.Text & vbCrLf & vbCrLf & txtDesignNotesSoft.Text
         Me.Hide()
     End Sub
     Private Sub WriteAFlowModHistory()
@@ -261,7 +268,8 @@
         Dim dbProvider As String
         Dim jname, unit, ver, modnum As String
         'Next dim the module specific
-        Dim MainCustomCode, MainCustomDescription As String
+        Dim CustomDescription, Controller, Airflow, DuctFlanges, USPAdjustment As String
+        Dim i As Integer
 
         Dim MySQL As String
         Dim ExistingRecordID As String
@@ -276,23 +284,43 @@
         con.ConnectionString = dbProvider
         con.Open()
 
+        CustomDescription = ""
+        For i = 0 To lstItemsInDB.SelectedItems.Count - 1
+            CustomDescription = CustomDescription & lstItemsInDB.SelectedItems.Item(i) & " === "
+        Next
+        CustomDescription = Mid(CustomDescription, 1, Len(CustomDescription) - 5)
+
+        Controller = "Unknown"
+        If optASE.Checked Then Controller = "ASE"
+        If optIPU.Checked Then Controller = "IPU"
+        If optSE.Checked Then Controller = "SE"
+        If optOtherControls.Checked Then Controller = "Other"
+
+        Airflow = txtSFanAFlow.Text
+        If chkFlanges.Checked Then DuctFlanges = "Yes" Else DuctFlanges = "No"
+        If chkAdjustESPDown.Checked Then
+            USPAdjustment = txtSPAdjustSideDisch.Text
+        Else
+            USPAdjustment = "0.00"
+        End If
+
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
 
-        MySQL = "Select * FROM tblHistoryHWCoil WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
+        MySQL = "Select * FROM tblHistoryAFlowMod WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"
         rs.Open(MySQL, con)
 
         If Not (rs.EOF And rs.BOF) Then
             'Update SQL
             ExistingRecordID = rs.Fields(0).Value
-            ' MySQL = "UPDATE tblHistoryHWCoil SET HeatAirFlow='" & HeatAirflow & "', EAT='" & EAT & "', " & "EFT='" & EFT & "', Flow='" & Flow & "', Fluid='" & Fluid & "', FPercent='" & Percent & "', LAT='" & LAT & "', LFT='" & LFT & "', CoilAPD='" & CoilAPD & "', FPD='" & FPD & "', Capacity='" & Capacity & "' WHERE ID=" & ExistingRecordID
+            MySQL = "UPDATE tblHistoryAFlowMod SET CustomDescription='" & CustomDescription & "', Controller='" & Controller & "', " & "Airflow='" & Airflow & "', DuctFlanges='" & DuctFlanges & "', USPAdjustment='" & USPAdjustment & "' WHERE ID=" & ExistingRecordID
             con.Execute(MySQL)
         Else
             'Insert SQL
-            'MySQL = "INSERT INTO tblHistoryHWCoil (JobName, UnitID, Version, ModelNumber, HeatAirflow, EAT, EFT, Flow, Fluid, FPercent, LAT, LFT, CoilAPD, FPD, Capacity) VALUES ('" _
-            '& jname & "','" & unit & "','" & ver & "','" & modnum & "','" & HeatAirflow & "','" & EAT & "','" & EFT & "','" & Flow & "','" & Fluid & "','" & Percent & "','" & LAT & "','" & LFT & "','" & CoilAPD & "','" & FPD & "','" & Capacity & "')"
+            MySQL = "INSERT INTO tblHistoryAFlowMod (JobName, UnitID, Version, ModelNumber, CustomDescription, Controller, Airflow, DuctFlanges, USPAdjustment) VALUES ('" _
+            & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & CustomDescription & "','" & Controller & "','" & Airflow & "','" & DuctFlanges & "','" & USPAdjustment & "')"
             con.Execute(MySQL)
         End If
 
@@ -448,6 +476,8 @@
                                 Stop
                             Case Is = "Choice"
                                 ModuleCodeList.Add("340119")
+                                ModuleCodeList.Add("340402")
+                                If chkFlanges.Checked Then ModuleCodeList.Add("340403")
                             Case Is = "Select"
                                 ModuleCodeList.Add("340120")
                             Case Else
@@ -653,6 +683,8 @@
                         mass = 32
                     Case Is = "Return Air - Convert to End Return"
                         mass = 32
+                    Case Is = "Return Air Blockoff"
+                        mass = 25
                     Case Else
                         mass = -9999
                 End Select
@@ -699,11 +731,22 @@
     End Sub
 
     Private Sub frmAFlowMod_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim TempFam As String
+
         Call PopulateAvailableModifications()
         'Prime the pump
         ModuleCodeList.Add("340000")
 
+        TempFam = frmMain.ThisUnit.Family
+        If TempFam <> "Blank" Then optSE.Checked = True
+        If TempFam = "Series100" Then optIPU.Checked = True
+        If TempFam = "Premier" Then optASE.Checked = True
+        If TempFam = "Blank" Then grpBaseControls.Enabled = True
+        If TempFam = "Blank" Then optOtherControls.Checked = True
+
         If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        txtDesignNotesHard.Text = "***Airflow Modification Notes and Comments***" & vbCrLf
+
     End Sub
 
     Private Sub PopulateAvailableModifications()
@@ -782,5 +825,11 @@
 
     Private Sub txtSFanAFlow_Leave(sender As Object, e As EventArgs)
         txtSPAdjustSideDisch.Text = Format(0.000000009564935065 * Val(txtSFanAFlow.Text) * Val(txtSFanAFlow.Text) - 0.000006064832535891 * Val(txtSFanAFlow.Text) + 0.0270664217361984, "0.00")
+    End Sub
+
+    Private Sub btnDoneNotes_Click(sender As Object, e As EventArgs) Handles btnDoneNotes.Click
+        If txtDesignNotesSoft.Text = "" Then txtDesignNotesSoft.Text = "No user entered design notes."
+        btnOK.Enabled = True
+        btnDoneNotes.Enabled = False
     End Sub
 End Class

@@ -1198,6 +1198,7 @@ Public Class frmMain
             lblAmbientDB.Visible = False
             txtAmbientDB.Visible = False
             txtAmbientDB.Text = "n/a"
+
         End If
 
 
@@ -7372,6 +7373,8 @@ Public Class frmMain
                             txtModelNumber.Text = "J" & btu & "ZF" & Mid(txtBrandModelNumber.Text, 6)
                         Case = "ZT"
                             txtModelNumber.Text = "J" & btu & "ZT" & Mid(txtBrandModelNumber.Text, 6)
+                        Case = "ZB"
+                            txtModelNumber.Text = "J" & btu & "ZB" & Mid(txtBrandModelNumber.Text, 6)
                     End Select
                 End If
                 If cmbBrand.Text = "York" Then
@@ -7425,8 +7428,34 @@ Public Class frmMain
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZT" & Mid(txtBrandModelNumber.Text, 6)
                         Case = "ZS"
                             txtModelNumber.Text = "J" & Mid(txtBrandModelNumber.Text, 4, 2) & "ZF" & Mid(txtBrandModelNumber.Text, 6)
-
+                        Case = "ZJ"
+                            btu = Mid(txtBrandModelNumber.Text, 3, 3)
+                            Select Case btu
+                                Case Is = "060"
+                                    btu = "05"
+                                Case Is = "072"
+                                    btu = "06"
+                                Case Is = "090"
+                                    btu = "07"
+                                Case Is = "96"
+                                    btu = "08"
+                                Case Is = "120"
+                                    btu = "10"
+                                Case Is = "150"
+                                    btu = "12"
+                                Case Else
+                                    btu = "xx"
+                            End Select
+                            Select Case Mid(txtBrandModelNumber.Text, 1, 2)
+                                Case = "ZJ"
+                                    txtModelNumber.Text = "J" & btu & "ZJ" & Mid(txtBrandModelNumber.Text, 6)
+                                Case = "ZR"
+                                    txtModelNumber.Text = "J" & btu & "ZR" & Mid(txtBrandModelNumber.Text, 6)
+                                Case = "ZF"
+                                    txtModelNumber.Text = "J" & btu & "ZF" & Mid(txtBrandModelNumber.Text, 6)
+                            End Select
                     End Select
+
                 End If
 
                 If cmbBrand.Text = "LUX" Then
@@ -8013,12 +8042,9 @@ Public Class frmMain
         Dim ElecChar As String
         Dim FLA As String
 
-
-
         FLA = "0.0"
 
         txtCommVolts.Text = ThisUnitElecData.CommVolts
-
 
         If chkUseCustomMCA.Checked Then
             lblBaseUnitMCA.Text = txtCommMCA.Text
@@ -8055,9 +8081,7 @@ Public Class frmMain
                 Case Else
                     Call LoadStandardLoads()
             End Select
-            Call LoadModLoads
-
-
+            Call LoadModLoads()
 
             Call cmdUpdateMCA.PerformClick()
             optMCAReportA.Checked = True
@@ -8254,8 +8278,6 @@ Public Class frmMain
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-
-
         Snipet = Mid(ThisUnit.ModelNumber, 1, 5)
         If Mid(Snipet, 1, 1) = "V" Then Snipet = Mid(Snipet, 1, 2) & "XXX"
         If Mid(Snipet, 1, 1) = "Y" Then Snipet = Mid(ThisUnit.ModelNumber, 1, 7)
@@ -8268,7 +8290,6 @@ Public Class frmMain
         End If
 
         MySQL = "SELECT * FROM tblElectricalInfo WHERE (JCISnipit='" & Snipet & "') AND (Voltage='" & txtCommVolts.Text & "')"
-
 
         rs.Open(MySQL, con)
 
@@ -8455,7 +8476,6 @@ Public Class frmMain
                 Next
             Next
         End If
-
 
     End Sub
 

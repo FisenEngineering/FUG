@@ -724,7 +724,72 @@
         rs = Nothing
         con = Nothing
     End Sub
+    Private Sub LoadAFlowModHistoryTable(XL As Boolean)
+        'Upgraded to 2.0 style reporting
 
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+
+        Dim MySQL As String
+
+        Dim OneLine As String
+        Dim AllLines As New System.Text.StringBuilder
+
+        Dim i, j As Integer
+        Dim OneMod(10) As String
+        Dim TempMods As String
+
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        Me.Width = 1000
+
+        txtReport.Text = ""
+
+        MySQL = "SELECT * FROM tblHistoryAFlowMod"
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        rs.Open(MySQL, con)
+        AllLines.Clear()
+        AllLines.Append("{\rtf1\ansi ")
+        AllLines.Append("{\colortbl;\red152\green251\blue152;}")
+
+        Do While Not (rs.EOF)
+            If Not (chkFilterByFamily.Checked) Or (frmMain.ThisUnit.Family = Model2Family(rs.Fields(4).Value)) Then
+                OneLine = "\highlight1 " & rs.Fields(2).Value & " " & rs.Fields(3).Value & " " & rs.Fields(4).Value & " - " & rs.Fields(1).Value
+                OneLine = OneLine.PadRight(160, " ") & "\par "
+                AllLines.Append(OneLine)
+                i = 0
+                TempMods = rs.Fields(5).Value
+                Do While InStr(TempMods, "===")
+                    OneMod(i) = Mid(TempMods, 1, InStr(TempMods, "===") - 2)
+                    TempMods = Trim(Mid(TempMods, InStr(TempMods, "===") + 4))
+                    i = i + 1
+                Loop
+                OneMod(i) = TempMods
+                For j = 0 To i
+                    OneLine = "\highlight0 \tab \b RH Mod:\b0 " & OneMod(j) & " \tab\b Controller:\b0 " & rs.Fields(6).Value & " \tab\b Airflow:\b0 " & rs.Fields(7).Value & " \tab\b Duct Flanges:\b0 " & rs.Fields(8).Value & " \tab\b USP Adjustment:\b0 " & rs.Fields(9).Value & " \par "
+                    AllLines.Append(OneLine)
+                Next j
+            End If
+
+            rs.MoveNext()
+        Loop
+
+        AllLines.Append("}")
+        txtReport.Rtf = AllLines.ToString
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
+    End Sub
     Private Sub InitializeQuery(ExcelNeed As Boolean)
         Dim dummy As MsgBoxResult
 
@@ -736,6 +801,9 @@
                 Case Is = "100OA"
                     Call Load100OAHistoryTable(ExcelNeed)
                     Me.Text = "100% Outdoor Air History"
+                Case Is = "AFlowMod"
+                    Call LoadAFlowModHistoryTable(ExcelNeed)
+                    Me.Text = "Air Flow Reconfiguration"
                 Case Is = "CstmCtrl"
                     Call LoadCustomControlsTable(ExcelNeed)
                     Me.Text = "Custom Controls History"

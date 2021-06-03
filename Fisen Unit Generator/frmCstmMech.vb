@@ -440,12 +440,12 @@
                 If rs.Fields("MCAChange").Value = True Then
                     Call CustomMCARequired(rs.Fields("LoadName").Value, rs.Fields("LoadHP").Value, rs.Fields("LoadValue").Value)
                 End If
-                Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value)
-                Call UpdateBaseUnitDrawingTags(rs.Fields("BIUnitDrawings").Value)
-                Call UpdateReferDrawingTags(rs.Fields("BIReferDrawings").Value)
-                Call UpdateAirflowDrawingTags(rs.Fields("BIAirflowDrawings").Value)
-                Call UpdateHydroDrawingTags(rs.Fields("BIHydroDrawings").Value)
-                Call AddFieldInstalledItems(rs.Fields("CstmCode").Value)
+                Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value.ToString)
+                Call UpdateBaseUnitDrawingTags(rs.Fields("BIUnitDrawings").Value.ToString)
+                Call UpdateReferDrawingTags(rs.Fields("BIReferDrawings").Value.ToString)
+                Call UpdateAirflowDrawingTags(rs.Fields("BIAirflowDrawings").Value.ToString)
+                Call UpdateHydroDrawingTags(rs.Fields("BIHydroDrawings").Value.ToString)
+                Call AddFieldInstalledItems(rs.Fields("CstmCode").Value.ToString)
 
                 rs.MoveNext()
             Loop
@@ -868,6 +868,72 @@
     End Sub
 
     Private Sub WriteHistory()
+        'Updated to Version 2.0 29 Apr 2020
+        'Update table name in 4 locations
+        Exit Sub
+
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim jname, unit, ver, modnum As String
+        'Next dim the module specific 
+        Dim CstmCode, CstmDesc, Controller As String
+
+        Dim i As Integer
+
+        Dim MySQL As String
+        Dim ExistingRecordID As String
+        jname = frmMain.txtProjectName.Text
+        unit = frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text
+        ver = frmMain.txtUnitVersion.Text
+        modnum = frmMain.txtModelNumber.Text
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenStatic
+        }
+
+        Controller = "Unselected"
+        If optSE.Checked Then Controller = "SE"
+        If optIPU.Checked Then Controller = "IPU"
+        If optASE.Checked Then Controller = "ASE"
+
+        For i = 0 To lstItemsInDB.SelectedItems.Count - 1
+            MySQL = "Select * FROM tblCstmMechDB WHERE (CstmFIOP='" & lstItemsInDB.SelectedItems(i).ToString & "')"
+            rs.Open(MySQL, con)
+            pSelectedCodes.Add(rs.Fields("CstmCode").Value)
+            rs.Close()
+        Next i
+
+
+        For i = 1 To lstItemsInDB.SelectedItems.Count
+
+            CstmDesc = lstItemsInDB.SelectedItems(i - 1).ToString
+            CstmCode = pSelectedCodes.Item(i - 1)
+
+            MySQL = "Select * FROM tblCstmMechDB WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') AND (CustomCode='" & CstmCode & "')"
+            rs.Open(MySQL, con)
+
+            If Not (rs.EOF And rs.BOF) Then
+                'Update SQL
+                ExistingRecordID = rs.Fields(0).Value
+                MySQL = "UPDATE tblCstmMechDB SET Controller='" & Controller & "', CustomCode='" & CstmCode & "', " & "CustomDescription='" & CstmDesc & "' WHERE ID=" & ExistingRecordID
+                con.Execute(MySQL)
+            Else
+                'Insert SQL
+                MySQL = "INSERT INTO tblCstmMechDB (JobName,UnitID,Version,ModelNumber,CustomCode,CustomDescription,Controller) VALUES ('" & jname & "','" & unit & "','" & ver & "','" & modnum & "','" & CstmCode & "','" & CstmDesc & "','" & Controller & "')"
+                con.Execute(MySQL)
+            End If
+            rs.Close()
+        Next i
+
+        con.Close()
+        rs = Nothing
+        con = Nothing
 
     End Sub
 

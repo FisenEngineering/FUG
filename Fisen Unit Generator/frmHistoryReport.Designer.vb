@@ -126,7 +126,7 @@ Partial Class frmHistoryReport
         '
         Me.cmbModCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbModCode.FormattingEnabled = True
-        Me.cmbModCode.Items.AddRange(New Object() {"Unit Report", "100OA", "CstmCtrl", "CustomCoil", "DWall", "Filters", "HGBP", "HWCoil", "LCVAV", "MGH(R)", "MHGRH_Conv", "RFan", "SFan", "XFan", "Not Selected"})
+        Me.cmbModCode.Items.AddRange(New Object() {"Unit Report", "100OA", "AFlowMod", "CstmCtrl", "CustomCoil", "DWall", "Filters", "HGBP", "HWCoil", "LCVAV", "MGH(R)", "MHGRH_Conv", "RFan", "SFan", "XFan", "Not Selected"})
         Me.cmbModCode.Location = New System.Drawing.Point(12, 47)
         Me.cmbModCode.Name = "cmbModCode"
         Me.cmbModCode.Size = New System.Drawing.Size(174, 21)
@@ -194,6 +194,7 @@ Partial Class frmHistoryReport
         Me.Controls.Add(Me.cmdExcelNeed)
         Me.MinimumSize = New System.Drawing.Size(530, 265)
         Me.Name = "frmHistoryReport"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmHistoryReport"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)

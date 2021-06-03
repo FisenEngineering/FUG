@@ -33,6 +33,7 @@
         Dim DisconnectCoeff As Double
         Dim ModWeight As Double
         Dim DiscWeight As Double
+        Dim BlankInput As String
 
         If optFSS.Checked Then
             DisconnectCoeff = 1
@@ -66,6 +67,15 @@
             Case Is = "Series100"
                 ModWeight = 45
                 DiscWeight = 65
+            Case Is = "Blank"
+                BlankInput = InputBox("What weight for the SCCR Mod?", "SCCR:UpdateWeightTable", "45")
+                ModWeight = Val(BlankInput)
+                If optFSS.Checked Then
+                    BlankInput = InputBox("What weight for the Disconnect?", "SCCR:UpdateWeightTable", "65")
+                    DiscWeight = Val(BlankInput)
+                Else
+                    DiscWeight = 0
+                End If
             Case Else
                 ModWeight = 9999
                 DiscWeight = 0

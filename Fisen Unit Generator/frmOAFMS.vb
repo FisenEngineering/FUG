@@ -50,6 +50,10 @@
                     frmMain.ThisUnitCodes.Add("381003") 'Low Flow Design
                 End If
                 frmMain.ThisUnitCodes.Add("381010")
+            Case Is = "Select"
+                frmMain.ThisUnitCodes.Add("381030")
+                frmMain.ThisUnitCodes.Add("381200")
+                frmMain.ThisUnitCodes.Add("381010")
             Case Else
         End Select
 
@@ -76,6 +80,8 @@
                 Else
                     tempWeight = "115"
                 End If
+            Case Is = "Select"
+                tempWeight = 112
             Case Else
                 tempWeight = "9999"
         End Select
