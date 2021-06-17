@@ -619,10 +619,12 @@
 
     Private Sub UpdateCodeList(locCode As String)
         Dim i As Integer
-        frmMain.ThisUnitCstmMechCodes.Add(locCode)
+        'frmMain.ThisUnitCstmMechCodes.Add(locCode)
+        ModuleCodeList.Add(locCode)
         For i = 0 To pTagALongParent.Count - 1
             If pTagALongParent.Item(i) = locCode Then
-                frmMain.ThisUnitCstmMechCodes.Add(pTagALongsSelected.Item(i))
+                'frmMain.ThisUnitCstmMechCodes.Add(pTagALongsSelected.Item(i))
+                ModuleCodeList.Add(pTagALongsSelected.Item(i))
             End If
         Next
         'handle base SCCR Unit Code
