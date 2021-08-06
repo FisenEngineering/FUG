@@ -40,7 +40,7 @@ Public Class frmCstmCtrl
 
         If pResearchMode Then Call SetupResearchMode()
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
         ModuleCodeList.Add("980000")
 
         If frmMain.HasHMI Then
@@ -462,7 +462,7 @@ Public Class frmCstmCtrl
             }
 
         ModuleCodeList.Clear()
-
+        ModuleCodeList.Add("980000")
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
 
             MySQL = "SELECT * FROM tblCstmCtrl WHERE CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"

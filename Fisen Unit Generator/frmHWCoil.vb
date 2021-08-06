@@ -425,7 +425,7 @@ Public Class frmHWCoil
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         pCancelled = False
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         If Not (frmMain.chkSaveinProjDB.Checked) Then chkWriteHistory.Checked = False
         If frmMain.chkDebug.Checked Then chkWriteHistory.Checked = False

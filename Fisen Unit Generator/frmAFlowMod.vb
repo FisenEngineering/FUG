@@ -744,7 +744,7 @@
         If TempFam = "Blank" Then grpBaseControls.Enabled = True
         If TempFam = "Blank" Then optOtherControls.Checked = True
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
         txtDesignNotesHard.Text = "***Airflow Modification Notes and Comments***" & vbCrLf
 
     End Sub

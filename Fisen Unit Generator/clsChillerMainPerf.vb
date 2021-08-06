@@ -14,6 +14,7 @@ Public Class clsChillerMainPerf
     Private pAlt As String
     Private pEER As String
     Private pNPLV As String
+    Private pIPLV As String
     Private pRigMass As String
     Private pOpMass As String
     Private pBaseFluidMass As String
@@ -643,6 +644,14 @@ Public Class clsChillerMainPerf
             pNPLV = value
         End Set
     End Property
+    Public Property IPLV As String
+        Get
+            IPLV = Format(Val(pIPLV), "0.0")
+        End Get
+        Set(value As String)
+            pIPLV = value
+        End Set
+    End Property
     Public Property RigWeight As String
         Get
             RigWeight = Format(Val(pRigMass), "0")
@@ -793,6 +802,7 @@ Public Class clsChillerMainPerf
         pAlt = "0"
         pEER = "8.5"
         pNPLV = "14.0"
+        pIPLV = "0.0"
         pRigMass = "16000"
         pOpMass = "18000"
         pRefChg = "555.0"
@@ -973,6 +983,7 @@ Public Class clsChillerMainPerf
         Dim xNodeRoot As XmlNode = xDoc.SelectSingleNode("//BaseUnit/PerformanceData")
 
         pEER = xNodeRoot.SelectSingleNode("EER").InnerText
+        pIPLV = xNodeRoot.SelectSingleNode("IPLV").InnerText
         pNPLV = xNodeRoot.SelectSingleNode("NPLV").InnerText
 
         For i = 1 To 6
@@ -1088,270 +1099,6 @@ Public Class clsChillerMainPerf
 
         xDoc = Nothing
     End Sub
-
-    Public Sub ImportYLAALoadTable()
-        Dim xdoc As XmlDocument = New XmlDocument
-        Dim CompStr As String
-        Dim slashloc As Integer
-
-        xdoc.Load(frmMain.txtBaseUnitFile.Text)
-
-        Dim xnode As XmlNode
-
-
-        'Start with the Yorkworks PDF.  Export to XML Last tested on 3152F on 12 March 2018
-        xnode = xdoc.SelectSingleNode("TaggedPDF-doc/Part/Table")
-        'xnode = xdoc.SelectSingleNode("TaggedPDF-doc/Document/Table")
-
-        xnode = xnode.NextSibling 'at P
-        xnode = xnode.NextSibling 'at Pin Table
-        xnode = xnode.NextSibling 'at P
-        xnode = xnode.NextSibling 'at Data Table
-        xnode = xnode.NextSibling 'at P
-        xnode = xnode.NextSibling 'at Electrical Load Table
-
-        'xnode = xnode.SelectSingleNode("TBody/TR")
-        xnode = xnode.SelectSingleNode("TR")
-        xnode = xnode.NextSibling
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("TD")
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("P")
-        CompStr = xnode.InnerText
-        slashloc = InStr(CompStr, "/")
-        Ckt1CompRLA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-        CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt1CompRLA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt1CompRLA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt1CompRLA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt1CompRLA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("P")
-        CompStr = xnode.InnerText
-        slashloc = InStr(CompStr, "/")
-        Ckt2CompRLA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-        CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt2CompRLA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt2CompRLA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt2CompRLA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt2CompRLA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-
-        xnode = xnode.ParentNode
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("TD")
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("P")
-        CompStr = xnode.InnerText
-        slashloc = InStr(CompStr, "/")
-        Ckt1FansQty = Trim(Mid(CompStr, 1, slashloc - 1))
-        Ckt1FansFLA = Format(Val(Trim(Mid(CompStr, slashloc + 1))), "0.0")
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("P")
-        CompStr = xnode.InnerText
-        slashloc = InStr(CompStr, "/")
-        Ckt2FansQty = Trim(Mid(CompStr, 1, slashloc - 1))
-        Ckt2FansFLA = Format(Val(Trim(Mid(CompStr, slashloc + 1))), "0.0")
-
-        xnode = xnode.ParentNode
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("TD")
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("P")
-        CompStr = xnode.InnerText
-        slashloc = InStr(CompStr, "/")
-        Ckt1CompLRA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-        CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt1CompLRA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt1CompLRA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt1CompLRA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt1CompLRA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.SelectSingleNode("P")
-        CompStr = xnode.InnerText
-        slashloc = InStr(CompStr, "/")
-        Ckt2CompLRA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-        CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt2CompLRA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt2CompLRA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-        If Len(CompStr) > 0 Then
-            slashloc = InStr(CompStr, "/")
-            If slashloc > 0 Then
-                Ckt2CompLRA.Add(Format(Val(Trim(Mid(CompStr, 1, slashloc - 1))), "0.0"))
-                CompStr = Trim(Trim(Mid(CompStr, slashloc + 1)))
-            Else
-                Ckt2CompLRA.Add(Format(Val(Trim(CompStr)), "0.0"))
-                CompStr = ""
-            End If
-        End If
-    End Sub
-
-    Public Sub ImportYLAASoundTable1()
-        Dim xdoc As XmlDocument = New XmlDocument
-        Dim xnode As XmlNode
-        Dim i As Integer
-
-        xdoc.Load(frmMain.txtBaseUnitFile.Text)
-
-        xnode = xdoc.SelectSingleNode("//*/P[contains(.,'" & "AHRI 370" & "')]")
-        pSoundTableTitle = xnode.InnerText
-        xnode = xnode.ParentNode
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.NextSibling
-        For i = 1 To 6
-            xnode = xnode.SelectSingleNode("TD")
-            xnode = xnode.SelectSingleNode("P")
-            'do nothing
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            'do nothing
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz63.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz125.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz250.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz500.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz1.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz2.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz4.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHz8.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pHzLpA.Add(xnode.InnerText)
-            If i = 6 Then Exit For
-            xnode = xnode.ParentNode
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-        Next i
-
-        xdoc = Nothing
-    End Sub
-    Public Sub ImportYLAAPartLoadTable()
-        Dim xdoc As XmlDocument = New XmlDocument
-        Dim xnode As XmlNode
-        Dim i As Integer
-
-        xdoc.Load(frmMain.txtBaseUnitFile.Text)
-        ' xnode = xdoc.SelectSingleNode("TaggedPDF-doc/Part['Part Load Rating Data']")
-        xnode = xdoc.SelectSingleNode("//*/P[contains(.,'" & "Part Load Rating Data" & "')]")
-        xnode = xnode.ParentNode
-        xnode = xnode.ParentNode
-        xnode = xnode.NextSibling
-        xnode = xnode.NextSibling
-        For i = 1 To 6
-            xnode = xnode.SelectSingleNode("TD")
-            xnode = xnode.SelectSingleNode("P")
-            pPLRStage.Add(xnode.InnerText)
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pPLRAmbient.Add(Format(Val(xnode.InnerText), "0.0"))
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pPLRCapacity.Add(Format(Val(xnode.InnerText), "0.0"))
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pPLRTotalkW.Add(Format(Val(xnode.InnerText), "0.0"))
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-            xnode = xnode.SelectSingleNode("P")
-            pPLREfficiency.Add(Format(Val(xnode.InnerText), "0.0"))
-            If i = 6 Then Exit For
-            xnode = xnode.ParentNode
-            xnode = xnode.ParentNode
-            xnode = xnode.NextSibling
-        Next i
-
-        xdoc = Nothing
-    End Sub
-
 
 
 End Class

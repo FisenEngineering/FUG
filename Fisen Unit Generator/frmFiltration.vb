@@ -837,7 +837,7 @@ Public Class frmFiltration
 
     Private Sub frmFiltration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         cmbIFType.Text = "N/A"
         cmbFFType.Text = "N/A"

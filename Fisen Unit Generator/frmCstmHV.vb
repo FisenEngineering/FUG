@@ -39,7 +39,7 @@
         Call PopulateAuxPanelList() 'V1.4
         optUseAux.Checked = frmMain.HasAuxillaryPanel
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
         ModuleCodeList.Add("920000")
 
         If frmMain.HasHMI Then

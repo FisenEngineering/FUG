@@ -255,7 +255,56 @@ Public Class frmMain
             nudJobNumberAdj.Value = 3300
         End If
         My.Settings.Save()
+
+        If Not (LocalJobDirExists()) Then
+
+            If My.Settings.UOLocalFolder = "" Then
+                My.Computer.FileSystem.CreateDirectory("C:\Users\" & Environment.UserName & "\Desktop\")
+            Else
+                My.Computer.FileSystem.CreateDirectory(My.Settings.UOLocalFolder)
+            End If
+
+        End If
+        Call WritePageRedoFileBU()
+
         tabMain.SelectTab("pgProjectData")
+    End Sub
+
+    Private Sub WritePageRedoFileBU()
+        Dim myXMLSettings As New XmlWriterSettings
+        Dim UnitWriter As XmlWriter
+        Dim TargetPath As String
+
+        myXMLSettings.Indent = True
+        myXMLSettings.NewLineOnAttributes = True
+
+        TargetPath = My.Settings.UOLocalFolder & "LastUnitRedoFile.xml"
+        UnitWriter = XmlWriter.Create(TargetPath, myXMLSettings)
+
+        UnitWriter.WriteComment("Fisen Unit Definition File")
+
+        UnitWriter.WriteStartElement("BaseUnit")
+
+        UnitWriter.WriteStartElement("Kingdom")
+        UnitWriter.WriteString(SetUnitKingdom())
+        UnitWriter.WriteEndElement() 'Kingdom 
+
+        UnitWriter.WriteStartElement("Family")
+        UnitWriter.WriteString(SetUnitFamily())
+        UnitWriter.WriteEndElement() 'Kingdom 
+
+        UnitWriter.WriteStartElement("Family")
+        UnitWriter.WriteString(SetUnitFamily())
+        UnitWriter.WriteEndElement() 'Family 
+
+        UnitWriter.WriteStartElement("Cabinet")
+        UnitWriter.WriteString(SetUnitCabinet())
+        UnitWriter.WriteEndElement() 'Cabinet 
+
+        UnitWriter.WriteEndElement() 'BaseUnit
+
+        UnitWriter.WriteEndDocument()
+        UnitWriter.Close()
     End Sub
 
     Private Sub PreloadBaseChiller()
@@ -307,6 +356,7 @@ Public Class frmMain
         txtMinAmbient.Text = ThisChillerMainPerf.MinAmbient
 
         txtBCEER.Text = ThisChillerMainPerf.EER
+        txtBCIPLV.Text = ThisChillerMainPerf.IPLV
         txtBCNPLV.Text = ThisChillerMainPerf.NPLV
 
         txtBCRigMass.Text = ThisChillerMainPerf.RigWeight
@@ -634,7 +684,7 @@ Public Class frmMain
         For i = 0 To lstSelectedMods.Items.Count - 1
             If lstSelectedMods.Items(i) = "100% Outdoor Air" Then OA100Present = True
             If lstSelectedMods.Items(i) = "Reduced Air Flow" Then LowAFPresent = True
-            If lstSelectedMods.Items(i) = "Short Circuit Current Rating" Then chk65kASCCRBase.Checked = True
+            If lstSelectedMods.Items(i) = "Short Circuit Current Rating" Then ThisUnitElecData.UnitIs65kASCCR = True
         Next
         If (OA100Present And Not (LowAFPresent)) Then
             dummy = MsgBox("You have selected 100% OA without Reduced Airflow.  Are you certain you want to proceed?", vbYesNo, "Fisen Unit Generator")
@@ -4770,6 +4820,9 @@ Public Class frmMain
         zUnitWriter.WriteString(ThisChillerMainPerf.EER)
         zUnitWriter.WriteEndElement()
 
+        zUnitWriter.WriteStartElement("IPLV")
+        zUnitWriter.WriteString(ThisChillerMainPerf.IPLV)
+        zUnitWriter.WriteEndElement()
 
         zUnitWriter.WriteStartElement("NPLV")
         zUnitWriter.WriteString(ThisChillerMainPerf.NPLV)
@@ -5368,6 +5421,7 @@ Public Class frmMain
     End Sub
 
     Private Sub btnDonePD_Click(sender As Object, e As EventArgs) Handles btnDonePD.Click
+
         Dim Dummy As MsgBoxResult
 
         Dim TempFileName As String
@@ -5464,7 +5518,99 @@ Public Class frmMain
         My.Settings.Save()
         DesignNotes = "Design Notes for: " & txtJobNumber.Text & "-" & txtUnitNumber.Text & " - " & txtProjectName.Text & " " & dtpUnitDate.Text & " " & txtUnitVersion.Text & vbCrLf
 
+        'Handle writing the recovery file
+        If Not (chkThisIsARedo.Checked) Then Call WriteRedoFileProjectData()
+
+
     End Sub
+
+    Private Sub WriteRedoFileProjectData()
+        Dim RedoFilePath As String
+
+        RedoFilePath = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\RedoFile.xml"
+        Dim myXMLSettings As New XmlWriterSettings
+        Dim UnitWriter As XmlWriter
+
+        myXMLSettings.Indent = True
+        myXMLSettings.NewLineOnAttributes = True
+
+        UnitWriter = XmlWriter.Create(RedoFilePath, myXMLSettings)
+
+        UnitWriter.WriteComment("Fisen Unit Redo File")
+
+        UnitWriter.WriteStartElement("ProjectData")
+
+        UnitWriter.WriteStartElement("JobNumber")
+        UnitWriter.WriteString(txtJobNumber.Text)
+        UnitWriter.WriteEndElement() 'JobNumber 
+
+        UnitWriter.WriteStartElement("UnitNumber")
+        UnitWriter.WriteString(txtUnitNumber.Text)
+        UnitWriter.WriteEndElement() 'Unit Number   
+
+        UnitWriter.WriteStartElement("UnitDate")
+        UnitWriter.WriteString(dtpUnitDate.Text)
+        UnitWriter.WriteEndElement() 'Family 
+
+        UnitWriter.WriteStartElement("PrintDate")
+        UnitWriter.WriteString(dtpPrintedDate.Text)
+        UnitWriter.WriteEndElement() 'Cabinet 
+
+        UnitWriter.WriteStartElement("ProjectDir")
+        UnitWriter.WriteString(txtProjectDirectory.Text)
+        UnitWriter.WriteEndElement() 'Project Directory
+
+        UnitWriter.WriteStartElement("BUS")
+        UnitWriter.WriteString(txtBaseUnitFile.Text)
+        UnitWriter.WriteEndElement() ' 
+
+        UnitWriter.WriteStartElement("RedoFile")
+        UnitWriter.WriteString(txtRedoFilePath.Text)
+        UnitWriter.WriteEndElement() ' Redo File Path
+
+        UnitWriter.WriteStartElement("ProjectName")
+        UnitWriter.WriteString(txtProjectName.Text)
+        UnitWriter.WriteEndElement() ' Project Name
+
+        UnitWriter.WriteStartElement("Quantity")
+        UnitWriter.WriteString(txtQty.Text)
+        UnitWriter.WriteEndElement() ' Qty
+
+        UnitWriter.WriteStartElement("BrandModNum")
+        UnitWriter.WriteString(txtBrandModelNumber.Text)
+        UnitWriter.WriteEndElement() ' BrandNum
+
+        UnitWriter.WriteStartElement("JCIModNum")
+        UnitWriter.WriteString(txtModelNumber.Text)
+        UnitWriter.WriteEndElement() ' JCIModel Number
+
+        UnitWriter.WriteStartElement("UnitTag")
+        UnitWriter.WriteString(txtUnitTag.Text)
+        UnitWriter.WriteEndElement() ' unit tag
+
+        UnitWriter.WriteStartElement("UnitVer")
+        UnitWriter.WriteString(txtUnitVersion.Text)
+        UnitWriter.WriteEndElement() ' 
+
+        UnitWriter.WriteStartElement("NomTons")
+        UnitWriter.WriteString(txtNominalTons.Text)
+        UnitWriter.WriteEndElement() ' 
+
+        UnitWriter.WriteStartElement("UnitSize")
+        UnitWriter.WriteString(txtYPALUnitSize.Text)
+        UnitWriter.WriteEndElement() ' 
+
+        UnitWriter.WriteStartElement("Brand")
+        UnitWriter.WriteString(cmbBrand.Text)
+        UnitWriter.WriteEndElement() ' 
+
+        UnitWriter.WriteEndElement() 'Project Data
+
+        UnitWriter.WriteEndDocument()
+        UnitWriter.Close()
+
+    End Sub
+
     Private Sub ArchiveOldSubDesignFiles()
         Dim ProjectDir As String
         Dim UnitDir As String
@@ -6268,10 +6414,6 @@ Public Class frmMain
         txtUnitTag.Text = ThisUnit.uTag
         txtQty.Text = ThisUnit.Quantity
         txtBrandModelNumber.Text = ThisUnit.BrandModelNumber
-        ThisChillerMainPerf.ImportYLAALoadTable()
-        ThisChillerMainPerf.ImportYLAAPartLoadTable()
-        ThisChillerMainPerf.ImportYLAASoundTable1()
-
     End Sub
     Private Sub ImportFromYPALSource()
         ThisUnit.ImportYPALData()
@@ -7282,7 +7424,10 @@ Public Class frmMain
             End If
 
             chkInhibitDigConditions.Checked = False
+            chkInhibitDigConditions.Visible = True
             chkSaveinProjDB.Checked = False
+            chkSaveinProjDB.Visible = True
+
             My.Settings.UOMoveCuts2SD = False
 
         End If
@@ -8925,8 +9070,8 @@ Public Class frmMain
         End Select
         txtYPALUnitSize.Text = ThisYPALPerf.UnitSize
         Me.btnTranslate.PerformClick()
-        Call GuessUnitVersion
-
+        Call GuessUnitVersion()
+        txtRedoFilePath.Text = txtProjectDirectory.Text & txtJobNumber.Text & "-" & txtUnitNumber.Text & "\Submittal Source (Do not Distribute)\Submittal Design\RedoFile.xml"
     End Sub
     Private Sub GuessUnitVersion()
         Dim SubDir As String
@@ -8977,7 +9122,7 @@ Public Class frmMain
         cmbBrand.Text = xNodeRoot.SelectSingleNode("Brand").InnerText
         txtBrandModelNumber.Text = xNodeRoot.SelectSingleNode("BrandModelNum").InnerText
         txtModCodeImport.Text = xNodeRoot.SelectSingleNode("ModCodes").InnerText
-        If xNodeRoot.SelectSingleNode("ModCodes").InnerText = "True" Then chk65kASCCRBase.Checked = True
+        If xNodeRoot.SelectSingleNode("ModCodes").InnerText = "True" Then ThisUnitElecData.UnitIs65kASCCR = True
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/FIOPS")
         ThisUnitFactOpts.Clear()
@@ -8990,7 +9135,7 @@ Public Class frmMain
             If xNodeRoot.ChildNodes.Item(i).InnerText = "VAV Controller with VFD" Then ThisUnitSFanPerf.VFDPresent = True
             If xNodeRoot.ChildNodes.Item(i).InnerText = "Intellispeed VFD" Then ThisUnitSFanPerf.VFDPresent = True
             'Test for 65kA SCCR Base Unit
-            If xNodeRoot.ChildNodes.Item(i).InnerText = "65kA SCCR" Then chk65kASCCRBase.Checked = True
+            If xNodeRoot.ChildNodes.Item(i).InnerText = "65kA SCCR" Then ThisUnitElecData.UnitIs65kASCCR = True
         Next
 
         xNodeRoot = xDoc.SelectSingleNode("//BaseUnit/FieldInstalled")

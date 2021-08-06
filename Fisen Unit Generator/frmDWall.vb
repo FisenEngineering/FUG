@@ -133,6 +133,8 @@ Public Class frmDWall
                 tempWeight = "187"
             Case Is = "Choice"
                 tempWeight = "190"
+            Case Is = "Select"
+                tempWeight = "235"
             Case Else
                 tempWeight = "9999"
         End Select
@@ -150,7 +152,7 @@ Public Class frmDWall
     Private Sub frmHWCoil_Load(sender As Object, e As EventArgs) Handles Me.Load
         pCancelled = False
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         If Not (frmMain.chkDebug.Checked) Then
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))

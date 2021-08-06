@@ -295,7 +295,7 @@ Public Class frmHGBP
 
         ModuleCodeList.Add("705100")
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         'Scan the Factory Installed items for microchannel coils
         For i = 0 To frmMain.ThisUnitFactOpts.Count - 1

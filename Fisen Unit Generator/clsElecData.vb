@@ -4,6 +4,8 @@ Imports System.Xml.Serialization
 Imports System.IO
 Public Class clsElecData
 
+    Private pUnitIs65kASCCR As Boolean
+
     Private pCommVolts As String
     Private pCommPhase As String
     Private pCommFreq As String
@@ -64,6 +66,15 @@ Public Class clsElecData
 
     Private pCOPLoadsPresent As Boolean
     Private pCOPLoad As New ArrayList
+
+    Public Property UnitIs65kASCCR
+        Get
+            UnitIs65kASCCR = pUnitIs65kASCCR
+        End Get
+        Set(value)
+            pUnitIs65kASCCR = value
+        End Set
+    End Property
 
     Public Property COPLoadsPresent
         Get
@@ -702,5 +713,7 @@ Public Class clsElecData
         pFisenLoad01 = " "
         pFisenLoadFLA01 = " "
         pDPPPresent = False
+
+        pUnitIs65kASCCR = False
     End Sub
 End Class

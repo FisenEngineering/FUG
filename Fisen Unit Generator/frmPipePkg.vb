@@ -48,7 +48,7 @@ Public Class frmPipePkg
         Call InitializeProposalDropdowns()
 
         'Handle SCCR requirements of base unit
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         'Prime the pump for Design Cautions
         ModuleCodeList.Add("800000")

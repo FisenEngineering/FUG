@@ -664,4 +664,15 @@
         Return TransformerSize
     End Function
 
+    Public Function LocalJobDirExists() As Boolean
+        Dim TempVal As Boolean
+        Dim LocalPath As String
+
+        LocalPath = My.Settings.UOLocalFolder
+        TempVal = My.Computer.FileSystem.DirectoryExists(LocalPath)
+
+        Return TempVal
+
+    End Function
+
 End Module

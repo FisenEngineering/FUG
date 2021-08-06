@@ -259,7 +259,7 @@ Public Class frmLCVAV
 
         ModuleCodeList.Add("315000")
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
     End Sub
 

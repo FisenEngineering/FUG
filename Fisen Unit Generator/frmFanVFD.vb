@@ -593,7 +593,7 @@ Public Class frmFanVFD
                 Stop
         End Select
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         TitleText = "Install VFD for Fan"
         Select Case Me.FanType

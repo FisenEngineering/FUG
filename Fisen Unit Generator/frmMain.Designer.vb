@@ -75,6 +75,8 @@ Partial Class frmMain
         Me.optRTUSeries10 = New System.Windows.Forms.RadioButton()
         Me.optRTUSeries5 = New System.Windows.Forms.RadioButton()
         Me.pgProjectData = New System.Windows.Forms.TabPage()
+        Me.txtRedoFilePath = New System.Windows.Forms.TextBox()
+        Me.Label101 = New System.Windows.Forms.Label()
         Me.cmdPasteProjectDir = New System.Windows.Forms.Button()
         Me.cmdFSTImport = New System.Windows.Forms.Button()
         Me.cmdJobNumBOD = New System.Windows.Forms.Button()
@@ -82,8 +84,6 @@ Partial Class frmMain
         Me.cmdChooseProjectDirectory = New System.Windows.Forms.Button()
         Me.lblYPALUnitSize = New System.Windows.Forms.Label()
         Me.txtYPALUnitSize = New System.Windows.Forms.TextBox()
-        Me.txtSelectionTag = New System.Windows.Forms.TextBox()
-        Me.Label101 = New System.Windows.Forms.Label()
         Me.txtBaseUnitFile = New System.Windows.Forms.TextBox()
         Me.Label100 = New System.Windows.Forms.Label()
         Me.txtProjectDirectory = New System.Windows.Forms.TextBox()
@@ -838,8 +838,10 @@ Partial Class frmMain
         Me.cmbJumpDest = New System.Windows.Forms.ComboBox()
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
-        Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
+        Me.chkThisIsARedo = New System.Windows.Forms.CheckBox()
+        Me.txtBCIPLV = New System.Windows.Forms.TextBox()
+        Me.Label123 = New System.Windows.Forms.Label()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -1528,6 +1530,8 @@ Partial Class frmMain
         '
         'pgProjectData
         '
+        Me.pgProjectData.Controls.Add(Me.txtRedoFilePath)
+        Me.pgProjectData.Controls.Add(Me.Label101)
         Me.pgProjectData.Controls.Add(Me.cmdPasteProjectDir)
         Me.pgProjectData.Controls.Add(Me.cmdFSTImport)
         Me.pgProjectData.Controls.Add(Me.cmdJobNumBOD)
@@ -1535,8 +1539,6 @@ Partial Class frmMain
         Me.pgProjectData.Controls.Add(Me.cmdChooseProjectDirectory)
         Me.pgProjectData.Controls.Add(Me.lblYPALUnitSize)
         Me.pgProjectData.Controls.Add(Me.txtYPALUnitSize)
-        Me.pgProjectData.Controls.Add(Me.txtSelectionTag)
-        Me.pgProjectData.Controls.Add(Me.Label101)
         Me.pgProjectData.Controls.Add(Me.txtBaseUnitFile)
         Me.pgProjectData.Controls.Add(Me.Label100)
         Me.pgProjectData.Controls.Add(Me.txtProjectDirectory)
@@ -1577,10 +1579,28 @@ Partial Class frmMain
         Me.pgProjectData.Text = "Project Data"
         Me.pgProjectData.UseVisualStyleBackColor = True
         '
+        'txtRedoFilePath
+        '
+        Me.txtRedoFilePath.Location = New System.Drawing.Point(123, 178)
+        Me.txtRedoFilePath.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtRedoFilePath.Name = "txtRedoFilePath"
+        Me.txtRedoFilePath.Size = New System.Drawing.Size(682, 20)
+        Me.txtRedoFilePath.TabIndex = 46
+        '
+        'Label101
+        '
+        Me.Label101.AutoSize = True
+        Me.Label101.Location = New System.Drawing.Point(60, 181)
+        Me.Label101.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label101.Name = "Label101"
+        Me.Label101.Size = New System.Drawing.Size(55, 13)
+        Me.Label101.TabIndex = 47
+        Me.Label101.Text = "Redo File:"
+        '
         'cmdPasteProjectDir
         '
         Me.cmdPasteProjectDir.Image = CType(resources.GetObject("cmdPasteProjectDir.Image"), System.Drawing.Image)
-        Me.cmdPasteProjectDir.Location = New System.Drawing.Point(613, 307)
+        Me.cmdPasteProjectDir.Location = New System.Drawing.Point(847, 121)
         Me.cmdPasteProjectDir.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdPasteProjectDir.Name = "cmdPasteProjectDir"
         Me.cmdPasteProjectDir.Size = New System.Drawing.Size(26, 20)
@@ -1589,10 +1609,10 @@ Partial Class frmMain
         '
         'cmdFSTImport
         '
-        Me.cmdFSTImport.Location = New System.Drawing.Point(123, 264)
+        Me.cmdFSTImport.Location = New System.Drawing.Point(813, 149)
         Me.cmdFSTImport.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdFSTImport.Name = "cmdFSTImport"
-        Me.cmdFSTImport.Size = New System.Drawing.Size(99, 36)
+        Me.cmdFSTImport.Size = New System.Drawing.Size(80, 20)
         Me.cmdFSTImport.TabIndex = 2
         Me.cmdFSTImport.TabStop = False
         Me.cmdFSTImport.Text = "FST Import"
@@ -1618,7 +1638,7 @@ Partial Class frmMain
         '
         'cmdChooseProjectDirectory
         '
-        Me.cmdChooseProjectDirectory.Location = New System.Drawing.Point(579, 308)
+        Me.cmdChooseProjectDirectory.Location = New System.Drawing.Point(813, 122)
         Me.cmdChooseProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdChooseProjectDirectory.Name = "cmdChooseProjectDirectory"
         Me.cmdChooseProjectDirectory.Size = New System.Drawing.Size(26, 20)
@@ -1647,36 +1667,18 @@ Partial Class frmMain
         Me.txtYPALUnitSize.Text = "n/a"
         Me.txtYPALUnitSize.Visible = False
         '
-        'txtSelectionTag
-        '
-        Me.txtSelectionTag.Location = New System.Drawing.Point(123, 368)
-        Me.txtSelectionTag.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtSelectionTag.Name = "txtSelectionTag"
-        Me.txtSelectionTag.Size = New System.Drawing.Size(448, 20)
-        Me.txtSelectionTag.TabIndex = 20
-        '
-        'Label101
-        '
-        Me.Label101.AutoSize = True
-        Me.Label101.Location = New System.Drawing.Point(39, 371)
-        Me.Label101.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(76, 13)
-        Me.Label101.TabIndex = 36
-        Me.Label101.Text = "Selection Tag:"
-        '
         'txtBaseUnitFile
         '
-        Me.txtBaseUnitFile.Location = New System.Drawing.Point(123, 336)
+        Me.txtBaseUnitFile.Location = New System.Drawing.Point(123, 150)
         Me.txtBaseUnitFile.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBaseUnitFile.Name = "txtBaseUnitFile"
-        Me.txtBaseUnitFile.Size = New System.Drawing.Size(448, 20)
+        Me.txtBaseUnitFile.Size = New System.Drawing.Size(682, 20)
         Me.txtBaseUnitFile.TabIndex = 19
         '
         'Label100
         '
         Me.Label100.AutoSize = True
-        Me.Label100.Location = New System.Drawing.Point(40, 339)
+        Me.Label100.Location = New System.Drawing.Point(40, 153)
         Me.Label100.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label100.Name = "Label100"
         Me.Label100.Size = New System.Drawing.Size(75, 13)
@@ -1685,17 +1687,17 @@ Partial Class frmMain
         '
         'txtProjectDirectory
         '
-        Me.txtProjectDirectory.Location = New System.Drawing.Point(123, 308)
+        Me.txtProjectDirectory.Location = New System.Drawing.Point(123, 122)
         Me.txtProjectDirectory.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectDirectory.Name = "txtProjectDirectory"
-        Me.txtProjectDirectory.Size = New System.Drawing.Size(448, 20)
+        Me.txtProjectDirectory.Size = New System.Drawing.Size(682, 20)
         Me.txtProjectDirectory.TabIndex = 18
         Me.ToolTip1.SetToolTip(Me.txtProjectDirectory, "Job Folder not Unit Folder.  Ends in \")
         '
         'Label99
         '
         Me.Label99.AutoSize = True
-        Me.Label99.Location = New System.Drawing.Point(27, 311)
+        Me.Label99.Location = New System.Drawing.Point(27, 125)
         Me.Label99.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label99.Name = "Label99"
         Me.Label99.Size = New System.Drawing.Size(88, 13)
@@ -1707,7 +1709,7 @@ Partial Class frmMain
         Me.btnTranslate.Location = New System.Drawing.Point(813, 65)
         Me.btnTranslate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnTranslate.Name = "btnTranslate"
-        Me.btnTranslate.Size = New System.Drawing.Size(80, 25)
+        Me.btnTranslate.Size = New System.Drawing.Size(80, 20)
         Me.btnTranslate.TabIndex = 14
         Me.btnTranslate.Text = "Translate"
         Me.btnTranslate.UseVisualStyleBackColor = True
@@ -1962,6 +1964,8 @@ Partial Class frmMain
         '
         'pgBaseChiller
         '
+        Me.pgBaseChiller.Controls.Add(Me.txtBCIPLV)
+        Me.pgBaseChiller.Controls.Add(Me.Label123)
         Me.pgBaseChiller.Controls.Add(Me.txtBCVolts)
         Me.pgBaseChiller.Controls.Add(Me.Label56)
         Me.pgBaseChiller.Controls.Add(Me.txtChillerLength)
@@ -2616,7 +2620,7 @@ Partial Class frmMain
         '
         'txtBCNPLV
         '
-        Me.txtBCNPLV.Location = New System.Drawing.Point(524, 175)
+        Me.txtBCNPLV.Location = New System.Drawing.Point(524, 207)
         Me.txtBCNPLV.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBCNPLV.Name = "txtBCNPLV"
         Me.txtBCNPLV.Size = New System.Drawing.Size(51, 20)
@@ -2627,7 +2631,7 @@ Partial Class frmMain
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(484, 177)
+        Me.Label23.Location = New System.Drawing.Point(484, 209)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(35, 13)
@@ -10262,13 +10266,14 @@ Partial Class frmMain
         Me.chkSaveinProjDB.AutoSize = True
         Me.chkSaveinProjDB.Checked = True
         Me.chkSaveinProjDB.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSaveinProjDB.Location = New System.Drawing.Point(961, 541)
+        Me.chkSaveinProjDB.Location = New System.Drawing.Point(970, 540)
         Me.chkSaveinProjDB.Margin = New System.Windows.Forms.Padding(4)
         Me.chkSaveinProjDB.Name = "chkSaveinProjDB"
         Me.chkSaveinProjDB.Size = New System.Drawing.Size(147, 17)
         Me.chkSaveinProjDB.TabIndex = 19
         Me.chkSaveinProjDB.Text = "Save in Project Database"
         Me.chkSaveinProjDB.UseVisualStyleBackColor = True
+        Me.chkSaveinProjDB.Visible = False
         '
         'OpenFileDialog1
         '
@@ -10299,24 +10304,14 @@ Partial Class frmMain
         Me.chkInhibitDigConditions.AutoSize = True
         Me.chkInhibitDigConditions.Checked = True
         Me.chkInhibitDigConditions.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkInhibitDigConditions.Location = New System.Drawing.Point(806, 540)
+        Me.chkInhibitDigConditions.Location = New System.Drawing.Point(970, 565)
         Me.chkInhibitDigConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.chkInhibitDigConditions.Name = "chkInhibitDigConditions"
         Me.chkInhibitDigConditions.Size = New System.Drawing.Size(138, 17)
         Me.chkInhibitDigConditions.TabIndex = 23
         Me.chkInhibitDigConditions.Text = "Inhibit Digital Conditions"
         Me.chkInhibitDigConditions.UseVisualStyleBackColor = True
-        '
-        'chk65kASCCRBase
-        '
-        Me.chk65kASCCRBase.AutoSize = True
-        Me.chk65kASCCRBase.Location = New System.Drawing.Point(583, 560)
-        Me.chk65kASCCRBase.Margin = New System.Windows.Forms.Padding(4)
-        Me.chk65kASCCRBase.Name = "chk65kASCCRBase"
-        Me.chk65kASCCRBase.Size = New System.Drawing.Size(215, 17)
-        Me.chk65kASCCRBase.TabIndex = 26
-        Me.chk65kASCCRBase.Text = "Base\Fisen Modified Unit is 65kA SCCR"
-        Me.chk65kASCCRBase.UseVisualStyleBackColor = True
+        Me.chkInhibitDigConditions.Visible = False
         '
         'cmdUserOptions
         '
@@ -10327,12 +10322,46 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
+        'chkThisIsARedo
+        '
+        Me.chkThisIsARedo.AutoSize = True
+        Me.chkThisIsARedo.Checked = True
+        Me.chkThisIsARedo.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkThisIsARedo.Location = New System.Drawing.Point(815, 540)
+        Me.chkThisIsARedo.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkThisIsARedo.Name = "chkThisIsARedo"
+        Me.chkThisIsARedo.Size = New System.Drawing.Size(94, 17)
+        Me.chkThisIsARedo.TabIndex = 28
+        Me.chkThisIsARedo.Text = "This is a Redo"
+        Me.chkThisIsARedo.UseVisualStyleBackColor = True
+        '
+        'txtBCIPLV
+        '
+        Me.txtBCIPLV.Location = New System.Drawing.Point(524, 175)
+        Me.txtBCIPLV.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBCIPLV.Name = "txtBCIPLV"
+        Me.txtBCIPLV.Size = New System.Drawing.Size(51, 20)
+        Me.txtBCIPLV.TabIndex = 87
+        Me.txtBCIPLV.Text = "17.8"
+        Me.txtBCIPLV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label123
+        '
+        Me.Label123.AutoSize = True
+        Me.Label123.Location = New System.Drawing.Point(484, 177)
+        Me.Label123.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label123.Name = "Label123"
+        Me.Label123.Size = New System.Drawing.Size(30, 13)
+        Me.Label123.TabIndex = 88
+        Me.Label123.Text = "IPLV"
+        Me.Label123.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
+        Me.Controls.Add(Me.chkThisIsARedo)
         Me.Controls.Add(Me.cmdUserOptions)
-        Me.Controls.Add(Me.chk65kASCCRBase)
         Me.Controls.Add(Me.chkInhibitDigConditions)
         Me.Controls.Add(Me.cmdDebug)
         Me.Controls.Add(Me.cmbJumpDest)
@@ -10534,6 +10563,9 @@ Partial Class frmMain
         If ((SuperUser()) Or (chkDebug.Checked)) Then
             cmdEndDeviceEdit.Visible = True
         End If
+
+        TSLabelFamily.Text = ""
+        TSLabelModelNum.Text = ""
 
     End Sub
     Friend WithEvents tabMain As TabControl
@@ -10940,8 +10972,6 @@ Partial Class frmMain
     Friend WithEvents Label99 As Label
     Friend WithEvents txtBaseUnitFile As TextBox
     Friend WithEvents Label100 As Label
-    Friend WithEvents txtSelectionTag As TextBox
-    Friend WithEvents Label101 As Label
     Friend WithEvents btnNoReheat As Button
     Friend WithEvents btnNoRXFan As Button
     Friend WithEvents GroupBox3 As GroupBox
@@ -11296,7 +11326,6 @@ Partial Class frmMain
     Friend WithEvents chkInhibitDigConditions As CheckBox
     Friend WithEvents optRTUSelect As RadioButton
     Friend WithEvents cmdUPGERVModule As Button
-    Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents optYLUASplit As RadioButton
     Friend WithEvents EDevTag As DataGridViewTextBoxColumn
     Friend WithEvents EDevName As DataGridViewTextBoxColumn
@@ -11349,4 +11378,9 @@ Partial Class frmMain
     Friend WithEvents txtAirflowSuggestedTags As TextBox
     Friend WithEvents txtElecFisenLoadNotesEmer As TextBox
     Friend WithEvents txtElecFisenLoadNotesComm As TextBox
+    Friend WithEvents txtRedoFilePath As TextBox
+    Friend WithEvents Label101 As Label
+    Friend WithEvents chkThisIsARedo As CheckBox
+    Friend WithEvents txtBCIPLV As TextBox
+    Friend WithEvents Label123 As Label
 End Class

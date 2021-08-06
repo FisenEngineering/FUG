@@ -460,7 +460,7 @@ Public Class frmMHGRH_Conv
         Dim temp As Double
         pCancelled = False
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
         temp = Val(frmMain.ThisUnit.NominalTons) / 2 * 12 * 1.25
 

@@ -446,7 +446,7 @@ Public Class frm100OA
         ModuleCodeList.Add("0A0100")
 
         If Not (frmMain.chkInhibitDigConditions.Checked) Then Call LoadDigConditions()
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
 
     End Sub

@@ -49,7 +49,7 @@
             TabControl1.TabPages.Remove(TabControl1.TabPages("DebugPage"))
         End If
 
-        If frmMain.chk65kASCCRBase.Checked Then chk65kASCCRBase.Checked = True
+        If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
         ModuleCodeList.Add("501100")
     End Sub
 
