@@ -59,6 +59,8 @@ Public Class clsElecData
 
     Private pFisenLoad01 As String 'Chillers and YPAL Only?
     Private pFisenLoadFLA01 As String 'Chillers and YPAL Only?
+    Private pControlxmfr As String
+    Private pControlxmfrFLA As String
 
     Private pCommLoad As New ArrayList
     Private pEmerLoad As New ArrayList
@@ -142,6 +144,22 @@ Public Class clsElecData
         End Get
         Set(value As String)
             pFisenLoadFLA01 = value
+        End Set
+    End Property
+    Public Property Controlxmfr As String
+        Get
+            Controlxmfr = pControlxmfr
+        End Get
+        Set(value As String)
+            pControlxmfr = value
+        End Set
+    End Property
+    Public Property ControlxmfrFLA As String
+        Get
+            ControlxmfrFLA = pControlxmfrFLA
+        End Get
+        Set(value As String)
+            pControlxmfrFLA = value
         End Set
     End Property
 

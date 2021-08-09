@@ -2963,6 +2963,11 @@ Public Class frmMain
             lUnitWriter.WriteStartElement("FanFLA")
             lUnitWriter.WriteString(ThisUnitElecData.FanFLAeach.Item(0))
             lUnitWriter.WriteEndElement() 'FanFLA
+
+            lUnitWriter.WriteStartElement("ControlXMFR")
+            lUnitWriter.WriteString(ThisUnitElecData.ControlxmfrFLA)
+            lUnitWriter.WriteEndElement()
+
             lUnitWriter.WriteStartElement("FisenLoad01")
             lUnitWriter.WriteString(ThisUnitElecData.FisenLoad01)
             lUnitWriter.WriteEndElement()
@@ -2983,6 +2988,11 @@ Public Class frmMain
             lUnitWriter.WriteStartElement("FanFLA")
             lUnitWriter.WriteString(ThisUnitElecData.FanFLAeach.Item(0))
             lUnitWriter.WriteEndElement() 'FanFLA
+
+            lUnitWriter.WriteStartElement("ControlXMFR")
+            lUnitWriter.WriteString(ThisUnitElecData.ControlxmfrFLA)
+            lUnitWriter.WriteEndElement()
+
             lUnitWriter.WriteStartElement("FisenLoad01")
             lUnitWriter.WriteString(ThisUnitElecData.FisenLoad01)
             lUnitWriter.WriteEndElement()
@@ -3016,6 +3026,10 @@ Public Class frmMain
             lUnitWriter.WriteEndElement()
             lUnitWriter.WriteStartElement("Comp1CLRA")
             lUnitWriter.WriteString(ThisUnitElecData.CompLRA.Item(2))
+            lUnitWriter.WriteEndElement()
+
+            lUnitWriter.WriteStartElement("ControlXMFR")
+            lUnitWriter.WriteString(ThisUnitElecData.ControlxmfrFLA)
             lUnitWriter.WriteEndElement()
 
             lUnitWriter.WriteStartElement("FisenLoad01")
@@ -5431,7 +5445,7 @@ Public Class frmMain
         End If
 
         If My.Settings.UOStealthMode Then
-            Call ValidateLocalDirectory
+            Call ValidateLocalDirectory()
         End If
 
         ThisUnit.Brand = cmbBrand.Text
@@ -7208,7 +7222,7 @@ Public Class frmMain
     End Sub
     Private Sub btnDoneAirflow_Click(sender As Object, e As EventArgs) Handles btnDoneAirflow.Click
         Call DoneAirflowTab()
-        Call PrepSequenceTab
+        Call PrepSequenceTab()
 
         tabMain.SelectTab("pgSequence")
     End Sub
@@ -7257,7 +7271,7 @@ Public Class frmMain
         tabMain.SelectTab("pgPoints")
     End Sub
     Private Sub btnDonePoints_Click(sender As Object, e As EventArgs) Handles btnDonePoints.Click
-        Call PopulateEndDeviceDGV
+        Call PopulateEndDeviceDGV()
         tabMain.SelectTab("pgEndDeviceSchedule")
     End Sub
     Private Sub PopulateEndDeviceDGV()
@@ -8222,7 +8236,7 @@ Public Class frmMain
                 Case Is = "YCIV"
                     Call LoadYVAAChillerLoads()
                 Case Is = "Series100"
-                    Call LoadYPALLoads
+                    Call LoadYPALLoads()
                 Case Else
                     Call LoadStandardLoads()
             End Select
@@ -8296,6 +8310,11 @@ Public Class frmMain
         If ThisUnitElecData.CommMCA - FLA > 0.1 Then
             NewRow = {True, False, "Cool", True, "CONTROL TRANSFORMER", ElecChar, "-", ThisUnitElecData.CommMCA - FLA, False}
             dgvElecLoads.Rows.Add(NewRow)
+        End If
+
+        ThisUnitElecData.ControlxmfrFLA = "-"
+        If ThisUnitElecData.CommMCA - FLA >= 1.0 Then
+            ThisUnitElecData.ControlxmfrFLA = Format(ThisUnitElecData.CommMCA - FLA, "0.0")
         End If
     End Sub
     Private Sub LoadYVAAChillerLoads()

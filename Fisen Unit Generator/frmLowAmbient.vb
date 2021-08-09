@@ -323,7 +323,7 @@ Public Class frmLowAmbient
         End If
 
 
-        If Not (chkDedicatedPower.Checked) Then
+        If (chkDedicatedPower.Checked) Then
             ModuleCodeList.Add("890141")
         Else
 
