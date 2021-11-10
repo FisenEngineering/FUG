@@ -258,6 +258,8 @@
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
 
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("920000")
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
 
             MySQL = "SELECT * FROM tblCstmHVDB WHERE CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"
@@ -1007,4 +1009,5 @@
         lstItemsInDB.Items.Clear()
         Call LoadPermittedPowerMods()
     End Sub
+
 End Class

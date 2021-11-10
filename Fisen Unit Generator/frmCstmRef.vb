@@ -413,7 +413,6 @@
         Dim tempWeight As String
 
         tempWeight = -9999.0
-        ModuleCodeList.Clear()
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -423,6 +422,8 @@
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
 
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("970000")
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
 
             MySQL = "SELECT * FROM tblCstmRef WHERE CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"

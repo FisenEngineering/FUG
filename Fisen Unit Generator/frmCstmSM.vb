@@ -240,10 +240,12 @@ Public Class frmCstmSM
     End Sub
     Private Sub UpdateCodeList(locCode As String)
         Dim i As Integer
-        frmMain.ThisUnitCstmSMCodes.Add(locCode)
+        'frmMain.ThisUnitCstmSMCodes.Add(locCode)
+        ModuleCodeList.Add(locCode)
         For i = 0 To pTagALongParent.Count - 1
             If pTagALongParent.Item(i) = locCode Then
-                frmMain.ThisUnitCstmSMCodes.Add(pTagALongsSelected.Item(i))
+                'frmMain.ThisUnitCstmSMCodes.Add(pTagALongsSelected.Item(i))
+                ModuleCodeList.Add(pTagALongsSelected.Item(i))
             End If
         Next
 
