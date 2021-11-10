@@ -113,7 +113,7 @@ Public Class frmNewFan
                 Case Is = "Series20"
                     cmdS20SideSupply.Visible = True
                     cmdS20BottomSupply.Visible = True
-                    lblNote1.Text = "Preferred Max Fan ATZAF18-18FF"
+                    lblNote1.Text = "Preferred Max Fan ATZAF18-18FF (ATZAF20-20FF is Possible)"
                 Case Is = "Series40"
                     'Depricated *Probably not going to be used*
                     cmdS40Supply.Visible = True
@@ -2435,7 +2435,7 @@ Public Class frmNewFan
                     temp = 0.002142857142857 * localAirflow * localAirflow + 0.014142857142857 * 0.074000000000001
 
                 Case Is = "J25ZJ"
-                    temp = 0.002142857142857 * localAirflow * localAirflow + 0.014142857142857 * 0.074000000000001
+                    temp = 0.000000000952 * localAirflow ^ 2 + 0.000000857143 * localAirflow + 0.050857142857
 
             End Select
         Else
@@ -2525,6 +2525,9 @@ Public Class frmNewFan
                     temp = 0.0000000199 * localAirflow ^ 2 + 0.000031375 * localAirflow - 0
                 Case Is = "J25ZR"
                     temp = 0.0000000205 * localAirflow ^ 2 + 0.0000656707 * localAirflow + 0
+                Case Is = "J25ZJ"
+                    'temp = 0.0000000009732853 * localAirflow ^ 2 + 0.0000000009732853 * localAirflow + 0
+                    temp = 0.0000000009732853 * localAirflow ^ 2 + 0.000181115 * localAirflow + 0
                 Case Else
                     Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
                     Stop
@@ -2541,18 +2544,16 @@ Public Class frmNewFan
                     temp = 0.0000000004 * localAirflow ^ 2 - 0.0001641615 * localAirflow + 0
                 Case Is = "J15ZJ"
                     temp = 0.000000027555 * localAirflow ^ 2 + 0.000029069193 * localAirflow + 0
-                    'Case Is = "J17ZJ"
-                    '    temp = 0.0 * localAirflow ^ 2 - 0.0 * localAirflow + 0
                 Case Is = "J20ZJ"
                     temp = 0.0000000177 * localAirflow * localAirflow + 0.0000379674 * localAirflow
-                    'Case Is = "S25ZJ"
-                    '    temp = 0.0 * localAirflow ^ 2 - 0.0 * localAirflow + 0
                 Case Is = "J15ZR"
                     temp = 0.000000006085 * localAirflow ^ 2 + 0.000164261398 * localAirflow + 0
                 Case Is = "J20ZR"
                     temp = 0.000000037853 * localAirflow ^ 2 - 0.000036529367 * localAirflow + 0
                 Case Is = "J25ZR"
                     temp = 0.0000000199 * localAirflow ^ 2 + 0.000031375 * localAirflow + 0
+                Case Is = "J25ZJ"
+                    temp = 0.00000000006071 * localAirflow ^ 2 + 0.00016307526566 * localAirflow + 0
                 Case Else
                     Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
                     Stop

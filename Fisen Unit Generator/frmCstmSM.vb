@@ -41,7 +41,8 @@ Public Class frmCstmSM
         rs = New ADODB.Recordset With {
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
-
+        ModuleCodeList.Clear()
+        ModuleCodeList.Add("990000")
         For i = 0 To lstItemsInDB.SelectedItems.Count - 1
 
             MySQL = "SELECT * FROM tblCstmSMDB WHERE CstmFIOP='" & lstItemsInDB.SelectedItems.Item(i) & "'"
