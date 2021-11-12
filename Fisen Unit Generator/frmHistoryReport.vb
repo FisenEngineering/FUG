@@ -416,7 +416,6 @@
 
         Dim OneLine As String
         Dim AllLines As New System.Text.StringBuilder
-        Dim fanvar As String
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
@@ -675,7 +674,6 @@
 
         Dim OneLine As String
         Dim AllLines As New System.Text.StringBuilder
-        Dim fanvar As String
 
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"

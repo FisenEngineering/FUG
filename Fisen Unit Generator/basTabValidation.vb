@@ -78,9 +78,6 @@ Module basTabValidation
 
             Dim MySQL As String
 
-
-
-            'MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "') ORDER BY Version DESC"
             MySQL = "Select * FROM tblHistory WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') ORDER BY Version DESC"
 
             rs.Open(MySQL, con)

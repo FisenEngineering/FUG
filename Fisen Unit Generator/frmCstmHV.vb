@@ -413,6 +413,8 @@
         Dim elecchar As String
         Dim newrow As String()
 
+
+
         If frmMain.UseCustomMCA = False Then
             frmMain.UseCustomMCA = True
             Call frmMain.PreLoadElec()

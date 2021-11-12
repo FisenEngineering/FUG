@@ -478,7 +478,6 @@ Public Class frmCustomCoil
     Private Sub LoadDigConditions()
         Dim ModFilePath As String
         Dim xDoc As XmlDocument = New XmlDocument
-        Dim TempVal As String
 
         ModFilePath = frmMain.txtProjectDirectory.Text & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & "\Sales Info\" & frmMain.txtJobNumber.Text & "-" & frmMain.txtUnitNumber.Text & " - ModsFile.xml"
         xDoc.Load(ModFilePath)

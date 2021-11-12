@@ -42,8 +42,6 @@ Public Class frmUpdateWeightTables
 
         Dim Stubb, Mass, AMass, BMass, CMass, DMass As String
 
-        Dim i As Integer
-
         con = New ADODB.Connection
         dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
         con.ConnectionString = dbProvider

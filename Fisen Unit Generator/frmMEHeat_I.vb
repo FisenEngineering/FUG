@@ -284,7 +284,6 @@
         Dim totalmessage As String
         Dim spacepos As Integer
         Dim RecCount As Integer
-        Dim TCode As String
 
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset

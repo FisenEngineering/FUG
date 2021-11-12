@@ -701,7 +701,8 @@ Public Class frmFanVFD
                 If optSFanBalanceOnly.Checked Then Controls = "SFan Balance Only"
             Case Is = "Return Fan"
             Case Is = "Exhaust Fan"
-
+            Case Else
+                Controls = "Logic Error in Fan VFD Write History"
         End Select
 
         MySQL = "Select * FROM tblHistoryFanVFD WHERE (JobName='" & jname & "') AND (UnitID='" & unit & "') AND (Version='" & ver & "')"

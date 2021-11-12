@@ -8196,9 +8196,7 @@ Public Class frmMain
         End If
 
     End Sub
-    Private Sub chkUseCustomMCA_CheckedChanged(sender As Object, e As EventArgs) Handles chkUseCustomMCA.CheckedChanged
-        Dim NewRow As String()
-        Dim ElecChar As String
+    Private Sub CalculateCustomMCA()
         Dim FLA As String
 
         FLA = "0.0"
@@ -8206,6 +8204,8 @@ Public Class frmMain
         txtCommVolts.Text = ThisUnitElecData.CommVolts
 
         If chkUseCustomMCA.Checked Then
+            dgvElecLoads.Rows.Clear()
+            dgvElecLoads.Refresh()
             lblBaseUnitMCA.Text = txtCommMCA.Text
             lblBaseUnitMOP.Text = txtCommMOP.Text
             lblBaseUnitMCA.Visible = True
@@ -8271,6 +8271,9 @@ Public Class frmMain
             dgvElecLoads.Refresh()
             optMCAReportNoChange.Checked = True
         End If
+    End Sub
+    Private Sub chkUseCustomMCA_CheckedChanged(sender As Object, e As EventArgs) Handles chkUseCustomMCA.CheckedChanged
+        Call CalculateCustomMCA()
     End Sub
     Private Sub LoadYLAAChillerLoads()
         Dim ElecChar As String
@@ -8732,7 +8735,6 @@ Public Class frmMain
     Private Sub ConstructProjDirGuess()
         Dim temp As String
         Dim numpart As String
-        Dim endofnum As Integer
 
         numpart = Trim(txtJobNumber.Text)
         If Len(numpart) < 4 Then
@@ -9928,4 +9930,32 @@ Public Class frmMain
         frmEndDeviceMaintenance.ShowDialog()
     End Sub
 
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        frmUpdateElectricalTables.Volts = "208"
+        frmUpdateElectricalTables.Phase = "3"
+        frmUpdateElectricalTables.Stubb = "J25ZJ"
+        frmUpdateElectricalTables.ShowDialog()
+    End Sub
+
+    Private Sub cmdUpdateElecRecords_Click(sender As Object, e As EventArgs) Handles cmdUpdateElecRecords.Click
+        Dim Snipet As String
+        Dim Suffix As String
+
+        frmUpdateElectricalTables.Volts = ThisUnitElecData.CommVolts
+        frmUpdateElectricalTables.Phase = "3"
+        Snipet = Mid(ThisUnit.ModelNumber, 1, 5)
+        If Mid(Snipet, 1, 1) = "V" Then Snipet = Mid(Snipet, 1, 2) & "XXX"
+        If Mid(Snipet, 1, 1) = "Y" Then Snipet = Mid(ThisUnit.ModelNumber, 1, 7)
+        If ThisUnit.Family = "Select" Then
+            Suffix = "-2"
+            For i = 0 To ThisUnitFactOpts.Count - 1
+                If ThisUnitFactOpts.Item(i) = "VAV Controller with VFD" Then Suffix = "-4"
+            Next
+            Snipet = Mid(ThisUnit.ModelNumber, 1, 4) & Suffix
+        End If
+        frmUpdateElectricalTables.Stubb = snipet
+        frmUpdateElectricalTables.ShowDialog()
+        Call CalculateCustomMCA()
+
+    End Sub
 End Class

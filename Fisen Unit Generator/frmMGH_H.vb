@@ -62,7 +62,6 @@ Public Class frmMGH_H
 
     Private Sub WriteDesignNotesReport()
         Dim ThisReport As System.IO.StreamWriter
-        Dim tempfilename As String
         Dim i As Integer
         Dim tb As TextBox
         Dim dd As ComboBox

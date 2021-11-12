@@ -20,7 +20,6 @@
 
         Dim MySQL As String
 
-        Dim i As Integer
         Dim lEDType As String
         Dim lID, lEDName, lEDTag, lEDCutSheet, lEDCutSheetPath, lEDClass As String
         Dim EDClassFilter As String

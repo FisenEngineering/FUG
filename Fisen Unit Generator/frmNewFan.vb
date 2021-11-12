@@ -3030,6 +3030,7 @@ Public Class frmNewFan
         Dim dat(11) As String
         Dim Fan As String
 
+        SoundClip = ""
         Fan = cmbFanSelected.Text
 
         If optComefri.Checked = True And Fan.StartsWith("Comefri") Then
@@ -3102,6 +3103,7 @@ Public Class frmNewFan
         Dim Fan As String
 
         Fan = cmbFanSelected.Text
+        SoundClip = ""
 
         If optComefri.Checked = True And Fan.StartsWith("Comefri") Then
             If My.Computer.Clipboard.ContainsText Then
