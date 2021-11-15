@@ -171,7 +171,9 @@ Public Class frmLowAmbient
 
 
             NewRow = {True, False, "All", True, "Low Ambient Xfmr", ElecChar, "-", Format(PrimaryAmps, "0.0"), False, "Math"}
-            frmMain.dgvElecLoads.Rows.Add(NewRow)
+            frmMain.ThisUnitElecData.ModLoad.Add(NewRow)
+            frmMain.chkUseCustomMCA.Checked = True
+            Call frmMain.CalculateCustomMCA()
 
             If optXFrmrNA.Checked = False Then
 

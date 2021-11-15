@@ -1388,7 +1388,9 @@ Public Class frmNewFan
                 MotorFLA = NEMAMotorFLA(cmbNewMotorHP.Text, frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase)
 
                 NewRow = {True, False, "All", True, "RETURN FAN", ElecChar, cmbNewMotorHP.Text, MotorFLA, False, "NEMA"}
-                frmMain.dgvElecLoads.Rows.Add(NewRow)
+                frmMain.ThisUnitElecData.ModLoad.Add(NewRow)
+                frmMain.chkUseCustomMCA.Checked = True
+                Call frmMain.CalculateCustomMCA()
             End If
 
             frmMain.ThisUnitRXPerf.FanCount = Str(nudFanCount.Value)
