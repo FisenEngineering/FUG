@@ -548,7 +548,9 @@
         End If
         elecchar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
         newrow = {True, False, "All", True, LoadName, elecchar, LoadHP, LoadValue, False}
-        frmMain.dgvElecLoads.Rows.Add(newrow)
+        frmMain.ThisUnitElecData.ModLoad.Add(newrow)
+        frmMain.chkUseCustomMCA.Checked = True
+        Call frmMain.CalculateCustomMCA()
 
     End Sub
     Private Sub AddFieldInstalledItems(locCode As String)

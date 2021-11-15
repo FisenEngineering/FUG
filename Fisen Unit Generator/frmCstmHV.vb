@@ -413,16 +413,16 @@
         Dim elecchar As String
         Dim newrow As String()
 
-
-
         If frmMain.UseCustomMCA = False Then
             frmMain.UseCustomMCA = True
             Call frmMain.PreLoadElec()
         End If
         elecchar = frmMain.ThisUnitElecData.CommVolts & "-" & frmMain.ThisUnitElecData.CommPhase & "-" & frmMain.ThisUnitElecData.CommFreq
         newrow = {True, False, "All", True, LoadName, elecchar, LoadHP, LoadValue, False}
-        frmMain.dgvElecLoads.Rows.Add(newrow)
 
+        frmMain.ThisUnitElecData.ModLoad.Add(newrow)
+        frmMain.chkUseCustomMCA.Checked = True
+        Call frmMain.CalculateCustomMCA()
     End Sub
     Private Sub UpdateJCIRequiredItems(loccode As String)
         Dim lcon As ADODB.Connection

@@ -8196,7 +8196,7 @@ Public Class frmMain
         End If
 
     End Sub
-    Private Sub CalculateCustomMCA()
+    Public Sub CalculateCustomMCA()
         Dim FLA As String
 
         FLA = "0.0"
