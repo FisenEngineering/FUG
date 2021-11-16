@@ -23,13 +23,16 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
+        Me.cmdResearchMode = New System.Windows.Forms.Button()
+        Me.cmdReloadOldFile = New System.Windows.Forms.Button()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.btnDoneBU = New System.Windows.Forms.Button()
         Me.fraMisc = New System.Windows.Forms.GroupBox()
         Me.optYLUASplit = New System.Windows.Forms.RadioButton()
@@ -111,6 +114,7 @@ Partial Class frmMain
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnDonePD = New System.Windows.Forms.Button()
         Me.nudJobNumberAdj = New System.Windows.Forms.NumericUpDown()
+        Me.cmdPasteProjectDir = New System.Windows.Forms.Button()
         Me.pgBaseChiller = New System.Windows.Forms.TabPage()
         Me.txtBCIPLV = New System.Windows.Forms.TextBox()
         Me.Label123 = New System.Windows.Forms.Label()
@@ -247,6 +251,7 @@ Partial Class frmMain
         Me.clbTestList = New System.Windows.Forms.CheckedListBox()
         Me.btnDoneWarranty = New System.Windows.Forms.Button()
         Me.pgUnitDrawing = New System.Windows.Forms.TabPage()
+        Me.picUnitPreview = New System.Windows.Forms.PictureBox()
         Me.cmdDwgClearFilter = New System.Windows.Forms.Button()
         Me.chkUnitFilterOnStubbs = New System.Windows.Forms.CheckBox()
         Me.cmdDwgApplyFilter = New System.Windows.Forms.Button()
@@ -289,6 +294,7 @@ Partial Class frmMain
         Me.cmdClearFilter = New System.Windows.Forms.Button()
         Me.chkReferFilterOnStubb = New System.Windows.Forms.CheckBox()
         Me.cmdReferApplyFilter = New System.Windows.Forms.Button()
+        Me.picReferPreview = New System.Windows.Forms.PictureBox()
         Me.lstReferTagstoApply = New System.Windows.Forms.ListBox()
         Me.Label114 = New System.Windows.Forms.Label()
         Me.txtReferSuggestedTags = New System.Windows.Forms.TextBox()
@@ -568,6 +574,7 @@ Partial Class frmMain
         Me.Label68 = New System.Windows.Forms.Label()
         Me.btnDoneRXA = New System.Windows.Forms.Button()
         Me.pgElec = New System.Windows.Forms.TabPage()
+        Me.cmdUpdateElecRecords = New System.Windows.Forms.Button()
         Me.txtElecFisenLoadNotesEmer = New System.Windows.Forms.TextBox()
         Me.txtElecFisenLoadNotesComm = New System.Windows.Forms.TextBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
@@ -809,6 +816,16 @@ Partial Class frmMain
         Me.chkAmericanQ = New System.Windows.Forms.CheckBox()
         Me.chkASHRAE90_1 = New System.Windows.Forms.CheckBox()
         Me.btnDoneCerts = New System.Windows.Forms.Button()
+        Me.picCSAGas = New System.Windows.Forms.PictureBox()
+        Me.picEStar = New System.Windows.Forms.PictureBox()
+        Me.picETL = New System.Windows.Forms.PictureBox()
+        Me.picETL_C_US = New System.Windows.Forms.PictureBox()
+        Me.picAHRICert = New System.Windows.Forms.PictureBox()
+        Me.picCSA_C_US = New System.Windows.Forms.PictureBox()
+        Me.picCSADesignCert = New System.Windows.Forms.PictureBox()
+        Me.picISO9001 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.picASHRAE90_1 = New System.Windows.Forms.PictureBox()
         Me.pgCutSheets = New System.Windows.Forms.TabPage()
         Me.btnDoneCutSheets = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -827,23 +844,7 @@ Partial Class frmMain
         Me.chkThisIsARedo = New System.Windows.Forms.CheckBox()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
-        Me.cmdResearchMode = New System.Windows.Forms.Button()
-        Me.cmdReloadOldFile = New System.Windows.Forms.Button()
-        Me.cmdViewHistory = New System.Windows.Forms.Button()
-        Me.cmdPasteProjectDir = New System.Windows.Forms.Button()
-        Me.picUnitPreview = New System.Windows.Forms.PictureBox()
-        Me.picReferPreview = New System.Windows.Forms.PictureBox()
-        Me.picCSAGas = New System.Windows.Forms.PictureBox()
-        Me.picEStar = New System.Windows.Forms.PictureBox()
-        Me.picETL = New System.Windows.Forms.PictureBox()
-        Me.picETL_C_US = New System.Windows.Forms.PictureBox()
-        Me.picAHRICert = New System.Windows.Forms.PictureBox()
-        Me.picCSA_C_US = New System.Windows.Forms.PictureBox()
-        Me.picCSADesignCert = New System.Windows.Forms.PictureBox()
-        Me.picISO9001 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.picASHRAE90_1 = New System.Windows.Forms.PictureBox()
-        Me.cmdUpdateElecRecords = New System.Windows.Forms.Button()
+        Me.cmdAddNewFieldInstalled = New System.Windows.Forms.Button()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -862,11 +863,13 @@ Partial Class frmMain
         Me.grpCompEHeatWarrText.SuspendLayout
         Me.GroupBox1.SuspendLayout
         Me.pgUnitDrawing.SuspendLayout
+        CType(Me.picUnitPreview, System.ComponentModel.ISupportInitialize).BeginInit
         Me.GroupBox6.SuspendLayout
         Me.pgHydronics.SuspendLayout
         Me.GroupBox9.SuspendLayout
         Me.pgValveSchedule.SuspendLayout
         Me.pgRefrigeration.SuspendLayout
+        CType(Me.picReferPreview, System.ComponentModel.ISupportInitialize).BeginInit
         Me.GroupBox10.SuspendLayout
         Me.pgAirflow.SuspendLayout
         Me.GroupBox12.SuspendLayout
@@ -901,10 +904,6 @@ Partial Class frmMain
         Me.grpPtLoads.SuspendLayout
         CType(Me.nudPointLoads, System.ComponentModel.ISupportInitialize).BeginInit
         Me.pgCerts.SuspendLayout
-        Me.pgCutSheets.SuspendLayout
-        Me.StatusStrip1.SuspendLayout
-        CType(Me.picUnitPreview, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.picReferPreview, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.picCSAGas, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.picEStar, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.picETL, System.ComponentModel.ISupportInitialize).BeginInit
@@ -915,6 +914,8 @@ Partial Class frmMain
         CType(Me.picISO9001, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.picASHRAE90_1, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.pgCutSheets.SuspendLayout
+        Me.StatusStrip1.SuspendLayout
         Me.SuspendLayout
         '
         'tabMain
@@ -983,6 +984,43 @@ Partial Class frmMain
         Me.cmbResearchTarget.Name = "cmbResearchTarget"
         Me.cmbResearchTarget.Size = New System.Drawing.Size(178, 21)
         Me.cmbResearchTarget.TabIndex = 21
+        '
+        'cmdResearchMode
+        '
+        Me.cmdResearchMode.Image = CType(resources.GetObject("cmdResearchMode.Image"), System.Drawing.Image)
+        Me.cmdResearchMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdResearchMode.Location = New System.Drawing.Point(625, 144)
+        Me.cmdResearchMode.Name = "cmdResearchMode"
+        Me.cmdResearchMode.Size = New System.Drawing.Size(109, 29)
+        Me.cmdResearchMode.TabIndex = 13
+        Me.cmdResearchMode.Text = "Research Mode"
+        Me.cmdResearchMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdResearchMode.UseVisualStyleBackColor = True
+        '
+        'cmdReloadOldFile
+        '
+        Me.cmdReloadOldFile.Enabled = False
+        Me.cmdReloadOldFile.Image = CType(resources.GetObject("cmdReloadOldFile.Image"), System.Drawing.Image)
+        Me.cmdReloadOldFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdReloadOldFile.Location = New System.Drawing.Point(625, 109)
+        Me.cmdReloadOldFile.Name = "cmdReloadOldFile"
+        Me.cmdReloadOldFile.Size = New System.Drawing.Size(109, 29)
+        Me.cmdReloadOldFile.TabIndex = 12
+        Me.cmdReloadOldFile.Text = "Reload File"
+        Me.cmdReloadOldFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdReloadOldFile.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cmdViewHistory.Location = New System.Drawing.Point(625, 74)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(109, 29)
+        Me.cmdViewHistory.TabIndex = 11
+        Me.cmdViewHistory.Text = "History Report"
+        Me.cmdViewHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
         '
         'btnDoneBU
         '
@@ -1916,6 +1954,16 @@ Partial Class frmMain
         Me.nudJobNumberAdj.Size = New System.Drawing.Size(120, 20)
         Me.nudJobNumberAdj.TabIndex = 44
         Me.nudJobNumberAdj.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        '
+        'cmdPasteProjectDir
+        '
+        Me.cmdPasteProjectDir.Image = CType(resources.GetObject("cmdPasteProjectDir.Image"), System.Drawing.Image)
+        Me.cmdPasteProjectDir.Location = New System.Drawing.Point(847, 121)
+        Me.cmdPasteProjectDir.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdPasteProjectDir.Name = "cmdPasteProjectDir"
+        Me.cmdPasteProjectDir.Size = New System.Drawing.Size(26, 20)
+        Me.cmdPasteProjectDir.TabIndex = 5
+        Me.cmdPasteProjectDir.UseVisualStyleBackColor = True
         '
         'pgBaseChiller
         '
@@ -3169,6 +3217,7 @@ Partial Class frmMain
         '
         'pgFieldInst
         '
+        Me.pgFieldInst.Controls.Add(Me.cmdAddNewFieldInstalled)
         Me.pgFieldInst.Controls.Add(Me.cmdUPGERVModule)
         Me.pgFieldInst.Controls.Add(Me.txtNewFieldInst)
         Me.pgFieldInst.Controls.Add(Me.btnDelFieldInst)
@@ -3473,6 +3522,17 @@ Partial Class frmMain
         Me.pgUnitDrawing.TabIndex = 15
         Me.pgUnitDrawing.Text = "Unit Drawing"
         Me.pgUnitDrawing.UseVisualStyleBackColor = True
+        '
+        'picUnitPreview
+        '
+        Me.picUnitPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picUnitPreview.ImageLocation = ""
+        Me.picUnitPreview.Location = New System.Drawing.Point(475, 159)
+        Me.picUnitPreview.Name = "picUnitPreview"
+        Me.picUnitPreview.Size = New System.Drawing.Size(633, 318)
+        Me.picUnitPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picUnitPreview.TabIndex = 72
+        Me.picUnitPreview.TabStop = False
         '
         'cmdDwgClearFilter
         '
@@ -3937,6 +3997,17 @@ Partial Class frmMain
         Me.cmdReferApplyFilter.TabIndex = 62
         Me.cmdReferApplyFilter.Text = "Apply"
         Me.cmdReferApplyFilter.UseVisualStyleBackColor = True
+        '
+        'picReferPreview
+        '
+        Me.picReferPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picReferPreview.ImageLocation = ""
+        Me.picReferPreview.Location = New System.Drawing.Point(450, 156)
+        Me.picReferPreview.Name = "picReferPreview"
+        Me.picReferPreview.Size = New System.Drawing.Size(658, 321)
+        Me.picReferPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picReferPreview.TabIndex = 64
+        Me.picReferPreview.TabStop = False
         '
         'lstReferTagstoApply
         '
@@ -7131,6 +7202,15 @@ Partial Class frmMain
         Me.pgElec.Text = "Electrical"
         Me.pgElec.UseVisualStyleBackColor = True
         '
+        'cmdUpdateElecRecords
+        '
+        Me.cmdUpdateElecRecords.Location = New System.Drawing.Point(267, 442)
+        Me.cmdUpdateElecRecords.Name = "cmdUpdateElecRecords"
+        Me.cmdUpdateElecRecords.Size = New System.Drawing.Size(104, 23)
+        Me.cmdUpdateElecRecords.TabIndex = 30
+        Me.cmdUpdateElecRecords.Text = "Update Elec Data"
+        Me.cmdUpdateElecRecords.UseVisualStyleBackColor = True
+        '
         'txtElecFisenLoadNotesEmer
         '
         Me.txtElecFisenLoadNotesEmer.Location = New System.Drawing.Point(952, 348)
@@ -7477,8 +7557,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7536,8 +7616,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle8
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
@@ -7547,8 +7627,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle9
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
@@ -10036,6 +10116,104 @@ Partial Class frmMain
         Me.btnDoneCerts.Text = ">"
         Me.btnDoneCerts.UseVisualStyleBackColor = True
         '
+        'picCSAGas
+        '
+        Me.picCSAGas.Image = CType(resources.GetObject("picCSAGas.Image"), System.Drawing.Image)
+        Me.picCSAGas.Location = New System.Drawing.Point(21, 295)
+        Me.picCSAGas.Name = "picCSAGas"
+        Me.picCSAGas.Size = New System.Drawing.Size(78, 76)
+        Me.picCSAGas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picCSAGas.TabIndex = 32
+        Me.picCSAGas.TabStop = False
+        '
+        'picEStar
+        '
+        Me.picEStar.Image = CType(resources.GetObject("picEStar.Image"), System.Drawing.Image)
+        Me.picEStar.Location = New System.Drawing.Point(799, 17)
+        Me.picEStar.Name = "picEStar"
+        Me.picEStar.Size = New System.Drawing.Size(78, 76)
+        Me.picEStar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picEStar.TabIndex = 30
+        Me.picEStar.TabStop = False
+        '
+        'picETL
+        '
+        Me.picETL.Image = CType(resources.GetObject("picETL.Image"), System.Drawing.Image)
+        Me.picETL.Location = New System.Drawing.Point(678, 17)
+        Me.picETL.Name = "picETL"
+        Me.picETL.Size = New System.Drawing.Size(78, 76)
+        Me.picETL.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picETL.TabIndex = 28
+        Me.picETL.TabStop = False
+        '
+        'picETL_C_US
+        '
+        Me.picETL_C_US.Image = CType(resources.GetObject("picETL_C_US.Image"), System.Drawing.Image)
+        Me.picETL_C_US.Location = New System.Drawing.Point(290, 173)
+        Me.picETL_C_US.Name = "picETL_C_US"
+        Me.picETL_C_US.Size = New System.Drawing.Size(78, 76)
+        Me.picETL_C_US.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picETL_C_US.TabIndex = 26
+        Me.picETL_C_US.TabStop = False
+        '
+        'picAHRICert
+        '
+        Me.picAHRICert.Image = CType(resources.GetObject("picAHRICert.Image"), System.Drawing.Image)
+        Me.picAHRICert.Location = New System.Drawing.Point(252, 17)
+        Me.picAHRICert.Name = "picAHRICert"
+        Me.picAHRICert.Size = New System.Drawing.Size(264, 76)
+        Me.picAHRICert.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picAHRICert.TabIndex = 24
+        Me.picAHRICert.TabStop = False
+        '
+        'picCSA_C_US
+        '
+        Me.picCSA_C_US.Image = CType(resources.GetObject("picCSA_C_US.Image"), System.Drawing.Image)
+        Me.picCSA_C_US.Location = New System.Drawing.Point(145, 173)
+        Me.picCSA_C_US.Name = "picCSA_C_US"
+        Me.picCSA_C_US.Size = New System.Drawing.Size(78, 76)
+        Me.picCSA_C_US.TabIndex = 22
+        Me.picCSA_C_US.TabStop = False
+        '
+        'picCSADesignCert
+        '
+        Me.picCSADesignCert.Image = CType(resources.GetObject("picCSADesignCert.Image"), System.Drawing.Image)
+        Me.picCSADesignCert.Location = New System.Drawing.Point(555, 17)
+        Me.picCSADesignCert.Name = "picCSADesignCert"
+        Me.picCSADesignCert.Size = New System.Drawing.Size(78, 76)
+        Me.picCSADesignCert.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picCSADesignCert.TabIndex = 20
+        Me.picCSADesignCert.TabStop = False
+        '
+        'picISO9001
+        '
+        Me.picISO9001.Image = CType(resources.GetObject("picISO9001.Image"), System.Drawing.Image)
+        Me.picISO9001.Location = New System.Drawing.Point(132, 17)
+        Me.picISO9001.Name = "picISO9001"
+        Me.picISO9001.Size = New System.Drawing.Size(78, 76)
+        Me.picISO9001.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picISO9001.TabIndex = 18
+        Me.picISO9001.TabStop = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(21, 138)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(78, 111)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 15
+        Me.PictureBox1.TabStop = False
+        '
+        'picASHRAE90_1
+        '
+        Me.picASHRAE90_1.Image = CType(resources.GetObject("picASHRAE90_1.Image"), System.Drawing.Image)
+        Me.picASHRAE90_1.Location = New System.Drawing.Point(21, 17)
+        Me.picASHRAE90_1.Name = "picASHRAE90_1"
+        Me.picASHRAE90_1.Size = New System.Drawing.Size(78, 76)
+        Me.picASHRAE90_1.TabIndex = 14
+        Me.picASHRAE90_1.TabStop = False
+        '
         'pgCutSheets
         '
         Me.pgCutSheets.Controls.Add(Me.btnDoneCutSheets)
@@ -10201,181 +10379,14 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
-        'cmdResearchMode
+        'cmdAddNewFieldInstalled
         '
-        Me.cmdResearchMode.Image = CType(resources.GetObject("cmdResearchMode.Image"), System.Drawing.Image)
-        Me.cmdResearchMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdResearchMode.Location = New System.Drawing.Point(625, 144)
-        Me.cmdResearchMode.Name = "cmdResearchMode"
-        Me.cmdResearchMode.Size = New System.Drawing.Size(109, 29)
-        Me.cmdResearchMode.TabIndex = 13
-        Me.cmdResearchMode.Text = "Research Mode"
-        Me.cmdResearchMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.cmdResearchMode.UseVisualStyleBackColor = True
-        '
-        'cmdReloadOldFile
-        '
-        Me.cmdReloadOldFile.Enabled = False
-        Me.cmdReloadOldFile.Image = CType(resources.GetObject("cmdReloadOldFile.Image"), System.Drawing.Image)
-        Me.cmdReloadOldFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdReloadOldFile.Location = New System.Drawing.Point(625, 109)
-        Me.cmdReloadOldFile.Name = "cmdReloadOldFile"
-        Me.cmdReloadOldFile.Size = New System.Drawing.Size(109, 29)
-        Me.cmdReloadOldFile.TabIndex = 12
-        Me.cmdReloadOldFile.Text = "Reload File"
-        Me.cmdReloadOldFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.cmdReloadOldFile.UseVisualStyleBackColor = True
-        '
-        'cmdViewHistory
-        '
-        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
-        Me.cmdViewHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdViewHistory.Location = New System.Drawing.Point(625, 74)
-        Me.cmdViewHistory.Name = "cmdViewHistory"
-        Me.cmdViewHistory.Size = New System.Drawing.Size(109, 29)
-        Me.cmdViewHistory.TabIndex = 11
-        Me.cmdViewHistory.Text = "History Report"
-        Me.cmdViewHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.cmdViewHistory.UseVisualStyleBackColor = True
-        '
-        'cmdPasteProjectDir
-        '
-        Me.cmdPasteProjectDir.Image = CType(resources.GetObject("cmdPasteProjectDir.Image"), System.Drawing.Image)
-        Me.cmdPasteProjectDir.Location = New System.Drawing.Point(847, 121)
-        Me.cmdPasteProjectDir.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdPasteProjectDir.Name = "cmdPasteProjectDir"
-        Me.cmdPasteProjectDir.Size = New System.Drawing.Size(26, 20)
-        Me.cmdPasteProjectDir.TabIndex = 5
-        Me.cmdPasteProjectDir.UseVisualStyleBackColor = True
-        '
-        'picUnitPreview
-        '
-        Me.picUnitPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picUnitPreview.ImageLocation = ""
-        Me.picUnitPreview.Location = New System.Drawing.Point(475, 159)
-        Me.picUnitPreview.Name = "picUnitPreview"
-        Me.picUnitPreview.Size = New System.Drawing.Size(633, 318)
-        Me.picUnitPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picUnitPreview.TabIndex = 72
-        Me.picUnitPreview.TabStop = False
-        '
-        'picReferPreview
-        '
-        Me.picReferPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picReferPreview.ImageLocation = ""
-        Me.picReferPreview.Location = New System.Drawing.Point(450, 156)
-        Me.picReferPreview.Name = "picReferPreview"
-        Me.picReferPreview.Size = New System.Drawing.Size(658, 321)
-        Me.picReferPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picReferPreview.TabIndex = 64
-        Me.picReferPreview.TabStop = False
-        '
-        'picCSAGas
-        '
-        Me.picCSAGas.Image = CType(resources.GetObject("picCSAGas.Image"), System.Drawing.Image)
-        Me.picCSAGas.Location = New System.Drawing.Point(21, 295)
-        Me.picCSAGas.Name = "picCSAGas"
-        Me.picCSAGas.Size = New System.Drawing.Size(78, 76)
-        Me.picCSAGas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picCSAGas.TabIndex = 32
-        Me.picCSAGas.TabStop = False
-        '
-        'picEStar
-        '
-        Me.picEStar.Image = CType(resources.GetObject("picEStar.Image"), System.Drawing.Image)
-        Me.picEStar.Location = New System.Drawing.Point(799, 17)
-        Me.picEStar.Name = "picEStar"
-        Me.picEStar.Size = New System.Drawing.Size(78, 76)
-        Me.picEStar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picEStar.TabIndex = 30
-        Me.picEStar.TabStop = False
-        '
-        'picETL
-        '
-        Me.picETL.Image = CType(resources.GetObject("picETL.Image"), System.Drawing.Image)
-        Me.picETL.Location = New System.Drawing.Point(678, 17)
-        Me.picETL.Name = "picETL"
-        Me.picETL.Size = New System.Drawing.Size(78, 76)
-        Me.picETL.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picETL.TabIndex = 28
-        Me.picETL.TabStop = False
-        '
-        'picETL_C_US
-        '
-        Me.picETL_C_US.Image = CType(resources.GetObject("picETL_C_US.Image"), System.Drawing.Image)
-        Me.picETL_C_US.Location = New System.Drawing.Point(290, 173)
-        Me.picETL_C_US.Name = "picETL_C_US"
-        Me.picETL_C_US.Size = New System.Drawing.Size(78, 76)
-        Me.picETL_C_US.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picETL_C_US.TabIndex = 26
-        Me.picETL_C_US.TabStop = False
-        '
-        'picAHRICert
-        '
-        Me.picAHRICert.Image = CType(resources.GetObject("picAHRICert.Image"), System.Drawing.Image)
-        Me.picAHRICert.Location = New System.Drawing.Point(252, 17)
-        Me.picAHRICert.Name = "picAHRICert"
-        Me.picAHRICert.Size = New System.Drawing.Size(264, 76)
-        Me.picAHRICert.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picAHRICert.TabIndex = 24
-        Me.picAHRICert.TabStop = False
-        '
-        'picCSA_C_US
-        '
-        Me.picCSA_C_US.Image = CType(resources.GetObject("picCSA_C_US.Image"), System.Drawing.Image)
-        Me.picCSA_C_US.Location = New System.Drawing.Point(145, 173)
-        Me.picCSA_C_US.Name = "picCSA_C_US"
-        Me.picCSA_C_US.Size = New System.Drawing.Size(78, 76)
-        Me.picCSA_C_US.TabIndex = 22
-        Me.picCSA_C_US.TabStop = False
-        '
-        'picCSADesignCert
-        '
-        Me.picCSADesignCert.Image = CType(resources.GetObject("picCSADesignCert.Image"), System.Drawing.Image)
-        Me.picCSADesignCert.Location = New System.Drawing.Point(555, 17)
-        Me.picCSADesignCert.Name = "picCSADesignCert"
-        Me.picCSADesignCert.Size = New System.Drawing.Size(78, 76)
-        Me.picCSADesignCert.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picCSADesignCert.TabIndex = 20
-        Me.picCSADesignCert.TabStop = False
-        '
-        'picISO9001
-        '
-        Me.picISO9001.Image = CType(resources.GetObject("picISO9001.Image"), System.Drawing.Image)
-        Me.picISO9001.Location = New System.Drawing.Point(132, 17)
-        Me.picISO9001.Name = "picISO9001"
-        Me.picISO9001.Size = New System.Drawing.Size(78, 76)
-        Me.picISO9001.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picISO9001.TabIndex = 18
-        Me.picISO9001.TabStop = False
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(21, 138)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(78, 111)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 15
-        Me.PictureBox1.TabStop = False
-        '
-        'picASHRAE90_1
-        '
-        Me.picASHRAE90_1.Image = CType(resources.GetObject("picASHRAE90_1.Image"), System.Drawing.Image)
-        Me.picASHRAE90_1.Location = New System.Drawing.Point(21, 17)
-        Me.picASHRAE90_1.Name = "picASHRAE90_1"
-        Me.picASHRAE90_1.Size = New System.Drawing.Size(78, 76)
-        Me.picASHRAE90_1.TabIndex = 14
-        Me.picASHRAE90_1.TabStop = False
-        '
-        'cmdUpdateElecRecords
-        '
-        Me.cmdUpdateElecRecords.Location = New System.Drawing.Point(267, 442)
-        Me.cmdUpdateElecRecords.Name = "cmdUpdateElecRecords"
-        Me.cmdUpdateElecRecords.Size = New System.Drawing.Size(104, 23)
-        Me.cmdUpdateElecRecords.TabIndex = 30
-        Me.cmdUpdateElecRecords.Text = "Update Elec Data"
-        Me.cmdUpdateElecRecords.UseVisualStyleBackColor = True
+        Me.cmdAddNewFieldInstalled.Location = New System.Drawing.Point(806, 350)
+        Me.cmdAddNewFieldInstalled.Name = "cmdAddNewFieldInstalled"
+        Me.cmdAddNewFieldInstalled.Size = New System.Drawing.Size(96, 25)
+        Me.cmdAddNewFieldInstalled.TabIndex = 22
+        Me.cmdAddNewFieldInstalled.Text = "Modify Database"
+        Me.cmdAddNewFieldInstalled.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -10433,6 +10444,7 @@ Partial Class frmMain
         Me.GroupBox1.PerformLayout
         Me.pgUnitDrawing.ResumeLayout(False)
         Me.pgUnitDrawing.PerformLayout
+        CType(Me.picUnitPreview, System.ComponentModel.ISupportInitialize).EndInit
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout
         Me.pgHydronics.ResumeLayout(False)
@@ -10443,6 +10455,7 @@ Partial Class frmMain
         Me.pgValveSchedule.PerformLayout
         Me.pgRefrigeration.ResumeLayout(False)
         Me.pgRefrigeration.PerformLayout
+        CType(Me.picReferPreview, System.ComponentModel.ISupportInitialize).EndInit
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout
         Me.pgAirflow.ResumeLayout(False)
@@ -10506,11 +10519,6 @@ Partial Class frmMain
         CType(Me.nudPointLoads, System.ComponentModel.ISupportInitialize).EndInit
         Me.pgCerts.ResumeLayout(False)
         Me.pgCerts.PerformLayout
-        Me.pgCutSheets.ResumeLayout(False)
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout
-        CType(Me.picUnitPreview, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.picReferPreview, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.picCSAGas, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.picEStar, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.picETL, System.ComponentModel.ISupportInitialize).EndInit
@@ -10521,6 +10529,9 @@ Partial Class frmMain
         CType(Me.picISO9001, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.picASHRAE90_1, System.ComponentModel.ISupportInitialize).EndInit
+        Me.pgCutSheets.ResumeLayout(False)
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -11407,4 +11418,5 @@ Partial Class frmMain
     Friend WithEvents Label123 As Label
     Friend WithEvents Button5 As Button
     Friend WithEvents cmdUpdateElecRecords As Button
+    Friend WithEvents cmdAddNewFieldInstalled As Button
 End Class

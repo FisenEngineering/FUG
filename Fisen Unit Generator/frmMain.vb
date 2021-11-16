@@ -6612,7 +6612,9 @@ Public Class frmMain
         Call PopulateModGenFieldInstalleds()
 
         If ThisUnitFieldInst.Count > 0 Then
-            lstFieldInst.ClearSelected()
+            'lstFieldInst.ClearSelected()
+            lstFieldInst.Items.Clear()
+
             For i = 0 To ThisUnitFieldInst.Count - 1
                 lstFieldInst.Items.Add(ThisUnitFieldInst.Item(i))
             Next
@@ -6636,6 +6638,8 @@ Public Class frmMain
         rs = New ADODB.Recordset With {
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
+
+        ThisUnitFieldInst.Clear()
 
         For i = 0 To ThisUnitCodes.Count - 1
             ThisCode = ThisUnitCodes.Item(i)
@@ -9957,5 +9961,18 @@ Public Class frmMain
         frmUpdateElectricalTables.ShowDialog()
         Call CalculateCustomMCA()
 
+    End Sub
+
+    Private Sub cmdAddNewFieldInstalled_Click(sender As Object, e As EventArgs) Handles cmdAddNewFieldInstalled.Click
+        Dim i As Integer
+        frmUpdateShipWithTables.ShowDialog()
+        Call PopulateModGenFieldInstalleds()
+        If ThisUnitFieldInst.Count > 0 Then
+            lstFieldInst.Items.Clear()
+            For i = 0 To ThisUnitFieldInst.Count - 1
+                lstFieldInst.Items.Add(ThisUnitFieldInst.Item(i))
+            Next
+
+        End If
     End Sub
 End Class

@@ -497,6 +497,12 @@
     <Compile Include="frmUpdateElectricalTables.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUpdateShipWithTables.Designer.vb">
+      <DependentUpon>frmUpdateShipWithTables.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateShipWithTables.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmUpdateWeightTables.Designer.vb">
       <DependentUpon>frmUpdateWeightTables.vb</DependentUpon>
     </Compile>
@@ -724,6 +730,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateElectricalTables.resx">
       <DependentUpon>frmUpdateElectricalTables.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateShipWithTables.resx">
+      <DependentUpon>frmUpdateShipWithTables.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateWeightTables.resx">
       <DependentUpon>frmUpdateWeightTables.vb</DependentUpon>
