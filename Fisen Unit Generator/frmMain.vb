@@ -9934,13 +9934,6 @@ Public Class frmMain
         frmEndDeviceMaintenance.ShowDialog()
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        frmUpdateElectricalTables.Volts = "208"
-        frmUpdateElectricalTables.Phase = "3"
-        frmUpdateElectricalTables.Stubb = "J25ZJ"
-        frmUpdateElectricalTables.ShowDialog()
-    End Sub
-
     Private Sub cmdUpdateElecRecords_Click(sender As Object, e As EventArgs) Handles cmdUpdateElecRecords.Click
         Dim Snipet As String
         Dim Suffix As String
@@ -9957,7 +9950,7 @@ Public Class frmMain
             Next
             Snipet = Mid(ThisUnit.ModelNumber, 1, 4) & Suffix
         End If
-        frmUpdateElectricalTables.Stubb = snipet
+        frmUpdateElectricalTables.Stubb = Snipet
         frmUpdateElectricalTables.ShowDialog()
         Call CalculateCustomMCA()
 

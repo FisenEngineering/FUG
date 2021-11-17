@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
@@ -227,6 +227,7 @@ Partial Class frmMain
         Me.lstFactOpts = New System.Windows.Forms.ListBox()
         Me.btnDoneFactOpts = New System.Windows.Forms.Button()
         Me.pgFieldInst = New System.Windows.Forms.TabPage()
+        Me.cmdAddNewFieldInstalled = New System.Windows.Forms.Button()
         Me.cmdUPGERVModule = New System.Windows.Forms.Button()
         Me.txtNewFieldInst = New System.Windows.Forms.TextBox()
         Me.btnDelFieldInst = New System.Windows.Forms.Button()
@@ -842,9 +843,7 @@ Partial Class frmMain
         Me.cmdDebug = New System.Windows.Forms.Button()
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chkThisIsARedo = New System.Windows.Forms.CheckBox()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
-        Me.cmdAddNewFieldInstalled = New System.Windows.Forms.Button()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -3232,6 +3231,15 @@ Partial Class frmMain
         Me.pgFieldInst.TabIndex = 13
         Me.pgFieldInst.Text = "Field Installed"
         Me.pgFieldInst.UseVisualStyleBackColor = True
+        '
+        'cmdAddNewFieldInstalled
+        '
+        Me.cmdAddNewFieldInstalled.Location = New System.Drawing.Point(806, 350)
+        Me.cmdAddNewFieldInstalled.Name = "cmdAddNewFieldInstalled"
+        Me.cmdAddNewFieldInstalled.Size = New System.Drawing.Size(96, 25)
+        Me.cmdAddNewFieldInstalled.TabIndex = 22
+        Me.cmdAddNewFieldInstalled.Text = "Modify Database"
+        Me.cmdAddNewFieldInstalled.UseVisualStyleBackColor = True
         '
         'cmdUPGERVModule
         '
@@ -7557,8 +7565,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7616,8 +7624,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle14
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
@@ -7627,8 +7635,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle15
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
@@ -10361,15 +10369,6 @@ Partial Class frmMain
         Me.chkThisIsARedo.Text = "This is a Redo"
         Me.chkThisIsARedo.UseVisualStyleBackColor = True
         '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(553, 540)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 29
-        Me.Button5.Text = "Button5"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
         'cmdUserOptions
         '
         Me.cmdUserOptions.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.GearIcon24
@@ -10379,20 +10378,10 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
-        'cmdAddNewFieldInstalled
-        '
-        Me.cmdAddNewFieldInstalled.Location = New System.Drawing.Point(806, 350)
-        Me.cmdAddNewFieldInstalled.Name = "cmdAddNewFieldInstalled"
-        Me.cmdAddNewFieldInstalled.Size = New System.Drawing.Size(96, 25)
-        Me.cmdAddNewFieldInstalled.TabIndex = 22
-        Me.cmdAddNewFieldInstalled.Text = "Modify Database"
-        Me.cmdAddNewFieldInstalled.UseVisualStyleBackColor = True
-        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
-        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.chkThisIsARedo)
         Me.Controls.Add(Me.cmdUserOptions)
         Me.Controls.Add(Me.chkInhibitDigConditions)
@@ -11416,7 +11405,6 @@ Partial Class frmMain
     Friend WithEvents chkThisIsARedo As CheckBox
     Friend WithEvents txtBCIPLV As TextBox
     Friend WithEvents Label123 As Label
-    Friend WithEvents Button5 As Button
     Friend WithEvents cmdUpdateElecRecords As Button
     Friend WithEvents cmdAddNewFieldInstalled As Button
 End Class
