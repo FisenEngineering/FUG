@@ -67,6 +67,7 @@ Partial Class frmFanVFD
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.cmdScience = New System.Windows.Forms.Button()
         Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.optSFanIPUVFDReady = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -260,7 +261,7 @@ Partial Class frmFanVFD
         Me.cmbVFDBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbVFDBrand.Enabled = False
         Me.cmbVFDBrand.FormattingEnabled = True
-        Me.cmbVFDBrand.Items.AddRange(New Object() {"ABB Eclipse", "Danfoss VLT HVAC - FC102", "Danfoss VLT HVAC Basic - FC101", "Fisen Standard", "Rockwell Automation Power Flex 753", ""})
+        Me.cmbVFDBrand.Items.AddRange(New Object() {"ABB Eclipse", "Danfoss VLT HVAC - FC102", "Danfoss VLT HVAC Basic - FC101", "Fisen Standard", "Rockwell Automation Power Flex 753", "Rockwell Automation Power Flex 525"})
         Me.cmbVFDBrand.Location = New System.Drawing.Point(24, 55)
         Me.cmbVFDBrand.Name = "cmbVFDBrand"
         Me.cmbVFDBrand.Size = New System.Drawing.Size(152, 21)
@@ -400,6 +401,7 @@ Partial Class frmFanVFD
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.optSFanIPUVFDReady)
         Me.GroupBox1.Controls.Add(Me.optSFanBalanceOnly)
         Me.GroupBox1.Controls.Add(Me.optSFanFisenLCVAV)
         Me.GroupBox1.Controls.Add(Me.optSFanSELCVAV)
@@ -408,7 +410,7 @@ Partial Class frmFanVFD
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(134, 113)
+        Me.GroupBox1.Size = New System.Drawing.Size(134, 129)
         Me.GroupBox1.TabIndex = 26
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Supply Fan"
@@ -578,6 +580,17 @@ Partial Class frmFanVFD
         Me.cmdFIOPPreview.TabIndex = 72
         Me.cmdFIOPPreview.UseVisualStyleBackColor = True
         '
+        'optSFanIPUVFDReady
+        '
+        Me.optSFanIPUVFDReady.AutoSize = True
+        Me.optSFanIPUVFDReady.Location = New System.Drawing.Point(4, 104)
+        Me.optSFanIPUVFDReady.Margin = New System.Windows.Forms.Padding(2)
+        Me.optSFanIPUVFDReady.Name = "optSFanIPUVFDReady"
+        Me.optSFanIPUVFDReady.Size = New System.Drawing.Size(107, 17)
+        Me.optSFanIPUVFDReady.TabIndex = 31
+        Me.optSFanIPUVFDReady.Text = "IPU - VFD Ready"
+        Me.optSFanIPUVFDReady.UseVisualStyleBackColor = True
+        '
         'frmFanVFD
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -658,4 +671,5 @@ Partial Class frmFanVFD
     Friend WithEvents chk65kASCCRBase As CheckBox
     Friend WithEvents cmdScience As Button
     Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents optSFanIPUVFDReady As RadioButton
 End Class

@@ -532,7 +532,8 @@ Public Class frmCstmSM
         Dim rs2 As ADODB.Recordset
         Dim dbProvider2 As String
         Dim MySQL2 As String
-        Dim Reccount As Integer
+        Dim opcode As String
+
         con2 = New ADODB.Connection
         dbProvider2 = "FIL=MS ACCESS;DSN=FUGenerator"
         con2.ConnectionString = dbProvider2
@@ -541,25 +542,27 @@ Public Class frmCstmSM
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
 
-        MySQL2 = "SELECT COUNT(*) as RowCount FROM tblCstmSMDB INNER JOIN tblCstmTagALong ON tblCstmSMDB.CstmCode = tblCstmTagALong.CstmCode WHERE (((tblCstmSMDB.CstmFIOP)='" & loccode & "'))"
+
+        MySQL2 = "SELECT * FROM tblCstmSMDB WHERE CstmFIOP='" & loccode & "'"
         rs2.Open(MySQL2, con2)
-        Reccount = rs2.Fields("RowCount").Value
+        opcode = rs2.Fields("CstmCode").Value.ToString
         rs2.Close()
 
-        If Reccount > 0 Then
-            MySQL2 = "SELECT tblCstmSMDB.CstmCode as CstmCode, tblCstmSMDB.CstmFIOP as CstmFIOP, tblCstmTagALong.TagALongData as TagALongID, tblCstmTagALong.DataComment as TagAlongName FROM tblCstmSMDB INNER JOIN tblCstmTagALong ON tblCstmSMDB.CstmCode = tblCstmTagALong.CstmCode WHERE (((tblCstmSMDB.CstmFIOP)='" & loccode & "'))"
+        MySQL2 = "SELECT * FROM tblCstmTagALong WHERE CstmCode='" & opcode & "'"
+        rs2.Open(MySQL2, con2)
+        If Not (rs2.BOF And rs2.EOF) Then
 
-            rs2.Open(MySQL2, con2)
             lstTagAlongs.Items.Clear()
             lblCurrentCode.Text = rs2.Fields("CstmCode").Value
 
             Do While Not (rs2.EOF)
 
-                lstTagAlongs.Items.Add(rs2.Fields("TagAlongID").Value & "-" & rs2.Fields("TagAlongName").Value)
+                lstTagAlongs.Items.Add(rs2.Fields("TagALongData").Value & "-" & rs2.Fields("DataComment").Value)
                 rs2.MoveNext()
             Loop
             rs2.Close()
         End If
+
         con2.Close()
         rs2 = Nothing
         con2 = Nothing

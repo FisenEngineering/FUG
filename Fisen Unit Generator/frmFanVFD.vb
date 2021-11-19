@@ -94,6 +94,8 @@ Public Class frmFanVFD
                                 ModuleCodeList.Add("301202")
                             Case Is = "Rockwell Automation Power Flex 753"
                                 ModuleCodeList.Add("301204")
+                            Case Is = "Rockwell Automation Power Flex 525"
+                                ModuleCodeList.Add("301205")
                             Case Else
                                 ModuleCodeList.Add("301202")
                         End Select
@@ -112,9 +114,9 @@ Public Class frmFanVFD
                     If optSFanFisenLCVAV.Checked Then ModuleCodeList.Add("301120")
                     If optSFanSELCVAV.Checked Then ModuleCodeList.Add("301130")
                     If optSFanBalanceOnly.Checked Then ModuleCodeList.Add("301125")
-
+                    If optSFanIPUVFDReady.Checked Then ModuleCodeList.Add("301111")
                 End If
-                If chk65kASCCRBase.Checked Then ModuleCodeList.Add("301F6A")
+                    If chk65kASCCRBase.Checked Then ModuleCodeList.Add("301F6A")
             Case Is = "Return Fan"
                 If chk65kASCCRBase.Checked Then ModuleCodeList.Add("302F6A")
             Case Is = "Exhaust Fan"
@@ -248,6 +250,11 @@ Public Class frmFanVFD
                     If chkSFanBypass.Checked Then tempWeight = "45"
                     If chkSFanDisconnect.Checked Then tempWeight = Str(Val(tempWeight) + 10)
                     If chkNEMA4xDrive.Checked Then tempWeight = Str(Val(tempWeight) + 20)
+                Case Is = "Series100"
+                    tempWeight = "40"
+                    If chkSFanBypass.Checked Then tempWeight = "48"
+                    If chkSFanDisconnect.Checked Then tempWeight = Str(Val(tempWeight) + 10)
+                    If chkNEMA4xDrive.Checked Then tempWeight = Str(Val(tempWeight) + 30)
                 Case Is = "Premier"
                     tempWeight = "40"
                     If chkSFanBypass.Checked Then tempWeight = "45"

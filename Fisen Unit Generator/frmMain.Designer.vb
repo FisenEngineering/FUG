@@ -844,6 +844,9 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chkThisIsARedo = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
+        Me.cmdUnitDrawingDBMaint = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -3508,6 +3511,7 @@ Partial Class frmMain
         '
         'pgUnitDrawing
         '
+        Me.pgUnitDrawing.Controls.Add(Me.cmdUnitDrawingDBMaint)
         Me.pgUnitDrawing.Controls.Add(Me.picUnitPreview)
         Me.pgUnitDrawing.Controls.Add(Me.cmdDwgClearFilter)
         Me.pgUnitDrawing.Controls.Add(Me.chkUnitFilterOnStubbs)
@@ -10378,10 +10382,40 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
+        'cmdUnitDrawingDBMaint
+        '
+        Me.cmdUnitDrawingDBMaint.BackgroundImage = Global.Fisen_Unit_Generator.My.Resources.Resources.dbMaintenanceIcon50x50
+        Me.cmdUnitDrawingDBMaint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.cmdUnitDrawingDBMaint.Location = New System.Drawing.Point(1157, 401)
+        Me.cmdUnitDrawingDBMaint.Name = "cmdUnitDrawingDBMaint"
+        Me.cmdUnitDrawingDBMaint.Size = New System.Drawing.Size(35, 35)
+        Me.cmdUnitDrawingDBMaint.TabIndex = 73
+        Me.cmdUnitDrawingDBMaint.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(422, 536)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 29
+        Me.Button5.Text = "Button5"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(422, 557)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(75, 23)
+        Me.Button6.TabIndex = 30
+        Me.Button6.Text = "Button6"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1239, 608)
+        Me.Controls.Add(Me.Button6)
+        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.chkThisIsARedo)
         Me.Controls.Add(Me.cmdUserOptions)
         Me.Controls.Add(Me.chkInhibitDigConditions)
@@ -11407,4 +11441,7 @@ Partial Class frmMain
     Friend WithEvents Label123 As Label
     Friend WithEvents cmdUpdateElecRecords As Button
     Friend WithEvents cmdAddNewFieldInstalled As Button
+    Friend WithEvents cmdUnitDrawingDBMaint As Button
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
 End Class

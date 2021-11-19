@@ -9968,4 +9968,19 @@ Public Class frmMain
 
         End If
     End Sub
+
+    Private Sub cmdUnitDrawingDBMaint_Click(sender As Object, e As EventArgs) Handles cmdUnitDrawingDBMaint.Click
+        frmUpdateUnitDrawings.ShowDialog()
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        frmUpdateUnitDrawings.ShowDialog()
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        frmNewCustomCode.WhichCustom = "Power"
+        ThisUnit.Family = "Series20"
+        frmNewCustomCode.ShowDialog()
+
+    End Sub
 End Class

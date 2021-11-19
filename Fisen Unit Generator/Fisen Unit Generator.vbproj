@@ -503,6 +503,12 @@
     <Compile Include="frmUpdateShipWithTables.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUpdateUnitDrawings.Designer.vb">
+      <DependentUpon>frmUpdateUnitDrawings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateUnitDrawings.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmUpdateWeightTables.Designer.vb">
       <DependentUpon>frmUpdateWeightTables.vb</DependentUpon>
     </Compile>
@@ -734,6 +740,9 @@
     <EmbeddedResource Include="frmUpdateShipWithTables.resx">
       <DependentUpon>frmUpdateShipWithTables.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateUnitDrawings.resx">
+      <DependentUpon>frmUpdateUnitDrawings.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateWeightTables.resx">
       <DependentUpon>frmUpdateWeightTables.vb</DependentUpon>
     </EmbeddedResource>
@@ -849,6 +858,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LoadFileIconSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dbMaintenance50x50.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dbMaintenanceIcon50x50.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

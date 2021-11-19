@@ -288,7 +288,7 @@
 
                 Call UpdateCodeList(rs.Fields("CstmCode").Value)
                 If rs.Fields("MCAChange").Value = True Then
-                    Call CustomMCARequired(rs.Fields("LoadName").Value, rs.Fields("LoadHP").Value, rs.Fields("LoadValue").Value)
+                    Call CustomMCARequired(rs.Fields("LoadName").Value.ToString, rs.Fields("LoadHP").Value.ToString, rs.Fields("LoadValue").Value.ToString)
                 End If
 
                 Call UpdateJCIRequiredItems(rs.Fields("CstmCode").Value.ToString)
@@ -606,7 +606,7 @@
         Dim rs2 As ADODB.Recordset
         Dim dbProvider2 As String
         Dim MySQL2 As String
-        Dim Reccount As Integer
+        Dim opcode As String
         con2 = New ADODB.Connection
         dbProvider2 = "FIL=MS ACCESS;DSN=FUGenerator"
         con2.ConnectionString = dbProvider2
@@ -615,25 +615,26 @@
                 .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
             }
 
-        MySQL2 = "SELECT COUNT(*) as RowCount FROM tblCstmHVDB INNER JOIN tblCstmTagALong ON tblCstmHVDB.CstmCode = tblCstmTagALong.CstmCode WHERE (((tblCstmHVDB.CstmFIOP)='" & loccode & "'))"
+        MySQL2 = "SELECT * FROM tblCstmHVDB WHERE CstmFIOP='" & loccode & "'"
         rs2.Open(MySQL2, con2)
-        Reccount = rs2.Fields("RowCount").Value
+        opcode = rs2.Fields("CstmCode").Value.ToString
         rs2.Close()
 
-        If Reccount > 0 Then
-            MySQL2 = "SELECT tblCstmHVDB.CstmCode as CstmCode, tblCstmHVDB.CstmFIOP as CstmFIOP, tblCstmTagALong.TagALongData as TagALongID, tblCstmTagALong.DataComment as TagAlongName FROM tblCstmHVDB INNER JOIN tblCstmTagALong ON tblCstmHVDB.CstmCode = tblCstmTagALong.CstmCode WHERE (((tblCstmHVDB.CstmFIOP)='" & loccode & "'))"
+        MySQL2 = "SELECT * FROM tblCstmTagALong WHERE CstmCode='" & opcode & "'"
+        rs2.Open(MySQL2, con2)
+        If Not (rs2.BOF And rs2.EOF) Then
 
-            rs2.Open(MySQL2, con2)
             lstTagAlongs.Items.Clear()
             lblCurrentCode.Text = rs2.Fields("CstmCode").Value
 
             Do While Not (rs2.EOF)
 
-                lstTagAlongs.Items.Add(rs2.Fields("TagAlongID").Value & "-" & rs2.Fields("TagAlongName").Value)
+                lstTagAlongs.Items.Add(rs2.Fields("TagALongData").Value & "-" & rs2.Fields("DataComment").Value)
                 rs2.MoveNext()
             Loop
             rs2.Close()
         End If
+
         con2.Close()
         rs2 = Nothing
         con2 = Nothing
@@ -1012,4 +1013,7 @@
         Call LoadPermittedPowerMods()
     End Sub
 
+    Private Sub cmdAddNewTagALong_Click(sender As Object, e As EventArgs) Handles cmdAddNewTagALong.Click
+
+    End Sub
 End Class
