@@ -44,6 +44,9 @@ Partial Class frmUpdateUnitDrawings
         Me.chkFileValid = New System.Windows.Forms.CheckBox()
         Me.chkWMFValid = New System.Windows.Forms.CheckBox()
         Me.cmdValidateFiles = New System.Windows.Forms.Button()
+        Me.cmdUploadDrawingFile = New System.Windows.Forms.Button()
+        Me.cmdUploadWMFFile = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SuspendLayout()
         '
         'cmdCancel
@@ -208,8 +211,8 @@ Partial Class frmUpdateUnitDrawings
         '
         'chkFileValid
         '
+        Me.chkFileValid.AutoCheck = False
         Me.chkFileValid.AutoSize = True
-        Me.chkFileValid.Enabled = False
         Me.chkFileValid.Location = New System.Drawing.Point(468, 293)
         Me.chkFileValid.Name = "chkFileValid"
         Me.chkFileValid.Size = New System.Drawing.Size(89, 17)
@@ -219,8 +222,8 @@ Partial Class frmUpdateUnitDrawings
         '
         'chkWMFValid
         '
+        Me.chkWMFValid.AutoCheck = False
         Me.chkWMFValid.AutoSize = True
-        Me.chkWMFValid.Enabled = False
         Me.chkWMFValid.Location = New System.Drawing.Point(468, 332)
         Me.chkWMFValid.Name = "chkWMFValid"
         Me.chkWMFValid.Size = New System.Drawing.Size(89, 17)
@@ -237,6 +240,28 @@ Partial Class frmUpdateUnitDrawings
         Me.cmdValidateFiles.Text = "Validate Files"
         Me.cmdValidateFiles.UseVisualStyleBackColor = True
         '
+        'cmdUploadDrawingFile
+        '
+        Me.cmdUploadDrawingFile.Location = New System.Drawing.Point(563, 289)
+        Me.cmdUploadDrawingFile.Name = "cmdUploadDrawingFile"
+        Me.cmdUploadDrawingFile.Size = New System.Drawing.Size(89, 23)
+        Me.cmdUploadDrawingFile.TabIndex = 54
+        Me.cmdUploadDrawingFile.Text = "Upload File"
+        Me.cmdUploadDrawingFile.UseVisualStyleBackColor = True
+        '
+        'cmdUploadWMFFile
+        '
+        Me.cmdUploadWMFFile.Location = New System.Drawing.Point(563, 328)
+        Me.cmdUploadWMFFile.Name = "cmdUploadWMFFile"
+        Me.cmdUploadWMFFile.Size = New System.Drawing.Size(89, 23)
+        Me.cmdUploadWMFFile.TabIndex = 55
+        Me.cmdUploadWMFFile.Text = "Upload File"
+        Me.cmdUploadWMFFile.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
         'frmUpdateUnitDrawings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -244,6 +269,8 @@ Partial Class frmUpdateUnitDrawings
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(1442, 661)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdUploadWMFFile)
+        Me.Controls.Add(Me.cmdUploadDrawingFile)
         Me.Controls.Add(Me.cmdValidateFiles)
         Me.Controls.Add(Me.chkWMFValid)
         Me.Controls.Add(Me.chkFileValid)
@@ -298,4 +325,7 @@ Partial Class frmUpdateUnitDrawings
     Friend WithEvents chkFileValid As CheckBox
     Friend WithEvents chkWMFValid As CheckBox
     Friend WithEvents cmdValidateFiles As Button
+    Friend WithEvents cmdUploadDrawingFile As Button
+    Friend WithEvents cmdUploadWMFFile As Button
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
 End Class

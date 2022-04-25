@@ -19,6 +19,7 @@ Public Class frmMain
     Public ThisUnitIFilters As clsFilters
     Public ThisUnitFFilters As clsFilters
     Public ThisUnitJCIFilters As clsFilters
+    Public ThisUnitMFilters As clsFilters
     Public ThisUnitRXPerf As ClsRXPerf
     Public ThisChillerMainPerf As clsChillerMainPerf
     Public ThisUnitWarrTest As clsWarrTest
@@ -408,6 +409,7 @@ Public Class frmMain
         Dim dbProvider As String
         Dim i, j As Integer
         Dim FilterMatch As Boolean
+        Dim StubMatch As Boolean
         Dim TempVar As String
         Dim MySQL As String
 
@@ -434,19 +436,38 @@ Public Class frmMain
 
         i = 0
         rs.MoveFirst()
-        FilterMatch = True
+        'FilterMatch = True
+
         Do While Not (rs.EOF)
-            If lstUnitTagstoApply.SelectedItems.Count > 0 Then
-                For j = 0 To lstUnitTagstoApply.SelectedItems.Count - 1
-                    If InStr(rs.Fields("DrawingID").Value, lstUnitTagstoApply.SelectedItems(j)) > 0 Then
-                        FilterMatch = FilterMatch And True
-                    Else
-                        FilterMatch = False
-                    End If
-                Next
+            FilterMatch = True
+            StubMatch = False
+            'First filter on the stub if checked
+            If chkUnitFilterOnStubbs.Checked Then
+                If InStr(rs.Fields("DrawingID").Value, lblStubTag.Text) > 0 Then StubMatch = True
+            Else
+                StubMatch = True
             End If
 
-            If FilterMatch Then
+            'Second see if the record contains each and every tag
+            For j = 0 To lstUnitTagstoApply.SelectedItems.Count - 1
+                If Not (InStr(rs.Fields("DrawingID").Value, lstUnitTagstoApply.SelectedItems(j)) > 0) Then FilterMatch = False
+            Next
+
+            'If lstUnitTagstoApply.SelectedItems.Count > 0 Then
+            '    For j = 0 To lstUnitTagstoApply.SelectedItems.Count - 1
+            '        If (InStr(rs.Fields("DrawingID").Value, lstUnitTagstoApply.SelectedItems(j)) > 0) Then
+            '            If chkUnitFilterOnStubbs.Checked Then
+            '                If Not (InStr(rs.Fields("DrawingID").Value, lblStubTag.Text) > 0) Then FilterMatch = False
+            '            Else
+            '                FilterMatch = FilterMatch And True
+            '            End If
+            '        Else
+            '            FilterMatch = False
+            '        End If
+            '    Next
+            'End If
+
+            If FilterMatch And StubMatch Then
                 lstAvailDwgs.Items.Add(rs.Fields("PlainName").Value)
                 DwgDesc(i) = rs.Fields("DrawingDescription").Value
                 UnitWMFPAth.Add(My.Settings.ResourceDir & "BaseUnit\Drawings" & rs.Fields("DrawingPath").Value & rs.Fields("WMFName").Value)
@@ -454,6 +475,7 @@ Public Class frmMain
             End If
             rs.MoveNext()
             FilterMatch = True
+            StubMatch = False
         Loop
 
         con.Close()
@@ -879,7 +901,17 @@ Public Class frmMain
                         frmERW.Dispose()
                     End If
 
-                Case Is = "Energy Recovery Wheel"
+                Case Is = "ERV Economizer Assist Module"
+                    frmERVEAM.ShowDialog()
+                    If frmERVEAM.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation In ERV Integration Module.  Exiting Program.")
+                        End
+                    Else
+                        ERWDefined = True
+                        frmERVIntegration.Dispose()
+                    End If
+
+                Case Is = "ERV Integration"
                     frmERVIntegration.ShowDialog()
                     If frmERVIntegration.Cancelled = True Then
                         dummy = MsgBox("User Cancelled Generation In ERV Integration Module.  Exiting Program.")
@@ -1209,6 +1241,15 @@ Public Class frmMain
                         frmUVLights.Dispose()
                     End If
 
+                Case Is = "Classified Location"
+                    frmXP.ShowDialog()
+                    If frmXP.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation.  Exiting Program.")
+                        End
+                    Else
+                        frmXP.Dispose()
+                    End If
+
                 Case Else
                     dummy = MsgBox("Undefined modification type: " & thisitem)
             End Select
@@ -1279,6 +1320,8 @@ Public Class frmMain
         locFamily = Me.ThisUnit.Family
 
         Call SaveTheXMLData()
+        If chkWriteStaticAudittoFile.Checked Then Call WriteSFStaticPressureReport()
+
         Call HandleFlaggedFileMoves()
 
         If chkSaveinProjDB.Checked Then Call WriteUnitHistory()
@@ -1321,6 +1364,7 @@ Public Class frmMain
                     Process.Start(YPALFile)
                 Case Is = "YLAA"
                     YLAAFile = YLAAFile & Ver & ".dotm"
+                    Process.Start(YLAAFile)
                 Case Is = "YVAA"
                     YVAAFile = YVAAFile & Ver & ".dotm"
                     Process.Start(YVAAFile)
@@ -2716,6 +2760,26 @@ Public Class frmMain
 
         mcareport.Close()
     End Sub
+
+    Private Sub WriteSFStaticPressureReport()
+        Dim SFStaticreport As System.IO.StreamWriter
+        Dim tempfilename As String
+
+        tempfilename = txtProjectDirectory.Text & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & "\" & "Submittal Source (Do not Distribute)\Submittal Design\" & ThisUnit.JobNumber & "-" & ThisUnit.UnitNumber & " - " & "Supply Fan Static Audit Report " & Ver2FileVer(txtUnitVersion.Text) & ".txt"
+
+        SFStaticreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, False)
+        SFStaticreport.WriteLine(txtStaticPressureAudit.Text)
+
+        SFStaticreport.Close()
+    End Sub
+
+    Private Function FormatStaticLine(strItem As String, strSTP As String, strATP As String) As String
+        Dim FinalLineItem As String
+
+        FinalLineItem = strItem.PadRight(40) & strSTP.PadRight(10) & strATP.PadRight(10)
+
+        Return FinalLineItem
+    End Function
 
     Private Sub WriteDesignNotesReport()
         Dim designreport As System.IO.StreamWriter
@@ -5770,7 +5834,62 @@ Public Class frmMain
             txtYPALSFanMotor.Text = ThisUnitSFanPerf.MotorText
         End If
 
+        Call PreviewStaticPressureAudit()
+
         tabMain.SelectTab("pgSupplyAir")
+    End Sub
+    Private Sub PreviewStaticPressureAudit()
+
+        Dim PreviewReport As String
+        Dim i As Integer
+
+        Dim LineItemDesc As String
+        Dim SumSTP, SumATP As Double
+
+
+        PreviewReport = "Supply Fan Static Pressure Audit" & vbCrLf & vbCrLf
+
+        PreviewReport = PreviewReport & "Airflow: " & ThisUnitSFanPerf.Airflow & vbCrLf
+        PreviewReport = PreviewReport & "Elevation: " & ThisUnitCoolPerf.Elevation & vbCrLf
+        PreviewReport = PreviewReport & "Elevation kFactor: " & Format(ElevationCorrection(ThisUnitCoolPerf.Elevation), "0.00") & vbCrLf & vbCrLf
+
+        PreviewReport = PreviewReport & "Fisen Added Static Pressure Loads" & vbCrLf & vbCrLf
+
+        SumSTP = 0
+        SumATP = 0
+        PreviewReport = PreviewReport & FormatStaticLine("Item", "STP", "ATP") & vbCrLf
+        For i = 0 To ThisUnitSFanPerf.StaticSummaryItem.Count - 2
+            LineItemDesc = ThisUnitSFanPerf.StaticSummaryItem(i).ToString
+            If ((LineItemDesc = "External Static Pressure") Or (LineItemDesc = "Base Unit Static Pressure") Or (LineItemDesc = "Factory Options") Or (LineItemDesc = "")) Then
+                'These three aren't Fisen added loads so don't do anything with them...yet.
+            Else
+                PreviewReport = PreviewReport & FormatStaticLine(LineItemDesc, ThisUnitSFanPerf.StaticPDataSTP(i), ThisUnitSFanPerf.StaticPDataATP(i)) & vbCrLf
+                SumSTP = SumSTP + Val(ThisUnitSFanPerf.StaticPDataSTP(i))
+                SumATP = SumATP + Val(ThisUnitSFanPerf.StaticPDataATP(i))
+            End If
+        Next
+        PreviewReport = PreviewReport & vbCrLf
+        PreviewReport = PreviewReport & FormatStaticLine("Net Fisen Add", Str(SumSTP), Str(SumATP)) & vbCrLf & vbCrLf
+
+        PreviewReport = PreviewReport & "Base Unit Information" & vbCrLf
+
+        SumSTP = 0
+        SumATP = 0
+        For i = 0 To ThisUnitSFanPerf.StaticSummaryItem.Count - 2
+            LineItemDesc = ThisUnitSFanPerf.StaticSummaryItem(i)
+            If ((LineItemDesc = "External Static Pressure") Or (LineItemDesc = "Base Unit Static Pressure") Or (LineItemDesc = "Factory Options")) Then
+
+                PreviewReport = PreviewReport & FormatStaticLine(LineItemDesc, ThisUnitSFanPerf.StaticPDataSTP(i), ThisUnitSFanPerf.StaticPDataATP(i)) & vbCrLf
+                SumSTP = SumSTP + Val(ThisUnitSFanPerf.StaticPDataSTP(i))
+                SumATP = SumATP + Val(ThisUnitSFanPerf.StaticPDataATP(i))
+            Else
+                'These three aren't base unit loads so don't do anything with them...yet.
+            End If
+        Next
+        PreviewReport = PreviewReport & vbCrLf
+        PreviewReport = PreviewReport & FormatStaticLine("Base Unit Totals", Str(SumSTP), Str(SumATP)) & vbCrLf & vbCrLf
+
+        txtStaticPressureAudit.Text = PreviewReport
     End Sub
     Private Sub btnDoneRH_Click(sender As Object, e As EventArgs) Handles btnDoneRH.Click
 
@@ -6849,15 +6968,32 @@ Public Class frmMain
         Dim SugTags As String
         Dim ArrTags() As String
         Dim i, TargetID As Integer
-        'debugging only
-        Exit Sub
+        Dim dummy As MsgBoxResult
+
+        Select Case ThisUnitHeatPerf.HeatType
+            Case Is = "Gas Heat"
+                txtUnitSuggestedTags.Text = txtUnitSuggestedTags.Text & " GasHeat"
+            Case Is = "Electric"
+                txtUnitSuggestedTags.Text = txtUnitSuggestedTags.Text & " NoHeat"
+            Case Is = "Hot Water"
+                txtUnitSuggestedTags.Text = txtUnitSuggestedTags.Text & " HWHeat"
+            Case Is = "None"
+                txtUnitSuggestedTags.Text = txtUnitSuggestedTags.Text & " SteamHeat"
+            Case Is = "Steam"
+                txtUnitSuggestedTags.Text = txtUnitSuggestedTags.Text & " Heatco"
+            Case Else
+                dummy = MsgBox("Unexpected Heat Type: " & ThisUnitHeatPerf.HeatType & vbCrLf & "In PrepUnitFilter subroutine. Continue or Cancel program", vbOKCancel, "Fisen Unit Generator")
+                If dummy = vbCancel Then End
+        End Select
 
         If txtUnitSuggestedTags.Text = "" Then Exit Sub
         SugTags = Trim(txtUnitSuggestedTags.Text)
         ArrTags = SugTags.Split(" ")
         For i = 0 To ArrTags.Length - 1
             TargetID = lstUnitTagstoApply.FindString(ArrTags(i))
-            lstUnitTagstoApply.SetSelected(TargetID, True)
+            If TargetID <> -1 Then
+                lstUnitTagstoApply.SetSelected(TargetID, True)
+            End If
         Next
     End Sub
     Private Sub btnDoneWarranty_Click(sender As Object, e As EventArgs) Handles btnDoneWarranty.Click
@@ -8560,6 +8696,36 @@ Public Class frmMain
 
                     End Select
                     xfhp = "3/4"
+                Case Is = "Choice"
+                    OACode = Mid(txtModelNumber.Text, 10, 1)
+                    If ((OACode = "F") Or (OACode = "J") Or (OACode = "M") Or (OACode = "T")) Then
+                        'It's Modulating
+                        Select Case txtCommVolts.Text
+                            Case Is = "575"
+                                Tempfla = "2.7"
+                            Case Is = "460"
+                                Tempfla = "3.4"
+                            Case Is = "230"
+                                Tempfla = "6.7"
+                            Case Is = "208"
+                                Tempfla = "6.7"
+                        End Select
+                        xfhp = "2"
+                    Else
+                        'It's On/Off
+                        Select Case txtCommVolts.Text
+                            Case Is = "575"
+                                Tempfla = "1.5"
+                            Case Is = "460"
+                                Tempfla = "2.2"
+                            Case Is = "230"
+                                Tempfla = "5.0"
+                            Case Is = "208"
+                                Tempfla = "5.0"
+                        End Select
+                        xfhp = "1.5"
+                    End If
+
                 Case Is = "Select"
                     OACode = Mid(txtModelNumber.Text, 10, 1)
                     If ((Mid(txtModelNumber.Text, 2, 2) = "40") Or (Mid(txtModelNumber.Text, 2, 2) = "50")) Then
@@ -9248,6 +9414,7 @@ Public Class frmMain
                 Case Is = "Premier"
                     optRTUPremier.Checked = True
                 Case Else
+                    optRTUChoice.Checked = True
                     errmsg = "Unknown Family: " & My.Settings.LastFamily & " in Program Settings for Kingdom Type: RTU."
                     dummy = MsgBox(errmsg, vbOKOnly, gProgName)
                     Stop
@@ -9556,8 +9723,7 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdDebug_Click(sender As Object, e As EventArgs) Handles cmdDebug.Click
-
-        Call ArchiveOldSubDesignFiles()
+        frmXP.ShowDialog()
 
     End Sub
 
@@ -9632,13 +9798,15 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdUPGERVModule_Click(sender As Object, e As EventArgs) Handles cmdUPGERVModule.Click
-
-        If lstFieldInst.Items.Item(0) = "None" Then
-            lstFieldInst.Items.Clear()
-            lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
-        Else
-            lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
+        If lstFieldInst.Items.Count > 0 Then
+            If lstFieldInst.Items.Item(0) = "None" Then
+                lstFieldInst.Items.Clear()
+                lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
+            Else
+                lstFieldInst.Items.Add("UPG ERV Module - May ship separately.")
+            End If
         End If
+
 
     End Sub
 
@@ -9982,5 +10150,57 @@ Public Class frmMain
         ThisUnit.Family = "Series20"
         frmNewCustomCode.ShowDialog()
 
+    End Sub
+
+    Private Sub chkUnitFilterOnStubbs_CheckedChanged(sender As Object, e As EventArgs) Handles chkUnitFilterOnStubbs.CheckedChanged
+        Dim StubRoot As String
+        Dim StubSuffix As String
+        Dim FilterTag As String
+
+        Select Case ThisUnit.Family
+            Case Is = "Choice"
+                StubRoot = "Choice"
+                Select Case ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        StubSuffix = "15"
+                    Case Is = "17.5"
+                        StubSuffix = "17"
+                    Case Is = "20.0"
+                        StubSuffix = "20"
+                    Case Is = "25.0"
+                        StubSuffix = "25"
+                    Case Is = "27.5"
+                        StubSuffix = "27"
+                    Case Else
+                        StubSuffix = "Error"
+                        Stop
+                End Select
+            Case Is = "Series10"
+                StubRoot = Mid(ThisUnit.ModelNumber, 1, 5)
+            Case Is = "Series20"
+                StubRoot = Mid(ThisUnit.ModelNumber, 1, 5)
+            Case Is = "Select"
+                StubRoot = "Select"
+                Select Case ThisUnit.NominalTons
+                    Case Is = "27.5"
+                        StubSuffix = "28"
+                    Case Is = "30.0"
+                        StubSuffix = "30"
+                    Case Is = "35.0"
+                        StubSuffix = "35"
+                    Case Is = "40.0"
+                        StubSuffix = "40"
+                    Case Is = "50.0"
+                        StubSuffix = "50"
+                    Case Else
+                        StubSuffix = "Error"
+                        Stop
+                End Select
+            Case Else
+                StubRoot = "Error"
+                Stop
+        End Select
+        FilterTag = StubRoot & StubSuffix
+        lblStubTag.Text = FilterTag
     End Sub
 End Class

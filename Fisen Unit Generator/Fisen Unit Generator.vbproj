@@ -292,6 +292,12 @@
     <Compile Include="frmEndDeviceMaintenance.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmERVEAM.Designer.vb">
+      <DependentUpon>frmERVEAM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmERVEAM.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmERVIntegration.Designer.vb">
       <DependentUpon>frmERVIntegration.vb</DependentUpon>
     </Compile>
@@ -387,6 +393,12 @@
     </Compile>
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMakeSoORequired.Designer.vb">
+      <DependentUpon>frmMakeSoORequired.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMakeSoORequired.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMEHeat_I.Designer.vb">
@@ -503,6 +515,12 @@
     <Compile Include="frmUpdateShipWithTables.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUpdateSoOTable.Designer.vb">
+      <DependentUpon>frmUpdateSoOTable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateSoOTable.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmUpdateUnitDrawings.Designer.vb">
       <DependentUpon>frmUpdateUnitDrawings.vb</DependentUpon>
     </Compile>
@@ -531,6 +549,12 @@
       <DependentUpon>frmWMFZoom.vb</DependentUpon>
     </Compile>
     <Compile Include="frmWMFZoom.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmXP.Designer.vb">
+      <DependentUpon>frmXP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmXP.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
@@ -635,6 +659,9 @@
     <EmbeddedResource Include="frmEndDeviceMaintenance.resx">
       <DependentUpon>frmEndDeviceMaintenance.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmERVEAM.resx">
+      <DependentUpon>frmERVEAM.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmERVIntegration.resx">
       <DependentUpon>frmERVIntegration.vb</DependentUpon>
     </EmbeddedResource>
@@ -682,6 +709,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMakeSoORequired.resx">
+      <DependentUpon>frmMakeSoORequired.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMEHeat_I.resx">
       <DependentUpon>frmMEHeat_I.vb</DependentUpon>
@@ -740,6 +770,9 @@
     <EmbeddedResource Include="frmUpdateShipWithTables.resx">
       <DependentUpon>frmUpdateShipWithTables.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateSoOTable.resx">
+      <DependentUpon>frmUpdateSoOTable.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateUnitDrawings.resx">
       <DependentUpon>frmUpdateUnitDrawings.vb</DependentUpon>
     </EmbeddedResource>
@@ -754,6 +787,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmWMFZoom.resx">
       <DependentUpon>frmWMFZoom.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmXP.resx">
+      <DependentUpon>frmXP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -864,6 +900,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dbMaintenanceIcon50x50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reset24x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

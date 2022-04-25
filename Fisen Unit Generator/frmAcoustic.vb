@@ -37,6 +37,9 @@
                     If frmMain.txtNominalTons.Text = "5" Then
                         frmMain.ThisUnitCodes.Add("480105")
                     End If
+                Case Is = "Series20ODSplit"
+
+                    frmMain.ThisUnitCodes.Add("480121")
 
                 Case Is = "Series20"
                     If frmMain.txtNominalTons.Text = "15" Then
@@ -92,6 +95,10 @@
                     tempWeight = tempWeight + 25
                 End If
             Case Is = "Series10"
+                If chkBrinmarBlankets.Checked Then
+                    tempWeight = tempWeight + 40
+                End If
+            Case Is = "Series20ODSplit"
                 If chkBrinmarBlankets.Checked Then
                     tempWeight = tempWeight + 40
                 End If

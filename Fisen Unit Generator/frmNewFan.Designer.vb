@@ -273,6 +273,7 @@ Partial Class frmNewFan
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.cmdSeltectEndReturn = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -2473,6 +2474,7 @@ Partial Class frmNewFan
         '
         'tpgStaticSum
         '
+        Me.tpgStaticSum.Controls.Add(Me.cmdSeltectEndReturn)
         Me.tpgStaticSum.Controls.Add(Me.cmdS10SideReturn)
         Me.tpgStaticSum.Controls.Add(Me.chkFisen2Rear)
         Me.tpgStaticSum.Controls.Add(Me.chkHeatBaffles)
@@ -2691,7 +2693,7 @@ Partial Class frmNewFan
         '
         'cmdS40Supply
         '
-        Me.cmdS40Supply.Location = New System.Drawing.Point(314, 211)
+        Me.cmdS40Supply.Location = New System.Drawing.Point(720, 53)
         Me.cmdS40Supply.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdS40Supply.Name = "cmdS40Supply"
         Me.cmdS40Supply.Size = New System.Drawing.Size(94, 28)
@@ -2867,7 +2869,7 @@ Partial Class frmNewFan
         '
         'cmdS40BottomReturn
         '
-        Me.cmdS40BottomReturn.Location = New System.Drawing.Point(314, 247)
+        Me.cmdS40BottomReturn.Location = New System.Drawing.Point(720, 89)
         Me.cmdS40BottomReturn.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdS40BottomReturn.Name = "cmdS40BottomReturn"
         Me.cmdS40BottomReturn.Size = New System.Drawing.Size(94, 28)
@@ -2889,7 +2891,7 @@ Partial Class frmNewFan
         '
         'cmdS40EndReturn
         '
-        Me.cmdS40EndReturn.Location = New System.Drawing.Point(314, 283)
+        Me.cmdS40EndReturn.Location = New System.Drawing.Point(720, 125)
         Me.cmdS40EndReturn.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdS40EndReturn.Name = "cmdS40EndReturn"
         Me.cmdS40EndReturn.Size = New System.Drawing.Size(94, 28)
@@ -3022,6 +3024,17 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'cmdSeltectEndReturn
+        '
+        Me.cmdSeltectEndReturn.Location = New System.Drawing.Point(314, 211)
+        Me.cmdSeltectEndReturn.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdSeltectEndReturn.Name = "cmdSeltectEndReturn"
+        Me.cmdSeltectEndReturn.Size = New System.Drawing.Size(94, 28)
+        Me.cmdSeltectEndReturn.TabIndex = 41
+        Me.cmdSeltectEndReturn.Text = "Select RA-End"
+        Me.cmdSeltectEndReturn.UseVisualStyleBackColor = True
+        Me.cmdSeltectEndReturn.Visible = False
         '
         'frmNewFan
         '
@@ -3343,4 +3356,5 @@ Partial Class frmNewFan
     Friend WithEvents chkFisen2Rear As CheckBox
     Friend WithEvents cmdCreateNewFan As Button
     Friend WithEvents cmdS10SideReturn As Button
+    Friend WithEvents cmdSeltectEndReturn As Button
 End Class

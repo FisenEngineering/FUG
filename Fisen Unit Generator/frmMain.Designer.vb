@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
@@ -252,6 +252,8 @@ Partial Class frmMain
         Me.clbTestList = New System.Windows.Forms.CheckedListBox()
         Me.btnDoneWarranty = New System.Windows.Forms.Button()
         Me.pgUnitDrawing = New System.Windows.Forms.TabPage()
+        Me.lblStubTag = New System.Windows.Forms.Label()
+        Me.cmdUnitDrawingDBMaint = New System.Windows.Forms.Button()
         Me.picUnitPreview = New System.Windows.Forms.PictureBox()
         Me.cmdDwgClearFilter = New System.Windows.Forms.Button()
         Me.chkUnitFilterOnStubbs = New System.Windows.Forms.CheckBox()
@@ -844,9 +846,14 @@ Partial Class frmMain
         Me.chkInhibitDigConditions = New System.Windows.Forms.CheckBox()
         Me.chkThisIsARedo = New System.Windows.Forms.CheckBox()
         Me.cmdUserOptions = New System.Windows.Forms.Button()
-        Me.cmdUnitDrawingDBMaint = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
+        Me.txtStaticPressureAudit = New System.Windows.Forms.TextBox()
+        Me.Label152 = New System.Windows.Forms.Label()
+        Me.Label153 = New System.Windows.Forms.Label()
+        Me.chkWriteStaticAudittoFile = New System.Windows.Forms.CheckBox()
+        Me.lblModDBShipWith1 = New System.Windows.Forms.Label()
+        Me.lblModDBShipWith2 = New System.Windows.Forms.Label()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -3219,6 +3226,8 @@ Partial Class frmMain
         '
         'pgFieldInst
         '
+        Me.pgFieldInst.Controls.Add(Me.lblModDBShipWith2)
+        Me.pgFieldInst.Controls.Add(Me.lblModDBShipWith1)
         Me.pgFieldInst.Controls.Add(Me.cmdAddNewFieldInstalled)
         Me.pgFieldInst.Controls.Add(Me.cmdUPGERVModule)
         Me.pgFieldInst.Controls.Add(Me.txtNewFieldInst)
@@ -3243,6 +3252,7 @@ Partial Class frmMain
         Me.cmdAddNewFieldInstalled.TabIndex = 22
         Me.cmdAddNewFieldInstalled.Text = "Modify Database"
         Me.cmdAddNewFieldInstalled.UseVisualStyleBackColor = True
+        Me.cmdAddNewFieldInstalled.Visible = False
         '
         'cmdUPGERVModule
         '
@@ -3511,6 +3521,7 @@ Partial Class frmMain
         '
         'pgUnitDrawing
         '
+        Me.pgUnitDrawing.Controls.Add(Me.lblStubTag)
         Me.pgUnitDrawing.Controls.Add(Me.cmdUnitDrawingDBMaint)
         Me.pgUnitDrawing.Controls.Add(Me.picUnitPreview)
         Me.pgUnitDrawing.Controls.Add(Me.cmdDwgClearFilter)
@@ -3535,6 +3546,27 @@ Partial Class frmMain
         Me.pgUnitDrawing.Text = "Unit Drawing"
         Me.pgUnitDrawing.UseVisualStyleBackColor = True
         '
+        'lblStubTag
+        '
+        Me.lblStubTag.AutoSize = True
+        Me.lblStubTag.Location = New System.Drawing.Point(150, 454)
+        Me.lblStubTag.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblStubTag.Name = "lblStubTag"
+        Me.lblStubTag.Size = New System.Drawing.Size(48, 13)
+        Me.lblStubTag.TabIndex = 74
+        Me.lblStubTag.Text = "StubTag"
+        Me.lblStubTag.Visible = False
+        '
+        'cmdUnitDrawingDBMaint
+        '
+        Me.cmdUnitDrawingDBMaint.BackgroundImage = Global.Fisen_Unit_Generator.My.Resources.Resources.dbMaintenanceIcon50x50
+        Me.cmdUnitDrawingDBMaint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.cmdUnitDrawingDBMaint.Location = New System.Drawing.Point(1157, 401)
+        Me.cmdUnitDrawingDBMaint.Name = "cmdUnitDrawingDBMaint"
+        Me.cmdUnitDrawingDBMaint.Size = New System.Drawing.Size(35, 35)
+        Me.cmdUnitDrawingDBMaint.TabIndex = 73
+        Me.cmdUnitDrawingDBMaint.UseVisualStyleBackColor = True
+        '
         'picUnitPreview
         '
         Me.picUnitPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -3548,7 +3580,7 @@ Partial Class frmMain
         '
         'cmdDwgClearFilter
         '
-        Me.cmdDwgClearFilter.Location = New System.Drawing.Point(223, 292)
+        Me.cmdDwgClearFilter.Location = New System.Drawing.Point(223, 388)
         Me.cmdDwgClearFilter.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdDwgClearFilter.Name = "cmdDwgClearFilter"
         Me.cmdDwgClearFilter.Size = New System.Drawing.Size(57, 28)
@@ -3559,7 +3591,7 @@ Partial Class frmMain
         'chkUnitFilterOnStubbs
         '
         Me.chkUnitFilterOnStubbs.AutoSize = True
-        Me.chkUnitFilterOnStubbs.Location = New System.Drawing.Point(17, 357)
+        Me.chkUnitFilterOnStubbs.Location = New System.Drawing.Point(17, 453)
         Me.chkUnitFilterOnStubbs.Name = "chkUnitFilterOnStubbs"
         Me.chkUnitFilterOnStubbs.Size = New System.Drawing.Size(126, 17)
         Me.chkUnitFilterOnStubbs.TabIndex = 70
@@ -3568,7 +3600,7 @@ Partial Class frmMain
         '
         'cmdDwgApplyFilter
         '
-        Me.cmdDwgApplyFilter.Location = New System.Drawing.Point(223, 256)
+        Me.cmdDwgApplyFilter.Location = New System.Drawing.Point(223, 352)
         Me.cmdDwgApplyFilter.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdDwgApplyFilter.Name = "cmdDwgApplyFilter"
         Me.cmdDwgApplyFilter.Size = New System.Drawing.Size(57, 28)
@@ -3579,8 +3611,8 @@ Partial Class frmMain
         'lstUnitTagstoApply
         '
         Me.lstUnitTagstoApply.FormattingEnabled = True
-        Me.lstUnitTagstoApply.Items.AddRange(New Object() {"GasHeat", "HWHeat", "Heatco", "NoHeat", "SteamHeat", "Aux", "LeftAux", "RearAux", "48Extend", "Extend", "Filters", "Final_Filters", "HGRH", "OAFMS", "OAFMSLowFlow", "OAFMSHiFlow", "ReclaimCoil", "RFan", "RFWall", "SFWall", "XFan", "Disconnect", "Bottom_Bottom", "Bottom_NoReturn", "Bottom_End", "Bottom_Rear", "Bottom_Side", "Convertible", "Front_Bottom", "Front_End", "Left_Front(End)", "Rear_Bottom", "Rear_End", "Rear_Rear", "Side_NoReturn", "Side_Side", "TOHumid"})
-        Me.lstUnitTagstoApply.Location = New System.Drawing.Point(17, 256)
+        Me.lstUnitTagstoApply.Items.AddRange(New Object() {"GasHeat", "NoHeat", "HWHeat", "SteamHeat", "Heatco", "Aux", "LeftAux", "RearAux", "48Extend", "Extend", "Filters", "Final_Filters", "HGRH", "OAFMS", "OAFMSLowFlow", "OAFMSHiFlow", "ReclaimCoil", "RFan", "RFWall", "SFWall", "XFan", "Disconnect", "Bottom_Bottom", "Bottom_NoReturn", "Bottom_End", "Bottom_Rear", "Bottom_Side", "Convertible", "Front_Bottom", "Front_End", "Left_Front(End)", "Rear_Bottom", "Rear_End", "Rear_Rear", "Side_NoReturn", "Side_Side", "TOHumid"})
+        Me.lstUnitTagstoApply.Location = New System.Drawing.Point(17, 352)
         Me.lstUnitTagstoApply.Name = "lstUnitTagstoApply"
         Me.lstUnitTagstoApply.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
         Me.lstUnitTagstoApply.Size = New System.Drawing.Size(199, 82)
@@ -3589,7 +3621,7 @@ Partial Class frmMain
         'Label115
         '
         Me.Label115.AutoSize = True
-        Me.Label115.Location = New System.Drawing.Point(14, 214)
+        Me.Label115.Location = New System.Drawing.Point(14, 310)
         Me.Label115.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label115.Name = "Label115"
         Me.Label115.Size = New System.Drawing.Size(110, 13)
@@ -3598,7 +3630,7 @@ Partial Class frmMain
         '
         'txtUnitSuggestedTags
         '
-        Me.txtUnitSuggestedTags.Location = New System.Drawing.Point(17, 230)
+        Me.txtUnitSuggestedTags.Location = New System.Drawing.Point(17, 326)
         Me.txtUnitSuggestedTags.Name = "txtUnitSuggestedTags"
         Me.txtUnitSuggestedTags.Size = New System.Drawing.Size(400, 20)
         Me.txtUnitSuggestedTags.TabIndex = 66
@@ -3654,7 +3686,7 @@ Partial Class frmMain
         '
         'txtDwgDesc
         '
-        Me.txtDwgDesc.Location = New System.Drawing.Point(17, 103)
+        Me.txtDwgDesc.Location = New System.Drawing.Point(17, 199)
         Me.txtDwgDesc.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDwgDesc.Multiline = True
         Me.txtDwgDesc.Name = "txtDwgDesc"
@@ -3708,7 +3740,7 @@ Partial Class frmMain
         Me.lstAvailDwgs.Location = New System.Drawing.Point(17, 17)
         Me.lstAvailDwgs.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAvailDwgs.Name = "lstAvailDwgs"
-        Me.lstAvailDwgs.Size = New System.Drawing.Size(450, 56)
+        Me.lstAvailDwgs.Size = New System.Drawing.Size(450, 173)
         Me.lstAvailDwgs.TabIndex = 17
         '
         'btnDoneUnitDwg
@@ -6533,6 +6565,10 @@ Partial Class frmMain
         '
         'pgSupplyAir
         '
+        Me.pgSupplyAir.Controls.Add(Me.chkWriteStaticAudittoFile)
+        Me.pgSupplyAir.Controls.Add(Me.Label153)
+        Me.pgSupplyAir.Controls.Add(Me.Label152)
+        Me.pgSupplyAir.Controls.Add(Me.txtStaticPressureAudit)
         Me.pgSupplyAir.Controls.Add(Me.cmdMakeRear)
         Me.pgSupplyAir.Controls.Add(Me.cmdMakeFront)
         Me.pgSupplyAir.Controls.Add(Me.cmdMakeBottom)
@@ -7569,8 +7605,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7628,8 +7664,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
@@ -7639,8 +7675,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
@@ -10382,16 +10418,6 @@ Partial Class frmMain
         Me.cmdUserOptions.TabIndex = 27
         Me.cmdUserOptions.UseVisualStyleBackColor = True
         '
-        'cmdUnitDrawingDBMaint
-        '
-        Me.cmdUnitDrawingDBMaint.BackgroundImage = Global.Fisen_Unit_Generator.My.Resources.Resources.dbMaintenanceIcon50x50
-        Me.cmdUnitDrawingDBMaint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.cmdUnitDrawingDBMaint.Location = New System.Drawing.Point(1157, 401)
-        Me.cmdUnitDrawingDBMaint.Name = "cmdUnitDrawingDBMaint"
-        Me.cmdUnitDrawingDBMaint.Size = New System.Drawing.Size(35, 35)
-        Me.cmdUnitDrawingDBMaint.TabIndex = 73
-        Me.cmdUnitDrawingDBMaint.UseVisualStyleBackColor = True
-        '
         'Button5
         '
         Me.Button5.Location = New System.Drawing.Point(422, 536)
@@ -10409,6 +10435,69 @@ Partial Class frmMain
         Me.Button6.TabIndex = 30
         Me.Button6.Text = "Button6"
         Me.Button6.UseVisualStyleBackColor = True
+        '
+        'txtStaticPressureAudit
+        '
+        Me.txtStaticPressureAudit.Location = New System.Drawing.Point(749, 30)
+        Me.txtStaticPressureAudit.Multiline = True
+        Me.txtStaticPressureAudit.Name = "txtStaticPressureAudit"
+        Me.txtStaticPressureAudit.Size = New System.Drawing.Size(443, 409)
+        Me.txtStaticPressureAudit.TabIndex = 70
+        '
+        'Label152
+        '
+        Me.Label152.AutoSize = True
+        Me.Label152.Location = New System.Drawing.Point(746, 14)
+        Me.Label152.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label152.Name = "Label152"
+        Me.Label152.Size = New System.Drawing.Size(105, 13)
+        Me.Label152.TabIndex = 71
+        Me.Label152.Text = "Static Pressure Audit"
+        Me.Label152.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label153
+        '
+        Me.Label153.AutoSize = True
+        Me.Label153.Location = New System.Drawing.Point(940, 442)
+        Me.Label153.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label153.Name = "Label153"
+        Me.Label153.Size = New System.Drawing.Size(105, 13)
+        Me.Label153.TabIndex = 72
+        Me.Label153.Text = "Computer Generated"
+        Me.Label153.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'chkWriteStaticAudittoFile
+        '
+        Me.chkWriteStaticAudittoFile.AutoSize = True
+        Me.chkWriteStaticAudittoFile.Checked = True
+        Me.chkWriteStaticAudittoFile.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteStaticAudittoFile.Location = New System.Drawing.Point(749, 441)
+        Me.chkWriteStaticAudittoFile.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkWriteStaticAudittoFile.Name = "chkWriteStaticAudittoFile"
+        Me.chkWriteStaticAudittoFile.Size = New System.Drawing.Size(183, 17)
+        Me.chkWriteStaticAudittoFile.TabIndex = 73
+        Me.chkWriteStaticAudittoFile.Text = "Write Static Pressure Audit to File"
+        Me.chkWriteStaticAudittoFile.UseVisualStyleBackColor = True
+        '
+        'lblModDBShipWith1
+        '
+        Me.lblModDBShipWith1.AutoSize = True
+        Me.lblModDBShipWith1.Location = New System.Drawing.Point(806, 378)
+        Me.lblModDBShipWith1.Name = "lblModDBShipWith1"
+        Me.lblModDBShipWith1.Size = New System.Drawing.Size(361, 13)
+        Me.lblModDBShipWith1.TabIndex = 23
+        Me.lblModDBShipWith1.Text = "Note: If you modify the database you will need to reenter manuallay entered"
+        Me.lblModDBShipWith1.Visible = False
+        '
+        'lblModDBShipWith2
+        '
+        Me.lblModDBShipWith2.AutoSize = True
+        Me.lblModDBShipWith2.Location = New System.Drawing.Point(835, 391)
+        Me.lblModDBShipWith2.Name = "lblModDBShipWith2"
+        Me.lblModDBShipWith2.Size = New System.Drawing.Size(56, 13)
+        Me.lblModDBShipWith2.TabIndex = 24
+        Me.lblModDBShipWith2.Text = "ship withs."
+        Me.lblModDBShipWith2.Visible = False
         '
         'frmMain
         '
@@ -10562,6 +10651,7 @@ Partial Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+
         UserID = Environment.UserName
 
         ThisUnit = New clsUnitClass
@@ -10584,6 +10674,7 @@ Partial Class frmMain
         ThisUnitFFilters = New clsFilters
         ThisUnitIFilters = New clsFilters
         ThisUnitJCIFilters = New clsFilters
+        ThisUnitMFilters = New clsFilters
 
         UserOptions = New clsUserOptions
 
@@ -10617,6 +10708,11 @@ Partial Class frmMain
         End If
 
         If ((SuperUser()) Or (chkDebug.Checked)) Then
+
+            cmdAddNewFieldInstalled.Visible = True
+            lblModDBShipWith1.Visible = True
+            lblModDBShipWith2.Visible = True
+
             cmdEndDeviceEdit.Visible = True
         End If
 
@@ -11444,4 +11540,11 @@ Partial Class frmMain
     Friend WithEvents cmdUnitDrawingDBMaint As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
+    Friend WithEvents lblStubTag As Label
+    Friend WithEvents chkWriteStaticAudittoFile As CheckBox
+    Friend WithEvents Label153 As Label
+    Friend WithEvents Label152 As Label
+    Friend WithEvents txtStaticPressureAudit As TextBox
+    Friend WithEvents lblModDBShipWith2 As Label
+    Friend WithEvents lblModDBShipWith1 As Label
 End Class

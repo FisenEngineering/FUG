@@ -1,6 +1,15 @@
 ﻿Public Class frmNewCustomCode
     Private pCancelled As Boolean
     Private pWhichCustom As String
+    Private pNewOrEdit As String
+    Public Property NewOrEdit As String
+        Get
+            Return pNewOrEdit
+        End Get
+        Set(value As String)
+            pNewOrEdit = value
+        End Set
+    End Property
     Public Property Cancelled As Boolean
         Get
             Return pCancelled
@@ -18,10 +27,141 @@
         End Set
     End Property
     Private Sub frmNewCustomCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = Me.Text & " " & pWhichCustom
-        Call GetNextCstmCode
+
+        Dim fiopcode As String
+
+        If pNewOrEdit = "New" Then
+            Me.Text = "Edit Existing Custom Code " & pWhichCustom
+            Call GetNextCstmCode()
+        Else
+            Me.Text = "New Custom Code " & pWhichCustom
+            fiopcode = InputBox("Please Enter the Fisen Installed OPtion code you want to edit.", "Fisen Unit Generator")
+            If Not (LoadOldCode(fiopcode)) Then
+                'The code loaded was bad
+            Else
+                'The code loaded AOK
+            End If
+        End If
+
+
 
     End Sub
+    Private Function LoadOldCode(lcode As String) As Boolean
+        Dim con As ADODB.Connection
+        Dim rs As ADODB.Recordset
+        Dim dbProvider As String
+        Dim TableName As String
+        Dim Dummy As MsgBoxResult
+
+        Dim MySQL As String
+
+        con = New ADODB.Connection
+        dbProvider = "FIL=MS ACCESS;DSN=FUGenerator"
+        con.ConnectionString = dbProvider
+        con.Open()
+        rs = New ADODB.Recordset With {
+            .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
+        }
+
+        Dim GTG As Boolean
+
+        GTG = True
+        Select Case pWhichCustom
+            Case Is = "Sheet Metal"
+                TableName = "tblCstmSMDB"
+            Case Is = "Power"
+                TableName = "tblCstmHVDB"
+            Case Is = "Controls"
+                TableName = "tblCstmCtrl"
+            Case Is = "Mechanical"
+                TableName = "tblCstmMechDB"
+            Case Is = "Refrigeration"
+                TableName = "tblCstmRef"
+            Case Else
+                TableName = "Error"
+                Dummy = MsgBox("Error in selecting database field: " & pWhichCustom & " is not defined.", vbOKOnly, "Fisen Unit Generator")
+                Stop
+        End Select
+
+        MySQL = "SELECT * FROM " & TableName & " WHERE CstmCode='" & lcode & "'"
+        rs.Open(MySQL, con)
+
+        If rs.BOF And rs.EOF Then
+            GTG = False
+        Else
+            txtNewOpCode.Text = lcode
+            txtCstmFIOP.Text = rs.Fields("CstmFIOP").Value.ToString
+            chkTagALongOnly.Checked = rs.Fields("TagALongOnly").Value
+            chkDesignCaution.Checked = rs.Fields("DesignCaution").Value
+            txtWeight.Text = rs.Fields("CstmWeight").Value
+
+            chkMCAChange.Checked = rs.Fields("MCAChange").Value
+            txtLoadName.Text = rs.Fields("LoadName").Value.ToString
+            txtLoadValue.Text = rs.Fields("LoadValue").Value.ToString
+            txtLoadHP.Text = rs.Fields("LoadHP").Value.ToString
+
+            chkTestAirflow.Checked = rs.Fields("TestAF").Value
+            chkTestCoil.Checked = rs.Fields("TestCoil").Value
+            chkTestControls.Checked = rs.Fields("TestCtrl").Value
+            chkTestHydro.Checked = rs.Fields("TestHydro").Value
+            chkTestEHeat.Checked = rs.Fields("TestEHeat").Value
+            chkTestGasHeat.Checked = rs.Fields("TestGHeat").Value
+            chkTestGasTrain.Checked = rs.Fields("TestGTrain").Value
+            chkTestReferInst.Checked = rs.Fields("TestRefInst").Value
+            chkTestRefer.Checked = rs.Fields("TestRef").Value
+            chkTestMotors.Checked = rs.Fields("TestMotor").Value
+
+            chkSeries5.Checked = rs.Fields("Series5OK").Value
+            chkSeries10.Checked = rs.Fields("Series10OK").Value
+            chkSeries20.Checked = rs.Fields("Series20OK").Value
+            chkSeries40.Checked = rs.Fields("Series40OK").Value
+            chkSeries12.Checked = rs.Fields("Series12OK").Value
+            chkSeries100A.Checked = rs.Fields("Series100AOK").Value
+            chkSeries100B.Checked = rs.Fields("Series100BOK").Value
+            chkSeries100C.Checked = rs.Fields("Series100COK").Value
+            chkSeriesLX.Checked = rs.Fields("SeriesLXOK").Value
+            chkSeriesChoice.Checked = rs.Fields("ChoiceOK").Value
+            chkSeriesPremier.Checked = rs.Fields("PremierOK").Value
+            chkSeriesSelect.Checked = rs.Fields("SelectOK").Value
+            chkSeries20ODSplit.Checked = rs.Fields("Series20ODSplitOK").Value
+            chkSeries20IDSplit.Checked = rs.Fields("Series20IDSplitOK").Value
+            chkSeries40ODSplit.Checked = rs.Fields("Series40ODSplitOK").Value
+            chkYCUL.Checked = rs.Fields("YCULOK").Value
+            chkYULA.Checked = rs.Fields("YLUAOK").Value
+            chkSeriesXTO.Checked = rs.Fields("XTOOK").Value
+            chkSeriesXTI.Checked = rs.Fields("XTIOK").Value
+            chkSeriesL.Checked = rs.Fields("SeriesLOK").Value
+            chkDOAS.Checked = rs.Fields("DOASOK").Value
+            chkBlank.Checked = rs.Fields("BlankOK").Value
+            chkSeriesYVAA.Checked = rs.Fields("YVAAOK").Value
+            chkSeriesYCAL.Checked = rs.Fields("YCALOK").Value
+            chkSeriesYLAA.Checked = rs.Fields("YLAAOK").Value
+
+        End If
+
+        rs.Close()
+        MySQL = "SELECT * FROM tblFisenInstalledOptions WHERE FIOpCode='" & lcode & "'"
+        rs.Open(MySQL, con)
+        If rs.BOF And rs.EOF Then
+            GTG = False
+        Else
+            chkCUL.Checked = rs.Fields("CULLineItem").Value
+            chkDEV.Checked = rs.Fields("Dev").Value
+            chkIncludeOnFIOP.Checked = rs.Fields("IncludeOnFIOP").Value
+            chkDQRqd.Checked = rs.Fields("DQRqd").Value
+            txtDQText.Text = rs.Fields("DQText").Value.ToString
+            nudLevel.Value = rs.Fields("Level").Value
+            txtParentCode.Text = rs.Fields("Parent").Value.ToString
+        End If
+
+        rs.Close()
+        rs = Nothing
+        con = Nothing
+
+
+
+        Return GTG
+    End Function
     Private Sub GetNextCstmCode()
         Dim con As ADODB.Connection
         Dim rs As ADODB.Recordset
@@ -128,12 +268,21 @@
             dummy = MsgBox("That Parent Code does not appear to be properly formatted.", vbOKOnly, "Fisen Unit Generator")
             Exit Sub
         End If
-        Call WriteNewFIOPtoCstm()
-        Call WriteNextCstmCode()
-        Call WriteNewFIOPtoFisenMain()
-        Call CreateAndAssociateDetails()
 
-        frmAssociateDrawings.ShowDialog()
+        If pNewOrEdit = "New" Then
+            Call WriteNewFIOPtoCstm()
+            Call WriteNextCstmCode()
+            Call WriteNewFIOPtoFisenMain()
+            Call CreateAndAssociateDetails()
+
+            frmAssociateDrawings.ShowDialog()
+        Else
+            Call WriteUpdatetoCstm
+        End If
+
+    End Sub
+
+    Private Sub WriteUpdatetoCstm()
 
     End Sub
 

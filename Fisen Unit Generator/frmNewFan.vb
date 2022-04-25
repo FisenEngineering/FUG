@@ -134,6 +134,7 @@ Public Class frmNewFan
                     cmdSelectBottomSupply.Visible = True
                     cmdSelectRearSupply.Visible = True
 
+
                 Case Is = "SeriesLX"
                     cmdLXBottomSupply.Visible = True
                     cmdLXRearSupply.Visible = True
@@ -196,7 +197,7 @@ Public Class frmNewFan
                 Case Is = "Choice"
 
                 Case Is = "Select"
-
+                    cmdSeltectEndReturn.Visible = True
                 Case Else
 
             End Select
@@ -1165,6 +1166,13 @@ Public Class frmNewFan
                     tempWeight = "425"
                 Case Is = "Series 100"
                     tempWeight = "698"
+                Case Is = "Select"
+
+                    If optHorizFlow.Checked Then
+                        tempWeight = "756"
+                    Else
+                        tempWeight = "615"
+                    End If
                 Case Else
                     tempWeight = "9999"
             End Select
@@ -1572,6 +1580,32 @@ Public Class frmNewFan
         NewRow = {"External Static Pressure", ItemAtSTP, ItemAtATP}
         dgvStaticSummary.Rows.Add(NewRow)
 
+
+
+        If frmMain.ThisUnitMFilters.FilterBankName <> "-" Then
+            If chkESPatElev.Checked Then
+                ItemAtATP = frmMain.ThisUnitMFilters.FStaticItem
+                ItemAtSTP = Format(Val(frmMain.ThisUnitMFilters.FStaticItem) * Val(lblKFactor.Text), "0.00")
+            Else
+                ItemAtSTP = frmMain.ThisUnitMFilters.FStaticItem
+                ItemAtATP = Format(Val(frmMain.ThisUnitMFilters.FStaticItem) / Val(lblKFactor.Text), "0.00")
+            End If
+            NewRow = {"Misc. Filter Bank", ItemAtSTP, ItemAtATP}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
+
+        If frmMain.ThisUnitHeatPerf.HeatType = "Hot Water" Then
+            If chkESPatElev.Checked Then
+                ItemAtATP = frmMain.ThisUnitHeatPerf.CoilAPD
+                ItemAtSTP = Format(Val(frmMain.ThisUnitHeatPerf.CoilAPD) * Val(lblKFactor.Text), "0.00")
+            Else
+                ItemAtSTP = frmMain.ThisUnitHeatPerf.CoilAPD
+                ItemAtATP = Format(Val(frmMain.ThisUnitHeatPerf.CoilAPD) / Val(lblKFactor.Text), "0.00")
+            End If
+            NewRow = {"Hot Water Coil", ItemAtSTP, ItemAtATP}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
+
         TabControl1.SelectTab("tpgStaticSum")
     End Sub
 
@@ -1952,6 +1986,8 @@ Public Class frmNewFan
                     temp = 0.000000039043 * localAirflow ^ 2 + 0.000171795214 * localAirflow
                 Case Is = "J10ZT"
                     temp = 0.000000056968826816 * localAirflow ^ 2 + 0.000070914044138178 * localAirflow
+                Case Is = "J10ZB"
+                    temp = 0.000000056968826816 * localAirflow ^ 2 + 0.000070914044138178 * localAirflow
                 Case Is = "J12ZJ"
                     temp = 0.000000062138 * localAirflow ^ 2 + 0.000041605488 * localAirflow
                 Case Is = "J12ZT"
@@ -2000,6 +2036,8 @@ Public Class frmNewFan
                     Case Is = "J10ZR"
                         temp = -0.000000016071428571 * localAirflow ^ 2 + 0.000009009034443817 * localAirflow - 0.0158819169960459
                     Case Is = "J10ZJ"
+                        temp = -0.000000016071428571 * localAirflow ^ 2 + 0.000009009034443817 * localAirflow - 0.0158819169960459
+                    Case Is = "J10ZB"
                         temp = -0.000000016071428571 * localAirflow ^ 2 + 0.000009009034443817 * localAirflow - 0.0158819169960459
                     Case Is = "J10ZT"
                         temp = -0.000000019929338691 * localAirflow ^ 2 + 0.00001501848785131 * localAirflow
@@ -2221,6 +2259,8 @@ Public Class frmNewFan
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J10ZR"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
+                Case Is = "J10ZB"
+                    temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J10ZJ"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J10ZT"
@@ -2342,8 +2382,7 @@ Public Class frmNewFan
         If EconPresent Then
             Select Case Snippet
                 Case Is = "AD15"
-                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000000378728 * localAirflow * localAirflow + 0.000007568681319 * localAirflow
                 Case Is = "AD18"
                     dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
                     temp = 0.00
@@ -2365,6 +2404,106 @@ Public Class frmNewFan
 
         Return temp
     End Function
+    Private Function ReheatAdjustmentSelect(localAirflow As Double, ReheatPresent As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        If ReheatPresent Then
+            Select Case Snippet
+                Case Is = "JV28"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV30"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV35"
+                    temp = 0.000000000902086791 * localAirflow ^ 2 + 0.000001823714253789 * localAirflow
+                Case Is = "JV40"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV50"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH28"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH30"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH35"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH40"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH50"
+                    dummy = MsgBox("That size and configuration of reheat performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Else
+                    dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-reheat Adjustment. Snippet: " & Snippet)
+                    Stop
+
+            End Select
+        Else
+            temp = 0
+        End If
+
+        Return temp
+    End Function
+    Private Function EconAdjustmentSelect(localAirflow As Double, EconPresent As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        If EconPresent Then
+
+            Select Case Snippet
+                Case Is = "JV28"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV30"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV35"
+                    temp = 0.000000002061540851 * localAirflow ^ 2 + 0.000002556271410935 * localAirflow
+                Case Is = "JV40"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV50"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH28"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH30"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH35"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH40"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH50"
+                    dummy = MsgBox("That size and configuration of economizer is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Else
+                    dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
+                    Stop
+            End Select
+        Else
+            temp = 0
+        End If
+
+        Return temp
+    End Function
     Private Function EconAdjustmentChoice(localAirflow As Double, EconPresent As Boolean)
         Dim temp As Double
         Dim Snippet As String
@@ -2376,14 +2515,11 @@ Public Class frmNewFan
         If EconPresent Then
             Select Case Snippet
                 Case Is = "AD15"
-                    dummy = MsgBox("That size and configuration of econ performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000001884485 * localAirflow * localAirflow - 0.000000627289377 * localAirflow
                 Case Is = "AD18"
-                    dummy = MsgBox("That size and configuration of econ performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000001884485 * localAirflow * localAirflow - 0.000000627289377 * localAirflow
                 Case Is = "AD20"
-                    dummy = MsgBox("That size and configuration of econ performance is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
-                    temp = 0.00
+                    temp = 0.000000001884485 * localAirflow * localAirflow - 0.000000627289377 * localAirflow
                 Case Is = "AD25"
                     temp = 0.000000002278228 * localAirflow * localAirflow - 0.000002849307913 * localAirflow
                 Case Is = "AD28"
@@ -2442,6 +2578,59 @@ Public Class frmNewFan
             End Select
         Else
             temp = 0
+        End If
+
+        Return temp
+    End Function
+    Private Function UnitStaticPressureSelect(localAirflow As Double, BottomD As Boolean)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim Dummy As MsgBoxResult
+
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        If BottomD Then
+            Select Case Snippet
+                Case Is = "JV28"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV30"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV35"
+                    temp = 0.00000000670400518292 * localAirflow ^ 2 + 0.000025457516140759 * localAirflow
+                Case Is = "JV40"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JV50"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Else
+                    Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
+                    Stop
+            End Select
+        Else
+            Select Case Snippet
+                Case Is = "JH28"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH30"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH35"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH40"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Is = "JH50"
+                    Dummy = MsgBox("That size and configuration is not yet configured.  You will need to manually enter USP.", vbOKOnly, "Fisen Unit Generator")
+                    temp = 0.00
+                Case Else
+                    Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
+                    Stop
+            End Select
         End If
 
         Return temp
@@ -2515,12 +2704,10 @@ Public Class frmNewFan
                     temp = 0.0000000026 * localAirflow ^ 2 - 0.0001650528 * localAirflow + 0
                 Case Is = "J15ZJ"
                     temp = 0.000000020999 * localAirflow ^ 2 + 0.00010369692 * localAirflow + 0
-                    'Case Is = "J17ZJ"
-                    '    temp = 0.0 * localAirflow ^ 2 - 0.0 * localAirflow + 0
+                Case Is = "J18ZJ"
+                    temp = 0.000000020999 * localAirflow ^ 2 + 0.00010369692 * localAirflow + 0
                 Case Is = "J20ZJ"
                     temp = 0.0000000192 * localAirflow * localAirflow + 0.0000567739 * localAirflow
-                    'Case Is = "S25ZJ"
-                    '    temp = 0.0 * localAirflow ^ 2 - 0.0 * localAirflow + 0
                 Case Is = "J15ZR"
                     temp = 0.000000013833 * localAirflow ^ 2 + 0.000150417882 * localAirflow + 0
                 Case Is = "J20ZR"
@@ -2660,7 +2847,201 @@ Public Class frmNewFan
         End Select
         Return temp
     End Function
+    Private Function HeatAdjustmentSelect(localAirflow As Double, HeatCode As String)
+        Dim temp As Double
+        Dim Snippet As String
+        Dim dummy As MsgBoxResult
 
+        Snippet = Mid(frmMain.ThisUnit.ModelNumber, 1, 4)
+
+        temp = 0
+        Select Case HeatCode
+            Case Is = "Gas"
+                temp = 0
+            Case Is = "CoolOnly"
+                Select Case Snippet
+                    Case Is = "JV28"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV30"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV35"
+                        temp = -0.00000000074971315 * localAirflow ^ 2 + 0.000035307431723476 * localAirflow
+                        temp = temp * -1
+                    Case Is = "JV40"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV50"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH28"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH30"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH35"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH40"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH50"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-Gas Heat Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+            Case Is = "36kW"
+                Select Case Snippet
+                    Case Is = "JV28"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV30"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV35"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV40"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV50"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH28"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH30"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH35"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH40"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH50"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+
+            Case Is = "54kW"
+                Select Case Snippet
+                    Case Is = "JV28"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV30"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV35"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV40"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV50"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH28"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH30"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH35"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH40"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH50"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+            Case Is = "72kW"
+                Select Case Snippet
+                        Case Is = "JV28"
+                            dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JV30"
+                            dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JV35"
+                            dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JV40"
+                            dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JV50"
+                            dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JH28"
+                            dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JH30"
+                            dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JH35"
+                            dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JH40"
+                            dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Is = "JH50"
+                            dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                            temp = 0.00
+                        Case Else
+                            dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
+                            Stop
+                    End Select
+            Case Is = "90kW"
+                Select Case Snippet
+                    Case Is = "JV28"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV30"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV35"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV40"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JV50"
+                        dummy = MsgBox("That size and configuration of 25kw elec is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH28"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH30"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH35"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH40"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Is = "JH50"
+                        dummy = MsgBox("That size and configuration of cool only is not yet configured.  You will need to manually enter USP adjustment.", vbOKOnly, "Fisen Unit Generator")
+                        temp = 0.00
+                    Case Else
+                        dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
+                        Stop
+                End Select
+        End Select
+        Return temp
+    End Function
     Private Function HeatAdjustmentS20(localAirflow As Double, HeatCode As String)
         Dim temp As Double
         Dim Snippet As String
@@ -2976,6 +3357,8 @@ Public Class frmNewFan
             Case Is = "ComefriATLI9-7_R"
                 frmMain.ThisUnitCodes.Add("320B01")
             Case Is = "ComefriATLI15-11_T2"
+                frmMain.ThisUnitCodes.Add("320B02")
+            Case Is = "Comefri ATZAF_15-15_FF_BT2_T1"
                 frmMain.ThisUnitCodes.Add("320B02")
             Case Else
                 dummy = MsgBox("Fan not defined for BOM.  Please Add and Rerun.")
@@ -3719,11 +4102,64 @@ Public Class frmNewFan
             dgvStaticSummary.Rows.Add(NewRow)
         End If
 
-        cmdChoiceRearSupply.Enabled = False
+        cmdSelectBottomSupply.Enabled = False
+        cmdSelectRearSupply.Enabled = False
         btnReturn.Enabled = True
     End Sub
 
     Private Sub cmdSelectBottomSupply_Click(sender As Object, e As EventArgs) Handles cmdSelectBottomSupply.Click
+        Dim BaseUnit As Double
+        Dim GasHeatMod As Double
+        Dim FilterMod As Double
+        Dim EconMod As Double
+        Dim reheatmod As Double
+        Dim FactoryOptions As Double
+        Dim HeatBaffles As Double
+
+        Dim econyesno, reheatyesno As Boolean
+
+        Dim airflow As Double
+
+        Dim NewRow As String()
+
+        airflow = Val(txtAirflow.Text)
+        'first the Base Unit
+        BaseUnit = UnitStaticPressureSelect(airflow, True)
+
+        'now the heatAdjustment
+        GasHeatMod = HeatAdjustmentSelect(airflow, cmbHeatBox.Text)
+
+        'now the FilterAdjustment
+        'Nothing on a series 20 !!!
+
+        'finally the EconMod
+        econyesno = chkEconPresent.Checked
+        EconMod = EconAdjustmentSelect(airflow, econyesno)
+
+        reheatyesno = chkReheatCoil.Checked
+        reheatmod = ReheatAdjustmentSelect(airflow, reheatyesno)
+
+        FactoryOptions = GasHeatMod + FilterMod + EconMod + reheatmod
+
+        NewRow = {"Base Unit Static Pressure", Format(BaseUnit, "0.00"), Format(BaseUnit / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Factory Options", Format(FactoryOptions, "0.00"), Format(FactoryOptions / Val(lblKFactor.Text), "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        If chkHeatBaffles.Checked Then
+            HeatBaffles = 0.000000001331941323 * airflow * airflow - 0.000000563361120313 * airflow
+            NewRow = {"Standard Heat Baffles", Format(HeatBaffles, "0.00"), Format(HeatBaffles / Val(lblKFactor.Text), "0.00")}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
+
+        If chkFisen2Rear.Checked Then
+            HeatBaffles = 0.000000009564935065 * airflow * airflow - 0.000006064832535891 * airflow + 0.0270664217361984
+            NewRow = {"Rear Discharge Reconfiguration", Format(HeatBaffles, "0.00"), Format(HeatBaffles / Val(lblKFactor.Text), "0.00")}
+            dgvStaticSummary.Rows.Add(NewRow)
+        End If
+
+        cmdChoiceRearSupply.Enabled = False
+        btnReturn.Enabled = True
+
         Dim dummy As MsgBoxResult
         dummy = MsgBox("Performance for that unit and configuration has not been modeled.  Use Generic.", vbOKOnly, "Fisen Unit Generator")
     End Sub
@@ -3836,6 +4272,35 @@ Public Class frmNewFan
 
         frmMain.ThisUnitRXPerf.DuctLoc = "Side"
         cmdS10SideReturn.Enabled = False
+        btnReturn.Enabled = True
+    End Sub
+
+    Private Sub cmdSeltectEndReturn_Click(sender As Object, e As EventArgs) Handles cmdSeltectEndReturn.Click
+        Dim Transition As Double
+
+        Dim Damper As Double
+        Dim Hood As Double
+
+        Dim airflow As Double
+
+        Dim NewRow As String()
+
+        airflow = Val(txtAirflow.Text)
+        'first the transition/90
+        Transition = 0.000000005892857 * airflow ^ 2 - 0.000104107142857 * airflow + 0.510714285714287
+        'now the damper
+        Damper = 0.000000001396 * airflow ^ 2 + 0.000023993506 * airflow - 0.138268398268
+        'finally the hood
+        Hood = 0.000000000249 * airflow ^ 2 + 0.000000025974 * airflow + 0.014406926407
+
+        NewRow = {"Relief Transition", Format(Transition, "0.00"), Format(Val(lblKFactor.Text) * Transition, "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Exhaust Air Dampers", Format(Damper, "0.00"), Format(Val(lblKFactor.Text) * Damper, "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        NewRow = {"Exhaust Air Hoods", Format(Hood, "0.00"), Format(Val(lblKFactor.Text) * Hood, "0.00")}
+        dgvStaticSummary.Rows.Add(NewRow)
+        frmMain.ThisUnitRXPerf.DuctLoc = "End"
+        cmdSeltectEndReturn.Enabled = False
         btnReturn.Enabled = True
     End Sub
 End Class

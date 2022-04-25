@@ -31,6 +31,7 @@ Public Class frmFiltration
         Dim FilterReport As System.IO.StreamWriter
         Dim TargetPath As String
         Dim i As Integer
+        Dim MiscFilterStuff As Boolean
 
         TargetPath = frmMain.txtProjectDirectory.Text
         TargetPath = TargetPath & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & "\Submittal Source (Do not Distribute)\Submittal Design\" & Trim(frmMain.ThisUnit.JobNumber) & "-" & frmMain.ThisUnit.UnitNumber & " - Filter Audit.txt"
@@ -74,13 +75,51 @@ Public Class frmFiltration
             FilterReport.WriteLine("No Final Filter Bank by Fisen")
         End If
 
+        FilterReport.WriteLine("Miscellaneous Filters")
+        FilterReport.WriteLine("------------------------------------------------------------------")
+        MiscFilterStuff = chkAddMERV132inToSeries20.Checked Or chkAddMERV132inToSeries10.Checked
+        If MiscFilterStuff Then
+            If chkAddMERV132inToSeries20.Checked Then
+                FilterReport.WriteLine("MERV13 2 in. for Series 20 requested on proposal")
+                FilterReport.WriteLine(cmbActMF.Text & " Miscellaneous Filters selected for installation by Fisen")
+                For i = 0 To lstMFSelected.Items.Count - 1
+                    FilterReport.WriteLine(lstMFSelected.Items(i).ToString)
+                Next
+                If chkFFPrefilt.Checked Then
+                    FilterReport.WriteLine(" Prefilters Provided by Fisen: AAF PerfectPleat MERV8 2in")
+                    For i = 0 To lstMFSelected.Items.Count - 1
+                        FilterReport.WriteLine(lstMFSelected.Items(i).ToString)
+                    Next
+                End If
+            End If
+            If chkAddMERV132inToSeries10.Checked Then
+                FilterReport.WriteLine("MERV13 2 in. for Series 10 requested on proposal")
+                FilterReport.WriteLine(cmbActMF.Text & " Miscellaneous Filters selected for installation by Fisen")
+                For i = 0 To lstMFSelected.Items.Count - 1
+                    FilterReport.WriteLine(lstMFSelected.Items(i).ToString)
+                Next
+                If chkFFPrefilt.Checked Then
+                    FilterReport.WriteLine(" Prefilters Provided by Fisen: AAF PerfectPleat MERV8 2in")
+                    For i = 0 To lstMFSelected.Items.Count - 1
+                        FilterReport.WriteLine(lstMFSelected.Items(i).ToString)
+                    Next
+                End If
+            End If
+        Else
+            FilterReport.WriteLine("No Miscellaneous Filter Scope by Fisen")
+        End If
+
         FilterReport.WriteLine("------------------------------------------------------------------")
         FilterReport.WriteLine(" ")
         FilterReport.Close()
     End Sub
 
     Private Sub UpdatePerformance()
+        Dim MiscFilterStuff As Boolean
         Dim YPALStaticName As String
+
+        MiscFilterStuff = chkAddMERV132inToSeries20.Checked Or chkAddMERV132inToSeries10.Checked
+
         If chkFFBank.Checked Then
             YPALStaticName = "Final Filter Bank"
             frmMain.ThisUnitFFilters.HasNewFilters = True
@@ -106,9 +145,7 @@ Public Class frmFiltration
                 frmMain.ThisUnitFFilters.PreFiltAPD = lblPreFAPD.Text
                 frmMain.ThisUnitFFilters.PreFiltMaxAPD = lblPreFMaxAPD.Text
                 frmMain.ThisUnitFFilters.PreFiltDFA = txtPreFDFA.Text
-#Disable Warning IDE0054 ' Use compound assignment
                 YPALStaticName = YPALStaticName & " + Prefilters"
-#Enable Warning IDE0054 ' Use compound assignment
             Else
                 frmMain.ThisUnitFFilters.PreFilterPresent = False
             End If
@@ -153,14 +190,28 @@ Public Class frmFiltration
             ' #ToDo handle inserting this value when XRange Fans are present.
             frmMain.ThisUnitIFilters.FStaticItem = lblIStaticBudget.Text
 
-            If frmMain.ThisUnit.Family = "Series100" Then
-                frmMain.ThisUnitSFanPerf.StaticNameYpal.Add(YPALStaticName)
-                frmMain.ThisUnitSFanPerf.StaticDataYpal.Add(lblIStaticBudget.Text)
+
+        End If
+
+        If MiscFilterStuff Then
+            frmMain.ThisUnitMFilters.FilterBankName = "Miscellaneous Filters"
+            If chkAddMERV132inToSeries20.Checked Then
+                frmMain.ThisUnitMFilters.FStaticItem = lblMStaticBudget.Text
+            End If
+            If chkAddMERV132inToSeries10.Checked Then
+                frmMain.ThisUnitMFilters.FStaticItem = lblMStaticBudget.Text
             End If
         End If
+
+        If frmMain.ThisUnit.Family = "Series100" Then
+            frmMain.ThisUnitSFanPerf.StaticNameYpal.Add(YPALStaticName)
+            frmMain.ThisUnitSFanPerf.StaticDataYpal.Add(lblIStaticBudget.Text)
+        End If
+
     End Sub
     Private Sub UpdateCodeList()
         Dim NoControlNotesIFB As Boolean
+        Dim MiscFilterStuff As Boolean
 
         NoControlNotesIFB = True
         ModuleCodeList.Clear()
@@ -378,6 +429,21 @@ Public Class frmFiltration
             'end of final filter
         End If
 
+        MiscFilterStuff = chkAddMERV132inToSeries20.Checked Or chkAddMERV132inToSeries10.Checked
+        If MiscFilterStuff Then
+            ModuleCodeList.Add("395600")
+            If chkAddMERV132inToSeries20.Checked Then
+                ModuleCodeList.Add("3956AA")
+                ModuleCodeList.Add("395601")
+
+            End If
+            If chkAddMERV132inToSeries10.Checked Then
+                ModuleCodeList.Add("3956AB")
+                ModuleCodeList.Add("395601")
+
+            End If
+        End If
+
         'This mimics a checkbox for the reconfiguration of a JCI bank (Hopefully)
         If grpCtrlFactory.Enabled = True Then
             ModuleCodeList.Add("395300") 'JCI Filter Bank R/R/R
@@ -525,10 +591,16 @@ Public Class frmFiltration
         Dim CurFiltType As String
         Dim CurFiltMass As Double
 
+        Dim MiscFilterStuff As Boolean
+        Dim MiscFilterMass As Double
+
+        MiscFilterMass = 0
         tempWeight = "9999"
 
         IFB = chkIFBank.Checked
         FFB = chkFFBank.Checked
+        MiscFilterStuff = chkAddMERV132inToSeries20.Checked Or chkAddMERV132inToSeries10.Checked
+
         JCIFB = grpCtrlFactory.Enabled
 
         WeightName = ""
@@ -547,6 +619,13 @@ Public Class frmFiltration
             End If
             WeightName = WeightName & "Final"
         End If
+        If MiscFilterStuff Then
+            If WeightName <> "" Then
+                WeightName = WeightName & "\"
+            End If
+            WeightName = WeightName & "Misc."
+        End If
+
         WeightName = WeightName & " Filter Bank"
 
         'next line is the mod code i.e. HWCoil...
@@ -763,7 +842,11 @@ Public Class frmFiltration
         If chkJCIFXducer.Checked Then JCIConts = JCIConts + 1
         If chkJCIFDFS.Checked Then JCIConts = JCIConts + 2
 
-        tempWeight = IRackMass + FRackMass + JCIRackMass + IFilts + FFilts + JCINetFilts + ExtModule + IConts + FConts + JCIConts
+
+        If chkAddMERV132inToSeries20.Checked Then MiscFilterMass = MiscFilterMass + 12
+        If chkAddMERV132inToSeries10.Checked Then MiscFilterMass = MiscFilterMass + 9
+
+        tempWeight = IRackMass + FRackMass + JCIRackMass + IFilts + FFilts + JCINetFilts + ExtModule + IConts + FConts + JCIConts + MiscFilterMass
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(Format(tempWeight, "0"))
     End Sub
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
@@ -774,11 +857,15 @@ Public Class frmFiltration
     Private Sub btnDoneConditions_Click(sender As Object, e As EventArgs) Handles btnDoneConditions.Click
         Dim dummy As MsgBoxResult
         Dim FBChecked As Boolean
+        Dim MiscFilterStuff As Boolean
+
         FBChecked = chkIFBank.Checked Or chkFFBank.Checked Or chkRelocateJCIIPreFilts.Checked Or chkRelocateJCIIPreFilts.Checked
         FBChecked = FBChecked Or chkRemoveJCIIFilts.Checked Or chkRelocateJCIIFilts.Checked
         FBChecked = FBChecked Or chkRemoveJCIIFinalPreFilts.Checked Or chkRelocateJCIIFinalPreFilts.Checked Or chkRemoveJCIFFilts.Checked Or chkRelocateJCIFFilts.Checked
 
-        If Not (FBChecked) Then
+        MiscFilterStuff = chkAddMERV132inToSeries10.Checked Or chkAddMERV132inToSeries20.Checked
+
+        If (Not (FBChecked) And Not (MiscFilterStuff)) Then
             dummy = MsgBox("You must select at least one filter bank.", vbOKOnly, "Fisen Unit Generator")
             Exit Sub
         End If
@@ -836,6 +923,47 @@ Public Class frmFiltration
     End Sub
 
     Private Sub frmFiltration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Select Case frmMain.ThisUnit.Family
+            Case Is = "Series5"
+
+            Case Is = "Series10"
+                chkAddMERV132inToSeries10.Visible = True
+            Case Is = "Series12"
+
+            Case Is = "Series20"
+                chkAddMERV132inToSeries20.Visible = True
+            Case Is = "Series40"
+                 'Depricated *Probably not going to be used*
+            Case Is = "Series100"
+
+            Case Is = "Premier"
+
+            Case Is = "Choice"
+
+            Case Is = "Select"
+
+            Case Is = "SeriesLX"
+
+            Case Is = "Series20ODSplit"
+
+            Case Is = "Series20IDSplit"
+
+            Case Is = "Series40ODSplit"
+
+            Case Is = "YCUL"
+
+            Case Is = "YLUA"
+
+            Case Is = "DOAS"
+
+            Case Is = "SeriesL"
+
+            Case Is = "Blank"
+
+            Case Else
+
+        End Select
 
         If frmMain.ThisUnitElecData.UnitIs65kASCCR = True Then chk65kASCCRBase.Checked = True
 
@@ -993,10 +1121,50 @@ Public Class frmFiltration
             Call CalcIFAPD()
         End If
 
+        If lstMFSelected.Items.Count > 0 Then
+            grpMiscPerf.Visible = True
+            Call CountMFilters()
+            Call CalcMFaceandVel()
+            Call CalcMFAPD()
+        End If
+
         TabControl1.SelectTab("tpgPerformance")
     End Sub
 
+    Private Sub CalcMFAPD()
 
+        Dim recDFA As Double
+        Dim statbudget As Double
+        Dim PreAPD As Double
+        Dim PreMaxAPD As Double
+        Dim PreRecDFA As Double
+
+        lblMAPD.Text = FilterAPD(cmbActMF.Text, lblMFaceVelocity.Text)
+        lblMMaxAPD.Text = FilterMaxAPD(cmbActMF.Text)
+        recDFA = Val(FilterAPD(cmbActMF.Text, lblMFaceVelocity.Text))
+        If recDFA + Val(FilterAPD(cmbActMF.Text, lblMFaceVelocity.Text)) > Val(FilterMaxAPD(cmbActMF.Text)) Then recDFA = Val(FilterMaxAPD(cmbActMF.Text)) - Val(FilterAPD(cmbActMF.Text, lblMFaceVelocity.Text))
+        If recDFA < 0 Then recDFA = 0
+        txtmDFA.Text = Format(recDFA, "0.00")
+
+        If chkMFPrefilt.Checked Then
+            PreAPD = Val(FilterAPD("AAF PerfectPleat 2in M8", lblIFaceVelocity.Text))
+            lblPreMAPD.Text = Format(PreAPD, "0.00")
+            PreMaxAPD = Val(FilterMaxAPD("AAF PerfectPleat 2in M8"))
+            lblPreMMaxAPD.Text = Format(PreMaxAPD, "0.00")
+            PreRecDFA = PreAPD
+            If PreRecDFA + PreAPD > PreMaxAPD Then PreRecDFA = PreMaxAPD - PreAPD
+            If PreRecDFA < 0 Then PreRecDFA = 0
+            txtPreMDFA.Text = Format(PreRecDFA, "0.00")
+        Else
+            lblPreMAPD.Text = "-"
+            lblPreMMaxAPD.Text = "-"
+            txtPreMDFA.Text = "-"
+        End If
+
+        statbudget = recDFA + Val(FilterAPD(cmbActMF.Text, lblMFaceVelocity.Text)) + PreRecDFA + PreAPD
+        lblMStaticBudget.Text = Format(statbudget, "0.00")
+
+    End Sub
 
     Private Sub CalcIFAPD()
 
@@ -1098,6 +1266,39 @@ Public Class frmFiltration
         Vel = Val(txtAirflow.Text) / Face
         lblIFaceVelocity.Text = Format(Vel, "0.0")
     End Sub
+
+    Private Sub CalcMFaceandVel()
+        Dim l, w As Double
+        Dim Face As Double
+        Dim Vel As Double
+
+        Face = 0
+        If lblMFilterSize1.Text <> "" Then
+            l = Val(Mid(lblMFilterSize1.Text, 1, 2))
+            w = Val(Mid(lblMFilterSize1.Text, 4, 2))
+            Face = l * w / 144 * Val(lblMFilterQ1.Text)
+        End If
+        If lblMFilterSize2.Text <> "" Then
+            l = Val(Mid(lblMFilterSize2.Text, 1, 2))
+            w = Val(Mid(lblMFilterSize2.Text, 4, 2))
+            Face = (l * w / 144 * Val(lblMFilterQ2.Text)) + Face
+        End If
+        If lblMFilterSize3.Text <> "" Then
+            l = Val(Mid(lblMFilterSize3.Text, 1, 2))
+            w = Val(Mid(lblMFilterSize3.Text, 4, 2))
+            Face = (l * w / 144 * Val(lblMFilterQ3.Text)) + Face
+        End If
+        If lblMFilterSize4.Text <> "" Then
+            l = Val(Mid(lblMFilterSize4.Text, 1, 2))
+            w = Val(Mid(lblMFilterSize4.Text, 4, 2))
+            Face = (l * w / 144 * Val(lblMFilterQ4.Text)) + Face
+        End If
+
+        lblMFaceArea.Text = Format(Face, "0.0")
+        Vel = Val(txtAirflow.Text) / Face
+        lblMFaceVelocity.Text = Format(Vel, "0.0")
+    End Sub
+
     Private Sub CalcFFFaceandVel()
         Dim l, w As Double
         Dim Face As Double
@@ -1189,7 +1390,36 @@ Public Class frmFiltration
         End If
 
     End Sub
+    Private Sub CountMFilters()
 
+
+        lblMFilterSize1.Text = ""
+        lblMFilterQ1.Text = ""
+        lblMFilterSize2.Text = ""
+        lblMFilterQ2.Text = ""
+        lblMFilterSize3.Text = ""
+        lblMFilterQ3.Text = ""
+        lblMFilterSize4.Text = ""
+        lblMFilterQ4.Text = ""
+
+        If lstMFSelected.Items.Count > 0 Then
+            lblMFilterSize1.Text = Mid(lstMFSelected.Items(0), 6)
+            lblMFilterQ1.Text = Mid(lstMFSelected.Items(0), 2, 2)
+        End If
+        If lstMFSelected.Items.Count > 1 Then
+            lblMFilterSize2.Text = Mid(lstMFSelected.Items(1), 6)
+            lblMFilterQ2.Text = Mid(lstMFSelected.Items(1), 2, 2)
+        End If
+        If lstMFSelected.Items.Count > 2 Then
+            lblMFilterSize3.Text = Mid(lstMFSelected.Items(2), 6)
+            lblMFilterQ3.Text = Mid(lstMFSelected.Items(2), 2, 2)
+        End If
+        If lstMFSelected.Items.Count > 3 Then
+            lblMFilterSize4.Text = Mid(lstMFSelected.Items(3), 6)
+            lblMFilterSize4.Text = Mid(lstMFSelected.Items(3), 2, 2)
+        End If
+
+    End Sub
 
 
     Private Sub cmbActFF_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbActFF.SelectedIndexChanged
@@ -1775,6 +2005,10 @@ Public Class frmFiltration
         If MyBank = "Initial" Then
             MyListBox = tpgFilters.Controls("lstIFAvail")
         End If
+        If MyBank = "Misc" Then
+            MyListBox = tpgFilters.Controls("lstMFAvail")
+        End If
+
         MyListBox.Items.Clear()
         MyListBox.Items.Add("10x20x2")
         MyListBox.Items.Add("12x20x2")
@@ -1803,6 +2037,10 @@ Public Class frmFiltration
         End If
         If WhichBank = "Final" Then
             FilterType = cmbActFF.Text
+        End If
+        If WhichBank = "Misc" Then
+            FilterType = cmbActMF.Text
+
         End If
 
         Select Case FilterType
@@ -2225,5 +2463,102 @@ Public Class frmFiltration
 
         rs = Nothing
         con = Nothing
+    End Sub
+
+    Private Sub chkAddMERV132inToSeries20_CheckedChanged(sender As Object, e As EventArgs) Handles chkAddMERV132inToSeries20.CheckedChanged
+        'First we need to enable the appropriate controls
+        If chkAddMERV132inToSeries20.Checked Then
+            lblMiscFilters.Enabled = True
+            cmbActMF.Enabled = True
+            lstMFAvail.Enabled = True
+            cmdAddMF.Enabled = True
+            cmdSubMF.Enabled = True
+            lstMFSelected.Enabled = True
+            lstPreMFSelected.Enabled = True
+
+        Else
+            lblMiscFilters.Enabled = False
+            cmbActMF.Enabled = False
+            lstMFAvail.Enabled = False
+            cmdAddMF.Enabled = False
+            cmdSubMF.Enabled = False
+            lstMFSelected.Enabled = False
+            lstPreMFSelected.Enabled = False
+
+        End If
+
+        'Now let's populate those controls with appropriate options
+        cmbActMF.Items.Clear()
+        cmbActMF.Items.Add("AAF PREpleat 2in M13")
+        cmbActMF.Text = "AAF PREpleat 2in M13"
+        lstMFSelected.Items.Clear()
+        lstMFSelected.Items.Add("(12) 12x24x2")
+    End Sub
+
+    Private Sub cmbActMF_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbActMF.SelectedIndexChanged
+        Call FillAvailableFilterSizes("Misc")
+    End Sub
+
+    Private Sub cmdAddMF_Click(sender As Object, e As EventArgs) Handles cmdAddMF.Click
+        Dim FilterToAdd As String
+        Dim FilterCount As Integer
+        Dim FilterThere As Boolean
+        Dim FoundFilterID As Integer
+        Dim i As Integer
+
+        FilterThere = False
+        FilterToAdd = lstMFAvail.Text
+        For i = 0 To lstMFSelected.Items.Count - 1
+            If CStr(Mid(lstMFSelected.Items(i), 6)) = FilterToAdd Then
+                FilterThere = True
+                FoundFilterID = i
+            End If
+        Next
+        If FilterThere Then
+            FilterCount = Val(Mid(lstMFSelected.Items(FoundFilterID), 2, 2))
+            FilterCount = FilterCount + 1
+            lstMFSelected.Items(FoundFilterID) = "(" & Format(FilterCount, "00") & ")" & " " & FilterToAdd
+            'If chkmFPrefilt.Checked Then
+            'lstPreMFSelected.Items(FoundFilterID) = "(" & Format(FilterCount, "00") & ")" & " " & FilterToAdd
+            'End If
+        Else
+            lstMFSelected.Items.Add("(01) " & FilterToAdd)
+            'If chkmFPrefilt.Checked Then
+            'lstPreFFSelected.Items.Add("(01) " & FilterToAdd)
+            'End If
+        End If
+
+        If lstMFSelected.Items.Count = 4 Then cmdAddMF.Enabled = False
+
+    End Sub
+
+    Private Sub chkAddMERV132inToSeries10_CheckedChanged(sender As Object, e As EventArgs) Handles chkAddMERV132inToSeries10.CheckedChanged
+        'First we need to enable the appropriate controls
+        If chkAddMERV132inToSeries10.Checked Then
+            lblMiscFilters.Enabled = True
+            cmbActMF.Enabled = True
+            lstMFAvail.Enabled = True
+            cmdAddMF.Enabled = True
+            cmdSubMF.Enabled = True
+            lstMFSelected.Enabled = True
+            lstPreMFSelected.Enabled = True
+
+        Else
+            lblMiscFilters.Enabled = False
+            cmbActMF.Enabled = False
+            lstMFAvail.Enabled = False
+            cmdAddMF.Enabled = False
+            cmdSubMF.Enabled = False
+            lstMFSelected.Enabled = False
+            lstPreMFSelected.Enabled = False
+
+        End If
+
+        'Now let's populate those controls with appropriate options
+        cmbActMF.Items.Clear()
+        cmbActMF.Items.Add("AAF PREpleat 2in M13")
+        cmbActMF.Text = "AAF PREpleat 2in M13"
+        lstMFSelected.Items.Clear()
+        lstMFSelected.Items.Add("(04) 24x20x2")
     End Sub
 End Class

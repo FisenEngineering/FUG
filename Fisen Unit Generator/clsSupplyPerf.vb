@@ -398,30 +398,7 @@ Public Class clsSupplyPerf
         pMhpUnits = "hp"
         pBhpUnits = "bhp"
     End Sub
-    Public Sub ImportUPGData()
-        Dim xdoc As XmlDocument = New XmlDocument
-        xdoc.Load(frmMain.txtBaseUnitFile.Text)
-        Dim xnodelist As XmlNodeList = xdoc.SelectNodes("//HvacQuote/LineItems/HvacQuoteLineItem")
-        Dim xnode As XmlNode
-        xnode = xdoc.SelectSingleNode("//HvacQuote/Performance/Dictionary/KeyValuePair[contains(.,'" & frmMain.ThisUnit.PerformanceID & "')]")
-        pAirflow = xnode.SelectSingleNode("Value/SystemPerformance/Conditions/SupplyAirBlower").SelectSingleNode("Airflow").InnerText
-        pESP = xnode.SelectSingleNode("Value/SystemPerformance/Conditions/SupplyAirBlower").SelectSingleNode("StaticPressure").InnerText
-        pUSP = xnode.SelectSingleNode("Value/SystemPerformance/Conditions/SupplyAirBlower").SelectSingleNode("UnitStaticResistance").InnerText
-        pRPM = xnode.SelectSingleNode("Value/SystemPerformance/SupplyAirBlower").SelectSingleNode("Rpm").InnerText
-        pMhp = xnode.SelectSingleNode("Value/SystemPerformance/SupplyAirBlower").SelectSingleNode("MotorRatingHP").InnerText
-        If pMhp = "7.50" Then pMhp = "7.5"
-        pBhp = xnode.SelectSingleNode("Value/SystemPerformance/SupplyAirBlower").SelectSingleNode("RequiredPowerHP").InnerText
-        pPower = xnode.SelectSingleNode("Value/SystemPerformance/SupplyAirBlower").SelectSingleNode("PowerInputKw").InnerText
-        pDriveType = xnode.SelectSingleNode("Value/SystemPerformance/Conditions/SupplyAirBlower").SelectSingleNode("HasBeltDrive").InnerText
-        If pDriveType = "true" Then
-            pDriveType = "Belt"
-        Else
-            pDriveType = "Direct"
-        End If
-        pDuctLoc = xnode.SelectSingleNode("Value/SystemPerformance/Conditions/SupplyAirBlower").SelectSingleNode("DuctLocation").InnerText
 
-        xdoc = Nothing
-    End Sub
     Public Sub ImportFSTYPALData()
         Dim xDoc As XmlDocument = New XmlDocument
         Dim i As Integer

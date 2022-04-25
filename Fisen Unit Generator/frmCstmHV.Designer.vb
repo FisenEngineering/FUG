@@ -26,6 +26,7 @@ Partial Class frmCstmHV
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCstmHV))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgSelection = New System.Windows.Forms.TabPage()
+        Me.cmdEditDatabase = New System.Windows.Forms.Button()
         Me.cmdAddNewCode = New System.Windows.Forms.Button()
         Me.lstItemsInDB = New System.Windows.Forms.ListBox()
         Me.btnDoneSelection = New System.Windows.Forms.Button()
@@ -94,6 +95,7 @@ Partial Class frmCstmHV
         '
         'tpgSelection
         '
+        Me.tpgSelection.Controls.Add(Me.cmdEditDatabase)
         Me.tpgSelection.Controls.Add(Me.cmdAddNewCode)
         Me.tpgSelection.Controls.Add(Me.lstItemsInDB)
         Me.tpgSelection.Controls.Add(Me.btnDoneSelection)
@@ -104,6 +106,16 @@ Partial Class frmCstmHV
         Me.tpgSelection.TabIndex = 5
         Me.tpgSelection.Text = "Selection"
         Me.tpgSelection.UseVisualStyleBackColor = True
+        '
+        'cmdEditDatabase
+        '
+        Me.cmdEditDatabase.BackgroundImage = Global.Fisen_Unit_Generator.My.Resources.Resources.dbMaintenanceIcon50x50
+        Me.cmdEditDatabase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.cmdEditDatabase.Location = New System.Drawing.Point(6, 211)
+        Me.cmdEditDatabase.Name = "cmdEditDatabase"
+        Me.cmdEditDatabase.Size = New System.Drawing.Size(35, 35)
+        Me.cmdEditDatabase.TabIndex = 87
+        Me.cmdEditDatabase.UseVisualStyleBackColor = True
         '
         'cmdAddNewCode
         '
@@ -624,4 +636,5 @@ Partial Class frmCstmHV
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents cmdLoadMod As Button
+    Friend WithEvents cmdEditDatabase As Button
 End Class

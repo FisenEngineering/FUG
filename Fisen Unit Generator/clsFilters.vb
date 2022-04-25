@@ -201,6 +201,7 @@
 
     Public Sub New()
         pHasNewFilters = False
+        pFilterBankName = "-"
         pFilterQ1 = "-"
         pFilterQ2 = "-"
         pFilterQ3 = "-"

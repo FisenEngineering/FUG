@@ -1003,6 +1003,7 @@
 
     Private Sub cmdAddNewCode_Click(sender As Object, e As EventArgs) Handles cmdAddNewCode.Click
         frmNewCustomCode.WhichCustom = "Power"
+        frmNewCustomCode.NewOrEdit = "New"
         frmNewCustomCode.ShowDialog()
         If frmNewCustomCode.Cancelled = True Then
             frmNewCustomCode.Dispose()
@@ -1015,5 +1016,18 @@
 
     Private Sub cmdAddNewTagALong_Click(sender As Object, e As EventArgs) Handles cmdAddNewTagALong.Click
 
+    End Sub
+
+    Private Sub cmdEditDatabase_Click(sender As Object, e As EventArgs) Handles cmdEditDatabase.Click
+        frmNewCustomCode.WhichCustom = "Power"
+        frmNewCustomCode.NewOrEdit = "Edit"
+        frmNewCustomCode.ShowDialog()
+        If frmNewCustomCode.Cancelled = True Then
+            frmNewCustomCode.Dispose()
+        Else
+            frmNewCustomCode.Dispose()
+        End If
+        lstItemsInDB.Items.Clear()
+        Call LoadPermittedPowerMods()
     End Sub
 End Class
