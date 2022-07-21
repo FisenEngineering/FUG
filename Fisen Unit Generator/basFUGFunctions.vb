@@ -675,4 +675,151 @@
 
     End Function
 
+    Public Function GlbPopulateAuxPanelList(loptNoAux As RadioButton, lOptUseAux As RadioButton, lCmbAuxPanelOpts As ComboBox)
+        Dim tempweight As String
+        Dim dummy As MsgBoxResult
+
+        If loptNoAux.Checked Then
+            lCmbAuxPanelOpts.Items.Clear()
+            lCmbAuxPanelOpts.Items.Add("None")
+            lCmbAuxPanelOpts.Text = "None"
+        Else
+            Select Case frmMain.ThisUnit.Family
+                Case Is = "Series5"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 5 Downflow")
+                    lCmbAuxPanelOpts.Items.Add("Series 5 Horizontal")
+                    lCmbAuxPanelOpts.Items.Add("Series 5 Horizontal No Return")
+                    lCmbAuxPanelOpts.Items.Add("Series 5 Convertible")
+                    lCmbAuxPanelOpts.Items.Add("Series 5 Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 5 Downflow"
+                Case Is = "Series10"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 10 Downflow")
+                    lCmbAuxPanelOpts.Items.Add("Series 10 Horizontal")
+                    lCmbAuxPanelOpts.Items.Add("Series 10 Horizontal No Return")
+                    lCmbAuxPanelOpts.Items.Add("Series 10 Convertible")
+                    lCmbAuxPanelOpts.Items.Add("Series 10 Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 10 Downflow"
+                Case Is = "Series20"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 20 Downflow")
+                    lCmbAuxPanelOpts.Items.Add("Series 20 Horizontal")
+                    lCmbAuxPanelOpts.Items.Add("Series 20 Horizontal No Return")
+                    lCmbAuxPanelOpts.Items.Add("Series 20 Convertible")
+                    lCmbAuxPanelOpts.Items.Add("Series 20 Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 20 Downflow"
+                Case Is = "Premier"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series Premier Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series Premier Custom Application"
+                Case Is = "Choice"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series Choice Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series Choice Custom Application"
+                Case Is = "Select"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series Select Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series Select Custom Application"
+                Case Is = "Series100"
+                    'Select Case frmMain.ThisUnit.Cabinet
+                    '    Case Is = "A"
+                    '    Case Is = "B"
+                    '    Case Is = "C"
+                    'End Select
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 100 Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 100 Custom Application"
+                Case Is = "Series20ODSplit"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 20 OD Split Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 20 OD Split Custom Application"
+                Case Is = "Series20IDSplit"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 20 ID Split Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 20 ID Split Custom Application"
+                Case Is = "Series40ODSplit"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("Series 40 OD Split Custom Application")
+                    lCmbAuxPanelOpts.Text = "Series 40 OD Split Custom Application"
+                Case Is = "XTO"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("XTO Custom Application")
+                    lCmbAuxPanelOpts.Text = "XTO Custom Application"
+                Case Is = "XTI"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("XTI Custom Application")
+                    lCmbAuxPanelOpts.Text = "XTI Custom Application"
+                Case Is = "YorkCustom"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "YCAL"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York YCAL Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "YLAA"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York YLAA Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "YVAA"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "YCIV"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "YCAV"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "YCUL"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "RJ"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "RL"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "RS"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "DS"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "CS"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "DOAS"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "SeriesLX"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Is = "Blank"
+                    lCmbAuxPanelOpts.Items.Clear()
+                    lCmbAuxPanelOpts.Items.Add("York Custom Custom Application")
+                    lCmbAuxPanelOpts.Text = "York Custom Custom Application"
+                Case Else
+                    tempWeight = "9999"
+                    Dummy = MsgBox("Error in Weight Selection for HWCoil Module.", vbOKOnly)
+            End Select
+        End If
+
+        lCmbAuxPanelOpts.Items.Clear()
+        lCmbAuxPanelOpts.Items.Add("Series 5 Downflow")
+
+        Return 0
+    End Function
+
 End Module

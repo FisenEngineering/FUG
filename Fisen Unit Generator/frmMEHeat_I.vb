@@ -457,4 +457,8 @@
         txtHeaterSP.Text = CalculateStatic()
 
     End Sub
+
+    Private Sub btnDoneControls_Click(sender As Object, e As EventArgs) Handles btnDoneControls.Click
+        TabControl1.SelectTab("tpgPerformance")
+    End Sub
 End Class

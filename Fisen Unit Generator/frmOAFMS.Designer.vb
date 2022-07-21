@@ -22,6 +22,7 @@ Partial Class frmOAFMS
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmOAFMS))
         Me.Cancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -39,6 +40,12 @@ Partial Class frmOAFMS
         Me.chkNoPerformance = New System.Windows.Forms.CheckBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
+        Me.cmdScience = New System.Windows.Forms.Button()
+        Me.cmdFIOPPreview = New System.Windows.Forms.Button()
+        Me.cmdLoadMod = New System.Windows.Forms.Button()
+        Me.cmdViewHistory = New System.Windows.Forms.Button()
+        Me.cmdDesignCautions = New System.Windows.Forms.Button()
+        Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -88,11 +95,11 @@ Partial Class frmOAFMS
         Me.tpgConditions.Controls.Add(Me.Label10)
         Me.tpgConditions.Controls.Add(Me.txtAirflow)
         Me.tpgConditions.Controls.Add(Me.btnDoneConditions)
-        Me.tpgConditions.Location = New System.Drawing.Point(4, 25)
+        Me.tpgConditions.Location = New System.Drawing.Point(4, 22)
         Me.tpgConditions.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgConditions.Name = "tpgConditions"
         Me.tpgConditions.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgConditions.Size = New System.Drawing.Size(579, 191)
+        Me.tpgConditions.Size = New System.Drawing.Size(579, 194)
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
@@ -102,7 +109,7 @@ Partial Class frmOAFMS
         Me.optHorizontal.AutoSize = True
         Me.optHorizontal.Location = New System.Drawing.Point(8, 64)
         Me.optHorizontal.Name = "optHorizontal"
-        Me.optHorizontal.Size = New System.Drawing.Size(190, 21)
+        Me.optHorizontal.Size = New System.Drawing.Size(145, 17)
         Me.optHorizontal.TabIndex = 34
         Me.optHorizontal.Text = "Horizontal Discharge Unit"
         Me.optHorizontal.UseVisualStyleBackColor = True
@@ -113,7 +120,7 @@ Partial Class frmOAFMS
         Me.optDownflow.Checked = True
         Me.optDownflow.Location = New System.Drawing.Point(8, 37)
         Me.optDownflow.Name = "optDownflow"
-        Me.optDownflow.Size = New System.Drawing.Size(117, 21)
+        Me.optDownflow.Size = New System.Drawing.Size(94, 17)
         Me.optDownflow.TabIndex = 33
         Me.optDownflow.TabStop = True
         Me.optDownflow.Text = "Downflow Unit"
@@ -125,7 +132,7 @@ Partial Class frmOAFMS
         Me.Label10.Location = New System.Drawing.Point(69, 12)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(85, 17)
+        Me.Label10.Size = New System.Drawing.Size(64, 13)
         Me.Label10.TabIndex = 32
         Me.Label10.Text = "Airflow (cfm)"
         '
@@ -135,7 +142,7 @@ Partial Class frmOAFMS
         Me.txtAirflow.Location = New System.Drawing.Point(8, 8)
         Me.txtAirflow.Margin = New System.Windows.Forms.Padding(4)
         Me.txtAirflow.Name = "txtAirflow"
-        Me.txtAirflow.Size = New System.Drawing.Size(52, 22)
+        Me.txtAirflow.Size = New System.Drawing.Size(52, 20)
         Me.txtAirflow.TabIndex = 31
         Me.txtAirflow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -152,11 +159,11 @@ Partial Class frmOAFMS
         'tpgOptions
         '
         Me.tpgOptions.Controls.Add(Me.btnDoneOptions)
-        Me.tpgOptions.Location = New System.Drawing.Point(4, 25)
+        Me.tpgOptions.Location = New System.Drawing.Point(4, 22)
         Me.tpgOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgOptions.Name = "tpgOptions"
         Me.tpgOptions.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgOptions.Size = New System.Drawing.Size(579, 191)
+        Me.tpgOptions.Size = New System.Drawing.Size(579, 194)
         Me.tpgOptions.TabIndex = 1
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
@@ -174,11 +181,11 @@ Partial Class frmOAFMS
         'tpgControls
         '
         Me.tpgControls.Controls.Add(Me.btnDoneControls)
-        Me.tpgControls.Location = New System.Drawing.Point(4, 25)
+        Me.tpgControls.Location = New System.Drawing.Point(4, 22)
         Me.tpgControls.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgControls.Name = "tpgControls"
         Me.tpgControls.Padding = New System.Windows.Forms.Padding(4)
-        Me.tpgControls.Size = New System.Drawing.Size(579, 191)
+        Me.tpgControls.Size = New System.Drawing.Size(579, 194)
         Me.tpgControls.TabIndex = 2
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
@@ -197,10 +204,10 @@ Partial Class frmOAFMS
         '
         Me.tpgPerformance.Controls.Add(Me.chkNoPerformance)
         Me.tpgPerformance.Controls.Add(Me.btnDonePerformance)
-        Me.tpgPerformance.Location = New System.Drawing.Point(4, 25)
+        Me.tpgPerformance.Location = New System.Drawing.Point(4, 22)
         Me.tpgPerformance.Margin = New System.Windows.Forms.Padding(4)
         Me.tpgPerformance.Name = "tpgPerformance"
-        Me.tpgPerformance.Size = New System.Drawing.Size(579, 191)
+        Me.tpgPerformance.Size = New System.Drawing.Size(579, 194)
         Me.tpgPerformance.TabIndex = 4
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
@@ -214,7 +221,7 @@ Partial Class frmOAFMS
         Me.chkNoPerformance.Location = New System.Drawing.Point(17, 16)
         Me.chkNoPerformance.Margin = New System.Windows.Forms.Padding(4)
         Me.chkNoPerformance.Name = "chkNoPerformance"
-        Me.chkNoPerformance.Size = New System.Drawing.Size(327, 21)
+        Me.chkNoPerformance.Size = New System.Drawing.Size(248, 17)
         Me.chkNoPerformance.TabIndex = 27
         Me.chkNoPerformance.Text = "No Performance to Report for This Modification"
         Me.chkNoPerformance.UseVisualStyleBackColor = True
@@ -231,20 +238,84 @@ Partial Class frmOAFMS
         '
         'DebugPage
         '
-        Me.DebugPage.Location = New System.Drawing.Point(4, 25)
+        Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Margin = New System.Windows.Forms.Padding(4)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(4)
-        Me.DebugPage.Size = New System.Drawing.Size(579, 191)
+        Me.DebugPage.Size = New System.Drawing.Size(579, 194)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
+        '
+        'cmdScience
+        '
+        Me.cmdScience.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.Science2
+        Me.cmdScience.Location = New System.Drawing.Point(457, 247)
+        Me.cmdScience.Name = "cmdScience"
+        Me.cmdScience.Size = New System.Drawing.Size(30, 29)
+        Me.cmdScience.TabIndex = 89
+        Me.cmdScience.UseVisualStyleBackColor = True
+        '
+        'cmdFIOPPreview
+        '
+        Me.cmdFIOPPreview.Image = CType(resources.GetObject("cmdFIOPPreview.Image"), System.Drawing.Image)
+        Me.cmdFIOPPreview.Location = New System.Drawing.Point(493, 247)
+        Me.cmdFIOPPreview.Name = "cmdFIOPPreview"
+        Me.cmdFIOPPreview.Size = New System.Drawing.Size(30, 29)
+        Me.cmdFIOPPreview.TabIndex = 88
+        Me.cmdFIOPPreview.UseVisualStyleBackColor = True
+        '
+        'cmdLoadMod
+        '
+        Me.cmdLoadMod.Image = Global.Fisen_Unit_Generator.My.Resources.Resources.LoadFileIconSmall
+        Me.cmdLoadMod.Location = New System.Drawing.Point(421, 247)
+        Me.cmdLoadMod.Name = "cmdLoadMod"
+        Me.cmdLoadMod.Size = New System.Drawing.Size(30, 29)
+        Me.cmdLoadMod.TabIndex = 87
+        Me.cmdLoadMod.Text = "L"
+        Me.cmdLoadMod.UseVisualStyleBackColor = True
+        '
+        'cmdViewHistory
+        '
+        Me.cmdViewHistory.Image = CType(resources.GetObject("cmdViewHistory.Image"), System.Drawing.Image)
+        Me.cmdViewHistory.Location = New System.Drawing.Point(529, 247)
+        Me.cmdViewHistory.Name = "cmdViewHistory"
+        Me.cmdViewHistory.Size = New System.Drawing.Size(30, 29)
+        Me.cmdViewHistory.TabIndex = 86
+        Me.cmdViewHistory.UseVisualStyleBackColor = True
+        '
+        'cmdDesignCautions
+        '
+        Me.cmdDesignCautions.Image = CType(resources.GetObject("cmdDesignCautions.Image"), System.Drawing.Image)
+        Me.cmdDesignCautions.Location = New System.Drawing.Point(565, 247)
+        Me.cmdDesignCautions.Name = "cmdDesignCautions"
+        Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
+        Me.cmdDesignCautions.TabIndex = 85
+        Me.cmdDesignCautions.UseVisualStyleBackColor = True
+        '
+        'chkWriteHistory
+        '
+        Me.chkWriteHistory.AutoSize = True
+        Me.chkWriteHistory.Checked = True
+        Me.chkWriteHistory.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteHistory.Location = New System.Drawing.Point(312, 259)
+        Me.chkWriteHistory.Name = "chkWriteHistory"
+        Me.chkWriteHistory.Size = New System.Drawing.Size(86, 17)
+        Me.chkWriteHistory.TabIndex = 84
+        Me.chkWriteHistory.Text = "Write History"
+        Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
         'frmOAFMS
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(612, 290)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cmdScience)
+        Me.Controls.Add(Me.cmdFIOPPreview)
+        Me.Controls.Add(Me.cmdLoadMod)
+        Me.Controls.Add(Me.cmdViewHistory)
+        Me.Controls.Add(Me.cmdDesignCautions)
+        Me.Controls.Add(Me.chkWriteHistory)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.btnOK)
@@ -260,6 +331,7 @@ Partial Class frmOAFMS
         Me.tpgPerformance.ResumeLayout(False)
         Me.tpgPerformance.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -280,4 +352,10 @@ Partial Class frmOAFMS
     Friend WithEvents optDownflow As RadioButton
     Friend WithEvents Label10 As Label
     Friend WithEvents txtAirflow As TextBox
+    Friend WithEvents cmdScience As Button
+    Friend WithEvents cmdFIOPPreview As Button
+    Friend WithEvents cmdLoadMod As Button
+    Friend WithEvents cmdViewHistory As Button
+    Friend WithEvents cmdDesignCautions As Button
+    Friend WithEvents chkWriteHistory As CheckBox
 End Class

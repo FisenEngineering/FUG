@@ -56,6 +56,7 @@ Partial Class frmMEHeat_I
         Me.btnDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optPCU = New System.Windows.Forms.RadioButton()
         Me.optIPU = New System.Windows.Forms.RadioButton()
         Me.optSE = New System.Windows.Forms.RadioButton()
         Me.opt100AOModeCtrl = New System.Windows.Forms.RadioButton()
@@ -91,7 +92,6 @@ Partial Class frmMEHeat_I
         Me.txtLAT = New System.Windows.Forms.TextBox()
         Me.btnDonePerformance = New System.Windows.Forms.Button()
         Me.DebugPage = New System.Windows.Forms.TabPage()
-        Me.optPCU = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
@@ -478,6 +478,18 @@ Partial Class frmMEHeat_I
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Base Unit Control"
         '
+        'optPCU
+        '
+        Me.optPCU.AutoSize = True
+        Me.optPCU.Enabled = False
+        Me.optPCU.Location = New System.Drawing.Point(19, 75)
+        Me.optPCU.Margin = New System.Windows.Forms.Padding(4)
+        Me.optPCU.Name = "optPCU"
+        Me.optPCU.Size = New System.Drawing.Size(94, 17)
+        Me.optPCU.TabIndex = 2
+        Me.optPCU.Text = "PCU Controller"
+        Me.optPCU.UseVisualStyleBackColor = True
+        '
         'optIPU
         '
         Me.optIPU.AutoSize = True
@@ -861,18 +873,6 @@ Partial Class frmMEHeat_I
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
-        '
-        'optPCU
-        '
-        Me.optPCU.AutoSize = True
-        Me.optPCU.Enabled = False
-        Me.optPCU.Location = New System.Drawing.Point(19, 75)
-        Me.optPCU.Margin = New System.Windows.Forms.Padding(4)
-        Me.optPCU.Name = "optPCU"
-        Me.optPCU.Size = New System.Drawing.Size(94, 17)
-        Me.optPCU.TabIndex = 2
-        Me.optPCU.Text = "PCU Controller"
-        Me.optPCU.UseVisualStyleBackColor = True
         '
         'frmMEHeat_I
         '

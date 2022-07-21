@@ -121,7 +121,7 @@
   <data name="btnSelectAValve.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAcJJREFUOE99U0tqAlEQnNwh9/AObkRxIWaThV9ElxKPIAqCIKjgEQRPkJzBBCIq
+        wwAADsMBx2+oZAAAAcJJREFUOE99U0tqAlEQnNwh9/AObkRxIWaThV9ElxKPIAqCIKjgEQRPkJzBBCIq
         ulBEkCAB8TcwkxBGOlXPNzFjog019HRX9evuN2NcM9u2O4Cj0dHh6wZiEhgBPmACyD/IaLrXkEjM53Op
         1+uy2Ww+8H74fHsU5+lW4av/IP1+XxaLBYsktOxkCI4o9vv9ksvlxLIsj7jXe5VwOKwOIFfLToagjyfH
         YjFptVpK5Ipt25Ltdiur1crtzqdlR0OAC5uYpnnIZrOy3+9/Tv/dxWAwEHLIpUbLDQPtOqlUSgKBgFSr
@@ -155,7 +155,7 @@
   <data name="cmdDesignCautions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAYAAABmvqYOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAwhJREFUSEutlT9ME2EYxo/+4XotlB6oEP9EhEhYMBgRFkn4EyDRARIRBxYd6AAG
+        wgAADsIBFShKgAAAAwhJREFUSEutlT9ME2EYxo/+4XotlB6oEP9EhEhYMBgRFkn4EyDRARIRBxYd6AAG
         E60MsGBSBxIdmgojEwbjwKCG6oAuJAouEklIIGCgCZS20BYKFAp9vO9tPrmWw8nhyZP7vvt+33Pv996d
         kEgksLa2hqOjI/h8PvL19XUcHh6Sx+Nx+P1+9Pb2QRQl9PT0IBAIYH9/H8FgkHxjYwOxWIx8b28Pm5ub
         5AIHMudA5gzIwVNTU8jI0KOhVoJOZ8Dk5CSBOVALHAqFIJyWlDlPWFFxE031JiBsU1xCZWUVAf4F3t3d
@@ -177,7 +177,7 @@
   <data name="cmdFIOPPreview.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAINJREFUOE/lkMENgCAMRQssYeIAbuQwXuToSp65uVTNr2kCgoLx4MGfvBCa8iiQ
+        wgAADsIBFShKgAAAAINJREFUOE/lkMENgCAMRQssYeIAbuQwXuToSp65uVTNr2kCgoLx4MGfvBCa8iiQ
         957fIAKeB0GL1lo2xsgKnHNJTftAJiAirgXCRIBDIBaEEIog8RTHBFsnxAJkoT4D0cuqgqs0C76doPSB
         AGme4E9PWKdROAuucitQyR3aJ73x5jmedyDJmxVgUtREAAAAAElFTkSuQmCC
 </value>

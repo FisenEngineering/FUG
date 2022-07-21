@@ -1960,6 +1960,8 @@ Public Class frmNewFan
                     temp = 0.000000119120125705 * localAirflow ^ 2 + 0.000013904963053223 * localAirflow
                 Case Is = "J12ZB"
                     temp = 0.000000124168 * localAirflow ^ 2 - 0.000010597484 * localAirflow
+                Case Is = "J12XP"
+                    temp = 0.000000145691 * localAirflow ^ 2 - 0.000039648178 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
@@ -1998,6 +2000,8 @@ Public Class frmNewFan
                     temp = 0.000000062138 * localAirflow ^ 2 + 0.000041605488 * localAirflow
                 Case Is = "J12ZH"
                     temp = 0.000000070777592264 * localAirflow ^ 2 + 0.000005982431510823 * localAirflow
+                Case Is = "J12XP"
+                    temp = 0.000000073142 * localAirflow ^ 2 + 0.000040949828 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
 
@@ -2162,6 +2166,8 @@ Public Class frmNewFan
                         temp = 0.000000013212874082 * localAirflow * localAirflow + 0.000020112930547712 * localAirflow + 0.0100000000000018
                     Case Is = "J12ZT"
                         temp = 0.000000013212874082 * localAirflow * localAirflow + 0.000020112930547712 * localAirflow + 0.0100000000000018
+                    Case Is = "J12XP"
+                        temp = 0.000000013212874082 * localAirflow * localAirflow + 0.000020112930547712 * localAirflow + 0.0100000000000018
                     Case Is = "J12ZF"
                         temp = 0.000000012624895924 * localAirflow ^ 2 + 0.000025197711572097 * localAirflow
                     Case Is = "J12ZH"
@@ -2196,6 +2202,8 @@ Public Class frmNewFan
                 Case Is = "J12ZR"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J12ZJ"
+                    temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
+                Case Is = "J12XP"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
                 Case Is = "J12ZT"
                     temp = 0.000000019600508187 * localAirflow ^ 2 - 0.00002628740824393 * localAirflow + 0.0985795454545449
@@ -2250,6 +2258,8 @@ Public Class frmNewFan
                 Case Is = "J12ZH"
                     temp = -0.000000020419254658 * localAirflow ^ 2 + 0.000412447769621681 * localAirflow - 0.761850296442687
                 Case Is = "J12ZJ"
+                    temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
+                Case Is = "J12XP"
                     temp = 0.925546828325 * Math.Log(localAirflow) - 7.095546030582
                 Case Is = "J12ZT"
                     temp = -0.000000019882834557 * localAirflow ^ 2 + 0.000399254658385093 * localAirflow - 0.646415513833994

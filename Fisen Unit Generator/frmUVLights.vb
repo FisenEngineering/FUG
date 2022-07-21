@@ -175,7 +175,7 @@ Public Class frmUVLights
         End If
 
         If chk65kASCCRBase.Checked Then
-            ModuleCodeList.Add("420F6A")
+            ModuleCodeList.Add("381F6A")
         End If
 
     End Sub
@@ -259,6 +259,9 @@ Public Class frmUVLights
                 Case Is = "Select"
                     If Not (chkShareXfmr.Checked) Then XfmrVA = 500 Else XfmrVA = 500
                     RqdVA = 340
+                Case Is = "Choice"
+                    If Not (chkShareXfmr.Checked) Then XfmrVA = 250 Else XfmrVA = 250
+                    RqdVA = 170
                 Case Is = "Series100"
                     'Needs Fixing!!!!!
                     dummy = MsgBox("Unit type undefined in 'BiPolar:Update Performance'" & vbCrLf & "Using Bogus Value.", vbOKCancel, "Fisen Unit Generator")

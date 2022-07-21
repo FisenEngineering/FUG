@@ -118,6 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cmdFIOPPreview.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vgAADr4B6kKxwAAAAINJREFUOE/lkMENgCAMRQssYeIAbuQwXuToSp65uVTNr2kCgoLx4MGfvBCa8iiQ
+        957fIAKeB0GL1lo2xsgKnHNJTftAJiAirgXCRIBDIBaEEIog8RTHBFsnxAJkoT4D0cuqgqs0C76doPSB
+        AGme4E9PWKdROAuucitQyR3aJ73x5jmedyDJmxVgUtREAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="cmdViewHistory.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         /9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYa
@@ -141,7 +149,7 @@
   <data name="cmdDesignCautions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAYAAABmvqYOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAAwhJREFUSEutlT9ME2EYxo/+4XotlB6oEP9EhEhYMBgRFkn4EyDRARIRBxYd6AAG
+        vgAADr4B6kKxwAAAAwhJREFUSEutlT9ME2EYxo/+4XotlB6oEP9EhEhYMBgRFkn4EyDRARIRBxYd6AAG
         E60MsGBSBxIdmgojEwbjwKCG6oAuJAouEklIIGCgCZS20BYKFAp9vO9tPrmWw8nhyZP7vvt+33Pv996d
         kEgksLa2hqOjI/h8PvL19XUcHh6Sx+Nx+P1+9Pb2QRQl9PT0IBAIYH9/H8FgkHxjYwOxWIx8b28Pm5ub
         5AIHMudA5gzIwVNTU8jI0KOhVoJOZ8Dk5CSBOVALHAqFIJyWlDlPWFFxE031JiBsU1xCZWUVAf4F3t3d
@@ -155,14 +163,6 @@
         bAOB7eB2v4bJpMfiT+1FTLXVyW6prT49AFtvEvVwuVzJ5F6vF7m5Z9DnSP1+pKtGgTJ4zS1Rc56r71kW
         8vLOgnEFe4cdly4YEV3Vvpkr4rXhA5VFe54ruirjosLrULiCJJmVn4AJH99Z/5sa6iSlzEoZOzs76e/C
         Hvl/ifHsdjv+AIWsOp8yFcrJAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="cmdFIOPPreview.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAAINJREFUOE/lkMENgCAMRQssYeIAbuQwXuToSp65uVTNr2kCgoLx4MGfvBCa8iiQ
-        957fIAKeB0GL1lo2xsgKnHNJTftAJiAirgXCRIBDIBaEEIog8RTHBFsnxAJkoT4D0cuqgqs0C76doPSB
-        AGme4E9PWKdROAuucitQyR3aJ73x5jmedyDJmxVgUtREAAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

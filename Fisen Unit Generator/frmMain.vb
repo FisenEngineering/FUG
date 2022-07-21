@@ -798,6 +798,16 @@ Public Class frmMain
                         frmCHWCoil.Dispose()
                     End If
 
+                Case Is = "Protective Coatings"
+                    frmCoatings.showdialog
+                    If frmCoatings.Cancelled = True Then
+                        dummy = MsgBox("User Cancelled Generation in Chilled Water Coil.  Exiting Program.")
+                        Call WriteToEventLog("CHWCoil", "User Cancelled", "Operator", Str(dummy))
+                        Stop
+                    Else
+                        frmCoatings.Dispose()
+                    End If
+
                 Case Is = "Custom Coil"
                     frmCustomCoil.ShowDialog()
                     If frmCustomCoil.Cancelled = True Then
@@ -9723,7 +9733,11 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdDebug_Click(sender As Object, e As EventArgs) Handles cmdDebug.Click
-        frmXP.ShowDialog()
+        'frmXP.ShowDialog()
+        'frmCoatings.ShowDialog()
+
+        ThisUnit.Family = "Choice"
+        frmOAFMS.ShowDialog()
 
     End Sub
 

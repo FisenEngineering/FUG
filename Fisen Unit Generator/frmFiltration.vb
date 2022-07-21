@@ -105,6 +105,19 @@ Public Class frmFiltration
                     Next
                 End If
             End If
+            If chkAddMERV132inToChoice.Checked Then
+                FilterReport.WriteLine("MERV13 2 in. for Choice requested on proposal")
+                FilterReport.WriteLine(cmbActMF.Text & " Miscellaneous Filters selected for installation by Fisen")
+                For i = 0 To lstMFSelected.Items.Count - 1
+                    FilterReport.WriteLine(lstMFSelected.Items(i).ToString)
+                Next
+                If chkFFPrefilt.Checked Then
+                    FilterReport.WriteLine(" Prefilters Provided by Fisen: AAF PerfectPleat MERV8 2in")
+                    For i = 0 To lstMFSelected.Items.Count - 1
+                        FilterReport.WriteLine(lstMFSelected.Items(i).ToString)
+                    Next
+                End If
+            End If
         Else
             FilterReport.WriteLine("No Miscellaneous Filter Scope by Fisen")
         End If
@@ -199,6 +212,9 @@ Public Class frmFiltration
                 frmMain.ThisUnitMFilters.FStaticItem = lblMStaticBudget.Text
             End If
             If chkAddMERV132inToSeries10.Checked Then
+                frmMain.ThisUnitMFilters.FStaticItem = lblMStaticBudget.Text
+            End If
+            If chkAddMERV132inToChoice.Checked Then
                 frmMain.ThisUnitMFilters.FStaticItem = lblMStaticBudget.Text
             End If
         End If
@@ -441,6 +457,17 @@ Public Class frmFiltration
                 ModuleCodeList.Add("3956AB")
                 ModuleCodeList.Add("395601")
 
+            End If
+            If chkAddMERV132inToSeries10.Checked Then
+                If ((frmMain.ThisUnit.NominalTons = "25.0") Or (frmMain.ThisUnit.NominalTons = "27.5")) Then
+                    'Tall Cabinet
+                    ModuleCodeList.Add("3956AD")
+                    ModuleCodeList.Add("395601")
+                Else
+                    'Short Cabinet
+                    ModuleCodeList.Add("3956AC")
+                    ModuleCodeList.Add("395601")
+                End If
             End If
         End If
 
@@ -845,6 +872,8 @@ Public Class frmFiltration
 
         If chkAddMERV132inToSeries20.Checked Then MiscFilterMass = MiscFilterMass + 12
         If chkAddMERV132inToSeries10.Checked Then MiscFilterMass = MiscFilterMass + 9
+        If chkAddMERV132inToChoice.Checked Then MiscFilterMass = MiscFilterMass + 13
+
 
         tempWeight = IRackMass + FRackMass + JCIRackMass + IFilts + FFilts + JCINetFilts + ExtModule + IConts + FConts + JCIConts + MiscFilterMass
         frmMain.ThisUnitPhysicalData.ModLoadMass.Add(Format(tempWeight, "0"))
@@ -863,7 +892,7 @@ Public Class frmFiltration
         FBChecked = FBChecked Or chkRemoveJCIIFilts.Checked Or chkRelocateJCIIFilts.Checked
         FBChecked = FBChecked Or chkRemoveJCIIFinalPreFilts.Checked Or chkRelocateJCIIFinalPreFilts.Checked Or chkRemoveJCIFFilts.Checked Or chkRelocateJCIFFilts.Checked
 
-        MiscFilterStuff = chkAddMERV132inToSeries10.Checked Or chkAddMERV132inToSeries20.Checked
+        MiscFilterStuff = chkAddMERV132inToSeries10.Checked Or chkAddMERV132inToSeries20.Checked Or chkAddMERV132inToChoice.Checked
 
         If (Not (FBChecked) And Not (MiscFilterStuff)) Then
             dummy = MsgBox("You must select at least one filter bank.", vbOKOnly, "Fisen Unit Generator")
@@ -940,7 +969,7 @@ Public Class frmFiltration
             Case Is = "Premier"
 
             Case Is = "Choice"
-
+                chkAddMERV132inToChoice.Visible = True
             Case Is = "Select"
 
             Case Is = "SeriesLX"
@@ -1457,7 +1486,7 @@ Public Class frmFiltration
     End Sub
 
     Private Sub btnDonePerformance_Click_1(sender As Object, e As EventArgs) Handles btnDonePerformance.Click
-
+        btnDonePerformance.Enabled = False
         btnOK.Enabled = True
     End Sub
 
@@ -2560,5 +2589,42 @@ Public Class frmFiltration
         cmbActMF.Text = "AAF PREpleat 2in M13"
         lstMFSelected.Items.Clear()
         lstMFSelected.Items.Add("(04) 24x20x2")
+    End Sub
+
+    Private Sub chkAddMERV132inToChoice_CheckedChanged(sender As Object, e As EventArgs) Handles chkAddMERV132inToChoice.CheckedChanged
+        'First we need to enable the appropriate controls
+        If chkAddMERV132inToChoice.Checked Then
+            lblMiscFilters.Enabled = True
+            cmbActMF.Enabled = True
+            lstMFAvail.Enabled = True
+            cmdAddMF.Enabled = True
+            cmdSubMF.Enabled = True
+            lstMFSelected.Enabled = True
+            lstPreMFSelected.Enabled = True
+
+        Else
+            lblMiscFilters.Enabled = False
+            cmbActMF.Enabled = False
+            lstMFAvail.Enabled = False
+            cmdAddMF.Enabled = False
+            cmdSubMF.Enabled = False
+            lstMFSelected.Enabled = False
+            lstPreMFSelected.Enabled = False
+
+        End If
+
+        'Now let's populate those controls with appropriate options
+        cmbActMF.Items.Clear()
+        cmbActMF.Items.Add("AAF PREpleat 2in M13")
+        cmbActMF.Text = "AAF PREpleat 2in M13"
+        lstMFSelected.Items.Clear()
+        If ((frmMain.ThisUnit.NominalTons = "25.0") Or (frmMain.ThisUnit.NominalTons = "27.5")) Then
+            'Tall Unit
+            lstMFSelected.Items.Add("(09) 16x25x2")
+        Else
+            'Short Unit
+            lstMFSelected.Items.Add("(06) 20x25x2")
+        End If
+
     End Sub
 End Class

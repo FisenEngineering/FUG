@@ -251,13 +251,12 @@ Public Class clsHeatPerf
             pLAT = xNodeRoot.SelectSingleNode("LATdb").InnerText
             pSSE = xNodeRoot.SelectSingleNode("SSE").InnerText
             pDeltaT = Val(pLAT) - Val(pEAT)
-            pControlStyle = "Staged"
+            pControlStyle = xNodeRoot.SelectSingleNode("ControlStyle").InnerText
         End If
 
         If pType = "No Heat" Then
             pType = "None"
         End If
-
 
         xDoc = Nothing
 

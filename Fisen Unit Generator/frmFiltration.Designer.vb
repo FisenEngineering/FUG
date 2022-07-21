@@ -25,6 +25,9 @@ Partial Class frmFiltration
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFiltration))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpgConditions = New System.Windows.Forms.TabPage()
+        Me.chkAddMERV132inToSeries10 = New System.Windows.Forms.CheckBox()
+        Me.chkMFPrefilt = New System.Windows.Forms.CheckBox()
+        Me.chkAddMERV132inToSeries20 = New System.Windows.Forms.CheckBox()
         Me.grpFFRack = New System.Windows.Forms.GroupBox()
         Me.optFFRackNA = New System.Windows.Forms.RadioButton()
         Me.optFFRackHEPASS = New System.Windows.Forms.RadioButton()
@@ -96,6 +99,14 @@ Partial Class frmFiltration
         Me.chkIncludeEquipmentTouch = New System.Windows.Forms.CheckBox()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgFilters = New System.Windows.Forms.TabPage()
+        Me.cmdAddMF = New System.Windows.Forms.Button()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lstPreMFSelected = New System.Windows.Forms.ListBox()
+        Me.lblMiscFilters = New System.Windows.Forms.Label()
+        Me.lstMFSelected = New System.Windows.Forms.ListBox()
+        Me.cmdSubMF = New System.Windows.Forms.Button()
+        Me.cmbActMF = New System.Windows.Forms.ComboBox()
+        Me.lstMFAvail = New System.Windows.Forms.ListBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.lstPreFFSelected = New System.Windows.Forms.ListBox()
@@ -114,6 +125,33 @@ Partial Class frmFiltration
         Me.btnDoneFilters = New System.Windows.Forms.Button()
         Me.lstFFAvail = New System.Windows.Forms.ListBox()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
+        Me.grpMiscPerf = New System.Windows.Forms.GroupBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtPreMDFA = New System.Windows.Forms.TextBox()
+        Me.lblPreMMaxAPD = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.lblPreMAPD = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.lblMFilterQ4 = New System.Windows.Forms.Label()
+        Me.lblMFilterSize4 = New System.Windows.Forms.Label()
+        Me.lblMStaticBudget = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtmDFA = New System.Windows.Forms.TextBox()
+        Me.lblMMaxAPD = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.lblMAPD = New System.Windows.Forms.Label()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.lblMFaceVelocity = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.lblMFaceArea = New System.Windows.Forms.Label()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.lblMFilterQ3 = New System.Windows.Forms.Label()
+        Me.lblMFilterQ2 = New System.Windows.Forms.Label()
+        Me.lblMFilterQ1 = New System.Windows.Forms.Label()
+        Me.lblMFilterSize3 = New System.Windows.Forms.Label()
+        Me.lblMFilterSize2 = New System.Windows.Forms.Label()
+        Me.lblMFilterSize1 = New System.Windows.Forms.Label()
         Me.grpInitialPerf = New System.Windows.Forms.GroupBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.txtPreIDFA = New System.Windows.Forms.TextBox()
@@ -175,44 +213,7 @@ Partial Class frmFiltration
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chkAddMERV132inToSeries20 = New System.Windows.Forms.CheckBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.lstPreMFSelected = New System.Windows.Forms.ListBox()
-        Me.lblMiscFilters = New System.Windows.Forms.Label()
-        Me.lstMFSelected = New System.Windows.Forms.ListBox()
-        Me.cmdSubMF = New System.Windows.Forms.Button()
-        Me.cmbActMF = New System.Windows.Forms.ComboBox()
-        Me.lstMFAvail = New System.Windows.Forms.ListBox()
-        Me.cmdAddMF = New System.Windows.Forms.Button()
-        Me.grpMiscPerf = New System.Windows.Forms.GroupBox()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtPreMDFA = New System.Windows.Forms.TextBox()
-        Me.lblPreMMaxAPD = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.lblPreMAPD = New System.Windows.Forms.Label()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.lblMFilterQ4 = New System.Windows.Forms.Label()
-        Me.lblMFilterSize4 = New System.Windows.Forms.Label()
-        Me.lblMStaticBudget = New System.Windows.Forms.Label()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.txtmDFA = New System.Windows.Forms.TextBox()
-        Me.lblMMaxAPD = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.lblMAPD = New System.Windows.Forms.Label()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.lblMFaceVelocity = New System.Windows.Forms.Label()
-        Me.Label40 = New System.Windows.Forms.Label()
-        Me.lblMFaceArea = New System.Windows.Forms.Label()
-        Me.Label42 = New System.Windows.Forms.Label()
-        Me.lblMFilterQ3 = New System.Windows.Forms.Label()
-        Me.lblMFilterQ2 = New System.Windows.Forms.Label()
-        Me.lblMFilterQ1 = New System.Windows.Forms.Label()
-        Me.lblMFilterSize3 = New System.Windows.Forms.Label()
-        Me.lblMFilterSize2 = New System.Windows.Forms.Label()
-        Me.lblMFilterSize1 = New System.Windows.Forms.Label()
-        Me.chkMFPrefilt = New System.Windows.Forms.CheckBox()
-        Me.chkAddMERV132inToSeries10 = New System.Windows.Forms.CheckBox()
+        Me.chkAddMERV132inToChoice = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpFFRack.SuspendLayout()
@@ -225,9 +226,9 @@ Partial Class frmFiltration
         Me.grpCtrlInitital.SuspendLayout()
         Me.tpgFilters.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
+        Me.grpMiscPerf.SuspendLayout()
         Me.grpInitialPerf.SuspendLayout()
         Me.grpFinalPerf.SuspendLayout()
-        Me.grpMiscPerf.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -247,6 +248,7 @@ Partial Class frmFiltration
         '
         'tpgConditions
         '
+        Me.tpgConditions.Controls.Add(Me.chkAddMERV132inToChoice)
         Me.tpgConditions.Controls.Add(Me.chkAddMERV132inToSeries10)
         Me.tpgConditions.Controls.Add(Me.chkMFPrefilt)
         Me.tpgConditions.Controls.Add(Me.chkAddMERV132inToSeries20)
@@ -277,6 +279,39 @@ Partial Class frmFiltration
         Me.tpgConditions.TabIndex = 0
         Me.tpgConditions.Text = "Conditions"
         Me.tpgConditions.UseVisualStyleBackColor = True
+        '
+        'chkAddMERV132inToSeries10
+        '
+        Me.chkAddMERV132inToSeries10.AutoSize = True
+        Me.chkAddMERV132inToSeries10.Location = New System.Drawing.Point(6, 55)
+        Me.chkAddMERV132inToSeries10.Name = "chkAddMERV132inToSeries10"
+        Me.chkAddMERV132inToSeries10.Size = New System.Drawing.Size(211, 17)
+        Me.chkAddMERV132inToSeries10.TabIndex = 47
+        Me.chkAddMERV132inToSeries10.Text = "Add MERV13 2"" to JCI Rack Series 10"
+        Me.chkAddMERV132inToSeries10.UseVisualStyleBackColor = True
+        Me.chkAddMERV132inToSeries10.Visible = False
+        '
+        'chkMFPrefilt
+        '
+        Me.chkMFPrefilt.AutoSize = True
+        Me.chkMFPrefilt.Enabled = False
+        Me.chkMFPrefilt.Location = New System.Drawing.Point(6, 149)
+        Me.chkMFPrefilt.Name = "chkMFPrefilt"
+        Me.chkMFPrefilt.Size = New System.Drawing.Size(213, 17)
+        Me.chkMFPrefilt.TabIndex = 46
+        Me.chkMFPrefilt.Text = "Misc Filter Bank Pre-Filters (2"" MERV 8)"
+        Me.chkMFPrefilt.UseVisualStyleBackColor = True
+        '
+        'chkAddMERV132inToSeries20
+        '
+        Me.chkAddMERV132inToSeries20.AutoSize = True
+        Me.chkAddMERV132inToSeries20.Location = New System.Drawing.Point(6, 78)
+        Me.chkAddMERV132inToSeries20.Name = "chkAddMERV132inToSeries20"
+        Me.chkAddMERV132inToSeries20.Size = New System.Drawing.Size(211, 17)
+        Me.chkAddMERV132inToSeries20.TabIndex = 45
+        Me.chkAddMERV132inToSeries20.Text = "Add MERV13 2"" to JCI Rack Series 20"
+        Me.chkAddMERV132inToSeries20.UseVisualStyleBackColor = True
+        Me.chkAddMERV132inToSeries20.Visible = False
         '
         'grpFFRack
         '
@@ -1081,6 +1116,81 @@ Partial Class frmFiltration
         Me.tpgFilters.Text = "Filters"
         Me.tpgFilters.UseVisualStyleBackColor = True
         '
+        'cmdAddMF
+        '
+        Me.cmdAddMF.Enabled = False
+        Me.cmdAddMF.Location = New System.Drawing.Point(605, 209)
+        Me.cmdAddMF.Name = "cmdAddMF"
+        Me.cmdAddMF.Size = New System.Drawing.Size(29, 22)
+        Me.cmdAddMF.TabIndex = 55
+        Me.cmdAddMF.Text = "+"
+        Me.cmdAddMF.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(637, 311)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(78, 13)
+        Me.Label15.TabIndex = 54
+        Me.Label15.Text = "Pre-Final Filters"
+        '
+        'lstPreMFSelected
+        '
+        Me.lstPreMFSelected.Enabled = False
+        Me.lstPreMFSelected.FormattingEnabled = True
+        Me.lstPreMFSelected.Location = New System.Drawing.Point(574, 327)
+        Me.lstPreMFSelected.Name = "lstPreMFSelected"
+        Me.lstPreMFSelected.Size = New System.Drawing.Size(188, 69)
+        Me.lstPreMFSelected.TabIndex = 53
+        '
+        'lblMiscFilters
+        '
+        Me.lblMiscFilters.AutoSize = True
+        Me.lblMiscFilters.Location = New System.Drawing.Point(637, 52)
+        Me.lblMiscFilters.Name = "lblMiscFilters"
+        Me.lblMiscFilters.Size = New System.Drawing.Size(59, 13)
+        Me.lblMiscFilters.TabIndex = 52
+        Me.lblMiscFilters.Text = "Misc Fliters"
+        '
+        'lstMFSelected
+        '
+        Me.lstMFSelected.Enabled = False
+        Me.lstMFSelected.FormattingEnabled = True
+        Me.lstMFSelected.Location = New System.Drawing.Point(574, 239)
+        Me.lstMFSelected.Name = "lstMFSelected"
+        Me.lstMFSelected.Size = New System.Drawing.Size(188, 69)
+        Me.lstMFSelected.TabIndex = 49
+        '
+        'cmdSubMF
+        '
+        Me.cmdSubMF.Enabled = False
+        Me.cmdSubMF.Location = New System.Drawing.Point(640, 209)
+        Me.cmdSubMF.Name = "cmdSubMF"
+        Me.cmdSubMF.Size = New System.Drawing.Size(29, 22)
+        Me.cmdSubMF.TabIndex = 50
+        Me.cmdSubMF.Text = "-"
+        Me.cmdSubMF.UseVisualStyleBackColor = True
+        '
+        'cmbActMF
+        '
+        Me.cmbActMF.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbActMF.Enabled = False
+        Me.cmbActMF.FormattingEnabled = True
+        Me.cmbActMF.Location = New System.Drawing.Point(574, 68)
+        Me.cmbActMF.Name = "cmbActMF"
+        Me.cmbActMF.Size = New System.Drawing.Size(188, 21)
+        Me.cmbActMF.TabIndex = 51
+        '
+        'lstMFAvail
+        '
+        Me.lstMFAvail.Enabled = False
+        Me.lstMFAvail.FormattingEnabled = True
+        Me.lstMFAvail.Location = New System.Drawing.Point(574, 95)
+        Me.lstMFAvail.Name = "lstMFAvail"
+        Me.lstMFAvail.Size = New System.Drawing.Size(188, 108)
+        Me.lstMFAvail.TabIndex = 48
+        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -1252,6 +1362,286 @@ Partial Class frmFiltration
         Me.tpgPerformance.TabIndex = 5
         Me.tpgPerformance.Text = "Performance"
         Me.tpgPerformance.UseVisualStyleBackColor = True
+        '
+        'grpMiscPerf
+        '
+        Me.grpMiscPerf.Controls.Add(Me.Label19)
+        Me.grpMiscPerf.Controls.Add(Me.txtPreMDFA)
+        Me.grpMiscPerf.Controls.Add(Me.lblPreMMaxAPD)
+        Me.grpMiscPerf.Controls.Add(Me.Label26)
+        Me.grpMiscPerf.Controls.Add(Me.lblPreMAPD)
+        Me.grpMiscPerf.Controls.Add(Me.Label29)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ4)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize4)
+        Me.grpMiscPerf.Controls.Add(Me.lblMStaticBudget)
+        Me.grpMiscPerf.Controls.Add(Me.Label33)
+        Me.grpMiscPerf.Controls.Add(Me.Label34)
+        Me.grpMiscPerf.Controls.Add(Me.txtmDFA)
+        Me.grpMiscPerf.Controls.Add(Me.lblMMaxAPD)
+        Me.grpMiscPerf.Controls.Add(Me.Label36)
+        Me.grpMiscPerf.Controls.Add(Me.lblMAPD)
+        Me.grpMiscPerf.Controls.Add(Me.Label38)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFaceVelocity)
+        Me.grpMiscPerf.Controls.Add(Me.Label40)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFaceArea)
+        Me.grpMiscPerf.Controls.Add(Me.Label42)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ3)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ2)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ1)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize3)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize2)
+        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize1)
+        Me.grpMiscPerf.Location = New System.Drawing.Point(421, 6)
+        Me.grpMiscPerf.Name = "grpMiscPerf"
+        Me.grpMiscPerf.Size = New System.Drawing.Size(200, 336)
+        Me.grpMiscPerf.TabIndex = 40
+        Me.grpMiscPerf.TabStop = False
+        Me.grpMiscPerf.Text = "Misc Filters"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(55, 289)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(47, 13)
+        Me.Label19.TabIndex = 31
+        Me.Label19.Text = "Pre DFA"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtPreMDFA
+        '
+        Me.txtPreMDFA.Location = New System.Drawing.Point(103, 286)
+        Me.txtPreMDFA.Name = "txtPreMDFA"
+        Me.txtPreMDFA.Size = New System.Drawing.Size(55, 20)
+        Me.txtPreMDFA.TabIndex = 30
+        Me.txtPreMDFA.Text = "0.00"
+        '
+        'lblPreMMaxAPD
+        '
+        Me.lblPreMMaxAPD.AutoSize = True
+        Me.lblPreMMaxAPD.Location = New System.Drawing.Point(102, 270)
+        Me.lblPreMMaxAPD.Name = "lblPreMMaxAPD"
+        Me.lblPreMMaxAPD.Size = New System.Drawing.Size(28, 13)
+        Me.lblPreMMaxAPD.TabIndex = 29
+        Me.lblPreMMaxAPD.Text = "0.00"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(3, 270)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(99, 13)
+        Me.Label26.TabIndex = 28
+        Me.Label26.Text = "Pre Max. Final APD"
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblPreMAPD
+        '
+        Me.lblPreMAPD.AutoSize = True
+        Me.lblPreMAPD.Location = New System.Drawing.Point(102, 257)
+        Me.lblPreMAPD.Name = "lblPreMAPD"
+        Me.lblPreMAPD.Size = New System.Drawing.Size(28, 13)
+        Me.lblPreMAPD.TabIndex = 27
+        Me.lblPreMAPD.Text = "0.00"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(29, 257)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(73, 13)
+        Me.Label29.TabIndex = 26
+        Me.Label29.Text = "Pre Filter APD"
+        Me.Label29.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMFilterQ4
+        '
+        Me.lblMFilterQ4.AutoSize = True
+        Me.lblMFilterQ4.Location = New System.Drawing.Point(77, 55)
+        Me.lblMFilterQ4.Name = "lblMFilterQ4"
+        Me.lblMFilterQ4.Size = New System.Drawing.Size(62, 13)
+        Me.lblMFilterQ4.TabIndex = 19
+        Me.lblMFilterQ4.Text = "lblMFilterQ4"
+        '
+        'lblMFilterSize4
+        '
+        Me.lblMFilterSize4.AutoSize = True
+        Me.lblMFilterSize4.Location = New System.Drawing.Point(6, 55)
+        Me.lblMFilterSize4.Name = "lblMFilterSize4"
+        Me.lblMFilterSize4.Size = New System.Drawing.Size(74, 13)
+        Me.lblMFilterSize4.TabIndex = 18
+        Me.lblMFilterSize4.Text = "lblMFilterSize4"
+        Me.lblMFilterSize4.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMStaticBudget
+        '
+        Me.lblMStaticBudget.AutoSize = True
+        Me.lblMStaticBudget.Location = New System.Drawing.Point(102, 320)
+        Me.lblMStaticBudget.Name = "lblMStaticBudget"
+        Me.lblMStaticBudget.Size = New System.Drawing.Size(28, 13)
+        Me.lblMStaticBudget.TabIndex = 17
+        Me.lblMStaticBudget.Text = "0.00"
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(31, 320)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(71, 13)
+        Me.Label33.TabIndex = 16
+        Me.Label33.Text = "Static Budget"
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(74, 234)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(28, 13)
+        Me.Label34.TabIndex = 15
+        Me.Label34.Text = "DFA"
+        Me.Label34.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'txtmDFA
+        '
+        Me.txtmDFA.Location = New System.Drawing.Point(105, 231)
+        Me.txtmDFA.Name = "txtmDFA"
+        Me.txtmDFA.Size = New System.Drawing.Size(55, 20)
+        Me.txtmDFA.TabIndex = 14
+        Me.txtmDFA.Text = "0.00"
+        '
+        'lblMMaxAPD
+        '
+        Me.lblMMaxAPD.AutoSize = True
+        Me.lblMMaxAPD.Location = New System.Drawing.Point(102, 215)
+        Me.lblMMaxAPD.Name = "lblMMaxAPD"
+        Me.lblMMaxAPD.Size = New System.Drawing.Size(28, 13)
+        Me.lblMMaxAPD.TabIndex = 13
+        Me.lblMMaxAPD.Text = "0.00"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(22, 215)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(80, 13)
+        Me.Label36.TabIndex = 12
+        Me.Label36.Text = "Max. Final APD"
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMAPD
+        '
+        Me.lblMAPD.AutoSize = True
+        Me.lblMAPD.Location = New System.Drawing.Point(102, 202)
+        Me.lblMAPD.Name = "lblMAPD"
+        Me.lblMAPD.Size = New System.Drawing.Size(28, 13)
+        Me.lblMAPD.TabIndex = 11
+        Me.lblMAPD.Text = "0.00"
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(73, 202)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(29, 13)
+        Me.Label38.TabIndex = 10
+        Me.Label38.Text = "APD"
+        Me.Label38.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMFaceVelocity
+        '
+        Me.lblMFaceVelocity.AutoSize = True
+        Me.lblMFaceVelocity.Location = New System.Drawing.Point(102, 189)
+        Me.lblMFaceVelocity.Name = "lblMFaceVelocity"
+        Me.lblMFaceVelocity.Size = New System.Drawing.Size(22, 13)
+        Me.lblMFaceVelocity.TabIndex = 9
+        Me.lblMFaceVelocity.Text = "0.0"
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(31, 189)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(71, 13)
+        Me.Label40.TabIndex = 8
+        Me.Label40.Text = "Face Velocity"
+        Me.Label40.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMFaceArea
+        '
+        Me.lblMFaceArea.AutoSize = True
+        Me.lblMFaceArea.Location = New System.Drawing.Point(102, 176)
+        Me.lblMFaceArea.Name = "lblMFaceArea"
+        Me.lblMFaceArea.Size = New System.Drawing.Size(22, 13)
+        Me.lblMFaceArea.TabIndex = 7
+        Me.lblMFaceArea.Text = "0.0"
+        '
+        'Label42
+        '
+        Me.Label42.AutoSize = True
+        Me.Label42.Location = New System.Drawing.Point(46, 176)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(56, 13)
+        Me.Label42.TabIndex = 6
+        Me.Label42.Text = "Face Area"
+        Me.Label42.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMFilterQ3
+        '
+        Me.lblMFilterQ3.AutoSize = True
+        Me.lblMFilterQ3.Location = New System.Drawing.Point(77, 42)
+        Me.lblMFilterQ3.Name = "lblMFilterQ3"
+        Me.lblMFilterQ3.Size = New System.Drawing.Size(62, 13)
+        Me.lblMFilterQ3.TabIndex = 5
+        Me.lblMFilterQ3.Text = "lblMFilterQ3"
+        '
+        'lblMFilterQ2
+        '
+        Me.lblMFilterQ2.AutoSize = True
+        Me.lblMFilterQ2.Location = New System.Drawing.Point(77, 29)
+        Me.lblMFilterQ2.Name = "lblMFilterQ2"
+        Me.lblMFilterQ2.Size = New System.Drawing.Size(62, 13)
+        Me.lblMFilterQ2.TabIndex = 4
+        Me.lblMFilterQ2.Text = "lblMFilterQ2"
+        '
+        'lblMFilterQ1
+        '
+        Me.lblMFilterQ1.AutoSize = True
+        Me.lblMFilterQ1.Location = New System.Drawing.Point(77, 16)
+        Me.lblMFilterQ1.Name = "lblMFilterQ1"
+        Me.lblMFilterQ1.Size = New System.Drawing.Size(62, 13)
+        Me.lblMFilterQ1.TabIndex = 3
+        Me.lblMFilterQ1.Text = "lblMFilterQ1"
+        '
+        'lblMFilterSize3
+        '
+        Me.lblMFilterSize3.AutoSize = True
+        Me.lblMFilterSize3.Location = New System.Drawing.Point(6, 42)
+        Me.lblMFilterSize3.Name = "lblMFilterSize3"
+        Me.lblMFilterSize3.Size = New System.Drawing.Size(74, 13)
+        Me.lblMFilterSize3.TabIndex = 2
+        Me.lblMFilterSize3.Text = "lblMFilterSize3"
+        Me.lblMFilterSize3.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMFilterSize2
+        '
+        Me.lblMFilterSize2.AutoSize = True
+        Me.lblMFilterSize2.Location = New System.Drawing.Point(6, 29)
+        Me.lblMFilterSize2.Name = "lblMFilterSize2"
+        Me.lblMFilterSize2.Size = New System.Drawing.Size(74, 13)
+        Me.lblMFilterSize2.TabIndex = 1
+        Me.lblMFilterSize2.Text = "lblMFilterSize2"
+        Me.lblMFilterSize2.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMFilterSize1
+        '
+        Me.lblMFilterSize1.AutoSize = True
+        Me.lblMFilterSize1.Location = New System.Drawing.Point(6, 16)
+        Me.lblMFilterSize1.Name = "lblMFilterSize1"
+        Me.lblMFilterSize1.Size = New System.Drawing.Size(74, 13)
+        Me.lblMFilterSize1.TabIndex = 0
+        Me.lblMFilterSize1.Text = "lblMFilterSize1"
+        Me.lblMFilterSize1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'grpInitialPerf
         '
@@ -1827,7 +2217,7 @@ Partial Class frmFiltration
         Me.DebugPage.Location = New System.Drawing.Point(4, 22)
         Me.DebugPage.Name = "DebugPage"
         Me.DebugPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DebugPage.Size = New System.Drawing.Size(894, 487)
+        Me.DebugPage.Size = New System.Drawing.Size(902, 487)
         Me.DebugPage.TabIndex = 3
         Me.DebugPage.Text = "Debug"
         Me.DebugPage.UseVisualStyleBackColor = True
@@ -1881,393 +2271,16 @@ Partial Class frmFiltration
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chkAddMERV132inToSeries20
-        '
-        Me.chkAddMERV132inToSeries20.AutoSize = True
-        Me.chkAddMERV132inToSeries20.Location = New System.Drawing.Point(6, 78)
-        Me.chkAddMERV132inToSeries20.Name = "chkAddMERV132inToSeries20"
-        Me.chkAddMERV132inToSeries20.Size = New System.Drawing.Size(211, 17)
-        Me.chkAddMERV132inToSeries20.TabIndex = 45
-        Me.chkAddMERV132inToSeries20.Text = "Add MERV13 2"" to JCI Rack Series 20"
-        Me.chkAddMERV132inToSeries20.UseVisualStyleBackColor = True
-        Me.chkAddMERV132inToSeries20.Visible = False
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(637, 311)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(78, 13)
-        Me.Label15.TabIndex = 54
-        Me.Label15.Text = "Pre-Final Filters"
-        '
-        'lstPreMFSelected
-        '
-        Me.lstPreMFSelected.Enabled = False
-        Me.lstPreMFSelected.FormattingEnabled = True
-        Me.lstPreMFSelected.Location = New System.Drawing.Point(574, 327)
-        Me.lstPreMFSelected.Name = "lstPreMFSelected"
-        Me.lstPreMFSelected.Size = New System.Drawing.Size(188, 69)
-        Me.lstPreMFSelected.TabIndex = 53
-        '
-        'lblMiscFilters
-        '
-        Me.lblMiscFilters.AutoSize = True
-        Me.lblMiscFilters.Location = New System.Drawing.Point(637, 52)
-        Me.lblMiscFilters.Name = "lblMiscFilters"
-        Me.lblMiscFilters.Size = New System.Drawing.Size(59, 13)
-        Me.lblMiscFilters.TabIndex = 52
-        Me.lblMiscFilters.Text = "Misc Fliters"
-        '
-        'lstMFSelected
-        '
-        Me.lstMFSelected.Enabled = False
-        Me.lstMFSelected.FormattingEnabled = True
-        Me.lstMFSelected.Location = New System.Drawing.Point(574, 239)
-        Me.lstMFSelected.Name = "lstMFSelected"
-        Me.lstMFSelected.Size = New System.Drawing.Size(188, 69)
-        Me.lstMFSelected.TabIndex = 49
-        '
-        'cmdSubMF
-        '
-        Me.cmdSubMF.Enabled = False
-        Me.cmdSubMF.Location = New System.Drawing.Point(640, 209)
-        Me.cmdSubMF.Name = "cmdSubMF"
-        Me.cmdSubMF.Size = New System.Drawing.Size(29, 22)
-        Me.cmdSubMF.TabIndex = 50
-        Me.cmdSubMF.Text = "-"
-        Me.cmdSubMF.UseVisualStyleBackColor = True
-        '
-        'cmbActMF
-        '
-        Me.cmbActMF.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbActMF.Enabled = False
-        Me.cmbActMF.FormattingEnabled = True
-        Me.cmbActMF.Location = New System.Drawing.Point(574, 68)
-        Me.cmbActMF.Name = "cmbActMF"
-        Me.cmbActMF.Size = New System.Drawing.Size(188, 21)
-        Me.cmbActMF.TabIndex = 51
-        '
-        'lstMFAvail
-        '
-        Me.lstMFAvail.Enabled = False
-        Me.lstMFAvail.FormattingEnabled = True
-        Me.lstMFAvail.Location = New System.Drawing.Point(574, 95)
-        Me.lstMFAvail.Name = "lstMFAvail"
-        Me.lstMFAvail.Size = New System.Drawing.Size(188, 108)
-        Me.lstMFAvail.TabIndex = 48
-        '
-        'cmdAddMF
-        '
-        Me.cmdAddMF.Enabled = False
-        Me.cmdAddMF.Location = New System.Drawing.Point(605, 209)
-        Me.cmdAddMF.Name = "cmdAddMF"
-        Me.cmdAddMF.Size = New System.Drawing.Size(29, 22)
-        Me.cmdAddMF.TabIndex = 55
-        Me.cmdAddMF.Text = "+"
-        Me.cmdAddMF.UseVisualStyleBackColor = True
-        '
-        'grpMiscPerf
-        '
-        Me.grpMiscPerf.Controls.Add(Me.Label19)
-        Me.grpMiscPerf.Controls.Add(Me.txtPreMDFA)
-        Me.grpMiscPerf.Controls.Add(Me.lblPreMMaxAPD)
-        Me.grpMiscPerf.Controls.Add(Me.Label26)
-        Me.grpMiscPerf.Controls.Add(Me.lblPreMAPD)
-        Me.grpMiscPerf.Controls.Add(Me.Label29)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ4)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize4)
-        Me.grpMiscPerf.Controls.Add(Me.lblMStaticBudget)
-        Me.grpMiscPerf.Controls.Add(Me.Label33)
-        Me.grpMiscPerf.Controls.Add(Me.Label34)
-        Me.grpMiscPerf.Controls.Add(Me.txtmDFA)
-        Me.grpMiscPerf.Controls.Add(Me.lblMMaxAPD)
-        Me.grpMiscPerf.Controls.Add(Me.Label36)
-        Me.grpMiscPerf.Controls.Add(Me.lblMAPD)
-        Me.grpMiscPerf.Controls.Add(Me.Label38)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFaceVelocity)
-        Me.grpMiscPerf.Controls.Add(Me.Label40)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFaceArea)
-        Me.grpMiscPerf.Controls.Add(Me.Label42)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ3)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ2)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterQ1)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize3)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize2)
-        Me.grpMiscPerf.Controls.Add(Me.lblMFilterSize1)
-        Me.grpMiscPerf.Location = New System.Drawing.Point(421, 6)
-        Me.grpMiscPerf.Name = "grpMiscPerf"
-        Me.grpMiscPerf.Size = New System.Drawing.Size(200, 336)
-        Me.grpMiscPerf.TabIndex = 40
-        Me.grpMiscPerf.TabStop = False
-        Me.grpMiscPerf.Text = "Misc Filters"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(55, 289)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(47, 13)
-        Me.Label19.TabIndex = 31
-        Me.Label19.Text = "Pre DFA"
-        Me.Label19.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtPreMDFA
-        '
-        Me.txtPreMDFA.Location = New System.Drawing.Point(103, 286)
-        Me.txtPreMDFA.Name = "txtPreMDFA"
-        Me.txtPreMDFA.Size = New System.Drawing.Size(55, 20)
-        Me.txtPreMDFA.TabIndex = 30
-        Me.txtPreMDFA.Text = "0.00"
-        '
-        'lblPreMMaxAPD
-        '
-        Me.lblPreMMaxAPD.AutoSize = True
-        Me.lblPreMMaxAPD.Location = New System.Drawing.Point(102, 270)
-        Me.lblPreMMaxAPD.Name = "lblPreMMaxAPD"
-        Me.lblPreMMaxAPD.Size = New System.Drawing.Size(28, 13)
-        Me.lblPreMMaxAPD.TabIndex = 29
-        Me.lblPreMMaxAPD.Text = "0.00"
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(3, 270)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(99, 13)
-        Me.Label26.TabIndex = 28
-        Me.Label26.Text = "Pre Max. Final APD"
-        Me.Label26.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblPreMAPD
-        '
-        Me.lblPreMAPD.AutoSize = True
-        Me.lblPreMAPD.Location = New System.Drawing.Point(102, 257)
-        Me.lblPreMAPD.Name = "lblPreMAPD"
-        Me.lblPreMAPD.Size = New System.Drawing.Size(28, 13)
-        Me.lblPreMAPD.TabIndex = 27
-        Me.lblPreMAPD.Text = "0.00"
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(29, 257)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(73, 13)
-        Me.Label29.TabIndex = 26
-        Me.Label29.Text = "Pre Filter APD"
-        Me.Label29.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMFilterQ4
-        '
-        Me.lblMFilterQ4.AutoSize = True
-        Me.lblMFilterQ4.Location = New System.Drawing.Point(77, 55)
-        Me.lblMFilterQ4.Name = "lblMFilterQ4"
-        Me.lblMFilterQ4.Size = New System.Drawing.Size(62, 13)
-        Me.lblMFilterQ4.TabIndex = 19
-        Me.lblMFilterQ4.Text = "lblMFilterQ4"
-        '
-        'lblMFilterSize4
-        '
-        Me.lblMFilterSize4.AutoSize = True
-        Me.lblMFilterSize4.Location = New System.Drawing.Point(6, 55)
-        Me.lblMFilterSize4.Name = "lblMFilterSize4"
-        Me.lblMFilterSize4.Size = New System.Drawing.Size(74, 13)
-        Me.lblMFilterSize4.TabIndex = 18
-        Me.lblMFilterSize4.Text = "lblMFilterSize4"
-        Me.lblMFilterSize4.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMStaticBudget
-        '
-        Me.lblMStaticBudget.AutoSize = True
-        Me.lblMStaticBudget.Location = New System.Drawing.Point(102, 320)
-        Me.lblMStaticBudget.Name = "lblMStaticBudget"
-        Me.lblMStaticBudget.Size = New System.Drawing.Size(28, 13)
-        Me.lblMStaticBudget.TabIndex = 17
-        Me.lblMStaticBudget.Text = "0.00"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(31, 320)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(71, 13)
-        Me.Label33.TabIndex = 16
-        Me.Label33.Text = "Static Budget"
-        Me.Label33.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(74, 234)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(28, 13)
-        Me.Label34.TabIndex = 15
-        Me.Label34.Text = "DFA"
-        Me.Label34.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'txtmDFA
-        '
-        Me.txtmDFA.Location = New System.Drawing.Point(105, 231)
-        Me.txtmDFA.Name = "txtmDFA"
-        Me.txtmDFA.Size = New System.Drawing.Size(55, 20)
-        Me.txtmDFA.TabIndex = 14
-        Me.txtmDFA.Text = "0.00"
-        '
-        'lblMMaxAPD
-        '
-        Me.lblMMaxAPD.AutoSize = True
-        Me.lblMMaxAPD.Location = New System.Drawing.Point(102, 215)
-        Me.lblMMaxAPD.Name = "lblMMaxAPD"
-        Me.lblMMaxAPD.Size = New System.Drawing.Size(28, 13)
-        Me.lblMMaxAPD.TabIndex = 13
-        Me.lblMMaxAPD.Text = "0.00"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(22, 215)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(80, 13)
-        Me.Label36.TabIndex = 12
-        Me.Label36.Text = "Max. Final APD"
-        Me.Label36.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMAPD
-        '
-        Me.lblMAPD.AutoSize = True
-        Me.lblMAPD.Location = New System.Drawing.Point(102, 202)
-        Me.lblMAPD.Name = "lblMAPD"
-        Me.lblMAPD.Size = New System.Drawing.Size(28, 13)
-        Me.lblMAPD.TabIndex = 11
-        Me.lblMAPD.Text = "0.00"
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(73, 202)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(29, 13)
-        Me.Label38.TabIndex = 10
-        Me.Label38.Text = "APD"
-        Me.Label38.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMFaceVelocity
-        '
-        Me.lblMFaceVelocity.AutoSize = True
-        Me.lblMFaceVelocity.Location = New System.Drawing.Point(102, 189)
-        Me.lblMFaceVelocity.Name = "lblMFaceVelocity"
-        Me.lblMFaceVelocity.Size = New System.Drawing.Size(22, 13)
-        Me.lblMFaceVelocity.TabIndex = 9
-        Me.lblMFaceVelocity.Text = "0.0"
-        '
-        'Label40
-        '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(31, 189)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(71, 13)
-        Me.Label40.TabIndex = 8
-        Me.Label40.Text = "Face Velocity"
-        Me.Label40.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMFaceArea
-        '
-        Me.lblMFaceArea.AutoSize = True
-        Me.lblMFaceArea.Location = New System.Drawing.Point(102, 176)
-        Me.lblMFaceArea.Name = "lblMFaceArea"
-        Me.lblMFaceArea.Size = New System.Drawing.Size(22, 13)
-        Me.lblMFaceArea.TabIndex = 7
-        Me.lblMFaceArea.Text = "0.0"
-        '
-        'Label42
-        '
-        Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(46, 176)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(56, 13)
-        Me.Label42.TabIndex = 6
-        Me.Label42.Text = "Face Area"
-        Me.Label42.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMFilterQ3
-        '
-        Me.lblMFilterQ3.AutoSize = True
-        Me.lblMFilterQ3.Location = New System.Drawing.Point(77, 42)
-        Me.lblMFilterQ3.Name = "lblMFilterQ3"
-        Me.lblMFilterQ3.Size = New System.Drawing.Size(62, 13)
-        Me.lblMFilterQ3.TabIndex = 5
-        Me.lblMFilterQ3.Text = "lblMFilterQ3"
-        '
-        'lblMFilterQ2
-        '
-        Me.lblMFilterQ2.AutoSize = True
-        Me.lblMFilterQ2.Location = New System.Drawing.Point(77, 29)
-        Me.lblMFilterQ2.Name = "lblMFilterQ2"
-        Me.lblMFilterQ2.Size = New System.Drawing.Size(62, 13)
-        Me.lblMFilterQ2.TabIndex = 4
-        Me.lblMFilterQ2.Text = "lblMFilterQ2"
-        '
-        'lblMFilterQ1
-        '
-        Me.lblMFilterQ1.AutoSize = True
-        Me.lblMFilterQ1.Location = New System.Drawing.Point(77, 16)
-        Me.lblMFilterQ1.Name = "lblMFilterQ1"
-        Me.lblMFilterQ1.Size = New System.Drawing.Size(62, 13)
-        Me.lblMFilterQ1.TabIndex = 3
-        Me.lblMFilterQ1.Text = "lblMFilterQ1"
-        '
-        'lblMFilterSize3
-        '
-        Me.lblMFilterSize3.AutoSize = True
-        Me.lblMFilterSize3.Location = New System.Drawing.Point(6, 42)
-        Me.lblMFilterSize3.Name = "lblMFilterSize3"
-        Me.lblMFilterSize3.Size = New System.Drawing.Size(74, 13)
-        Me.lblMFilterSize3.TabIndex = 2
-        Me.lblMFilterSize3.Text = "lblMFilterSize3"
-        Me.lblMFilterSize3.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMFilterSize2
-        '
-        Me.lblMFilterSize2.AutoSize = True
-        Me.lblMFilterSize2.Location = New System.Drawing.Point(6, 29)
-        Me.lblMFilterSize2.Name = "lblMFilterSize2"
-        Me.lblMFilterSize2.Size = New System.Drawing.Size(74, 13)
-        Me.lblMFilterSize2.TabIndex = 1
-        Me.lblMFilterSize2.Text = "lblMFilterSize2"
-        Me.lblMFilterSize2.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblMFilterSize1
-        '
-        Me.lblMFilterSize1.AutoSize = True
-        Me.lblMFilterSize1.Location = New System.Drawing.Point(6, 16)
-        Me.lblMFilterSize1.Name = "lblMFilterSize1"
-        Me.lblMFilterSize1.Size = New System.Drawing.Size(74, 13)
-        Me.lblMFilterSize1.TabIndex = 0
-        Me.lblMFilterSize1.Text = "lblMFilterSize1"
-        Me.lblMFilterSize1.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'chkMFPrefilt
-        '
-        Me.chkMFPrefilt.AutoSize = True
-        Me.chkMFPrefilt.Enabled = False
-        Me.chkMFPrefilt.Location = New System.Drawing.Point(6, 101)
-        Me.chkMFPrefilt.Name = "chkMFPrefilt"
-        Me.chkMFPrefilt.Size = New System.Drawing.Size(213, 17)
-        Me.chkMFPrefilt.TabIndex = 46
-        Me.chkMFPrefilt.Text = "Misc Filter Bank Pre-Filters (2"" MERV 8)"
-        Me.chkMFPrefilt.UseVisualStyleBackColor = True
-        '
-        'chkAddMERV132inToSeries10
-        '
-        Me.chkAddMERV132inToSeries10.AutoSize = True
-        Me.chkAddMERV132inToSeries10.Location = New System.Drawing.Point(6, 55)
-        Me.chkAddMERV132inToSeries10.Name = "chkAddMERV132inToSeries10"
-        Me.chkAddMERV132inToSeries10.Size = New System.Drawing.Size(211, 17)
-        Me.chkAddMERV132inToSeries10.TabIndex = 47
-        Me.chkAddMERV132inToSeries10.Text = "Add MERV13 2"" to JCI Rack Series 10"
-        Me.chkAddMERV132inToSeries10.UseVisualStyleBackColor = True
-        Me.chkAddMERV132inToSeries10.Visible = False
+        'chkAddMERV132inToChoice
+        '
+        Me.chkAddMERV132inToChoice.AutoSize = True
+        Me.chkAddMERV132inToChoice.Location = New System.Drawing.Point(6, 101)
+        Me.chkAddMERV132inToChoice.Name = "chkAddMERV132inToChoice"
+        Me.chkAddMERV132inToChoice.Size = New System.Drawing.Size(200, 17)
+        Me.chkAddMERV132inToChoice.TabIndex = 48
+        Me.chkAddMERV132inToChoice.Text = "Add MERV13 2"" to JCI Rack Choice"
+        Me.chkAddMERV132inToChoice.UseVisualStyleBackColor = True
+        Me.chkAddMERV132inToChoice.Visible = False
         '
         'frmFiltration
         '
@@ -2306,12 +2319,12 @@ Partial Class frmFiltration
         Me.tpgFilters.ResumeLayout(False)
         Me.tpgFilters.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
+        Me.grpMiscPerf.ResumeLayout(False)
+        Me.grpMiscPerf.PerformLayout()
         Me.grpInitialPerf.ResumeLayout(False)
         Me.grpInitialPerf.PerformLayout()
         Me.grpFinalPerf.ResumeLayout(False)
         Me.grpFinalPerf.PerformLayout()
-        Me.grpMiscPerf.ResumeLayout(False)
-        Me.grpMiscPerf.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2507,4 +2520,5 @@ Partial Class frmFiltration
     Friend WithEvents lblMFilterSize1 As Label
     Friend WithEvents chkMFPrefilt As CheckBox
     Friend WithEvents chkAddMERV132inToSeries10 As CheckBox
+    Friend WithEvents chkAddMERV132inToChoice As CheckBox
 End Class

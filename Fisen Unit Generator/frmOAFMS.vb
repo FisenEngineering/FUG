@@ -10,13 +10,17 @@
     End Property
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         frmMain.ThisUnitMods.Add("OAFMS")
-        'Call UpdatePerformance()
+        Call UpdatePerformance()
         Call UpdateWeightTable()
         Call UpdateWarrantyItems()
         Call UpdateCodeList
         Me.Hide()
     End Sub
+    Private Sub UpdatePerformance()
+        'None at this time
+    End Sub
     Private Sub UpdateCodeList()
+        Dim dummy As MsgBoxResult
         frmMain.ThisUnitCodes.Add("381000")
         frmMain.ThisUnitCodes.Add("381200")
 
@@ -54,6 +58,25 @@
                 frmMain.ThisUnitCodes.Add("381030")
                 frmMain.ThisUnitCodes.Add("381200")
                 frmMain.ThisUnitCodes.Add("381010")
+            Case Is = "Choice"
+                Debug.Print(frmMain.ThisUnit.NominalTons)
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        frmMain.ThisUnitCodes.Add("381009")
+                    Case Is = "17.5"
+                        frmMain.ThisUnitCodes.Add("381009")
+                    Case Is = "20.0"
+                        frmMain.ThisUnitCodes.Add("381009")
+                    Case Is = "25.0"
+                        frmMain.ThisUnitCodes.Add("38100A")
+                    Case Is = "27.5"
+                        frmMain.ThisUnitCodes.Add("38100A")
+                    Case Else
+                        dummy = MsgBox("Error is OAFMS Assign Codes")
+                        Stop
+                End Select
+
+
             Case Else
         End Select
 
@@ -74,6 +97,21 @@
                 tempWeight = "60"
             Case Is = "Series20"
                 tempWeight = "80"
+            Case Is = "Choice"
+                Select Case frmMain.ThisUnit.NominalTons
+                    Case Is = "15.0"
+                        tempWeight = "87"
+                    Case Is = "17.5"
+                        tempWeight = "87"
+                    Case Is = "20.0"
+                        tempWeight = "87"
+                    Case Is = "25.0"
+                        tempWeight = "93"
+                    Case Is = "27.5"
+                        tempWeight = "93"
+                    Case Else
+                        tempWeight = "-9999"
+                End Select
             Case Is = "Series40"
                 If frmMain.ThisUnit.NominalTons = "25" Then
                     tempWeight = "25"
@@ -116,5 +154,19 @@
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
         pCancelled = True
         Me.Hide()
+    End Sub
+
+    Private Sub cmdScience_Click(sender As Object, e As EventArgs) Handles cmdScience.Click
+        Dim DesignFilePrefix As String
+        Dim DesignFilePath As String
+
+        DesignFilePrefix = "OAFMS"
+        DesignFilePath = My.Settings.ResourceDir & "Mods\OAFMS\Design\Science\"
+
+        frmScience.CallingMod = DesignFilePrefix
+        frmScience.SciPath = DesignFilePath
+
+        frmScience.Show()
+
     End Sub
 End Class

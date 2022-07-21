@@ -33,9 +33,17 @@ Partial Class frmAFlowMod
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnDoneConditions = New System.Windows.Forms.Button()
         Me.tpgOptions = New System.Windows.Forms.TabPage()
+        Me.chkNoDampers = New System.Windows.Forms.CheckBox()
+        Me.chkShipOldDampers = New System.Windows.Forms.CheckBox()
+        Me.chkFlanges = New System.Windows.Forms.CheckBox()
         Me.chk65kASCCRBase = New System.Windows.Forms.CheckBox()
         Me.cmdDoneOptions = New System.Windows.Forms.Button()
         Me.tpgControls = New System.Windows.Forms.TabPage()
+        Me.grpBaseControls = New System.Windows.Forms.GroupBox()
+        Me.optOtherControls = New System.Windows.Forms.RadioButton()
+        Me.optASE = New System.Windows.Forms.RadioButton()
+        Me.optIPU = New System.Windows.Forms.RadioButton()
+        Me.optSE = New System.Windows.Forms.RadioButton()
         Me.btnDoneControls = New System.Windows.Forms.Button()
         Me.tpgPerformance = New System.Windows.Forms.TabPage()
         Me.grpDown2Side = New System.Windows.Forms.GroupBox()
@@ -54,23 +62,15 @@ Partial Class frmAFlowMod
         Me.cmdFIOPPreview = New System.Windows.Forms.Button()
         Me.cmdLoadMod = New System.Windows.Forms.Button()
         Me.chkWriteHistory = New System.Windows.Forms.CheckBox()
-        Me.chkNoDampers = New System.Windows.Forms.CheckBox()
-        Me.chkShipOldDampers = New System.Windows.Forms.CheckBox()
-        Me.chkFlanges = New System.Windows.Forms.CheckBox()
-        Me.grpBaseControls = New System.Windows.Forms.GroupBox()
-        Me.optASE = New System.Windows.Forms.RadioButton()
-        Me.optIPU = New System.Windows.Forms.RadioButton()
-        Me.optSE = New System.Windows.Forms.RadioButton()
-        Me.optOtherControls = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.tpgSelection.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.tpgOptions.SuspendLayout()
         Me.tpgControls.SuspendLayout()
+        Me.grpBaseControls.SuspendLayout()
         Me.tpgPerformance.SuspendLayout()
         Me.grpDown2Side.SuspendLayout()
         Me.tpgNotesPage.SuspendLayout()
-        Me.grpBaseControls.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -185,6 +185,39 @@ Partial Class frmAFlowMod
         Me.tpgOptions.Text = "Options"
         Me.tpgOptions.UseVisualStyleBackColor = True
         '
+        'chkNoDampers
+        '
+        Me.chkNoDampers.AutoSize = True
+        Me.chkNoDampers.Location = New System.Drawing.Point(4, 103)
+        Me.chkNoDampers.Name = "chkNoDampers"
+        Me.chkNoDampers.Size = New System.Drawing.Size(163, 17)
+        Me.chkNoDampers.TabIndex = 35
+        Me.chkNoDampers.Text = "No Dampers/Hoods by Fisen"
+        Me.chkNoDampers.UseVisualStyleBackColor = True
+        Me.chkNoDampers.Visible = False
+        '
+        'chkShipOldDampers
+        '
+        Me.chkShipOldDampers.AutoSize = True
+        Me.chkShipOldDampers.Location = New System.Drawing.Point(4, 149)
+        Me.chkShipOldDampers.Name = "chkShipOldDampers"
+        Me.chkShipOldDampers.Size = New System.Drawing.Size(196, 17)
+        Me.chkShipOldDampers.TabIndex = 34
+        Me.chkShipOldDampers.Text = "Ship Removed Hoods and Dampers"
+        Me.chkShipOldDampers.UseVisualStyleBackColor = True
+        Me.chkShipOldDampers.Visible = False
+        '
+        'chkFlanges
+        '
+        Me.chkFlanges.AutoSize = True
+        Me.chkFlanges.Location = New System.Drawing.Point(4, 126)
+        Me.chkFlanges.Name = "chkFlanges"
+        Me.chkFlanges.Size = New System.Drawing.Size(230, 17)
+        Me.chkFlanges.TabIndex = 33
+        Me.chkFlanges.Text = "Provide 1"" Duct Flanges for New Openings"
+        Me.chkFlanges.UseVisualStyleBackColor = True
+        Me.chkFlanges.Visible = False
+        '
         'chk65kASCCRBase
         '
         Me.chk65kASCCRBase.AutoSize = True
@@ -218,6 +251,65 @@ Partial Class frmAFlowMod
         Me.tpgControls.TabIndex = 1
         Me.tpgControls.Text = "Controls"
         Me.tpgControls.UseVisualStyleBackColor = True
+        '
+        'grpBaseControls
+        '
+        Me.grpBaseControls.Controls.Add(Me.optOtherControls)
+        Me.grpBaseControls.Controls.Add(Me.optASE)
+        Me.grpBaseControls.Controls.Add(Me.optIPU)
+        Me.grpBaseControls.Controls.Add(Me.optSE)
+        Me.grpBaseControls.Enabled = False
+        Me.grpBaseControls.Location = New System.Drawing.Point(448, 7)
+        Me.grpBaseControls.Name = "grpBaseControls"
+        Me.grpBaseControls.Size = New System.Drawing.Size(124, 113)
+        Me.grpBaseControls.TabIndex = 8
+        Me.grpBaseControls.TabStop = False
+        Me.grpBaseControls.Text = "Base Unit Control"
+        '
+        'optOtherControls
+        '
+        Me.optOtherControls.AutoSize = True
+        Me.optOtherControls.Enabled = False
+        Me.optOtherControls.Location = New System.Drawing.Point(14, 89)
+        Me.optOtherControls.Name = "optOtherControls"
+        Me.optOtherControls.Size = New System.Drawing.Size(51, 17)
+        Me.optOtherControls.TabIndex = 3
+        Me.optOtherControls.Text = "Other"
+        Me.optOtherControls.UseVisualStyleBackColor = True
+        '
+        'optASE
+        '
+        Me.optASE.AutoSize = True
+        Me.optASE.Enabled = False
+        Me.optASE.Location = New System.Drawing.Point(14, 66)
+        Me.optASE.Name = "optASE"
+        Me.optASE.Size = New System.Drawing.Size(93, 17)
+        Me.optASE.TabIndex = 2
+        Me.optASE.Text = "ASE Controller"
+        Me.optASE.UseVisualStyleBackColor = True
+        '
+        'optIPU
+        '
+        Me.optIPU.AutoSize = True
+        Me.optIPU.Enabled = False
+        Me.optIPU.Location = New System.Drawing.Point(14, 43)
+        Me.optIPU.Name = "optIPU"
+        Me.optIPU.Size = New System.Drawing.Size(90, 17)
+        Me.optIPU.TabIndex = 1
+        Me.optIPU.Text = "IPU Controller"
+        Me.optIPU.UseVisualStyleBackColor = True
+        '
+        'optSE
+        '
+        Me.optSE.AutoSize = True
+        Me.optSE.Checked = True
+        Me.optSE.Location = New System.Drawing.Point(14, 20)
+        Me.optSE.Name = "optSE"
+        Me.optSE.Size = New System.Drawing.Size(86, 17)
+        Me.optSE.TabIndex = 0
+        Me.optSE.TabStop = True
+        Me.optSE.Text = "SE Controller"
+        Me.optSE.UseVisualStyleBackColor = True
         '
         'btnDoneControls
         '
@@ -405,98 +497,6 @@ Partial Class frmAFlowMod
         Me.chkWriteHistory.Text = "Write History"
         Me.chkWriteHistory.UseVisualStyleBackColor = True
         '
-        'chkNoDampers
-        '
-        Me.chkNoDampers.AutoSize = True
-        Me.chkNoDampers.Location = New System.Drawing.Point(4, 103)
-        Me.chkNoDampers.Name = "chkNoDampers"
-        Me.chkNoDampers.Size = New System.Drawing.Size(163, 17)
-        Me.chkNoDampers.TabIndex = 35
-        Me.chkNoDampers.Text = "No Dampers/Hoods by Fisen"
-        Me.chkNoDampers.UseVisualStyleBackColor = True
-        Me.chkNoDampers.Visible = False
-        '
-        'chkShipOldDampers
-        '
-        Me.chkShipOldDampers.AutoSize = True
-        Me.chkShipOldDampers.Location = New System.Drawing.Point(4, 149)
-        Me.chkShipOldDampers.Name = "chkShipOldDampers"
-        Me.chkShipOldDampers.Size = New System.Drawing.Size(196, 17)
-        Me.chkShipOldDampers.TabIndex = 34
-        Me.chkShipOldDampers.Text = "Ship Removed Hoods and Dampers"
-        Me.chkShipOldDampers.UseVisualStyleBackColor = True
-        Me.chkShipOldDampers.Visible = False
-        '
-        'chkFlanges
-        '
-        Me.chkFlanges.AutoSize = True
-        Me.chkFlanges.Location = New System.Drawing.Point(4, 126)
-        Me.chkFlanges.Name = "chkFlanges"
-        Me.chkFlanges.Size = New System.Drawing.Size(230, 17)
-        Me.chkFlanges.TabIndex = 33
-        Me.chkFlanges.Text = "Provide 1"" Duct Flanges for New Openings"
-        Me.chkFlanges.UseVisualStyleBackColor = True
-        Me.chkFlanges.Visible = False
-        '
-        'grpBaseControls
-        '
-        Me.grpBaseControls.Controls.Add(Me.optOtherControls)
-        Me.grpBaseControls.Controls.Add(Me.optASE)
-        Me.grpBaseControls.Controls.Add(Me.optIPU)
-        Me.grpBaseControls.Controls.Add(Me.optSE)
-        Me.grpBaseControls.Enabled = False
-        Me.grpBaseControls.Location = New System.Drawing.Point(448, 7)
-        Me.grpBaseControls.Name = "grpBaseControls"
-        Me.grpBaseControls.Size = New System.Drawing.Size(124, 113)
-        Me.grpBaseControls.TabIndex = 8
-        Me.grpBaseControls.TabStop = False
-        Me.grpBaseControls.Text = "Base Unit Control"
-        '
-        'optASE
-        '
-        Me.optASE.AutoSize = True
-        Me.optASE.Enabled = False
-        Me.optASE.Location = New System.Drawing.Point(14, 66)
-        Me.optASE.Name = "optASE"
-        Me.optASE.Size = New System.Drawing.Size(93, 17)
-        Me.optASE.TabIndex = 2
-        Me.optASE.Text = "ASE Controller"
-        Me.optASE.UseVisualStyleBackColor = True
-        '
-        'optIPU
-        '
-        Me.optIPU.AutoSize = True
-        Me.optIPU.Enabled = False
-        Me.optIPU.Location = New System.Drawing.Point(14, 43)
-        Me.optIPU.Name = "optIPU"
-        Me.optIPU.Size = New System.Drawing.Size(90, 17)
-        Me.optIPU.TabIndex = 1
-        Me.optIPU.Text = "IPU Controller"
-        Me.optIPU.UseVisualStyleBackColor = True
-        '
-        'optSE
-        '
-        Me.optSE.AutoSize = True
-        Me.optSE.Checked = True
-        Me.optSE.Location = New System.Drawing.Point(14, 20)
-        Me.optSE.Name = "optSE"
-        Me.optSE.Size = New System.Drawing.Size(86, 17)
-        Me.optSE.TabIndex = 0
-        Me.optSE.TabStop = True
-        Me.optSE.Text = "SE Controller"
-        Me.optSE.UseVisualStyleBackColor = True
-        '
-        'optOtherControls
-        '
-        Me.optOtherControls.AutoSize = True
-        Me.optOtherControls.Enabled = False
-        Me.optOtherControls.Location = New System.Drawing.Point(14, 89)
-        Me.optOtherControls.Name = "optOtherControls"
-        Me.optOtherControls.Size = New System.Drawing.Size(51, 17)
-        Me.optOtherControls.TabIndex = 3
-        Me.optOtherControls.Text = "Other"
-        Me.optOtherControls.UseVisualStyleBackColor = True
-        '
         'frmAFlowMod
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -522,13 +522,13 @@ Partial Class frmAFlowMod
         Me.tpgOptions.ResumeLayout(False)
         Me.tpgOptions.PerformLayout()
         Me.tpgControls.ResumeLayout(False)
+        Me.grpBaseControls.ResumeLayout(False)
+        Me.grpBaseControls.PerformLayout()
         Me.tpgPerformance.ResumeLayout(False)
         Me.grpDown2Side.ResumeLayout(False)
         Me.grpDown2Side.PerformLayout()
         Me.tpgNotesPage.ResumeLayout(False)
         Me.tpgNotesPage.PerformLayout()
-        Me.grpBaseControls.ResumeLayout(False)
-        Me.grpBaseControls.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

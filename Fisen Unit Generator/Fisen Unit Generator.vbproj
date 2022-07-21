@@ -190,6 +190,12 @@
     <Compile Include="frmCHWCoil.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmCoatings.Designer.vb">
+      <DependentUpon>frmCoatings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCoatings.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCondInt.Designer.vb">
       <DependentUpon>frmCondInt.vb</DependentUpon>
     </Compile>
@@ -473,6 +479,12 @@
     <Compile Include="frmSCCR.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmScience.Designer.vb">
+      <DependentUpon>frmScience.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmScience.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSelectBaseUnitSelection.Designer.vb">
       <DependentUpon>frmSelectBaseUnitSelection.vb</DependentUpon>
     </Compile>
@@ -607,6 +619,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCHWCoil.resx">
       <DependentUpon>frmCHWCoil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCoatings.resx">
+      <DependentUpon>frmCoatings.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCondInt.resx">
       <DependentUpon>frmCondInt.vb</DependentUpon>
@@ -748,6 +763,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSCCR.resx">
       <DependentUpon>frmSCCR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScience.resx">
+      <DependentUpon>frmScience.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectBaseUnitSelection.resx">
       <DependentUpon>frmSelectBaseUnitSelection.vb</DependentUpon>
