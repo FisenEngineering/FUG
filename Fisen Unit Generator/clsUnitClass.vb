@@ -2,6 +2,7 @@
 Imports System.Xml
 Imports System.Xml.Serialization
 Imports System.IO
+Imports System.Runtime.ConstrainedExecution
 
 Public Class clsUnitClass
     Private pBrand As String
@@ -28,8 +29,97 @@ Public Class clsUnitClass
     Private pUPGCertifications As ArrayList = New ArrayList
     Private pCabinet As String
     Private pNotes As String
+    Private pCertASHRAE901 As Boolean
+    Private pCertISO9001 As Boolean
+    Private pCertAHRI As Boolean
+    Private pCertCSADesign As Boolean
+    Private pCertETL As Boolean
+    Private pCertEStar As Boolean
+    Private pCertAmQ As Boolean
+    Private pCertCSACanUS As Boolean
+    Private pCertETLCanUS As Boolean
+    Private pCertCSAGas As Boolean
 
-
+    Public Property CertASHRAE901 As Boolean
+        Get
+            Return pCertASHRAE901
+        End Get
+        Set(value As Boolean)
+            pCertASHRAE901 = value
+        End Set
+    End Property
+    Public Property CertISO9001 As Boolean
+        Get
+            Return pCertISO9001
+        End Get
+        Set(value As Boolean)
+            pCertISO9001 = value
+        End Set
+    End Property
+    Public Property CertAHRI As Boolean
+        Get
+            Return pCertAHRI
+        End Get
+        Set(value As Boolean)
+            pCertAHRI = value
+        End Set
+    End Property
+    Public Property CertCSADesign As Boolean
+        Get
+            Return pCertCSADesign
+        End Get
+        Set(value As Boolean)
+            pCertCSADesign = value
+        End Set
+    End Property
+    Public Property CertETL As Boolean
+        Get
+            Return pCertETL
+        End Get
+        Set(value As Boolean)
+            pCertETL = value
+        End Set
+    End Property
+    Public Property CertEStar As Boolean
+        Get
+            Return pCertEStar
+        End Get
+        Set(value As Boolean)
+            pCertEStar = value
+        End Set
+    End Property
+    Public Property CertAmQ As Boolean
+        Get
+            Return pCertAmQ
+        End Get
+        Set(value As Boolean)
+            pCertAmQ = value
+        End Set
+    End Property
+    Public Property CertCSACanUS As Boolean
+        Get
+            Return pCertCSACanUS
+        End Get
+        Set(value As Boolean)
+            pCertCSACanUS = value
+        End Set
+    End Property
+    Public Property CertETLCanUS As Boolean
+        Get
+            Return pCertETLCanUS
+        End Get
+        Set(value As Boolean)
+            pCertETLCanUS = value
+        End Set
+    End Property
+    Public Property CertCSAGas As Boolean
+        Get
+            Return pCertCSAGas
+        End Get
+        Set(value As Boolean)
+            pCertCSAGas = value
+        End Set
+    End Property
     Public Property Notes As String
         Get
             Return pNotes
@@ -359,6 +449,41 @@ Public Class clsUnitClass
 
 
         xdoc = Nothing
+    End Sub
+    Public Sub ImportFSTCerts()
+        Dim xdoc As XmlDocument = New XmlDocument
+        Dim TempCert As String
+
+        xdoc.Load(frmMain.txtBaseUnitFile.Text)
+        Dim xnode As XmlNode
+        xnode = xdoc.SelectSingleNode("//BaseUnit/Certifications")
+        If xnode.ChildNodes.Count > 0 Then
+            For i = 0 To xnode.ChildNodes.Count - 1
+                TempCert = xnode.ChildNodes.Item(i).InnerText
+                Select Case TempCert
+                    Case Is = "ASHRAE 90.1"
+                        pCertASHRAE901 = True
+                    Case Is = "ISO 9001"
+                        pCertISO9001 = True
+                    Case Is = "CSA Design"
+                        pCertCSADesign = True
+                    Case Is = "AHRI"
+                        pCertAHRI = True
+                    Case Is = "CSA Canada"
+                        pCertCSACanUS = True
+                    Case Is = "ETL Canada"
+                        pCertETLCanUS = True
+                    Case Is = "CSA Gas"
+                        pCertCSAGas = True
+                    Case Is = "ETL"
+                        pCertETL = True
+                    Case Is = "American Quality"
+                        pCertAmQ = True
+                    Case Is = "Energy Star"
+                        pCertEStar = True
+                End Select
+            Next
+        End If
     End Sub
     Public Sub ImportFSTYPALData()
         Dim xDoc As XmlDocument = New XmlDocument

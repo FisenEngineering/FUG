@@ -416,6 +416,15 @@
             If lstItemsInDB.SelectedItems.Contains(ThisAFMod) Then
 
                 Select Case ThisAFMod
+                    Case Is = "Supply Air - Convert to Front Discharge"
+                        Select Case frmMain.ThisUnit.Family
+                            Case Is = "Select"
+                                ModuleCodeList.Add("340027")
+                                ModuleCodeList.Add("340028")
+                                ModuleCodeList.Add("340029")
+                        End Select
+                    Case Is = "Select"
+                        ModuleCodeList.Add("340116")
                     Case Is = "Return Air Blockoff"
                         Select Case frmMain.ThisUnit.Family
                             Case Is = "Series5"
@@ -557,6 +566,9 @@
                 Select Case ThisAFMod
                     Case Is = "Return Air Blockoff"
                         'Nothing
+                    Case Is = "Supply Air - Convert to Front Discharge"
+                        'nothing
+
                     Case Is = "S40 Bottom Return to Rear Return (No Exhaust Fan)"
                         'Nothing
                     Case Is = "S40 Bottom Return to Rear Return (Factory Exhaust Fans)"
@@ -694,6 +706,8 @@
                         mass = 54
                     Case Is = "Return Air - Convert to Rear Return"
                         mass = 34
+                    Case Is = "Supply Air - Convert to Front Discharge"
+                        mass = 54
                     Case Else
                         mass = -9999
                 End Select
@@ -791,6 +805,7 @@
             Case Is = "Select"
                 lstItemsInDB.Items.Add("Return Air Blockoff")
                 lstItemsInDB.Items.Add("Supply Air - Convert to Rear Discharge")
+                lstItemsInDB.Items.Add("Supply Air - Convert to Front Discharge")
                 lstItemsInDB.Items.Add("Return Air - Convert to Rear Return")
             Case Is = "SeriesLX"
                 lstItemsInDB.Items.Add("No Modifcations Defined")

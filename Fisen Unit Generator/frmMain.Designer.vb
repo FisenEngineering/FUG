@@ -24,9 +24,9 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.pgBaseUnit = New System.Windows.Forms.TabPage()
         Me.cmbResearchTarget = New System.Windows.Forms.ComboBox()
@@ -227,6 +227,8 @@ Partial Class frmMain
         Me.lstFactOpts = New System.Windows.Forms.ListBox()
         Me.btnDoneFactOpts = New System.Windows.Forms.Button()
         Me.pgFieldInst = New System.Windows.Forms.TabPage()
+        Me.lblModDBShipWith2 = New System.Windows.Forms.Label()
+        Me.lblModDBShipWith1 = New System.Windows.Forms.Label()
         Me.cmdAddNewFieldInstalled = New System.Windows.Forms.Button()
         Me.cmdUPGERVModule = New System.Windows.Forms.Button()
         Me.txtNewFieldInst = New System.Windows.Forms.TextBox()
@@ -520,6 +522,10 @@ Partial Class frmMain
         Me.Label36 = New System.Windows.Forms.Label()
         Me.btnDoneHP = New System.Windows.Forms.Button()
         Me.pgSupplyAir = New System.Windows.Forms.TabPage()
+        Me.chkWriteStaticAudittoFile = New System.Windows.Forms.CheckBox()
+        Me.Label153 = New System.Windows.Forms.Label()
+        Me.Label152 = New System.Windows.Forms.Label()
+        Me.txtStaticPressureAudit = New System.Windows.Forms.TextBox()
         Me.cmdMakeRear = New System.Windows.Forms.Button()
         Me.cmdMakeFront = New System.Windows.Forms.Button()
         Me.cmdMakeBottom = New System.Windows.Forms.Button()
@@ -848,12 +854,7 @@ Partial Class frmMain
         Me.cmdUserOptions = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
-        Me.txtStaticPressureAudit = New System.Windows.Forms.TextBox()
-        Me.Label152 = New System.Windows.Forms.Label()
-        Me.Label153 = New System.Windows.Forms.Label()
-        Me.chkWriteStaticAudittoFile = New System.Windows.Forms.CheckBox()
-        Me.lblModDBShipWith1 = New System.Windows.Forms.Label()
-        Me.lblModDBShipWith2 = New System.Windows.Forms.Label()
+        Me.cmdFisenIze = New System.Windows.Forms.Button()
         Me.tabMain.SuspendLayout
         Me.pgBaseUnit.SuspendLayout
         Me.fraMisc.SuspendLayout
@@ -3226,6 +3227,7 @@ Partial Class frmMain
         '
         'pgFieldInst
         '
+        Me.pgFieldInst.Controls.Add(Me.cmdFisenIze)
         Me.pgFieldInst.Controls.Add(Me.lblModDBShipWith2)
         Me.pgFieldInst.Controls.Add(Me.lblModDBShipWith1)
         Me.pgFieldInst.Controls.Add(Me.cmdAddNewFieldInstalled)
@@ -3243,6 +3245,26 @@ Partial Class frmMain
         Me.pgFieldInst.TabIndex = 13
         Me.pgFieldInst.Text = "Field Installed"
         Me.pgFieldInst.UseVisualStyleBackColor = True
+        '
+        'lblModDBShipWith2
+        '
+        Me.lblModDBShipWith2.AutoSize = True
+        Me.lblModDBShipWith2.Location = New System.Drawing.Point(835, 391)
+        Me.lblModDBShipWith2.Name = "lblModDBShipWith2"
+        Me.lblModDBShipWith2.Size = New System.Drawing.Size(56, 13)
+        Me.lblModDBShipWith2.TabIndex = 24
+        Me.lblModDBShipWith2.Text = "ship withs."
+        Me.lblModDBShipWith2.Visible = False
+        '
+        'lblModDBShipWith1
+        '
+        Me.lblModDBShipWith1.AutoSize = True
+        Me.lblModDBShipWith1.Location = New System.Drawing.Point(806, 378)
+        Me.lblModDBShipWith1.Name = "lblModDBShipWith1"
+        Me.lblModDBShipWith1.Size = New System.Drawing.Size(361, 13)
+        Me.lblModDBShipWith1.TabIndex = 23
+        Me.lblModDBShipWith1.Text = "Note: If you modify the database you will need to reenter manuallay entered"
+        Me.lblModDBShipWith1.Visible = False
         '
         'cmdAddNewFieldInstalled
         '
@@ -3277,7 +3299,7 @@ Partial Class frmMain
         Me.btnDelFieldInst.Location = New System.Drawing.Point(870, 39)
         Me.btnDelFieldInst.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDelFieldInst.Name = "btnDelFieldInst"
-        Me.btnDelFieldInst.Size = New System.Drawing.Size(56, 32)
+        Me.btnDelFieldInst.Size = New System.Drawing.Size(64, 32)
         Me.btnDelFieldInst.TabIndex = 18
         Me.btnDelFieldInst.Text = "Del"
         Me.btnDelFieldInst.UseVisualStyleBackColor = True
@@ -3287,7 +3309,7 @@ Partial Class frmMain
         Me.btnAddFieldInst.Location = New System.Drawing.Point(806, 39)
         Me.btnAddFieldInst.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAddFieldInst.Name = "btnAddFieldInst"
-        Me.btnAddFieldInst.Size = New System.Drawing.Size(56, 32)
+        Me.btnAddFieldInst.Size = New System.Drawing.Size(64, 32)
         Me.btnAddFieldInst.TabIndex = 17
         Me.btnAddFieldInst.Text = "Add"
         Me.btnAddFieldInst.UseVisualStyleBackColor = True
@@ -6602,6 +6624,49 @@ Partial Class frmMain
         Me.pgSupplyAir.Text = "Supply"
         Me.pgSupplyAir.UseVisualStyleBackColor = True
         '
+        'chkWriteStaticAudittoFile
+        '
+        Me.chkWriteStaticAudittoFile.AutoSize = True
+        Me.chkWriteStaticAudittoFile.Checked = True
+        Me.chkWriteStaticAudittoFile.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteStaticAudittoFile.Location = New System.Drawing.Point(749, 441)
+        Me.chkWriteStaticAudittoFile.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkWriteStaticAudittoFile.Name = "chkWriteStaticAudittoFile"
+        Me.chkWriteStaticAudittoFile.Size = New System.Drawing.Size(183, 17)
+        Me.chkWriteStaticAudittoFile.TabIndex = 73
+        Me.chkWriteStaticAudittoFile.Text = "Write Static Pressure Audit to File"
+        Me.chkWriteStaticAudittoFile.UseVisualStyleBackColor = True
+        '
+        'Label153
+        '
+        Me.Label153.AutoSize = True
+        Me.Label153.Location = New System.Drawing.Point(940, 442)
+        Me.Label153.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label153.Name = "Label153"
+        Me.Label153.Size = New System.Drawing.Size(105, 13)
+        Me.Label153.TabIndex = 72
+        Me.Label153.Text = "Computer Generated"
+        Me.Label153.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label152
+        '
+        Me.Label152.AutoSize = True
+        Me.Label152.Location = New System.Drawing.Point(746, 14)
+        Me.Label152.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label152.Name = "Label152"
+        Me.Label152.Size = New System.Drawing.Size(105, 13)
+        Me.Label152.TabIndex = 71
+        Me.Label152.Text = "Static Pressure Audit"
+        Me.Label152.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtStaticPressureAudit
+        '
+        Me.txtStaticPressureAudit.Location = New System.Drawing.Point(749, 30)
+        Me.txtStaticPressureAudit.Multiline = True
+        Me.txtStaticPressureAudit.Name = "txtStaticPressureAudit"
+        Me.txtStaticPressureAudit.Size = New System.Drawing.Size(443, 409)
+        Me.txtStaticPressureAudit.TabIndex = 70
+        '
         'cmdMakeRear
         '
         Me.cmdMakeRear.Location = New System.Drawing.Point(241, 353)
@@ -7605,8 +7670,8 @@ Partial Class frmMain
         Me.dgvElecLoads.AllowUserToDeleteRows = False
         Me.dgvElecLoads.AllowUserToResizeColumns = False
         Me.dgvElecLoads.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvElecLoads.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvElecLoads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvElecLoads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ElecLoadInclude, Me.EHeat, Me.LoadMode, Me.ElecLoadCLoad, Me.ElecLoad, Me.ElecLoadVoltage, Me.ElecLoadHP, Me.ElecLoadFLA, Me.ElecLoadEload, Me.DataSource})
         Me.dgvElecLoads.Location = New System.Drawing.Point(267, 15)
@@ -7664,8 +7729,8 @@ Partial Class frmMain
         '
         'ElecLoadHP
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ElecLoadHP.DefaultCellStyle = DataGridViewCellStyle5
         Me.ElecLoadHP.HeaderText = "HP"
         Me.ElecLoadHP.MinimumWidth = 6
         Me.ElecLoadHP.Name = "ElecLoadHP"
@@ -7675,8 +7740,8 @@ Partial Class frmMain
         '
         'ElecLoadFLA
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ElecLoadFLA.DefaultCellStyle = DataGridViewCellStyle6
         Me.ElecLoadFLA.HeaderText = "FLA"
         Me.ElecLoadFLA.MinimumWidth = 6
         Me.ElecLoadFLA.Name = "ElecLoadFLA"
@@ -10436,68 +10501,15 @@ Partial Class frmMain
         Me.Button6.Text = "Button6"
         Me.Button6.UseVisualStyleBackColor = True
         '
-        'txtStaticPressureAudit
+        'cmdFisenIze
         '
-        Me.txtStaticPressureAudit.Location = New System.Drawing.Point(749, 30)
-        Me.txtStaticPressureAudit.Multiline = True
-        Me.txtStaticPressureAudit.Name = "txtStaticPressureAudit"
-        Me.txtStaticPressureAudit.Size = New System.Drawing.Size(443, 409)
-        Me.txtStaticPressureAudit.TabIndex = 70
-        '
-        'Label152
-        '
-        Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(746, 14)
-        Me.Label152.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label152.Name = "Label152"
-        Me.Label152.Size = New System.Drawing.Size(105, 13)
-        Me.Label152.TabIndex = 71
-        Me.Label152.Text = "Static Pressure Audit"
-        Me.Label152.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label153
-        '
-        Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(940, 442)
-        Me.Label153.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label153.Name = "Label153"
-        Me.Label153.Size = New System.Drawing.Size(105, 13)
-        Me.Label153.TabIndex = 72
-        Me.Label153.Text = "Computer Generated"
-        Me.Label153.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'chkWriteStaticAudittoFile
-        '
-        Me.chkWriteStaticAudittoFile.AutoSize = True
-        Me.chkWriteStaticAudittoFile.Checked = True
-        Me.chkWriteStaticAudittoFile.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkWriteStaticAudittoFile.Location = New System.Drawing.Point(749, 441)
-        Me.chkWriteStaticAudittoFile.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkWriteStaticAudittoFile.Name = "chkWriteStaticAudittoFile"
-        Me.chkWriteStaticAudittoFile.Size = New System.Drawing.Size(183, 17)
-        Me.chkWriteStaticAudittoFile.TabIndex = 73
-        Me.chkWriteStaticAudittoFile.Text = "Write Static Pressure Audit to File"
-        Me.chkWriteStaticAudittoFile.UseVisualStyleBackColor = True
-        '
-        'lblModDBShipWith1
-        '
-        Me.lblModDBShipWith1.AutoSize = True
-        Me.lblModDBShipWith1.Location = New System.Drawing.Point(806, 378)
-        Me.lblModDBShipWith1.Name = "lblModDBShipWith1"
-        Me.lblModDBShipWith1.Size = New System.Drawing.Size(361, 13)
-        Me.lblModDBShipWith1.TabIndex = 23
-        Me.lblModDBShipWith1.Text = "Note: If you modify the database you will need to reenter manuallay entered"
-        Me.lblModDBShipWith1.Visible = False
-        '
-        'lblModDBShipWith2
-        '
-        Me.lblModDBShipWith2.AutoSize = True
-        Me.lblModDBShipWith2.Location = New System.Drawing.Point(835, 391)
-        Me.lblModDBShipWith2.Name = "lblModDBShipWith2"
-        Me.lblModDBShipWith2.Size = New System.Drawing.Size(56, 13)
-        Me.lblModDBShipWith2.TabIndex = 24
-        Me.lblModDBShipWith2.Text = "ship withs."
-        Me.lblModDBShipWith2.Visible = False
+        Me.cmdFisenIze.Location = New System.Drawing.Point(934, 39)
+        Me.cmdFisenIze.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdFisenIze.Name = "cmdFisenIze"
+        Me.cmdFisenIze.Size = New System.Drawing.Size(64, 32)
+        Me.cmdFisenIze.TabIndex = 25
+        Me.cmdFisenIze.Text = "Fisen Inst."
+        Me.cmdFisenIze.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -11547,4 +11559,5 @@ Partial Class frmMain
     Friend WithEvents txtStaticPressureAudit As TextBox
     Friend WithEvents lblModDBShipWith2 As Label
     Friend WithEvents lblModDBShipWith1 As Label
+    Friend WithEvents cmdFisenIze As Button
 End Class

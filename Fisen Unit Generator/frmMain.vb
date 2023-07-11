@@ -6403,44 +6403,20 @@ Public Class frmMain
         Next
 
         'Prep the certifications page
-        Select Case ThisUnit.Family
-            Case Is = "Series5"
-                chkAmericanQ.Checked = True
-            Case Is = "Series10"
-                chkAmericanQ.Checked = True
-                chkAHRICert.Checked = True
-                chkASHRAE90_1.Checked = True
-                chkCSA_C_US.Checked = True
-                chkISO9001.Checked = True
-                chkCSADesign.Checked = True
-                If ThisUnitHeatPerf.HeatType = "Gas" Then chkCSAGas.Checked = True
-            Case Is = "Series20"
-                chkAmericanQ.Checked = True
-                chkAHRICert.Checked = True
-                chkASHRAE90_1.Checked = True
-                chkCSA_C_US.Checked = True
-                chkISO9001.Checked = True
-                chkCSADesign.Checked = True
-                If ThisUnitHeatPerf.HeatType = "Gas" Then chkCSAGas.Checked = True
-            Case Is = "Series40"
-                chkAmericanQ.Checked = True
-            Case Is = "Series100"
-                chkAmericanQ.Checked = True
-            Case Is = "Series20ODSplit"
-                chkAmericanQ.Checked = True
-                chkCSA_C_US.Checked = True
-                chkAHRICert.Checked = True
-                chkISO9001.Checked = True
-            Case Is = "Choice"
-                chkAmericanQ.Checked = True
-                chkAHRICert.Checked = True
-                chkASHRAE90_1.Checked = True
-                chkCSA_C_US.Checked = True
-                chkISO9001.Checked = True
-                chkCSADesign.Checked = True
-        End Select
+        chkAHRICert.Checked = True
 
         If ((ThisUnit.Kingdom = "RTU") And (ThisUnit.Family <> "Series100")) Then
+            chkASHRAE90_1.Checked = ThisUnit.CertASHRAE901
+            chkISO9001.Checked = ThisUnit.CertISO9001
+            chkAHRICert.Checked = ThisUnit.CertAHRI
+            chkCSADesign.Checked = ThisUnit.CertCSADesign
+            chkETL.Checked = ThisUnit.CertETL
+            chkEnergyStar.Checked = ThisUnit.CertEStar
+            chkAmericanQ.Checked = ThisUnit.CertAmQ
+            chkCSA_C_US.Checked = ThisUnit.CertCSACanUS
+            chkETL_C_US.Checked = ThisUnit.CertETLCanUS
+            chkCSAGas.Checked = ThisUnit.CertCSAGas
+
             tabMain.SelectTab("pgCerts")
         Else
             If chkCSAGas.Checked Then ThisUnit.UPGCertifications.Add("CSA Gas")
@@ -6768,7 +6744,7 @@ Public Class frmMain
             .CursorType = ADODB.CursorTypeEnum.adOpenDynamic
         }
 
-        ThisUnitFieldInst.Clear()
+        'ThisUnitFieldInst.Clear() 'I removed this in an attempt to fix the missing Field installed items.
 
         For i = 0 To ThisUnitCodes.Count - 1
             ThisCode = ThisUnitCodes.Item(i)
@@ -9228,6 +9204,7 @@ Public Class frmMain
                     ThisUnitRXPerf.ImportFSTUPGData()
                     ThisUnitElecData.ImportFSTUPGData()
                     ThisUnitPhysicalData.ImportFSTUPGData()
+                    ThisUnit.ImportFSTCerts()
                 Else
                     'Handle YPAL Import
                     ThisUnit.ImportFSTYPALData()
@@ -10216,5 +10193,15 @@ Public Class frmMain
         End Select
         FilterTag = StubRoot & StubSuffix
         lblStubTag.Text = FilterTag
+    End Sub
+
+    Private Sub cmdFisenIze_Click(sender As Object, e As EventArgs) Handles cmdFisenIze.Click
+        Dim MyItem As String
+
+        If lstFieldInst.SelectedIndex = -1 Then Exit Sub
+
+        MyItem = lstFieldInst.SelectedItem
+        MyItem = MyItem & " - Shall be installed in unit at Fisen prior to shipment to job site."
+        lstFieldInst.Items(lstFieldInst.SelectedIndex) = MyItem
     End Sub
 End Class

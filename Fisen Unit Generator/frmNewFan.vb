@@ -1503,18 +1503,6 @@ Public Class frmNewFan
         End If
     End Sub
 
-    Private Sub optReplaceMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optReplaceMotor.CheckedChanged
-        If optReplaceMotor.Checked Then
-            optTEFC.Enabled = True
-            optODP.Enabled = True
-            cmbNewMotorHP.Enabled = True
-            cmbNewMotorHP.Text = "Unselected"
-        Else
-            optTEFC.Enabled = False
-            optODP.Enabled = False
-        End If
-    End Sub
-
     Private Sub txtElevation_TextChanged(sender As Object, e As EventArgs) Handles txtElevation.TextChanged
         lblKFactor.Text = Format(ElevationCorrection(txtElevation.Text), "0.00")
     End Sub
@@ -2403,6 +2391,8 @@ Public Class frmNewFan
                     temp = 0.000000000527988161 * localAirflow * localAirflow + 0.000002891529555149 * localAirflow
                 Case Is = "AD28"
                     temp = 0.000000000527988161 * localAirflow * localAirflow + 0.000002891529555149 * localAirflow
+                Case Is = "AE23"
+                    temp = 0.000000002021565 * localAirflow * localAirflow + -0.000000814652502 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-reheat Adjustment. Snippet: " & Snippet)
                     Stop
@@ -2534,6 +2524,8 @@ Public Class frmNewFan
                     temp = 0.000000002278228 * localAirflow * localAirflow - 0.000002849307913 * localAirflow
                 Case Is = "AD28"
                     temp = 0.000000002278228 * localAirflow * localAirflow - 0.000002849307913 * localAirflow
+                Case Is = "AE23"
+                    temp = 0.000000002021565 * localAirflow * localAirflow - -0.000000814652502 * localAirflow
                 Case Else
                     dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-econ Adjustment. Snippet: " & Snippet)
                     Stop
@@ -2665,6 +2657,8 @@ Public Class frmNewFan
                     temp = 0.0000000000441146 * localAirflow * localAirflow + 0.000135164829143736 * localAirflow
                 Case Is = "AD28"
                     temp = 0.0000000026707484 * localAirflow * localAirflow + 0.000144459630343065 * localAirflow
+                Case Is = "AE23"
+                    temp = 0.000000014101912 * localAirflow * localAirflow + 0.000083320844638 * localAirflow
                 Case Else
                     Dummy = MsgBox("Unspecified Unit type in frmNewFan.vb. Snippet: " & Snippet)
                     Stop
@@ -2790,6 +2784,9 @@ Public Class frmNewFan
                     Case Is = "AD28"
                         temp = 0.000000003797771 * localAirflow * localAirflow + 0.000008489596936 * localAirflow
                         temp = temp * -1
+                    Case Is = "AE23"
+                        temp = 0.000000005417236 * localAirflow * localAirflow + -0.000006248683958 * localAirflow
+                        temp = temp * -1
                     Case Else
                         dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-Gas Heat Adjustment. Snippet: " & Snippet)
                         Stop
@@ -2809,6 +2806,8 @@ Public Class frmNewFan
                         temp = 0.000000003378167 * localAirflow * localAirflow + 0.000009183424741 * localAirflow
                     Case Is = "AD28"
                         temp = 0.000000003378167 * localAirflow * localAirflow + 0.000009183424741 * localAirflow
+                    Case Is = "AE23"
+                        temp = 0.000000002373844 * localAirflow * localAirflow + -0.000009286213233 * localAirflow
                     Case Else
                         dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-25kw Heat Adjustment. Snippet: " & Snippet)
                         Stop
@@ -2829,6 +2828,8 @@ Public Class frmNewFan
                         temp = 0.000000003237572909 * localAirflow * localAirflow + 0.000008239749281796 * localAirflow
                     Case Is = "AD28"
                         temp = 0.000000003237572909 * localAirflow * localAirflow + 0.000008239749281796 * localAirflow
+                    Case Is = "AE23"
+                        temp = 0.000000002667024 * localAirflow * localAirflow + -0.000010621689347 * localAirflow
                     Case Else
                         dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-50kw elec Adjustment. Snippet: " & Snippet)
                         Stop
@@ -2849,6 +2850,8 @@ Public Class frmNewFan
                         temp = 0.00000000299708366 * localAirflow * localAirflow + 0.000008624314442413 * localAirflow
                     Case Is = "AD28"
                         temp = 0.00000000299708366 * localAirflow * localAirflow + 0.000008624314442413 * localAirflow
+                    Case Is = "AE23"
+                        temp = 0.000000002696383 * localAirflow * localAirflow + -0.000009168275116 * localAirflow
                     Case Else
                         dummy = MsgBox("Unspecified Unit type in frmNewFan.vb-75 kw elec Adjustment. Snippet: " & Snippet)
                         Stop
@@ -3376,29 +3379,7 @@ Public Class frmNewFan
         End Select
     End Sub
 
-    Private Sub optReuseMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optReuseMotor.CheckedChanged
-        If optReuseMotor.Checked = True Then
-            cmbNewMotorHP.Text = "n/a"
-        End If
-        If optReuseMotor.Checked Then
-            chkRetainMotor.Enabled = True
-        Else
-            chkRetainMotor.Enabled = False
-            chkRetainMotor.Checked = False
-        End If
-    End Sub
 
-    Private Sub optReuseVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optReuseVFD.CheckedChanged
-        If optReuseMotor.Checked = True Then
-            cmbNewMotorHP.Text = "n/a"
-        End If
-        If optReuseVFD.Checked Then
-            chkRetainVFD.Enabled = True
-        Else
-            chkRetainVFD.Enabled = False
-            chkRetainVFD.Checked = False
-        End If
-    End Sub
 
     Private Sub cmdBlankInlet_Click(sender As Object, e As EventArgs) Handles cmdBlankInlet.Click
         txtInPWL63.Text = "-"
@@ -4013,31 +3994,6 @@ Public Class frmNewFan
         btnReturn.Enabled = True
     End Sub
 
-    Private Sub optNewVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optNewVFD.CheckedChanged
-        If optNewVFD.Checked Then
-            cmbNewMotorHP.Text = "Unselected"
-        End If
-    End Sub
-
-    Private Sub optReplaceVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optReplaceVFD.CheckedChanged
-        If optReplaceVFD.Checked Then
-            cmbNewMotorHP.Text = "Unselected"
-        End If
-    End Sub
-
-    Private Sub optNewMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optNewMotor.CheckedChanged
-        If optNewMotor.Checked Then
-            grpNewMotorType.Enabled = True
-            optMotorTypeODP.Checked = True
-            optMotorTypena.Enabled = False
-            cmbNewMotorHP.Text = "Unselected"
-
-        End If
-
-
-
-    End Sub
-
     Private Sub cmdRefreshFanList_Click(sender As Object, e As EventArgs) Handles cmdRefreshFanList.Click
         Call LoadTheFanList()
     End Sub
@@ -4313,4 +4269,54 @@ Public Class frmNewFan
         cmdSeltectEndReturn.Enabled = False
         btnReturn.Enabled = True
     End Sub
+    Private Sub optReplaceVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optReplaceVFD.CheckedChanged
+        If optReplaceVFD.Checked Then
+            cmbNewMotorHP.Text = "Unselected"
+            chkRetainVFD.Enabled = True
+        Else
+            ' unk
+        End If
+    End Sub
+    Private Sub optReplaceMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optReplaceMotor.CheckedChanged
+        If optReplaceMotor.Checked Then
+            cmbNewMotorHP.Text = "Unselected"
+            optTEFC.Enabled = True
+            optODP.Enabled = True
+            cmbNewMotorHP.Enabled = True
+            chkRetainVFD.Enabled = True
+        Else
+            'unk
+        End If
+    End Sub
+    Private Sub optReuseVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optReuseVFD.CheckedChanged
+        If optReuseVFD.Checked Then
+            chkRetainVFD.Enabled = False
+            chkRetainVFD.Checked = False
+        End If
+    End Sub
+    Private Sub optReuseMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optReuseMotor.CheckedChanged
+        If optReuseMotor.Checked = True Then
+            cmbNewMotorHP.Text = "n/a"
+            chkRetainMotor.Enabled = False
+            chkRetainMotor.Checked = False
+        End If
+    End Sub
+    Private Sub optNewVFD_CheckedChanged(sender As Object, e As EventArgs) Handles optNewVFD.CheckedChanged
+        If optNewVFD.Checked Then
+            cmbNewMotorHP.Text = "Unselected"
+            chkRetainVFD.Enabled = True
+            chkRetainVFD.Checked = False
+        End If
+    End Sub
+    Private Sub optNewMotor_CheckedChanged(sender As Object, e As EventArgs) Handles optNewMotor.CheckedChanged
+        If optNewMotor.Checked Then
+            grpNewMotorType.Enabled = True
+            optMotorTypeODP.Checked = True
+            optMotorTypena.Enabled = False
+            cmbNewMotorHP.Text = "Unselected"
+            chkRetainMotor.Enabled = True
+            chkRetainMotor.Checked = False
+        End If
+    End Sub
+
 End Class

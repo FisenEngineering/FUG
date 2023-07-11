@@ -223,6 +223,7 @@ Partial Class frmNewFan
         Me.txtFanRPM = New System.Windows.Forms.TextBox()
         Me.btnDonePerf = New System.Windows.Forms.Button()
         Me.tpgStaticSum = New System.Windows.Forms.TabPage()
+        Me.cmdSeltectEndReturn = New System.Windows.Forms.Button()
         Me.cmdS10SideReturn = New System.Windows.Forms.Button()
         Me.chkFisen2Rear = New System.Windows.Forms.CheckBox()
         Me.chkHeatBaffles = New System.Windows.Forms.CheckBox()
@@ -273,7 +274,6 @@ Partial Class frmNewFan
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmdViewHistory = New System.Windows.Forms.Button()
         Me.cmdDesignCautions = New System.Windows.Forms.Button()
-        Me.cmdSeltectEndReturn = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpgConditions.SuspendLayout()
         Me.grpDPPCkt.SuspendLayout()
@@ -1102,7 +1102,7 @@ Partial Class frmNewFan
         '
         Me.chkRetainMotor.AutoSize = True
         Me.chkRetainMotor.Enabled = False
-        Me.chkRetainMotor.Location = New System.Drawing.Point(146, 44)
+        Me.chkRetainMotor.Location = New System.Drawing.Point(200, 42)
         Me.chkRetainMotor.Name = "chkRetainMotor"
         Me.chkRetainMotor.Size = New System.Drawing.Size(225, 17)
         Me.chkRetainMotor.TabIndex = 69
@@ -1112,7 +1112,7 @@ Partial Class frmNewFan
         'optNewMotor
         '
         Me.optNewMotor.AutoSize = True
-        Me.optNewMotor.Location = New System.Drawing.Point(335, 19)
+        Me.optNewMotor.Location = New System.Drawing.Point(174, 19)
         Me.optNewMotor.Name = "optNewMotor"
         Me.optNewMotor.Size = New System.Drawing.Size(116, 17)
         Me.optNewMotor.TabIndex = 17
@@ -1123,7 +1123,7 @@ Partial Class frmNewFan
         '
         Me.optReuseMotor.AutoSize = True
         Me.optReuseMotor.Checked = True
-        Me.optReuseMotor.Location = New System.Drawing.Point(176, 21)
+        Me.optReuseMotor.Location = New System.Drawing.Point(6, 44)
         Me.optReuseMotor.Name = "optReuseMotor"
         Me.optReuseMotor.Size = New System.Drawing.Size(125, 17)
         Me.optReuseMotor.TabIndex = 16
@@ -1191,7 +1191,7 @@ Partial Class frmNewFan
         '
         Me.chkRetainVFD.AutoSize = True
         Me.chkRetainVFD.Enabled = False
-        Me.chkRetainVFD.Location = New System.Drawing.Point(146, 44)
+        Me.chkRetainVFD.Location = New System.Drawing.Point(200, 42)
         Me.chkRetainVFD.Name = "chkRetainVFD"
         Me.chkRetainVFD.Size = New System.Drawing.Size(219, 17)
         Me.chkRetainVFD.TabIndex = 68
@@ -1201,7 +1201,7 @@ Partial Class frmNewFan
         'optNewVFD
         '
         Me.optNewVFD.AutoSize = True
-        Me.optNewVFD.Location = New System.Drawing.Point(335, 21)
+        Me.optNewVFD.Location = New System.Drawing.Point(174, 21)
         Me.optNewVFD.Name = "optNewVFD"
         Me.optNewVFD.Size = New System.Drawing.Size(110, 17)
         Me.optNewVFD.TabIndex = 17
@@ -1212,7 +1212,7 @@ Partial Class frmNewFan
         '
         Me.optReuseVFD.AutoSize = True
         Me.optReuseVFD.Checked = True
-        Me.optReuseVFD.Location = New System.Drawing.Point(176, 21)
+        Me.optReuseVFD.Location = New System.Drawing.Point(6, 42)
         Me.optReuseVFD.Name = "optReuseVFD"
         Me.optReuseVFD.Size = New System.Drawing.Size(119, 17)
         Me.optReuseVFD.TabIndex = 16
@@ -2516,6 +2516,17 @@ Partial Class frmNewFan
         Me.tpgStaticSum.Text = "Static Summary"
         Me.tpgStaticSum.UseVisualStyleBackColor = True
         '
+        'cmdSeltectEndReturn
+        '
+        Me.cmdSeltectEndReturn.Location = New System.Drawing.Point(314, 211)
+        Me.cmdSeltectEndReturn.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdSeltectEndReturn.Name = "cmdSeltectEndReturn"
+        Me.cmdSeltectEndReturn.Size = New System.Drawing.Size(94, 28)
+        Me.cmdSeltectEndReturn.TabIndex = 41
+        Me.cmdSeltectEndReturn.Text = "Select RA-End"
+        Me.cmdSeltectEndReturn.UseVisualStyleBackColor = True
+        Me.cmdSeltectEndReturn.Visible = False
+        '
         'cmdS10SideReturn
         '
         Me.cmdS10SideReturn.Location = New System.Drawing.Point(110, 319)
@@ -3024,17 +3035,6 @@ Partial Class frmNewFan
         Me.cmdDesignCautions.Size = New System.Drawing.Size(30, 29)
         Me.cmdDesignCautions.TabIndex = 13
         Me.cmdDesignCautions.UseVisualStyleBackColor = True
-        '
-        'cmdSeltectEndReturn
-        '
-        Me.cmdSeltectEndReturn.Location = New System.Drawing.Point(314, 211)
-        Me.cmdSeltectEndReturn.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmdSeltectEndReturn.Name = "cmdSeltectEndReturn"
-        Me.cmdSeltectEndReturn.Size = New System.Drawing.Size(94, 28)
-        Me.cmdSeltectEndReturn.TabIndex = 41
-        Me.cmdSeltectEndReturn.Text = "Select RA-End"
-        Me.cmdSeltectEndReturn.UseVisualStyleBackColor = True
-        Me.cmdSeltectEndReturn.Visible = False
         '
         'frmNewFan
         '
