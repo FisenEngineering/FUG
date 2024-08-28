@@ -252,6 +252,8 @@
                 tempWeight = "220"
             Case Is = "Choice"
                 tempWeight = "220"
+            Case Is = "Select"
+                tempWeight = "240"
             Case Else
                 tempWeight = "9999"
         End Select

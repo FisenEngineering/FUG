@@ -118,6 +118,10 @@
                 If chkBrinmarBlankets.Checked Then
                     tempWeight = tempWeight + 80
                 End If
+            Case Is = "Select"
+                If chkBrinmarBlankets.Checked Then
+                    tempWeight = tempWeight + 82
+                End If
             Case Else
                 tempWeight = 9999
         End Select

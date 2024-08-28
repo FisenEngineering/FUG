@@ -1130,6 +1130,7 @@ Public Class frmNewFan
                 Case Is = "Choice"
                     tempWeight = "51"
                 Case Is = "Select"
+                    tempWeight = "28"
                 Case Is = "Premier"
                 Case Else
                     tempWeight = "9999"

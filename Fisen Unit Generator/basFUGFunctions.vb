@@ -599,7 +599,7 @@
         Dim tempfilename As String
 
         ' Call WriteToEventLog("LowAF", "User Cancelled", "Operator", dummy)
-        tempfilename = "\\filesrvr\FUG\db\FUGErrorLog.csv"
+        tempfilename = "\\filesrvr1\FUG\db\FUGErrorLog.csv"
 
         errorreport = My.Computer.FileSystem.OpenTextFileWriter(tempfilename, True)
         errorreport.WriteLine(Now.ToString & "," & ErrorModule & "," & ErrorMsg & "," & ErrorClass & "," & ErrorButtonz)
